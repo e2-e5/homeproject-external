@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>КП-2026-0001 · De Dietrich · Курач Альбина</title>
+<script>
+const KP = {
+  clientName:    'Курач Альбина',
+  clientCompany: '',
+  brandName:     'De Dietrich',
+  brandColor:    '#c9a96e',
+  brandTagline:  'Créateur d\'émotions depuis 1684 · Philharmonie · Infinite Black',
+  kpNumber:      'КП-2026-0001',
+  kpDate:        '11 мая 2026',
+  kpValidDays:   '14',
+  managerName:   'Алексей',
+  managerPhone:  '+7 (936) 314-86-36',
+  managerTg:     '@homeproject_ai_bot',
+  tgBotToken:    'REPLACE_BOT_TOKEN',
+  tgChatId:      'REPLACE_CHAT_ID',
+};
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+:root {
+  --dark:    #181A20;
+  --gold:    #c9a96e;
+  --gold-lt: rgba(201,169,110,0.12);
+  --bg:      #f5f4f0;
+  --white:   #ffffff;
+  --text:    #1a1a1a;
+  --muted:   #7a8099;
+  --border:  #e5e3db;
+  --nav-h:   64px;
+  --safe-b:  env(safe-area-inset-bottom, 0px);
+}
+
+html, body { height:100%; overflow:hidden; }
+body {
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─ LAYOUT ─ */
+.app { display:flex; flex-direction:column; height:100vh; height:100dvh; }
+
+/* ─ TOP BAR ─ */
+.topbar {
+  flex-shrink:0;
+  background:var(--dark);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 18px;
+  padding-top:calc(12px + env(safe-area-inset-top, 0px));
+  box-shadow:0 2px 12px rgba(0,0,0,0.3);
+  z-index:200;
+}
+.topbar-logo { font-size:16px; font-weight:800; color:#fff; letter-spacing:.06em; text-transform:uppercase; }
+.topbar-logo span { font-size:8px; font-weight:400; color:var(--muted); display:block; letter-spacing:.12em; margin-top:1px; }
+.topbar-kp-num { font-size:13px; font-weight:700; color:var(--gold); text-align:right; }
+.topbar-kp-date { font-size:10px; color:var(--muted); text-align:right; margin-top:1px; }
+
+/* ─ BRAND STRIPE ─ */
+.brand-stripe {
+  flex-shrink:0;
+  background:var(--gold);
+  padding:7px 18px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.brand-stripe-name { font-size:12px; font-weight:700; color:#fff; letter-spacing:.08em; white-space:nowrap; }
+.brand-stripe-dot { color:rgba(255,255,255,.4); }
+.brand-stripe-tag { font-size:10px; color:rgba(255,255,255,.78); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* ─ PANELS ─ */
+.panels { flex:1; overflow:hidden; position:relative; }
+.panel { display:none; height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; background:var(--bg); }
+.panel.active { display:block; }
+.panel-inner { padding:14px 16px 20px; }
+
+/* ─ BOTTOM NAV ─ */
+.bottom-nav {
+  flex-shrink:0;
+  background:var(--white);
+  border-top:1px solid var(--border);
+  display:flex;
+  height:calc(var(--nav-h) + var(--safe-b));
+  padding-bottom:var(--safe-b);
+  box-shadow:0 -2px 16px rgba(0,0,0,0.08);
+  z-index:200;
+}
+.nav-btn {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  border:none;
+  background:none;
+  cursor:pointer;
+  touch-action:manipulation;
+  padding:6px 2px;
+}
+.nav-icon { font-size:20px; line-height:1; transition:transform .18s; }
+.nav-btn.active .nav-icon { transform:scale(1.1); }
+.nav-label { font-size:10px; font-weight:500; color:var(--muted); }
+.nav-btn.active .nav-label { color:var(--text); font-weight:700; }
+.nav-dot { width:4px; height:4px; border-radius:50%; background:var(--gold); opacity:0; margin-top:1px; transition:opacity .18s; }
+.nav-btn.active .nav-dot { opacity:1; }
+
+/* ─ COMMON ─ */
+.section-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:var(--gold); margin-bottom:12px; padding-bottom:7px; border-bottom:1px solid var(--border); }
+.kp-note { background:var(--gold-lt); border-left:3px solid var(--gold); border-radius:0 10px 10px 0; padding:12px 14px; font-size:12px; color:#555; line-height:1.6; }
+
+/* ─ ADDRESSEE ─ */
+.addressee-strip { background:var(--white); border-radius:12px; padding:12px 14px; margin-bottom:12px; display:flex; gap:12px; border:1px solid var(--border); }
+.addr-item { flex:1; }
+.addr-lbl { font-size:9px; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:2px; }
+.addr-val { font-size:13px; font-weight:700; color:var(--text); line-height:1.3; }
+
+/* ─ BRIEF ─ */
+.brief-intro { background:var(--dark); border-radius:14px; padding:16px; margin-bottom:12px; }
+.brief-intro-title { font-size:16px; font-weight:700; color:#fff; margin-bottom:4px; }
+.brief-intro-text { font-size:13px; color:#9aa0b8; line-height:1.6; }
+.brief-intro-accent { color:var(--gold); font-weight:600; }
+.q-block { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:10px; }
+.q-num { font-size:9px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
+.q-title { font-size:15px; font-weight:600; margin-bottom:3px; }
+.q-hint { font-size:12px; color:#888; margin-bottom:11px; }
+.tiles { display:flex; flex-wrap:wrap; gap:7px; }
+.tile { border:2px solid var(--border); border-radius:22px; padding:9px 14px; cursor:pointer; font-size:13px; color:#555; background:#fafaf8; user-select:none; touch-action:manipulation; min-height:40px; display:flex; align-items:center; transition:all .12s; }
+.tile.selected { border-color:var(--gold); background:var(--gold-lt); color:var(--text); font-weight:600; }
+.text-input { width:100%; border:2px solid var(--border); border-radius:12px; padding:12px 14px; font-size:16px; font-family:inherit; color:var(--text); background:#fafaf8; resize:none; outline:none; -webkit-appearance:none; }
+.text-input:focus { border-color:var(--gold); }
+.cta-send { background:var(--dark); border-radius:14px; padding:18px; text-align:center; margin-top:8px; }
+.cta-send h3 { color:#fff; font-size:17px; font-weight:700; margin-bottom:5px; }
+.cta-send p { color:#9aa0b8; font-size:12px; margin-bottom:16px; line-height:1.5; }
+.btn-tg { display:flex; align-items:center; justify-content:center; gap:10px; background:#229ED9; color:#fff; border:none; border-radius:12px; padding:14px; font-size:15px; font-weight:600; cursor:pointer; font-family:inherit; width:100%; touch-action:manipulation; }
+.btn-tg svg { width:20px; height:20px; fill:#fff; flex-shrink:0; }
+.send-status { margin-top:11px; font-size:13px; color:#888; }
+.send-status.ok { color:#4caf7d; }
+.send-status.err { color:#e05c5c; }
+
+/* ─ KP CARDS ─ */
+.validity-banner { background:var(--gold-lt); border:1px solid rgba(201,169,110,.3); border-radius:10px; padding:10px 13px; display:flex; align-items:center; gap:9px; margin-bottom:12px; font-size:12px; color:#8a6518; }
+.validity-icon { font-size:17px; flex-shrink:0; }
+
+.item-card { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:8px; }
+.item-card-top { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; }
+.item-num-badge { width:24px; height:24px; background:var(--gold-lt); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#8a6518; flex-shrink:0; margin-top:2px; }
+.item-brand { font-size:9px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:2px; }
+.item-model { font-size:15px; font-weight:700; color:var(--text); line-height:1.3; }
+.item-name { font-size:11px; color:#666; margin-top:2px; line-height:1.4; }
+.item-card-bottom { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:10px; }
+.item-qty { font-size:11px; color:var(--muted); }
+.item-price { font-size:11px; color:#666; text-align:center; }
+.item-total { font-size:16px; font-weight:800; color:var(--text); }
+.badge-stock { display:inline-block; background:#e8f5e9; color:#2e7d32; border-radius:20px; padding:2px 8px; font-size:9px; font-weight:600; }
+.badge-order { display:inline-block; background:#fff3e0; color:#e65100; border-radius:20px; padding:2px 8px; font-size:9px; font-weight:600; }
+
+.kp-total { background:var(--dark); border-radius:14px; padding:16px 18px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; }
+.kp-total-label { font-size:11px; color:#aaa; text-transform:uppercase; letter-spacing:.1em; }
+.kp-total-items { font-size:11px; color:var(--muted); margin-top:2px; }
+.kp-total-sum { font-size:26px; font-weight:800; color:#fff; }
+
+.bonus-block { background:var(--dark); border-radius:12px; padding:14px 16px; margin-bottom:14px; }
+.bonus-label { font-size:9px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:2px; }
+.bonus-title { font-size:15px; font-weight:700; color:#fff; margin-bottom:3px; }
+.bonus-desc { font-size:12px; color:#9aa0b8; line-height:1.4; margin-bottom:10px; }
+.bonus-amount { font-size:22px; font-weight:800; color:var(--gold); }
+.bonus-sub { font-size:10px; color:var(--muted); margin-top:2px; }
+
+.conditions-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
+.cond-card { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:13px; }
+.cond-icon { font-size:19px; margin-bottom:5px; }
+.cond-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px; }
+.cond-val { font-size:12px; color:#555; line-height:1.4; }
+
+/* ─ VISUAL ─ */
+.ap-card { background:var(--white); border-radius:14px; overflow:hidden; margin-bottom:12px; border:1px solid var(--border); }
+.ap-img-wrap { position:relative; width:100%; aspect-ratio:16/9; background:var(--dark); overflow:hidden; }
+.ap-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+.ap-img-overlay { position:absolute; bottom:0; left:0; right:0; height:70px; background:linear-gradient(to top,rgba(24,26,32,.85) 0%,transparent 100%); }
+.ap-img-badge { position:absolute; top:10px; left:12px; background:rgba(24,26,32,.85); border:1px solid var(--gold); border-radius:6px; padding:4px 10px; }
+.ap-img-badge-cat { font-size:8px; color:var(--gold); font-weight:700; text-transform:uppercase; letter-spacing:.14em; }
+.ap-img-badge-model { font-size:12px; font-weight:800; color:#fff; }
+.ap-body { padding:14px 16px; }
+.ap-cat { font-size:9px; text-transform:uppercase; letter-spacing:.14em; color:var(--gold); font-weight:600; margin-bottom:3px; }
+.ap-model { font-size:19px; font-weight:800; margin-bottom:5px; }
+.ap-desc { font-size:13px; color:#555; line-height:1.7; margin-bottom:11px; }
+.ap-features { display:flex; flex-wrap:wrap; gap:6px; }
+.feat { background:var(--bg); color:#444; border-radius:20px; padding:5px 11px; font-size:11px; font-weight:500; }
+.feat-gold { background:#fdf5e8; color:#8a6518; font-weight:600; }
+.feat-green { background:#edf7f0; color:#256838; font-weight:600; }
+
+/* Тёмная карточка */
+.ap-dark { background:var(--dark); border-radius:14px; padding:16px; margin-bottom:12px; }
+.ap-dark-cat { font-size:9px; text-transform:uppercase; letter-spacing:.16em; color:var(--gold); font-weight:700; margin-bottom:4px; }
+.ap-dark-model { font-size:20px; font-weight:800; color:#fff; margin-bottom:2px; }
+.ap-dark-sub { font-size:12px; color:#9aa0b8; margin-bottom:11px; }
+.ap-dark-desc { font-size:13px; color:#c8cdd8; line-height:1.7; margin-bottom:11px; }
+.ap-dark-feat { display:flex; align-items:flex-start; gap:8px; font-size:13px; color:#b0b8c8; line-height:1.5; margin-bottom:7px; }
+.ap-dark-feat::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:6px; }
+.ap-dark-feat strong { color:#fff; }
+.ap-dark-note { margin-top:12px; background:rgba(201,169,110,.1); border:1px solid rgba(201,169,110,.25); border-radius:8px; padding:10px 13px; font-size:12px; color:var(--gold); line-height:1.6; }
+
+/* Ансамбль */
+.ensemble { background:#f8f8f5; border-radius:12px; padding:14px; margin-bottom:10px; }
+.ensemble-title { font-size:14px; font-weight:700; margin-bottom:11px; }
+.ensemble-item { background:#fff; border:1px solid var(--border); border-radius:10px; padding:13px; margin-bottom:8px; }
+.ensemble-item:last-child { margin-bottom:0; }
+.ensemble-item-title { font-size:13px; font-weight:700; margin-bottom:4px; }
+.ensemble-item-text { font-size:12px; color:#555; line-height:1.6; }
+
+/* ─ SPECS accordion ─ */
+.spec-device { margin-bottom:10px; }
+.spec-device-header { background:var(--dark); border-radius:12px 12px 0 0; padding:13px 15px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; touch-action:manipulation; }
+.spec-device-header.collapsed { border-radius:12px; }
+.spec-device-name { font-size:14px; font-weight:700; color:#fff; }
+.spec-device-model { font-size:10px; color:var(--gold); font-weight:600; text-transform:uppercase; letter-spacing:.1em; margin-top:2px; }
+.spec-chevron { color:var(--gold); font-size:18px; transition:transform .25s; }
+.spec-device-header.collapsed .spec-chevron { transform:rotate(-90deg); }
+.spec-body { border:1px solid var(--border); border-top:none; border-radius:0 0 12px 12px; overflow:hidden; }
+.spec-body.hidden { display:none; }
+.spec-table { width:100%; border-collapse:collapse; }
+.spec-table tr:nth-child(even) td { background:#fafaf8; }
+.spec-table td { padding:10px 14px; border-bottom:1px solid var(--border); font-size:13px; }
+.spec-table tr:last-child td { border-bottom:none; }
+.spec-table td:first-child { color:var(--muted); font-weight:500; width:50%; }
+.spec-table td:last-child { font-weight:600; }
+
+/* ─ PROMO ─ */
+.promo-card { border-radius:14px; overflow:hidden; border:1px solid var(--border); margin-bottom:12px; }
+.promo-card-head { padding:16px 16px 12px; color:#fff; }
+.promo-card-head h3 { font-size:16px; font-weight:700; margin-bottom:4px; }
+.promo-card-head p { font-size:12px; opacity:.82; line-height:1.5; }
+.promo-tag { display:inline-block; background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.35); border-radius:20px; padding:3px 11px; font-size:11px; font-weight:600; margin-bottom:9px; }
+.promo-card-body { padding:13px 16px 15px; background:#fff; }
+.promo-card-body p { font-size:13px; color:#555; line-height:1.6; }
+.promo-expires { margin-top:9px; font-size:11px; color:var(--muted); }
+
+/* ─ REC ─ */
+.rec-intro { background:linear-gradient(135deg,var(--dark) 0%,#2a2d3a 100%); border-radius:14px; padding:16px; margin-bottom:14px; }
+.rec-intro-title { font-size:16px; font-weight:700; color:#fff; margin-bottom:4px; }
+.rec-intro-text { font-size:13px; color:#aaa; line-height:1.6; }
+.rec-cat-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin:14px 0 9px; display:flex; align-items:center; gap:8px; }
+.rec-cat-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.rec-scroll { display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+.rec-scroll::-webkit-scrollbar { display:none; }
+.rec-card { flex-shrink:0; width:158px; border:1px solid var(--border); border-radius:12px; overflow:hidden; scroll-snap-align:start; background:var(--white); }
+.rec-card-img { background:var(--dark); height:96px; display:flex; align-items:center; justify-content:center; font-size:34px; }
+.rec-card-body { padding:11px 12px; }
+.rec-card-brand { font-size:9px; text-transform:uppercase; letter-spacing:.1em; color:var(--gold); font-weight:600; margin-bottom:2px; }
+.rec-card-name { font-size:12px; font-weight:700; margin-bottom:3px; line-height:1.3; }
+.rec-card-desc { font-size:11px; color:#888; line-height:1.4; margin-bottom:5px; }
+.rec-card-price { font-size:12px; font-weight:700; }
+.rec-cta { background:var(--gold-lt); border:1px solid rgba(201,169,110,.3); border-radius:12px; padding:13px; margin-top:12px; font-size:13px; color:#555; line-height:1.6; }
+
+/* ─ FOOTER ─ */
+.panel-footer { background:var(--dark); border-radius:14px; padding:18px; text-align:center; margin-top:10px; font-size:12px; color:#888; line-height:2; }
+.panel-footer strong { color:var(--gold); }
+.panel-footer a { color:var(--gold); text-decoration:none; }
+
+/* ─ FLOATING CONTACT ─ */
+.float-contact { position:fixed; bottom:calc(var(--nav-h) + var(--safe-b) + 14px); right:14px; z-index:150; }
+.float-btn { display:flex; align-items:center; gap:7px; background:var(--dark); border:1px solid var(--gold); color:var(--gold); border-radius:22px; padding:9px 15px; font-size:13px; font-weight:600; font-family:inherit; cursor:pointer; box-shadow:0 4px 20px rgba(0,0,0,.25); touch-action:manipulation; }
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ══ TOP BAR ══ -->
+<div class="topbar">
+  <div class="topbar-logo">
+    Home Project
+    <span>Премиальная встраиваемая техника</span>
+  </div>
+  <div>
+    <div class="topbar-kp-num">КП-2026-0001</div>
+    <div class="topbar-kp-date">11 мая 2026</div>
+  </div>
+</div>
+
+<!-- ══ BRAND STRIPE ══ -->
+<div class="brand-stripe">
+  <span class="brand-stripe-name">De Dietrich</span>
+  <span class="brand-stripe-dot">·</span>
+  <span class="brand-stripe-tag">Créateur d'émotions depuis 1684 · Philharmonie · Infinite Black</span>
+</div>
+
+<!-- ══ PANELS ══ -->
+<div class="panels">
+
+  <!-- ─ ПАНЕЛЬ 1: АНКЕТА ─ -->
+  <div id="panel-brief" class="panel active">
+  <div class="panel-inner">
+
+    <div class="addressee-strip">
+      <div class="addr-item">
+        <div class="addr-lbl">Подготовлено для</div>
+        <div class="addr-val">Курач Альбина</div>
+      </div>
+      <div class="addr-item">
+        <div class="addr-lbl">Менеджер</div>
+        <div class="addr-val">Алексей</div>
+      </div>
+    </div>
+
+    <div class="brief-intro">
+      <div class="brief-intro-title">Уточним детали проекта</div>
+      <div class="brief-intro-text">2–3 минуты — и менеджер получит все данные. Ответы
+        <span class="brief-intro-accent">придут в рабочий чат</span>, КП обновится в течение нескольких часов.
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-num">Вопрос 1 из 7</div>
+      <div class="q-title">Состав техники</div>
+      <div class="q-hint">7 позиций De Dietrich — всё подходит?</div>
+      <div class="tiles">
+        <div class="tile" onclick="solo(this,'q1')" data-val="Состав подходит">✅ Подходит</div>
+        <div class="tile" onclick="solo(this,'q1')" data-val="Нужно убрать позиции">➖ Убрать позиции</div>
+        <div class="tile" onclick="solo(this,'q1')" data-val="Нужно добавить">➕ Добавить</div>
+        <div class="tile" onclick="solo(this,'q1')" data-val="Хочу альтернативу">🔄 Альтернатива</div>
+        <div class="tile" onclick="solo(this,'q1')" data-val="Обсудим отдельно">💬 Обсудим</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-num">Вопрос 2 из 7</div>
+      <div class="q-title">Цвет и финиш</div>
+      <div class="q-hint">В КП — Infinite Black. Нужна замена?</div>
+      <div class="tiles">
+        <div class="tile" onclick="solo(this,'q2')" data-val="Infinite Black — оставить">⬛ Infinite Black</div>
+        <div class="tile" onclick="solo(this,'q2')" data-val="INOX / нержавейка">🔲 INOX</div>
+        <div class="tile" onclick="solo(this,'q2')" data-val="Белый">⬜ Белый</div>
+        <div class="tile" onclick="solo(this,'q2')" data-val="Смешанный">🎨 Смешанный</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-num">Вопрос 3 из 7</div>
+      <div class="q-title">Когда нужна техника?</div>
+      <div class="q-hint">Ориентировочный срок на объект</div>
+      <div class="tiles">
+        <div class="tile" onclick="solo(this,'q3')" data-val="До 2 недель">⚡ До 2 нед.</div>
+        <div class="tile" onclick="solo(this,'q3')" data-val="1–2 месяца">📅 1–2 мес.</div>
+        <div class="tile" onclick="solo(this,'q3')" data-val="2–4 месяца">📅 2–4 мес.</div>
+        <div class="tile" onclick="solo(this,'q3')" data-val="4+ месяцев">📅 4+ мес.</div>
+        <div class="tile" onclick="solo(this,'q3')" data-val="Уточняется">🤔 Уточняется</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-num">Вопрос 4 из 7</div>
+      <div class="q-title">Планировка кухни</div>
+      <div class="q-hint">Влияет на расположение приборов</div>
+      <div class="tiles">
+        <div class="tile" onclick="solo(this,'q4')" data-val="Линейная">📏 Линейная</div>
+        <div class="tile" onclick="solo(this,'q4')" data-val="Угловая">📐 Угловая</div>
+        <div class="tile" onclick="solo(this,'q4')" data-val="П-образная">🔲 П-образная</div>
+        <div class="tile" onclick="solo(this,'q4')" data-val="С островом">🏝 Остров</div>
+        <div class="tile" onclick="solo(this,'q4')" data-val="Пришлю план">📎 Пришлю план</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-num">Вопрос 5 из 7</div>
+      <div class="q-title">Есть ли газ на кухне?</div>
+      <div class="q-hint">Влияет на вентиляцию и варочную панель</div>
+      <div class="tiles">
+        <div class="tile" onclick="solo(this,'q5')" data-val="Нет газа — только электро">⚡ Только электро</div>
+        <div class="tile" onclick="solo(this,'q5')" data-val="Газ есть — всё равно индукция">🔥 Газ + индукция</div>
+        <div class="tile" onclick="solo(this,'q5')" data-val="Газ — рассмотрю газовую панель">🔥 Газ + газовая</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-num">Вопрос 6 из 7</div>
+      <div class="q-title">Что важнее всего?</div>
+      <div class="q-hint">До 3 вариантов</div>
+      <div class="tiles">
+        <div class="tile" onclick="toggle(this)" data-val="Дизайн и стиль">✨ Дизайн</div>
+        <div class="tile" onclick="toggle(this)" data-val="Французское производство">🇫🇷 Франция</div>
+        <div class="tile" onclick="toggle(this)" data-val="Функциональность">🔬 Функции</div>
+        <div class="tile" onclick="toggle(this)" data-val="Скрытая интеграция">👁 Интеграция</div>
+        <div class="tile" onclick="toggle(this)" data-val="Надёжность">🛡 Надёжность</div>
+        <div class="tile" onclick="toggle(this)" data-val="Скорость поставки">⚡ Скорость</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-num">Вопрос 7 из 7</div>
+      <div class="q-title">Комментарии</div>
+      <div class="q-hint">Любые пожелания по проекту</div>
+      <textarea class="text-input" id="freetext" rows="4"
+        placeholder="Например: угловая кухня, светлые стены, хочу уточнить срок по винным шкафам. Удобно звонить до 19:00."></textarea>
+    </div>
+
+    <div class="cta-send">
+      <h3>Отправить менеджеру</h3>
+      <p>Ответы придут Алексею в рабочий чат. Свяжется в течение нескольких часов.<br>
+        Или напрямую: <a href="https://t.me/homeproject_ai_bot" style="color:var(--gold)">@homeproject_ai_bot</a>
+      </p>
+      <button class="btn-tg" onclick="sendAnswers()">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 13.947l-2.94-.919c-.638-.196-.654-.638.136-.943l11.498-4.433c.527-.194 1.01.131.94.569z"/></svg>
+        Отправить ответы в Telegram
+      </button>
+      <div class="send-status" id="send-status"></div>
+    </div>
+
+    <div class="panel-footer" style="margin-top:12px">
+      <strong>HOME PROJECT</strong><br>
+      ИП · 9 брендов · <a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a><br>
+      <a href="tel:+79363148636">+7 (936) 314-86-36</a><br>
+      <span style="color:#555;font-size:11px">КП-2026-0001 · действительно 14 дней</span>
+    </div>
+
+  </div>
+  </div><!-- /panel-brief -->
+
+
+  <!-- ─ ПАНЕЛЬ 2: КП ─ -->
+  <div id="panel-kp" class="panel">
+  <div class="panel-inner">
+
+    <div class="validity-banner">
+      <span class="validity-icon">⏳</span>
+      <span>Действует <strong>14 дней</strong> с <strong>11 мая 2026</strong></span>
+    </div>
+
+    <div class="section-title">Спецификация · КП-2026-0001 · De Dietrich Philharmonie</div>
+
+    <!-- 1 -->
+    <div class="item-card">
+      <div class="item-card-top">
+        <div class="item-num-badge">1</div>
+        <div>
+          <div class="item-brand">De Dietrich · Духовой шкаф 60 см</div>
+          <div class="item-model">DOP4546BT</div>
+          <div class="item-name">73 л · Пиролиз + AirFry · 15 режимов · Термощуп · Infinite Black</div>
+        </div>
+      </div>
+      <div class="item-card-bottom">
+        <span class="item-qty">1 шт.</span>
+        <span class="badge-stock">В наличии</span>
+        <span class="item-total">129 994 ₽</span>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="item-card">
+      <div class="item-card-top">
+        <div class="item-num-badge">2</div>
+        <div>
+          <div class="item-brand">De Dietrich · СВЧ встраиваемая 38 см</div>
+          <div class="item-model">DME4320B</div>
+          <div class="item-name">26 л · 1000 Вт · 6 уровней · Сенсорное управление · Infinite Black</div>
+        </div>
+      </div>
+      <div class="item-card-bottom">
+        <span class="item-qty">1 шт.</span>
+        <span class="badge-stock">В наличии</span>
+        <span class="item-total">56 544 ₽</span>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="item-card">
+      <div class="item-card-top">
+        <div class="item-num-badge">3</div>
+        <div>
+          <div class="item-brand">De Dietrich · Варочная панель индукция 65 см</div>
+          <div class="item-model">DPI4441BT</div>
+          <div class="item-name">4 зоны · 2 HoriZone · 7 400 Вт · Autolink → вытяжка · Infinite Black</div>
+        </div>
+      </div>
+      <div class="item-card-bottom">
+        <span class="item-qty">1 шт.</span>
+        <span class="badge-stock">В наличии</span>
+        <span class="item-total">128 044 ₽</span>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="item-card">
+      <div class="item-card-top">
+        <div class="item-num-badge">4</div>
+        <div>
+          <div class="item-brand">De Dietrich · Холодильник встраиваемый 177 см</div>
+          <div class="item-model">DRL1770EB</div>
+          <div class="item-name">294 л · No Frost МК · SlidingDoor · Maxi Fresh · 39 дБ</div>
+        </div>
+      </div>
+      <div class="item-card-bottom">
+        <span class="item-qty">1 шт.</span>
+        <span class="badge-stock">В наличии</span>
+        <span class="item-total">97 494 ₽</span>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="item-card">
+      <div class="item-card-top">
+        <div class="item-num-badge">5</div>
+        <div>
+          <div class="item-brand">De Dietrich · ПММ 60 см · полная встройка</div>
+          <div class="item-model">DCJ532DQX</div>
+          <div class="item-name">15 компл. · 42 дБ · Aquablock · Beam on Floor · 3 корзины</div>
+        </div>
+      </div>
+      <div class="item-card-bottom">
+        <span class="item-qty">1 шт.</span>
+        <span class="badge-stock">В наличии</span>
+        <span class="item-total">90 994 ₽</span>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="item-card">
+      <div class="item-card-top">
+        <div class="item-num-badge">6</div>
+        <div>
+          <div class="item-brand">De Dietrich · Винный шкаф встраиваемый 46 бут.</div>
+          <div class="item-model">DUW46DFB</div>
+          <div class="item-name">129 л · 2 т-зоны · 5–20°C · Push-to-Open · UV-защита · 39 дБ</div>
+        </div>
+      </div>
+      <div class="item-card-bottom">
+        <span class="item-qty">2 шт. · 107 244 ₽/шт.</span>
+        <span class="badge-order">4–5 нед.</span>
+        <span class="item-total">214 487 ₽</span>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="item-card">
+      <div class="item-card-top">
+        <div class="item-num-badge">7</div>
+        <div>
+          <div class="item-brand">De Dietrich · Вытяжка встраиваемая 60 см</div>
+          <div class="item-model">DHT3622X</div>
+          <div class="item-name">255 м³/ч · 3 скорости · Autolink ← панель · Выдвижной экран · INOX</div>
+        </div>
+      </div>
+      <div class="item-card-bottom">
+        <span class="item-qty">1 шт.</span>
+        <span class="badge-stock">В наличии</span>
+        <span class="item-total">40 944 ₽</span>
+      </div>
+    </div>
+
+    <!-- ИТОГ -->
+    <div class="kp-total">
+      <div>
+        <div class="kp-total-label">Итого к оплате</div>
+        <div class="kp-total-items">7 позиций · 8 приборов</div>
+      </div>
+      <div class="kp-total-sum">758 501 ₽</div>
+    </div>
+
+    <!-- БОНУС ПАРТНЁРА -->
+    <div class="bonus-block">
+      <div class="bonus-label">Партнёрская программа Home Project</div>
+      <div class="bonus-title">Бонус архитектора / дизайнера</div>
+      <div class="bonus-desc">Партнёры Home Project получают вознаграждение после исполнения заказа. Выплата прозрачная — начисления видны в личном кабинете.</div>
+      <div class="bonus-amount">116 693 ₽</div>
+      <div class="bonus-sub">Бонус по данному КП</div>
+    </div>
+
+    <!-- УСЛОВИЯ -->
+    <div class="section-title">Условия поставки и гарантии</div>
+    <div class="conditions-grid">
+      <div class="cond-card">
+        <div class="cond-icon">🚚</div>
+        <div class="cond-title">Доставка</div>
+        <div class="cond-val">По Москве бесплатно от 150 000 ₽. Подъём, распаковка включены.</div>
+      </div>
+      <div class="cond-card">
+        <div class="cond-icon">📅</div>
+        <div class="cond-title">Срок отгрузки</div>
+        <div class="cond-val">В наличии — 3–5 р.д. Винные шкафы — 4–5 нед.</div>
+      </div>
+      <div class="cond-card">
+        <div class="cond-icon">🛡</div>
+        <div class="cond-title">Гарантия</div>
+        <div class="cond-val">Официально De Dietrich 2 года. Авторизованный сервис в Москве.</div>
+      </div>
+      <div class="cond-card">
+        <div class="cond-icon">⏳</div>
+        <div class="cond-title">КП действует</div>
+        <div class="cond-val">14 дней с 11 мая 2026</div>
+      </div>
+    </div>
+
+    <div class="kp-note">
+      <strong>Примечание:</strong> Цены в рублях. Окончательная стоимость уточняется при подтверждении заказа с учётом наличия. Предложение действует при предоплате.
+    </div>
+
+  </div>
+  </div><!-- /panel-kp -->
+
+
+  <!-- ─ ПАНЕЛЬ 3: ВИЗУАЛ ─ -->
+  <div id="panel-visual" class="panel">
+  <div class="panel-inner">
+
+    <div class="section-title">Визуальный гид · De Dietrich Philharmonie</div>
+
+    <!-- ДУХОВОЙ ШКАФ -->
+    <div class="ap-card">
+      <div class="ap-img-wrap">
+        <img src="/api/file?path=docs/finance/proposals/sent/img-dd-oven.svg" alt="DOP4546BT"
+          onerror="this.parentNode.style.height='180px';this.style.display='none'">
+        <div class="ap-img-overlay"></div>
+        <div class="ap-img-badge">
+          <div class="ap-img-badge-cat">Духовой шкаф</div>
+          <div class="ap-img-badge-model">DOP4546BT</div>
+        </div>
+      </div>
+      <div class="ap-body">
+        <div class="ap-cat">Духовой шкаф · 60 см</div>
+        <div class="ap-model">DOP4546BT</div>
+        <div class="ap-desc">Флагманская духовка коллекции Philharmonie Infinite Black. 73 литра, пиролитическая очистка, технология AirFry — хрустящая корочка без масла.</div>
+        <div class="ap-features">
+          <span class="feat">73 л</span>
+          <span class="feat">Пиролиз</span>
+          <span class="feat">AirFry</span>
+          <span class="feat">15 режимов</span>
+          <span class="feat feat-gold">Infinite Black</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ВАРОЧНАЯ -->
+    <div class="ap-dark">
+      <div class="ap-dark-cat">Варочная панель · Индукция 65 см</div>
+      <div class="ap-dark-model">DPI4441BT</div>
+      <div class="ap-dark-sub">Infinite Black · 7 400 Вт · Связь с вытяжкой</div>
+      <div class="ap-dark-desc">Индукционная панель с функцией HoriZone — две зоны объединяются в одну большую под рыбный противень, тажин или вок.</div>
+      <div class="ap-dark-feat"><strong>Autolink</strong> — автоматически управляет вытяжкой DHT3622X</div>
+      <div class="ap-dark-feat"><strong>4 зоны</strong> — 2 стандартные + 2 HoriZone (объединяемые)</div>
+      <div class="ap-dark-feat"><strong>Boost-режим</strong> — мгновенный нагрев на максимальной мощности</div>
+      <div class="ap-dark-note">Совместима с вытяжкой DHT3622X: управление скоростью прямо с панели, без отдельного пульта.</div>
+    </div>
+
+    <!-- ХОЛОДИЛЬНИК -->
+    <div class="ap-card">
+      <div class="ap-img-wrap" style="background:var(--dark); height:180px; display:flex; align-items:center; justify-content:center; font-size:60px">
+        🧊
+      </div>
+      <div class="ap-body">
+        <div class="ap-cat">Холодильник встраиваемый · 177 см</div>
+        <div class="ap-model">DRL1770EB</div>
+        <div class="ap-desc">Высокий однокамерный холодильник под фасад. SlidingDoor — дверь скользит вдоль мебели, не мешая проходу.</div>
+        <div class="ap-features">
+          <span class="feat">294 л</span>
+          <span class="feat">No Frost МК</span>
+          <span class="feat feat-gold">SlidingDoor</span>
+          <span class="feat">Maxi Fresh</span>
+          <span class="feat">39 дБ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- АНСАМБЛЬ -->
+    <div class="ensemble">
+      <div class="ensemble-title">🍾 Коллекция — единый Infinite Black</div>
+      <div class="ensemble-item">
+        <div class="ensemble-item-title">Чёрный матовый · Philharmonie</div>
+        <div class="ensemble-item-text">Все приборы серии выполнены в едином финише Infinite Black — глубокий матовый чёрный без бликов. Ручки, панели управления и торцы совпадают по толщине и фактуре между моделями.</div>
+      </div>
+      <div class="ensemble-item">
+        <div class="ensemble-item-title">Французское производство с 1684 г.</div>
+        <div class="ensemble-item-text">De Dietrich — старейший производитель бытовой техники в Европе. Производство сосредоточено во Франции, сборка по авторским технологическим картам.</div>
+      </div>
+    </div>
+
+    <!-- ПОСУДОМОЙКА -->
+    <div class="ap-dark">
+      <div class="ap-dark-cat">Посудомоечная машина · 60 см</div>
+      <div class="ap-dark-model">DCJ532DQX</div>
+      <div class="ap-dark-sub">Полная встройка · 15 комплектов · 42 дБ</div>
+      <div class="ap-dark-desc">Полностью скрытая под фасадом. Beam on Floor — луч подсветки на полу сигнализирует о конце программы. Aquablock — защита от протечек на всей длине шланга.</div>
+      <div class="ap-dark-feat"><strong>3 корзины</strong> — третий лоток для столовых приборов сверху</div>
+      <div class="ap-dark-feat"><strong>Beam on Floor</strong> — световой индикатор конца цикла</div>
+      <div class="ap-dark-feat"><strong>42 дБ</strong> — практически бесшумная работа</div>
+    </div>
+
+  </div>
+  </div><!-- /panel-visual -->
+
+
+  <!-- ─ ПАНЕЛЬ 4: ХАРАКТЕРИСТИКИ ─ -->
+  <div id="panel-specs" class="panel">
+  <div class="panel-inner">
+
+    <div class="section-title">Технические характеристики</div>
+
+    <!-- Духовой шкаф -->
+    <div class="spec-device">
+      <div class="spec-device-header" onclick="toggleSpec(this)">
+        <div>
+          <div class="spec-device-model">De Dietrich</div>
+          <div class="spec-device-name">Духовой шкаф DOP4546BT</div>
+        </div>
+        <span class="spec-chevron">›</span>
+      </div>
+      <div class="spec-body">
+        <table class="spec-table">
+          <tr><td>Тип установки</td><td>Встраиваемый</td></tr>
+          <tr><td>Объём духовки</td><td>73 л</td></tr>
+          <tr><td>Ширина × Высота × Глубина</td><td>596 × 595 × 548 мм</td></tr>
+          <tr><td>Класс энергоэффективности</td><td>A+</td></tr>
+          <tr><td>Режимов приготовления</td><td>15</td></tr>
+          <tr><td>Пиролитическая очистка</td><td>Да</td></tr>
+          <tr><td>AirFry</td><td>Да</td></tr>
+          <tr><td>Термощуп</td><td>Да</td></tr>
+          <tr><td>Цвет / Финиш</td><td>Infinite Black (чёрный матовый)</td></tr>
+          <tr><td>Гарантия</td><td>2 года</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Варочная -->
+    <div class="spec-device">
+      <div class="spec-device-header collapsed" onclick="toggleSpec(this)">
+        <div>
+          <div class="spec-device-model">De Dietrich</div>
+          <div class="spec-device-name">Варочная DPI4441BT</div>
+        </div>
+        <span class="spec-chevron">›</span>
+      </div>
+      <div class="spec-body hidden">
+        <table class="spec-table">
+          <tr><td>Тип</td><td>Индукционная</td></tr>
+          <tr><td>Ширина × Глубина</td><td>650 × 520 мм</td></tr>
+          <tr><td>Число зон</td><td>4 (2 стандартных + 2 HoriZone)</td></tr>
+          <tr><td>Суммарная мощность</td><td>7 400 Вт</td></tr>
+          <tr><td>Autolink</td><td>Да (управление вытяжкой)</td></tr>
+          <tr><td>Цвет / Финиш</td><td>Infinite Black</td></tr>
+          <tr><td>Гарантия</td><td>2 года</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Холодильник -->
+    <div class="spec-device">
+      <div class="spec-device-header collapsed" onclick="toggleSpec(this)">
+        <div>
+          <div class="spec-device-model">De Dietrich</div>
+          <div class="spec-device-name">Холодильник DRL1770EB</div>
+        </div>
+        <span class="spec-chevron">›</span>
+      </div>
+      <div class="spec-body hidden">
+        <table class="spec-table">
+          <tr><td>Высота × Ширина × Глубина</td><td>1 772 × 542 × 550 мм</td></tr>
+          <tr><td>Общий объём</td><td>294 л</td></tr>
+          <tr><td>No Frost в морозильной камере</td><td>Да</td></tr>
+          <tr><td>SlidingDoor</td><td>Да</td></tr>
+          <tr><td>Maxi Fresh зона</td><td>Да</td></tr>
+          <tr><td>Уровень шума</td><td>39 дБ</td></tr>
+          <tr><td>Класс энергоэффективности</td><td>F</td></tr>
+          <tr><td>Гарантия</td><td>2 года</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ПММ -->
+    <div class="spec-device">
+      <div class="spec-device-header collapsed" onclick="toggleSpec(this)">
+        <div>
+          <div class="spec-device-model">De Dietrich</div>
+          <div class="spec-device-name">ПММ DCJ532DQX</div>
+        </div>
+        <span class="spec-chevron">›</span>
+      </div>
+      <div class="spec-body hidden">
+        <table class="spec-table">
+          <tr><td>Вместимость</td><td>15 комплектов</td></tr>
+          <tr><td>Уровень шума</td><td>42 дБ</td></tr>
+          <tr><td>Aquablock</td><td>Да</td></tr>
+          <tr><td>Beam on Floor</td><td>Да</td></tr>
+          <tr><td>Корзин</td><td>3 (третья — лоток сверху)</td></tr>
+          <tr><td>Количество программ</td><td>8</td></tr>
+          <tr><td>Гарантия</td><td>2 года</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Винный шкаф -->
+    <div class="spec-device">
+      <div class="spec-device-header collapsed" onclick="toggleSpec(this)">
+        <div>
+          <div class="spec-device-model">De Dietrich</div>
+          <div class="spec-device-name">Винный шкаф DUW46DFB</div>
+        </div>
+        <span class="spec-chevron">›</span>
+      </div>
+      <div class="spec-body hidden">
+        <table class="spec-table">
+          <tr><td>Вместимость</td><td>46 бутылок</td></tr>
+          <tr><td>Объём</td><td>129 л</td></tr>
+          <tr><td>Температурных зон</td><td>2 (5–20°C)</td></tr>
+          <tr><td>UV-защита стекла</td><td>Да</td></tr>
+          <tr><td>Push-to-Open</td><td>Да</td></tr>
+          <tr><td>Уровень шума</td><td>39 дБ</td></tr>
+          <tr><td>Количество в КП</td><td>2 шт.</td></tr>
+          <tr><td>Срок поставки</td><td>4–5 недель</td></tr>
+          <tr><td>Гарантия</td><td>2 года</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Вытяжка -->
+    <div class="spec-device">
+      <div class="spec-device-header collapsed" onclick="toggleSpec(this)">
+        <div>
+          <div class="spec-device-model">De Dietrich</div>
+          <div class="spec-device-name">Вытяжка DHT3622X</div>
+        </div>
+        <span class="spec-chevron">›</span>
+      </div>
+      <div class="spec-body hidden">
+        <table class="spec-table">
+          <tr><td>Тип</td><td>Встраиваемая, выдвижной экран</td></tr>
+          <tr><td>Ширина</td><td>60 см</td></tr>
+          <tr><td>Производительность</td><td>255 м³/ч</td></tr>
+          <tr><td>Количество скоростей</td><td>3</td></tr>
+          <tr><td>Autolink</td><td>Да (от варочной DPI4441BT)</td></tr>
+          <tr><td>Цвет</td><td>INOX (нержавеющая сталь)</td></tr>
+          <tr><td>Гарантия</td><td>2 года</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  </div><!-- /panel-specs -->
+
+
+  <!-- ─ ПАНЕЛЬ 5: АКЦИИ ─ -->
+  <div id="panel-promo" class="panel">
+  <div class="panel-inner">
+
+    <div class="section-title">Актуальные акции · май 2026</div>
+
+    <div class="promo-card">
+      <div class="promo-card-head" style="background:linear-gradient(135deg,#1a3a5c 0%,#0f2640 100%)">
+        <div class="promo-tag">Только май 2026</div>
+        <h3>Комплект Philharmonie</h3>
+        <p>При заказе полного кухонного комплекта De Dietrich</p>
+      </div>
+      <div class="promo-card-body">
+        <p>При единовременном заказе полного комплекта кухонной техники De Dietrich — приоритетная обработка и ускоренная логистика на всё, что в наличии. Менеджер уточнит актуальные условия при подтверждении.</p>
+        <div class="promo-expires">⏰ Уточните у менеджера срок действия</div>
+      </div>
+    </div>
+
+    <div class="promo-card">
+      <div class="promo-card-head" style="background:linear-gradient(135deg,#2d1a4a 0%,#1a0f2e 100%)">
+        <div class="promo-tag">Партнёрская программа</div>
+        <h3>Бонус архитектора</h3>
+        <p>Действует на весь ассортимент Home Project</p>
+      </div>
+      <div class="promo-card-body">
+        <p>Партнёры-архитекторы и дизайнеры получают вознаграждение после каждого выполненного заказа. Прозрачная система — все начисления видны в личном кабинете.</p>
+        <div class="promo-expires">⏰ Постоянная программа · без ограничений</div>
+      </div>
+    </div>
+
+    <div class="kp-note">
+      Все условия акций уточняйте у менеджера перед подтверждением заказа — они могут быть обновлены.
+    </div>
+
+  </div>
+  </div><!-- /panel-promo -->
+
+
+  <!-- ─ ПАНЕЛЬ 6: РЕКОМЕНДАЦИИ ─ -->
+  <div id="panel-rec" class="panel">
+  <div class="panel-inner">
+
+    <div class="rec-intro">
+      <div class="rec-intro-title">Дополнительные рекомендации</div>
+      <div class="rec-intro-text">Помимо кухни — техника для прачечной и дополнительный комфорт от брендов нашего портфеля.</div>
+    </div>
+
+    <div class="rec-cat-title">🌀 Стирка и сушка</div>
+    <div class="rec-scroll">
+      <div class="rec-card">
+        <div class="rec-card-img">🌀</div>
+        <div class="rec-card-body">
+          <div class="rec-card-brand">V-ZUG / Schulthess</div>
+          <div class="rec-card-name">Стиральная машина</div>
+          <div class="rec-card-desc">Встраиваемая 60 см, тихий ход</div>
+          <div class="rec-card-price">от 250 000 ₽</div>
+        </div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-card-img">💨</div>
+        <div class="rec-card-body">
+          <div class="rec-card-brand">V-ZUG / Schulthess</div>
+          <div class="rec-card-name">Сушильная машина</div>
+          <div class="rec-card-desc">Тепловой насос, A+++</div>
+          <div class="rec-card-price">от 280 000 ₽</div>
+        </div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-card-img">🔲</div>
+        <div class="rec-card-body">
+          <div class="rec-card-brand">SKS</div>
+          <div class="rec-card-name">Колонна 45 см</div>
+          <div class="rec-card-desc">Стирка + сушка в одной колонне</div>
+          <div class="rec-card-price">от 420 000 ₽</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-cat-title">☕ Кофемашины</div>
+    <div class="rec-scroll">
+      <div class="rec-card">
+        <div class="rec-card-img">☕</div>
+        <div class="rec-card-body">
+          <div class="rec-card-brand">Kuppersbusch</div>
+          <div class="rec-card-name">Встраиваемая кофемашина</div>
+          <div class="rec-card-desc">Зерновой кофе, капучинатор</div>
+          <div class="rec-card-price">от 180 000 ₽</div>
+        </div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-card-img">☕</div>
+        <div class="rec-card-body">
+          <div class="rec-card-brand">Graude</div>
+          <div class="rec-card-name">Кофемашина встроенная</div>
+          <div class="rec-card-desc">Профессиональный эспрессо</div>
+          <div class="rec-card-price">от 120 000 ₽</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-cat-title">🍷 Ещё одна BORA (вытяжка в столешнице)</div>
+    <div class="rec-scroll">
+      <div class="rec-card">
+        <div class="rec-card-img">🌬</div>
+        <div class="rec-card-body">
+          <div class="rec-card-brand">BORA</div>
+          <div class="rec-card-name">BORA Basic</div>
+          <div class="rec-card-desc">Вытяжка вместо традиционной</div>
+          <div class="rec-card-price">от 180 000 ₽</div>
+        </div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-card-img">🌬</div>
+        <div class="rec-card-body">
+          <div class="rec-card-brand">BORA</div>
+          <div class="rec-card-name">BORA Professional</div>
+          <div class="rec-card-desc">Топовая мощность, тихая работа</div>
+          <div class="rec-card-price">от 340 000 ₽</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-cta">
+      <strong>Хотите добавить?</strong> Перейдите во вкладку «Анкета» и напишите в комментарии — какие позиции вас интересуют. Добавим в КП.
+    </div>
+
+    <div class="panel-footer" style="margin-top:12px">
+      <strong>HOME PROJECT</strong><br>
+      ИП · 9 брендов<br>
+      <a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a> &nbsp;·&nbsp;
+      <a href="mailto:info@homeproject.online">info@homeproject.online</a><br>
+      <span style="color:#555;font-size:11px">КП-2026-0001 · действительно 14 дней с 11 мая 2026</span>
+    </div>
+
+  </div>
+  </div><!-- /panel-rec -->
+
+</div><!-- /panels -->
+
+
+<!-- ══ BOTTOM NAVIGATION ══ -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="showPanel('brief',this)">
+    <span class="nav-icon">📋</span>
+    <span class="nav-label">Анкета</span>
+    <span class="nav-dot"></span>
+  </button>
+  <button class="nav-btn" onclick="showPanel('kp',this)">
+    <span class="nav-icon">💰</span>
+    <span class="nav-label">КП</span>
+    <span class="nav-dot"></span>
+  </button>
+  <button class="nav-btn" onclick="showPanel('visual',this)">
+    <span class="nav-icon">🖼</span>
+    <span class="nav-label">Визуал</span>
+    <span class="nav-dot"></span>
+  </button>
+  <button class="nav-btn" onclick="showPanel('specs',this)">
+    <span class="nav-icon">📐</span>
+    <span class="nav-label">Техн.</span>
+    <span class="nav-dot"></span>
+  </button>
+  <button class="nav-btn" onclick="showPanel('promo',this)">
+    <span class="nav-icon">🎁</span>
+    <span class="nav-label">Акции</span>
+    <span class="nav-dot"></span>
+  </button>
+  <button class="nav-btn" onclick="showPanel('rec',this)">
+    <span class="nav-icon">➕</span>
+    <span class="nav-label">Ещё</span>
+    <span class="nav-dot"></span>
+  </button>
+</nav>
+
+</div><!-- /app -->
+
+<!-- FLOATING CONTACT -->
+<div class="float-contact" id="float-contact" style="display:none">
+  <button class="float-btn" onclick="contactManager()">
+    <span>✉️</span> Написать менеджеру
+  </button>
+</div>
+
+
+<script>
+function showPanel(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('panel-' + name);
+  if (panel) { panel.classList.add('active'); panel.scrollTop = 0; }
+  if (btn) btn.classList.add('active');
+  const fc = document.getElementById('float-contact');
+  if (fc) fc.style.display = name === 'brief' ? 'none' : 'block';
+}
+
+function toggleSpec(header) {
+  const body = header.nextElementSibling;
+  const c = header.classList.contains('collapsed');
+  header.classList.toggle('collapsed', !c);
+  body.classList.toggle('hidden', !c);
+}
+
+function toggle(el) { el.classList.toggle('selected'); }
+function solo(el, group) {
+  document.querySelectorAll('[data-val][onclick*="' + group + '"]').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function contactManager() {
+  const msg = encodeURIComponent('Здравствуйте! Изучила КП КП-2026-0001 (De Dietrich Philharmonie). Хочу обсудить детали.');
+  window.open('https://t.me/homeproject_ai_bot?text=' + msg, '_blank');
+}
+
+function collectAnswers() {
+  const comment = document.getElementById('freetext').value.trim();
+  let msg = '📋 <b>Анкета · КП-2026-0001 · De Dietrich</b>\n👤 <b>Курач Альбина</b>\n\n';
+  const labels = ['Состав техники','Цвет / финиш','Срок поставки','Планировка','Газ на кухне','Приоритеты'];
+  document.querySelectorAll('.q-block').forEach((block, i) => {
+    const vals = Array.from(block.querySelectorAll('.tile.selected')).map(t => t.dataset.val);
+    if (vals.length) msg += '▸ <b>' + (labels[i]||'Вопрос '+(i+1)) + ':</b> ' + vals.join(', ') + '\n';
+  });
+  if (comment) msg += '\n💬 <b>Комментарий:</b>\n' + comment;
+  msg += '\n\n⏱ ' + new Date().toLocaleString('ru-RU');
+  return msg;
+}
+
+async function sendAnswers() {
+  const status = document.getElementById('send-status');
+  const btn = document.querySelector('.btn-tg');
+  const msg = collectAnswers().replace(/<[^>]+>/g,'');
+  window.open('https://t.me/homeproject_ai_bot?text=' + encodeURIComponent(msg.substring(0,4000)), '_blank');
+  status.textContent = '💬 Открыт Telegram — отправьте сообщение Алексею';
+  status.className = 'send-status ok';
+}
+</script>
+
+</body>
+</html>
