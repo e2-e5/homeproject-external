@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Спецификация по объекту · Home Project</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --dark: #181A20;
+    --gold: #c9a96e;
+    --gold-light: #fdf3de;
+    --gold-border: #e8d8a8;
+    --bg: #f5f4f0;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --muted: #888;
+    --border: #e0e0e0;
+    --radius: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 540px;
+    margin: 0 auto;
+    background: var(--card);
+    min-height: 100vh;
+  }
+
+  /* ─── ШАПКА ─── */
+  .header {
+    background: var(--dark);
+    padding: 20px 24px 16px;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .logo { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.06em; text-transform: uppercase; }
+  .logo-sub { font-size: 9px; color: #7a8099; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+  .badge {
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 20px; white-space: nowrap;
+  }
+
+  .header-promise {
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--gold);
+  }
+  .promise-title {
+    font-size: 17px; font-weight: 700; color: #fff;
+    margin-bottom: 4px; line-height: 1.3;
+  }
+  .promise-sub { font-size: 12px; color: #9aa0b8; line-height: 1.5; }
+
+  /* ─── ПРОГРЕСС ─── */
+  .progress-bar {
+    background: var(--dark);
+    padding: 0 24px 12px;
+  }
+  .progress-track {
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  /* ─── СЕКЦИИ ─── */
+  .section {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .q-num {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .q-num::before {
+    content: '';
+    display: inline-block;
+    width: 16px; height: 16px;
+    background: var(--dark);
+    border-radius: 50%;
+  }
+
+  .q-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 3px; line-height: 1.3; }
+  .q-hint { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+
+  /* ─── ПЛАШКИ ─── */
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .opt:active { transform: scale(0.98); }
+  .opt.selected {
+    border-color: var(--gold);
+    background: var(--gold-light);
+  }
+  .opt-icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
+  .opt-body { flex: 1; }
+  .opt-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .opt-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .opt-check {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: transparent;
+    transition: all 0.15s;
+  }
+  .opt.selected .opt-check {
+    background: var(--gold); border-color: var(--gold); color: #fff;
+  }
+
+  /* ─── СЕТКА 2 КОЛОНКИ ─── */
+  .options-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .opt-card {
+    padding: 14px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+  }
+  .opt-card:active { transform: scale(0.97); }
+  .opt-card.selected {
+    border-color: var(--gold);
+    background: var(--gold-light);
+  }
+  .opt-card-icon { font-size: 22px; margin-bottom: 6px; }
+  .opt-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .opt-card-sub { font-size: 11px; color: var(--muted); line-height: 1.3; }
+  .opt-card-check {
+    position: absolute; top: 8px; right: 8px;
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: transparent;
+  }
+  .opt-card.selected .opt-card-check {
+    background: var(--gold); border-color: var(--gold); color: #fff;
+  }
+
+  /* ─── ТЕКСТОВОЕ ПОЛЕ ─── */
+  .field { margin-top: 12px; }
+  .field-label {
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+    color: #bbb; margin-bottom: 5px;
+  }
+  .field input, .field textarea {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    background: #fafaf8;
+    outline: none;
+    transition: border-color 0.15s;
+    resize: none;
+  }
+  .field input:focus, .field textarea:focus { border-color: var(--gold); background: #fff; }
+  .field input::placeholder, .field textarea::placeholder { color: #ccc; }
+
+  /* ─── КОНТАКТЫ ─── */
+  .contacts {
+    padding: 20px 24px;
+    background: #fafaf8;
+    border-top: 1px solid #eee;
+  }
+  .contacts-title {
+    font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px;
+  }
+  .contacts-sub { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+
+  /* ─── КНОПКА ОТПРАВИТЬ ─── */
+  .submit-section {
+    padding: 20px 24px 32px;
+    background: #fafaf8;
+  }
+  .submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: var(--dark);
+    color: #fff;
+    font-family: inherit;
+    font-size: 15px; font-weight: 700;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.15s;
+    text-decoration: none;
+  }
+  .submit-btn:active { background: #2a2d38; transform: scale(0.99); }
+  .submit-btn-icon { font-size: 18px; }
+  .submit-note {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── ПОДВАЛ ─── */
+  .footer {
+    background: var(--dark);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-brand { font-size: 12px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.06em; }
+  .footer-sub { font-size: 9px; color: #7a8099; margin-top: 2px; }
+  .footer-contacts { text-align: right; font-size: 10px; color: #7a8099; line-height: 1.8; }
+  .footer-contacts .gold { color: var(--gold); }
+
+  /* ─── ПЕРЕКЛЮЧАТЕЛЬ ─── */
+  .form-switcher {
+    padding: 12px 24px;
+    background: #f0ede4;
+    border-top: 1px solid #e0ddd4;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .form-switcher a { color: var(--gold); text-decoration: none; font-weight: 600; }
+
+  /* ─── ПАРТНЁРСКИЙ БЛОК ─── */
+  .partner-note {
+    background: #f0ede4;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    color: #555;
+    line-height: 1.5;
+  }
+  .partner-note strong { color: var(--dark); }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ШАПКА -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="logo">Home Project</div>
+        <div class="logo-sub">Встраиваемая техника · Москва</div>
+      </div>
+      <span class="badge">Для партнёра</span>
+    </div>
+    <div class="header-promise">
+      <div class="promise-title">Спецификация по вашему объекту — в течение рабочего дня</div>
+      <div class="promise-sub">Заполните бриф — пришлём готовую спецификацию в Excel с артикулами, ценами и сроками поставки.</div>
+    </div>
+  </div>
+
+  <!-- ПРОГРЕСС -->
+  <div class="progress-bar">
+    <div class="progress-track"><div class="progress-fill" id="progress"></div></div>
+  </div>
+
+  <!-- ВОПРОС 1 -->
+  <div class="section">
+    <div class="q-num">Вопрос 1 из 7</div>
+    <div class="q-title">Тип объекта</div>
+    <div class="q-hint">Определяем масштаб и формат работы</div>
+    <div class="options">
+      <div class="opt single" data-group="object" data-val="Частная квартира (1 объект)" onclick="select(this)">
+        <span class="opt-icon">🏠</span>
+        <div class="opt-body"><div class="opt-title">Частная квартира</div><div class="opt-sub">1 объект, индивидуальный проект</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="object" data-val="Жилой комплекс / несколько квартир" onclick="select(this)">
+        <span class="opt-icon">🏢</span>
+        <div class="opt-body"><div class="opt-title">Жилой комплекс / квартиры</div><div class="opt-sub">Несколько однотипных комплектов</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="object" data-val="Коммерческий объект (отель, апартаменты)" onclick="select(this)">
+        <span class="opt-icon">🏨</span>
+        <div class="opt-body"><div class="opt-title">Коммерческий объект</div><div class="opt-sub">Отель, апартаменты, офис</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="object" data-val="Частный дом / коттедж" onclick="select(this)">
+        <span class="opt-icon">🏡</span>
+        <div class="opt-body"><div class="opt-title">Частный дом / коттедж</div><div class="opt-sub">Загородный дом, вилла</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">Название объекта или адрес (необязательно)</div>
+      <input type="text" id="object-extra" placeholder="Например: ЖК Символ, Лефортово…">
+    </div>
+  </div>
+
+  <!-- ВОПРОС 2 -->
+  <div class="section">
+    <div class="q-num">Вопрос 2 из 7</div>
+    <div class="q-title">Количество комплектов</div>
+    <div class="q-hint">Влияет на условия — при объёме от 3 комплектов действуют партнёрские условия</div>
+    <div class="options-2col">
+      <div class="opt-card single" data-group="sets" data-val="1 комплект" onclick="select(this)">
+        <div class="opt-card-check">✓</div>
+        <div class="opt-card-icon">1️⃣</div>
+        <div class="opt-card-title">1 комплект</div>
+        <div class="opt-card-sub">Разовый заказ</div>
+      </div>
+      <div class="opt-card single" data-group="sets" data-val="2–3 комплекта" onclick="select(this)">
+        <div class="opt-card-check">✓</div>
+        <div class="opt-card-icon">3️⃣</div>
+        <div class="opt-card-title">2–3 комплекта</div>
+        <div class="opt-card-sub">Несколько квартир</div>
+      </div>
+      <div class="opt-card single" data-group="sets" data-val="4–10 комплектов" onclick="select(this)">
+        <div class="opt-card-check">✓</div>
+        <div class="opt-card-icon">🔟</div>
+        <div class="opt-card-title">4–10 комплектов</div>
+        <div class="opt-card-sub">Партнёрские условия</div>
+      </div>
+      <div class="opt-card single" data-group="sets" data-val="Более 10 комплектов" onclick="select(this)">
+        <div class="opt-card-check">✓</div>
+        <div class="opt-card-icon">🏗</div>
+        <div class="opt-card-title">10+ комплектов</div>
+        <div class="opt-card-sub">Проектные условия</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 3 -->
+  <div class="section">
+    <div class="q-num">Вопрос 3 из 7</div>
+    <div class="q-title">Состав оснащения кухни</div>
+    <div class="q-hint">Отметьте позиции, которые нужны в спецификацию</div>
+    <div class="options">
+      <div class="opt multi" data-group="items" data-val="Встраиваемый духовой шкаф" onclick="toggle(this)">
+        <span class="opt-icon">🔥</span>
+        <div class="opt-body"><div class="opt-title">Встраиваемый духовой шкаф</div><div class="opt-sub">60 или 45 см, возможен с паром</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt multi" data-group="items" data-val="Варочная панель (индукционная или газовая)" onclick="toggle(this)">
+        <span class="opt-icon">⚡</span>
+        <div class="opt-body"><div class="opt-title">Варочная панель</div><div class="opt-sub">Индукционная, газовая, с вытяжкой BORA</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt multi" data-group="items" data-val="Встраиваемая вытяжка" onclick="toggle(this)">
+        <span class="opt-icon">💨</span>
+        <div class="opt-body"><div class="opt-title">Встраиваемая вытяжка</div><div class="opt-sub">Плоская, наклонная, островная, подключение к воздуховоду</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt multi" data-group="items" data-val="Встраиваемая посудомоечная машина" onclick="toggle(this)">
+        <span class="opt-icon">🍽</span>
+        <div class="opt-body"><div class="opt-title">Встраиваемая посудомоечная машина</div><div class="opt-sub">60 или 45 см, с декором под фасад</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt multi" data-group="items" data-val="Встраиваемый холодильник" onclick="toggle(this)">
+        <span class="opt-icon">🧊</span>
+        <div class="opt-body"><div class="opt-title">Встраиваемый холодильник</div><div class="opt-sub">Одно- или двухкамерный, No Frost</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt multi" data-group="items" data-val="Встраиваемая кофемашина" onclick="toggle(this)">
+        <span class="opt-icon">☕</span>
+        <div class="opt-body"><div class="opt-title">Встраиваемая кофемашина</div><div class="opt-sub">Автоматическая, 45 см</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt multi" data-group="items" data-val="Пароварка / комби-пар" onclick="toggle(this)">
+        <span class="opt-icon">🫧</span>
+        <div class="opt-body"><div class="opt-title">Пароварка / комби-пар</div><div class="opt-sub">Отдельный паровой модуль</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt multi" data-group="items" data-val="Винный шкаф" onclick="toggle(this)">
+        <span class="opt-icon">🍷</span>
+        <div class="opt-body"><div class="opt-title">Винный шкаф</div><div class="opt-sub">Встраиваемый, климатический</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">Другие позиции</div>
+      <input type="text" id="items-extra" placeholder="Например: микроволновка, подогреватель тарелок, морозильная камера…">
+    </div>
+  </div>
+
+  <!-- ВОПРОС 4 -->
+  <div class="section">
+    <div class="q-num">Вопрос 4 из 7</div>
+    <div class="q-title">Предпочтения по бренду</div>
+    <div class="q-hint">Если уже обсуждали с клиентом — укажите. Иначе подберём сами</div>
+    <div class="options">
+      <div class="opt single" data-group="brand" data-val="Любой бренд из портфеля — подберите оптимально" onclick="select(this)">
+        <span class="opt-icon">🎯</span>
+        <div class="opt-body"><div class="opt-title">Подберите оптимально</div><div class="opt-sub">Нет предпочтений — главное цена/качество/срок</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="brand" data-val="Küppersbusch (топ-премиум Германия)" onclick="select(this)">
+        <span class="opt-icon">🇩🇪</span>
+        <div class="opt-body"><div class="opt-title">Küppersbusch</div><div class="opt-sub">Топ-премиум, Германия</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="brand" data-val="V-ZUG (эксклюзив, Швейцария)" onclick="select(this)">
+        <span class="opt-icon">🇨🇭</span>
+        <div class="opt-body"><div class="opt-title">V-ZUG</div><div class="opt-sub">Эксклюзивный уровень, Швейцария</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="brand" data-val="De Dietrich (премиум, Франция)" onclick="select(this)">
+        <span class="opt-icon">🇫🇷</span>
+        <div class="opt-body"><div class="opt-title">De Dietrich</div><div class="opt-sub">Премиум, Франция</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="brand" data-val="GRAUDE (немецкий средний премиум)" onclick="select(this)">
+        <span class="opt-icon">🔧</span>
+        <div class="opt-body"><div class="opt-title">GRAUDE</div><div class="opt-sub">Немецкий средний премиум</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="brand" data-val="BORA (варочные с интегрированной вытяжкой)" onclick="select(this)">
+        <span class="opt-icon">🌀</span>
+        <div class="opt-body"><div class="opt-title">BORA</div><div class="opt-sub">Варочные панели с интегрированной вытяжкой</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 5 -->
+  <div class="section">
+    <div class="q-num">Вопрос 5 из 7</div>
+    <div class="q-title">Бюджет на комплект (1 кухня)</div>
+    <div class="q-hint">Учитываем стоимость всех позиций в спецификации</div>
+    <div class="options">
+      <div class="opt single" data-group="budget" data-val="до 300 000 ₽ на комплект" onclick="select(this)">
+        <div class="opt-body">
+          <div class="opt-title">до 300 000 ₽</div>
+          <div class="opt-sub">GRAUDE — полный комплект немецкого качества</div>
+        </div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="budget" data-val="300 000 – 600 000 ₽ на комплект" onclick="select(this)">
+        <div class="opt-body">
+          <div class="opt-title">300 000 – 600 000 ₽</div>
+          <div class="opt-sub">De Dietrich, GRAUDE SPECIAL — с расширенным функционалом</div>
+        </div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="budget" data-val="600 000 – 1 000 000 ₽ на комплект" onclick="select(this)">
+        <div class="opt-body">
+          <div class="opt-title">600 000 – 1 000 000 ₽</div>
+          <div class="opt-sub">Küppersbusch K-series — премиальный уровень</div>
+        </div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="budget" data-val="от 1 000 000 ₽ на комплект" onclick="select(this)">
+        <div class="opt-body">
+          <div class="opt-title">от 1 000 000 ₽</div>
+          <div class="opt-sub">V-ZUG, BORA, SKS — без ограничений по функциям</div>
+        </div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt single" data-group="budget" data-val="Бюджет не определён — предложите варианты" onclick="select(this)">
+        <div class="opt-body">
+          <div class="opt-title">Бюджет не определён</div>
+          <div class="opt-sub">Предложите 2–3 варианта на выбор</div>
+        </div>
+        <div class="opt-check">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 6 -->
+  <div class="section">
+    <div class="q-num">Вопрос 6 из 7</div>
+    <div class="q-title">Сроки поставки и монтажа</div>
+    <div class="q-hint">Согласуем наличие и поставку под ваш график</div>
+    <div class="options-2col">
+      <div class="opt-card single" data-group="deadline" data-val="До 4 недель" onclick="select(this)">
+        <div class="opt-card-check">✓</div>
+        <div class="opt-card-icon">⚡</div>
+        <div class="opt-card-title">До 4 недель</div>
+        <div class="opt-card-sub">Объект сдаётся</div>
+      </div>
+      <div class="opt-card single" data-group="deadline" data-val="1–3 месяца" onclick="select(this)">
+        <div class="opt-card-check">✓</div>
+        <div class="opt-card-icon">📅</div>
+        <div class="opt-card-title">1–3 месяца</div>
+        <div class="opt-card-sub">Ремонт в процессе</div>
+      </div>
+      <div class="opt-card single" data-group="deadline" data-val="3–6 месяцев" onclick="select(this)">
+        <div class="opt-card-check">✓</div>
+        <div class="opt-card-icon">🏗</div>
+        <div class="opt-card-title">3–6 месяцев</div>
+        <div class="opt-card-sub">Проект на стадии дизайна</div>
+      </div>
+      <div class="opt-card single" data-group="deadline" data-val="Срок не определён (проектный этап)" onclick="select(this)">
+        <div class="opt-card-check">✓</div>
+        <div class="opt-card-icon">📐</div>
+        <div class="opt-card-title">Без срока</div>
+        <div class="opt-card-sub">Ещё на этапе концепции</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 7 -->
+  <div class="section">
+    <div class="q-num">Вопрос 7 из 7</div>
+    <div class="q-title">Как работаем?</div>
+    <div class="q-hint">Уточните формат сотрудничества</div>
+    <div class="options">
+      <div class="opt multi" data-group="format" data-val="Нужна спецификация в Excel с артикулами и ценами" onclick="toggle(this)">
+        <span class="opt-icon">📊</span>
+        <div class="opt-body"><div class="opt-title">Спецификация в Excel</div><div class="opt-sub">Артикулы, цены, сроки поставки</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt multi" data-group="format" data-val="Работаем с юрлицом / нужны закрывающие документы" onclick="toggle(this)">
+        <span class="opt-icon">📋</span>
+        <div class="opt-body"><div class="opt-title">Юрлицо / закрывающие документы</div><div class="opt-sub">Счёт, договор, акты, УПД</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt multi" data-group="format" data-val="Интересует партнёрская программа (постоянные проекты)" onclick="toggle(this)">
+        <span class="opt-icon">🤝</span>
+        <div class="opt-body"><div class="opt-title">Партнёрская программа</div><div class="opt-sub">Постоянные проекты — обсудим персональные условия</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+      <div class="opt multi" data-group="format" data-val="Нужна выкладка / визуализация техники для клиента" onclick="toggle(this)">
+        <span class="opt-icon">🖼</span>
+        <div class="opt-body"><div class="opt-title">Рендеры / презентация для клиента</div><div class="opt-sub">Фото, описания, КП для конечного клиента</div></div>
+        <div class="opt-check">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- КОНТАКТЫ -->
+  <div class="contacts">
+    <div class="contacts-title">Контактная информация</div>
+    <div class="contacts-sub">Спецификацию пришлём в WhatsApp или на почту — как удобнее</div>
+    <div class="field">
+      <div class="field-label">Ваше имя и компания</div>
+      <input type="text" id="name" placeholder="Имя Фамилия, Студия или бюро">
+    </div>
+    <div class="field">
+      <div class="field-label">Телефон / WhatsApp / Telegram</div>
+      <input type="tel" id="phone" placeholder="+7 (___) ___-__-__">
+    </div>
+    <div class="field">
+      <div class="field-label">Электронная почта</div>
+      <input type="email" id="email" placeholder="name@studio.ru">
+    </div>
+    <div class="field">
+      <div class="field-label">Комментарий или ссылка на проект / мудборд</div>
+      <textarea id="comment" rows="2" placeholder="Особые требования, ссылка на Pinterest/Behance, файл спецификации…"></textarea>
+    </div>
+  </div>
+
+  <!-- КНОПКА -->
+  <div class="submit-section">
+    <button class="submit-btn" onclick="sendToTelegram()">
+      <span class="submit-btn-icon">✈️</span>
+      Отправить — жду спецификацию
+    </button>
+    <div class="submit-note">
+      Ответим в течение рабочего дня.<br>Спецификацию пришлём в Excel + КП в PDF.
+    </div>
+  </div>
+
+  <!-- ПЕРЕКЛЮЧАТЕЛЬ -->
+  <div class="form-switcher">
+    Вы покупаете для себя? <a href="https://e2-e5.github.io/homeproject-external/brief-client.html">← Форма для клиента</a>
+  </div>
+
+  <!-- ПОДВАЛ -->
+  <div class="footer">
+    <div>
+      <div class="footer-brand">Home Project</div>
+      <div class="footer-sub">ИП Кривов · Москва</div>
+    </div>
+    <div class="footer-contacts">
+      <span class="gold">+7 (936) 314-86-36</span><br>
+      <span class="gold">@homeproject_ai_bot</span><br>
+      info@homeproject.online
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Переключение чекбоксов (multi-select)
+  function toggle(el) {
+    el.classList.toggle('selected');
+    updateProgress();
+  }
+
+  // Выбор одного (radio)
+  function select(el) {
+    const group = el.dataset.group;
+    document.querySelectorAll('[data-group="' + group + '"]').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    updateProgress();
+  }
+
+  // Прогресс-бар
+  function updateProgress() {
+    const groups = ['object','sets','items','brand','budget','deadline','format'];
+    let filled = 0;
+    groups.forEach(g => {
+      if (document.querySelector('[data-group="' + g + '"].selected')) filled++;
+    });
+    document.getElementById('progress').style.width = (filled / groups.length * 100) + '%';
+  }
+
+  // Формируем текст и открываем Telegram
+  function sendToTelegram() {
+    const lines = [];
+    lines.push('📐 Бриф по объекту — Home Project');
+    lines.push('');
+
+    // Тип объекта
+    const obj = document.querySelector('[data-group="object"].selected');
+    const objExtra = document.getElementById('object-extra').value.trim();
+    if (obj) lines.push('Объект: ' + obj.dataset.val + (objExtra ? ' (' + objExtra + ')' : ''));
+
+    // Количество комплектов
+    const sets = document.querySelector('[data-group="sets"].selected');
+    if (sets) lines.push('Комплектов: ' + sets.dataset.val);
+
+    // Состав
+    const items = [...document.querySelectorAll('[data-group="items"].selected')].map(e => e.dataset.val);
+    const itemsExtra = document.getElementById('items-extra').value.trim();
+    if (items.length) lines.push('Состав: ' + items.join(', ') + (itemsExtra ? ', ' + itemsExtra : ''));
+
+    // Бренд
+    const brand = document.querySelector('[data-group="brand"].selected');
+    if (brand) lines.push('Бренд: ' + brand.dataset.val);
+
+    // Бюджет
+    const budget = document.querySelector('[data-group="budget"].selected');
+    if (budget) lines.push('Бюджет: ' + budget.dataset.val);
+
+    // Срок
+    const deadline = document.querySelector('[data-group="deadline"].selected');
+    if (deadline) lines.push('Срок: ' + deadline.dataset.val);
+
+    // Формат работы
+    const formats = [...document.querySelectorAll('[data-group="format"].selected')].map(e => e.dataset.val);
+    if (formats.length) lines.push('Формат работы: ' + formats.join('; '));
+
+    // Контакты
+    lines.push('');
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const comment = document.getElementById('comment').value.trim();
+    if (name) lines.push('Имя / компания: ' + name);
+    if (phone) lines.push('Телефон: ' + phone);
+    if (email) lines.push('Email: ' + email);
+    if (comment) lines.push('Комментарий: ' + comment);
+
+    const text = lines.join('\n');
+    const url = 'https://t.me/homeproject_ai_bot?text=' + encodeURIComponent(text);
+    window.open(url, '_blank');
+  }
+
+  updateProgress();
+</script>
+</body>
+</html>
