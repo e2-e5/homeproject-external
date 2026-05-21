@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП-2026-0001 · De Dietrich · Курач Альбина · Home Project</title>
+<script>
+const KP = {
+  clientName:    'Курач Альбина',
+  clientCompany: '',
+  brandName:     'De Dietrich',
+  brandColor:    '#c9a96e',
+  brandTagline:  'Créateur d\'émotions depuis 1684 · Philharmonie · Infinite Black',
+  kpNumber:      'КП-2026-0001',
+  kpDate:        '11 мая 2026',
+  kpValidDays:   '14',
+  managerName:   'Алексей',
+  managerPhone:  '+7 (936) 314-86-36',
+  managerTg:     '@homeproject_ai_bot',
+  tgBotToken:    'REPLACE_BOT_TOKEN',
+  tgChatId:      'REPLACE_CHAT_ID',
+};
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --dark:#181A20; --gold:#c9a96e; --gold-lt:rgba(201,169,110,0.12);
+  --bg:#f5f4f0; --text:#1a1a1a; --muted:#7a8099; --border:#e5e3db;
+}
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); font-size:14px; line-height:1.6; }
+
+/* ── ШАПКА ── */
+.header { background:var(--dark); padding:28px 48px 24px; display:flex; justify-content:space-between; align-items:flex-end; }
+.logo-title { font-size:20px; font-weight:700; color:#fff; letter-spacing:.08em; text-transform:uppercase; }
+.logo-sub { font-size:10px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-top:3px; }
+.kp-label { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; }
+.kp-meta { font-size:22px; font-weight:700; color:#fff; margin-top:2px; }
+.kp-date { font-size:11px; color:var(--muted); margin-top:3px; }
+
+/* ── БРЕНД-ПОЛОСА ── */
+.brand-bar { background:var(--gold); padding:9px 48px; display:flex; align-items:center; gap:12px; }
+.brand-bar-name { font-size:13px; font-weight:700; color:#fff; letter-spacing:.08em; }
+.brand-bar-sep { color:rgba(255,255,255,.4); }
+.brand-bar-tagline { font-size:11px; color:rgba(255,255,255,.8); font-style:italic; }
+
+/* ── ОСНОВНОЙ КОНТЕНТ ── */
+.container { max-width:1200px; margin:0 auto; padding:48px; }
+.section { margin-bottom:48px; }
+.section-title { font-size:16px; font-weight:700; color:var(--text); letter-spacing:.05em; text-transform:uppercase; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px; }
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; }
+
+/* ── КАРТОЧКИ ТОВАРОВ ── */
+.product-card { background:#fff; border:1px solid var(--border); border-radius:8px; padding:16px; transition:all .2s; }
+.product-card:hover { box-shadow:0 8px 16px rgba(0,0,0,0.08); }
+.product-sku { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; }
+.product-name { font-size:14px; font-weight:600; color:var(--text); margin-bottom:8px; }
+.product-specs { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.5; }
+.product-price { font-size:20px; font-weight:700; color:var(--gold); margin-bottom:8px; }
+.product-price-note { font-size:11px; color:var(--muted); }
+
+/* ── ТАБЛИЦЫ ── */
+table { width:100%; border-collapse:collapse; margin-top:12px; }
+thead { background:var(--gold-lt); }
+th { padding:12px; text-align:left; font-size:12px; font-weight:600; color:var(--text); border-bottom:1px solid var(--border); }
+td { padding:12px; border-bottom:1px solid var(--border); font-size:13px; }
+tbody tr:hover { background:rgba(201,169,110,0.04); }
+
+/* ── СПЕЦИАЛЬНЫЕ ТЕКСТОВЫЕ БЛОКИ ── */
+.note-box { background:var(--gold-lt); border-left:4px solid var(--gold); padding:16px; border-radius:4px; margin:16px 0; font-size:13px; color:var(--text); }
+.alert-box { background:rgba(255,0,0,0.05); border-left:4px solid #d32f2f; padding:16px; border-radius:4px; margin:16px 0; font-size:13px; color:#d32f2f; }
+.success-box { background:rgba(76,175,80,0.05); border-left:4px solid #4caf50; padding:16px; border-radius:4px; margin:16px 0; font-size:13px; color:#4caf50; }
+
+/* ── КНОПКИ ── */
+.button { display:inline-block; padding:12px 24px; background:var(--gold); color:#fff; text-decoration:none; border-radius:4px; font-weight:600; font-size:13px; letter-spacing:.05em; transition:all .2s; border:none; cursor:pointer; }
+.button:hover { background:#b8935d; transform:translateY(-2px); box-shadow:0 4px 12px rgba(201,169,110,0.3); }
+.button-outline { background:transparent; color:var(--gold); border:1px solid var(--gold); }
+.button-outline:hover { background:var(--gold-lt); }
+
+/* ── ПОДВАЛ ── */
+.footer { background:var(--dark); color:#fff; padding:32px 48px; margin-top:48px; text-align:center; font-size:12px; }
+.footer-contact { margin:16px 0; }
+.footer-contact a { color:var(--gold); text-decoration:none; }
+
+/* ── АДАПТИВНОСТЬ ── */
+@media (max-width:768px) {
+  .grid-2, .grid-3 { grid-template-columns:1fr; }
+  .container { padding:24px; }
+  .header { padding:16px 24px; }
+  .brand-bar { padding:9px 24px; }
+}
+
+/* ── ПЕЧАТЬ ── */
+@media print {
+  .footer, .button { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<div class="header">
+  <div>
+    <div class="logo-title">Home Project</div>
+    <div class="logo-sub">Дистрибуция премиальной встраиваемой техники</div>
+  </div>
+  <div style="text-align:right;">
+    <div class="kp-label">Коммерческое предложение</div>
+    <div class="kp-meta" id="kp-number">КП-2026-0001</div>
+    <div class="kp-date" id="kp-date">11 мая 2026</div>
+  </div>
+</div>
+
+<!-- БРЕНД-ПОЛОСА -->
+<div class="brand-bar">
+  <div class="brand-bar-name" id="brand-name">De Dietrich</div>
+  <div class="brand-bar-sep">•</div>
+  <div class="brand-bar-tagline" id="brand-tagline">Créateur d'émotions depuis 1684 · Philharmonie · Infinite Black</div>
+</div>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<div class="container">
+
+  <!-- РЕКВИЗИТЫ КЛИЕНТА -->
+  <div class="section">
+    <div class="section-title">Клиент</div>
+    <div class="grid-2">
+      <div>
+        <strong>Имя:</strong> <span id="client-name">Курач Альбина</span><br>
+        <strong>Компания:</strong> <span id="client-company">-</span><br>
+      </div>
+      <div style="text-align:right;">
+        <strong>КП действительно:</strong> <span id="valid-days">14</span> дней<br>
+        <strong>Дата создания:</strong> <span id="creation-date">11 мая 2026</span><br>
+      </div>
+    </div>
+  </div>
+
+  <!-- СВЕДЕНИЯ О МЕНЕДЖЕРЕ -->
+  <div class="section">
+    <div class="section-title">Контакт</div>
+    <div>
+      <strong>Менеджер:</strong> <span id="manager-name">Алексей Южанинов</span><br>
+      <strong>Телефон:</strong> <a href="tel:+79363148636" id="manager-phone">+7 (936) 314-86-36</a><br>
+      <strong>Telegram:</strong> <a href="https://t.me/homeproject_ai_bot" id="manager-tg">@homeproject_ai_bot</a>
+    </div>
+  </div>
+
+  <!-- СПИСОК ТОВАРОВ -->
+  <div class="section">
+    <div class="section-title">Предложение</div>
+    <table id="products-table">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Наименование</th>
+          <th>Спецификация</th>
+          <th>Кол-во</th>
+          <th>Цена (₽)</th>
+          <th>Сумма (₽)</th>
+        </tr>
+      </thead>
+      <tbody id="products-list">
+        <!-- Товары будут вставлены здесь JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ФИНАНСОВАЯ ИНФОРМАЦИЯ -->
+  <div class="section">
+    <div class="section-title">Итого</div>
+    <div style="text-align:right; font-size:18px;">
+      <div style="margin-bottom:8px;">
+        <strong>Сумма товаров:</strong> <span id="subtotal" style="color:var(--gold);">—</span> ₽
+      </div>
+      <div style="margin-bottom:8px;">
+        <strong>Налог (НДС 18%):</strong> <span id="tax" style="color:var(--gold);">—</span> ₽
+      </div>
+      <div style="padding-top:12px; border-top:1px solid var(--border); margin-top:12px;">
+        <strong style="font-size:20px;">Итого к оплате:</strong> <span id="total" style="color:var(--gold); font-size:24px;">—</span> ₽
+      </div>
+    </div>
+  </div>
+
+  <!-- УСЛОВИЯ -->
+  <div class="section">
+    <div class="section-title">Условия</div>
+    <div class="note-box">
+      <strong>Доставка:</strong> Москва и МО, доставка от 24 ч. Цены включают прямую доставку со склада дистрибьютора.<br>
+      <strong>Гарантия:</strong> По гарантии производителя. Гарантийное обслуживание проводится компанией-производителем или её авторизованным сервисным центром.<br>
+      <strong>Условия оплаты:</strong> Оплата наличными, переводом на счёт ИП, по договору с авансом.
+    </div>
+  </div>
+
+  <!-- КОНТАКТНАЯ ИНФОРМАЦИЯ -->
+  <div class="section">
+    <div class="section-title">О компании</div>
+    <p><strong>Home Project</strong> — дистрибьютор премиальной встраиваемой техники в России. Поставляем De Dietrich, V-ZUG, Kuppersbusch, BORA, Liebherr и другие европейские бренды. Специализируемся на проектах с дизайнерами, архитекторами и премиальными застройщиками.</p>
+  </div>
+
+</div>
+
+<!-- ПОДВАЛ -->
+<div class="footer">
+  <div class="footer-contact">
+    Вопросы? Пишите: <a href="mailto:homeproject@mail.com">homeproject@mail.com</a> или в Telegram <a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a>
+  </div>
+  <div style="margin-top:24px; font-size:11px; color:rgba(255,255,255,.6);">
+    КП-2026-0001 · Home Project · 2026
+  </div>
+</div>
+
+<script>
+// Заполнение из объекта KP
+document.getElementById('client-name').textContent = KP.clientName;
+document.getElementById('client-company').textContent = KP.clientCompany || '—';
+document.getElementById('manager-name').textContent = KP.managerName;
+document.getElementById('manager-phone').textContent = KP.managerPhone;
+document.getElementById('manager-phone').href = 'tel:' + KP.managerPhone.replace(/\D/g, '');
+document.getElementById('manager-tg').textContent = KP.managerTg;
+document.getElementById('manager-tg').href = 'https://t.me/' + KP.managerTg.replace('@', '');
+document.getElementById('kp-number').textContent = KP.kpNumber;
+document.getElementById('kp-date').textContent = KP.kpDate;
+document.getElementById('brand-name').textContent = KP.brandName;
+document.getElementById('brand-tagline').textContent = KP.brandTagline;
+document.getElementById('creation-date').textContent = KP.kpDate;
+document.getElementById('valid-days').textContent = KP.kpValidDays;
+
+// CSS переменная для бренд-цвета
+document.documentElement.style.setProperty('--gold', KP.brandColor);
+
+// Заглушка товаров (должны быть в HTML или загружены из API)
+const products = [
+  { sku: 'DDT-PH-BK', name: 'De Dietrich Philharmonie Infinite Black', specs: '90 см, электрическая встроенная варочная панель', qty: 1, price: 285000 },
+  { sku: 'DDT-PH-SS', name: 'De Dietrich Philharmonie Stainless Steel', specs: '90 см, электрическая встроенная варочная панель', qty: 1, price: 265000 },
+];
+
+let subtotal = 0;
+const tbody = document.getElementById('products-list');
+products.forEach(p => {
+  const sum = p.price * p.qty;
+  subtotal += sum;
+  const row = `
+    <tr>
+      <td>${p.sku}</td>
+      <td><strong>${p.name}</strong></td>
+      <td>${p.specs}</td>
+      <td style="text-align:center;">${p.qty}</td>
+      <td style="text-align:right;">${p.price.toLocaleString('ru-RU')}</td>
+      <td style="text-align:right; font-weight:600;">${sum.toLocaleString('ru-RU')}</td>
+    </tr>
+  `;
+  tbody.innerHTML += row;
+});
+
+const tax = Math.round(subtotal * 0.18);
+const total = subtotal + tax;
+
+document.getElementById('subtotal').textContent = subtotal.toLocaleString('ru-RU');
+document.getElementById('tax').textContent = tax.toLocaleString('ru-RU');
+document.getElementById('total').textContent = total.toLocaleString('ru-RU');
+</script>
+
+</body>
+</html>
