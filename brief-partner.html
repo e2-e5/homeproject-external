@@ -2,714 +2,605 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Спецификация по объекту · Home Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бриф для партнёра — Кухонная техника · Home Project</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-  :root {
-    --dark: #181A20;
-    --gold: #c9a96e;
-    --gold-light: #fdf3de;
-    --gold-border: #e8d8a8;
-    --bg: #f5f4f0;
-    --card: #ffffff;
-    --text: #1a1a1a;
-    --muted: #888;
-    --border: #e0e0e0;
-    --radius: 10px;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    background: #f5f4f0;
+    color: #181A20;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .hero {
+    background: #181A20;
+    color: #fff;
+    padding: 40px 24px 36px;
+    text-align: center;
+  }
+  .hero-logo {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c9a96e;
+    margin-bottom: 20px;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(201,169,110,0.2);
+    border: 1px solid #c9a96e;
+    color: #c9a96e;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .hero p {
     font-size: 15px;
-    line-height: 1.5;
-    min-height: 100vh;
+    color: #bbb;
+    margin-bottom: 24px;
   }
-
-  .page {
-    max-width: 540px;
-    margin: 0 auto;
-    background: var(--card);
-    min-height: 100vh;
-  }
-
-  /* ─── ШАПКА ─── */
-  .header {
-    background: var(--dark);
-    padding: 20px 24px 16px;
-  }
-  .header-top {
+  .hero-badges {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
   }
-  .logo { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.06em; text-transform: uppercase; }
-  .logo-sub { font-size: 9px; color: #7a8099; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
   .badge {
-    background: var(--gold);
-    color: var(--dark);
-    font-size: 9px; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 3px 9px; border-radius: 20px; white-space: nowrap;
+    background: rgba(201,169,110,0.12);
+    border: 1px solid rgba(201,169,110,0.35);
+    color: #c9a96e;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
   }
 
-  .header-promise {
-    background: rgba(255,255,255,0.06);
-    border-radius: 8px;
-    padding: 12px 16px;
-    border-left: 3px solid var(--gold);
-  }
-  .promise-title {
-    font-size: 17px; font-weight: 700; color: #fff;
-    margin-bottom: 4px; line-height: 1.3;
-  }
-  .promise-sub { font-size: 12px; color: #9aa0b8; line-height: 1.5; }
-
-  /* ─── ПРОГРЕСС ─── */
+  /* PROGRESS */
   .progress-bar {
-    background: var(--dark);
-    padding: 0 24px 12px;
-  }
-  .progress-track {
-    height: 3px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--gold);
-    border-radius: 2px;
-    transition: width 0.3s ease;
-    width: 0%;
-  }
-
-  /* ─── СЕКЦИИ ─── */
-  .section {
-    padding: 20px 24px;
-    border-bottom: 1px solid #f0f0f0;
-  }
-  .section:last-of-type { border-bottom: none; }
-
-  .q-num {
-    display: inline-flex;
+    background: #fff;
+    border-bottom: 1px solid #e5e3db;
+    padding: 14px 24px;
+    display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 10px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    color: var(--gold);
-    margin-bottom: 6px;
+    overflow-x: auto;
   }
-  .q-num::before {
-    content: '';
-    display: inline-block;
-    width: 16px; height: 16px;
-    background: var(--dark);
-    border-radius: 50%;
-  }
-
-  .q-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 3px; line-height: 1.3; }
-  .q-hint { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
-
-  /* ─── ПЛАШКИ ─── */
-  .options { display: flex; flex-direction: column; gap: 8px; }
-  .opt {
+  .step {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 13px 16px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--card);
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
-    -webkit-user-select: none;
+    gap: 4px;
+    font-size: 11px;
+    color: #999;
+    white-space: nowrap;
   }
-  .opt:active { transform: scale(0.98); }
-  .opt.selected {
-    border-color: var(--gold);
-    background: var(--gold-light);
-  }
-  .opt-icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
-  .opt-body { flex: 1; }
-  .opt-title { font-size: 14px; font-weight: 600; color: var(--text); }
-  .opt-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
-  .opt-check {
+  .step-num {
     width: 20px; height: 20px;
-    border: 2px solid var(--border);
-    border-radius: 5px;
-    flex-shrink: 0;
+    border-radius: 50%;
+    background: #e5e3db;
+    color: #999;
+    font-size: 10px;
+    font-weight: 600;
     display: flex; align-items: center; justify-content: center;
-    font-size: 12px; color: transparent;
-    transition: all 0.15s;
   }
-  .opt.selected .opt-check {
-    background: var(--gold); border-color: var(--gold); color: #fff;
+  .step.active .step-num { background: #c9a96e; color: #fff; }
+  .step.active { color: #181A20; font-weight: 500; }
+  .step-sep { color: #ddd; font-size: 12px; }
+
+  /* FORM BODY */
+  .form-body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
   }
 
-  /* ─── СЕТКА 2 КОЛОНКИ ─── */
-  .options-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .opt-card {
-    padding: 14px 12px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--card);
+  .q-block {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .q-block.pro {
+    border-left: 3px solid #c9a96e;
+  }
+  .q-num {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c9a96e;
+    margin-bottom: 6px;
+  }
+  .q-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #181A20;
+    margin-bottom: 4px;
+  }
+  .q-hint {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 16px;
+  }
+
+  /* TILES */
+  .tiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .tile {
+    border: 2px solid #e5e3db;
+    border-radius: 10px;
+    padding: 12px 16px;
     cursor: pointer;
+    font-size: 14px;
+    color: #444;
+    background: #fafaf8;
     transition: all 0.15s;
     user-select: none;
-    -webkit-user-select: none;
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  .opt-card:active { transform: scale(0.97); }
-  .opt-card.selected {
-    border-color: var(--gold);
-    background: var(--gold-light);
-  }
-  .opt-card-icon { font-size: 22px; margin-bottom: 6px; }
-  .opt-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-  .opt-card-sub { font-size: 11px; color: var(--muted); line-height: 1.3; }
-  .opt-card-check {
-    position: absolute; top: 8px; right: 8px;
-    width: 16px; height: 16px;
-    border: 1.5px solid var(--border);
-    border-radius: 4px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; color: transparent;
-  }
-  .opt-card.selected .opt-card-check {
-    background: var(--gold); border-color: var(--gold); color: #fff;
+  .tile:hover { border-color: #c9a96e; color: #181A20; }
+  .tile.selected {
+    border-color: #c9a96e;
+    background: rgba(201,169,110,0.1);
+    color: #181A20;
+    font-weight: 500;
   }
 
-  /* ─── ТЕКСТОВОЕ ПОЛЕ ─── */
-  .field { margin-top: 12px; }
-  .field-label {
-    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
-    color: #bbb; margin-bottom: 5px;
-  }
-  .field input, .field textarea {
+  /* INPUTS */
+  .text-input {
     width: 100%;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 11px 14px;
-    font-family: inherit;
+    border: 2px solid #e5e3db;
+    border-radius: 10px;
+    padding: 12px 16px;
     font-size: 14px;
-    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    color: #181A20;
+    background: #fafaf8;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .text-input:focus { border-color: #c9a96e; }
+
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .input-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .input-field {
+    width: 100%;
+    border: 2px solid #e5e3db;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #181A20;
     background: #fafaf8;
     outline: none;
     transition: border-color 0.15s;
-    resize: none;
   }
-  .field input:focus, .field textarea:focus { border-color: var(--gold); background: #fff; }
-  .field input::placeholder, .field textarea::placeholder { color: #ccc; }
+  .input-field:focus { border-color: #c9a96e; }
 
-  /* ─── КОНТАКТЫ ─── */
-  .contacts {
-    padding: 20px 24px;
-    background: #fafaf8;
-    border-top: 1px solid #eee;
-  }
-  .contacts-title {
-    font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px;
-  }
-  .contacts-sub { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
-
-  /* ─── КНОПКА ОТПРАВИТЬ ─── */
-  .submit-section {
-    padding: 20px 24px 32px;
-    background: #fafaf8;
-  }
-  .submit-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    background: var(--dark);
-    color: #fff;
-    font-family: inherit;
-    font-size: 15px; font-weight: 700;
-    padding: 16px 20px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    transition: background 0.15s;
-    text-decoration: none;
-  }
-  .submit-btn:active { background: #2a2d38; transform: scale(0.99); }
-  .submit-btn-icon { font-size: 18px; }
-  .submit-note {
-    margin-top: 10px;
-    text-align: center;
-    font-size: 11px;
-    color: var(--muted);
+  /* INFO BOX */
+  .info-box {
+    background: rgba(201,169,110,0.08);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
     line-height: 1.6;
   }
+  .info-box strong { color: #c9a96e; }
 
-  /* ─── ПОДВАЛ ─── */
-  .footer {
-    background: var(--dark);
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  /* CTA */
+  .cta-block {
+    background: #181A20;
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 20px;
   }
-  .footer-brand { font-size: 12px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.06em; }
-  .footer-sub { font-size: 9px; color: #7a8099; margin-top: 2px; }
-  .footer-contacts { text-align: right; font-size: 10px; color: #7a8099; line-height: 1.8; }
-  .footer-contacts .gold { color: var(--gold); }
+  .cta-block h3 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .cta-block p {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .btn-tg {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #229ED9;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+    margin-bottom: 12px;
+  }
+  .btn-tg:hover { background: #1a8bbf; }
+  .btn-tg svg { width: 20px; height: 20px; fill: #fff; }
 
-  /* ─── ПЕРЕКЛЮЧАТЕЛЬ ─── */
-  .form-switcher {
-    padding: 12px 24px;
-    background: #f0ede4;
-    border-top: 1px solid #e0ddd4;
+  .btn-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: #c9a96e;
+    border: 2px solid #c9a96e;
+    border-radius: 10px;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 12px;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .btn-email:hover { background: rgba(201,169,110,0.1); }
+
+  .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .alt-contact {
     text-align: center;
     font-size: 12px;
-    color: var(--muted);
+    color: #999;
+    margin-top: 10px;
   }
-  .form-switcher a { color: var(--gold); text-decoration: none; font-weight: 600; }
+  .alt-contact a { color: #c9a96e; text-decoration: none; }
 
-  /* ─── ПАРТНЁРСКИЙ БЛОК ─── */
-  .partner-note {
-    background: #f0ede4;
-    border-left: 3px solid var(--gold);
-    border-radius: 0 8px 8px 0;
-    padding: 10px 14px;
-    margin-bottom: 14px;
+  /* FOOTER */
+  .footer {
+    background: #181A20;
+    color: #888;
+    text-align: center;
+    padding: 24px 16px;
     font-size: 12px;
-    color: #555;
-    line-height: 1.5;
+    line-height: 1.8;
   }
-  .partner-note strong { color: var(--dark); }
+  .footer strong { color: #c9a96e; }
 
+  @media (max-width: 540px) {
+    .input-row { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 21px; }
+    .tiles { gap: 8px; }
+    .tile { font-size: 13px; padding: 10px 12px; }
+    .btn-email { margin-left: 0; }
+  }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- ШАПКА -->
-  <div class="header">
-    <div class="header-top">
-      <div>
-        <div class="logo">Home Project</div>
-        <div class="logo-sub">Встраиваемая техника · Москва</div>
-      </div>
-      <span class="badge">Для партнёра</span>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-logo">Home Project · Партнёрская программа</div>
+  <div class="hero-tag">Для дизайнеров и архитекторов</div>
+  <h1>Спецификация техники<br>за&nbsp;30&nbsp;минут</h1>
+  <p>Заполните бриф — получите КП с артикулами, техническими листами и вашим вознаграждением</p>
+  <div class="hero-badges">
+    <span class="badge">⚡ КП за 5 мин</span>
+    <span class="badge">📐 Схемы встраивания</span>
+    <span class="badge">📋 Тех. листы PDF</span>
+    <span class="badge">🏷 9 брендов</span>
+    <span class="badge">🤝 Партнёрское вознаграждение</span>
+  </div>
+</div>
+
+<!-- ПРОГРЕСС -->
+<div class="progress-bar">
+  <div class="step active"><div class="step-num">1</div> <span>Проект</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">2</div> <span>Техника</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">3</div> <span>Параметры</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">4</div> <span>Бюджет</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">5</div> <span>Предпочтения</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">6</div> <span>Контакт</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">7</div> <span>Партнёрство</span></div>
+</div>
+
+<!-- ФОРМА -->
+<div class="form-body">
+
+  <div class="info-box">
+    <strong>Как это работает:</strong> вы заполняете бриф → мы готовим КП с артикулами и схемами встраивания за 5 минут → согласовываете с клиентом → оформляем сделку с партнёрским вознаграждением.
+  </div>
+
+  <!-- Q1: О проекте -->
+  <div class="q-block pro" id="q1">
+    <div class="q-num">Раздел 1 из 7</div>
+    <div class="q-title">О проекте</div>
+    <div class="q-hint">Тип и статус проекта</div>
+    <div class="tiles" style="margin-bottom:16px">
+      <div class="tile" onclick="solo(this,'projtype')" data-val="Новострой — черновая отделка">🏗 Новострой (черновая)</div>
+      <div class="tile" onclick="solo(this,'projtype')" data-val="Новострой — чистовая">🏠 Новострой (чистовая)</div>
+      <div class="tile" onclick="solo(this,'projtype')" data-val="Реновация / ремонт">🔨 Реновация / ремонт</div>
+      <div class="tile" onclick="solo(this,'projtype')" data-val="Коммерческий объект">🏢 Коммерческий объект</div>
     </div>
-    <div class="header-promise">
-      <div class="promise-title">Спецификация по вашему объекту — в течение рабочего дня</div>
-      <div class="promise-sub">Заполните бриф — пришлём готовую спецификацию в Excel с артикулами, ценами и сроками поставки.</div>
+    <div class="tiles">
+      <div class="tile" onclick="solo(this,'stage')" data-val="Проект в разработке">📐 Проект в разработке</div>
+      <div class="tile" onclick="solo(this,'stage')" data-val="Проект утверждён, закупка активная">✅ Проект утверждён</div>
+      <div class="tile" onclick="solo(this,'stage')" data-val="Срочно — сроки поджимают">🔥 Срочно</div>
     </div>
   </div>
 
-  <!-- ПРОГРЕСС -->
-  <div class="progress-bar">
-    <div class="progress-track"><div class="progress-fill" id="progress"></div></div>
-  </div>
-
-  <!-- ВОПРОС 1 -->
-  <div class="section">
-    <div class="q-num">Вопрос 1 из 7</div>
-    <div class="q-title">Тип объекта</div>
-    <div class="q-hint">Определяем масштаб и формат работы</div>
-    <div class="options">
-      <div class="opt single" data-group="object" data-val="Частная квартира (1 объект)" onclick="select(this)">
-        <span class="opt-icon">🏠</span>
-        <div class="opt-body"><div class="opt-title">Частная квартира</div><div class="opt-sub">1 объект, индивидуальный проект</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt single" data-group="object" data-val="Жилой комплекс / несколько квартир" onclick="select(this)">
-        <span class="opt-icon">🏢</span>
-        <div class="opt-body"><div class="opt-title">Жилой комплекс / квартиры</div><div class="opt-sub">Несколько однотипных комплектов</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt single" data-group="object" data-val="Коммерческий объект (отель, апартаменты)" onclick="select(this)">
-        <span class="opt-icon">🏨</span>
-        <div class="opt-body"><div class="opt-title">Коммерческий объект</div><div class="opt-sub">Отель, апартаменты, офис</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt single" data-group="object" data-val="Частный дом / коттедж" onclick="select(this)">
-        <span class="opt-icon">🏡</span>
-        <div class="opt-body"><div class="opt-title">Частный дом / коттедж</div><div class="opt-sub">Загородный дом, вилла</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-    </div>
-    <div class="field">
-      <div class="field-label">Название объекта или адрес (необязательно)</div>
-      <input type="text" id="object-extra" placeholder="Например: ЖК Символ, Лефортово…">
+  <!-- Q2: Техника -->
+  <div class="q-block" id="q2">
+    <div class="q-num">Раздел 2 из 7</div>
+    <div class="q-title">Какая техника нужна?</div>
+    <div class="q-hint">Отметьте всё необходимое</div>
+    <div class="tiles">
+      <div class="tile" onclick="toggle(this)" data-val="Духовой шкаф">🔥 Духовой шкаф</div>
+      <div class="tile" onclick="toggle(this)" data-val="Варочная панель">🍳 Варочная панель</div>
+      <div class="tile" onclick="toggle(this)" data-val="Вытяжка">💨 Вытяжка</div>
+      <div class="tile" onclick="toggle(this)" data-val="Посудомоечная машина">🍽 Посудомоечная</div>
+      <div class="tile" onclick="toggle(this)" data-val="Холодильник встраиваемый">❄️ Холодильник</div>
+      <div class="tile" onclick="toggle(this)" data-val="Пароварка">♨️ Пароварка</div>
+      <div class="tile" onclick="toggle(this)" data-val="Микроволновая печь">📡 Микроволновая</div>
+      <div class="tile" onclick="toggle(this)" data-val="Кофемашина встраиваемая">☕ Кофемашина</div>
+      <div class="tile" onclick="toggle(this)" data-val="Стиральная машина встраиваемая">🌀 Стиральная</div>
+      <div class="tile" onclick="toggle(this)" data-val="Сушильная машина">💧 Сушильная</div>
+      <div class="tile" onclick="toggle(this)" data-val="Винный шкаф">🍷 Винный шкаф</div>
+      <div class="tile" onclick="toggle(this)" data-val="Колонна (духовка + пар)">📦 Колонна (духовка+пар)</div>
     </div>
   </div>
 
-  <!-- ВОПРОС 2 -->
-  <div class="section">
-    <div class="q-num">Вопрос 2 из 7</div>
-    <div class="q-title">Количество комплектов</div>
-    <div class="q-hint">Влияет на условия — при объёме от 3 комплектов действуют партнёрские условия</div>
-    <div class="options-2col">
-      <div class="opt-card single" data-group="sets" data-val="1 комплект" onclick="select(this)">
-        <div class="opt-card-check">✓</div>
-        <div class="opt-card-icon">1️⃣</div>
-        <div class="opt-card-title">1 комплект</div>
-        <div class="opt-card-sub">Разовый заказ</div>
-      </div>
-      <div class="opt-card single" data-group="sets" data-val="2–3 комплекта" onclick="select(this)">
-        <div class="opt-card-check">✓</div>
-        <div class="opt-card-icon">3️⃣</div>
-        <div class="opt-card-title">2–3 комплекта</div>
-        <div class="opt-card-sub">Несколько квартир</div>
-      </div>
-      <div class="opt-card single" data-group="sets" data-val="4–10 комплектов" onclick="select(this)">
-        <div class="opt-card-check">✓</div>
-        <div class="opt-card-icon">🔟</div>
-        <div class="opt-card-title">4–10 комплектов</div>
-        <div class="opt-card-sub">Партнёрские условия</div>
-      </div>
-      <div class="opt-card single" data-group="sets" data-val="Более 10 комплектов" onclick="select(this)">
-        <div class="opt-card-check">✓</div>
-        <div class="opt-card-icon">🏗</div>
-        <div class="opt-card-title">10+ комплектов</div>
-        <div class="opt-card-sub">Проектные условия</div>
-      </div>
+  <!-- Q3: Параметры -->
+  <div class="q-block pro" id="q3">
+    <div class="q-num">Раздел 3 из 7</div>
+    <div class="q-title">Технические параметры</div>
+    <div class="q-hint">Укажите, что уже зафиксировано в проекте</div>
+
+    <div class="tiles" style="margin-bottom:12px">
+      <div class="tile" onclick="solo(this,'width')" data-val="Ширина 45 см">↔ 45 см</div>
+      <div class="tile" onclick="solo(this,'width')" data-val="Ширина 60 см">↔ 60 см</div>
+      <div class="tile" onclick="solo(this,'width')" data-val="Ширина 90 см">↔ 90 см</div>
+      <div class="tile" onclick="solo(this,'width')" data-val="Разная ширина (уточним)">↔ Разная</div>
+    </div>
+
+    <div class="tiles" style="margin-bottom:12px">
+      <div class="tile" onclick="solo(this,'hob')" data-val="Индукционная варка">⚡ Индукция</div>
+      <div class="tile" onclick="solo(this,'hob')" data-val="Газовая варка">🔥 Газ</div>
+      <div class="tile" onclick="solo(this,'hob')" data-val="Электрическая варка">🔌 Электро</div>
+      <div class="tile" onclick="solo(this,'hob')" data-val="Газ на стекле (газ+электро)">🔥 Газ на стекле</div>
+    </div>
+
+    <div class="tiles">
+      <div class="tile" onclick="toggle(this)" data-val="Вытяжка в потолок / короб">⬆ Вытяжка в потолок</div>
+      <div class="tile" onclick="toggle(this)" data-val="Вытяжка на рециркуляцию">🔄 На рециркуляцию</div>
+      <div class="tile" onclick="toggle(this)" data-val="Есть план размещения техники">📋 Есть план размещения</div>
+      <div class="tile" onclick="toggle(this)" data-val="Нужны схемы встраивания">📐 Нужны схемы встраивания</div>
     </div>
   </div>
 
-  <!-- ВОПРОС 3 -->
-  <div class="section">
-    <div class="q-num">Вопрос 3 из 7</div>
-    <div class="q-title">Состав оснащения кухни</div>
-    <div class="q-hint">Отметьте позиции, которые нужны в спецификацию</div>
-    <div class="options">
-      <div class="opt multi" data-group="items" data-val="Встраиваемый духовой шкаф" onclick="toggle(this)">
-        <span class="opt-icon">🔥</span>
-        <div class="opt-body"><div class="opt-title">Встраиваемый духовой шкаф</div><div class="opt-sub">60 или 45 см, возможен с паром</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt multi" data-group="items" data-val="Варочная панель (индукционная или газовая)" onclick="toggle(this)">
-        <span class="opt-icon">⚡</span>
-        <div class="opt-body"><div class="opt-title">Варочная панель</div><div class="opt-sub">Индукционная, газовая, с вытяжкой BORA</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt multi" data-group="items" data-val="Встраиваемая вытяжка" onclick="toggle(this)">
-        <span class="opt-icon">💨</span>
-        <div class="opt-body"><div class="opt-title">Встраиваемая вытяжка</div><div class="opt-sub">Плоская, наклонная, островная, подключение к воздуховоду</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt multi" data-group="items" data-val="Встраиваемая посудомоечная машина" onclick="toggle(this)">
-        <span class="opt-icon">🍽</span>
-        <div class="opt-body"><div class="opt-title">Встраиваемая посудомоечная машина</div><div class="opt-sub">60 или 45 см, с декором под фасад</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt multi" data-group="items" data-val="Встраиваемый холодильник" onclick="toggle(this)">
-        <span class="opt-icon">🧊</span>
-        <div class="opt-body"><div class="opt-title">Встраиваемый холодильник</div><div class="opt-sub">Одно- или двухкамерный, No Frost</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt multi" data-group="items" data-val="Встраиваемая кофемашина" onclick="toggle(this)">
-        <span class="opt-icon">☕</span>
-        <div class="opt-body"><div class="opt-title">Встраиваемая кофемашина</div><div class="opt-sub">Автоматическая, 45 см</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt multi" data-group="items" data-val="Пароварка / комби-пар" onclick="toggle(this)">
-        <span class="opt-icon">🫧</span>
-        <div class="opt-body"><div class="opt-title">Пароварка / комби-пар</div><div class="opt-sub">Отдельный паровой модуль</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt multi" data-group="items" data-val="Винный шкаф" onclick="toggle(this)">
-        <span class="opt-icon">🍷</span>
-        <div class="opt-body"><div class="opt-title">Винный шкаф</div><div class="opt-sub">Встраиваемый, климатический</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-    </div>
-    <div class="field">
-      <div class="field-label">Другие позиции</div>
-      <input type="text" id="items-extra" placeholder="Например: микроволновка, подогреватель тарелок, морозильная камера…">
+  <!-- Q4: Бюджет -->
+  <div class="q-block" id="q4">
+    <div class="q-num">Раздел 4 из 7</div>
+    <div class="q-title">Бюджет клиента на технику</div>
+    <div class="q-hint">Общий бюджет на весь комплект</div>
+    <div class="tiles">
+      <div class="tile" onclick="solo(this,'budget')" data-val="до 300 000 ₽">💰 до 300 тыс. ₽</div>
+      <div class="tile" onclick="solo(this,'budget')" data-val="300 000 – 600 000 ₽">💰 300 – 600 тыс. ₽</div>
+      <div class="tile" onclick="solo(this,'budget')" data-val="600 000 – 1 000 000 ₽">💰 600 тыс. – 1 млн ₽</div>
+      <div class="tile" onclick="solo(this,'budget')" data-val="1 000 000 – 2 000 000 ₽">💰 1 – 2 млн ₽</div>
+      <div class="tile" onclick="solo(this,'budget')" data-val="более 2 000 000 ₽">💰 более 2 млн ₽</div>
+      <div class="tile" onclick="solo(this,'budget')" data-val="Бюджет согласовывается">🤔 Согласовывается</div>
     </div>
   </div>
 
-  <!-- ВОПРОС 4 -->
-  <div class="section">
-    <div class="q-num">Вопрос 4 из 7</div>
-    <div class="q-title">Предпочтения по бренду</div>
-    <div class="q-hint">Если уже обсуждали с клиентом — укажите. Иначе подберём сами</div>
-    <div class="options">
-      <div class="opt single" data-group="brand" data-val="Любой бренд из портфеля — подберите оптимально" onclick="select(this)">
-        <span class="opt-icon">🎯</span>
-        <div class="opt-body"><div class="opt-title">Подберите оптимально</div><div class="opt-sub">Нет предпочтений — главное цена/качество/срок</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt single" data-group="brand" data-val="Küppersbusch (топ-премиум Германия)" onclick="select(this)">
-        <span class="opt-icon">🇩🇪</span>
-        <div class="opt-body"><div class="opt-title">Küppersbusch</div><div class="opt-sub">Топ-премиум, Германия</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt single" data-group="brand" data-val="V-ZUG (эксклюзив, Швейцария)" onclick="select(this)">
-        <span class="opt-icon">🇨🇭</span>
-        <div class="opt-body"><div class="opt-title">V-ZUG</div><div class="opt-sub">Эксклюзивный уровень, Швейцария</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt single" data-group="brand" data-val="De Dietrich (премиум, Франция)" onclick="select(this)">
-        <span class="opt-icon">🇫🇷</span>
-        <div class="opt-body"><div class="opt-title">De Dietrich</div><div class="opt-sub">Премиум, Франция</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt single" data-group="brand" data-val="GRAUDE (немецкий средний премиум)" onclick="select(this)">
-        <span class="opt-icon">🔧</span>
-        <div class="opt-body"><div class="opt-title">GRAUDE</div><div class="opt-sub">Немецкий средний премиум</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt single" data-group="brand" data-val="BORA (варочные с интегрированной вытяжкой)" onclick="select(this)">
-        <span class="opt-icon">🌀</span>
-        <div class="opt-body"><div class="opt-title">BORA</div><div class="opt-sub">Варочные панели с интегрированной вытяжкой</div></div>
-        <div class="opt-check">✓</div>
-      </div>
+  <!-- Q5: Предпочтения по бренду -->
+  <div class="q-block" id="q5">
+    <div class="q-num">Раздел 5 из 7</div>
+    <div class="q-title">Предпочтения по бренду и стилю</div>
+    <div class="q-hint">Что важно для этого проекта</div>
+    <div class="tiles" style="margin-bottom:12px">
+      <div class="tile" onclick="toggle(this)" data-val="Предпочтение: немецкие бренды">🇩🇪 Немецкие бренды</div>
+      <div class="tile" onclick="toggle(this)" data-val="Предпочтение: швейцарские бренды">🇨🇭 Швейцарские</div>
+      <div class="tile" onclick="toggle(this)" data-val="Предпочтение: итальянские бренды">🇮🇹 Итальянские</div>
+      <div class="tile" onclick="toggle(this)" data-val="Бренд не принципиален">🔀 Бренд не принципиален</div>
+    </div>
+    <div class="tiles">
+      <div class="tile" onclick="solo(this,'style')" data-val="Стиль: минимализм / скрытые ручки">✦ Минимализм</div>
+      <div class="tile" onclick="solo(this,'style')" data-val="Стиль: классика / традиционный">🏛 Классика</div>
+      <div class="tile" onclick="solo(this,'style')" data-val="Стиль: хай-тек / профессиональный">⚙️ Хай-тек</div>
+      <div class="tile" onclick="solo(this,'style')" data-val="Стиль: любой, главное — качество">🎯 Главное качество</div>
     </div>
   </div>
 
-  <!-- ВОПРОС 5 -->
-  <div class="section">
-    <div class="q-num">Вопрос 5 из 7</div>
-    <div class="q-title">Бюджет на комплект (1 кухня)</div>
-    <div class="q-hint">Учитываем стоимость всех позиций в спецификации</div>
-    <div class="options">
-      <div class="opt single" data-group="budget" data-val="до 300 000 ₽ на комплект" onclick="select(this)">
-        <div class="opt-body">
-          <div class="opt-title">до 300 000 ₽</div>
-          <div class="opt-sub">GRAUDE — полный комплект немецкого качества</div>
-        </div>
-        <div class="opt-check">✓</div>
+  <!-- Q6: Контакты -->
+  <div class="q-block" id="q6">
+    <div class="q-num">Раздел 6 из 7</div>
+    <div class="q-title">Контактные данные</div>
+    <div class="q-hint">Для передачи КП и связи</div>
+    <div class="input-row" style="margin-bottom:12px">
+      <div class="input-group">
+        <label>Ваше имя</label>
+        <input class="input-field" id="partnerName" type="text" placeholder="Имя и фамилия">
       </div>
-      <div class="opt single" data-group="budget" data-val="300 000 – 600 000 ₽ на комплект" onclick="select(this)">
-        <div class="opt-body">
-          <div class="opt-title">300 000 – 600 000 ₽</div>
-          <div class="opt-sub">De Dietrich, GRAUDE SPECIAL — с расширенным функционалом</div>
-        </div>
-        <div class="opt-check">✓</div>
+      <div class="input-group">
+        <label>Студия / Компания</label>
+        <input class="input-field" id="studio" type="text" placeholder="Название студии">
       </div>
-      <div class="opt single" data-group="budget" data-val="600 000 – 1 000 000 ₽ на комплект" onclick="select(this)">
-        <div class="opt-body">
-          <div class="opt-title">600 000 – 1 000 000 ₽</div>
-          <div class="opt-sub">Küppersbusch K-series — премиальный уровень</div>
-        </div>
-        <div class="opt-check">✓</div>
+    </div>
+    <div class="input-row" style="margin-bottom:12px">
+      <div class="input-group">
+        <label>WhatsApp / Telegram</label>
+        <input class="input-field" id="phone" type="text" placeholder="+7 (___) ___-__-__">
       </div>
-      <div class="opt single" data-group="budget" data-val="от 1 000 000 ₽ на комплект" onclick="select(this)">
-        <div class="opt-body">
-          <div class="opt-title">от 1 000 000 ₽</div>
-          <div class="opt-sub">V-ZUG, BORA, SKS — без ограничений по функциям</div>
-        </div>
-        <div class="opt-check">✓</div>
+      <div class="input-group">
+        <label>Email (для PDF)</label>
+        <input class="input-field" id="email" type="email" placeholder="email@studio.ru">
       </div>
-      <div class="opt single" data-group="budget" data-val="Бюджет не определён — предложите варианты" onclick="select(this)">
-        <div class="opt-body">
-          <div class="opt-title">Бюджет не определён</div>
-          <div class="opt-sub">Предложите 2–3 варианта на выбор</div>
-        </div>
-        <div class="opt-check">✓</div>
-      </div>
+    </div>
+    <div class="input-group">
+      <label>Комментарий к проекту</label>
+      <textarea class="text-input" id="comment" rows="3"
+        placeholder="Например: Квартира 180 м², кухня-гостиная, открытая, техника полностью встроенная. Срок поставки — август 2026."></textarea>
     </div>
   </div>
 
-  <!-- ВОПРОС 6 -->
-  <div class="section">
-    <div class="q-num">Вопрос 6 из 7</div>
-    <div class="q-title">Сроки поставки и монтажа</div>
-    <div class="q-hint">Согласуем наличие и поставку под ваш график</div>
-    <div class="options-2col">
-      <div class="opt-card single" data-group="deadline" data-val="До 4 недель" onclick="select(this)">
-        <div class="opt-card-check">✓</div>
-        <div class="opt-card-icon">⚡</div>
-        <div class="opt-card-title">До 4 недель</div>
-        <div class="opt-card-sub">Объект сдаётся</div>
-      </div>
-      <div class="opt-card single" data-group="deadline" data-val="1–3 месяца" onclick="select(this)">
-        <div class="opt-card-check">✓</div>
-        <div class="opt-card-icon">📅</div>
-        <div class="opt-card-title">1–3 месяца</div>
-        <div class="opt-card-sub">Ремонт в процессе</div>
-      </div>
-      <div class="opt-card single" data-group="deadline" data-val="3–6 месяцев" onclick="select(this)">
-        <div class="opt-card-check">✓</div>
-        <div class="opt-card-icon">🏗</div>
-        <div class="opt-card-title">3–6 месяцев</div>
-        <div class="opt-card-sub">Проект на стадии дизайна</div>
-      </div>
-      <div class="opt-card single" data-group="deadline" data-val="Срок не определён (проектный этап)" onclick="select(this)">
-        <div class="opt-card-check">✓</div>
-        <div class="opt-card-icon">📐</div>
-        <div class="opt-card-title">Без срока</div>
-        <div class="opt-card-sub">Ещё на этапе концепции</div>
-      </div>
+  <!-- Q7: Партнёрство -->
+  <div class="q-block pro" id="q7">
+    <div class="q-num">Раздел 7 из 7</div>
+    <div class="q-title">Партнёрская программа</div>
+    <div class="q-hint">Выберите, как вы хотите работать с нами</div>
+    <div class="tiles" style="margin-bottom:12px">
+      <div class="tile" onclick="solo(this,'partner')" data-val="Хочу партнёрское вознаграждение за заказ">💼 Хочу вознаграждение за заказ</div>
+      <div class="tile" onclick="solo(this,'partner')" data-val="Уже обсуждали условия партнёрства">🤝 Уже обсуждали условия</div>
+      <div class="tile" onclick="solo(this,'partner')" data-val="Просто ищу технику для клиента, детали потом">🔍 Просто ищу технику, детали потом</div>
+    </div>
+    <div class="tiles">
+      <div class="tile" onclick="toggle(this)" data-val="Нужна спецификация в Excel">📊 Нужна спецификация в Excel</div>
+      <div class="tile" onclick="toggle(this)" data-val="Нужны технические листы PDF">📄 Технические листы PDF</div>
+      <div class="tile" onclick="toggle(this)" data-val="Нужно сопровождение до монтажа">🔧 Сопровождение до монтажа</div>
     </div>
   </div>
 
-  <!-- ВОПРОС 7 -->
-  <div class="section">
-    <div class="q-num">Вопрос 7 из 7</div>
-    <div class="q-title">Как работаем?</div>
-    <div class="q-hint">Уточните формат сотрудничества</div>
-    <div class="options">
-      <div class="opt multi" data-group="format" data-val="Нужна спецификация в Excel с артикулами и ценами" onclick="toggle(this)">
-        <span class="opt-icon">📊</span>
-        <div class="opt-body"><div class="opt-title">Спецификация в Excel</div><div class="opt-sub">Артикулы, цены, сроки поставки</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt multi" data-group="format" data-val="Работаем с юрлицом / нужны закрывающие документы" onclick="toggle(this)">
-        <span class="opt-icon">📋</span>
-        <div class="opt-body"><div class="opt-title">Юрлицо / закрывающие документы</div><div class="opt-sub">Счёт, договор, акты, УПД</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt multi" data-group="format" data-val="Интересует партнёрская программа (постоянные проекты)" onclick="toggle(this)">
-        <span class="opt-icon">🤝</span>
-        <div class="opt-body"><div class="opt-title">Партнёрская программа</div><div class="opt-sub">Постоянные проекты — обсудим персональные условия</div></div>
-        <div class="opt-check">✓</div>
-      </div>
-      <div class="opt multi" data-group="format" data-val="Нужна выкладка / визуализация техники для клиента" onclick="toggle(this)">
-        <span class="opt-icon">🖼</span>
-        <div class="opt-body"><div class="opt-title">Рендеры / презентация для клиента</div><div class="opt-sub">Фото, описания, КП для конечного клиента</div></div>
-        <div class="opt-check">✓</div>
-      </div>
+  <!-- CTA -->
+  <div class="cta-block">
+    <h3>Отправьте бриф — КП через 5 минут</h3>
+    <p>Получите детальное коммерческое предложение с артикулами, схемами встраивания и условиями партнёрства.</p>
+    <div class="btn-row">
+      <button class="btn-tg" onclick="sendTG()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 13.947l-2.94-.919c-.638-.196-.654-.638.136-.943l11.498-4.433c.527-.194 1.01.131.94.569z"/></svg>
+        Написать в Telegram
+      </button>
+      <a class="btn-email" onclick="sendEmail()">
+        ✉ Отправить на email
+      </a>
     </div>
   </div>
 
-  <!-- КОНТАКТЫ -->
-  <div class="contacts">
-    <div class="contacts-title">Контактная информация</div>
-    <div class="contacts-sub">Спецификацию пришлём в WhatsApp или на почту — как удобнее</div>
-    <div class="field">
-      <div class="field-label">Ваше имя и компания</div>
-      <input type="text" id="name" placeholder="Имя Фамилия, Студия или бюро">
-    </div>
-    <div class="field">
-      <div class="field-label">Телефон / WhatsApp / Telegram</div>
-      <input type="tel" id="phone" placeholder="+7 (___) ___-__-__">
-    </div>
-    <div class="field">
-      <div class="field-label">Электронная почта</div>
-      <input type="email" id="email" placeholder="name@studio.ru">
-    </div>
-    <div class="field">
-      <div class="field-label">Комментарий или ссылка на проект / мудборд</div>
-      <textarea id="comment" rows="2" placeholder="Особые требования, ссылка на Pinterest/Behance, файл спецификации…"></textarea>
-    </div>
-  </div>
-
-  <!-- КНОПКА -->
-  <div class="submit-section">
-    <button class="submit-btn" onclick="sendToTelegram()">
-      <span class="submit-btn-icon">✈️</span>
-      Отправить — жду спецификацию
-    </button>
-    <div class="submit-note">
-      Ответим в течение рабочего дня.<br>Спецификацию пришлём в Excel + КП в PDF.
-    </div>
-  </div>
-
-  <!-- ПЕРЕКЛЮЧАТЕЛЬ -->
-  <div class="form-switcher">
-    Вы покупаете для себя? <a href="https://e2-e5.github.io/homeproject-external/brief-client.html">← Форма для клиента</a>
-  </div>
-
-  <!-- ПОДВАЛ -->
-  <div class="footer">
-    <div>
-      <div class="footer-brand">Home Project</div>
-      <div class="footer-sub">ИП Кривов · Москва</div>
-    </div>
-    <div class="footer-contacts">
-      <span class="gold">+7 (936) 314-86-36</span><br>
-      <span class="gold">@homeproject_ai_bot</span><br>
-      info@homeproject.online
-    </div>
+  <div class="alt-contact">
+    Прямой контакт: <a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a>
+    &nbsp;·&nbsp; <a href="mailto:info@homeproject.online">info@homeproject.online</a>
+    &nbsp;·&nbsp; <a href="tel:+79363148636">+7 (936) 314-86-36</a>
   </div>
 
 </div>
 
+<!-- FOOTER -->
+<div class="footer">
+  <strong>HOME PROJECT</strong><br>
+  ИП Кривов · Подбор и поставка премиальной кухонной техники · Партнёрская программа<br>
+  <a href="https://t.me/homeproject_ai_bot" style="color:#c9a96e;text-decoration:none;">@homeproject_ai_bot</a>
+  &nbsp;·&nbsp;
+  <a href="tel:+79363148636" style="color:#c9a96e;text-decoration:none;">+7 (936) 314-86-36</a>
+  &nbsp;·&nbsp;
+  <a href="mailto:info@homeproject.online" style="color:#c9a96e;text-decoration:none;">info@homeproject.online</a>
+</div>
+
 <script>
-  // Переключение чекбоксов (multi-select)
   function toggle(el) {
     el.classList.toggle('selected');
-    updateProgress();
   }
 
-  // Выбор одного (radio)
-  function select(el) {
-    const group = el.dataset.group;
-    document.querySelectorAll('[data-group="' + group + '"]').forEach(e => e.classList.remove('selected'));
+  function solo(el, group) {
+    document.querySelectorAll('[onclick*="' + group + '"]').forEach(t => t.classList.remove('selected'));
     el.classList.add('selected');
-    updateProgress();
   }
 
-  // Прогресс-бар
-  function updateProgress() {
-    const groups = ['object','sets','items','brand','budget','deadline','format'];
-    let filled = 0;
-    groups.forEach(g => {
-      if (document.querySelector('[data-group="' + g + '"].selected')) filled++;
-    });
-    document.getElementById('progress').style.width = (filled / groups.length * 100) + '%';
-  }
-
-  // Формируем текст и открываем Telegram
-  function sendToTelegram() {
+  function collectAnswers() {
     const lines = [];
-    lines.push('📐 Бриф по объекту — Home Project');
-    lines.push('');
 
-    // Тип объекта
-    const obj = document.querySelector('[data-group="object"].selected');
-    const objExtra = document.getElementById('object-extra').value.trim();
-    if (obj) lines.push('Объект: ' + obj.dataset.val + (objExtra ? ' (' + objExtra + ')' : ''));
+    const projtype = document.querySelector('[onclick*="projtype"].selected');
+    const stage = document.querySelector('[onclick*="stage"].selected');
+    lines.push('🏗 Тип проекта: ' + (projtype ? projtype.dataset.val : 'не выбрано') + (stage ? ' · ' + stage.dataset.val : ''));
 
-    // Количество комплектов
-    const sets = document.querySelector('[data-group="sets"].selected');
-    if (sets) lines.push('Комплектов: ' + sets.dataset.val);
+    const tech = [...document.querySelectorAll('#q2 .tile.selected')].map(t => t.dataset.val);
+    lines.push('📦 Техника: ' + (tech.length ? tech.join(', ') : 'не выбрано'));
 
-    // Состав
-    const items = [...document.querySelectorAll('[data-group="items"].selected')].map(e => e.dataset.val);
-    const itemsExtra = document.getElementById('items-extra').value.trim();
-    if (items.length) lines.push('Состав: ' + items.join(', ') + (itemsExtra ? ', ' + itemsExtra : ''));
+    const width = document.querySelector('[onclick*="width"].selected');
+    const hob = document.querySelector('[onclick*="hob"].selected');
+    const techParams = [...document.querySelectorAll('#q3 .tile.selected')].filter(t => !t.getAttribute('onclick').includes('width') && !t.getAttribute('onclick').includes('hob')).map(t => t.dataset.val);
+    lines.push('📐 Параметры: ' + [width ? width.dataset.val : '', hob ? hob.dataset.val : '', ...techParams].filter(Boolean).join(', '));
 
-    // Бренд
-    const brand = document.querySelector('[data-group="brand"].selected');
-    if (brand) lines.push('Бренд: ' + brand.dataset.val);
+    const budget = document.querySelector('[onclick*="budget"].selected');
+    lines.push('💰 Бюджет: ' + (budget ? budget.dataset.val : 'не указан'));
 
-    // Бюджет
-    const budget = document.querySelector('[data-group="budget"].selected');
-    if (budget) lines.push('Бюджет: ' + budget.dataset.val);
+    const brands = [...document.querySelectorAll('#q5 .tile.selected')].map(t => t.dataset.val);
+    lines.push('✨ Предпочтения: ' + (brands.length ? brands.join(', ') : 'не выбрано'));
 
-    // Срок
-    const deadline = document.querySelector('[data-group="deadline"].selected');
-    if (deadline) lines.push('Срок: ' + deadline.dataset.val);
-
-    // Формат работы
-    const formats = [...document.querySelectorAll('[data-group="format"].selected')].map(e => e.dataset.val);
-    if (formats.length) lines.push('Формат работы: ' + formats.join('; '));
-
-    // Контакты
-    lines.push('');
-    const name = document.getElementById('name').value.trim();
+    const name = document.getElementById('partnerName').value.trim();
+    const studio = document.getElementById('studio').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const email = document.getElementById('email').value.trim();
     const comment = document.getElementById('comment').value.trim();
-    if (name) lines.push('Имя / компания: ' + name);
-    if (phone) lines.push('Телефон: ' + phone);
-    if (email) lines.push('Email: ' + email);
-    if (comment) lines.push('Комментарий: ' + comment);
 
-    const text = lines.join('\n');
-    const url = 'https://t.me/homeproject_ai_bot?text=' + encodeURIComponent(text);
+    if (name || studio) lines.push('👤 Контакт: ' + [name, studio].filter(Boolean).join(' · '));
+    if (phone) lines.push('📱 Тел/WA/TG: ' + phone);
+    if (email) lines.push('📧 Email: ' + email);
+    if (comment) lines.push('📝 Комментарий: ' + comment);
+
+    const partner = document.querySelector('[onclick*="partner"].selected');
+    const extras = [...document.querySelectorAll('#q7 .tile.selected')].filter(t => !t.getAttribute('onclick').includes('"partner"')).map(t => t.dataset.val);
+    if (partner) lines.push('🤝 Партнёрство: ' + partner.dataset.val);
+    if (extras.length) lines.push('📋 Дополнительно: ' + extras.join(', '));
+
+    return lines.join('\n');
+  }
+
+  function sendTG() {
+    const answers = collectAnswers();
+    const msg = 'Здравствуйте! Отправляю бриф по объекту:\n\n' + answers + '\n\nЖду КП и условия партнёрства 🙏';
+    const url = 'https://t.me/homeproject_ai_bot?text=' + encodeURIComponent(msg);
     window.open(url, '_blank');
   }
 
-  updateProgress();
+  function sendEmail() {
+    const answers = collectAnswers();
+    const subject = 'Бриф на подбор техники — ' + (document.getElementById('partnerName').value.trim() || 'партнёр');
+    const body = 'Здравствуйте!\n\nОтправляю бриф по объекту:\n\n' + answers + '\n\nЖду КП и условия партнёрства.';
+    window.location.href = 'mailto:info@homeproject.online?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
 </script>
 </body>
 </html>
