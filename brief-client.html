@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бриф — Подбор кухонной техники · Home Project</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f4f0;
+    color: #181A20;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .hero {
+    background: #181A20;
+    color: #fff;
+    padding: 40px 24px 36px;
+    text-align: center;
+  }
+  .hero-logo {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c9a96e;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .hero p {
+    font-size: 15px;
+    color: #bbb;
+    margin-bottom: 24px;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .badge {
+    background: rgba(201,169,110,0.15);
+    border: 1px solid rgba(201,169,110,0.4);
+    color: #c9a96e;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* PROGRESS */
+  .progress-bar {
+    background: #fff;
+    border-bottom: 1px solid #e5e3db;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #999;
+    white-space: nowrap;
+  }
+  .step-num {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #e5e3db;
+    color: #999;
+    font-size: 10px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step.active .step-num { background: #c9a96e; color: #fff; }
+  .step.active { color: #181A20; font-weight: 500; }
+  .step-sep { color: #ddd; font-size: 12px; }
+
+  /* FORM BODY */
+  .form-body {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+  }
+
+  .q-block {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .q-num {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c9a96e;
+    margin-bottom: 6px;
+  }
+  .q-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #181A20;
+    margin-bottom: 4px;
+  }
+  .q-hint {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 16px;
+  }
+
+  /* TILES */
+  .tiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .tile {
+    border: 2px solid #e5e3db;
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #444;
+    background: #fafaf8;
+    transition: all 0.15s;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tile:hover { border-color: #c9a96e; color: #181A20; }
+  .tile.selected {
+    border-color: #c9a96e;
+    background: rgba(201,169,110,0.1);
+    color: #181A20;
+    font-weight: 500;
+  }
+  .tile .icon { font-size: 18px; }
+
+  /* TEXT INPUT */
+  .text-input {
+    width: 100%;
+    border: 2px solid #e5e3db;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #181A20;
+    background: #fafaf8;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .text-input:focus { border-color: #c9a96e; }
+
+  /* CTA */
+  .cta-block {
+    background: #181A20;
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .cta-block h3 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .cta-block p {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .btn-tg {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #229ED9;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .btn-tg:hover { background: #1a8bbf; }
+  .btn-tg svg { width: 22px; height: 22px; fill: #fff; }
+
+  .alt-contact {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+  }
+  .alt-contact a { color: #c9a96e; text-decoration: none; }
+
+  /* FOOTER */
+  .footer {
+    background: #181A20;
+    color: #888;
+    text-align: center;
+    padding: 24px 16px;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .footer strong { color: #c9a96e; }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 21px; }
+    .tiles { gap: 8px; }
+    .tile { font-size: 13px; padding: 10px 12px; }
+    .q-title { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-logo">Home Project · Подбор техники</div>
+  <h1>Подберём технику для вашей кухни<br>за&nbsp;5&nbsp;минут</h1>
+  <p>Заполните 6 вопросов — получите персональное КП с фото, характеристиками и ценами</p>
+  <div class="hero-badges">
+    <span class="badge">⚡ Скорость</span>
+    <span class="badge">📸 Фото и визуализация</span>
+    <span class="badge">📋 Тех. характеристики</span>
+    <span class="badge">🏷 9 брендов в одном месте</span>
+  </div>
+</div>
+
+<!-- ПРОГРЕСС -->
+<div class="progress-bar">
+  <div class="step active"><div class="step-num">1</div> <span>Техника</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">2</div> <span>Цвет</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">3</div> <span>Кухня</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">4</div> <span>Бюджет</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">5</div> <span>Приоритеты</span></div>
+  <div class="step-sep">›</div>
+  <div class="step"><div class="step-num">6</div> <span>Контакт</span></div>
+</div>
+
+<!-- ФОРМА -->
+<div class="form-body">
+
+  <!-- Q1: Что нужно -->
+  <div class="q-block" id="q1">
+    <div class="q-num">Вопрос 1 из 6</div>
+    <div class="q-title">Какую технику нужно подобрать?</div>
+    <div class="q-hint">Можно выбрать несколько</div>
+    <div class="tiles">
+      <div class="tile" onclick="toggle(this)" data-val="Духовой шкаф"><span class="icon">🔥</span> Духовой шкаф</div>
+      <div class="tile" onclick="toggle(this)" data-val="Варочная панель"><span class="icon">🍳</span> Варочная панель</div>
+      <div class="tile" onclick="toggle(this)" data-val="Вытяжка"><span class="icon">💨</span> Вытяжка</div>
+      <div class="tile" onclick="toggle(this)" data-val="Посудомоечная машина"><span class="icon">🍽</span> Посудомоечная машина</div>
+      <div class="tile" onclick="toggle(this)" data-val="Холодильник"><span class="icon">❄️</span> Холодильник</div>
+      <div class="tile" onclick="toggle(this)" data-val="Микроволновая печь"><span class="icon">📡</span> Микроволновая печь</div>
+      <div class="tile" onclick="toggle(this)" data-val="Пароварка"><span class="icon">♨️</span> Пароварка</div>
+      <div class="tile" onclick="toggle(this)" data-val="Кофемашина"><span class="icon">☕</span> Кофемашина</div>
+      <div class="tile" onclick="toggle(this)" data-val="Стиральная машина"><span class="icon">🌀</span> Стиральная машина</div>
+    </div>
+  </div>
+
+  <!-- Q2: Цвет -->
+  <div class="q-block" id="q2">
+    <div class="q-num">Вопрос 2 из 6</div>
+    <div class="q-title">Предпочитаемый цвет техники</div>
+    <div class="q-hint">Выберите один вариант</div>
+    <div class="tiles">
+      <div class="tile" onclick="solo(this,'color')" data-val="Тёмный / Чёрный"><span class="icon">⬛</span> Тёмный / Чёрный</div>
+      <div class="tile" onclick="solo(this,'color')" data-val="Серебристый / Нержавейка"><span class="icon">🔲</span> Серебристый / Нержавейка</div>
+      <div class="tile" onclick="solo(this,'color')" data-val="Белый"><span class="icon">⬜</span> Белый</div>
+      <div class="tile" onclick="solo(this,'color')" data-val="Цвет фасадов кухни"><span class="icon">🎨</span> Цвет фасадов (под кухню)</div>
+      <div class="tile" onclick="solo(this,'color')" data-val="Не принципиально"><span class="icon">🤷</span> Не принципиально</div>
+    </div>
+  </div>
+
+  <!-- Q3: Размер кухни -->
+  <div class="q-block" id="q3">
+    <div class="q-num">Вопрос 3 из 6</div>
+    <div class="q-title">Длина кухонной стены (рабочей зоны)</div>
+    <div class="q-hint">От этого зависит размер техники: 45 см, 60 см или 90 см</div>
+    <div class="tiles">
+      <div class="tile" onclick="solo(this,'size')" data-val="до 2 м — компактная кухня">📏 до 2 м — компактная</div>
+      <div class="tile" onclick="solo(this,'size')" data-val="2–3 м — стандартная">📏 2–3 м — стандартная</div>
+      <div class="tile" onclick="solo(this,'size')" data-val="3–4 м — просторная">📏 3–4 м — просторная</div>
+      <div class="tile" onclick="solo(this,'size')" data-val="более 4 м — большая кухня">📏 более 4 м — большая</div>
+      <div class="tile" onclick="solo(this,'size')" data-val="Остров / U-форма — пришлю план">🏠 Остров / U-форма — пришлю план</div>
+    </div>
+  </div>
+
+  <!-- Q4: Бюджет -->
+  <div class="q-block" id="q4">
+    <div class="q-num">Вопрос 4 из 6</div>
+    <div class="q-title">Бюджет на весь комплект</div>
+    <div class="q-hint">Примерно, чтобы я предложил подходящие бренды</div>
+    <div class="tiles">
+      <div class="tile" onclick="solo(this,'budget')" data-val="до 200 000 ₽">💰 до 200 000 ₽</div>
+      <div class="tile" onclick="solo(this,'budget')" data-val="200 000 – 500 000 ₽">💰 200 – 500 тыс. ₽</div>
+      <div class="tile" onclick="solo(this,'budget')" data-val="500 000 – 900 000 ₽">💰 500 – 900 тыс. ₽</div>
+      <div class="tile" onclick="solo(this,'budget')" data-val="900 000 – 1 500 000 ₽">💰 900 тыс. – 1,5 млн ₽</div>
+      <div class="tile" onclick="solo(this,'budget')" data-val="более 1 500 000 ₽">💰 более 1,5 млн ₽</div>
+      <div class="tile" onclick="solo(this,'budget')" data-val="Бюджет уточняю">🤔 Ещё уточняю</div>
+    </div>
+  </div>
+
+  <!-- Q5: Приоритеты -->
+  <div class="q-block" id="q5">
+    <div class="q-num">Вопрос 5 из 6</div>
+    <div class="q-title">Что важнее всего при выборе?</div>
+    <div class="q-hint">Можно выбрать до 3 вариантов</div>
+    <div class="tiles">
+      <div class="tile" onclick="toggle(this)" data-val="Дизайн и внешний вид">✨ Дизайн и внешний вид</div>
+      <div class="tile" onclick="toggle(this)" data-val="Немецкое или швейцарское качество">🇩🇪 Немецкое / швейцарское качество</div>
+      <div class="tile" onclick="toggle(this)" data-val="Функциональность и технологии">🔬 Функциональность</div>
+      <div class="tile" onclick="toggle(this)" data-val="Единый стиль всего комплекта">🎯 Единый стиль комплекта</div>
+      <div class="tile" onclick="toggle(this)" data-val="Оптимальная цена за качество">💡 Цена / качество</div>
+      <div class="tile" onclick="toggle(this)" data-val="Надёжность и гарантия">🛡 Надёжность и гарантия</div>
+    </div>
+  </div>
+
+  <!-- Q6: Контакт -->
+  <div class="q-block" id="q6">
+    <div class="q-num">Вопрос 6 из 6</div>
+    <div class="q-title">Ваше имя и пожелания</div>
+    <div class="q-hint">Как к вам обращаться, и есть ли что добавить</div>
+    <textarea class="text-input" id="freetext" rows="3"
+      placeholder="Например: Михаил. Кухня угловая, техника нужна к началу июля. Варочная может быть газовая."></textarea>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <h3>Всё готово — отправьте ответы!</h3>
+    <p>Ваши выборы автоматически сформируют сообщение. Нажмите — и я пришлю КП в течение&nbsp;5&nbsp;минут.</p>
+    <button class="btn-tg" onclick="sendTG()">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 13.947l-2.94-.919c-.638-.196-.654-.638.136-.943l11.498-4.433c.527-.194 1.01.131.94.569z"/></svg>
+      Написать в Telegram — жду КП
+    </button>
+  </div>
+
+  <div class="alt-contact">
+    Или напишите напрямую: <a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a> &nbsp;·&nbsp;
+    <a href="mailto:info@homeproject.online">info@homeproject.online</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>HOME PROJECT</strong><br>
+  ИП Кривов · Подбор и поставка премиальной кухонной техники<br>
+  <a href="https://t.me/homeproject_ai_bot" style="color:#c9a96e;text-decoration:none;">@homeproject_ai_bot</a>
+  &nbsp;·&nbsp;
+  <a href="tel:+79363148636" style="color:#c9a96e;text-decoration:none;">+7 (936) 314-86-36</a>
+  &nbsp;·&nbsp;
+  <a href="mailto:info@homeproject.online" style="color:#c9a96e;text-decoration:none;">info@homeproject.online</a>
+</div>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('selected');
+  }
+
+  function solo(el, group) {
+    document.querySelectorAll('[onclick*="' + group + '"]').forEach(t => t.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function collectAnswers() {
+    const lines = [];
+
+    // Q1
+    const tech = [...document.querySelectorAll('#q1 .tile.selected')].map(t => t.dataset.val);
+    lines.push('📦 Техника: ' + (tech.length ? tech.join(', ') : 'не выбрано'));
+
+    // Q2
+    const color = document.querySelector('#q2 .tile.selected');
+    lines.push('🎨 Цвет: ' + (color ? color.dataset.val : 'не выбрано'));
+
+    // Q3
+    const size = document.querySelector('#q3 .tile.selected');
+    lines.push('📏 Кухня: ' + (size ? size.dataset.val : 'не выбрано'));
+
+    // Q4
+    const budget = document.querySelector('#q4 .tile.selected');
+    lines.push('💰 Бюджет: ' + (budget ? budget.dataset.val : 'не выбрано'));
+
+    // Q5
+    const prio = [...document.querySelectorAll('#q5 .tile.selected')].map(t => t.dataset.val);
+    lines.push('✨ Приоритеты: ' + (prio.length ? prio.join(', ') : 'не выбрано'));
+
+    // Q6
+    const note = document.getElementById('freetext').value.trim();
+    if (note) lines.push('📝 Доп. пожелания: ' + note);
+
+    return lines.join('\n');
+  }
+
+  function sendTG() {
+    const answers = collectAnswers();
+    const msg = 'Здравствуйте! Заполнил(а) анкету на подбор техники:\n\n' + answers + '\n\nЖду КП 🙏';
+    const url = 'https://t.me/homeproject_ai_bot?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank');
+  }
+</script>
+</body>
+</html>
