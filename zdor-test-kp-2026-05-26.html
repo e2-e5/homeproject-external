@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Project — КП для Дениса Здора</title>
+<style>
+  :root {
+    --bg: #0B0C10;
+    --bg-card: #14161D;
+    --accent: #C9A36A;
+    --accent-soft: rgba(201, 163, 106, 0.15);
+    --text: #E8E4DC;
+    --text-muted: #9A968D;
+    --border: #2A2D38;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 960px; margin: 0 auto; padding: 60px 40px; }
+  .hero { text-align: center; padding-bottom: 50px; border-bottom: 1px solid var(--border); margin-bottom: 50px; }
+  .logo { font-size: 14px; letter-spacing: 4px; color: var(--accent); margin-bottom: 8px; font-weight: 600; }
+  .tagline { font-size: 13px; color: var(--text-muted); margin-bottom: 36px; letter-spacing: 1px; }
+  h1 { font-size: 38px; font-weight: 300; margin-bottom: 16px; letter-spacing: -0.5px; }
+  .subtitle { font-size: 17px; color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+  .meta-row { display: flex; justify-content: center; gap: 40px; margin-top: 30px; flex-wrap: wrap; font-size: 13px; color: var(--text-muted); }
+  .meta-row strong { color: var(--text); font-weight: 500; }
+  .brief-card { background: var(--bg-card); border-radius: 14px; padding: 32px 36px; margin-bottom: 60px; border-left: 3px solid var(--accent); }
+  .brief-card h2 { font-size: 13px; color: var(--accent); letter-spacing: 2px; margin-bottom: 16px; text-transform: uppercase; }
+  .brief-card p { font-size: 15px; color: var(--text); }
+  .reality-check { background: var(--accent-soft); border-radius: 12px; padding: 24px 30px; margin-bottom: 50px; border: 1px solid rgba(201, 163, 106, 0.3); }
+  .reality-check h3 { color: var(--accent); font-size: 14px; letter-spacing: 1.5px; margin-bottom: 12px; text-transform: uppercase; }
+  .reality-check p { font-size: 15px; line-height: 1.7; color: var(--text); }
+  .variant { margin-bottom: 70px; }
+  .variant-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .variant-title { font-size: 26px; font-weight: 400; }
+  .variant-title small { color: var(--accent); font-size: 12px; letter-spacing: 2px; margin-right: 16px; text-transform: uppercase; }
+  .variant-total { font-size: 22px; color: var(--accent); font-weight: 500; }
+  .variant-note { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { text-align: left; padding: 14px 12px; font-size: 11px; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid var(--border); font-weight: 500; }
+  td { padding: 18px 12px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: top; }
+  td.category { color: var(--accent); font-weight: 500; width: 22%; }
+  td.brand { color: var(--text); font-weight: 500; width: 14%; }
+  td.model { font-family: 'JetBrains Mono', 'SF Mono', monospace; font-size: 13px; color: var(--text-muted); width: 18%; }
+  td.descr { color: var(--text); width: 31%; }
+  td.price { text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 500; color: var(--text); width: 15%; }
+  .summary-row td { border-bottom: none; padding-top: 24px; font-weight: 500; }
+  .summary-row td.price { font-size: 18px; color: var(--accent); }
+  .approach { background: var(--bg-card); border-radius: 14px; padding: 40px; margin: 60px 0 50px; }
+  .approach h2 { font-size: 22px; font-weight: 400; margin-bottom: 24px; }
+  .approach .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .step-num { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 2px; margin-bottom: 8px; }
+  .step-title { font-weight: 500; margin-bottom: 8px; font-size: 15px; }
+  .step-text { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+  .cta { text-align: center; padding: 50px 30px; background: var(--bg-card); border-radius: 14px; margin-bottom: 40px; }
+  .cta h2 { font-size: 24px; font-weight: 400; margin-bottom: 16px; }
+  .cta p { color: var(--text-muted); margin-bottom: 24px; font-size: 15px; }
+  .cta-contacts { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; }
+  .cta-contact a { color: var(--accent); text-decoration: none; font-size: 14px; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .cta-contact a:hover { border-bottom-color: var(--accent); }
+  .cta-contact .label { font-size: 11px; color: var(--text-muted); letter-spacing: 1.5px; margin-bottom: 4px; text-transform: uppercase; }
+  footer { text-align: center; padding: 40px 20px 20px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 12px; letter-spacing: 1px; }
+  footer .accent { color: var(--accent); }
+  @media (max-width: 720px) { .container { padding: 40px 20px; } h1 { font-size: 28px; } .approach .steps { grid-template-columns: 1fr; } table { font-size: 12px; } td, th { padding: 10px 6px; } .meta-row { gap: 18px; } .variant-header { flex-direction: column; align-items: flex-start; } .variant-total { margin-top: 8px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <div class="logo">HOME PROJECT</div>
+    <div class="tagline">Пространство премиальных решений для вашего дома</div>
+    <h1>Комплектация встройной техники</h1>
+    <p class="subtitle">Подбор по запросу: 6 категорий встраиваемой техники, тёмные тона, бюджет до 250 000 ₽. Подготовлено в течение часа после поступления брифа.</p>
+    <div class="meta-row">
+      <div>Дата: <strong>26 мая 2026</strong></div>
+      <div>Срок действия: <strong>до 09.06.2026</strong></div>
+      <div>Цены: <strong>РРЦ, в наличии на складе</strong></div>
+    </div>
+  </div>
+  <div class="brief-card">
+    <h2>Запрос клиента</h2>
+    <p>«Подобрать технику: духовку + микроволновку + холодильник + посудомоечную машину + варочную панель индукционную + стиральную машину. Бюджет — 250 000 ₽. Дизайн — тёмные тона.»</p>
+  </div>
+  <div class="reality-check">
+    <h3>Честно о рынке</h3>
+    <p>В сегменте полноразмерной <strong>встраиваемой</strong> техники европейских брендов 6 категорий в бюджете 250 000 ₽ — крайне ограниченный набор. Минимум по нашим брендам — 305–320 тыс. ₽ за базовый комплект Graude + Liebherr. Поэтому ниже представлены <strong>два варианта</strong>: один укладывается в исходный бюджет (5 категорий + стиралка отдельно), второй — полный набор с превышением ~22%. Если бюджет можно расширить — готовы предложить премиум-комплект Küppersbusch / Schulthess (от 900 000 ₽).</p>
+  </div>
+  <div class="variant">
+    <div class="variant-header">
+      <div class="variant-title"><small>Вариант A</small>В рамках бюджета 250 000 ₽</div>
+      <div class="variant-total">235 460 ₽</div>
+    </div>
+    <p class="variant-note">5 встроенных категорий. Все позиции в наличии на складе, тёмные финиши, единая стилистика.</p>
+    <table>
+      <thead><tr><th>Категория</th><th>Бренд</th><th>Модель</th><th>Описание</th><th>РРЦ, ₽</th></tr></thead>
+      <tbody>
+        <tr><td class="category">Духовой шкаф</td><td class="brand">Graude</td><td class="model">BE 60.2 E</td><td class="descr">Электрический, 60 см. Чёрное стекло + нержавеющая сталь. 9 режимов, конвекция, гидролиз.</td><td class="price">37 990</td></tr>
+        <tr><td class="category">Микроволновая печь</td><td class="brand">Graude</td><td class="model">MWG 38.0 S</td><td class="descr">Компактная встраиваемая, 38 см. С грилем. Дизайн в линию с духовкой.</td><td class="price">28 990</td></tr>
+        <tr><td class="category">Холодильник</td><td class="brand">Liebherr</td><td class="model">SRd 5220-22 001</td><td class="descr">Отдельностоящий, тёмная отделка, BioFresh. Высота 165 см.</td><td class="price">92 000</td></tr>
+        <tr><td class="category">Посудомоечная машина</td><td class="brand">Graude</td><td class="model">VGE 60.0</td><td class="descr">Полноразмерная встраиваемая, 60 см, 14 комплектов, инверторный мотор.</td><td class="price">50 990</td></tr>
+        <tr><td class="category">Варочная панель</td><td class="brand">Graude</td><td class="model">IK 60.0</td><td class="descr">Индукционная, 4 зоны, 60 см, чёрное стекло Schott Ceran. Сенсорное управление.</td><td class="price">25 490</td></tr>
+        <tr class="summary-row"><td colspan="4">Итого (вариант A — 5 категорий)</td><td class="price">235 460</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="variant">
+    <div class="variant-header">
+      <div class="variant-title"><small>Вариант B</small>Полный набор — 6 категорий</div>
+      <div class="variant-total">305 450 ₽</div>
+    </div>
+    <p class="variant-note">К комплекту варианта A добавлена отдельностоящая стиральная машина Graude. Превышение исходного бюджета +55 450 ₽ (~22%) — это близко к минимуму для встройного комплекта европейских брендов.</p>
+    <table>
+      <thead><tr><th>Категория</th><th>Бренд</th><th>Модель</th><th>Описание</th><th>РРЦ, ₽</th></tr></thead>
+      <tbody>
+        <tr><td class="category">Вся техника варианта A</td><td class="brand">Graude / Liebherr</td><td class="model">—</td><td class="descr">5 позиций: духовка, СВЧ, холодильник, ПММ, варочная панель.</td><td class="price">235 460</td></tr>
+        <tr><td class="category">Стиральная машина</td><td class="brand">Graude</td><td class="model">WA 100.3</td><td class="descr">Отдельностоящая, загрузка 8 кг, 1400 об/мин, инверторный мотор, чёрное стекло на люке.</td><td class="price">69 990</td></tr>
+        <tr class="summary-row"><td colspan="4">Итого (вариант B — 6 категорий)</td><td class="price">305 450</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="approach">
+    <h2>Как мы работаем</h2>
+    <div class="steps">
+      <div><div class="step-num">01 / БРИФ</div><div class="step-title">Получение запроса в любом формате</div><div class="step-text">Email, Telegram-бот, телефон. Бриф разбирает агент <strong>tech-consultant</strong> — выясняет параметры, контекст, ограничения.</div></div>
+      <div><div class="step-num">02 / ПОДБОР</div><div class="step-title">Сверка со стоками и каталогом</div><div class="step-text">Сверяем с актуальными остатками (обновляются 2 раза в неделю от поставщиков). Никаких «привезём за 2 месяца» — только то, что в наличии.</div></div>
+      <div><div class="step-num">03 / КП</div><div class="step-title">Лендинг или PDF за час</div><div class="step-text">Агент <strong>proposal-writer</strong> готовит документ в фирменном стиле. Можно отправить как ссылку (как сейчас), PDF, или текст в мессенджер.</div></div>
+      <div><div class="step-num">04 / СОПРОВОЖДЕНИЕ</div><div class="step-title">От уточнений до отгрузки</div><div class="step-text">Все коммуникации с поставщиками, отгрузочные документы, согласования — на нашей стороне. Клиент получает результат, не процесс.</div></div>
+    </div>
+  </div>
+  <div class="cta">
+    <h2>Что дальше</h2>
+    <p>Если интересно — уточним детали (выбор финиша, замена позиций, увеличение бюджета) и оформим заказ. Можем подготовить альтернативный комплект Küppersbusch / Schulthess под расширенный бюджет.</p>
+    <div class="cta-contacts">
+      <div class="cta-contact"><div class="label">Email</div><a href="mailto:info@homeproject.online">info@homeproject.online</a></div>
+      <div class="cta-contact"><div class="label">Telegram</div><a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a></div>
+      <div class="cta-contact"><div class="label">Канал</div><a href="https://t.me/HomeProjectMsk">@HomeProjectMsk</a></div>
+      <div class="cta-contact"><div class="label">Сайт</div><a href="https://homeproject.online">homeproject.online</a></div>
+    </div>
+  </div>
+  <footer>
+    <span class="accent">HOME PROJECT</span> · ИП Кривов С.С. · ИНН 772171614801 · 109439, г. Москва<br>
+    Предложение подготовлено агентами proposal-writer и tech-consultant · Home Project AI · 26.05.2026
+  </footer>
+</div>
+</body>
+</html>
