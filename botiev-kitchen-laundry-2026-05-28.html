@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · Андрей Ботьев · Home Project</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --dark:#181A20;--gold:#c9a96e;--gold-lt:rgba(201,169,110,0.12);
+  --bg:#f5f4f0;--text:#1a1a1a;--muted:#7a8099;--border:#e5e3db;
+  --brand:#1A2B4A;--brand2:#2B1A4A;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+.header{background:var(--dark);padding:28px 48px 24px;display:flex;justify-content:space-between;align-items:flex-end;}
+.logo-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase;}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:3px;}
+.kp-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.kp-meta{font-size:22px;font-weight:700;color:#fff;margin-top:2px;}
+.kp-date{font-size:11px;color:var(--muted);margin-top:3px;}
+.brand-bar{background:var(--brand);padding:9px 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.brand-bar-name{font-size:13px;font-weight:700;color:#fff;letter-spacing:.08em;}
+.brand-bar-sep{color:rgba(255,255,255,.4);}
+.brand-bar-tagline{font-size:11px;color:rgba(255,255,255,.72);}
+.addressee{background:#fff;padding:16px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:36px;flex-wrap:wrap;}
+.addr-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.addr-val{font-size:14px;font-weight:600;}
+.kp-guide{background:#fff;border-bottom:1px solid var(--border);padding:10px 48px;}
+.kp-guide-title{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;}
+.kp-guide-tabs{display:flex;gap:6px;flex-wrap:wrap;}
+.kp-guide-tab{display:flex;align-items:center;justify-content:center;gap:4px;flex:1;min-width:120px;background:var(--bg);border-radius:20px;padding:6px 8px;font-size:11px;font-weight:500;color:#555;cursor:pointer;transition:all .15s;border:1px solid transparent;text-align:center;}
+.kp-guide-tab:hover{border-color:var(--gold);color:var(--text);background:#fdf5e8;}
+.kp-guide-tab.active{border-color:var(--gold);color:var(--text);background:#fdf5e8;font-weight:600;}
+.container{max-width:960px;margin:0 auto;background:#fff;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.pad{padding:40px 48px 56px;}
+.brief-intro{background:var(--dark);border-radius:14px;padding:28px 32px;margin-bottom:24px;}
+.brief-intro-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;}
+.brief-intro-text{font-size:13px;color:#aaa;line-height:1.7;}
+.brief-intro-accent{color:var(--gold);font-weight:600;}
+.brief-quote{background:#fff;border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:24px;font-size:15px;color:#333;font-style:italic;line-height:1.7;}
+.brief-quote cite{display:block;margin-top:10px;font-style:normal;font-size:12px;color:var(--muted);}
+.brief-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px;}
+.brief-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.brief-chip-icon{font-size:24px;margin-bottom:8px;}
+.brief-chip-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px;}
+.brief-chip-val{font-size:14px;font-weight:700;}
+.brief-chip-sub{font-size:12px;color:#888;margin-top:2px;}
+.block-hero{background:var(--dark);border-radius:14px;padding:24px 28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.block-hero-badge{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:700;margin-bottom:6px;}
+.block-hero-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:6px;}
+.block-hero-desc{font-size:13px;color:#9aa0b8;line-height:1.6;max-width:440px;}
+.block-hero-price-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;text-align:right;}
+.block-hero-price{font-size:32px;font-weight:800;color:#fff;white-space:nowrap;text-align:right;}
+.block-hero-price-sub{font-size:11px;color:var(--muted);margin-top:3px;text-align:right;}
+.kp-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.kp-table th{background:var(--dark);color:#fff;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:11px 14px;text-align:left;}
+.kp-table td{padding:14px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+.kp-table tr:last-child td{border-bottom:none;}
+.kp-table tr:hover td{background:#fafaf8;}
+.item-num{font-size:11px;font-weight:700;color:var(--gold);width:28px;}
+.item-brand{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.item-model{font-size:14px;font-weight:700;}
+.item-name{font-size:12px;color:#666;margin-top:2px;line-height:1.5;}
+.item-price{text-align:right;font-weight:700;white-space:nowrap;font-size:15px;}
+.badge-black{display:inline-block;background:#1a1a1a;color:#c9a96e;border-radius:20px;padding:2px 9px;font-size:10px;font-weight:600;border:1px solid rgba(201,169,110,.4);}
+.badge-stock{display:inline-block;background:#e8f5e9;color:#2e7d32;border-radius:20px;padding:2px 9px;font-size:10px;font-weight:600;}
+.kp-total{background:var(--dark);border-radius:12px;padding:22px 28px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
+.kp-total-label{font-size:12px;color:#aaa;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.kp-total-note{font-size:11px;color:var(--muted);margin-top:3px;}
+.kp-total-sum{font-size:32px;font-weight:800;color:#fff;}
+.conditions-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+.cond-card{border:1px solid var(--border);border-radius:12px;padding:18px 20px;background:#fff;}
+.cond-icon{font-size:22px;margin-bottom:8px;}
+.cond-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.cond-val{font-size:13px;color:#555;line-height:1.5;}
+.kp-note{background:var(--gold-lt);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#555;line-height:1.65;margin-bottom:20px;}
+.vis-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.vis-card{background:var(--dark);border-radius:16px;overflow:hidden;}
+.vis-card-inner{padding:28px 36px;display:flex;gap:32px;align-items:flex-start;}
+.vis-brand-badge{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);font-weight:600;margin-bottom:4px;}
+.vis-model-big{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px;}
+.vis-category{font-size:13px;color:#9aa0b8;margin-bottom:14px;}
+.vis-desc{font-size:13px;color:#aaa;line-height:1.75;max-width:540px;margin-bottom:16px;}
+.vis-pills{display:flex;flex-wrap:wrap;gap:7px;}
+.vis-pill{background:rgba(255,255,255,.07);color:#ccc;border-radius:24px;padding:4px 12px;font-size:12px;}
+.vis-pill-gold{background:rgba(201,169,110,.15);color:#c9a96e;font-weight:600;border-radius:24px;padding:4px 12px;font-size:12px;}
+.vis-price-side{flex-shrink:0;text-align:right;}
+.vis-price-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.vis-price-val{font-size:24px;font-weight:800;color:#fff;}
+.vis-divider{height:1px;background:rgba(255,255,255,.06);}
+.spec-block{margin-bottom:24px;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.spec-block-head{background:var(--dark);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;}
+.spec-model{font-size:16px;font-weight:800;color:#fff;}
+.spec-type{font-size:11px;color:var(--muted);margin-top:2px;}
+.spec-block-price{font-size:20px;font-weight:800;color:#fff;}
+.spec-cols{display:grid;grid-template-columns:1fr 1fr;}
+.spec-col{padding:18px 22px;}
+.spec-col:first-child{border-right:1px solid var(--border);}
+.spec-col h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:12px;}
+.spec-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:6px 0;border-bottom:1px solid #f4f3ef;font-size:13px;}
+.spec-row:last-child{border-bottom:none;}
+.spec-row-key{color:#888;}
+.spec-row-val{font-weight:600;text-align:right;}
+.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;}
+.step-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px;}
+.step-num{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+.step-title{font-size:15px;font-weight:700;margin-bottom:6px;}
+.step-text{font-size:13px;color:#666;line-height:1.65;}
+.contact-hero{background:var(--dark);border-radius:14px;padding:32px 36px;margin-bottom:24px;text-align:center;}
+.contact-hero h2{font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;}
+.contact-hero p{font-size:13px;color:#9aa0b8;line-height:1.7;max-width:500px;margin:0 auto 24px;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:520px;margin:0 auto;}
+.contact-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 18px;text-align:left;}
+.contact-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:4px;}
+.contact-card-val{font-size:14px;font-weight:600;color:#fff;}
+.contact-card-val a{color:var(--gold);text-decoration:none;}
+.footer{background:var(--dark);color:#888;text-align:center;padding:24px;font-size:12px;line-height:2;}
+.footer strong{color:var(--gold);}
+.footer a{color:var(--gold);text-decoration:none;}
+.info-band{background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.25);border-radius:12px;padding:16px 20px;margin-bottom:20px;font-size:13px;color:#666;display:flex;align-items:flex-start;gap:12px;}
+.info-band-icon{font-size:20px;flex-shrink:0;}
+@media(max-width:768px){
+  .header{padding:20px;flex-direction:column;align-items:flex-start;gap:12px;}
+  .brand-bar{padding:9px 20px;}
+  .addressee{padding:14px 20px;}
+  .kp-guide{padding:10px 20px;}
+  .pad{padding:24px 20px 40px;}
+  .brief-grid,.conditions-grid,.steps-grid,.contact-grid{grid-template-columns:1fr;}
+  .block-hero{flex-direction:column;align-items:flex-start;gap:12px;}
+  .block-hero-price{text-align:left;}
+  .vis-card-inner{flex-direction:column;}
+  .vis-price-side{text-align:left;}
+  .spec-cols{grid-template-columns:1fr;}
+  .spec-col:first-child{border-right:none;border-bottom:1px solid var(--border);}
+}
+@media print{
+  .kp-guide{display:none!important;}
+  .tab-panel{display:block!important;}
+  .container{max-width:100%;}
+  .pad{padding:24px;}
+  body{background:#fff;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <div>
+    <div class="logo-title">Home Project</div>
+    <div class="logo-sub">Премиальная встраиваемая техника · homeproject.online</div>
+  </div>
+  <div style="text-align:right">
+    <div class="kp-label">Коммерческое предложение</div>
+    <div class="kp-meta">КП · 28.05.2026</div>
+    <div class="kp-date">действует до 11 июня 2026</div>
+  </div>
+</div>
+<div class="brand-bar">
+  <span class="brand-bar-name">Küppersbusch</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-name">V-ZUG</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-name">Liebherr</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-name">Schulthess</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-tagline">Чёрная кухня + постирочная · два бюджета</span>
+</div>
+<div class="addressee">
+  <div><div class="addr-lbl">Подготовлено для</div><div class="addr-val">Андрей Ботьев</div></div>
+  <div><div class="addr-lbl">Запрос 1 — Кухня</div><div class="addr-val">Чёрный цвет · из наличия</div></div>
+  <div><div class="addr-lbl">Запрос 2 — Постирочная</div><div class="addr-val">Стирка + сушка · премиум</div></div>
+  <div><div class="addr-lbl">Бюджеты</div><div class="addr-val" style="color:var(--gold)">1 000 000 + 800 000 ₽</div></div>
+</div>
+<div class="kp-guide">
+  <div class="kp-guide-title">Навигация по разделам:</div>
+  <div class="kp-guide-tabs">
+    <div class="kp-guide-tab active" onclick="showTab('brief',this)">📋 Запрос</div>
+    <div class="kp-guide-tab" onclick="showTab('kitchen',this)">🍳 Кухня</div>
+    <div class="kp-guide-tab" onclick="showTab('laundry',this)">👗 Постирочная</div>
+    <div class="kp-guide-tab" onclick="showTab('visual',this)">🖼 Визуалы</div>
+    <div class="kp-guide-tab" onclick="showTab('specs',this)">📐 Характеристики</div>
+    <div class="kp-guide-tab" onclick="showTab('about',this)">🏢 Как работаем</div>
+    <div class="kp-guide-tab" onclick="showTab('contacts',this)">📞 Контакты</div>
+  </div>
+</div>
+
+<div id="tab-brief" class="tab-panel active">
+<div class="pad">
+  <div class="section-title">О запросе</div>
+  <div class="brief-intro">
+    <div class="brief-intro-title">Андрей Ботьев — чёрная кухня + постирочная</div>
+    <div class="brief-intro-text">Запрос получен 28 мая 2026. Предложение подготовлено в тот же день — <span class="brief-intro-accent">два комплекта: кухня и постирочная, каждый в своём бюджете.</span> Все позиции — из наличия у поставщика. Чёрный цвет — сквозная концепция.</div>
+  </div>
+  <div class="brief-quote">
+    «Кухня — полный комплект: духовка, микроволновка, варочная панель (индукция), холодильник встраиваемый, посудомоечная машина. Бюджет 1 000 000 ₽. Из наличия. Цвет — чёрный. Плюс постирочная: стиральная + сушильная машина, бюджет 800 000 ₽.»
+    <cite>— На основе запроса, 28 мая 2026</cite>
+  </div>
+  <div class="brief-grid">
+    <div class="brief-chip"><div class="brief-chip-icon">🍳</div><div class="brief-chip-label">Запрос 1</div><div class="brief-chip-val">Кухня — 5 позиций</div><div class="brief-chip-sub">до 1 000 000 ₽</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">👗</div><div class="brief-chip-label">Запрос 2</div><div class="brief-chip-val">Постирочная — 2 позиции</div><div class="brief-chip-sub">до 800 000 ₽</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">⬛</div><div class="brief-chip-label">Концепция</div><div class="brief-chip-val">Чёрный цвет</div><div class="brief-chip-sub">из наличия на складе</div></div>
+  </div>
+  <div class="kp-note"><strong>Подход к подбору.</strong> Для чёрной кухни в бюджете 1 млн — <strong>Küppersbusch Black Velvet</strong> (Германия) для духовки, СВЧ и посудомойки, <strong>V-ZUG</strong> (Швейцария) для варочной панели, <strong>Liebherr BlackSteel</strong> для холодильника. Для постирочной — <strong>Schulthess «Titan Rock»</strong> (Швейцария): тёмный антрацит, максимально близкий к чёрному.</div>
+</div>
+</div>
+
+<div id="tab-kitchen" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Комплект кухни — чёрный цвет</div>
+  <div class="block-hero">
+    <div>
+      <div class="block-hero-badge">Запрос 1 · Кухня</div>
+      <div class="block-hero-title">5 приборов · Black Velvet &amp; BlackSteel</div>
+      <div class="block-hero-desc">Küppersbusch + V-ZUG + Liebherr — три бренда в едином чёрном исполнении. Встраиваемые, из наличия.</div>
+    </div>
+    <div>
+      <div class="block-hero-price-label">Бюджет</div>
+      <div class="block-hero-price">1 000 000 ₽</div>
+      <div class="block-hero-price-sub">финальная цена согласовывается</div>
+    </div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px">#</th><th>Прибор</th><th>Финиш</th><th style="text-align:right">РРЦ</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td><div class="item-brand">Küppersbusch</div><div class="item-model">BP 6350.0 S5</div><div class="item-name">Духовой шкаф с пиролизом · 60 см · 11 функций · TFT-дисплей</div></td>
+        <td><span class="badge-black">⬛ Black Velvet</span></td>
+        <td class="item-price">231 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td><div class="item-brand">Küppersbusch</div><div class="item-model">ML 6330.0 S5</div><div class="item-name">Микроволновая печь встраиваемая · 20 л · 900 Вт</div></td>
+        <td><span class="badge-black">⬛ Black Velvet</span></td>
+        <td class="item-price">136 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">3</td>
+        <td><div class="item-brand">V-ZUG</div><div class="item-model">CookTop V2000 I604</div><div class="item-name">Варочная панель индукционная · 60 см · 4 зоны · PowerBoost</div></td>
+        <td><span class="badge-black">⬛ Чёрное стекло</span></td>
+        <td class="item-price">348 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">4</td>
+        <td><div class="item-brand">Liebherr</div><div class="item-model">ICNbsd 5173</div><div class="item-name">Холодильник-морозильник встраиваемый · NoFrost · Peak · 2026</div></td>
+        <td><span class="badge-black">⬛ BlackSteel</span></td>
+        <td class="item-price">250 000 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">5</td>
+        <td><div class="item-brand">Küppersbusch</div><div class="item-model">G 6340.0 v</div><div class="item-name">Посудомоечная машина встраиваемая · 60 см · 14 компл. · 7 программ · полная встройка под фасад</div></td>
+        <td><span class="badge-stock">Под фасад клиента</span></td>
+        <td class="item-price">142 990 ₽</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="kp-total">
+    <div><div class="kp-total-label">Итого по кухне (РРЦ)</div><div class="kp-total-note">5 приборов · чёрный цвет · из наличия · гарантия 2–3 года</div></div>
+    <div class="kp-total-sum">1 110 960 ₽</div>
+  </div>
+  <div class="kp-note">ℹ️ <strong>О посудомоечной машине.</strong> Küppersbusch G 6340.0 v — полностью встраиваемая: фасад ставит заказчик сам (любой цвет). Видимой панели нет — цветовой декор не нужен.<br><br>💡 <strong>Финальная цена.</strong> РРЦ-итог ~1 110 960 ₽. Финальная стоимость комплекта в рамках согласованного бюджета <strong>1 000 000 ₽</strong> подтверждается при оформлении.</div>
+  <div class="conditions-grid">
+    <div class="cond-card"><div class="cond-icon">📦</div><div class="cond-title">Наличие</div><div class="cond-val">Все позиции — со склада поставщика в Москве. Срок доставки 3–7 рабочих дней.</div></div>
+    <div class="cond-card"><div class="cond-icon">🛡</div><div class="cond-title">Гарантия</div><div class="cond-val">Küppersbusch — 2 года, V-ZUG — 3 года, Liebherr — 2 года. Официальный сервис.</div></div>
+    <div class="cond-card"><div class="cond-icon">🔧</div><div class="cond-title">Установка</div><div class="cond-val">Рекомендуем согласовать с подрядчиком заранее. Инструктаж по встройке на объекте.</div></div>
+    <div class="cond-card"><div class="cond-icon">📋</div><div class="cond-title">Документы</div><div class="cond-val">Полный пакет: счёт, накладная, паспорт изделия, гарантийная карта, инструкция на русском.</div></div>
+  </div>
+</div>
+</div>
+
+<div id="tab-laundry" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Комплект постирочной — стирка + сушка</div>
+  <div class="block-hero" style="background:linear-gradient(135deg,#1a1c24 0%,#2a2832 100%);">
+    <div>
+      <div class="block-hero-badge">Запрос 2 · Постирочная</div>
+      <div class="block-hero-title">Schulthess Sublime — «Titan Rock»</div>
+      <div class="block-hero-desc">Швейцарский бренд с цветными машинами. «Titan Rock» — тёмный антрацит, максимально близкий к чёрному. Тепловой насос, 8 кг стирка + 8 кг сушка, класс A.</div>
+    </div>
+    <div>
+      <div class="block-hero-price-label">Бюджет</div>
+      <div class="block-hero-price">800 000 ₽</div>
+      <div class="block-hero-price-sub">пара — стирка + сушка</div>
+    </div>
+  </div>
+  <div class="info-band">
+    <div class="info-band-icon">🎨</div>
+    <div><strong>Цвет «Titan Rock»</strong> — тёмный графитово-антрацитовый финиш, максимально близкий к чёрному из доступных в премиальных стиральных машинах. Schulthess — швейцарский бренд, официальный дистрибьютор Homeier. Пара Titan Rock — <strong>808 980 ₽</strong> (на 9 тыс. выше бюджета). Вариант Snow (белый) — <strong>773 980 ₽</strong> (в бюджете).</div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px">#</th><th>Прибор</th><th>Цвет</th><th style="text-align:right">РРЦ</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td><div class="item-brand">Schulthess · Швейцария</div><div class="item-model">ADA1.104 «Titan Rock»</div><div class="item-name">Стиральная машина Sublime · 8 кг · 1600 об/мин · тепловой насос · класс A</div></td>
+        <td><span class="badge-black">▪ Titan Rock</span></td>
+        <td class="item-price">396 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td><div class="item-brand">Schulthess · Швейцария</div><div class="item-model">MDA1.104 «Titan Rock»</div><div class="item-name">Сушильная машина · 8 кг · тепловой насос Autoclean · класс A · реверс барабана</div></td>
+        <td><span class="badge-black">▪ Titan Rock</span></td>
+        <td class="item-price">411 990 ₽</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="kp-total" style="background:linear-gradient(135deg,#1a1c24 0%,#2a2832 100%);">
+    <div><div class="kp-total-label">Итого постирочная (РРЦ) · Titan Rock</div><div class="kp-total-note">2 машины · Schulthess Швейцария · тепловой насос · тёмный антрацит</div></div>
+    <div class="kp-total-sum">808 980 ₽</div>
+  </div>
+  <div class="kp-note">💡 <strong>Вариант «Snow» (белый) — в бюджете:</strong> ADA1.101 Snow (361 990 ₽) + MDA1.100 Snow (411 990 ₽) = <strong>773 980 ₽</strong> — на 26 тыс. ниже бюджета. Функции те же, отличается только цвет фасада.</div>
+  <div class="conditions-grid">
+    <div class="cond-card"><div class="cond-icon">🔧</div><div class="cond-title">Autoclean сушилка</div><div class="cond-val">Schulthess MDA1 оснащена системой автоочистки конденсатора — не нужно чистить вручную. Уникальная функция швейцарского производителя.</div></div>
+    <div class="cond-card"><div class="cond-icon">⚡</div><div class="cond-title">Тепловой насос</div><div class="cond-val">Оба прибора работают по принципу теплового насоса. Экономия до 60% энергии. Класс A.</div></div>
+    <div class="cond-card"><div class="cond-icon">🛡</div><div class="cond-title">Гарантия</div><div class="cond-val">Schulthess — официальная гарантия. Поставка через Homeier (официальный дистрибьютор в России).</div></div>
+    <div class="cond-card"><div class="cond-icon">📐</div><div class="cond-title">Установка</div><div class="cond-val">Стандарт 60×60×85 см. Рядом или в колонну. Левая / правая навеска двери — выбирается при заказе.</div></div>
+  </div>
+</div>
+</div>
+
+<div id="tab-visual" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Визуализация комплекта</div>
+  <div class="vis-grid">
+    <div class="vis-card">
+      <div class="vis-card-inner">
+        <div style="flex:1">
+          <div class="vis-brand-badge">Küppersbusch · Германия</div>
+          <div class="vis-model-big">BP 6350.0 S5</div>
+          <div class="vis-category">Духовой шкаф с пиролизом · 60 см</div>
+          <div class="vis-desc">Flagship духовой шкаф Küppersbusch в финише <strong style="color:#c9a96e">Black Velvet</strong> — матовая чёрная поверхность без бликов. 11 функций, пиролитическая самоочистка, TFT-дисплей. Немецкое производство.</div>
+          <div class="vis-pills"><span class="vis-pill-gold">⬛ Black Velvet</span><span class="vis-pill">11 функций</span><span class="vis-pill">Пиролиз</span><span class="vis-pill">TFT-дисплей</span><span class="vis-pill">560×595×550 мм ниша</span></div>
+        </div>
+        <div class="vis-price-side"><div class="vis-price-lbl">РРЦ</div><div class="vis-price-val">231 990 ₽</div></div>
+      </div>
+    </div>
+    <div class="vis-divider"></div>
+    <div class="vis-card">
+      <div class="vis-card-inner">
+        <div style="flex:1">
+          <div class="vis-brand-badge">Küppersbusch · Германия</div>
+          <div class="vis-model-big">ML 6330.0 S5</div>
+          <div class="vis-category">Встраиваемая микроволновая печь</div>
+          <div class="vis-desc">Встраиваемая СВЧ в финише <strong style="color:#c9a96e">Black Velvet</strong> — составляется в башню с духовкой BP 6350.0 S5. 900 Вт, 20 л, сенсорная панель.</div>
+          <div class="vis-pills"><span class="vis-pill-gold">⬛ Black Velvet</span><span class="vis-pill">900 Вт · 20 л</span><span class="vis-pill">Башня с духовкой</span><span class="vis-pill">560×382 мм ниша</span></div>
+        </div>
+        <div class="vis-price-side"><div class="vis-price-lbl">РРЦ</div><div class="vis-price-val">136 990 ₽</div></div>
+      </div>
+    </div>
+    <div class="vis-divider"></div>
+    <div class="vis-card">
+      <div class="vis-card-inner">
+        <div style="flex:1">
+          <div class="vis-brand-badge">V-ZUG · Швейцария</div>
+          <div class="vis-model-big">CookTop V2000 I604</div>
+          <div class="vis-category">Варочная панель индукционная · 60 см</div>
+          <div class="vis-desc">Швейцарская индукционная панель — стекло <strong style="color:#c9a96e">чёрное</strong> по умолчанию (DualDesign). 4 зоны, PowerBoost, Auto Detect. Минималистичный дизайн без рамок.</div>
+          <div class="vis-pills"><span class="vis-pill-gold">⬛ Чёрное стекло</span><span class="vis-pill">4 зоны</span><span class="vis-pill">PowerBoost</span><span class="vis-pill">Auto Detect</span><span class="vis-pill">558×490 мм вырез</span></div>
+        </div>
+        <div class="vis-price-side"><div class="vis-price-lbl">РРЦ</div><div class="vis-price-val">348 990 ₽</div></div>
+      </div>
+    </div>
+    <div class="vis-divider"></div>
+    <div class="vis-card">
+      <div class="vis-card-inner">
+        <div style="flex:1">
+          <div class="vis-brand-badge">Liebherr · Германия</div>
+          <div class="vis-model-big">ICNbsd 5173</div>
+          <div class="vis-category">Встраиваемый холодильник-морозильник · Peak 2026</div>
+          <div class="vis-desc">Новинка 2026 — единственный встраиваемый холодильник Liebherr в <strong style="color:#c9a96e">BlackSteel</strong> финише. NoFrost по всему объёму. Подходит для Kitchen Line — фасад заподлицо.</div>
+          <div class="vis-pills"><span class="vis-pill-gold">⬛ BlackSteel · Peak</span><span class="vis-pill">NoFrost</span><span class="vis-pill">Новинка 2026</span><span class="vis-pill">Kitchen Line</span></div>
+        </div>
+        <div class="vis-price-side"><div class="vis-price-lbl">РРЦ</div><div class="vis-price-val">250 000 ₽</div></div>
+      </div>
+    </div>
+    <div class="vis-divider"></div>
+    <div class="vis-card">
+      <div class="vis-card-inner">
+        <div style="flex:1">
+          <div class="vis-brand-badge">Küppersbusch · Германия</div>
+          <div class="vis-model-big">G 6340.0 v</div>
+          <div class="vis-category">Встраиваемая посудомоечная машина · 60 см</div>
+          <div class="vis-desc">Посудомоечная машина — <strong style="color:#c9a96e">полная встройка</strong>: видимого фасада нет, закрывается мебельной дверцей в любом цвете. 14 комплектов, 7 программ, A+++.</div>
+          <div class="vis-pills"><span class="vis-pill-gold">Под фасад клиента</span><span class="vis-pill">60 см · 14 компл.</span><span class="vis-pill">7 программ</span><span class="vis-pill">А+++</span></div>
+        </div>
+        <div class="vis-price-side"><div class="vis-price-lbl">РРЦ</div><div class="vis-price-val">142 990 ₽</div></div>
+      </div>
+    </div>
+    <div class="vis-divider"></div>
+    <div class="vis-card" style="background:linear-gradient(135deg,#1a1c24 0%,#2d2b38 100%);">
+      <div class="vis-card-inner">
+        <div style="flex:1">
+          <div class="vis-brand-badge">Schulthess · Швейцария · постирочная</div>
+          <div class="vis-model-big">Sublime «Titan Rock»</div>
+          <div class="vis-category">Стиральная ADA1.104 + Сушильная MDA1.104 · тёмный антрацит</div>
+          <div class="vis-desc">Schulthess Sublime с авторским финишем <strong style="color:#c9a96e">«Titan Rock»</strong> — тёмный графитово-антрацитовый, ближайший к чёрному. 8+8 кг, тепловой насос, уникальный Autoclean-конденсатор.</div>
+          <div class="vis-pills"><span class="vis-pill-gold">▪ Titan Rock · антрацит</span><span class="vis-pill">8 кг + 8 кг</span><span class="vis-pill">Тепловой насос</span><span class="vis-pill">Autoclean</span><span class="vis-pill">Класс A</span></div>
+        </div>
+        <div class="vis-price-side"><div class="vis-price-lbl">РРЦ пара</div><div class="vis-price-val" style="font-size:18px;">396 990<br>+ 411 990 ₽</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="tab-specs" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Технические характеристики</div>
+  <div class="spec-block">
+    <div class="spec-block-head"><div><div class="spec-model">Küppersbusch BP 6350.0 S5</div><div class="spec-type">Духовой шкаф · Black Velvet</div></div><div class="spec-block-price">231 990 ₽</div></div>
+    <div class="spec-cols">
+      <div class="spec-col"><h4>Ниша встраивания</h4><div class="spec-row"><span class="spec-row-key">Ширина</span><span class="spec-row-val">560 мм</span></div><div class="spec-row"><span class="spec-row-key">Высота</span><span class="spec-row-val">595 мм</span></div><div class="spec-row"><span class="spec-row-key">Глубина</span><span class="spec-row-val">550 мм</span></div><div class="spec-row"><span class="spec-row-key">Объём</span><span class="spec-row-val">66 л</span></div><div class="spec-row"><span class="spec-row-key">Мощность</span><span class="spec-row-val">3 500 Вт</span></div></div>
+      <div class="spec-col"><h4>Функции</h4><div class="spec-row"><span class="spec-row-key">Кол-во функций</span><span class="spec-row-val">11</span></div><div class="spec-row"><span class="spec-row-key">Самоочистка</span><span class="spec-row-val">Пиролиз</span></div><div class="spec-row"><span class="spec-row-key">Дисплей</span><span class="spec-row-val">TFT цветной</span></div><div class="spec-row"><span class="spec-row-key">Управление</span><span class="spec-row-val">Сенсор + ручки</span></div><div class="spec-row"><span class="spec-row-key">Финиш</span><span class="spec-row-val">Black Velvet (S5)</span></div></div>
+    </div>
+  </div>
+  <div class="spec-block">
+    <div class="spec-block-head"><div><div class="spec-model">Küppersbusch ML 6330.0 S5</div><div class="spec-type">Микроволновая печь · Black Velvet</div></div><div class="spec-block-price">136 990 ₽</div></div>
+    <div class="spec-cols">
+      <div class="spec-col"><h4>Ниша встраивания</h4><div class="spec-row"><span class="spec-row-key">Ширина</span><span class="spec-row-val">560 мм</span></div><div class="spec-row"><span class="spec-row-key">Высота</span><span class="spec-row-val">382 мм</span></div><div class="spec-row"><span class="spec-row-key">Объём</span><span class="spec-row-val">20 л</span></div><div class="spec-row"><span class="spec-row-key">Мощность</span><span class="spec-row-val">900 Вт</span></div></div>
+      <div class="spec-col"><h4>Особенности</h4><div class="spec-row"><span class="spec-row-key">Расположение</span><span class="spec-row-val">Башня с духовкой</span></div><div class="spec-row"><span class="spec-row-key">Управление</span><span class="spec-row-val">Сенсорное</span></div><div class="spec-row"><span class="spec-row-key">Финиш</span><span class="spec-row-val">Black Velvet (S5)</span></div><div class="spec-row"><span class="spec-row-key">Гарантия</span><span class="spec-row-val">2 года</span></div></div>
+    </div>
+  </div>
+  <div class="spec-block">
+    <div class="spec-block-head"><div><div class="spec-model">V-ZUG CookTop V2000 I604 · CTI2T-31159</div><div class="spec-type">Индукционная варочная панель · 60 см</div></div><div class="spec-block-price">348 990 ₽</div></div>
+    <div class="spec-cols">
+      <div class="spec-col"><h4>Вырез в столешнице</h4><div class="spec-row"><span class="spec-row-key">Ширина</span><span class="spec-row-val">558 мм</span></div><div class="spec-row"><span class="spec-row-key">Глубина</span><span class="spec-row-val">490 мм</span></div><div class="spec-row"><span class="spec-row-key">Зоны</span><span class="spec-row-val">4</span></div><div class="spec-row"><span class="spec-row-key">Стекло</span><span class="spec-row-val">Чёрное (DualDesign)</span></div></div>
+      <div class="spec-col"><h4>Функции</h4><div class="spec-row"><span class="spec-row-key">PowerBoost</span><span class="spec-row-val">Есть</span></div><div class="spec-row"><span class="spec-row-key">Auto Detect</span><span class="spec-row-val">Есть</span></div><div class="spec-row"><span class="spec-row-key">Таймер</span><span class="spec-row-val">Есть</span></div><div class="spec-row"><span class="spec-row-key">Гарантия</span><span class="spec-row-val">3 года</span></div></div>
+    </div>
+  </div>
+  <div class="spec-block">
+    <div class="spec-block-head"><div><div class="spec-model">Liebherr ICNbsd 5173</div><div class="spec-type">Холодильник-морозильник · BlackSteel · Peak 2026</div></div><div class="spec-block-price">250 000 ₽</div></div>
+    <div class="spec-cols">
+      <div class="spec-col"><h4>Параметры</h4><div class="spec-row"><span class="spec-row-key">Ширина ниши</span><span class="spec-row-val">560 мм</span></div><div class="spec-row"><span class="spec-row-key">Серия</span><span class="spec-row-val">Peak (2026)</span></div><div class="spec-row"><span class="spec-row-key">Финиш</span><span class="spec-row-val">BlackSteel</span></div><div class="spec-row"><span class="spec-row-key">Kitchen Line</span><span class="spec-row-val">Совместим</span></div></div>
+      <div class="spec-col"><h4>Технологии</h4><div class="spec-row"><span class="spec-row-key">NoFrost</span><span class="spec-row-val">Полный (оба отдела)</span></div><div class="spec-row"><span class="spec-row-key">Класс энергии</span><span class="spec-row-val">A</span></div><div class="spec-row"><span class="spec-row-key">Конфигурация</span><span class="spec-row-val">2 двери</span></div><div class="spec-row"><span class="spec-row-key">Гарантия</span><span class="spec-row-val">2 года</span></div></div>
+    </div>
+  </div>
+  <div class="spec-block">
+    <div class="spec-block-head"><div><div class="spec-model">Küppersbusch G 6340.0 v</div><div class="spec-type">Посудомоечная машина · 60 см · полная встройка</div></div><div class="spec-block-price">142 990 ₽</div></div>
+    <div class="spec-cols">
+      <div class="spec-col"><h4>Параметры</h4><div class="spec-row"><span class="spec-row-key">Ширина</span><span class="spec-row-val">598 мм</span></div><div class="spec-row"><span class="spec-row-key">Высота ниши</span><span class="spec-row-val">820–875 мм</span></div><div class="spec-row"><span class="spec-row-key">Вместимость</span><span class="spec-row-val">14 комплектов</span></div><div class="spec-row"><span class="spec-row-key">Класс энергии</span><span class="spec-row-val">A+++</span></div></div>
+      <div class="spec-col"><h4>Функции</h4><div class="spec-row"><span class="spec-row-key">Программы</span><span class="spec-row-val">7</span></div><div class="spec-row"><span class="spec-row-key">Встройка</span><span class="spec-row-val">Полная (фасад клиента)</span></div><div class="spec-row"><span class="spec-row-key">Цвет декора</span><span class="spec-row-val">Не требуется</span></div><div class="spec-row"><span class="spec-row-key">Гарантия</span><span class="spec-row-val">2 года</span></div></div>
+    </div>
+  </div>
+  <div class="spec-block">
+    <div class="spec-block-head" style="background:linear-gradient(135deg,#1a1c24 0%,#2d2b38 100%)"><div><div class="spec-model">Schulthess ADA1.104 + MDA1.104 «Titan Rock»</div><div class="spec-type">Стиральная + сушильная · тёмный антрацит</div></div><div class="spec-block-price">397 + 412 тыс.</div></div>
+    <div class="spec-cols">
+      <div class="spec-col"><h4>ADA1.104 · стиральная</h4><div class="spec-row"><span class="spec-row-key">Загрузка</span><span class="spec-row-val">8 кг</span></div><div class="spec-row"><span class="spec-row-key">Отжим</span><span class="spec-row-val">1600 об/мин</span></div><div class="spec-row"><span class="spec-row-key">Класс</span><span class="spec-row-val">A</span></div><div class="spec-row"><span class="spec-row-key">Тип</span><span class="spec-row-val">Тепловой насос</span></div><div class="spec-row"><span class="spec-row-key">Цвет</span><span class="spec-row-val">Titan Rock (антрацит)</span></div><div class="spec-row"><span class="spec-row-key">Размеры</span><span class="spec-row-val">60×60×85 см</span></div></div>
+      <div class="spec-col"><h4>MDA1.104 · сушильная</h4><div class="spec-row"><span class="spec-row-key">Загрузка</span><span class="spec-row-val">8 кг</span></div><div class="spec-row"><span class="spec-row-key">Тип</span><span class="spec-row-val">Тепловой насос</span></div><div class="spec-row"><span class="spec-row-key">Autoclean</span><span class="spec-row-val">Есть (уникальная)</span></div><div class="spec-row"><span class="spec-row-key">Класс</span><span class="spec-row-val">A</span></div><div class="spec-row"><span class="spec-row-key">Цвет</span><span class="spec-row-val">Titan Rock (антрацит)</span></div><div class="spec-row"><span class="spec-row-key">Размеры</span><span class="spec-row-val">60×60×85 см</span></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="tab-about" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Как мы работаем</div>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">Шаг 01</div><div class="step-title">Согласование комплекта</div><div class="step-text">Уточняем позиции, финиши, размеры ниш под ваш проект. При необходимости подбираем альтернативы из наличия. Всё фиксируем в спецификации.</div></div>
+    <div class="step-card"><div class="step-num">Шаг 02</div><div class="step-title">Счёт и предоплата</div><div class="step-text">Выставляем счёт на юридическое или физическое лицо. Работаем с НДС и без. Предоплата 50–100% в зависимости от позиций.</div></div>
+    <div class="step-card"><div class="step-num">Шаг 03</div><div class="step-title">Поставка</div><div class="step-text">Доставка со склада поставщика по Москве и МО — 3–7 рабочих дней. Техника в оригинальной упаковке с полным пакетом документов.</div></div>
+    <div class="step-card"><div class="step-num">Шаг 04</div><div class="step-title">Сопровождение</div><div class="step-text">Помогаем с монтажниками, инструктируем по настройке. Гарантийное и постгарантийное обслуживание через авторизованный сервис.</div></div>
+  </div>
+  <div class="kp-note"><strong>Home Project</strong> — официальный партнёр брендов Küppersbusch, V-ZUG, Liebherr, Schulthess, BORA, De Dietrich, Graude и других в России. Работаем напрямую с поставщиками — без посредников.</div>
+</div>
+</div>
+
+<div id="tab-contacts" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Контакты</div>
+  <div class="contact-hero">
+    <h2>Готовы двигаться дальше?</h2>
+    <p>Уточним наличие, согласуем финальный список и выставим счёт. Обычно это занимает один рабочий день.</p>
+    <div class="contact-grid">
+      <div class="contact-card"><div class="contact-card-label">Менеджер</div><div class="contact-card-val">Алексей, Home Project</div></div>
+      <div class="contact-card"><div class="contact-card-label">Сайт</div><div class="contact-card-val"><a href="https://homeproject.online" target="_blank">homeproject.online</a></div></div>
+      <div class="contact-card"><div class="contact-card-label">Telegram</div><div class="contact-card-val"><a href="https://t.me/homeproject_ru">@homeproject_ru</a></div></div>
+      <div class="contact-card"><div class="contact-card-label">КП действует до</div><div class="contact-card-val" style="color:var(--gold)">11 июня 2026</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="footer">
+  <strong>Home Project</strong> · Премиальная встраиваемая техника · <a href="https://homeproject.online">homeproject.online</a><br>
+  КП подготовлено 28.05.2026 · Цены указаны как РРЦ · Финальная стоимость согласовывается при оформлении<br>
+  <span style="font-size:11px;color:#555;margin-top:4px;display:block">⚠ Документ подготовлен с использованием AI-ассистента Home Project. Перед подписанием сверьте позиции с менеджером.</span>
+</div>
+</div>
+<script>
+function showTab(id,el){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.kp-guide-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
