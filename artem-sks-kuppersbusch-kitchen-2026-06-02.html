@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · Артём · SKS & Küppersbusch · Кухня · Home Project</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --dark:#181A20;--gold:#c9a96e;--gold-lt:rgba(201,169,110,0.12);
+  --bg:#f5f4f0;--text:#1a1a1a;--muted:#7a8099;--border:#e5e3db;
+  --sks:#1a3558;--kup:#1e1e1e;
+  --green:#22c55e;--green-lt:rgba(34,197,94,0.10);
+  --orange:#f59e0b;--orange-lt:rgba(245,158,11,0.10);
+  --red:#ef4444;--red-lt:rgba(239,68,68,0.10);
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+.header{background:var(--dark);padding:28px 48px 24px;display:flex;justify-content:space-between;align-items:flex-end;}
+.logo-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase;}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:3px;}
+.kp-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.kp-meta{font-size:22px;font-weight:700;color:#fff;margin-top:2px;}
+.kp-date{font-size:11px;color:var(--muted);margin-top:3px;}
+.brand-bar{background:#23263a;padding:9px 48px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.brand-pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border-radius:20px;padding:5px 14px;}
+.brand-pill-dot{width:8px;height:8px;border-radius:50%;}
+.brand-pill-name{font-size:12px;font-weight:700;color:#fff;letter-spacing:.06em;}
+.brand-pill-tag{font-size:10px;color:rgba(255,255,255,.55);margin-left:4px;}
+.brand-bar-sep{color:rgba(255,255,255,.25);font-size:18px;}
+.addressee{background:#fff;padding:14px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:36px;flex-wrap:wrap;}
+.addr-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.addr-val{font-size:14px;font-weight:600;}
+.addr-budget{background:var(--gold-lt);border:1px solid var(--gold);border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;color:#8a6a30;}
+.kp-guide{background:#fff;border-bottom:2px solid var(--border);padding:10px 48px;}
+.kp-guide-title{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;}
+.kp-guide-tabs{display:flex;gap:5px;flex-wrap:wrap;}
+.kp-guide-tab{display:flex;align-items:center;justify-content:center;gap:4px;flex:1;min-width:100px;background:var(--bg);border-radius:20px;padding:7px 8px;font-size:11px;font-weight:500;color:#555;cursor:pointer;transition:all .15s;border:1px solid transparent;text-align:center;}
+.kp-guide-tab:hover{border-color:var(--gold);color:var(--text);background:#fdf5e8;}
+.kp-guide-tab.active{border-color:var(--gold);color:var(--text);background:#fdf5e8;font-weight:700;}
+.container{max-width:960px;margin:0 auto;background:#fff;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.pad{padding:40px 48px 56px;}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.brief-intro{background:var(--dark);border-radius:14px;padding:28px 32px;margin-bottom:24px;}
+.brief-intro-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;}
+.brief-intro-text{font-size:13px;color:#aaa;line-height:1.7;}
+.brief-intro-accent{color:var(--gold);font-weight:600;}
+.brief-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
+.brief-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.brief-chip-icon{font-size:22px;margin-bottom:8px;}
+.brief-chip-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px;}
+.brief-chip-val{font-size:14px;font-weight:700;}
+.brief-chip-sub{font-size:11px;color:#888;margin-top:2px;}
+.brief-note{background:var(--orange-lt);border:1px solid var(--orange);border-radius:10px;padding:14px 18px;font-size:13px;color:#7a5a0a;line-height:1.6;}
+.brief-note strong{color:#5a4010;}
+.block-hero{border-radius:14px;padding:24px 28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.block-hero.sks-hero{background:var(--sks);}
+.block-hero.kup-hero{background:var(--kup);}
+.block-hero-badge{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:700;margin-bottom:6px;}
+.block-hero-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:6px;}
+.block-hero-desc{font-size:13px;color:#9aa0b8;line-height:1.6;max-width:440px;}
+.block-hero-right{text-align:right;flex-shrink:0;}
+.block-hero-price-label{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.block-hero-price{font-size:30px;font-weight:800;color:#fff;white-space:nowrap;}
+.block-hero-price-sub{font-size:11px;margin-top:4px;}
+.over-budget{color:#f97316;font-weight:700;}
+.in-budget{color:#4ade80;font-weight:700;}
+.kp-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.kp-table th{background:var(--dark);color:#fff;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:10px 14px;text-align:left;}
+.kp-table td{padding:14px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+.kp-table tr:last-child td{border-bottom:none;}
+.kp-table tr:hover td{background:#fafaf8;}
+.item-num{font-size:11px;font-weight:700;color:var(--gold);width:28px;}
+.item-brand{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.item-model{font-size:13px;font-weight:700;margin-bottom:4px;letter-spacing:.02em;}
+.item-name{font-size:12px;color:#555;margin-bottom:6px;line-height:1.5;}
+.item-specs{display:flex;flex-wrap:wrap;gap:4px;}
+.spec-tag{display:inline-block;background:#f3f4f6;border-radius:6px;padding:2px 7px;font-size:10px;color:#555;}
+.item-price{font-size:15px;font-weight:800;white-space:nowrap;vertical-align:middle;}
+.stock-col{width:110px;vertical-align:middle;}
+.badge{display:inline-block;border-radius:20px;padding:3px 9px;font-size:10px;font-weight:600;line-height:1.5;}
+.badge-clarify{background:#f3f4f6;color:#555;border:1px solid #ddd;}
+.kp-total{background:var(--dark);border-radius:12px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.kp-total-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;}
+.kp-total-val{font-size:28px;font-weight:800;color:#fff;}
+.kp-total-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.budget-status{border-radius:10px;padding:14px 20px;}
+.budget-status.over{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);}
+.budget-status.ok{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);}
+.budget-status-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.budget-status.over .budget-status-label{color:#f97316;}
+.budget-status.ok .budget-status-label{color:#16a34a;}
+.budget-status-val{font-size:16px;font-weight:800;}
+.budget-status.over .budget-status-val{color:#ef4444;}
+.budget-status.ok .budget-status-val{color:#22c55e;}
+.budget-status-note{font-size:11px;color:#888;margin-top:2px;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
+.about-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px 24px;}
+.about-card-icon{font-size:26px;margin-bottom:10px;}
+.about-card-title{font-size:13px;font-weight:700;margin-bottom:6px;}
+.about-card-text{font-size:12px;color:#555;line-height:1.6;}
+.cond-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
+.cond-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.cond-card-icon{font-size:22px;margin-bottom:8px;}
+.cond-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;}
+.cond-card-val{font-size:14px;font-weight:700;margin-bottom:3px;}
+.cond-card-sub{font-size:11px;color:#888;line-height:1.5;}
+.vis-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.vis-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.vis-img{background:linear-gradient(135deg,#f0f0f0,#e0e0e0);height:200px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#999;}
+.vis-body{padding:16px 18px;}
+.vis-brand{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.vis-model{font-size:14px;font-weight:700;margin-bottom:4px;}
+.vis-name{font-size:12px;color:#555;margin-bottom:8px;}
+.vis-specs-list{display:flex;flex-direction:column;gap:4px;}
+.vis-spec-row{display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid #f0f0f0;}
+.vis-spec-row:last-child{border-bottom:none;}
+.vis-spec-key{color:var(--muted);}
+.vis-spec-val{font-weight:600;}
+.contact-hero{background:var(--dark);border-radius:14px;padding:28px 32px;margin-bottom:24px;text-align:center;}
+.contact-hero-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;}
+.contact-hero-sub{font-size:13px;color:#9aa0b8;}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.contact-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;text-align:center;}
+.contact-card-icon{font-size:24px;margin-bottom:8px;}
+.contact-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;}
+.contact-card-val{font-size:13px;font-weight:700;}
+.contact-card-sub{font-size:11px;color:#888;margin-top:2px;}
+.footnote{background:#fff;padding:16px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);}
+.stock-note{background:#fffbeb;border:1px solid #f59e0b;border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:12px;color:#7a5a0a;line-height:1.6;}
+.stock-note strong{display:block;margin-bottom:4px;font-size:12px;font-weight:700;color:#5a4010;}
+@media(max-width:680px){
+  .header,.addressee,.kp-guide,.pad{padding-left:20px;padding-right:20px;}
+  .brief-grid{grid-template-columns:1fr 1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  .cond-grid{grid-template-columns:1fr 1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .vis-grid{grid-template-columns:1fr;}
+  .block-hero{flex-direction:column;align-items:flex-start;}
+  .block-hero-right{text-align:left;}
+  .kp-total{flex-direction:column;align-items:flex-start;}
+  .footnote{flex-direction:column;gap:6px;text-align:center;}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <div class="logo-title">Home Project</div>
+    <div class="logo-sub">Премиальная бытовая техника · Москва</div>
+  </div>
+  <div style="text-align:right;">
+    <div class="kp-label">Коммерческое предложение</div>
+    <div class="kp-meta">HP-2026-054</div>
+    <div class="kp-date">2 июня 2026 · действует 14 дней</div>
+  </div>
+</div>
+<div class="brand-bar">
+  <div class="brand-pill">
+    <div class="brand-pill-dot" style="background:#4a8fd8;"></div>
+    <span class="brand-pill-name">SKS</span>
+    <span class="brand-pill-tag">Signature Kitchen Suite</span>
+  </div>
+  <span class="brand-bar-sep">·</span>
+  <div class="brand-pill">
+    <div class="brand-pill-dot" style="background:var(--gold);"></div>
+    <span class="brand-pill-name">Küppersbusch</span>
+    <span class="brand-pill-tag">Германия · Homeier</span>
+  </div>
+  <span class="brand-bar-sep">·</span>
+  <span style="font-size:11px;color:rgba(255,255,255,.5);">Два варианта подбора · Кухня полного комплекта</span>
+</div>
+<div class="addressee">
+  <div>
+    <div class="addr-lbl">Подготовлено для</div>
+    <div class="addr-val">Артём</div>
+  </div>
+  <div>
+    <div class="addr-lbl">Состав</div>
+    <div class="addr-val">Посудомойка · Духовой шкаф · Варка · Холодильник</div>
+  </div>
+  <div>
+    <div class="addr-lbl">Бюджет</div>
+    <div class="addr-budget">1 300 000 ₽</div>
+  </div>
+</div>
+<div class="kp-guide">
+  <div class="kp-guide-title">Навигация по разделам</div>
+  <div class="kp-guide-tabs">
+    <div class="kp-guide-tab active" onclick="showTab(0)">📋 Бриф</div>
+    <div class="kp-guide-tab" onclick="showTab(1)">💎 Вариант A · SKS</div>
+    <div class="kp-guide-tab" onclick="showTab(2)">✅ Вариант B · Küppersbusch</div>
+    <div class="kp-guide-tab" onclick="showTab(3)">🚚 Условия</div>
+    <div class="kp-guide-tab" onclick="showTab(4)">🖼 Визуалы</div>
+    <div class="kp-guide-tab" onclick="showTab(5)">🏢 О нас</div>
+    <div class="kp-guide-tab" onclick="showTab(6)">📞 Контакты</div>
+  </div>
+</div>
+<div class="container">
+<div class="tab-panel active" id="tab-0">
+<div class="pad">
+  <div class="section-title">Запрос</div>
+  <div class="brief-intro">
+    <div class="brief-intro-title">Подбор техники для кухни</div>
+    <div class="brief-intro-text">
+      Клиент запросил полный комплект встраиваемой техники для кухни —
+      <span class="brief-intro-accent">4 позиции</span> в бюджете
+      <span class="brief-intro-accent">1 300 000 ₽</span>.
+      Рассматриваются два бренда: <span class="brief-intro-accent">SKS (Signature Kitchen Suite)</span>
+      как премиум-вариант и <span class="brief-intro-accent">Küppersbusch</span> как вариант в рамках бюджета.
+      Ключевое требование — <span class="brief-intro-accent">наличие на складе</span>.
+    </div>
+  </div>
+  <div class="brief-grid">
+    <div class="brief-chip">
+      <div class="brief-chip-icon">🍽️</div>
+      <div class="brief-chip-label">Позиция 1</div>
+      <div class="brief-chip-val">Посудомоечная машина</div>
+      <div class="brief-chip-sub">Полновстраиваемая · 60 см</div>
+    </div>
+    <div class="brief-chip">
+      <div class="brief-chip-icon">🔥</div>
+      <div class="brief-chip-label">Позиция 2</div>
+      <div class="brief-chip-val">Духовой шкаф</div>
+      <div class="brief-chip-sub">Встраиваемый · 60/45 см</div>
+    </div>
+    <div class="brief-chip">
+      <div class="brief-chip-icon">⚡</div>
+      <div class="brief-chip-label">Позиция 3</div>
+      <div class="brief-chip-val">Варочная поверхность</div>
+      <div class="brief-chip-sub">Индукция</div>
+    </div>
+    <div class="brief-chip">
+      <div class="brief-chip-icon">❄️</div>
+      <div class="brief-chip-label">Позиция 4</div>
+      <div class="brief-chip-val">Холодильник</div>
+      <div class="brief-chip-sub">Встраиваемый</div>
+    </div>
+    <div class="brief-chip">
+      <div class="brief-chip-icon">💰</div>
+      <div class="brief-chip-label">Бюджет</div>
+      <div class="brief-chip-val">1 300 000 ₽</div>
+      <div class="brief-chip-sub">Общий на 4 позиции</div>
+    </div>
+    <div class="brief-chip">
+      <div class="brief-chip-icon">📦</div>
+      <div class="brief-chip-label">Приоритет</div>
+      <div class="brief-chip-val">Наличие на складе</div>
+      <div class="brief-chip-sub">Уточняем у поставщика</div>
+    </div>
+  </div>
+  <div class="brief-note">
+    <strong>⚠️ Важно по бюджету</strong>
+    Подобрано <strong>два варианта</strong>. Вариант A (SKS) — превышает бюджет, это топовая американская марка с высоким чеком входа. Вариант B (Küppersbusch) — укладывается в 1 300 000 ₽ и предлагает премиальный немецкий комплект полного уровня.
+    По наличию уточняем у поставщика Homeier в течение 1 рабочего дня.
+  </div>
+</div>
+</div>
+<div class="tab-panel" id="tab-1">
+<div class="pad">
+  <div class="section-title">Вариант A · SKS Signature Kitchen Suite</div>
+  <div class="block-hero sks-hero">
+    <div>
+      <div class="block-hero-badge">Вариант A · Премиум</div>
+      <div class="block-hero-title">SKS · Signature Kitchen Suite</div>
+      <div class="block-hero-desc">Американский бренд премиум-уровня. Профессиональные функции, эксклюзивный дизайн. Многофункциональный духовой шкаф 3-в-1 с паром и СВЧ, широкоформатная индукционная панель 93 см.</div>
+    </div>
+    <div class="block-hero-right">
+      <div class="block-hero-price-label">Сумма комплекта (РРЦ)</div>
+      <div class="block-hero-price">1 957 960 ₽</div>
+      <div class="block-hero-price-sub over-budget">⬆ +657 960 ₽ сверх бюджета</div>
+    </div>
+  </div>
+  <div class="stock-note">
+    <strong>📦 Наличие на складе</strong>
+    Наличие по позициям SKS уточняется у поставщика. Подтверждение — в течение 1 рабочего дня.
+    SKS — импортный бренд, часть позиций может быть под заказ (срок поставки 4–8 недель).
+  </div>
+  <table class="kp-table">
+    <thead>
+      <tr>
+        <th style="width:28px;">#</th>
+        <th>Позиция</th>
+        <th style="width:120px;">Наличие</th>
+        <th style="width:130px;text-align:right;">РРЦ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td>
+          <div class="item-brand">SKS · Посудомоечная машина</div>
+          <div class="item-model">SKSDW2402P</div>
+          <div class="item-name">Полновстраиваемая посудомоечная машина под фасад. 14 комплектов, 3 корзины, зона для хрусталя. Программа Half Load, автодозаправка.</div>
+          <div class="item-specs"><span class="spec-tag">60 см</span><span class="spec-tag">14 комплектов</span><span class="spec-tag">3 корзины</span><span class="spec-tag">Под фасад</span></div>
+        </td>
+        <td class="stock-col"><span class="badge badge-clarify">Уточняется</span></td>
+        <td class="item-price" style="text-align:right;">244 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td>
+          <div class="item-brand">SKS · Духовой шкаф</div>
+          <div class="item-model">SKSLV2403S</div>
+          <div class="item-name">Компактный духовой шкаф 3-в-1: конвекция + микроволны + пар. Профессиональное приготовление в одном приборе. TFT-дисплей, сенсорное управление. Чёрный матовый.</div>
+          <div class="item-specs"><span class="spec-tag">45 см</span><span class="spec-tag">Конвекция</span><span class="spec-tag">Пар</span><span class="spec-tag">СВЧ</span><span class="spec-tag">Чёрный матовый</span></div>
+        </td>
+        <td class="stock-col"><span class="badge badge-clarify">Уточняется</span></td>
+        <td class="item-price" style="text-align:right;">559 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">3</td>
+        <td>
+          <div class="item-brand">SKS · Варочная поверхность</div>
+          <div class="item-model">SKSIT3601G</div>
+          <div class="item-name">Широкая индукционная поверхность 93 см. Flexzone — зоны объединяются под любую посуду. Мощность до 7 400 Вт. Bridging — две зоны в одну для продолговатой посуды.</div>
+          <div class="item-specs"><span class="spec-tag">93 см</span><span class="spec-tag">Индукция</span><span class="spec-tag">Flexzone</span><span class="spec-tag">7 400 Вт</span></div>
+        </td>
+        <td class="stock-col"><span class="badge badge-clarify">Уточняется</span></td>
+        <td class="item-price" style="text-align:right;">510 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">4</td>
+        <td>
+          <div class="item-brand">SKS · Холодильник</div>
+          <div class="item-model">SKSUD2402E</div>
+          <div class="item-name">Встраиваемый конвертируемый холодильник/морозилка. Переключение режима одной кнопкой: холодильник (от +1°C) или морозилка (до −20°C). Под фасад в колонну.</div>
+          <div class="item-specs"><span class="spec-tag">60 см</span><span class="spec-tag">Конвертируемый</span><span class="spec-tag">Под фасад</span><span class="spec-tag">NoFrost</span></div>
+        </td>
+        <td class="stock-col"><span class="badge badge-clarify">Уточняется</span></td>
+        <td class="item-price" style="text-align:right;">641 990 ₽</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="kp-total">
+    <div>
+      <div class="kp-total-label">Итого по варианту A · SKS (РРЦ)</div>
+      <div class="kp-total-val">1 957 960 ₽</div>
+      <div class="kp-total-sub">4 позиции · цены по каталогу</div>
+    </div>
+    <div class="budget-status over">
+      <div class="budget-status-label">⬆ Превышение бюджета</div>
+      <div class="budget-status-val">+657 960 ₽</div>
+      <div class="budget-status-note">Бюджет: 1 300 000 ₽</div>
+    </div>
+  </div>
+  <div style="background:#f8f8f8;border-radius:10px;padding:18px 20px;font-size:12px;color:#555;line-height:1.7;">
+    <strong style="display:block;margin-bottom:6px;font-size:12px;color:#333;">💡 Комментарий по SKS</strong>
+    SKS — бренд с очень высоким чеком входа. Для полного комплекта из 4 позиций сумма составит ~<strong>1 960 000 ₽</strong>.
+    Если рассматривается именно SKS — рекомендуем скорректировать бюджет проекта.
+    Также возможен вариант SKS из 3 позиций (без холодильника) — ~<strong>1 316 000 ₽</strong>, с отдельным подбором холодильника другого бренда.
+  </div>
+</div>
+</div>
+<div class="tab-panel" id="tab-2">
+<div class="pad">
+  <div class="section-title">Вариант B · Küppersbusch</div>
+  <div class="block-hero kup-hero">
+    <div>
+      <div class="block-hero-badge">Вариант B · В рамках бюджета</div>
+      <div class="block-hero-title">Küppersbusch · Германия</div>
+      <div class="block-hero-desc">Премиальная немецкая техника с 150-летней историей. Уникальная особенность подборки — варочная панель KMI со встроенной вентиляцией: отдельная вытяжка не нужна. Паровой духовой шкаф, флагманская тихая посудомойка. Полный комплект в бюджете.</div>
+    </div>
+    <div class="block-hero-right">
+      <div class="block-hero-price-label">Сумма комплекта (РРЦ)</div>
+      <div class="block-hero-price">1 311 960 ₽</div>
+      <div class="block-hero-price-sub in-budget">✅ В рамках бюджета</div>
+    </div>
+  </div>
+  <div class="stock-note">
+    <strong>📦 Наличие на складе</strong>
+    Наличие по позициям Küppersbusch уточняется у поставщика Homeier.
+    Подтверждение — в течение 1 рабочего дня. Прайс-лист актуален на 1 июня 2026.
+  </div>
+  <table class="kp-table">
+    <thead>
+      <tr>
+        <th style="width:28px;">#</th>
+        <th>Позиция</th>
+        <th style="width:120px;">Наличие</th>
+        <th style="width:130px;text-align:right;">РРЦ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td>
+          <div class="item-brand">Küppersbusch · Посудомоечная машина</div>
+          <div class="item-model">G 6594.0 v</div>
+          <div class="item-name">Флагманская посудомоечная машина. 14 комплектов, 3 уровня корзин, персонализируемые ящики для столовых приборов. Уровень шума от 42 дБ. Программа Flex 1–4 персоны.</div>
+          <div class="item-specs"><span class="spec-tag">60 см</span><span class="spec-tag">14 комплектов</span><span class="spec-tag">42 дБ</span><span class="spec-tag">Под фасад</span><span class="spec-tag">3 корзины</span></div>
+        </td>
+        <td class="stock-col"><span class="badge badge-clarify">Уточняется</span></td>
+        <td class="item-price" style="text-align:right;">220 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td>
+          <div class="item-brand">Küppersbusch · Духовой шкаф</div>
+          <div class="item-model">BD 6340.0 S</div>
+          <div class="item-name">Духовой шкаф с профессиональной паровой функцией. Конвекция + пар — для су-вид, хлеба, рыбы, овощей. Нержавеющая сталь, сенсорное управление, автоматическая очистка.</div>
+          <div class="item-specs"><span class="spec-tag">60 см</span><span class="spec-tag">Конвекция</span><span class="spec-tag">Пар</span><span class="spec-tag">Нержавеющая сталь</span><span class="spec-tag">Автоочистка</span></div>
+        </td>
+        <td class="stock-col"><span class="badge badge-clarify">Уточняется</span></td>
+        <td class="item-price" style="text-align:right;">347 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">3</td>
+        <td>
+          <div class="item-brand">Küppersbusch · Варочная поверхность</div>
+          <div class="item-model">KMI 6350.0 SR</div>
+          <div class="item-name">Уникальная индукционная панель со встроенной системой вентиляции — вытяжка интегрирована прямо в варочную поверхность. Пары и запахи удаляются над источником. Отдельная вытяжка не нужна — освобождает пространство и упрощает проект кухни.</div>
+          <div class="item-specs"><span class="spec-tag">60 см</span><span class="spec-tag">Индукция</span><span class="spec-tag">Встроенная вентиляция</span><span class="spec-tag">Без отдельной вытяжки</span></div>
+        </td>
+        <td class="stock-col"><span class="badge badge-clarify">Уточняется</span></td>
+        <td class="item-price" style="text-align:right;">482 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">4</td>
+        <td>
+          <div class="item-brand">Küppersbusch · Холодильник с морозилкой</div>
+          <div class="item-model">FKGF 9850.0i</div>
+          <div class="item-name">Встраиваемый холодильник с нижней морозильной камерой. FreshZone — регулируемая влажность для продуктов. NoFrost в обоих отделениях. Мягкое закрывание дверей. Под фасад клиента.</div>
+          <div class="item-specs"><span class="spec-tag">70 см</span><span class="spec-tag">Холодильник + морозилка</span><span class="spec-tag">NoFrost</span><span class="spec-tag">FreshZone</span><span class="spec-tag">Под фасад</span></div>
+        </td>
+        <td class="stock-col"><span class="badge badge-clarify">Уточняется</span></td>
+        <td class="item-price" style="text-align:right;">259 990 ₽</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="kp-total">
+    <div>
+      <div class="kp-total-label">Итого по варианту B · Küppersbusch (РРЦ)</div>
+      <div class="kp-total-val">1 311 960 ₽</div>
+      <div class="kp-total-sub">4 позиции · прайс от 01.06.2026</div>
+    </div>
+    <div class="budget-status ok">
+      <div class="budget-status-label">✅ В рамках бюджета</div>
+      <div class="budget-status-val">−11 960 ₽ запас</div>
+      <div class="budget-status-note">Бюджет: 1 300 000 ₽</div>
+    </div>
+  </div>
+  <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:18px 20px;font-size:12px;color:#14532d;line-height:1.7;">
+    <strong style="display:block;margin-bottom:6px;font-size:12px;color:#15803d;">✅ Ключевые преимущества комплекта</strong>
+    <b>KMI 6350.0</b> — варочная панель с встроенной вентиляцией — упрощает проект кухни: убирает необходимость в отдельной вытяжке, освобождает место над панелью.<br>
+    <b>BD 6340.0 S</b> — паровой духовой шкаф — расширяет возможности приготовления по сравнению с обычными конвекционными моделями.<br>
+    Все 4 позиции в едином стиле Küppersbusch — нержавеющая сталь или матовый чёрный по выбору.
+  </div>
+</div>
+</div>
+<div class="tab-panel" id="tab-3">
+<div class="pad">
+  <div class="section-title">Условия поставки и гарантии</div>
+  <div class="cond-grid">
+    <div class="cond-card">
+      <div class="cond-card-icon">📦</div>
+      <div class="cond-card-label">Наличие</div>
+      <div class="cond-card-val">Уточняется</div>
+      <div class="cond-card-sub">Проверяем наличие у поставщика Homeier. Ответ в течение 1 рабочего дня</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-card-icon">🚚</div>
+      <div class="cond-card-label">Срок поставки</div>
+      <div class="cond-card-val">Со склада: 3–7 дней</div>
+      <div class="cond-card-sub">При наличии на складе Homeier. Под заказ: 4–8 недель (импорт)</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-card-icon">🛡️</div>
+      <div class="cond-card-label">Гарантия</div>
+      <div class="cond-card-val">2 года</div>
+      <div class="cond-card-sub">Официальная гарантия производителя на всю технику. Авторизованный сервис</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-card-icon">🔧</div>
+      <div class="cond-card-label">Монтаж</div>
+      <div class="cond-card-val">По согласованию</div>
+      <div class="cond-card-sub">Профессиональная установка и подключение — организуем по запросу</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-card-icon">📋</div>
+      <div class="cond-card-label">КП действует</div>
+      <div class="cond-card-val">14 дней</div>
+      <div class="cond-card-sub">До 16 июня 2026. Цены фиксируются при подтверждении заказа</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-card-icon">🤝</div>
+      <div class="cond-card-label">Оплата</div>
+      <div class="cond-card-val">По счёту</div>
+      <div class="cond-card-sub">Предоплата при заказе. Безналичный расчёт, документы для юр. лиц</div>
+    </div>
+  </div>
+  <div style="background:var(--dark);border-radius:12px;padding:22px 26px;">
+    <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:12px;">📌 Следующий шаг</div>
+    <div style="font-size:12px;color:#aaa;line-height:1.8;">После выбора варианта (A или B) — запросим у поставщика актуальное наличие. Результат в течение <strong style="color:#fff;">1 рабочего дня</strong>. При наличии всех позиций — выставим счёт и зафиксируем цены.</div>
+  </div>
+</div>
+</div>
+<div class="tab-panel" id="tab-4">
+<div class="pad">
+  <div class="section-title">Визуалы · Техника в деталях</div>
+  <div style="margin-bottom:20px;font-size:13px;font-weight:700;">Вариант A · SKS</div>
+  <div class="vis-grid" style="margin-bottom:36px;">
+    <div class="vis-card">
+      <div class="vis-img"><span style="text-align:center;padding:20px;">🍽️<br>SKSDW2402P<br>Посудомоечная машина</span></div>
+      <div class="vis-body">
+        <div class="vis-brand">SKS · Signature Kitchen Suite</div>
+        <div class="vis-model">SKSDW2402P</div>
+        <div class="vis-name">Посудомоечная машина полновстраиваемая</div>
+        <div class="vis-specs-list">
+          <div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">60 см</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Загрузка</span><span class="vis-spec-val">14 комплектов</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Корзины</span><span class="vis-spec-val">3 уровня</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">РРЦ</span><span class="vis-spec-val">244 990 ₽</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-img"><span style="text-align:center;padding:20px;">🔥<br>SKSLV2403S<br>Духовой шкаф 3-в-1</span></div>
+      <div class="vis-body">
+        <div class="vis-brand">SKS · Signature Kitchen Suite</div>
+        <div class="vis-model">SKSLV2403S</div>
+        <div class="vis-name">Духовой шкаф с конвекцией, паром и СВЧ</div>
+        <div class="vis-specs-list">
+          <div class="vis-spec-row"><span class="vis-spec-key">Высота ниши</span><span class="vis-spec-val">45 см</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Функции</span><span class="vis-spec-val">Конвекция + Пар + СВЧ</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Цвет</span><span class="vis-spec-val">Чёрный матовый</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">РРЦ</span><span class="vis-spec-val">559 990 ₽</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-img"><span style="text-align:center;padding:20px;">⚡<br>SKSIT3601G<br>Индукционная панель 93 см</span></div>
+      <div class="vis-body">
+        <div class="vis-brand">SKS · Signature Kitchen Suite</div>
+        <div class="vis-model">SKSIT3601G</div>
+        <div class="vis-name">Индукционная варочная поверхность Flexzone</div>
+        <div class="vis-specs-list">
+          <div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">93 см</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Технология</span><span class="vis-spec-val">Flexzone + Bridging</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Мощность</span><span class="vis-spec-val">7 400 Вт</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">РРЦ</span><span class="vis-spec-val">510 990 ₽</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-img"><span style="text-align:center;padding:20px;">❄️<br>SKSUD2402E<br>Конвертируемый холодильник</span></div>
+      <div class="vis-body">
+        <div class="vis-brand">SKS · Signature Kitchen Suite</div>
+        <div class="vis-model">SKSUD2402E</div>
+        <div class="vis-name">Встраиваемый конвертируемый холодильник/морозилка</div>
+        <div class="vis-specs-list">
+          <div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">60 см</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Режим</span><span class="vis-spec-val">Холодильник / Морозилка</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Диапазон</span><span class="vis-spec-val">+1°C до −20°C</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">РРЦ</span><span class="vis-spec-val">641 990 ₽</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-bottom:20px;font-size:13px;font-weight:700;">Вариант B · Küppersbusch</div>
+  <div class="vis-grid">
+    <div class="vis-card">
+      <div class="vis-img"><span style="text-align:center;padding:20px;">🍽️<br>G 6594.0 v<br>Посудомоечная машина</span></div>
+      <div class="vis-body">
+        <div class="vis-brand">Küppersbusch · Германия</div>
+        <div class="vis-model">G 6594.0 v</div>
+        <div class="vis-name">Флагманская посудомоечная машина</div>
+        <div class="vis-specs-list">
+          <div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">60 см</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Загрузка</span><span class="vis-spec-val">14 комплектов</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Шум</span><span class="vis-spec-val">от 42 дБ</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">РРЦ</span><span class="vis-spec-val">220 990 ₽</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-img"><span style="text-align:center;padding:20px;">🔥<br>BD 6340.0 S<br>Паровой духовой шкаф</span></div>
+      <div class="vis-body">
+        <div class="vis-brand">Küppersbusch · Германия</div>
+        <div class="vis-model">BD 6340.0 S</div>
+        <div class="vis-name">Духовой шкаф с паровой функцией</div>
+        <div class="vis-specs-list">
+          <div class="vis-spec-row"><span class="vis-spec-key">Высота ниши</span><span class="vis-spec-val">60 см</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Функции</span><span class="vis-spec-val">Конвекция + Пар</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Очистка</span><span class="vis-spec-val">Автоматическая</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">РРЦ</span><span class="vis-spec-val">347 990 ₽</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-img"><span style="text-align:center;padding:20px;">⚡<br>KMI 6350.0 SR<br>Варочная + вентиляция</span></div>
+      <div class="vis-body">
+        <div class="vis-brand">Küppersbusch · Германия</div>
+        <div class="vis-model">KMI 6350.0 SR</div>
+        <div class="vis-name">Индукция со встроенной вентиляцией</div>
+        <div class="vis-specs-list">
+          <div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">60 см</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Особенность</span><span class="vis-spec-val">Без отдельной вытяжки</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Тип</span><span class="vis-spec-val">Индукция + Downdraft</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">РРЦ</span><span class="vis-spec-val">482 990 ₽</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-img"><span style="text-align:center;padding:20px;">❄️<br>FKGF 9850.0i<br>Холодильник с морозилкой</span></div>
+      <div class="vis-body">
+        <div class="vis-brand">Küppersbusch · Германия</div>
+        <div class="vis-model">FKGF 9850.0i</div>
+        <div class="vis-name">Встраиваемый холодильник с нижней морозилкой</div>
+        <div class="vis-specs-list">
+          <div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">70 см</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">NoFrost</span><span class="vis-spec-val">Оба отделения</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">Функция</span><span class="vis-spec-val">FreshZone</span></div>
+          <div class="vis-spec-row"><span class="vis-spec-key">РРЦ</span><span class="vis-spec-val">259 990 ₽</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="tab-panel" id="tab-5">
+<div class="pad">
+  <div class="section-title">О Home Project</div>
+  <div class="brief-intro" style="margin-bottom:24px;">
+    <div class="brief-intro-title">Официальный партнёр премиальных брендов</div>
+    <div class="brief-intro-text">Home Project — дистрибьютор премиальной встраиваемой бытовой техники. Работаем напрямую с авторизованными поставщиками <span class="brief-intro-accent">Homeier</span> и <span class="brief-intro-accent">HOMETEK</span>. Специализация — проекты архитекторов и дизайнеров интерьера.</div>
+  </div>
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="about-card-icon">🏆</div>
+      <div class="about-card-title">9 брендов в портфеле</div>
+      <div class="about-card-text">V-ZUG, BORA, Fhiaba, Küppersbusch, De Dietrich, Graude, SKS, Schulthess, ILVE. Подбираем оптимальный вариант под задачу и бюджет.</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">📋</div>
+      <div class="about-card-title">Работа с архитекторами</div>
+      <div class="about-card-text">Подготовка КП по техзаданию, подбор моделей с учётом ниш встраивания, согласование с производителем, комплектация объектов.</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">🚚</div>
+      <div class="about-card-title">Поставка и установка</div>
+      <div class="about-card-text">Организуем доставку на объект, помогаем с монтажом через партнёрскую сеть авторизованных специалистов.</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">🛡️</div>
+      <div class="about-card-title">Официальная гарантия</div>
+      <div class="about-card-text">Вся техника с официальной гарантией производителя. Авторизованный сервис, оригинальные запчасти.</div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="tab-panel" id="tab-6">
+<div class="pad">
+  <div class="section-title">Контакты</div>
+  <div class="contact-hero">
+    <div class="contact-hero-title">Готовы ответить на вопросы</div>
+    <div class="contact-hero-sub">Уточним наличие, скорректируем подборку, подготовим схемы встраивания</div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-card-icon">👤</div>
+      <div class="contact-card-label">Менеджер</div>
+      <div class="contact-card-val">Алексей</div>
+      <div class="contact-card-sub">Home Project</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-icon">📱</div>
+      <div class="contact-card-label">Телефон / WhatsApp</div>
+      <div class="contact-card-val">+7 (936) 314-86-36</div>
+      <div class="contact-card-sub">Пн–Пт 9:00–19:00</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-icon">✈️</div>
+      <div class="contact-card-label">Telegram</div>
+      <div class="contact-card-val">@homeproject_ai_bot</div>
+      <div class="contact-card-sub">Быстрая связь</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="footnote">
+  <span>Home Project · КП № HP-2026-054 · 2 июня 2026 · Действует до 16 июня 2026</span>
+  <span>Все цены в рублях · homeproject.online</span>
+</div>
+<script>
+function showTab(idx){
+  document.querySelectorAll('.tab-panel').forEach(function(p,i){p.classList.toggle('active',i===idx);});
+  document.querySelectorAll('.kp-guide-tab').forEach(function(t,i){t.classList.toggle('active',i===idx);});
+}
+</script>
+</body>
+</html>
