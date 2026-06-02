@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · Küppersbusch + Schulthess · Светлая кухня · Home Project</title>
+<style>
+  :root {
+    --bg: #f5f2ec;
+    --card: #ffffff;
+    --card2: #f0ece4;
+    --border: #e0d8cc;
+    --text: #2a2418;
+    --muted: #7a6e5e;
+    --gold: #C9A36A;
+    --gold2: #b88d50;
+    --kup-silver: #8a9ba8;
+    --kup-dark: #1e2a35;
+    --sch-green: #4a7c5a;
+    --accent: #C9A36A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Helvetica Neue', Arial, sans-serif; min-height: 100vh; }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #1e2a35 0%, #2d3d4a 60%, #1a2530 100%);
+    padding: 28px 40px 22px;
+    border-bottom: 3px solid var(--gold);
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; }
+  .header-brand { font-size: 10px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .header-title { font-size: 22px; font-weight: 300; color: #fff; letter-spacing: 1px; }
+  .header-subtitle { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .header-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .header-pill {
+    padding: 3px 10px; border-radius: 20px; font-size: 10px; letter-spacing: 1px;
+    border: 1px solid rgba(201,163,106,0.4); color: var(--gold); background: rgba(201,163,106,0.1);
+  }
+  .header-meta { text-align: right; font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.9; }
+  .header-meta span { color: var(--gold); }
+
+  /* NAV */
+  .nav-wrap { background: var(--kup-dark); border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 100; }
+  .nav { display: flex; overflow-x: auto; }
+  .nav-btn {
+    flex: 1; min-width: 80px; padding: 13px 10px; border: none; background: transparent;
+    color: rgba(255,255,255,0.45); font-size: 11px; cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all .2s; white-space: nowrap; text-align: center; letter-spacing: 0.3px;
+  }
+  .nav-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
+  .nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* CONTENT */
+  .tab { display: none; padding: 32px 40px 60px; max-width: 920px; margin: 0 auto; }
+  .tab.active { display: block; }
+
+  .section-title {
+    font-size: 10px; letter-spacing: 3px; color: var(--gold2); text-transform: uppercase;
+    margin-bottom: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+  .section-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+
+  /* BRIEF */
+  .brief-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .brief-item { background: var(--card); border-radius: 10px; padding: 14px 18px; border: 1px solid var(--border); }
+  .brief-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
+  .brief-val { font-size: 14px; color: var(--text); font-weight: 500; }
+  .brief-val.gold { color: var(--gold2); font-size: 16px; font-weight: 600; }
+
+  /* BRAND SECTION */
+  .brand-header {
+    border-radius: 12px; padding: 14px 20px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .brand-header.kup { background: linear-gradient(90deg, var(--kup-dark) 0%, #2d3d4a 100%); }
+  .brand-header.sch { background: linear-gradient(90deg, #2a3d2d 0%, #3a5a3e 100%); }
+  .brand-logo { font-size: 10px; letter-spacing: 3px; color: rgba(255,255,255,0.4); text-transform: uppercase; font-weight: 700; }
+  .brand-name { font-size: 15px; color: #fff; font-weight: 300; letter-spacing: 1px; }
+  .brand-tagline { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+  .brand-count { margin-left: auto; background: rgba(201,163,106,0.2); border: 1px solid rgba(201,163,106,0.4); color: var(--gold); font-size: 11px; padding: 4px 12px; border-radius: 20px; }
+
+  /* APPLIANCE CARD */
+  .appl-card { background: var(--card); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 14px; overflow: hidden; }
+  .appl-head { display: flex; align-items: center; gap: 14px; padding: 14px 20px; background: var(--card2); border-bottom: 1px solid var(--border); }
+  .appl-icon { font-size: 24px; }
+  .appl-name { font-size: 13px; color: var(--text); font-weight: 600; }
+  .appl-model { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: monospace; letter-spacing: 0.5px; }
+  .appl-color { font-size: 10px; color: var(--gold2); margin-top: 2px; }
+  .appl-price { margin-left: auto; font-size: 17px; color: var(--gold2); font-weight: 700; }
+  .appl-series { margin-right: 8px; font-size: 9px; padding: 2px 7px; border-radius: 10px; background: var(--kup-dark); color: rgba(255,255,255,0.6); letter-spacing: 0.5px; }
+  .appl-body { padding: 14px 20px; }
+  .specs-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .spec-chip { background: var(--card2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: var(--text); }
+  .spec-chip.highlight { background: rgba(201,163,106,0.1); border-color: rgba(201,163,106,0.3); color: var(--gold2); }
+  .appl-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* TOTAL BLOCK */
+  .total-block {
+    background: linear-gradient(135deg, var(--kup-dark) 0%, #253545 100%);
+    border-radius: 14px; padding: 24px 28px; border: 1px solid rgba(201,163,106,0.4);
+    margin-top: 24px;
+  }
+  .total-label { font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 6px; }
+  .total-amount { font-size: 36px; color: var(--gold); font-weight: 700; }
+  .total-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .total-part { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 12px 16px; }
+  .total-part-label { font-size: 10px; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+  .total-part-val { font-size: 16px; color: rgba(255,255,255,0.8); font-weight: 600; }
+  .budget-note { background: rgba(255,180,0,0.08); border: 1px solid rgba(255,180,0,0.2); border-radius: 10px; padding: 14px 18px; margin-top: 16px; font-size: 12px; color: rgba(255,200,100,0.9); line-height: 1.7; }
+
+  /* VARIANT BADGE */
+  .variant-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(90deg, var(--gold2) 0%, var(--gold) 100%);
+    color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    padding: 6px 16px; border-radius: 20px; text-transform: uppercase; margin-bottom: 20px;
+  }
+
+  /* COMPARE TABLE */
+  .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .compare-table th { background: var(--kup-dark); color: #fff; padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 600; }
+  .compare-table th:first-child { border-radius: 8px 0 0 0; }
+  .compare-table th:last-child { border-radius: 0 8px 0 0; }
+  .compare-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); font-size: 12px; background: var(--card); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .total-row td { background: var(--kup-dark); color: var(--gold); font-weight: 700; font-size: 15px; border-radius: 0 0 8px 8px; }
+  .compare-table .sch-row td { background: rgba(74,124,90,0.05); }
+  .compare-table .divider-row td { background: var(--card2); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+  /* CONDITIONS */
+  .cond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cond-card { background: var(--card); border-radius: 10px; padding: 20px; border: 1px solid var(--border); }
+  .cond-icon { font-size: 22px; margin-bottom: 8px; }
+  .cond-title { font-size: 12px; color: var(--gold2); font-weight: 600; margin-bottom: 6px; }
+  .cond-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* CONTACTS */
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+  .contact-card { background: var(--card); border-radius: 12px; padding: 20px 14px; border: 1px solid var(--border); text-align: center; }
+  .contact-icon { font-size: 26px; margin-bottom: 10px; }
+  .contact-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .contact-val { font-size: 13px; color: var(--text); font-weight: 500; }
+  .contact-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .ai-note { background: var(--card2); border-radius: 10px; padding: 14px 18px; font-size: 11px; color: var(--muted); line-height: 1.7; font-style: italic; border: 1px solid var(--border); }
+
+  /* SCHEME */
+  .scheme-card { background: var(--card); border-radius: 12px; padding: 18px 22px; border: 1px solid var(--border); margin-bottom: 14px; }
+  .scheme-title { font-size: 12px; color: var(--gold2); font-weight: 600; margin-bottom: 12px; }
+  .scheme-dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+  .scheme-dim { text-align: center; background: var(--card2); border-radius: 8px; padding: 10px; border: 1px solid var(--border); }
+  .scheme-dim-letter { font-size: 11px; color: var(--gold); font-weight: 700; margin-bottom: 3px; }
+  .scheme-dim-val { font-size: 14px; color: var(--text); font-weight: 600; }
+  .scheme-dim-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .scheme-note { font-size: 11px; color: var(--muted); line-height: 1.6; padding-top: 10px; border-top: 1px solid var(--border); }
+
+  /* STEPS */
+  .steps { list-style: none; }
+  .steps li { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .steps li:last-child { border-bottom: none; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--gold); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  @media (max-width: 600px) {
+    .tab { padding: 20px 16px 40px; }
+    .header { padding: 20px 16px 16px; }
+    .brief-grid { grid-template-columns: 1fr 1fr; }
+    .cond-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .total-breakdown { grid-template-columns: 1fr; }
+    .compare-table { font-size: 10px; }
+    .compare-table td, .compare-table th { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-brand">Home Project · Коммерческое предложение</div>
+      <div class="header-title">Küppersbusch + Schulthess · Белая кухня и постирочная</div>
+      <div class="header-subtitle">Полный комплект встраиваемой техники в светлых тонах</div>
+      <div class="header-pills">
+        <span class="header-pill">Küppersbusch K-series.5</span>
+        <span class="header-pill">Schulthess Sublime Snow</span>
+        <span class="header-pill">Светлые тона</span>
+        <span class="header-pill">9 приборов</span>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div>Дата: <span>02.06.2026</span></div>
+      <div>Бюджет: <span>1 500 000 ₽</span></div>
+      <div>Менеджер: <span>Ария · AI-менеджер</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="nav-btn active" onclick="showTab('brief',this)">📋 Запрос</button>
+    <button class="nav-btn" onclick="showTab('varA',this)">⭐ Вариант A</button>
+    <button class="nav-btn" onclick="showTab('varB',this)">💡 Вариант B</button>
+    <button class="nav-btn" onclick="showTab('compare',this)">⚖️ Сравнение</button>
+    <button class="nav-btn" onclick="showTab('visuals',this)">🖼 Визуалы</button>
+    <button class="nav-btn" onclick="showTab('schemes',this)">📐 Схемы</button>
+    <button class="nav-btn" onclick="showTab('about',this)">🏢 О нас</button>
+    <button class="nav-btn" onclick="showTab('contacts',this)">📞 Контакты</button>
+  </div>
+</div>
+
+<!-- TAB: BRIEF -->
+<div id="tab-brief" class="tab active">
+  <div class="section-title">Параметры запроса</div>
+  <div class="section-desc">Подбор встраиваемой техники двух брендов для белой кухни и постирочной зоны</div>
+
+  <div class="brief-grid">
+    <div class="brief-item">
+      <div class="brief-label">Бренд кухня</div>
+      <div class="brief-val">Küppersbusch</div>
+    </div>
+    <div class="brief-item">
+      <div class="brief-label">Бренд постирочная</div>
+      <div class="brief-val">Schulthess</div>
+    </div>
+    <div class="brief-item">
+      <div class="brief-label">Цветовая концепция</div>
+      <div class="brief-val">Светлые тона (Белый / Inox)</div>
+    </div>
+    <div class="brief-item">
+      <div class="brief-label">Бюджет ориентир</div>
+      <div class="brief-val gold">1 500 000 ₽</div>
+    </div>
+    <div class="brief-item">
+      <div class="brief-label">Количество приборов</div>
+      <div class="brief-val">9 позиций</div>
+    </div>
+    <div class="brief-item">
+      <div class="brief-label">Дата подготовки</div>
+      <div class="brief-val">02 июня 2026</div>
+    </div>
+  </div>
+
+  <!-- Checklist -->
+  <div style="background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="font-size:12px;color:var(--gold2);font-weight:600;margin-bottom:14px;">Комплект по позициям</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="font-size:12px;color:var(--text);padding:8px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border);">🔥 Духовой шкаф — Küppersbusch</div>
+      <div style="font-size:12px;color:var(--text);padding:8px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border);">⚡ Варочная панель — Küppersbusch</div>
+      <div style="font-size:12px;color:var(--text);padding:8px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border);">📡 Микроволновая печь — Küppersbusch</div>
+      <div style="font-size:12px;color:var(--text);padding:8px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border);">🍽 Посудомоечная машина — Küppersbusch</div>
+      <div style="font-size:12px;color:var(--text);padding:8px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border);">🧊 Холодильник — Küppersbusch</div>
+      <div style="font-size:12px;color:var(--text);padding:8px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border);">❄️ Морозильная камера — Küppersbusch</div>
+      <div style="font-size:12px;color:var(--text);padding:8px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border);">🍷 Винный шкаф — Küppersbusch</div>
+      <div style="font-size:12px;color:var(--text);padding:8px 12px;background:rgba(74,124,90,0.08);border-radius:8px;border:1px solid rgba(74,124,90,0.2);">🫧 Стиральная машина — Schulthess</div>
+      <div style="font-size:12px;color:var(--text);padding:8px 12px;background:rgba(74,124,90,0.08);border-radius:8px;border:1px solid rgba(74,124,90,0.2);">💨 Сушильная машина — Schulthess</div>
+    </div>
+  </div>
+
+  <div style="background:rgba(201,163,106,0.08);border:1px solid rgba(201,163,106,0.25);border-radius:12px;padding:18px 22px;">
+    <div style="font-size:12px;color:var(--gold2);font-weight:600;margin-bottom:8px;">Наш подход к подбору</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      Подобрали два сценария. <strong style="color:var(--text);">Вариант A</strong> — полная линейка K-series.5, все белые версии (где доступны), единый стиль по всей кухне.
+      <strong style="color:var(--text);">Вариант B</strong> — интеллектуальная оптимизация: духовка + МВ объединены в одном приборе, холодильная группа компактнее.
+      <br><br>
+      ⚠️ <strong style="color:var(--text);">По бюджету:</strong> комплект из 9 премиальных приборов двух брендов стартует от ~2.0M ₽ по РРЦ. Итоговая стоимость рассчитывается с учётом условий партнёрской программы — уточните у менеджера.
+    </div>
+  </div>
+</div>
+
+<!-- TAB: VARIANT A -->
+<div id="tab-varA" class="tab">
+  <div class="variant-badge">⭐ Вариант A · Premium White · K-series.5</div>
+
+  <!-- Küppersbusch block -->
+  <div class="brand-header kup">
+    <div>
+      <div class="brand-logo">Küppersbusch</div>
+      <div class="brand-name">K-series.5 · Белый / SilverLine</div>
+      <div class="brand-tagline">Единая серия · 7 приборов</div>
+    </div>
+    <div class="brand-count">7 позиций · 1 707 930 ₽</div>
+  </div>
+
+  <!-- Духовой шкаф -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">🔥</div>
+      <div>
+        <div class="appl-name">Духовой шкаф с пиролизом</div>
+        <div class="appl-model">BP 6550.0 W</div>
+        <div class="appl-color">Белый · K-series.5</div>
+      </div>
+      <span class="appl-series">K-series.5</span>
+      <div class="appl-price">313 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Пиролиз 3 уровня</span>
+        <span class="spec-chip">14 функций</span>
+        <span class="spec-chip">8 спец. функций</span>
+        <span class="spec-chip">40+ авто программ</span>
+        <span class="spec-chip">TFT 3.9"</span>
+        <span class="spec-chip">20 любимых программ</span>
+        <span class="spec-chip highlight">Белый</span>
+      </div>
+      <div class="appl-desc">
+        Сенсорное управление · Функция быстрого разогрева · Телескопические направляющие · Съёмная дверца с полным остеклением · VarioSteam (увлажнение) · SoftClose дверь
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, Основной прайс, BP 6550.0 W -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Варочная -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">⚡</div>
+      <div>
+        <div class="appl-name">Индукционная варочная панель</div>
+        <div class="appl-model">KI 8550.0 SR</div>
+        <div class="appl-color">Черный (стандарт для индукции) · K-series.5</div>
+      </div>
+      <span class="appl-series">K-series.5</span>
+      <div class="appl-price">211 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Индукция</span>
+        <span class="spec-chip">80 см</span>
+        <span class="spec-chip">glideControl+</span>
+        <span class="spec-chip">8 авто режимов</span>
+        <span class="spec-chip">Мост зон</span>
+        <span class="spec-chip">Красная индикация</span>
+      </div>
+      <div class="appl-desc">
+        10-уровневое управление мощностью glideControl+ · 8 авто функций: плавление, поддержание тепла, паста, варка, конфи, жарка, запекание, гриль · Функция моста правых зон
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, KI 8550.0 SR -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Микроволновая -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">📡</div>
+      <div>
+        <div class="appl-name">Микроволновая печь</div>
+        <div class="appl-model">MR 6330.0 W</div>
+        <div class="appl-color">Белый · K-series.3</div>
+      </div>
+      <span class="appl-series">K-series.3</span>
+      <div class="appl-price">137 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Белый</span>
+        <span class="spec-chip">850 Вт МВ</span>
+        <span class="spec-chip">Гриль 1200 Вт</span>
+        <span class="spec-chip">3 функции</span>
+        <span class="spec-chip">14 авто программ</span>
+        <span class="spec-chip">5 уровней мощности</span>
+      </div>
+      <div class="appl-desc">
+        3 функции: МВ / МВ+гриль / только гриль · Алюминиевые ручки управления · Правое открытие двери (R = Right)
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, MR 6330.0 W -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ПММ -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">🍽</div>
+      <div>
+        <div class="appl-name">Посудомоечная машина</div>
+        <div class="appl-model">G 6570.0 v</div>
+        <div class="appl-color">Встраиваемая (под фасад) · K-series.5 · Новинка</div>
+      </div>
+      <span class="appl-series">K-series.5</span>
+      <div class="appl-price">206 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Knock to open</span>
+        <span class="spec-chip">14 комплектов</span>
+        <span class="spec-chip">8 программ</span>
+        <span class="spec-chip">7 спец. режимов</span>
+        <span class="spec-chip">Отл. старт 24ч</span>
+        <span class="spec-chip">Сенсорное упр.</span>
+      </div>
+      <div class="appl-desc">
+        Функция автоматического открывания Knock to open · Светодиодная индикация · Фильтр автоочистки · LED-индикация наличия соли и ополаскивателя · 4-цветный индикатор программы сбоку
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, G 6570.0 v -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Холодильник -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">🧊</div>
+      <div>
+        <div class="appl-name">Встраиваемая холодильная камера</div>
+        <div class="appl-model">FK 8550.0I</div>
+        <div class="appl-color">SilverLine (под фасад) · K-series.5</div>
+      </div>
+      <span class="appl-series">K-series.5</span>
+      <div class="appl-price">252 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">188 см</span>
+        <span class="spec-chip">Жёсткое крепление</span>
+        <span class="spec-chip">LED подсветка</span>
+        <span class="spec-chip">Vacation режим</span>
+        <span class="spec-chip">VarioShelves</span>
+        <span class="spec-chip">FastFreezing</span>
+      </div>
+      <div class="appl-desc">
+        Электронная система регулировки температуры · Перенавешиваемая дверца · SilverLine дизайн · Звуковая сигнализация · Режим Vacation (для отъезда)
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, FK 8550.0I -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Морозильная -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">❄️</div>
+      <div>
+        <div class="appl-name">Встраиваемая морозильная камера</div>
+        <div class="appl-model">FG 8550.0I</div>
+        <div class="appl-color">SilverLine (под фасад) · K-series.5</div>
+      </div>
+      <span class="appl-series">K-series.5</span>
+      <div class="appl-price">270 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">NoFrost</span>
+        <span class="spec-chip">188 см</span>
+        <span class="spec-chip">Жёсткое крепление</span>
+        <span class="spec-chip">FastFreezing</span>
+        <span class="spec-chip">Прозр. ящики</span>
+        <span class="spec-chip">SilverLine</span>
+      </div>
+      <div class="appl-desc">
+        NoFrost — не нужна ручная разморозка · FastFreezing с авто отключением · Перенавешиваемая дверца · Электронный контроль температуры с сенсорными кнопками
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, FG 8550.0I -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Винный шкаф -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">🍷</div>
+      <div>
+        <div class="appl-name">Встраиваемый винный шкаф</div>
+        <div class="appl-model">FWKU 1851.0 S</div>
+        <div class="appl-color">Чёрное стекло (UV-защита) · K-series.8</div>
+      </div>
+      <span class="appl-series">K-series.8</span>
+      <div class="appl-price">312 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">46 бутылок</span>
+        <span class="spec-chip">5 деревянных полок</span>
+        <span class="spec-chip">UV-защита</span>
+        <span class="spec-chip">Телескопические</span>
+        <span class="spec-chip">Вертикальный дисплей</span>
+      </div>
+      <div class="appl-desc">
+        Электронная регулировка температуры · 5 выдвижных деревянных полок на телескоп. направляющих · Дверь с чёрным стеклом + UV-защита · Встраивается под столешницу
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, FWKU 1851.0 S -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Schulthess block -->
+  <div class="brand-header sch" style="margin-top:24px;">
+    <div>
+      <div class="brand-logo">Schulthess</div>
+      <div class="brand-name">Sublime Snow · Белый</div>
+      <div class="brand-tagline">Швейцарское качество · 2 прибора</div>
+    </div>
+    <div class="brand-count" style="background:rgba(74,124,90,0.2);border-color:rgba(74,124,90,0.4);color:#7ac884;">2 позиции · 773 980 ₽</div>
+  </div>
+
+  <!-- Стиральная -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">🫧</div>
+      <div>
+        <div class="appl-name">Стиральная машина Sublime Snow</div>
+        <div class="appl-model">ADA1.101BE1H3J3L</div>
+        <div class="appl-color">Snow (Белый) · 60 см</div>
+      </div>
+      <span class="appl-series" style="background:#2a3d2d;">Schulthess</span>
+      <div class="appl-price">361 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Snow · Белый</span>
+        <span class="spec-chip">8 кг</span>
+        <span class="spec-chip">1600 об/мин</span>
+        <span class="spec-chip">Класс A</span>
+        <span class="spec-chip">3D-Powerclean</span>
+        <span class="spec-chip">Supersilent Plus</span>
+        <span class="spec-chip">Aquastop</span>
+      </div>
+      <div class="appl-desc">
+        3D-Powerclean Хлопок 40/60°C · Деловая одежда, Деликатный уход, Спортивная одежда, Антибактерия, Детская · Датчик загрязнённости · LED подсветка барабана · Aquastop · 60×85×67 см
+        <!-- Источник: прайс-лист Schulthess_02022026, лист прайс, ADA1.101BE1H3J3L -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Сушильная -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">💨</div>
+      <div>
+        <div class="appl-name">Сушильная машина Sublime Snow</div>
+        <div class="appl-model">MDA1.100FH3L</div>
+        <div class="appl-color">Snow (Белый) · 60 см</div>
+      </div>
+      <span class="appl-series" style="background:#2a3d2d;">Schulthess</span>
+      <div class="appl-price">411 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Snow · Белый</span>
+        <span class="spec-chip">8 кг</span>
+        <span class="spec-chip">Класс A</span>
+        <span class="spec-chip">60×85×64 см</span>
+      </div>
+      <div class="appl-desc">
+        Сушильная машина коллекции Sublime Snow · Парная к стиральной ADA1.101 · Возможна установка в колонну · Перенавешиваемая дверца
+        <!-- Источник: прайс-лист Schulthess_02022026, лист прайс, MDA1.100FH3L -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL A -->
+  <div class="total-block">
+    <div class="total-label">Итого · Вариант A · Premium White</div>
+    <div class="total-amount">2 481 910 ₽</div>
+    <div class="total-breakdown">
+      <div class="total-part">
+        <div class="total-part-label">Küppersbusch (7 позиций)</div>
+        <div class="total-part-val">1 707 930 ₽</div>
+      </div>
+      <div class="total-part">
+        <div class="total-part-label">Schulthess (2 позиции)</div>
+        <div class="total-part-val">773 980 ₽</div>
+      </div>
+    </div>
+    <div class="budget-note">
+      ⚠️ Ориентировочный бюджет: 1 500 000 ₽. Комплект из 9 премиальных приборов по РРЦ составляет 2 481 910 ₽.
+      Итоговая стоимость рассчитывается с учётом условий партнёрской программы — рекомендуем уточнить у менеджера.
+    </div>
+  </div>
+</div>
+
+<!-- TAB: VARIANT B -->
+<div id="tab-varB" class="tab">
+  <div class="variant-badge">💡 Вариант B · Smart White · Оптимизированный</div>
+
+  <!-- Küppersbusch block -->
+  <div class="brand-header kup">
+    <div>
+      <div class="brand-logo">Küppersbusch</div>
+      <div class="brand-name">Оптимизированный подбор · Белый</div>
+      <div class="brand-tagline">CBM = духовка + МВ в одном приборе · 6 позиций</div>
+    </div>
+    <div class="brand-count">6 позиций · 1 249 940 ₽</div>
+  </div>
+
+  <!-- Комбо CBM -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">🔥📡</div>
+      <div>
+        <div class="appl-name">Компактный духовой шкаф с микроволнами</div>
+        <div class="appl-model">CBM 6550.0 W</div>
+        <div class="appl-color">Белый · K-series.5 · Заменяет духовку + МВ</div>
+      </div>
+      <span class="appl-series">K-series.5</span>
+      <div class="appl-price">323 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Духовка + МВ 2-в-1</span>
+        <span class="spec-chip highlight">Белый</span>
+        <span class="spec-chip">14 функций духовки</span>
+        <span class="spec-chip">МВ 1000 Вт</span>
+        <span class="spec-chip">10 уровней МВ</span>
+        <span class="spec-chip">40+ авто программ</span>
+        <span class="spec-chip">Быстрый старт</span>
+      </div>
+      <div class="appl-desc">
+        Комбинирует полноценную духовку (14 функций, 8 спец.) + микроволновую печь (1000 Вт, 10 уровней мощности) в одной нише 45 см.
+        Экономия по сравнению с раздельной покупкой: ок. 128 000 ₽. 20 любимых программ.
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, CBM 6550.0 W -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Варочная (KI 8330) -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">⚡</div>
+      <div>
+        <div class="appl-name">Индукционная варочная панель</div>
+        <div class="appl-model">KI 8330.0 SR</div>
+        <div class="appl-color">Черный (стандарт для индукции) · K-series.3</div>
+      </div>
+      <span class="appl-series">K-series.3</span>
+      <div class="appl-price">236 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Индукция</span>
+        <span class="spec-chip">80 см</span>
+        <span class="spec-chip">dialControl</span>
+        <span class="spec-chip">Boost опция</span>
+        <span class="spec-chip">Индик. остаточного тепла</span>
+        <span class="spec-chip">Таймер</span>
+      </div>
+      <div class="appl-desc">
+        10-уровневое управление dialControl · Авто функция поддержания тепла ~70°С · FastBoot · Индикация остаточного тепла · 80 см — оптимальная ширина для 4-5 зон
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, KI 8330.0 SR -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ПММ -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">🍽</div>
+      <div>
+        <div class="appl-name">Посудомоечная машина</div>
+        <div class="appl-model">G 6570.0 v</div>
+        <div class="appl-color">Встраиваемая (под фасад) · K-series.5 · Новинка</div>
+      </div>
+      <span class="appl-series">K-series.5</span>
+      <div class="appl-price">206 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Knock to open</span>
+        <span class="spec-chip">14 комплектов</span>
+        <span class="spec-chip">8 программ</span>
+        <span class="spec-chip">Отл. старт 24ч</span>
+      </div>
+      <div class="appl-desc">Knock to open · LED индикация · Фильтр автоочистки · Сенсорное управление</div>
+    </div>
+  </div>
+
+  <!-- Холодильник FK 4545 -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">🧊</div>
+      <div>
+        <div class="appl-name">Встраиваемый холодильник</div>
+        <div class="appl-model">FK 4545.1i</div>
+        <div class="appl-color">SilverLine · K-series.5 · 45 см</div>
+      </div>
+      <span class="appl-series">K-series.5</span>
+      <div class="appl-price">140 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip">45 см</span>
+        <span class="spec-chip">175 л общий</span>
+        <span class="spec-chip">156 л холод.</span>
+        <span class="spec-chip">19 л морозильное отд.</span>
+        <span class="spec-chip">VarioShelves</span>
+      </div>
+      <div class="appl-desc">
+        Перенавешиваемая дверца · SilverLine · VarioShelves / VarioBoxes · Включает морозильное отделение 19 л · механический контроль температуры
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, FK 4545.1i -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Морозильная Outlet -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">❄️</div>
+      <div>
+        <div class="appl-name">Встраиваемая морозильная камера</div>
+        <div class="appl-model">FG 8840.1i</div>
+        <div class="appl-color">SilverLine · K-series.8 · Outlet</div>
+      </div>
+      <span class="appl-series">K-series.8</span>
+      <div class="appl-price">129 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Outlet</span>
+        <span class="spec-chip highlight">NoFrost</span>
+        <span class="spec-chip">204 л</span>
+        <span class="spec-chip">FastFreezing</span>
+        <span class="spec-chip">Прозр. ящики</span>
+      </div>
+      <div class="appl-desc">
+        NoFrost · 204 л полезный объём · FastFreezing с авто отключением · Outlet: доступен на складе, новый прибор по сниженной цене
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, FG 8840.1i [Outlet] -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Винный FWKU 1531 -->
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">🍷</div>
+      <div>
+        <div class="appl-name">Встраиваемый винный шкаф</div>
+        <div class="appl-model">FWKU 1531.0 S</div>
+        <div class="appl-color">Чёрное стекло · K-series.5 · 45 см</div>
+      </div>
+      <span class="appl-series">K-series.5</span>
+      <div class="appl-price">210 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">46 бутылок</span>
+        <span class="spec-chip">5 деревянных полок</span>
+        <span class="spec-chip">UV-защита</span>
+        <span class="spec-chip">45 см</span>
+      </div>
+      <div class="appl-desc">
+        Электронная регулировка температуры · 5 деревянных полок на телескоп. направляющих · UV-защитное стекло · Встраивается под столешницу (45 см ширина)
+        <!-- Источник: прайс-лист PriceList_Kueppersbusch_01062026_HomeProject.xlsx, FWKU 1531.0 S -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Schulthess block -->
+  <div class="brand-header sch" style="margin-top:24px;">
+    <div>
+      <div class="brand-logo">Schulthess</div>
+      <div class="brand-name">Sublime Snow · Белый</div>
+      <div class="brand-tagline">Те же приборы, что в Варианте A</div>
+    </div>
+    <div class="brand-count" style="background:rgba(74,124,90,0.2);border-color:rgba(74,124,90,0.4);color:#7ac884;">773 980 ₽</div>
+  </div>
+
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">🫧</div>
+      <div>
+        <div class="appl-name">Стиральная машина Sublime Snow</div>
+        <div class="appl-model">ADA1.101BE1H3J3L</div>
+        <div class="appl-color">Snow · 8 кг · 1600 об/мин</div>
+      </div>
+      <span class="appl-series" style="background:#2a3d2d;">Schulthess</span>
+      <div class="appl-price">361 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Snow</span>
+        <span class="spec-chip">8 кг</span><span class="spec-chip">1600 об/мин</span><span class="spec-chip">Класс A</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="appl-card">
+    <div class="appl-head">
+      <div class="appl-icon">💨</div>
+      <div>
+        <div class="appl-name">Сушильная машина Sublime Snow</div>
+        <div class="appl-model">MDA1.100FH3L</div>
+        <div class="appl-color">Snow · Парная к стиральной</div>
+      </div>
+      <span class="appl-series" style="background:#2a3d2d;">Schulthess</span>
+      <div class="appl-price">411 990 ₽</div>
+    </div>
+    <div class="appl-body">
+      <div class="specs-row">
+        <span class="spec-chip highlight">Snow</span>
+        <span class="spec-chip">60×85×64 см</span><span class="spec-chip">Колонна</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL B -->
+  <div class="total-block">
+    <div class="total-label">Итого · Вариант B · Smart White</div>
+    <div class="total-amount">2 023 920 ₽</div>
+    <div class="total-breakdown">
+      <div class="total-part">
+        <div class="total-part-label">Küppersbusch (6 позиций)</div>
+        <div class="total-part-val">1 249 940 ₽</div>
+      </div>
+      <div class="total-part">
+        <div class="total-part-label">Schulthess (2 позиции)</div>
+        <div class="total-part-val">773 980 ₽</div>
+      </div>
+    </div>
+    <div class="budget-note">
+      💡 Вариант B экономит 457 990 ₽ vs Варианта A. Экономия достигается за счёт комбо-духовки (заменяет 2 прибора), более компактных холодильной группы и винного шкафа.
+    </div>
+  </div>
+</div>
+
+<!-- TAB: COMPARE -->
+<div id="tab-compare" class="tab">
+  <div class="section-title">Сравнение вариантов</div>
+  <div class="section-desc">9 позиций · Küppersbusch + Schulthess · Светлые тона</div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Позиция</th>
+        <th>Вариант A · Premium White</th>
+        <th>Вариант B · Smart White</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="divider-row"><td colspan="3">Küppersbusch</td></tr>
+      <tr>
+        <td style="color:var(--gold2);">Духовой шкаф</td>
+        <td>BP 6550.0 W · Белый · 313 990 ₽<br><span style="font-size:10px;color:var(--muted);">Пиролиз · 14 функций · TFT</span></td>
+        <td>CBM 6550.0 W · Белый · 323 990 ₽<br><span style="font-size:10px;color:var(--muted);">Духовка + МВ 2-в-1 · 14 функций</span></td>
+      </tr>
+      <tr>
+        <td style="color:var(--gold2);">Микроволновая</td>
+        <td>MR 6330.0 W · Белый · 137 990 ₽<br><span style="font-size:10px;color:var(--muted);">Отдельный прибор · 850 Вт</span></td>
+        <td style="color:var(--sch-green);font-weight:600;">Включена в CBM (экономия 137 990 ₽)</td>
+      </tr>
+      <tr>
+        <td style="color:var(--gold2);">Варочная панель</td>
+        <td>KI 8550.0 SR · 80 см · 211 990 ₽</td>
+        <td>KI 8330.0 SR · 80 см · 236 990 ₽</td>
+      </tr>
+      <tr>
+        <td style="color:var(--gold2);">ПММ</td>
+        <td>G 6570.0 v · 206 990 ₽</td>
+        <td>G 6570.0 v · 206 990 ₽</td>
+      </tr>
+      <tr>
+        <td style="color:var(--gold2);">Холодильник</td>
+        <td>FK 8550.0I · 188 см · 252 990 ₽<br><span style="font-size:10px;color:var(--muted);">LED · Vacation · NoFrost зона</span></td>
+        <td>FK 4545.1i · 45 см · 140 990 ₽<br><span style="font-size:10px;color:var(--muted);">175 л · встроенное морозильное отд.</span></td>
+      </tr>
+      <tr>
+        <td style="color:var(--gold2);">Морозильная</td>
+        <td>FG 8550.0I · 188 см · 270 990 ₽<br><span style="font-size:10px;color:var(--muted);">NoFrost · SilverLine</span></td>
+        <td>FG 8840.1i · Outlet · 129 990 ₽<br><span style="font-size:10px;color:var(--muted);">NoFrost · 204 л</span></td>
+      </tr>
+      <tr>
+        <td style="color:var(--gold2);">Винный шкаф</td>
+        <td>FWKU 1851.0 S · K8 · 312 990 ₽<br><span style="font-size:10px;color:var(--muted);">46 бут. · 5 полок</span></td>
+        <td>FWKU 1531.0 S · K5 · 210 990 ₽<br><span style="font-size:10px;color:var(--muted);">46 бут. · 45 см</span></td>
+      </tr>
+      <tr class="divider-row"><td colspan="3">Schulthess (одинаково в обоих вариантах)</td></tr>
+      <tr class="sch-row">
+        <td style="color:var(--sch-green);">Стиральная</td>
+        <td>ADA1.101 Snow · 361 990 ₽</td>
+        <td>ADA1.101 Snow · 361 990 ₽</td>
+      </tr>
+      <tr class="sch-row">
+        <td style="color:var(--sch-green);">Сушильная</td>
+        <td>MDA1.100 Snow · 411 990 ₽</td>
+        <td>MDA1.100 Snow · 411 990 ₽</td>
+      </tr>
+      <tr class="total-row">
+        <td>ИТОГО (РРЦ)</td>
+        <td>2 481 910 ₽</td>
+        <td>2 023 920 ₽</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div style="background:var(--card);border-radius:12px;padding:20px;border:1px solid var(--border);">
+      <div style="font-size:12px;color:var(--gold2);font-weight:600;margin-bottom:10px;">⭐ Вариант A выбрать если:</div>
+      <ul style="font-size:12px;color:var(--muted);line-height:1.9;padding-left:16px;">
+        <li>Духовка и микроволновка в разных нишах</li>
+        <li>Большой холодильный объём (2 отдельных колонны)</li>
+        <li>Максимальная унификация серии K-series.5</li>
+        <li>Приоритет — полнота функций</li>
+      </ul>
+    </div>
+    <div style="background:var(--card);border-radius:12px;padding:20px;border:1px solid var(--border);">
+      <div style="font-size:12px;color:var(--gold2);font-weight:600;margin-bottom:10px;">💡 Вариант B выбрать если:</div>
+      <ul style="font-size:12px;color:var(--muted);line-height:1.9;padding-left:16px;">
+        <li>Экономия ~458 000 ₽ на комплекте</li>
+        <li>Меньше ниш под приборы в колонне</li>
+        <li>Компактная кухня / постирочная</li>
+        <li>Outlet морозильник — новый, но по цене со скидкой</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: VISUALS -->
+<div id="tab-visuals" class="tab">
+  <div class="section-title">Визуалы · Бренды и коллекции</div>
+  <div class="section-desc">Küppersbusch K-series.5 · Белый + Schulthess Sublime Snow</div>
+
+  <!-- Oven card -->
+  <div style="border-radius:14px;overflow:hidden;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="background:linear-gradient(135deg,#1e2a35 0%,#2d3d4a 60%,#1a2a35 100%);height:160px;display:flex;align-items:center;justify-content:center;position:relative;padding:20px;">
+      <div style="position:absolute;top:14px;left:18px;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Küppersbusch</div>
+      <div style="text-align:center;">
+        <div style="font-size:20px;color:rgba(255,255,255,0.85);letter-spacing:2px;font-weight:300;font-family:monospace;">BP 6550.0 W</div>
+        <div style="font-size:11px;color:var(--gold);margin-top:6px;letter-spacing:1px;">Духовой шкаф · Белый · K-series.5</div>
+      </div>
+      <div style="position:absolute;top:14px;right:16px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);display:flex;align-items:center;justify-content:center;font-size:18px;">🔥</div>
+    </div>
+    <div style="background:var(--card);padding:14px 20px;">
+      <div style="font-size:13px;color:var(--text);font-weight:600;margin-bottom:6px;">Духовой шкаф BP 6550.0 W · Пиролиз · Белый</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">Пиролиз</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">14 функций</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">40+ программ</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">313 990 ₽</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Induction card -->
+  <div style="border-radius:14px;overflow:hidden;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 50%,#111 100%);height:140px;display:flex;align-items:center;justify-content:center;position:relative;padding:20px;">
+      <div style="position:absolute;top:14px;left:18px;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Küppersbusch</div>
+      <div style="text-align:center;">
+        <div style="font-size:20px;color:rgba(255,255,255,0.85);letter-spacing:2px;font-weight:300;font-family:monospace;">KI 8550.0 SR</div>
+        <div style="font-size:11px;color:var(--gold);margin-top:6px;letter-spacing:1px;">Индукция 80 см · glideControl+</div>
+      </div>
+      <div style="position:absolute;top:14px;right:16px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);display:flex;align-items:center;justify-content:center;font-size:18px;">⚡</div>
+    </div>
+    <div style="background:var(--card);padding:14px 20px;">
+      <div style="font-size:13px;color:var(--text);font-weight:600;margin-bottom:6px;">KI 8550.0 SR · Индукционная 80 см · K-series.5</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">80 см</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">8 авто режимов</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">Мост зон</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">211 990 ₽</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Schulthess card -->
+  <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(74,124,90,0.3);margin-bottom:16px;">
+    <div style="background:linear-gradient(135deg,#2a3d2d 0%,#3a5a3e 60%,#2a4a30 100%);height:160px;display:flex;align-items:center;justify-content:center;position:relative;padding:20px;">
+      <div style="position:absolute;top:14px;left:18px;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Schulthess</div>
+      <div style="text-align:center;">
+        <div style="font-size:16px;color:rgba(255,255,255,0.85);letter-spacing:1px;font-weight:300;font-family:monospace;">Sublime Snow</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:4px;">Стиральная + Сушильная · Белый</div>
+        <div style="font-size:11px;color:#7ac884;margin-top:6px;letter-spacing:1px;">ADA1.101 + MDA1.100</div>
+      </div>
+      <div style="position:absolute;top:14px;right:16px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#4a7c5a 0%,#6aac7a 100%);display:flex;align-items:center;justify-content:center;font-size:18px;">🫧</div>
+    </div>
+    <div style="background:var(--card);padding:14px 20px;">
+      <div style="font-size:13px;color:var(--text);font-weight:600;margin-bottom:6px;">Schulthess Sublime Snow · Пара стиральная + сушильная</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span style="background:rgba(74,124,90,0.08);border:1px solid rgba(74,124,90,0.2);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--sch-green);">Snow · Белый</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">8 кг загрузка</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">Класс A</span>
+        <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--muted);">773 980 ₽ пара</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: SCHEMES -->
+<div id="tab-schemes" class="tab">
+  <div class="section-title">Схемы встраивания</div>
+  <div class="section-desc">Размеры монтажных ниш для всех приборов комплекта</div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">🔥 BP 6550.0 W / CBM 6550.0 W — Духовой шкаф (стандартная ниша 60 см)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">585 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">560 мм</div><div class="scheme-dim-label">Ширина ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">550 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-note">Стандартная ниша 60 см. CBM (комбо VariantB) встраивается в ту же нишу 45 см — уточните параметры у менеджера.</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">⚡ KI 8550.0 SR / KI 8330.0 SR — Варочная индукционная 80 см</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">730 мм</div><div class="scheme-dim-label">Вырез (80 см)</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">490 мм</div><div class="scheme-dim-label">Глубина выреза</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">H</div><div class="scheme-dim-val">≤55 мм</div><div class="scheme-dim-label">Толщ. столешницы</div></div>
+    </div>
+    <div class="scheme-note">Индукция 80 см · 4-5 зон в зависимости от модели. Требует электроподводки 32-40А. Точные размеры выреза — в техпаспорте прибора.</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">📡 MR 6330.0 W — Микроволновая встраиваемая (только Вариант A)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">385 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">560 мм</div><div class="scheme-dim-label">Ширина ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">550 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-note">Ниша 45 см (высота 385 мм). Правое открытие дверцы (R). В Варианте B микроволновая интегрирована в CBM — отдельная ниша не нужна.</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">🍽 G 6570.0 v — ПММ полностью встраиваемая</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">820–870 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">600 мм</div><div class="scheme-dim-label">Ширина ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">580 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-note">Knock to open — рукоятки не нужны, дверца открывается нажатием. Под фасад кухни. Регулируемые ножки.</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">🧊 FK 8550.0I + ❄️ FG 8550.0I — Холодильная колонна (Вариант A)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">1772–1780 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">560 мм</div><div class="scheme-dim-label">Ширина ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">550 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-note">Два прибора по 188 см каждый — требуют отдельных ниш или единой ниши 2×56 см. Жёсткое крепление. SilverLine под белый фасад.</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">🍷 FWKU 1851.0 S / 1531.0 S — Встраиваемый винный шкаф</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">820 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">560 / 450 мм</div><div class="scheme-dim-label">60 см / 45 см</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">~550 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-note">FWKU 1851.0 S — 60 см (Вариант A). FWKU 1531.0 S — 45 см (Вариант B). Оба под столешницу (высота ~82 см). UV-защитное стекло.</div>
+  </div>
+
+  <div class="scheme-card" style="border-color:rgba(74,124,90,0.3);">
+    <div class="scheme-title" style="color:var(--sch-green);">🫧 Schulthess ADA1.101 + MDA1.100 — Постирочная колонна</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">85 см каждый</div><div class="scheme-dim-label">Высота прибора</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">60 см</div><div class="scheme-dim-label">Ширина</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">67 / 64 см</div><div class="scheme-dim-label">Стир. / Суш.</div></div>
+    </div>
+    <div class="scheme-note">Стиральная: 85×60×67 см (+ 110 см при открытом люке). Сушильная: 85×60×64 см. Установка рядом или в колонну (требуется аксессуар для колонны — уточните артикул).</div>
+  </div>
+</div>
+
+<!-- TAB: ABOUT -->
+<div id="tab-about" class="tab">
+  <div class="section-title">О компании Home Project</div>
+
+  <div style="background:var(--card);border-radius:12px;padding:22px 26px;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="font-size:13px;color:var(--gold2);font-weight:600;margin-bottom:10px;">Кто мы</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      Home Project — пространство премиальных решений для вашего дома. Специализируемся на подборе и поставке встраиваемой техники европейских брендов: Küppersbusch, Schulthess, V-ZUG, BORA, Fhiaba, De Dietrich, SKS и других. Работаем с авторизованными дистрибьюторами в России — только оригинальная техника с официальной гарантией.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;padding:22px 26px;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="font-size:13px;color:var(--gold2);font-weight:600;margin-bottom:14px;">Как мы работаем</div>
+    <ol class="steps">
+      <li><div class="step-num">1</div><div class="step-text"><strong>Подбор и КП</strong> — формируем комплект под задачу, два варианта с разными уровнями бюджета</div></li>
+      <li><div class="step-num">2</div><div class="step-text"><strong>Подтверждение наличия</strong> — проверяем актуальные остатки перед оформлением</div></li>
+      <li><div class="step-num">3</div><div class="step-text"><strong>Договор и счёт</strong> — работаем с физлицами и юрлицами</div></li>
+      <li><div class="step-num">4</div><div class="step-text"><strong>Доставка</strong> — со склада поставщика в Москве. Срок: 3-10 рабочих дней</div></li>
+      <li><div class="step-num">5</div><div class="step-text"><strong>Гарантия</strong> — официальная гарантия производителя. Сервисные центры по России</div></li>
+    </ol>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:var(--card);border-radius:12px;padding:18px 20px;border:1px solid var(--border);">
+      <div style="font-size:12px;color:var(--gold2);font-weight:600;margin-bottom:8px;">Küppersbusch</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">Немецкий бренд с 1875 года. Философия K-series — каждая серия объединена единым дизайном и технологией управления glideControl / dialControl. В России — официальная поставка через Homeier.</div>
+    </div>
+    <div style="background:var(--card);border-radius:12px;padding:18px 20px;border:1px solid rgba(74,124,90,0.2);">
+      <div style="font-size:12px;color:var(--sch-green);font-weight:600;margin-bottom:8px;">Schulthess</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">Швейцарский производитель стиральной и сушильной техники. Коллекция Sublime — фирменные расцветки (Snow, Solid Gold, Ever Rose…). Класс A, технология 3D-Powerclean и Supersilent.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: CONTACTS -->
+<div id="tab-contacts" class="tab">
+  <div class="section-title">Контакты</div>
+  <div class="section-desc">Готовы ответить по комплекту, наличию и условиям</div>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">🤖</div>
+      <div class="contact-label">Ваш менеджер</div>
+      <div class="contact-val" style="font-size:13px;">Ария · AI-менеджер</div>
+      <div class="contact-sub">Home Project</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-label">Email</div>
+      <div class="contact-val" style="font-size:13px;"><a href="mailto:info@homeproject.online" style="color:var(--gold2);text-decoration:none;">info@homeproject.online</a></div>
+      <div class="contact-sub">Ответим в течение часа</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">✈️</div>
+      <div class="contact-label">Telegram</div>
+      <div class="contact-val">@homeproject_ai_bot</div>
+      <div class="contact-sub">Быстрая связь</div>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border);margin-bottom:14px;">
+    <div style="font-size:13px;color:var(--gold2);font-weight:600;margin-bottom:8px;">Следующий шаг</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      Напишите выбранный вариант (A или B) — подтвердим наличие, согласуем условия, подготовим счёт. Также готовы обсудить формирование комплекта под конкретные ниши и планировку.
+    </div>
+  </div>
+
+  <div class="ai-note">
+    ✦ Это КП подготовлено Арией — AI-менеджером Home Project. Связаться: info@homeproject.online · @homeproject_ai_bot · homeproject.online
+  </div>
+</div>
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+</script>
+</body>
+</html>
