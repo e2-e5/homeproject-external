@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · Graude · Кухонный комплект · Архитектор Тест · Home Project</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --card2: #222222;
+    --gold: #c9a96e;
+    --gold2: #e0bc82;
+    --text: #e8e0d4;
+    --muted: #888;
+    --border: #2a2a2a;
+    --accent: #c9a96e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Helvetica Neue', Arial, sans-serif; min-height: 100vh; }
+
+  .header {
+    background: linear-gradient(135deg, #1a2e1a 0%, #0d1a0d 100%);
+    padding: 28px 40px 22px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; }
+  .header-brand { font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .header-title { font-size: 22px; font-weight: 300; color: #fff; letter-spacing: 1px; }
+  .header-subtitle { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+  .header-meta { text-align: right; font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+  .header-meta span { color: var(--gold); }
+
+  .nav-wrap { background: #111; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .nav { display: flex; overflow-x: auto; }
+  .nav-btn {
+    flex: 1; min-width: 80px; padding: 14px 10px; border: none; background: transparent;
+    color: var(--muted); font-size: 11px; cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all .2s; white-space: nowrap; text-align: center; letter-spacing: 0.3px;
+  }
+  .nav-btn:hover { color: var(--text); background: #1a1a1a; }
+  .nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); background: #1a1a1a; }
+
+  .tab { display: none; padding: 32px 40px 60px; max-width: 900px; margin: 0 auto; }
+  .tab.active { display: block; }
+
+  .section-title {
+    font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase;
+    margin-bottom: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+  .section-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+
+  .brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .brief-item { background: var(--card); border-radius: 10px; padding: 16px 20px; border: 1px solid var(--border); }
+  .brief-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .brief-val { font-size: 14px; color: var(--text); font-weight: 500; }
+  .brief-val.gold { color: var(--gold); font-size: 16px; }
+
+  .appliance-card {
+    background: var(--card); border-radius: 12px; border: 1px solid var(--border);
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .appliance-header {
+    display: flex; align-items: center; gap: 16px;
+    background: linear-gradient(90deg, #1a2e1a 0%, #0d1a0d 100%);
+    padding: 16px 20px;
+  }
+  .appliance-icon { font-size: 28px; }
+  .appliance-name { font-size: 14px; color: #fff; font-weight: 600; letter-spacing: 0.5px; }
+  .appliance-model { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; font-family: monospace; }
+  .appliance-badge {
+    margin-left: auto; padding: 4px 10px; border-radius: 20px; font-size: 10px;
+    font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .badge-stock { background: rgba(80,200,120,0.2); color: #4ec97a; border: 1px solid rgba(80,200,120,0.3); }
+  .badge-check { background: rgba(255,180,0,0.15); color: #ffb400; border: 1px solid rgba(255,180,0,0.3); }
+
+  .appliance-body { padding: 16px 20px; }
+  .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .spec-item { background: var(--card2); border-radius: 8px; padding: 10px 12px; }
+  .spec-label { font-size: 10px; color: var(--muted); margin-bottom: 3px; }
+  .spec-val { font-size: 13px; color: var(--text); font-weight: 500; }
+
+  .price-row { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
+  .price-label { font-size: 11px; color: var(--muted); }
+  .price-val { font-size: 18px; color: var(--gold); font-weight: 600; }
+
+  .total-block {
+    background: linear-gradient(135deg, #1a2e1a 0%, #0d1a0d 100%);
+    border-radius: 14px; padding: 24px 28px; border: 1px solid var(--gold);
+    margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .total-label { font-size: 11px; letter-spacing: 2px; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-bottom: 4px; }
+  .total-amount { font-size: 32px; color: var(--gold); font-weight: 700; }
+  .total-items { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+  .total-note { font-size: 12px; color: rgba(255,255,255,0.5); max-width: 280px; line-height: 1.6; }
+
+  .variant-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
+    color: #000; font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    padding: 6px 16px; border-radius: 20px; text-transform: uppercase; margin-bottom: 20px;
+  }
+
+  .cond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cond-card { background: var(--card); border-radius: 10px; padding: 20px; border: 1px solid var(--border); }
+  .cond-icon { font-size: 24px; margin-bottom: 10px; }
+  .cond-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+  .cond-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  .visual-card { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 20px; }
+  .visual-card img { width: 100%; min-height: 300px; object-fit: cover; display: block; }
+  .visual-card-caption { background: var(--card); padding: 12px 16px; font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
+
+  .visual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .visual-grid-item { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .visual-grid-item img { width: 100%; min-height: 220px; object-fit: cover; display: block; }
+  .visual-grid-caption { background: var(--card); padding: 8px 12px; font-size: 10px; color: var(--muted); }
+
+  .scheme-card { background: var(--card); border-radius: 12px; padding: 20px 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .scheme-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 14px; }
+  .scheme-dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
+  .scheme-dim { text-align: center; background: var(--card2); border-radius: 8px; padding: 12px; }
+  .scheme-dim-letter { font-size: 11px; color: var(--gold); font-weight: 700; margin-bottom: 4px; }
+  .scheme-dim-val { font-size: 15px; color: var(--text); font-weight: 600; }
+  .scheme-dim-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .scheme-note { font-size: 11px; color: var(--muted); line-height: 1.6; padding-top: 10px; border-top: 1px solid var(--border); }
+
+  .about-card { background: var(--card); border-radius: 12px; padding: 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .about-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+  .about-text { font-size: 13px; color: var(--muted); line-height: 1.8; }
+  .steps { list-style: none; }
+  .steps li { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .steps li:last-child { border-bottom: none; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--gold); color: #000; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+  .contact-card { background: var(--card); border-radius: 12px; padding: 22px 16px; border: 1px solid var(--border); text-align: center; }
+  .contact-icon { font-size: 28px; margin-bottom: 10px; }
+  .contact-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .contact-val { font-size: 13px; color: var(--text); font-weight: 500; }
+  .contact-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .promo-tag {
+    display: inline-block; background: rgba(201,169,110,0.15); border: 1px solid rgba(201,169,110,0.4);
+    color: var(--gold); font-size: 10px; letter-spacing: 2px; padding: 4px 12px; border-radius: 20px;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .promo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .promo-card { background: var(--card); border-radius: 10px; padding: 18px; border: 1px solid var(--border); text-align: center; }
+  .promo-card-icon { font-size: 24px; margin-bottom: 8px; }
+  .promo-card-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+  .promo-card-text { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    .tab { padding: 20px 16px 40px; }
+    .header { padding: 20px 16px 16px; }
+    .brief-grid { grid-template-columns: 1fr; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .cond-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .visual-grid { grid-template-columns: 1fr; }
+    .promo-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-brand">Home Project · Коммерческое предложение</div>
+      <div class="header-title">Graude · Комплект для кухни</div>
+      <div class="header-subtitle">Духовка · Варочная панель · Вытяжка · Посудомоечная машина · Холодильник · Подогреватель</div>
+    </div>
+    <div class="header-meta">
+      <div>Подготовлено: <span>03.06.2026</span></div>
+      <div>Для: <span>Архитектор Тест</span></div>
+      <div>Варианты: <span>Comfort / Premium</span></div>
+      <div>Менеджер: <span>Андрей Брагинский</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="nav-btn active" onclick="showTab('brief',this)">📋 Запрос</button>
+    <button class="nav-btn" onclick="showTab('varA',this)">🟢 Вариант A</button>
+    <button class="nav-btn" onclick="showTab('varB',this)">⭐ Вариант B</button>
+    <button class="nav-btn" onclick="showTab('visuals',this)">🖼 Визуалы</button>
+    <button class="nav-btn" onclick="showTab('schemes',this)">📐 Хар-ки</button>
+    <button class="nav-btn" onclick="showTab('promo',this)">🎁 Спецусловия</button>
+    <button class="nav-btn" onclick="showTab('about',this)">🏢 Как работаем</button>
+    <button class="nav-btn" onclick="showTab('contacts',this)">✉ Контакты</button>
+  </div>
+</div>
+
+<!-- TAB: BRIEF -->
+<div id="tab-brief" class="tab active">
+  <div class="section-title">Запрос</div>
+  <div class="section-desc">Тестовое коммерческое предложение — кухонный комплект Graude для архитектора</div>
+
+  <div class="brief-grid">
+    <div class="brief-item"><div class="brief-label">Бренд</div><div class="brief-val">Graude (Германия)</div></div>
+    <div class="brief-item"><div class="brief-label">Комплект</div><div class="brief-val">6 приборов для кухни</div></div>
+    <div class="brief-item"><div class="brief-label">Вариантов</div><div class="brief-val gold">2 (Comfort / Premium)</div></div>
+    <div class="brief-item"><div class="brief-label">Гарантия</div><div class="brief-val">5 лет Graude</div></div>
+    <div class="brief-item"><div class="brief-label">Клиент</div><div class="brief-val">Архитектор Тест</div></div>
+    <div class="brief-item"><div class="brief-label">Дата</div><div class="brief-val">03 июня 2026</div></div>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border);margin-bottom:20px;">
+    <div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:10px;">О бренде Graude</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      Graude — немецкая встраиваемая техника с 50-летней историей. Европейский уровень качества с оптимальным соотношением цена/функционал.
+      Чёткая градация серий: Comfort → Premium → Special — позволяет точно попасть в бюджет проекта без компромисса по дизайну.<br><br>
+      <strong style="color:var(--text);">Вариант A «Comfort»</strong> — базовый немецкий уровень. 6 приборов. Итого: <strong style="color:var(--gold);">316&nbsp;440 ₽</strong><br>
+      <strong style="color:var(--text);">Вариант B «Premium»</strong> — пиролиз + индукция. 6 приборов. Итого: <strong style="color:var(--gold);">403&nbsp;940 ₽</strong>
+    </div>
+  </div>
+
+  <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);border-radius:12px;padding:16px 20px;">
+    <div style="font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">Действующие акции Graude · Июнь 2026</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+      🎁 <strong style="color:var(--text);">3+1 подарок</strong> — при покупке 3 приборов четвёртый в подарок (до конца июня 2026)<br>
+      🔁 <strong style="color:var(--text);">Каскад скидок</strong> — дополнительные условия при полном кухонном комплекте<br>
+      ❄️ <strong style="color:var(--text);">3+ холодильник 34&nbsp;990 ₽</strong> — промо-цена при покупке от 3 приборов
+    </div>
+  </div>
+</div>
+
+<!-- TAB: VARIANT A (Comfort) -->
+<div id="tab-varA" class="tab">
+  <div class="variant-badge">✦ Вариант A · Comfort · Оптимальный выбор</div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🔥</div>
+      <div><div class="appliance-name">Духовой шкаф · Comfort</div><div class="appliance-model">BE 60.3 E</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Объём</div><div class="spec-val">60 л</div></div>
+        <div class="spec-item"><div class="spec-label">Режимов нагрева</div><div class="spec-val">9</div></div>
+        <div class="spec-item"><div class="spec-label">Управление</div><div class="spec-val">Classic Control</div></div>
+        <div class="spec-item"><div class="spec-label">Конвекция</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Inox (нерж.)</div></div>
+        <div class="spec-item"><div class="spec-label">Гарантия</div><div class="spec-val">5 лет</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Цифровой таймер · Гриль · Конвекция · Равномерный прогрев</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">57&nbsp;490 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🔵</div>
+      <div><div class="appliance-name">Газовая варочная панель · Comfort</div><div class="appliance-model">GS 60.1 E</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Газ</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Горелки</div><div class="spec-val">4</div></div>
+        <div class="spec-item"><div class="spec-label">Розжиг</div><div class="spec-val">Автоматический</div></div>
+        <div class="spec-item"><div class="spec-label">Газ-контроль</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Inox</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">4 горелки: 1× Wok 3.0 кВт · 2× средняя 1.75 кВт · 1× малая 1.0 кВт · чугунные решётки</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">25&nbsp;990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">💨</div>
+      <div><div class="appliance-name">Настенная вытяжка · Comfort</div><div class="appliance-model">DHE 60.1 S</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Настенная</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Скорости</div><div class="spec-val">3</div></div>
+        <div class="spec-item"><div class="spec-label">Освещение</div><div class="spec-val">LED</div></div>
+        <div class="spec-item"><div class="spec-label">Фильтр</div><div class="spec-val">Жировой (мойка)</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Inox</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Электронное управление · Ø 150 мм воздуховод · угольный фильтр — опция рециркуляции</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">13&nbsp;490 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🍽</div>
+      <div><div class="appliance-name">Посудомоечная машина · Comfort</div><div class="appliance-model">VG 60.1</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Комплектов</div><div class="spec-val">14</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Встраиваемая</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Шум</div><div class="spec-val">≤ 44 дБ</div></div>
+        <div class="spec-item"><div class="spec-label">Программ</div><div class="spec-val">6+</div></div>
+        <div class="spec-item"><div class="spec-label">Гарантия</div><div class="spec-val">5 лет</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">3 корзины · выдвижной лоток · отложенный старт · 3-уровневое мытьё</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">76&nbsp;990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">❄️</div>
+      <div><div class="appliance-name">Интегрируемый холодильник-морозильник · Comfort</div><div class="appliance-model">IKG 180.3</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Высота</div><div class="spec-val">177 см</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">54 см</div></div>
+        <div class="spec-item"><div class="spec-label">No Frost</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Монтаж</div><div class="spec-val">Интегрируемый</div></div>
+        <div class="spec-item"><div class="spec-label">LED</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Гарантия</div><div class="spec-val">5 лет</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Полное интегрирование · фасад под мебель · тихий компрессор</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">100&nbsp;490 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🫙</div>
+      <div><div class="appliance-name">Подогреватель посуды · Comfort</div><div class="appliance-model">WS 14.0 S</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Встраиваемый</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Температура</div><div class="spec-val">30–80 °С</div></div>
+        <div class="spec-item"><div class="spec-label">Вместимость</div><div class="spec-val">12–14 тарелок</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Inox</div></div>
+        <div class="spec-item"><div class="spec-label">Гарантия</div><div class="spec-val">5 лет</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Сенсорное управление · таймер · тихий нагрев · установка под духовкой</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">41&nbsp;990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="total-block">
+    <div>
+      <div class="total-label">Итого · Вариант A «Comfort»</div>
+      <div class="total-amount">316&nbsp;440 ₽</div>
+      <div class="total-items">6 приборов · серия Comfort · Graude Германия · гарантия 5 лет</div>
+    </div>
+    <div class="total-note">Все цены — РРЦ. Наличие и сроки уточняются у менеджера.</div>
+  </div>
+</div>
+
+<!-- TAB: VARIANT B (Premium) -->
+<div id="tab-varB" class="tab">
+  <div class="variant-badge">⭐ Вариант B · Premium · Пиролиз + Индукция</div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🔥</div>
+      <div><div class="appliance-name">Духовой шкаф с пиролизом · Premium</div><div class="appliance-model">BMP 60.0 E</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Объём</div><div class="spec-val">60 л</div></div>
+        <div class="spec-item"><div class="spec-label">Режимов нагрева</div><div class="spec-val">10</div></div>
+        <div class="spec-item"><div class="spec-label">Пиролиз</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Управление</div><div class="spec-val">Easy Control LCD</div></div>
+        <div class="spec-item"><div class="spec-label">Функция памяти</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Гарантия</div><div class="spec-val">5 лет</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Пиролитическая самоочистка · LCD · ECO · режим ферментации · таймер автоотключения</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">93&nbsp;490 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">⚡</div>
+      <div><div class="appliance-name">Индукционная варочная панель · Premium</div><div class="appliance-model">IK 60.1 F</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Индукция</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Конфорки</div><div class="spec-val">4</div></div>
+        <div class="spec-item"><div class="spec-label">Бустер</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Управление</div><div class="spec-val">Сенсорное</div></div>
+        <div class="spec-item"><div class="spec-label">Блокировка</div><div class="spec-val">Да</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Booster-функция · таймер на каждую конфорку · защита от перегрева · автовыключение</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">31&nbsp;990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">💨</div>
+      <div><div class="appliance-name">Настенная вытяжка · Premium</div><div class="appliance-model">DH 60.1 WE</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Настенная</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Уровни</div><div class="spec-val">3 + интенсив.</div></div>
+        <div class="spec-item"><div class="spec-label">LED-подсветка</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Управление</div><div class="spec-val">Электронное</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Белый / Inox</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Высокая производительность · жировой фильтр · интенсивный режим · напоминание очистки</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">29&nbsp;990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🍽</div>
+      <div><div class="appliance-name">Посудомоечная машина · Comfort</div><div class="appliance-model">VG 60.2 S</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Комплектов</div><div class="spec-val">14</div></div>
+        <div class="spec-item"><div class="spec-label">Шум</div><div class="spec-val">≤ 42 дБ</div></div>
+        <div class="spec-item"><div class="spec-label">Автооткрытие</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Программ</div><div class="spec-val">8</div></div>
+        <div class="spec-item"><div class="spec-label">Отложенный старт</div><div class="spec-val">24 ч</div></div>
+        <div class="spec-item"><div class="spec-label">Гарантия</div><div class="spec-val">5 лет</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Автооткрытие двери для сушки · 3 корзины · выдвижной лоток · Inox</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">83&nbsp;990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">❄️</div>
+      <div><div class="appliance-name">Интегрируемый холодильник-морозильник · Comfort</div><div class="appliance-model">IKG 190.1</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Высота</div><div class="spec-val">193 см</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">54 см</div></div>
+        <div class="spec-item"><div class="spec-label">No Frost</div><div class="spec-val">Обе камеры</div></div>
+        <div class="spec-item"><div class="spec-label">Монтаж</div><div class="spec-val">Полное интегр.</div></div>
+        <div class="spec-item"><div class="spec-label">LED</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Гарантия</div><div class="spec-val">5 лет</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">193 см — под высокий шкаф · зонированное хранение · тихий компрессор</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">122&nbsp;490 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🫙</div>
+      <div><div class="appliance-name">Подогреватель посуды · Comfort</div><div class="appliance-model">WS 14.0 W</div></div>
+      <div class="appliance-badge badge-check">Под заказ</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Встраиваемый</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Температура</div><div class="spec-val">30–80 °С</div></div>
+        <div class="spec-item"><div class="spec-label">Вместимость</div><div class="spec-val">12–14 тарелок</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Белый</div></div>
+        <div class="spec-item"><div class="spec-label">Гарантия</div><div class="spec-val">5 лет</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Сенсорное управление · таймер · тихий нагрев · белый фасад</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">41&nbsp;990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="total-block">
+    <div>
+      <div class="total-label">Итого · Вариант B «Premium»</div>
+      <div class="total-amount">403&nbsp;940 ₽</div>
+      <div class="total-items">6 приборов · Comfort + Premium · пиролиз + индукция</div>
+    </div>
+    <div class="total-note">Все цены — РРЦ. Наличие и сроки уточняются у менеджера. Гарантия 5 лет.</div>
+  </div>
+</div>
+
+<!-- TAB: VISUALS -->
+<div id="tab-visuals" class="tab">
+  <div class="section-title">Визуалы</div>
+  <div class="section-desc">Интерьерные съёмки с техникой Graude из каталога 2026</div>
+
+  <div class="visual-card">
+    <img src="https://graude.de/images/catalog/oven-premium.jpg" alt="Graude кухня интерьер" onerror="this.style.background='linear-gradient(135deg,#1a2e1a,#0d1a0d)';this.style.minHeight='320px';this.removeAttribute('src')">
+    <div class="visual-card-caption">Graude · Кухонный комплект Premium в современном интерьере</div>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;padding:24px;border:1px solid var(--border);margin-bottom:20px;">
+    <div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:12px;">Цветовые решения Graude 2026</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;">
+      <div style="background:#b8b8b8;border-radius:8px;height:60px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#333;">INOX</div>
+      <div style="background:#f0f0f0;border-radius:8px;height:60px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#333;">WHITE</div>
+      <div style="background:#2a2a2a;border-radius:8px;height:60px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#ddd;">BLACK STEEL</div>
+      <div style="background:#888;border-radius:8px;height:60px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">GREY STEEL</div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+      Большинство моделей доступны в 4 цветовых исполнениях: Inox (нержавеющая сталь), White (белый), Black Steel (чёрная нержавейка) и Grey Steel (серая матовая). По запросу предоставим цветовые образцы для конкретных моделей.
+    </div>
+  </div>
+
+  <div class="visual-grid">
+    <div style="background:var(--card);border-radius:10px;padding:20px;border:1px solid var(--border);">
+      <div style="font-size:24px;margin-bottom:10px;">🔥</div>
+      <div style="font-size:12px;color:var(--gold);font-weight:600;margin-bottom:6px;">Духовые шкафы</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.6;">Серии Comfort, Premium, Special. Пиролиз, пар, комби-режимы. Сенсорное и механическое управление.</div>
+    </div>
+    <div style="background:var(--card);border-radius:10px;padding:20px;border:1px solid var(--border);">
+      <div style="font-size:24px;margin-bottom:10px;">🍽</div>
+      <div style="font-size:12px;color:var(--gold);font-weight:600;margin-bottom:6px;">Посудомоечные машины</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.6;">60 см и 45 см. Тихие (42 дБ). Автооткрытие. 3 корзины. 6–8 программ. Полное встраивание.</div>
+    </div>
+    <div style="background:var(--card);border-radius:10px;padding:20px;border:1px solid var(--border);">
+      <div style="font-size:24px;margin-bottom:10px;">❄️</div>
+      <div style="font-size:12px;color:var(--gold);font-weight:600;margin-bottom:6px;">Холодильники</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.6;">Встраиваемые 177–193 см. No Frost. Полное интегрирование. Фасад под мебель. Тихий компрессор.</div>
+    </div>
+    <div style="background:var(--card);border-radius:10px;padding:20px;border:1px solid var(--border);">
+      <div style="font-size:24px;margin-bottom:10px;">💨</div>
+      <div style="font-size:12px;color:var(--gold);font-weight:600;margin-bottom:6px;">Вытяжки</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.6;">Настенные, встраиваемые, островные. Comfort и Premium. LED. 3–4 скорости. Ø 150 мм.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border-radius:10px;padding:16px 20px;border:1px solid var(--border);">
+    <div style="font-size:11px;color:var(--gold);margin-bottom:8px;letter-spacing:1px;">КАТАЛОГ 2026</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+      Каталог Graude 2026 — 134 страницы. По запросу предоставим PDF-развороты для конкретных моделей с фотографиями, цветовыми вариантами и схемами встраивания. Пишите на <a href="mailto:info@homeproject.online" style="color:var(--gold);">info@homeproject.online</a>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: SCHEMES & SPECS -->
+<div id="tab-schemes" class="tab">
+  <div class="section-title">Схемы встраивания и характеристики</div>
+  <div class="section-desc">Размеры ниш и ключевые технические данные для проектирования</div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Духовой шкаф · BE 60.3 E / BMP 60.0 E</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">594 мм</div><div class="scheme-dim-label">ниша 560 мм</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">594 мм</div><div class="scheme-dim-label">ниша 560 мм</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">548 мм</div><div class="scheme-dim-label">стандарт 60 см</div></div>
+    </div>
+    <div class="scheme-note">Стандартная встраиваемая ниша 60×60 см · подключение 220 В / 16 А · зазор вентиляции сверху 3–5 мм</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Варочная газовая · GS 60.1 E</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">594 мм</div><div class="scheme-dim-label">вырез в столешнице</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">510 мм</div><div class="scheme-dim-label">вырез в столешнице</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">H</div><div class="scheme-dim-val">70 мм</div><div class="scheme-dim-label">толщ. ст-цы min 20 мм</div></div>
+    </div>
+    <div class="scheme-note">Подключение к газу 1/2" · автоподжиг 220 В · газ-контроль с термопарой · вентиляция помещения ≥ 20 м³</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Варочная индукционная · IK 60.1 F</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">560 мм</div><div class="scheme-dim-label">вырез в столешнице</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">490 мм</div><div class="scheme-dim-label">вырез в столешнице</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">H</div><div class="scheme-dim-val">57 мм</div><div class="scheme-dim-label">высота прибора</div></div>
+    </div>
+    <div class="scheme-note">Подключение 220–240 В / 32 А · мощность 7.4 кВт · толщина столешницы 25–55 мм</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Вытяжка настенная · DHE 60.1 / DH 60.1</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">598 мм</div><div class="scheme-dim-label">ширина корпуса</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Min В</div><div class="scheme-dim-val">45 / 65 см</div><div class="scheme-dim-label">электро / газ</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ø</div><div class="scheme-dim-val">150 мм</div><div class="scheme-dim-label">воздуховод</div></div>
+    </div>
+    <div class="scheme-note">Монтаж на несущую стену · мин расстояние над газовой поверхностью 65 см, над электрической 45 см</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Посудомоечная машина · VG 60.1 / VG 60.2</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">598 мм</div><div class="scheme-dim-label">ниша 600 мм</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">815–875 мм</div><div class="scheme-dim-label">регул. ножки</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">550 мм</div><div class="scheme-dim-label">глубина</div></div>
+    </div>
+    <div class="scheme-note">220 В / 10 А · вода 3/4" · слив в сифон · фасад на 4 шурупа</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Холодильник интегрируемый · IKG 180.3 / IKG 190.1</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">541 мм</div><div class="scheme-dim-label">ниша 560 мм</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">1770 / 1930 мм</div><div class="scheme-dim-label">IKG 180 / 190</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">548 мм</div><div class="scheme-dim-label">глубина</div></div>
+    </div>
+    <div class="scheme-note">Полное встраивание · петли регулируются · вентиляция через цоколь · зазор сзади 20 мм</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Подогреватель посуды · WS 14.0</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">594 мм</div><div class="scheme-dim-label">ниша 560 мм</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">290 мм</div><div class="scheme-dim-label">высота прибора</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">548 мм</div><div class="scheme-dim-label">глубина</div></div>
+    </div>
+    <div class="scheme-note">Ниша 60×30 см · подключение 220 В / 10 А · устанавливается под духовым шкафом</div>
+  </div>
+
+  <div style="background:var(--card);border-radius:10px;padding:16px 20px;border:1px solid var(--border);margin-top:8px;">
+    <div style="font-size:11px;color:var(--gold);margin-bottom:8px;letter-spacing:1px;">ВАЖНО ДЛЯ ПРОЕКТИРОВАНИЯ</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+      Все размеры ориентировочные. Точные схемы встраивания (Einbaumaße) предоставляем в PDF под каждую модель. Рекомендуем согласовывать ниши с менеджером до передачи в производство мебели.
+    </div>
+  </div>
+</div>
+
+<!-- TAB: PROMO -->
+<div id="tab-promo" class="tab">
+  <div class="section-title">Спецусловия</div>
+  <div class="section-desc">Актуальные акции Graude — июнь 2026</div>
+
+  <div class="promo-tag">Акции Graude · Июнь 2026</div>
+
+  <div class="promo-grid">
+    <div class="promo-card">
+      <div class="promo-card-icon">🎁</div>
+      <div class="promo-card-title">3 + 1 в подарок</div>
+      <div class="promo-card-text">Купите 3 прибора Graude — четвёртый в подарок. До конца июня 2026.</div>
+    </div>
+    <div class="promo-card">
+      <div class="promo-card-icon">❄️</div>
+      <div class="promo-card-title">Холодильник за 34&nbsp;990 ₽</div>
+      <div class="promo-card-text">При покупке от 3 приборов — промо-цена на холодильник Graude. Экономия до 25&nbsp;500 ₽.</div>
+    </div>
+    <div class="promo-card">
+      <div class="promo-card-icon">🔁</div>
+      <div class="promo-card-title">Каскад скидок</div>
+      <div class="promo-card-text">Дополнительные условия при комплектной закупке. Уточнять у менеджера.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;border:1px solid rgba(201,169,110,0.3);padding:20px 24px;margin-bottom:20px;">
+    <div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:10px;">Гарантия 5 лет Graude</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+      Расширенная гарантия 5 лет — стандарт Graude. Авторизованный сервис в Москве (ул. Верейская, д.29) и регионах.<br><br>
+      <strong style="color:var(--text);">Включено:</strong> производственные дефекты, выход из строя при нормальной эксплуатации.<br>
+      <strong style="color:var(--text);">Реагирование:</strong> выезд мастера в Москве — до 3 рабочих дней.
+    </div>
+  </div>
+
+  <div class="cond-grid">
+    <div class="cond-card"><div class="cond-icon">🚚</div><div class="cond-title">Доставка</div><div class="cond-text">Со склада Graude (Москва). Наличие — 5–10 дней. Под заказ — уточняем оперативно.</div></div>
+    <div class="cond-card"><div class="cond-icon">🔧</div><div class="cond-title">Установка</div><div class="cond-text">Помогаем с организацией монтажа через партнёрских установщиков. Координацию берём на себя.</div></div>
+    <div class="cond-card"><div class="cond-icon">📋</div><div class="cond-title">Документы</div><div class="cond-text">Гарантийные документы, паспорта, инструкции на русском языке — в комплекте с каждым прибором.</div></div>
+    <div class="cond-card"><div class="cond-icon">💬</div><div class="cond-title">Консультация</div><div class="cond-text">Подбор, схемы ниш, расчёт комплекта — бесплатно. Пишите на email менеджеру.</div></div>
+  </div>
+</div>
+
+<!-- TAB: ABOUT -->
+<div id="tab-about" class="tab">
+  <div class="section-title">Как работаем</div>
+  <div class="section-desc">Home Project — дистрибьютор премиальной встраиваемой техники в Москве</div>
+
+  <div class="about-card">
+    <div class="about-title">О компании</div>
+    <div class="about-text">
+      Home Project — специализированный дистрибьютор встраиваемой техники премиального сегмента. Прямые договоры с производителями и официальными поставщиками.<br><br>
+      Портфель: <strong style="color:var(--text);">9 брендов</strong> — Graude, Kuppersbusch, V-ZUG, BORA, De Dietrich, Fhiaba, Schulthess, SKS, Liebherr.
+      Работаем с архитекторами, дизайнерами, застройщиками и прямыми клиентами.
+    </div>
+  </div>
+
+  <div class="about-card">
+    <div class="about-title">Процесс работы</div>
+    <ol class="steps">
+      <li><div class="step-num">1</div><div class="step-text"><strong style="color:var(--text);">Бриф</strong> — вы описываете проект: кухня, стиль, бюджет, приоритеты. 10 минут.</div></li>
+      <li><div class="step-num">2</div><div class="step-text"><strong style="color:var(--text);">Подбор</strong> — готовим 2–3 варианта с ценами РРЦ. Схемы ниш в комплекте.</div></li>
+      <li><div class="step-num">3</div><div class="step-text"><strong style="color:var(--text);">Согласование</strong> — уточняем цвет, конфигурацию, сроки.</div></li>
+      <li><div class="step-num">4</div><div class="step-text"><strong style="color:var(--text);">Заказ и доставка</strong> — оформляем, контролируем сроки, доставка по Москве.</div></li>
+      <li><div class="step-num">5</div><div class="step-text"><strong style="color:var(--text);">Установка и поддержка</strong> — помогаем с монтажом, остаёмся на связи.</div></li>
+    </ol>
+  </div>
+
+  <div class="cond-grid">
+    <div class="cond-card"><div class="cond-icon">🇩🇪</div><div class="cond-title">Немецкое качество</div><div class="cond-text">Graude — производство Германия. Официальная сертификация для рынка РФ.</div></div>
+    <div class="cond-card"><div class="cond-icon">📐</div><div class="cond-title">Поддержка проекта</div><div class="cond-text">Схемы встраивания (Einbaumaße) по каждой модели. Консультируем до передачи в производство мебели.</div></div>
+    <div class="cond-card"><div class="cond-icon">🛡</div><div class="cond-title">Гарантия 5 лет</div><div class="cond-text">Расширенная гарантия Graude. Авторизованный сервис в Москве. Ответственность производителя.</div></div>
+    <div class="cond-card"><div class="cond-icon">📦</div><div class="cond-title">Наличие и сроки</div><div class="cond-text">Регулярные поставки из Москвы. Уточняем сроки до 1 рабочего дня.</div></div>
+  </div>
+</div>
+
+<!-- TAB: CONTACTS -->
+<div id="tab-contacts" class="tab">
+  <div class="section-title">Контакты</div>
+  <div class="section-desc">Свяжитесь с нами для уточнения деталей и оформления заказа</div>
+
+  <div class="contact-grid">
+    <div class="contact-card"><div class="contact-icon">👤</div><div class="contact-label">Менеджер</div><div class="contact-val">Андрей Брагинский</div><div class="contact-sub">Home Project</div></div>
+    <div class="contact-card"><div class="contact-icon">✉️</div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:info@homeproject.online" style="color:var(--gold);text-decoration:none;">info@homeproject.online</a></div><div class="contact-sub">Ответ в течение часа</div></div>
+    <div class="contact-card"><div class="contact-icon">🌐</div><div class="contact-label">Сайт</div><div class="contact-val"><a href="https://homeproject.online" style="color:var(--gold);text-decoration:none;">homeproject.online</a></div><div class="contact-sub">Каталог · Бренды</div></div>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;padding:24px;border:1px solid var(--border);margin-bottom:20px;">
+    <div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:12px;">Как получить финальное КП</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      1. Выберите вариант (A или B) или укажите желаемый состав<br>
+      2. Укажите цветовое решение: Inox / White / Black Steel / Grey Steel<br>
+      3. Напишите на <a href="mailto:info@homeproject.online" style="color:var(--gold);">info@homeproject.online</a> — подготовим итоговое КП с подтверждёнными ценами и сроками
+    </div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#1a2e1a,#0d1a0d);border-radius:14px;padding:24px 28px;border:1px solid var(--gold);text-align:center;">
+    <div style="font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">Home Project</div>
+    <div style="font-size:18px;font-weight:300;color:#fff;margin-bottom:4px;">Премиальная встраиваемая техника</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.5);">Москва · Graude · Kuppersbusch · V-ZUG · BORA · Fhiaba · и другие</div>
+    <div style="margin-top:16px;"><a href="mailto:info@homeproject.online" style="color:var(--gold);text-decoration:none;font-size:13px;">info@homeproject.online</a></div>
+  </div>
+</div>
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const tab = document.getElementById('tab-' + name);
+  if (tab) tab.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+</script>
+</body>
+</html>
