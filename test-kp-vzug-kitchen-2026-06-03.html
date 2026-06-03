@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · V-ZUG · Комплект для кухни · Home Project</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --card2: #222222;
+    --gold: #C9A36A;
+    --gold2: #e0bc82;
+    --text: #e8e0d4;
+    --muted: #888;
+    --border: #2a2a2a;
+    --vz-red: #C41230;
+    --vz-dark: #1a0008;
+    --accent: #C9A36A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Helvetica Neue', Arial, sans-serif; min-height: 100vh; }
+
+  .header {
+    background: linear-gradient(135deg, #1a0008 0%, #0d0004 60%, #1a0008 100%);
+    padding: 28px 40px 22px;
+    border-bottom: 2px solid var(--vz-red);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgba(196,18,48,0.05));
+    pointer-events: none;
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; position: relative; z-index: 1; }
+  .header-brand { font-size: 11px; letter-spacing: 3px; color: var(--vz-red); text-transform: uppercase; margin-bottom: 6px; }
+  .header-title { font-size: 22px; font-weight: 300; color: #fff; letter-spacing: 2px; }
+  .header-subtitle { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 4px; letter-spacing: 0.5px; }
+  .header-swiss { font-size: 10px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; }
+  .header-meta { text-align: right; font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.9; }
+  .header-meta span { color: var(--gold); }
+
+  .nav-wrap { background: #111; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .nav { display: flex; overflow-x: auto; }
+  .nav-btn {
+    flex: 1; min-width: 90px; padding: 14px 10px; border: none; background: transparent;
+    color: var(--muted); font-size: 11px; cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all .2s; white-space: nowrap; text-align: center; letter-spacing: 0.3px;
+  }
+  .nav-btn:hover { color: var(--text); background: #1a1a1a; }
+  .nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); background: #1a1a1a; }
+
+  .tab { display: none; padding: 32px 40px 60px; max-width: 940px; margin: 0 auto; }
+  .tab.active { display: block; }
+
+  .section-title {
+    font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase;
+    margin-bottom: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+  .section-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+
+  .brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .brief-item { background: var(--card); border-radius: 10px; padding: 16px 20px; border: 1px solid var(--border); }
+  .brief-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .brief-val { font-size: 14px; color: var(--text); font-weight: 500; }
+  .brief-val.gold { color: var(--gold); font-size: 16px; }
+
+  .appliance-card {
+    background: var(--card); border-radius: 12px; border: 1px solid var(--border);
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .appliance-header {
+    display: flex; align-items: center; gap: 16px;
+    background: linear-gradient(90deg, #1a0008 0%, #0d0004 100%);
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(196,18,48,0.3);
+  }
+  .appliance-icon { font-size: 28px; }
+  .appliance-name { font-size: 14px; color: #fff; font-weight: 600; letter-spacing: 0.5px; }
+  .appliance-model { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; font-family: monospace; letter-spacing: 0.5px; }
+  .appliance-badge {
+    margin-left: auto; padding: 4px 10px; border-radius: 20px; font-size: 10px;
+    font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .badge-swiss { background: rgba(196,18,48,0.15); color: #e05070; border: 1px solid rgba(196,18,48,0.3); }
+
+  .appliance-body { padding: 16px 20px; }
+  .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .spec-item { background: var(--card2); border-radius: 8px; padding: 10px 12px; }
+  .spec-label { font-size: 10px; color: var(--muted); margin-bottom: 3px; }
+  .spec-val { font-size: 13px; color: var(--text); font-weight: 500; }
+
+  .price-row { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
+  .price-label { font-size: 11px; color: var(--muted); }
+  .price-val { font-size: 18px; color: var(--gold); font-weight: 600; }
+
+  .total-block {
+    background: linear-gradient(135deg, #1a0008 0%, #0d0004 100%);
+    border-radius: 14px; padding: 24px 28px; border: 1px solid var(--vz-red);
+    margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .total-label { font-size: 11px; letter-spacing: 2px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 4px; }
+  .total-amount { font-size: 32px; color: var(--gold); font-weight: 700; }
+  .total-items { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 4px; }
+  .total-note { font-size: 12px; color: rgba(255,255,255,0.45); max-width: 280px; line-height: 1.6; }
+
+  .swiss-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(90deg, var(--vz-red) 0%, #8b0d22 100%);
+    color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    padding: 6px 16px; border-radius: 20px; text-transform: uppercase; margin-bottom: 20px;
+  }
+
+  .visual-card {
+    border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
+    margin-bottom: 16px; background: var(--card);
+  }
+  .visual-img-wrap {
+    background: #111; min-height: 320px; display: flex; align-items: center; justify-content: center;
+    padding: 20px; position: relative;
+  }
+  .visual-img-wrap img {
+    max-width: 100%; max-height: 380px; object-fit: contain; border-radius: 4px;
+  }
+  .visual-img-label {
+    position: absolute; bottom: 12px; left: 16px;
+    background: rgba(0,0,0,0.75); border-radius: 6px; padding: 4px 10px;
+    font-size: 11px; color: var(--gold); letter-spacing: 1px;
+  }
+  .visual-info { padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
+  .visual-name { font-size: 13px; color: var(--text); font-weight: 500; }
+  .visual-model { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: monospace; }
+  .visual-price { font-size: 15px; color: var(--gold); font-weight: 600; }
+
+  .cond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cond-card { background: var(--card); border-radius: 10px; padding: 20px; border: 1px solid var(--border); }
+  .cond-icon { font-size: 24px; margin-bottom: 10px; }
+  .cond-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+  .cond-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  .scheme-card { background: var(--card); border-radius: 12px; padding: 20px 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .scheme-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+  .scheme-subtitle { font-size: 11px; color: var(--muted); margin-bottom: 14px; font-family: monospace; }
+  .scheme-dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
+  .scheme-dim { text-align: center; background: var(--card2); border-radius: 8px; padding: 12px; }
+  .scheme-dim-letter { font-size: 11px; color: var(--gold); font-weight: 700; margin-bottom: 4px; }
+  .scheme-dim-val { font-size: 15px; color: var(--text); font-weight: 600; }
+  .scheme-dim-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .scheme-specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+  .scheme-spec { background: var(--card2); border-radius: 6px; padding: 8px 12px; display: flex; justify-content: space-between; }
+  .scheme-spec-label { font-size: 11px; color: var(--muted); }
+  .scheme-spec-val { font-size: 11px; color: var(--text); font-weight: 500; }
+  .scheme-note { font-size: 11px; color: var(--muted); line-height: 1.6; padding-top: 10px; border-top: 1px solid var(--border); }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .compare-table th { background: #1a0008; color: #fff; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; }
+  .compare-table th:first-child { border-radius: 8px 0 0 0; }
+  .compare-table th:last-child { border-radius: 0 8px 0 0; text-align: right; }
+  .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; background: var(--card); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:last-child td:first-child { border-radius: 0 0 0 8px; }
+  .compare-table tr:last-child td:last-child { border-radius: 0 0 8px 0; }
+  .compare-table .total-row td { background: #1a0008; color: var(--gold); font-weight: 700; font-size: 15px; border-top: 1px solid var(--vz-red); }
+  .td-right { text-align: right; }
+  .td-gold { color: var(--gold); font-weight: 600; }
+
+  .about-card { background: var(--card); border-radius: 12px; padding: 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .about-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+  .about-text { font-size: 13px; color: var(--muted); line-height: 1.85; }
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .pillar { background: var(--card2); border-radius: 10px; padding: 16px 18px; border-left: 3px solid var(--vz-red); }
+  .pillar-title { font-size: 12px; color: var(--text); font-weight: 600; margin-bottom: 6px; }
+  .pillar-text { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+  .steps { list-style: none; }
+  .steps li { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .steps li:last-child { border-bottom: none; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--vz-red); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-title { font-size: 13px; color: var(--text); font-weight: 600; margin-bottom: 4px; }
+  .step-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+  .contact-card { background: var(--card); border-radius: 12px; padding: 22px 16px; border: 1px solid var(--border); text-align: center; }
+  .contact-icon { font-size: 28px; margin-bottom: 10px; }
+  .contact-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .contact-val { font-size: 13px; color: var(--text); font-weight: 500; }
+  .contact-val a { color: var(--gold); text-decoration: none; }
+  .contact-val a:hover { text-decoration: underline; }
+  .contact-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .info-block { background: var(--card); border-radius: 10px; padding: 14px 18px; font-size: 12px; color: var(--muted); line-height: 1.7; border: 1px solid var(--border); margin-top: 16px; }
+
+  @media (max-width: 600px) {
+    .tab { padding: 20px 16px 40px; }
+    .header { padding: 20px 16px 16px; }
+    .brief-grid, .cond-grid, .pillars { grid-template-columns: 1fr; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .scheme-dims { grid-template-columns: repeat(3, 1fr); }
+    .scheme-specs { grid-template-columns: 1fr; }
+    .compare-table { font-size: 11px; }
+    .compare-table td, .compare-table th { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-brand">Home Project · Коммерческое предложение</div>
+      <div class="header-title">V-ZUG · Комплект для кухни</div>
+      <div class="header-subtitle">Духовка · Варочная панель · Вытяжка · Посудомоечная машина · Холодильник</div>
+      <div class="header-swiss">Швейцарская инженерия · Züg, Switzerland</div>
+    </div>
+    <div class="header-meta">
+      <div>Подготовлено: <span>03.06.2026</span></div>
+      <div>Для: <span>Архитектор Тест</span></div>
+      <div>Сегмент: <span>Ультра-премиум</span></div>
+      <div>Менеджер: <span>Андрей Брагинский</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="nav-btn active" onclick="showTab('brief',this)">📋 Запрос</button>
+    <button class="nav-btn" onclick="showTab('spec',this)">🍽 Комплектация</button>
+    <button class="nav-btn" onclick="showTab('visuals',this)">🖼 Визуалы</button>
+    <button class="nav-btn" onclick="showTab('schemes',this)">📐 Схемы и хар-ки</button>
+    <button class="nav-btn" onclick="showTab('about',this)">🇨🇭 О бренде</button>
+    <button class="nav-btn" onclick="showTab('conditions',this)">✦ Спецусловия</button>
+    <button class="nav-btn" onclick="showTab('howwe',this)">🤝 Как работаем</button>
+    <button class="nav-btn" onclick="showTab('contacts',this)">📬 Контакты</button>
+  </div>
+</div>
+
+<div id="tab-brief" class="tab active">
+  <div class="section-title">Запрос</div>
+  <div class="section-desc">Параметры подбора комплекта встраиваемой техники V-ZUG для кухни</div>
+  <div class="brief-grid">
+    <div class="brief-item"><div class="brief-label">Бренд</div><div class="brief-val">V-ZUG (Цуг, Швейцария)</div></div>
+    <div class="brief-item"><div class="brief-label">Комплект</div><div class="brief-val">Духовка · Варка · Вытяжка · ПММ · Холодильник</div></div>
+    <div class="brief-item"><div class="brief-label">Сегмент</div><div class="brief-val gold">Ультра-премиум</div></div>
+    <div class="brief-item"><div class="brief-label">Клиент</div><div class="brief-val">Архитектор Тест</div></div>
+    <div class="brief-item"><div class="brief-label">Дата подготовки</div><div class="brief-val">03 июня 2026</div></div>
+    <div class="brief-item"><div class="brief-label">Поставщик</div><div class="brief-val">HOMETEK (официальный)</div></div>
+  </div>
+  <div style="background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border);">
+    <div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:10px;">Наше решение</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.85;">
+      Подобрали флагманский комплект из 5 приборов бренда V-ZUG серии V6000 — высший эшелон линейки:
+      полноцветные графические дисплеи, CircleSlider, пиролитическая очистка, индукция FullFlex.
+      <br><br>
+      V-ZUG производится исключительно в Швейцарии. Единый дизайн-код: зеркальное чёрное стекло,
+      дизайнерские ручки, сенсорные экраны. Каждый прибор — швейцарское производство с допуском ±1 мм.
+    </div>
+  </div>
+</div>
+
+<div id="tab-spec" class="tab">
+  <div class="swiss-badge">✦ Комплект V-ZUG V6000 · Ультра-премиум</div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🔥</div>
+      <div>
+        <div class="appliance-name">Духовой шкаф Combair V6000 60P</div>
+        <div class="appliance-model">C6T-21057 · черное стекло · 60 см</div>
+      </div>
+      <div class="appliance-badge badge-swiss">Швейцария</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Объём камеры</div><div class="spec-val">69 л</div></div>
+        <div class="spec-item"><div class="spec-label">Очистка</div><div class="spec-val">Пиролиз</div></div>
+        <div class="spec-item"><div class="spec-label">Управление</div><div class="spec-val">CircleSlider</div></div>
+        <div class="spec-item"><div class="spec-label">Дисплей</div><div class="spec-val">Цветной TFT</div></div>
+        <div class="spec-item"><div class="spec-label">Дверь</div><div class="spec-val">SoftClose/Open</div></div>
+        <div class="spec-item"><div class="spec-label">Мощность</div><div class="spec-val">3,4 кВт</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        BrillantEmaille · Съёмная разборная дверца · Температурный зонд 3-точечный · Вращающийся вертел · EasyCook · Режим Шаббат · LED × 2 · Ниша: 594×560×560 мм
+      </div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">630 990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">⚡</div>
+      <div>
+        <div class="appliance-name">Варочная панель CookTop V6000 I705 FullFlex</div>
+        <div class="appliance-model">CTI6T-31132 · черный · 70 см</div>
+      </div>
+      <div class="appliance-badge badge-swiss">Швейцария</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Индукция</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">70 см</div></div>
+        <div class="spec-item"><div class="spec-label">Зоны</div><div class="spec-val">FullFlex</div></div>
+        <div class="spec-item"><div class="spec-label">Дисплей</div><div class="spec-val">Цветной TFT</div></div>
+        <div class="spec-item"><div class="spec-label">Управление</div><div class="spec-val">Single Slide</div></div>
+        <div class="spec-item"><div class="spec-label">Уровни мощности</div><div class="spec-val">9</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        FullFlex — вся поверхность единая зона · Полноцветный сенсорный TFT-дисплей · Single Slide управление · Стеклокерамика · Вентиляционная пластина приобретается отдельно
+      </div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">1 018 990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">💨</div>
+      <div>
+        <div class="appliance-name">Вытяжка AiroClearCabinet V6000</div>
+        <div class="appliance-model">AE6T6FTLG · черное стекло · 60 см</div>
+      </div>
+      <div class="appliance-badge badge-swiss">Швейцария</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Встраиваемая</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Ступени</div><div class="spec-val">3 + интенсив</div></div>
+        <div class="spec-item"><div class="spec-label">Управление</div><div class="spec-val">TouchControl</div></div>
+        <div class="spec-item"><div class="spec-label">Освещение</div><div class="spec-val">LED</div></div>
+        <div class="spec-item"><div class="spec-label">Фасад</div><div class="spec-val">Зеркальное стекло</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        Встраивается в верхний шкаф · TouchControl · Жировой фильтр · Выдвижной экран · Режим рециркуляции возможен
+      </div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">426 990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🍽</div>
+      <div>
+        <div class="appliance-name">Посудомоечная машина AdoraDish V6000</div>
+        <div class="appliance-model">AS6T-41171 · полная интеграция · 60 см</div>
+      </div>
+      <div class="appliance-badge badge-swiss">Швейцария</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Программ</div><div class="spec-val">21</div></div>
+        <div class="spec-item"><div class="spec-label">Комплектов</div><div class="spec-val">13</div></div>
+        <div class="spec-item"><div class="spec-label">Расход воды</div><div class="spec-val">6,5 л/цикл</div></div>
+        <div class="spec-item"><div class="spec-label">Aquastop</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">FunctionLight</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Интеграция</div><div class="spec-val">Полная</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        21 программа · FunctionLight индикатор на полу · Aquastop · Фасад мебели · Ниша: 820×600×550 мм
+      </div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">591 990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">❄</div>
+      <div>
+        <div class="appliance-name">Холодильник CombiCooler V4000 178NI</div>
+        <div class="appliance-model">CCO4T-51108 · полная интеграция · 60 × 178 см</div>
+      </div>
+      <div class="appliance-badge badge-swiss">Швейцария</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Высота</div><div class="spec-val">177,8 см</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Дисплей</div><div class="spec-val">Цифровой</div></div>
+        <div class="spec-item"><div class="spec-label">Управление</div><div class="spec-val">TouchControl</div></div>
+        <div class="spec-item"><div class="spec-label">Дверь</div><div class="spec-val">SoftClose</div></div>
+        <div class="spec-item"><div class="spec-label">Интеграция</div><div class="spec-val">Полная</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        Холодильник + морозилка · Полная интеграция за фасадом · TouchControl · SoftClose · Упор двери справа (R) · Ниша: 1780×600×550 мм
+      </div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">814 990 ₽</div></div>
+    </div>
+  </div>
+
+  <div class="total-block">
+    <div>
+      <div class="total-label">Итого · Комплект V-ZUG V6000</div>
+      <div class="total-amount">3 483 950 ₽</div>
+      <div class="total-items">5 приборов · Швейцарское производство · Единый дизайн-код</div>
+    </div>
+    <div class="total-note">
+      Все цены указаны по РРЦ. Итоговая стоимость рассчитывается с учётом условий партнёрской программы Home Project. Уточните у менеджера.
+    </div>
+  </div>
+</div>
+
+<div id="tab-visuals" class="tab">
+  <div class="section-title">Визуалы</div>
+  <div class="section-desc">Фотографии приборов из официального медиабанка V-ZUG</div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap">
+      <img src="https://static.insales-cdn.com/images/products/1/3201/2674003073/large_zyft0ppqucfurbh5d7ujz2a76f17s4s5__1_.jpg" onerror="this.src='https://static.insales-cdn.com/images/products/1/3201/2674003073/micro_zyft0ppqucfurbh5d7ujz2a76f17s4s5__1_.jpg'" alt="V-ZUG Combair V6000 60P">
+      <div class="visual-img-label">Духовой шкаф</div>
+    </div>
+    <div class="visual-info">
+      <div><div class="visual-name">Combair V6000 60P</div><div class="visual-model">C6T-21057 · черное зеркальное стекло</div></div>
+      <div class="visual-price">630 990 ₽</div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap">
+      <img src="https://static.insales-cdn.com/images/products/1/6401/2674383105/large_noo0ppt29i81j7z6a3csjvd424mzh90n.jpg" onerror="this.src='https://static.insales-cdn.com/images/products/1/6401/2674383105/micro_noo0ppt29i81j7z6a3csjvd424mzh90n.jpg'" alt="V-ZUG CookTop V6000 I705 FullFlex">
+      <div class="visual-img-label">Варочная панель</div>
+    </div>
+    <div class="visual-info">
+      <div><div class="visual-name">CookTop V6000 I705 FullFlex</div><div class="visual-model">CTI6T-31132 · индукция · 70 см</div></div>
+      <div class="visual-price">1 018 990 ₽</div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap">
+      <img src="https://static.insales-cdn.com/images/products/1/4049/2674356177/large_4czgqqr1giz9r8csyv304mcg44gp2bmj__1_.png" onerror="this.src='https://static.insales-cdn.com/images/products/1/4049/2674356177/micro_4czgqqr1giz9r8csyv304mcg44gp2bmj__1_.png'" alt="V-ZUG AiroClearCabinet V6000">
+      <div class="visual-img-label">Встраиваемая вытяжка</div>
+    </div>
+    <div class="visual-info">
+      <div><div class="visual-name">AiroClearCabinet V6000</div><div class="visual-model">AE6T6FTLG · черное стекло · 60 см</div></div>
+      <div class="visual-price">426 990 ₽</div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap">
+      <img src="https://static.insales-cdn.com/images/products/1/4361/2674585865/large_AS6T_41171.png" onerror="this.src='https://static.insales-cdn.com/images/products/1/4361/2674585865/micro_AS6T_41171.png'" alt="V-ZUG AdoraDish V6000">
+      <div class="visual-img-label">Посудомоечная машина</div>
+    </div>
+    <div class="visual-info">
+      <div><div class="visual-name">AdoraDish V6000</div><div class="visual-model">AS6T-41171 · полная интеграция · 60 см</div></div>
+      <div class="visual-price">591 990 ₽</div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap">
+      <img src="https://static.insales-cdn.com/images/products/1/5137/2674586641/large_ybltub2f89i8xhk8eff7m2lidz0ayo0o.png" onerror="this.src='https://static.insales-cdn.com/images/products/1/5137/2674586641/micro_ybltub2f89i8xhk8eff7m2lidz0ayo0o.png'" alt="V-ZUG CombiCooler V4000 178NI">
+      <div class="visual-img-label">Холодильник с морозильником</div>
+    </div>
+    <div class="visual-info">
+      <div><div class="visual-name">CombiCooler V4000 178NI</div><div class="visual-model">CCO4T-51108 · полная интеграция · 60 × 178 см</div></div>
+      <div class="visual-price">814 990 ₽</div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-schemes" class="tab">
+  <div class="section-title">Схемы встраивания и технические характеристики</div>
+  <div class="section-desc">Точные габариты и параметры подключения для архитектурного проекта</div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Духовой шкаф Combair V6000 60P · C6T-21057</div>
+    <div class="scheme-subtitle">Ниша: 594 × 560 × 560 мм (В × Ш × Г)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">594 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">560 мм</div><div class="scheme-dim-label">Ширина ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">560 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-specs">
+      <div class="scheme-spec"><span class="scheme-spec-label">Прибор (В×Ш×Г)</span><span class="scheme-spec-val">598 × 597 × 569 мм</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Подключение</span><span class="scheme-spec-val">220-240 V~ (Schuko 16A)</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Мощность</span><span class="scheme-spec-val">3,4 кВт</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Вес</span><span class="scheme-spec-val">46 кг</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Объём камеры</span><span class="scheme-spec-val">69 л</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Расход энергии</span><span class="scheme-spec-val">0,73 кВт·ч/цикл</span></div>
+    </div>
+    <div class="scheme-note">Встраивается в нишу 60 см. Зазор вентиляции сверху 4 мм. Кабель 1,8 м. Автомат 16А. Пиролиз требует зазора от горючих материалов.</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Варочная панель CookTop V6000 I705 FullFlex · CTI6T-31132</div>
+    <div class="scheme-subtitle">Вырез в столешнице: 680 × 480 мм (Ш × Г)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">680 мм</div><div class="scheme-dim-label">Вырез</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">480 мм</div><div class="scheme-dim-label">Вырез</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Т</div><div class="scheme-dim-val">≥ 30 мм</div><div class="scheme-dim-label">Толщина столешн.</div></div>
+    </div>
+    <div class="scheme-specs">
+      <div class="scheme-spec"><span class="scheme-spec-label">Прибор (Ш×Г)</span><span class="scheme-spec-val">700 × 510 мм</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Подключение</span><span class="scheme-spec-val">400 V~ 3N (32A)</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Макс. мощность</span><span class="scheme-spec-val">7,2 кВт</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Тип зон</span><span class="scheme-spec-val">FullFlex (одна зона)</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Подшкаф</span><span class="scheme-spec-val">Вентилируемый</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Зазор до стены</span><span class="scheme-spec-val">≥ 50 мм</span></div>
+    </div>
+    <div class="scheme-note">Требует 3-фазного подключения 400V. Вентиляционная пластина под варочной (арт. H61087/H61088/H61089) — обязательна, приобретается отдельно.</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Вытяжка AiroClearCabinet V6000 · AE6T6FTLG</div>
+    <div class="scheme-subtitle">Монтаж в верхний шкаф шириной 60 см</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">600 мм</div><div class="scheme-dim-label">Ширина шкафа</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">≥ 400 мм</div><div class="scheme-dim-label">Высота шкафа</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">300 мм</div><div class="scheme-dim-label">Глубина шкафа</div></div>
+    </div>
+    <div class="scheme-specs">
+      <div class="scheme-spec"><span class="scheme-spec-label">Воздуховод Ø</span><span class="scheme-spec-val">150 мм</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Подключение</span><span class="scheme-spec-val">220-240 V~</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Ступени мощности</span><span class="scheme-spec-val">3 + интенсивная</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Рециркуляция</span><span class="scheme-spec-val">Возможна</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Мин. расстояние</span><span class="scheme-spec-val">650 мм от варочной</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Фильтр</span><span class="scheme-spec-val">Металлический, съёмный</span></div>
+    </div>
+    <div class="scheme-note">Встраивается в верхний шкаф. Воздуховод Ø150 — вывод через заднюю/верхнюю стенку. Рециркуляция: короб с угольным фильтром (арт. 1157470, отдельно).</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Посудомоечная машина AdoraDish V6000 · AS6T-41171</div>
+    <div class="scheme-subtitle">Ниша: 820 × 600 × 550 мм (В × Ш × Г)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">820 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">600 мм</div><div class="scheme-dim-label">Ширина ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">550 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-specs">
+      <div class="scheme-spec"><span class="scheme-spec-label">Подключение воды</span><span class="scheme-spec-val">Холодная, Ø ½"</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Подключение эл.</span><span class="scheme-spec-val">220-240 V~</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Расход воды</span><span class="scheme-spec-val">6,5 л/цикл</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Мощность нагрева</span><span class="scheme-spec-val">2,1 кВт</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Монтаж фасада</span><span class="scheme-spec-val">На двери (интегр.)</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Aquastop</span><span class="scheme-spec-val">Полная защита</span></div>
+    </div>
+    <div class="scheme-note">Полная интеграция — фасад мебели на дверцу. FunctionLight — световой индикатор на полу. Aquastop по всей длине шланга.</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Холодильник CombiCooler V4000 178NI · CCO4T-51108</div>
+    <div class="scheme-subtitle">Ниша: 1780 × 600 × 550 мм (В × Ш × Г)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">1780 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">600 мм</div><div class="scheme-dim-label">Ширина ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">550 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-specs">
+      <div class="scheme-spec"><span class="scheme-spec-label">Подключение</span><span class="scheme-spec-val">220-240 V~</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Упор двери</span><span class="scheme-spec-val">Справа (R)</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Вентиляция</span><span class="scheme-spec-val">Через цоколь</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Фасад</span><span class="scheme-spec-val">Мебельный (интегр.)</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Шум</span><span class="scheme-spec-val">≤ 36 дБ</span></div>
+      <div class="scheme-spec"><span class="scheme-spec-label">Гарантия</span><span class="scheme-spec-val">24 месяца</span></div>
+    </div>
+    <div class="scheme-note">Полная интеграция за фасадом. SoftClose. Вентиляция через цоколь — зазоры сверху и по бокам не нужны. Также доступен вариант с упором слева (L).</div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <div class="section-title" style="margin-bottom:16px;">Сводная таблица подключений</div>
+    <table class="compare-table">
+      <thead>
+        <tr><th>Прибор</th><th>Ниша (В×Ш×Г, мм)</th><th>Эл. подключение</th><th class="td-right">РРЦ</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Духовой шкаф Combair V6000 60P</td><td>594×560×560</td><td>220-240 V, 16A</td><td class="td-right td-gold">630 990 ₽</td></tr>
+        <tr><td>Варочная CookTop V6000 I705 FullFlex</td><td>вырез 680×480</td><td>400 V, 3N, 32A</td><td class="td-right td-gold">1 018 990 ₽</td></tr>
+        <tr><td>Вытяжка AiroClearCabinet V6000</td><td>шкаф 600×400</td><td>220-240 V, 10A</td><td class="td-right td-gold">426 990 ₽</td></tr>
+        <tr><td>Посудомоечная AdoraDish V6000</td><td>820×600×550</td><td>220-240 V, 16A</td><td class="td-right td-gold">591 990 ₽</td></tr>
+        <tr><td>Холодильник CombiCooler V4000 178NI</td><td>1780×600×550</td><td>220-240 V, 10A</td><td class="td-right td-gold">814 990 ₽</td></tr>
+        <tr class="total-row"><td colspan="3">Итого · 5 приборов</td><td class="td-right">3 483 950 ₽</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="tab-about" class="tab">
+  <div class="section-title">О бренде V-ZUG</div>
+  <div class="section-desc">Швейцарская инженерия высшего класса с 1913 года</div>
+
+  <div class="about-card">
+    <div class="about-title">История и производство</div>
+    <div class="about-text">
+      V-ZUG (Verzinkerei Zug AG) основана в 1913 году в городе Цуг, Швейцария. Более 110 лет компания производит премиальную бытовую технику исключительно на швейцарских заводах — это редкое явление в мире, где большинство брендов перенесли производство в Азию.
+      <br><br>
+      Все приборы V-ZUG изготавливаются в Швейцарии с допуском ±1 мм. Каждая единица проходит многоступенчатый контроль качества. Бренд — лидер рынка в Швейцарии более 40 лет подряд.
+    </div>
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-title">Единственное производство в Швейцарии</div>
+      <div class="pillar-text">Все приборы — от корпуса до электроники — производятся в Цуге. Ни один конкурент не предлагает такой уровень локализации.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-title">Точность ±1 мм</div>
+      <div class="pillar-text">Швейцарские производственные допуски. Идеальная встраиваемость в мебель — без зазоров и подгонки на объекте.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-title">Единый дизайн-код</div>
+      <div class="pillar-text">Зеркальное стекло, CircleSlider, Touch-экраны. Вся линейка выглядит как единый продукт — важно для дизайнерских кухонь.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-title">Инновации</div>
+      <div class="pillar-text">Refresh Butler — освежение одежды паром. CombairSteamer — духовка с парогенератором. FullFlex — вся варочная поверхность как одна зона.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-title">Экологичность</div>
+      <div class="pillar-text">AdoraDish V6000: 6,5 л воды за цикл — один из лучших показателей в классе. Производство на возобновляемой энергии.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-title">Сервис в России</div>
+      <div class="pillar-text">Официальный дистрибутор — HOMETEK. Авторизованные сервисные центры в Москве и Санкт-Петербурге. Гарантия 24 месяца.</div>
+    </div>
+  </div>
+
+  <div class="about-card" style="margin-top:16px;">
+    <div class="about-title">V-ZUG в сегменте ультра-премиум</div>
+    <div class="about-text">
+      V-ZUG конкурирует с Miele, Gaggenau и Sub-Zero в сегменте, где решение принимается не по цене, а по репутации и дизайну. Архитекторы и дизайнеры выбирают V-ZUG за точность габаритов и единый визуальный код.
+      <br><br>
+      Для российского рынка: техника производится в Швейцарии и поставляется через HOMETEK с официальной гарантией — в отличие от серого импорта, который присутствует на рынке в значительных объёмах.
+    </div>
+  </div>
+</div>
+
+<div id="tab-conditions" class="tab">
+  <div class="section-title">Спецусловия</div>
+  <div class="section-desc">Условия работы с Home Project по данному комплекту</div>
+  <div class="cond-grid">
+    <div class="cond-card">
+      <div class="cond-icon">🇨🇭</div>
+      <div class="cond-title">Официальный источник</div>
+      <div class="cond-text">Поставка через официального дистрибутора HOMETEK. Вся документация, гарантийные талоны и сертификаты — оригинальные швейцарские.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">📦</div>
+      <div class="cond-title">Наличие и поставка</div>
+      <div class="cond-text">Наличие уточняется на складе HOMETEK на дату подтверждения. Срок поставки: 2–6 недель. Предоплата фиксирует цену и резервирует товар.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">🛡</div>
+      <div class="cond-title">Гарантия</div>
+      <div class="cond-text">24 месяца официальной гарантии производителя. Авторизованный сервисный центр V-ZUG в Москве. Выезд для диагностики и ремонта.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">🚚</div>
+      <div class="cond-title">Доставка и подъём</div>
+      <div class="cond-text">Доставка до объекта согласовывается при оформлении. Подъём и распаковка — по договорённости. Работаем с Москвой и Подмосковьем.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">📋</div>
+      <div class="cond-title">Документооборот</div>
+      <div class="cond-text">Работаем с физлицами и юрлицами. Договор, счёт, УПД — полный пакет. Оплата по безналу или картой.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">🔧</div>
+      <div class="cond-title">Монтажная поддержка</div>
+      <div class="cond-text">Полная техническая документация V-ZUG для монтажников. 3D-модели (.dwg, .skp, .obj) для проектировщиков по запросу. Консультация по схемам встраивания.</div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-howwe" class="tab">
+  <div class="section-title">Как мы работаем</div>
+  <div class="section-desc">Процесс от запроса до установки техники на объекте</div>
+  <div class="about-card">
+    <ul class="steps">
+      <li><div class="step-num">1</div><div><div class="step-title">Запрос и подбор</div><div class="step-text">Получаем параметры кухни (планировка, габариты ниш, стиль). Подбираем оптимальный комплект V-ZUG под технические требования проекта.</div></div></li>
+      <li><div class="step-num">2</div><div><div class="step-title">Коммерческое предложение</div><div class="step-text">Готовим КП с ценами, схемами встраивания и техническими характеристиками — в формате, удобном для согласования с клиентом.</div></div></li>
+      <li><div class="step-num">3</div><div><div class="step-title">Подтверждение наличия</div><div class="step-text">После выбора позиций — запрашиваем актуальный сток у HOMETEK. Фиксируем наличие и срок поставки под конкретный объект.</div></div></li>
+      <li><div class="step-num">4</div><div><div class="step-title">Договор и оплата</div><div class="step-text">Оформляем договор поставки. Предоплата фиксирует цену и резервирует товар на складе. Полный пакет документов для юрлиц.</div></div></li>
+      <li><div class="step-num">5</div><div><div class="step-title">Поставка и доставка</div><div class="step-text">Доставка до объекта в согласованные сроки. Техника приходит в оригинальной упаковке V-ZUG с полным комплектом документов.</div></div></li>
+      <li><div class="step-num">6</div><div><div class="step-title">Поддержка после поставки</div><div class="step-text">Инструкции по эксплуатации и монтажу. Авторизованный сервисный выезд V-ZUG при необходимости. Гарантийное обслуживание 24 месяца.</div></div></li>
+    </ul>
+  </div>
+  <div class="info-block">
+    Home Project — специализированный дистрибутор премиальной встраиваемой техники в Москве. Прямые контракты с официальными дистрибуторами: HOMETEK (V-ZUG, BORA, Fhiaba), Homeier (Kuppersbusch, De Dietrich, Schulthess), Graude. Работаем с архитекторами, дизайнерами и частными клиентами.
+  </div>
+</div>
+
+<div id="tab-contacts" class="tab">
+  <div class="section-title">Контакты</div>
+  <div class="section-desc">Свяжитесь с нами для уточнения деталей и оформления заказа</div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">👤</div>
+      <div class="contact-label">Контактное лицо</div>
+      <div class="contact-val">Андрей Брагинский</div>
+      <div class="contact-sub">Менеджер по работе с клиентами</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-label">Email</div>
+      <div class="contact-val"><a href="mailto:info@homeproject.online">info@homeproject.online</a></div>
+      <div class="contact-sub">Ответим в течение рабочего дня</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🌐</div>
+      <div class="contact-label">Сайт</div>
+      <div class="contact-val"><a href="https://homeproject.online" target="_blank">homeproject.online</a></div>
+      <div class="contact-sub">Каталог · 268 позиций V-ZUG</div>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,#1a0008,#0d0004);border-radius:14px;padding:24px 28px;border:1px solid var(--vz-red);margin-bottom:20px;">
+    <div style="font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:8px;">Следующий шаг</div>
+    <div style="font-size:15px;color:#fff;font-weight:400;line-height:1.7;">
+      Напишите нам на <a href="mailto:info@homeproject.online" style="color:var(--gold);text-decoration:none;font-weight:600;">info@homeproject.online</a> — уточним наличие на складе HOMETEK, сроки поставки и оформим договор.
+    </div>
+  </div>
+  <div class="info-block">
+    <strong style="color:var(--text);">Home Project</strong> — дистрибутор премиальной встраиваемой техники в Москве. ИП. Официальный партнёр HOMETEK по брендам V-ZUG, BORA, Fhiaba. Все приборы — с официальной гарантией производителя и полным пакетом документов.
+    <br><br>
+    Данное КП носит информационный характер. Цены указаны по РРЦ и действительны на дату подготовки (03.06.2026). Итоговая стоимость рассчитывается индивидуально с учётом условий партнёрской программы.
+  </div>
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
