@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ТЗ · Кухня Смирновых · HomeProject AI</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #F2F1ED;
+    --card: #FFFFFF;
+    --sidebar: #181A20;
+    --sidebar-deep: #13151B;
+    --gold: #C4A45D;
+    --gold-light: #E8D5A3;
+    --text: #181A20;
+    --text-muted: #7A7D88;
+    --border: #2A2D38;
+    --border-light: #E8E4DC;
+    --accent-green: #2D7A4F;
+    --accent-orange: #D4630A;
+    --accent-blue: #2B5FA0;
+    --tag-bg: #EDEAE3;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .layout { display: flex; min-height: 100vh; }
+
+  .sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: var(--sidebar);
+    color: #fff;
+    padding: 32px 24px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo-block {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #2A2D38;
+  }
+  .sidebar-logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .sidebar-logo-diamond {
+    width: 22px; height: 22px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+    border-radius: 3px;
+  }
+  .sidebar-logo {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
+  .sidebar-logo span { color: var(--gold); }
+  .sidebar-slogan {
+    font-size: 11px;
+    color: #7A7D88;
+    font-style: italic;
+    line-height: 1.5;
+    padding-left: 30px;
+  }
+  .sidebar-sub {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 32px;
+  }
+
+  .sidebar-section { margin-bottom: 28px; }
+  .sidebar-section-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #ccc;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+    margin-bottom: 2px;
+  }
+  .sidebar-item:hover, .sidebar-item.active {
+    background: rgba(255,255,255,0.07);
+    color: #fff;
+  }
+  .sidebar-item.active { color: var(--gold); }
+  .sidebar-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #444;
+    flex-shrink: 0;
+  }
+  .sidebar-item.active .sidebar-dot { background: var(--gold); }
+
+  .sidebar-meta {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid #2a2a32;
+    font-size: 12px;
+    color: #555;
+    line-height: 1.8;
+  }
+  .sidebar-meta b { color: #aaa; font-weight: 500; }
+
+  .main { flex: 1; padding: 40px 48px 80px; max-width: 920px; }
+
+  .doc-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .doc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #181A20;
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid #2A2D38;
+    margin-bottom: 12px;
+  }
+  .doc-badge::before { content: "✦"; font-size: 8px; }
+  .doc-title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .doc-subtitle { font-size: 15px; color: var(--text-muted); }
+
+  .doc-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 32px;
+  }
+  .meta-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .meta-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .summary-card {
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    border-top: 3px solid var(--border-light);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .summary-card-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .summary-card-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .summary-card-sub { font-size: 12px; color: var(--text-muted); }
+  .summary-card.gold { border-color: var(--gold); border-top: 3px solid var(--gold); background: #1A1A20; color: #fff; }
+  .summary-card.gold .summary-card-label { color: #7A7D88; }
+  .summary-card.gold .summary-card-value { color: var(--gold); }
+  .summary-card.gold .summary-card-sub { color: #555; }
+
+  .section { margin-bottom: 40px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-number {
+    width: 28px; height: 28px;
+    background: var(--sidebar);
+    color: var(--gold);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .tz-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    font-size: 13px;
+  }
+  .tz-table thead th {
+    background: var(--sidebar);
+    color: #aaa;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border: none;
+  }
+  .tz-table thead th:first-child { color: var(--gold); }
+  .tz-table tbody tr { border-bottom: 1px solid var(--border-light); }
+  .tz-table tbody tr:last-child { border-bottom: none; }
+  .tz-table tbody tr:hover { background: #FAFAF8; }
+  .tz-table td {
+    padding: 14px 16px;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .tz-table td:first-child {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    width: 160px;
+  }
+  .pos-num {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-right: 6px;
+  }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    margin: 2px 2px 0 0;
+  }
+  .tag-req { background: #EBF4FF; color: var(--accent-blue); }
+  .tag-warn { background: #FFF4E8; color: var(--accent-orange); }
+  .tag-ok { background: #EBF7F1; color: var(--accent-green); }
+
+  .measures-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .measure-card {
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+  .measure-card-zone {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .measure-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 5px 0;
+    font-size: 13px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .measure-row:last-child { border-bottom: none; }
+  .measure-label { color: var(--text-muted); flex: 1; }
+  .measure-value { font-weight: 600; text-align: right; flex-shrink: 0; }
+  .measure-crit { color: var(--accent-orange); }
+
+  .alert {
+    display: flex;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .alert-warn { background: #FFF8EE; border-left: 3px solid var(--accent-orange); }
+  .alert-info { background: #EEF4FF; border-left: 3px solid var(--accent-blue); }
+  .alert b { font-weight: 600; }
+
+  .questions-list { list-style: none; }
+  .questions-list li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 13px;
+  }
+  .questions-list li:last-child { border-bottom: none; }
+  .q-mark {
+    width: 22px; height: 22px;
+    background: var(--tag-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .q-text { flex: 1; }
+  .q-why { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  .budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .budget-table td, .budget-table th {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border-light);
+    text-align: left;
+  }
+  .budget-table thead th {
+    background: #F8F7F4;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .budget-table tbody tr:last-child td { border-bottom: none; }
+  .budget-table td:last-child { text-align: right; font-weight: 600; }
+  .budget-total { background: var(--sidebar) !important; color: #fff; }
+  .budget-total td:last-child { color: var(--gold) !important; font-size: 15px; }
+
+  .doc-footer {
+    margin-top: 60px;
+    background: #13151B;
+    border-radius: 12px;
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .doc-footer-left { display: flex; align-items: center; gap: 16px; }
+  .doc-footer-diamond {
+    width: 32px; height: 32px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .doc-footer-brand {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .doc-footer-brand span { color: var(--gold); }
+  .doc-footer-slogan {
+    font-size: 11px;
+    color: #555;
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .doc-footer-right { text-align: right; font-size: 12px; }
+  .doc-footer-aria {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .doc-footer-meta { color: #555; line-height: 1.7; }
+
+  @media (max-width: 768px) {
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; }
+    .main { padding: 24px 20px; }
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+    .measures-grid { grid-template-columns: 1fr; }
+    .doc-header { flex-direction: column; gap: 20px; }
+    .doc-meta-grid { text-align: left; margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo-block">
+      <div class="sidebar-logo-mark">
+        <div class="sidebar-logo-diamond"></div>
+        <div class="sidebar-logo">Home<span>Project</span></div>
+      </div>
+      <div class="sidebar-slogan">пространство премиальных решений для вашего дома</div>
+    </div>
+    <div class="sidebar-sub">AI-подбор техники</div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Разделы ТЗ</div>
+      <a class="sidebar-item active" href="#positions"><span class="sidebar-dot"></span> Позиции и параметры</a>
+      <a class="sidebar-item" href="#measures"><span class="sidebar-dot"></span> Замеры и допуски</a>
+      <a class="sidebar-item" href="#alerts"><span class="sidebar-dot"></span> Предупреждения</a>
+      <a class="sidebar-item" href="#questions"><span class="sidebar-dot"></span> Вопросы к клиенту</a>
+      <a class="sidebar-item" href="#budget"><span class="sidebar-dot"></span> Бюджет</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Проект</div>
+      <div style="font-size:12px; color:#999; line-height:1.8; padding: 0 10px;">
+        <div>📍 Москва, ЖК Яуза Парк</div>
+        <div>🏠 18 м² / открытая</div>
+        <div>👨‍👩‍👧‍👦 Семья 4 чел.</div>
+        <div>📅 Июнь 2026</div>
+      </div>
+    </div>
+    <div class="sidebar-meta">
+      <div>Сформировано AI</div>
+      <div><b>HomeProject</b></div>
+      <div>03.06.2026</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="doc-header">
+      <div class="doc-title-block">
+        <div class="doc-badge">ТЗ на технику · AI-генерация</div>
+        <h1 class="doc-title">Кухня Смирновых</h1>
+        <p class="doc-subtitle">Техническое задание на подбор встраиваемой техники</p>
+      </div>
+      <div class="doc-meta-grid">
+        <div class="meta-item"><div class="meta-label">Площадь</div><div class="meta-value">18 м²</div></div>
+        <div class="meta-item"><div class="meta-label">Бюджет</div><div class="meta-value">до 1 000 000 ₽</div></div>
+        <div class="meta-item"><div class="meta-label">Планировка</div><div class="meta-value">Открытая</div></div>
+        <div class="meta-item"><div class="meta-label">Позиций</div><div class="meta-value">6 шт.</div></div>
+      </div>
+    </header>
+
+    <div class="summary-grid">
+      <div class="summary-card gold">
+        <div class="summary-card-label">Бюджет на технику</div>
+        <div class="summary-card-value">~820 000</div>
+        <div class="summary-card-sub">₽ оценка на 6 позиций</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-label">Выделенных линий</div>
+        <div class="summary-card-value">4 шт.</div>
+        <div class="summary-card-sub">от 60А вводной кабель</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-label">Срок поставки</div>
+        <div class="summary-card-value">14–30</div>
+        <div class="summary-card-sub">дней (ориентировочно)</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-label">Флагов AI</div>
+        <div class="summary-card-value">2</div>
+        <div class="summary-card-sub">требуют проверки на объекте</div>
+      </div>
+    </div>
+
+    <section class="section" id="positions">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <div class="section-title">Перечень позиций и технические параметры</div>
+      </div>
+      <table class="tz-table">
+        <thead>
+          <tr><th>Позиция</th><th>Размер / формат</th><th>Обязательные параметры</th><th>Примечание</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pos-num">01</span>Варочная<br>поверхность</td>
+            <td>60 × 52 см<br><span style="color:var(--text-muted);font-size:12px">или 80 см (рекоменд.)</span></td>
+            <td><span class="tag tag-req">Индукция</span><span class="tag tag-req">≥ 7,4 кВт</span><span class="tag tag-req">FlexZone</span><br><span style="font-size:12px;color:var(--text-muted)">PowerBoost, 32А отдельная линия</span></td>
+            <td style="font-size:12px">Для 4 чел. + гости — предпочтительно 80 см или 5 зон</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">02</span>Вытяжка<br>(downdraft)</td>
+            <td>= ширина варочной<br><span style="color:var(--text-muted);font-size:12px">Глубина 15–20 см</span></td>
+            <td><span class="tag tag-req">≥ 650 м³/ч</span><span class="tag tag-req">≤ 52 дБ</span><br><span style="font-size:12px;color:var(--text-muted)">Воздуховод ≥ 150 мм ∅</span></td>
+            <td style="font-size:12px"><span class="tag tag-warn">⚠ проверить</span> маршрут воздуховода — открытая план. + окна</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">03</span>Духовой<br>шкаф</td>
+            <td>60 × 60 × 55 см<br><span style="color:var(--text-muted);font-size:12px">Встраиваемый, колонна</span></td>
+            <td><span class="tag tag-req">≥ 70 л</span><span class="tag tag-req">Конвекция 3D</span><span class="tag tag-req">A+</span><br><span style="font-size:12px;color:var(--text-muted)">Телескопические напр., пиролиз или пар</span></td>
+            <td style="font-size:12px">Зазор от мебели: ≥ 5 мм. 16А отдельная линия</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">04</span>Паровой<br>прибор</td>
+            <td>45 × 60 × 55 см<br><span style="color:var(--text-muted);font-size:12px">или 60 см высотой</span></td>
+            <td><span class="tag tag-req">Combi-Steam</span><span class="tag tag-req">30–230°C</span><br><span style="font-size:12px;color:var(--text-muted)">Резервуар ≥ 2,5 л или подвод воды</span></td>
+            <td style="font-size:12px">Рекоменд. резервуарный тип — без разводки воды к колонне</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">05</span>Посудо-<br>моечная</td>
+            <td>60 × 60 × 82 см<br><span style="color:var(--text-muted);font-size:12px">Встраиваемая</span></td>
+            <td><span class="tag tag-req">≥ 14 персон</span><span class="tag tag-req">A+++</span><span class="tag tag-req">≤ 44 дБ</span><br><span style="font-size:12px;color:var(--text-muted)">AutoOpen сушка, ниша H 820–870 мм</span></td>
+            <td style="font-size:12px">Проверить высоту подстолья. Цоколь ≥ 10 см → нужна рег. ножек</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">06</span>Холодильник<br>встроенный</td>
+            <td>54 × 178 × 55 см<br><span style="color:var(--text-muted);font-size:12px">или 2 колонны 54 см</span></td>
+            <td><span class="tag tag-req">No Frost 100%</span><span class="tag tag-req">≥ 220 л</span><span class="tag tag-req">A++</span><br><span style="font-size:12px;color:var(--text-muted)">LED, зазор вентиляции сверху ≥ 30 мм</span></td>
+            <td style="font-size:12px">Для активной готовки рассмотреть 2 колонны — холод + мороз отдельно</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="measures">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <div class="section-title">Замеры на объекте и критичные допуски</div>
+      </div>
+      <div class="measures-grid">
+        <div class="measure-card">
+          <div class="measure-card-zone">🔥 Варочная зона</div>
+          <div class="measure-row"><span class="measure-label">Глубина столешницы</span><span class="measure-value">≥ 600 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Отступ от горючих пов.</span><span class="measure-value measure-crit">≥ 20 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Сечение воздуховода</span><span class="measure-value measure-crit">∅ ≥ 150 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Электролиния</span><span class="measure-value">32А отд.</span></div>
+        </div>
+        <div class="measure-card">
+          <div class="measure-card-zone">🔲 Колонна (духовка + пар)</div>
+          <div class="measure-row"><span class="measure-label">Ширина ниши</span><span class="measure-value measure-crit">560–562 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Высота ниши от пола</span><span class="measure-value">≥ 1 300 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Глубина ниши</span><span class="measure-value">≥ 550 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Электролиния</span><span class="measure-value">16А отд. × 2</span></div>
+        </div>
+        <div class="measure-card">
+          <div class="measure-card-zone">🍽 Посудомоечная</div>
+          <div class="measure-row"><span class="measure-label">Высота подстолья (чистая)</span><span class="measure-value measure-crit">820–870 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Ход цоколя</span><span class="measure-value">100–150 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Подвод воды (хол.)</span><span class="measure-value">1/2" G</span></div>
+          <div class="measure-row"><span class="measure-label">Слив</span><span class="measure-value">∅ 19–22 мм</span></div>
+        </div>
+        <div class="measure-card">
+          <div class="measure-card-zone">❄️ Холодильник</div>
+          <div class="measure-row"><span class="measure-label">Высота до антресоли</span><span class="measure-value">≥ 1 780 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Зазор вентиляции сверху</span><span class="measure-value measure-crit">≥ 30 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Ширина ниши</span><span class="measure-value">555–560 мм</span></div>
+          <div class="measure-row"><span class="measure-label">Электролиния</span><span class="measure-value">10А отд.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="alerts">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <div class="section-title">AI-флаги: требуют проверки на объекте</div>
+      </div>
+      <div class="alert alert-warn">
+        <span class="alert-icon">⚠️</span>
+        <div><b>Downdraft + открытая планировка.</b> Расположение кухни у окна или со сквозным потоком воздуха снижает эффективность downdraft-вытяжки до 30–40%. Уточнить на объекте: направление окон, наличие принудительной вентиляции, положение кухни в пространстве.</div>
+      </div>
+      <div class="alert alert-warn">
+        <span class="alert-icon">⚠️</span>
+        <div><b>Паровой прибор + духовка в одной колонне.</b> Не все комбинации сертифицированы для совместного монтажа — требуется проверка по спецификации выбранных моделей. Минимальный зазор между приборами: 5 мм, вентиляция тыльной стенки колонны обязательна.</div>
+      </div>
+      <div class="alert alert-info">
+        <span class="alert-icon">ℹ️</span>
+        <div><b>Электрика: суммарная нагрузка.</b> Индукция (32А) + духовка (16А) + пар (16А) + холодильник (10А) + посудомойка (10А) = минимум 60А вводной кабель, 5 выделенных линий. Уточнить с электриком до заказа щитка.</div>
+      </div>
+    </section>
+
+    <section class="section" id="questions">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <div class="section-title">Вопросы к клиенту — легко пропустить</div>
+      </div>
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:10px; padding: 4px 20px;">
+        <ul class="questions-list">
+          <li>
+            <div class="q-mark">?</div>
+            <div class="q-text">
+              <div>Физические ручки или сенсорное управление?</div>
+              <div class="q-why">Сенсор — современно, но ненадёжно при влажных руках. Ручки — удобнее для детей и пожилых.</div>
+            </div>
+          </li>
+          <li>
+            <div class="q-mark">?</div>
+            <div class="q-text">
+              <div>Как часто пользуются морозильником?</div>
+              <div class="q-why">Если часто — лучше две отдельные колонны (холод + мороз): не нарушается температура при частом открытии.</div>
+            </div>
+          </li>
+          <li>
+            <div class="q-mark">?</div>
+            <div class="q-text">
+              <div>Готовят ли дети или пожилые родственники?</div>
+              <div class="q-why">Влияет на выбор духовки: дверь с тройным стеклом (не нагревается), блокировка от детей, контрастные метки температур.</div>
+            </div>
+          </li>
+          <li>
+            <div class="q-mark">?</div>
+            <div class="q-text">
+              <div>Есть ли ограничения в питании или аллергия?</div>
+              <div class="q-why">Паровой прибор из «опции» становится «необходимостью» для диетического питания, ГЭРБ, детского меню.</div>
+            </div>
+          </li>
+          <li>
+            <div class="q-mark">?</div>
+            <div class="q-text">
+              <div>Какой прибор используется чаще всего прямо сейчас?</div>
+              <div class="q-why">Выявляет реальные сценарии, не пожелания. Позволяет грамотно расставить приоритеты в бюджете.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="budget">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <div class="section-title">Ориентировочный бюджет</div>
+      </div>
+      <table class="budget-table">
+        <thead>
+          <tr><th>#</th><th>Позиция</th><th>Сегмент</th><th>Бюджет, ₽</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>01</td><td>Варочная поверхность индукционная 80 см</td><td><span class="tag tag-req">Премиум</span></td><td>120 000–180 000</td></tr>
+          <tr><td>02</td><td>Вытяжка downdraft встроенная</td><td><span class="tag tag-req">Премиум</span></td><td>80 000–140 000</td></tr>
+          <tr><td>03</td><td>Духовой шкаф встраиваемый</td><td><span class="tag tag-req">Премиум</span></td><td>90 000–140 000</td></tr>
+          <tr><td>04</td><td>Паровой прибор Combi-Steam</td><td><span class="tag tag-req">Премиум</span></td><td>100 000–160 000</td></tr>
+          <tr><td>05</td><td>Посудомоечная машина встраиваемая 60 см</td><td><span class="tag tag-ok">Средний+</span></td><td>90 000–150 000</td></tr>
+          <tr><td>06</td><td>Холодильник встроенный (1 или 2 колонны)</td><td><span class="tag tag-req">Премиум</span></td><td>150 000–280 000</td></tr>
+          <tr class="budget-total"><td colspan="3"><b>ИТОГО (ориентировочно)</b></td><td>630 000 – 1 050 000 ₽</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px; color:var(--text-muted); margin-top:10px;">
+        * Бюджет рассчитан AI на основе актуальных цен каталога HomeProject. Точная стоимость — после подбора конкретных моделей под ваш проект.
+      </p>
+    </section>
+
+    <footer class="doc-footer">
+      <div class="doc-footer-left">
+        <div class="doc-footer-diamond"></div>
+        <div>
+          <div class="doc-footer-brand">HOME<span>PROJECT</span></div>
+          <div class="doc-footer-slogan">пространство премиальных решений для вашего дома</div>
+        </div>
+      </div>
+      <div class="doc-footer-right">
+        <div class="doc-footer-aria">✦ Подготовлено: Ария</div>
+        <div class="doc-footer-meta">AI-ассистент HomeProject<br>03.06.2026 · <a href="https://t.me/homeproject_ai_bot" style="color:var(--gold);text-decoration:none;">@homeproject_ai_bot</a></div>
+      </div>
+    </footer>
+  </main>
+</div>
+</body>
+</html>
