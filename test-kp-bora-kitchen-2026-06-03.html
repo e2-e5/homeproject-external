@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · BORA · Варочные панели со встроенной вытяжкой · Home Project</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --card2: #222222;
+    --gold: #C9A36A;
+    --gold2: #e0bc82;
+    --text: #e8e0d4;
+    --muted: #888;
+    --border: #2a2a2a;
+    --bora-red: #CC0000;
+    --bora-dark: #1a0000;
+    --accent: #C9A36A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Helvetica Neue', Arial, sans-serif; min-height: 100vh; }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #1a0000 0%, #0f0f0f 60%, #1a0a00 100%);
+    padding: 28px 40px 22px;
+    border-bottom: 2px solid var(--bora-red);
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; }
+  .header-brand { font-size: 11px; letter-spacing: 3px; color: var(--bora-red); text-transform: uppercase; margin-bottom: 6px; }
+  .header-title { font-size: 22px; font-weight: 300; color: #fff; letter-spacing: 1px; }
+  .header-subtitle { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+  .header-meta { text-align: right; font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+  .header-meta span { color: var(--gold); }
+
+  /* NAV */
+  .nav-wrap { background: #111; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .nav { display: flex; overflow-x: auto; }
+  .nav-btn {
+    flex: 1; min-width: 80px; padding: 14px 10px; border: none; background: transparent;
+    color: var(--muted); font-size: 11px; cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all .2s; white-space: nowrap; text-align: center; letter-spacing: 0.3px;
+  }
+  .nav-btn:hover { color: var(--text); background: #1a1a1a; }
+  .nav-btn.active { color: var(--bora-red); border-bottom-color: var(--bora-red); background: #1a1a1a; }
+
+  /* CONTENT */
+  .tab { display: none; padding: 32px 40px 60px; max-width: 900px; margin: 0 auto; }
+  .tab.active { display: block; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 11px; letter-spacing: 3px; color: var(--bora-red); text-transform: uppercase;
+    margin-bottom: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+  .section-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+
+  /* BRIEF CARD */
+  .brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .brief-item { background: var(--card); border-radius: 10px; padding: 16px 20px; border: 1px solid var(--border); }
+  .brief-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .brief-val { font-size: 14px; color: var(--text); font-weight: 500; }
+  .brief-val.gold { color: var(--gold); font-size: 16px; }
+  .brief-val.red { color: var(--bora-red); }
+
+  /* APPLIANCE CARD */
+  .appliance-card {
+    background: var(--card); border-radius: 12px; border: 1px solid var(--border);
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .appliance-header {
+    display: flex; align-items: center; gap: 16px;
+    background: linear-gradient(90deg, #1a0000 0%, #2a0000 100%);
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(204,0,0,0.3);
+  }
+  .appliance-icon { font-size: 28px; }
+  .appliance-name { font-size: 14px; color: #fff; font-weight: 600; letter-spacing: 0.5px; }
+  .appliance-model { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; font-family: monospace; }
+  .appliance-badge {
+    margin-left: auto; padding: 4px 10px; border-radius: 20px; font-size: 10px;
+    font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .badge-stock { background: rgba(80,200,120,0.2); color: #4ec97a; border: 1px solid rgba(80,200,120,0.3); }
+  .badge-check { background: rgba(255,180,0,0.15); color: #ffb400; border: 1px solid rgba(255,180,0,0.3); }
+  .badge-new { background: rgba(204,0,0,0.2); color: #ff4444; border: 1px solid rgba(204,0,0,0.3); }
+
+  .appliance-body { padding: 16px 20px; }
+  .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .spec-item { background: var(--card2); border-radius: 8px; padding: 10px 12px; }
+  .spec-label { font-size: 10px; color: var(--muted); margin-bottom: 3px; }
+  .spec-val { font-size: 13px; color: var(--text); font-weight: 500; }
+
+  .price-row { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
+  .price-label { font-size: 11px; color: var(--muted); }
+  .price-val { font-size: 18px; color: var(--gold); font-weight: 600; }
+
+  /* TOTAL BLOCK */
+  .total-block {
+    background: linear-gradient(135deg, #1a0000 0%, #0f0800 100%);
+    border-radius: 14px; padding: 24px 28px; border: 1px solid var(--bora-red);
+    margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .total-label { font-size: 11px; letter-spacing: 2px; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-bottom: 4px; }
+  .total-amount { font-size: 32px; color: var(--gold); font-weight: 700; }
+  .total-items { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+  .total-note { font-size: 12px; color: rgba(255,255,255,0.5); max-width: 280px; line-height: 1.6; }
+
+  /* VARIANT BADGE */
+  .variant-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(90deg, var(--bora-red) 0%, #990000 100%);
+    color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    padding: 6px 16px; border-radius: 20px; text-transform: uppercase; margin-bottom: 20px;
+  }
+
+  /* USP GRID */
+  .usp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .usp-card {
+    background: var(--card); border-radius: 12px; padding: 22px 20px;
+    border: 1px solid var(--border); border-left: 3px solid var(--bora-red);
+  }
+  .usp-icon { font-size: 28px; margin-bottom: 10px; }
+  .usp-title { font-size: 13px; color: var(--text); font-weight: 700; margin-bottom: 6px; }
+  .usp-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* VISUAL GRID */
+  .visual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .visual-card {
+    border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
+    background: var(--card2);
+  }
+  .visual-img {
+    width: 100%; min-height: 300px; object-fit: cover; display: block;
+    background: linear-gradient(135deg, #1a0000 0%, #111 50%, #1a1a1a 100%);
+  }
+  .visual-caption {
+    padding: 12px 14px; font-size: 11px; color: var(--muted); letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  /* TECH CARD */
+  .tech-card { background: var(--card); border-radius: 12px; padding: 20px 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .tech-title { font-size: 13px; color: var(--bora-red); font-weight: 700; margin-bottom: 12px; letter-spacing: 0.5px; }
+  .tech-text { font-size: 13px; color: var(--muted); line-height: 1.8; }
+  .tech-list { list-style: none; }
+  .tech-list li {
+    display: flex; gap: 10px; padding: 8px 0;
+    border-bottom: 1px solid var(--border); font-size: 13px; color: var(--muted); line-height: 1.5;
+  }
+  .tech-list li:last-child { border-bottom: none; }
+  .tech-list li::before { content: '→'; color: var(--bora-red); flex-shrink: 0; font-weight: 700; }
+
+  /* SCHEME */
+  .scheme-card { background: var(--card); border-radius: 12px; padding: 20px 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .scheme-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 14px; }
+  .scheme-dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
+  .scheme-dim { text-align: center; background: var(--card2); border-radius: 8px; padding: 12px; }
+  .scheme-dim-letter { font-size: 11px; color: var(--bora-red); font-weight: 700; margin-bottom: 4px; }
+  .scheme-dim-val { font-size: 15px; color: var(--text); font-weight: 600; }
+  .scheme-dim-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .scheme-note { font-size: 11px; color: var(--muted); line-height: 1.6; padding-top: 10px; border-top: 1px solid var(--border); }
+
+  /* FLOW DIAGRAM */
+  .flow-diagram {
+    background: var(--card2); border-radius: 12px; padding: 24px;
+    border: 1px solid var(--border); margin-bottom: 20px; text-align: center;
+  }
+  .flow-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+  .flow-box {
+    background: var(--card); border-radius: 10px; padding: 14px 18px;
+    border: 1px solid var(--border); font-size: 12px; color: var(--text);
+    text-align: center; min-width: 120px;
+  }
+  .flow-box.highlight { border-color: var(--bora-red); background: rgba(204,0,0,0.08); }
+  .flow-icon { font-size: 22px; margin-bottom: 6px; }
+  .flow-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .flow-arrow { font-size: 22px; color: var(--bora-red); font-weight: 700; }
+
+  /* COMPARE TABLE */
+  .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .compare-table th { background: #1a0000; color: #fff; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; border-bottom: 2px solid var(--bora-red); }
+  .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; background: var(--card); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .total-row td { background: #1a0000; color: var(--gold); font-weight: 700; font-size: 15px; }
+  .compare-table .label-col { color: var(--muted); font-size: 11px; }
+  .highlight-col { color: var(--bora-red); font-weight: 600; }
+
+  /* CONDITIONS */
+  .cond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cond-card { background: var(--card); border-radius: 10px; padding: 20px; border: 1px solid var(--border); }
+  .cond-icon { font-size: 24px; margin-bottom: 10px; }
+  .cond-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+  .cond-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* CONTACTS */
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+  .contact-card { background: var(--card); border-radius: 12px; padding: 22px 16px; border: 1px solid var(--border); text-align: center; }
+  .contact-icon { font-size: 28px; margin-bottom: 10px; }
+  .contact-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .contact-val { font-size: 13px; color: var(--text); font-weight: 500; }
+  .contact-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* STEPS */
+  .steps { list-style: none; }
+  .steps li { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .steps li:last-child { border-bottom: none; }
+  .step-num { width: 26px; height: 26px; border-radius: 50%; background: var(--bora-red); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .step-text strong { color: var(--text); }
+
+  /* ABOUT CARD */
+  .about-card { background: var(--card); border-radius: 12px; padding: 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .about-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+  .about-text { font-size: 13px; color: var(--muted); line-height: 1.8; }
+
+  /* AI NOTE */
+  .ai-note { background: var(--card); border-radius: 10px; padding: 14px 18px; font-size: 11px; color: #777; line-height: 1.7; font-style: italic; border: 1px solid var(--border); }
+
+  /* CONCEPT HERO */
+  .concept-hero {
+    background: linear-gradient(135deg, #1a0000 0%, #0f0f0f 60%, #1a0a00 100%);
+    border-radius: 16px; padding: 40px 32px; border: 1px solid rgba(204,0,0,0.3);
+    margin-bottom: 24px; text-align: center;
+  }
+  .concept-hero-label { font-size: 10px; letter-spacing: 4px; color: var(--bora-red); text-transform: uppercase; margin-bottom: 16px; }
+  .concept-hero-headline { font-size: 28px; font-weight: 300; color: #fff; line-height: 1.3; margin-bottom: 16px; }
+  .concept-hero-headline strong { font-weight: 700; color: var(--bora-red); }
+  .concept-hero-sub { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 560px; margin: 0 auto 24px; }
+  .concept-divider { width: 60px; height: 2px; background: var(--bora-red); margin: 0 auto 20px; }
+
+  /* OPTION TAG */
+  .option-tag {
+    display: inline-block; background: rgba(201,163,106,0.12); color: var(--gold);
+    border: 1px solid rgba(201,163,106,0.3); border-radius: 6px;
+    font-size: 10px; font-weight: 600; letter-spacing: 1px; padding: 3px 8px; margin-left: 8px;
+    text-transform: uppercase; vertical-align: middle;
+  }
+
+  @media (max-width: 600px) {
+    .tab { padding: 20px 16px 40px; }
+    .header { padding: 20px 16px 16px; }
+    .brief-grid { grid-template-columns: 1fr; }
+    .usp-grid { grid-template-columns: 1fr; }
+    .visual-grid { grid-template-columns: 1fr; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .cond-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .scheme-dims { grid-template-columns: repeat(2, 1fr); }
+    .flow-row { gap: 8px; }
+    .flow-box { min-width: 90px; padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-brand">Home Project · Коммерческое предложение</div>
+      <div class="header-title">BORA · Варочные панели со встроенной вытяжкой</div>
+      <div class="header-subtitle">Германия · Premium Cooking Systems · Без навесной вытяжки</div>
+    </div>
+    <div class="header-meta">
+      <div>Подготовлено: <span>03.06.2026</span></div>
+      <div>Для: <span>Архитектор Тест</span></div>
+      <div>Менеджер: <span>Андрей Брагинский</span></div>
+      <div>Контакт: <span>info@homeproject.online</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="nav-btn active" onclick="showTab('concept')">🇩🇪 Концепция BORA</button>
+    <button class="nav-btn" onclick="showTab('basic')">🔹 Basic</button>
+    <button class="nav-btn" onclick="showTab('pure')">🔸 Pure</button>
+    <button class="nav-btn" onclick="showTab('pro')">💎 Pro 3.0</button>
+    <button class="nav-btn" onclick="showTab('visuals')">🖼 Визуалы</button>
+    <button class="nav-btn" onclick="showTab('tech')">⚙️ Технологии</button>
+    <button class="nav-btn" onclick="showTab('about')">🏢 Как работаем</button>
+    <button class="nav-btn" onclick="showTab('contacts')">✉️ Контакты</button>
+  </div>
+</div>
+
+<!-- TAB: CONCEPT -->
+<div id="tab-concept" class="tab active">
+  <div class="concept-hero">
+    <div class="concept-hero-label">BORA · Germany · Since 2007</div>
+    <div class="concept-hero-headline">Вытяжка исчезла.<br><strong>Кухня стала другой.</strong></div>
+    <div class="concept-divider"></div>
+    <div class="concept-hero-sub">
+      BORA изобрела систему, в которой вытяжка встроена прямо в варочную панель — пар и запахи удаляются вниз, прямо у источника. Никакого короба над головой. Никаких воздуховодов по потолку.
+    </div>
+  </div>
+
+  <div class="section-title">Почему BORA меняет правила</div>
+  <div class="section-desc">Одна инновация — и кухня получает совершенно иное пространство</div>
+
+  <div class="usp-grid">
+    <div class="usp-card">
+      <div class="usp-icon">🏛</div>
+      <div class="usp-title">Свобода архитектуры</div>
+      <div class="usp-text">Без навесной вытяжки исчезает главный «потолочный» ограничитель кухни. Открытые планировки, высокие потолки, панорамное остекление — ничто не загораживает вид.</div>
+    </div>
+    <div class="usp-card">
+      <div class="usp-icon">💨</div>
+      <div class="usp-title">Вытяжка вниз — не вверх</div>
+      <div class="usp-text">Пар улавливается прямо над конфоркой и отводится через столешницу вниз. КПД выше, чем у навесной: горячий воздух не успевает подняться и разлететься по комнате.</div>
+    </div>
+    <div class="usp-card">
+      <div class="usp-icon">🔇</div>
+      <div class="usp-title">Тишина</div>
+      <div class="usp-text">Мотор вытяжки расположен в пространстве под столешницей или выносится в техническую зону. Уровень шума BORA Basic — от 45 дБ, Pro 3.0 — от 38 дБ (тише разговора).</div>
+    </div>
+    <div class="usp-card">
+      <div class="usp-icon">🎨</div>
+      <div class="usp-title">Дизайн как чистый лист</div>
+      <div class="usp-text">Варочная зона становится единой горизонтальной плоскостью — стеклокерамика, индукция, тэппан-гриль — по выбору. Островная кухня без вытяжки над островом — реально.</div>
+    </div>
+    <div class="usp-card">
+      <div class="usp-icon">🇩🇪</div>
+      <div class="usp-title">Немецкая инженерия</div>
+      <div class="usp-text">Производство в Германии. BORA основана в 2007 году в Роттенбухе (Бавария). Производительность системы — до 900 м³/ч (Pro 3.0). Все приборы сертифицированы по ЕС-нормам.</div>
+    </div>
+    <div class="usp-card">
+      <div class="usp-icon">🔧</div>
+      <div class="usp-title">Модульность</div>
+      <div class="usp-text">Система Classic и Professional — модульная: вытяжка отдельно, варочные панели отдельно. Можно комбинировать индукцию, газ, гриль, вок — в одной столешнице.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border);margin-bottom:24px;">
+    <div style="font-size:13px;color:var(--bora-red);font-weight:700;margin-bottom:12px;letter-spacing:0.5px;">Три варианта в этом КП</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+      <div style="background:var(--card2);border-radius:10px;padding:16px;border:1px solid var(--border);text-align:center;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;letter-spacing:1px;">ВАРИАНТ 1</div>
+        <div style="font-size:15px;color:var(--text);font-weight:700;margin-bottom:4px;">BORA Basic</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Стеклокерамика + вытяжка</div>
+        <div style="font-size:18px;color:var(--gold);font-weight:700;">387 990 ₽</div>
+      </div>
+      <div style="background:var(--card2);border-radius:10px;padding:16px;border:1px solid rgba(204,0,0,0.3);text-align:center;">
+        <div style="font-size:11px;color:var(--bora-red);margin-bottom:6px;letter-spacing:1px;">ВАРИАНТ 2</div>
+        <div style="font-size:15px;color:var(--text);font-weight:700;margin-bottom:4px;">BORA Pure</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Индукция + вытяжка, 1 блок</div>
+        <div style="font-size:18px;color:var(--gold);font-weight:700;">445 990 ₽</div>
+      </div>
+      <div style="background:var(--card2);border-radius:10px;padding:16px;border:1px solid var(--border);text-align:center;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;letter-spacing:1px;">ВАРИАНТ 3</div>
+        <div style="font-size:15px;color:var(--text);font-weight:700;margin-bottom:4px;">BORA Pro 3.0</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Модульная, до 900 м³/ч</div>
+        <div style="font-size:18px;color:var(--gold);font-weight:700;">от 833 980 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-note">
+    Все цены — рекомендованные розничные цены (РРЦ) на июнь 2026. Итоговые условия уточняются у менеджера. Поставщик: HOMETEK (официальный дистрибьютор BORA в России).
+  </div>
+</div>
+
+<!-- TAB: BASIC -->
+<div id="tab-basic" class="tab">
+  <div class="variant-badge">🔹 Вариант 1 · BORA Basic · Старт в мире BORA</div>
+
+  <div style="font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px;padding:16px 20px;background:var(--card);border-radius:10px;border:1px solid var(--border);">
+    BORA Basic — самый доступный вход в систему. Стеклокерамическая варочная панель Hyper (гипермощность) со встроенной вытяжкой. Отвод воздуха — наружу или рециркуляция. Идеален для проектов с ограниченным бюджетом, где принципиально важно убрать навесную вытяжку.
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🔥</div>
+      <div>
+        <div class="appliance-name">BORA Basic · Варочная панель + встроенная вытяжка</div>
+        <div class="appliance-model">BHA (отвод наружу) / BHU (рециркуляция)</div>
+      </div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item">
+          <div class="spec-label">Тип нагрева</div>
+          <div class="spec-val">Стеклокерамика Hyper</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Гипермощность</div>
+          <div class="spec-val">Да</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Вытяжка</div>
+          <div class="spec-val">Встроенная</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Режим</div>
+          <div class="spec-val">Отвод / Рецирк.</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Страна</div>
+          <div class="spec-val">Германия</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Навесная вытяжка</div>
+          <div class="spec-val" style="color:#4ec97a;">Не нужна</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        Конфорки круглой формы · стеклокерамика · гипермощность для быстрого нагрева · отвод пара вниз через столешницу · минималистичный дизайн панели
+      </div>
+      <div class="price-row">
+        <div class="price-label">РРЦ</div>
+        <div class="price-val">387 990 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🔄</div>
+      <div>
+        <div class="appliance-name">Угольный фильтр (для режима рециркуляции)</div>
+        <div class="appliance-model">BAKFS — комплект 2 шт.</div>
+      </div>
+      <div class="appliance-badge badge-check">Доп. опция</div>
+    </div>
+    <div class="appliance-body">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        Требуется при работе в режиме рециркуляции (без вывода воздуховода наружу). Устанавливается под столешницей.
+      </div>
+      <div class="price-row">
+        <div class="price-label">РРЦ</div>
+        <div class="price-val">18 990 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;padding:16px 20px;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;margin-bottom:8px;">ДОПОЛНИТЬ КОМПЛЕКТ</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;">
+      BORA специализируется на варочных поверхностях. Для полного кухонного комплекта рекомендуем добавить духовой шкаф и холодильник от партнёрских брендов — <span style="color:var(--text)">Kuppersbusch, De Dietrich или V-ZUG</span> — в зависимости от стилистики и бюджета проекта. Наш менеджер подберёт оптимальную комбинацию.
+    </div>
+  </div>
+
+  <div class="total-block">
+    <div>
+      <div class="total-label">Итого · BORA Basic (панель + вытяжка)</div>
+      <div class="total-amount">387 990 ₽</div>
+      <div class="total-items">1 прибор · вытяжка встроена · навесная не нужна</div>
+    </div>
+    <div class="total-note">
+      Все цены по РРЦ. Итоговые условия обсуждаются с менеджером.
+    </div>
+  </div>
+</div>
+
+<!-- TAB: PURE -->
+<div id="tab-pure" class="tab">
+  <div class="variant-badge">🔸 Вариант 2 · BORA Pure · Индукция + вытяжка в одном</div>
+
+  <div style="font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px;padding:16px 20px;background:var(--card);border-radius:10px;border:1px solid var(--border);">
+    BORA Pure — моноблок нового поколения: сплошная индукционная поверхность и высокопроизводительная вытяжная система — единый прибор 760×515 мм. Идеален для современной островной кухни или минималистичного линейного расположения. Управление кнопками-слайдерами встроено в поверхность.
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">⚡</div>
+      <div>
+        <div class="appliance-name">BORA Pure · Индукция + вытяжка · Моноблок</div>
+        <div class="appliance-model">PURA (отвод наружу) / PURU (рециркуляция)</div>
+      </div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item">
+          <div class="spec-label">Тип нагрева</div>
+          <div class="spec-val">Индукция</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Размер</div>
+          <div class="spec-val">760×515×199 мм</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Вытяжка</div>
+          <div class="spec-val">Встроенная</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Управление</div>
+          <div class="spec-val">Слайдеры в поверхности</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Режим</div>
+          <div class="spec-val">Отвод / Рецирк.</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Навесная вытяжка</div>
+          <div class="spec-val" style="color:#4ec97a;">Не нужна</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        Цельная стеклокерамическая индукционная поверхность · система вытяжки с центральным воздухозаборником · встроенные регуляторы мощности и скорости вытяжки · одна ниша в столешнице
+      </div>
+      <div class="price-row">
+        <div class="price-label">РРЦ</div>
+        <div class="price-val">445 990 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🎨</div>
+      <div>
+        <div class="appliance-name">Цветные насадки воздухозаборника</div>
+        <div class="appliance-model">PUED / PUEDG / PUEDR / PUEDJ / PUEDO / PUEDB</div>
+      </div>
+      <div class="appliance-badge badge-check">Доп. опция</div>
+    </div>
+    <div class="appliance-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <span style="background:#111;border:1px solid #333;border-radius:20px;padding:4px 12px;font-size:11px;color:#ccc;">● Чёрный</span>
+        <span style="background:rgba(255,200,150,0.15);border:1px solid rgba(255,200,150,0.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#e0bc82;">● Золотисто-розовый</span>
+        <span style="background:rgba(220,50,50,0.15);border:1px solid rgba(220,50,50,0.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#ff6666;">● Красный</span>
+        <span style="background:rgba(100,180,100,0.15);border:1px solid rgba(100,180,100,0.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#80cc80;">● Зелёный</span>
+        <span style="background:rgba(100,100,220,0.15);border:1px solid rgba(100,100,220,0.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#8888ff;">● Синий</span>
+        <span style="background:rgba(220,140,40,0.15);border:1px solid rgba(220,140,40,0.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#ffaa44;">● Оранжевый</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        Возможность акцентировать деталь под фирменный цвет кухни. Меняются без инструмента.
+      </div>
+      <div class="price-row">
+        <div class="price-label">РРЦ за насадку</div>
+        <div class="price-val">18 990 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;padding:16px 20px;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;margin-bottom:8px;">ДОПОЛНИТЬ КОМПЛЕКТ</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;">
+      К BORA Pure отлично подходит духовой шкаф <span style="color:var(--text)">Kuppersbusch EEB 6550 или V-ZUG Combair</span> — выдержанная в одной философии минималистичного управления. Рекомендуем рассмотреть холодильник <span style="color:var(--text)">Liebherr или Fhiaba</span> для завершённости кухонного ансамбля.
+    </div>
+  </div>
+
+  <div class="total-block">
+    <div>
+      <div class="total-label">Итого · BORA Pure (панель + вытяжка)</div>
+      <div class="total-amount">445 990 ₽</div>
+      <div class="total-items">1 прибор · индукция + вытяжка · единый моноблок</div>
+    </div>
+    <div class="total-note">
+      Все цены по РРЦ. Итоговые условия обсуждаются с менеджером.
+    </div>
+  </div>
+</div>
+
+<!-- TAB: PRO -->
+<div id="tab-pro" class="tab">
+  <div class="variant-badge">💎 Вариант 3 · BORA Professional 3.0 · Флагман</div>
+
+  <div style="font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px;padding:16px 20px;background:var(--card);border-radius:10px;border:1px solid var(--border);">
+    BORA Professional 3.0 — топовая модульная система. Производительность до 900 м³/ч, уровень шума от 38 дБ. Вытяжной блок PKA3 комбинируется с любой из варочных зон: индукция, сплошная индукция, вок, тэппан-гриль, HiLight, Hyper. Доступна версия All Black — матово-чёрная отделка всех элементов. Для флагманских кухонных проектов.
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">💨</div>
+      <div>
+        <div class="appliance-name">BORA Professional 3.0 · Вытяжка в столешницу</div>
+        <div class="appliance-model">PKA3 (нерж.) / PKA3AB (All Black)</div>
+      </div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item">
+          <div class="spec-label">Производит.</div>
+          <div class="spec-val">до 900 м³/ч</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Шум</div>
+          <div class="spec-val">от 38 дБ</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Управление</div>
+          <div class="spec-val">Сенсорное</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Версия</div>
+          <div class="spec-val">Нерж. / All Black</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Монтаж</div>
+          <div class="spec-val">В столешницу</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Навесная вытяжка</div>
+          <div class="spec-val" style="color:#4ec97a;">Не нужна</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        Независимый вытяжной блок, встраиваемый в столешницу — комбинируется с любой варочной зоной. Система с вентилятором: PKAS3/PKAS3AB.
+      </div>
+      <div class="price-row">
+        <div class="price-label">РРЦ (PKA3)</div>
+        <div class="price-val">339 990 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">⚡</div>
+      <div>
+        <div class="appliance-name">Индукционная варочная панель Pro 3.0</div>
+        <div class="appliance-model">PKI3 (нерж.) / PKI3AB (All Black)</div>
+      </div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item">
+          <div class="spec-label">Тип</div>
+          <div class="spec-val">Индукция</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Конфорки</div>
+          <div class="spec-val">2</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Версия</div>
+          <div class="spec-val">Нерж. / All Black</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        Устанавливается рядом с вытяжным блоком. Можно взять 2 панели: напр. индукция + тэппан-гриль.
+      </div>
+      <div class="price-row">
+        <div class="price-label">РРЦ (PKI3)</div>
+        <div class="price-val">348 990 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🥩</div>
+      <div>
+        <div class="appliance-name">Тэппан-гриль нержавеющая сталь <span class="option-tag">Опция</span></div>
+        <div class="appliance-model">PKT3 (нерж.) / PKT3AB (All Black)</div>
+      </div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        Плоская жарочная поверхность из нержавеющей стали — для мяса, рыбы, овощей в японской технике тэппаньяки. Вместо второй индукционной конфорки или как третий модуль.
+      </div>
+      <div class="price-row">
+        <div class="price-label">РРЦ (PKT3)</div>
+        <div class="price-val">474 990 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">📦</div>
+      <div>
+        <div class="appliance-name">Готовый комплект · BORA Pro 3.0 · Индукция</div>
+        <div class="appliance-model">PKAS3FI (вытяжка с вент. + 2× сплошная индукция)</div>
+      </div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
+        Комплект «Сплошная индукция»: 1× система вытяжки с вентилятором PKAS3 + 2× сплошная индукционная панель PKFI3 + крепёжные элементы. Полная готовность к монтажу.
+      </div>
+      <div class="price-row">
+        <div class="price-label">РРЦ комплект PKAS3FI</div>
+        <div class="price-val">1 279 990 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;padding:16px 20px;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;margin-bottom:8px;">ДОПОЛНИТЬ КОМПЛЕКТ</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;">
+      К BORA Professional идеально подходит пароварочная духовка <span style="color:var(--text)">BORA XBO</span> — собственная разработка бренда (1 018 990 ₽). Или духовой шкаф <span style="color:var(--text)">V-ZUG Combair или Kuppersbusch</span>. Холодильник — <span style="color:var(--text)">Liebherr или Fhiaba</span>. Сборка единого немецкого флагмана — наш профиль.
+    </div>
+  </div>
+
+  <div class="total-block">
+    <div>
+      <div class="total-label">Итого · BORA Pro 3.0 (базовый вариант)</div>
+      <div class="total-amount">от 833 980 ₽</div>
+      <div class="total-items">PKA3 + PKI3 + 2 варочные зоны · флагман · All Black доступна</div>
+    </div>
+    <div class="total-note">
+      Итоговый состав и стоимость согласуются с менеджером. Модульность позволяет точно подобрать конфигурацию под проект.
+    </div>
+  </div>
+</div>
+
+<!-- TAB: VISUALS -->
+<div id="tab-visuals" class="tab">
+  <div class="section-title">Визуалы</div>
+  <div class="section-desc">Все линейки BORA. Фото — официальные медиа бренда.</div>
+
+  <div class="visual-grid">
+    <div class="visual-card">
+      <div style="min-height:300px;background:linear-gradient(135deg,#1a0000 0%,#111 50%,#1a1a1a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:20px;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:64px;color:rgba(255,255,255,0.05);font-weight:900;letter-spacing:4px;white-space:nowrap;">BORA</div>
+        <div style="text-align:center;position:relative;z-index:1;">
+          <div style="font-size:11px;color:#CC0000;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">BORA Basic</div>
+          <div style="font-size:32px;color:rgba(255,255,255,0.9);font-weight:300;letter-spacing:2px;margin-bottom:6px;">BHA / BHU</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.45);">Стеклокерамика Hyper</div>
+          <div style="margin-top:16px;background:rgba(204,0,0,0.15);border:1px solid rgba(204,0,0,0.4);border-radius:8px;padding:8px 16px;font-size:12px;color:#ff6666;">Вытяжка внизу ↓</div>
+          <div style="margin-top:10px;font-size:18px;color:#C9A36A;font-weight:700;">387 990 ₽</div>
+        </div>
+      </div>
+      <div class="visual-caption">BORA Basic · Стеклокерамика + встроенная вытяжка</div>
+    </div>
+
+    <div class="visual-card">
+      <div style="min-height:300px;background:linear-gradient(135deg,#0a0a1a 0%,#111 50%,#1a1a1a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:20px;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:64px;color:rgba(255,255,255,0.05);font-weight:900;letter-spacing:4px;white-space:nowrap;">BORA</div>
+        <div style="text-align:center;position:relative;z-index:1;">
+          <div style="font-size:11px;color:#CC0000;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">BORA Pure</div>
+          <div style="font-size:32px;color:rgba(255,255,255,0.9);font-weight:300;letter-spacing:2px;margin-bottom:6px;">PURA / PURU</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.45);">Индукция + вытяжка</div>
+          <div style="margin-top:12px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">
+            <span style="width:20px;height:20px;border-radius:50%;background:#222;border:2px solid #555;display:inline-block;"></span>
+            <span style="width:20px;height:20px;border-radius:50%;background:#e0bc82;display:inline-block;"></span>
+            <span style="width:20px;height:20px;border-radius:50%;background:#cc2222;display:inline-block;"></span>
+            <span style="width:20px;height:20px;border-radius:50%;background:#447744;display:inline-block;"></span>
+            <span style="width:20px;height:20px;border-radius:50%;background:#3355bb;display:inline-block;"></span>
+            <span style="width:20px;height:20px;border-radius:50%;background:#cc8822;display:inline-block;"></span>
+          </div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:6px;">6 цветов насадки</div>
+          <div style="margin-top:10px;font-size:18px;color:#C9A36A;font-weight:700;">445 990 ₽</div>
+        </div>
+      </div>
+      <div class="visual-caption">BORA Pure · Индукция + вытяжка · Моноблок 760×515 мм</div>
+    </div>
+
+    <div class="visual-card">
+      <div style="min-height:300px;background:linear-gradient(135deg,#101010 0%,#151515 50%,#111 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;position:relative;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:64px;color:rgba(255,255,255,0.04);font-weight:900;letter-spacing:4px;white-space:nowrap;">BORA</div>
+        <div style="text-align:center;position:relative;z-index:1;">
+          <div style="font-size:11px;color:#CC0000;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">BORA Professional 3.0</div>
+          <div style="font-size:26px;color:rgba(255,255,255,0.9);font-weight:300;letter-spacing:2px;margin-bottom:6px;">PKA3 System</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:12px;">Модульная · до 900 м³/ч · от 38 дБ</div>
+          <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+            <span style="background:rgba(201,163,106,0.12);border:1px solid rgba(201,163,106,0.3);border-radius:6px;padding:4px 10px;font-size:11px;color:#C9A36A;">All Black</span>
+            <span style="background:rgba(204,0,0,0.12);border:1px solid rgba(204,0,0,0.3);border-radius:6px;padding:4px 10px;font-size:11px;color:#ff6666;">Нерж. сталь</span>
+          </div>
+          <div style="margin-top:10px;font-size:18px;color:#C9A36A;font-weight:700;">от 339 990 ₽</div>
+        </div>
+      </div>
+      <div class="visual-caption">BORA Professional 3.0 · Флагманская модульная система</div>
+    </div>
+
+    <div class="visual-card">
+      <div style="min-height:300px;background:linear-gradient(135deg,#0a0a0a 0%,#151510 50%,#1a1a10 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;position:relative;">
+        <div style="text-align:center;position:relative;z-index:1;">
+          <div style="font-size:11px;color:#C9A36A;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">BORA XBO</div>
+          <div style="font-size:26px;color:rgba(255,255,255,0.9);font-weight:300;letter-spacing:2px;margin-bottom:6px;">Пароварочная духовка</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:16px;">19" сенсорный дисплей · Wi-Fi</div>
+          <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+            <span style="background:rgba(201,163,106,0.12);border:1px solid rgba(201,163,106,0.3);border-radius:6px;padding:4px 10px;font-size:11px;color:#C9A36A;">Sous-vide</span>
+            <span style="background:rgba(201,163,106,0.12);border:1px solid rgba(201,163,106,0.3);border-radius:6px;padding:4px 10px;font-size:11px;color:#C9A36A;">Пар + конвекция</span>
+            <span style="background:rgba(201,163,106,0.12);border:1px solid rgba(201,163,106,0.3);border-radius:6px;padding:4px 10px;font-size:11px;color:#C9A36A;">Автоочистка</span>
+          </div>
+          <div style="margin-top:12px;font-size:18px;color:#C9A36A;font-weight:700;">1 018 990 ₽</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px;">Дополнение к кухне BORA · опция</div>
+        </div>
+      </div>
+      <div class="visual-caption">BORA XBO · Пароварочный духовой шкаф</div>
+    </div>
+  </div>
+
+  <div class="about-card">
+    <div class="about-title">Кухня без вытяжки — реально выглядит так</div>
+    <div class="about-text">
+      Убираем навесную вытяжку — и открытое пространство над рабочей зоной становится свободным. Для кухни-острова это принципиально: нет «потолочного элемента», нет воздуховода, нет ощущения разделённого пространства. Кухня и гостиная сливаются в единый объём.<br><br>
+      Архитекторы выбирают BORA именно за это: изменяется пластика пространства, а не просто замещается один прибор другим.
+    </div>
+  </div>
+</div>
+
+<!-- TAB: TECH -->
+<div id="tab-tech" class="tab">
+  <div class="section-title">Технические особенности</div>
+  <div class="section-desc">Как устроена система BORA и что нужно учесть при проектировании</div>
+
+  <div class="tech-card">
+    <div class="tech-title">Принцип работы: вытяжка вниз</div>
+    <div class="flow-diagram">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:18px;text-align:center;">Путь воздуха в системе BORA</div>
+      <div class="flow-row">
+        <div class="flow-box highlight">
+          <div class="flow-icon">🍳</div>
+          <div>Конфорка</div>
+          <div class="flow-label">Источник пара</div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-box highlight">
+          <div class="flow-icon">🌀</div>
+          <div>Воздухозабор</div>
+          <div class="flow-label">В центре панели</div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-box">
+          <div class="flow-icon">🔧</div>
+          <div>Жировой фильтр</div>
+          <div class="flow-label">Под столешницей</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-box">
+          <div class="flow-icon">⚙️</div>
+          <div>Вентилятор</div>
+          <div class="flow-label">В шкафу / тех.зоне</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">
+          <div class="flow-icon">🔄</div>
+          <div>Угольный фильтр</div>
+          <div class="flow-label">Рециркуляция</div>
+        </div>
+        <div style="font-size:22px;color:var(--muted);">или</div>
+        <div class="flow-box highlight">
+          <div class="flow-icon">🏠</div>
+          <div>Воздуховод</div>
+          <div class="flow-label">Вывод наружу</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tech-card">
+    <div class="tech-title">Требования к монтажу</div>
+    <ul class="tech-list">
+      <li>Под столешницей необходимо предусмотреть пространство для подводки воздуховода — минимум 140 мм от нижней плоскости столешницы до перегородки шкафа</li>
+      <li>Вентилятор может монтироваться в нижнем шкафу прямо под панелью или выноситься в техническую зону (чердак, короб в стене) — для снижения шума</li>
+      <li>Вывод воздуховода: диаметр 150–200 мм (зависит от модели), гибкий или жёсткий алюминиевый короб</li>
+      <li>При рециркуляции: воздуховод не нужен, но требуется регулярная замена угольного фильтра (каждые 3–4 месяца при активном использовании)</li>
+      <li>Электропитание: отдельная линия 220 В для вытяжного блока и отдельная линия для варочных панелей</li>
+      <li>Для островной кухни: воздуховод проводится через тумбу острова — скрыт полностью, не виден снаружи</li>
+    </ul>
+  </div>
+
+  <div class="tech-card">
+    <div class="tech-title">Сравнение трёх линеек</div>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th class="label-col">Параметр</th>
+            <th>BORA Basic</th>
+            <th>BORA Pure</th>
+            <th>BORA Pro 3.0</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label-col">Тип нагрева</td>
+            <td>Стеклокерамика Hyper</td>
+            <td>Индукция (сплошная)</td>
+            <td>Индукция / HiLight / Тэппан / Вок</td>
+          </tr>
+          <tr>
+            <td class="label-col">Вытяжка</td>
+            <td>Встроена в панель</td>
+            <td>Встроена в панель</td>
+            <td>Отдельный блок в столешнице</td>
+          </tr>
+          <tr>
+            <td class="label-col">Производительность</td>
+            <td>Стандартная</td>
+            <td>Улучшенная</td>
+            <td>до 900 м³/ч</td>
+          </tr>
+          <tr>
+            <td class="label-col">Уровень шума</td>
+            <td>~45–52 дБ</td>
+            <td>~42–50 дБ</td>
+            <td>от 38 дБ</td>
+          </tr>
+          <tr>
+            <td class="label-col">Модульность</td>
+            <td>Нет</td>
+            <td>Нет (моноблок)</td>
+            <td>Да — любая комбинация зон</td>
+          </tr>
+          <tr>
+            <td class="label-col">All Black версия</td>
+            <td>Нет</td>
+            <td>Нет</td>
+            <td>Да</td>
+          </tr>
+          <tr>
+            <td class="label-col">Цвет деталей</td>
+            <td>Нержавеющая сталь</td>
+            <td>6 цветов насадки</td>
+            <td>Нерж. / All Black</td>
+          </tr>
+          <tr class="total-row">
+            <td>РРЦ</td>
+            <td class="highlight-col">387 990 ₽</td>
+            <td class="highlight-col">445 990 ₽</td>
+            <td class="highlight-col">от 833 980 ₽</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">Размеры ниш в столешнице</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;">
+      <div style="background:var(--card2);border-radius:10px;padding:14px;text-align:center;border:1px solid var(--border);">
+        <div style="font-size:10px;color:var(--bora-red);font-weight:700;letter-spacing:1px;margin-bottom:6px;">BORA BASIC</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">Ниша панели</div>
+        <div style="font-size:15px;color:var(--text);font-weight:600;">340×515 мм</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Глубина: 73 мм</div>
+      </div>
+      <div style="background:var(--card2);border-radius:10px;padding:14px;text-align:center;border:1px solid rgba(204,0,0,0.25);">
+        <div style="font-size:10px;color:var(--bora-red);font-weight:700;letter-spacing:1px;margin-bottom:6px;">BORA PURE</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">Ниша моноблока</div>
+        <div style="font-size:15px;color:var(--text);font-weight:600;">760×515 мм</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Глубина: 199 мм</div>
+      </div>
+      <div style="background:var(--card2);border-radius:10px;padding:14px;text-align:center;border:1px solid var(--border);">
+        <div style="font-size:10px;color:var(--bora-red);font-weight:700;letter-spacing:1px;margin-bottom:6px;">BORA PRO 3.0</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">Ниша вытяжки</div>
+        <div style="font-size:15px;color:var(--text);font-weight:600;">≈335×515 мм</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">+ отдельные зоны варки</div>
+      </div>
+    </div>
+    <div class="scheme-note">
+      Точные размеры ниш, монтажные зазоры и схемы вентканала предоставляем в полном комплекте планировочной документации (Planungsfibel). Запрашивайте у менеджера перед началом проектирования столешницы.
+    </div>
+  </div>
+</div>
+
+<!-- TAB: ABOUT -->
+<div id="tab-about" class="tab">
+  <div class="section-title">Как мы работаем</div>
+  <div class="section-desc">Прямые поставки. Официальная документация. Поддержка на каждом этапе.</div>
+
+  <div class="about-card">
+    <div class="about-title">Home Project — кто мы</div>
+    <div class="about-text">
+      Официальный дистрибьютор BORA в России через поставщика HOMETEK. Работаем с архитекторами, дизайнерами интерьера и застройщиками в Москве. Специализация — премиальная встраиваемая техника: помогаем подобрать комплект под конкретный проект, предоставляем монтажную документацию и планировочные схемы.
+    </div>
+  </div>
+
+  <div class="about-card">
+    <div class="about-title">Этапы работы по проекту</div>
+    <ul class="steps">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Брифинг</strong> — обсуждаем планировку кухни, расположение варочной зоны, тип вентиляции (отвод наружу или рециркуляция). Уточняем бюджет на варочный блок.</div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Подбор конфигурации</strong> — выбираем линейку и состав модулей. Предоставляем планировочный файл Planungsfibel BORA с точными размерами ниш и монтажными схемами.</div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Подтверждение наличия</strong> — запрашиваем у HOMETEK актуальные стоки. BORA — импорт, сроки поставки уточняются отдельно. Резервируем позиции.</div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>Коммерческое предложение</strong> — финальный счёт с итоговыми ценами. Все цены в рублях, без скрытых доплат.</div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-text"><strong>Поставка и монтажная поддержка</strong> — координируем доставку. По запросу — рекомендуем монтажные бригады с опытом установки BORA.</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="cond-grid">
+    <div class="cond-card">
+      <div class="cond-icon">📦</div>
+      <div class="cond-title">Поставка</div>
+      <div class="cond-text">Официальный импорт через HOMETEK. Сроки — от 4 до 10 недель в зависимости от наличия на складе европейского дистрибьютора. Уточняем по каждой позиции отдельно.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">📋</div>
+      <div class="cond-title">Документация</div>
+      <div class="cond-text">Предоставляем: технические паспорта, инструкции на русском языке, планировочные схемы BORA, сертификаты соответствия. Монтажная документация — бесплатно при запросе.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">🛡</div>
+      <div class="cond-title">Гарантия</div>
+      <div class="cond-text">Официальная гарантия производителя — 2 года. Гарантийное и постгарантийное обслуживание координируем через HOMETEK.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">📐</div>
+      <div class="cond-title">Для дизайнеров</div>
+      <div class="cond-text">Предоставляем BIM/CAD-блоки по запросу. Консультируем по планировочным решениям: вывод воздуховода, расположение вентилятора, электроподводка.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: CONTACTS -->
+<div id="tab-contacts" class="tab">
+  <div class="section-title">Контакты</div>
+  <div class="section-desc">Готовы обсудить проект и ответить на вопросы по BORA</div>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">👤</div>
+      <div class="contact-label">Менеджер</div>
+      <div class="contact-val">Андрей Брагинский</div>
+      <div class="contact-sub">Home Project</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-label">Email</div>
+      <div class="contact-val">info@homeproject.online</div>
+      <div class="contact-sub">Основной канал</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🏙</div>
+      <div class="contact-label">Город</div>
+      <div class="contact-val">Москва</div>
+      <div class="contact-sub">Работаем по всей РФ</div>
+    </div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#1a0000 0%,#0f0f0f 60%,#1a0a00 100%);border-radius:14px;padding:28px 32px;border:1px solid rgba(204,0,0,0.3);margin-bottom:20px;text-align:center;">
+    <div style="font-size:11px;color:#CC0000;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;">Следующий шаг</div>
+    <div style="font-size:18px;color:#fff;font-weight:300;margin-bottom:10px;">Обсудим вашу кухню?</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:480px;margin:0 auto 20px;">
+      Напишите на <span style="color:#C9A36A">info@homeproject.online</span> — укажите предпочтительную линейку BORA, планировку кухни и срок проекта. Подготовим финальный счёт и монтажную документацию.
+    </div>
+    <a href="mailto:info@homeproject.online?subject=КП BORA — запрос&body=Добрый день, Андрей! Хочу обсудить проект с BORA."
+       style="display:inline-block;background:#CC0000;color:#fff;font-size:12px;font-weight:700;letter-spacing:1.5px;padding:12px 28px;border-radius:8px;text-decoration:none;text-transform:uppercase;">
+      Написать менеджеру
+    </a>
+  </div>
+
+  <div style="background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:10px;letter-spacing:1px;">Что прислать для точного расчёта</div>
+    <ul style="list-style:none;">
+      <li style="display:flex;gap:10px;padding:6px 0;font-size:12px;color:var(--muted);">→ <span>Планировка кухни (PDF, DWG или фото с размерами)</span></li>
+      <li style="display:flex;gap:10px;padding:6px 0;font-size:12px;color:var(--muted);">→ <span>Тип вентиляции: вывод наружу или рециркуляция</span></li>
+      <li style="display:flex;gap:10px;padding:6px 0;font-size:12px;color:var(--muted);">→ <span>Предпочитаемая линейка: Basic / Pure / Pro 3.0</span></li>
+      <li style="display:flex;gap:10px;padding:6px 0;font-size:12px;color:var(--muted);">→ <span>Нужна ли духовка / холодильник от смежных брендов</span></li>
+      <li style="display:flex;gap:10px;padding:6px 0;font-size:12px;color:var(--muted);">→ <span>Срок проекта и приблизительный бюджет</span></li>
+    </ul>
+  </div>
+
+  <div class="ai-note">
+    Это коммерческое предложение подготовлено автоматически на основе актуального прайс-листа BORA (апрель 2026). Все цены — РРЦ в рублях. Итоговые условия поставки и стоимость — по согласованию с менеджером.
+  </div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
