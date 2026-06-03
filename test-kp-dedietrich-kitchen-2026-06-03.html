@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · De Dietrich · Кухонный комплект · Тест · Home Project</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --card2: #222222;
+    --gold: #C9A36A;
+    --gold2: #e0bc82;
+    --text: #e8e0d4;
+    --muted: #888;
+    --border: #2a2a2a;
+    --dd-blue: #003264;
+    --dd-light: #1a4a8a;
+    --accent: #C9A36A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Helvetica Neue', Arial, sans-serif; min-height: 100vh; }
+
+  .header {
+    background: linear-gradient(135deg, #003264 0%, #001a3a 100%);
+    padding: 28px 40px 22px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; }
+  .header-brand { font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .header-title { font-size: 22px; font-weight: 300; color: #fff; letter-spacing: 1px; }
+  .header-subtitle { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+  .header-meta { text-align: right; font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+  .header-meta span { color: var(--gold); }
+
+  .nav-wrap { background: #111; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .nav { display: flex; overflow-x: auto; }
+  .nav-btn {
+    flex: 1; min-width: 80px; padding: 14px 10px; border: none; background: transparent;
+    color: var(--muted); font-size: 11px; cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all .2s; white-space: nowrap; text-align: center; letter-spacing: 0.3px;
+  }
+  .nav-btn:hover { color: var(--text); background: #1a1a1a; }
+  .nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); background: #1a1a1a; }
+
+  .tab { display: none; padding: 32px 40px 60px; max-width: 960px; margin: 0 auto; }
+  .tab.active { display: block; }
+
+  .section-title {
+    font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase;
+    margin-bottom: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+  .section-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+
+  .brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .brief-item { background: var(--card); border-radius: 10px; padding: 16px 20px; border: 1px solid var(--border); }
+  .brief-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .brief-val { font-size: 14px; color: var(--text); font-weight: 500; }
+  .brief-val.gold { color: var(--gold); font-size: 16px; }
+
+  .appliance-card {
+    background: var(--card); border-radius: 12px; border: 1px solid var(--border);
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .appliance-header {
+    display: flex; align-items: center; gap: 16px;
+    background: linear-gradient(90deg, var(--dd-blue) 0%, #002050 100%);
+    padding: 16px 20px;
+  }
+  .appliance-icon { font-size: 28px; }
+  .appliance-name { font-size: 14px; color: #fff; font-weight: 600; letter-spacing: 0.5px; }
+  .appliance-model { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; font-family: monospace; }
+  .appliance-badge {
+    margin-left: auto; padding: 4px 10px; border-radius: 20px; font-size: 10px;
+    font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .badge-stock { background: rgba(80,200,120,0.2); color: #4ec97a; border: 1px solid rgba(80,200,120,0.3); }
+  .badge-check { background: rgba(255,180,0,0.15); color: #ffb400; border: 1px solid rgba(255,180,0,0.3); }
+
+  .appliance-body { padding: 16px 20px; }
+  .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .spec-item { background: var(--card2); border-radius: 8px; padding: 10px 12px; }
+  .spec-label { font-size: 10px; color: var(--muted); margin-bottom: 3px; }
+  .spec-val { font-size: 13px; color: var(--text); font-weight: 500; }
+
+  .price-row { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
+  .price-label { font-size: 11px; color: var(--muted); }
+  .price-val { font-size: 18px; color: var(--gold); font-weight: 600; }
+
+  .total-block {
+    background: linear-gradient(135deg, #003264 0%, #001830 100%);
+    border-radius: 14px; padding: 24px 28px; border: 1px solid var(--gold);
+    margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .total-label { font-size: 11px; letter-spacing: 2px; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-bottom: 4px; }
+  .total-amount { font-size: 32px; color: var(--gold); font-weight: 700; }
+  .total-items { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+  .total-note { font-size: 12px; color: rgba(255,255,255,0.5); max-width: 280px; line-height: 1.6; }
+
+  .variant-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
+    color: #000; font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    padding: 6px 16px; border-radius: 20px; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .variant-badge-b {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(90deg, #3a6ea8 0%, #1a4a8a 100%);
+    color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    padding: 6px 16px; border-radius: 20px; text-transform: uppercase; margin-bottom: 20px;
+  }
+
+  .cond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cond-card { background: var(--card); border-radius: 10px; padding: 20px; border: 1px solid var(--border); }
+  .cond-icon { font-size: 24px; margin-bottom: 10px; }
+  .cond-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+  .cond-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  .visual-card {
+    border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .visual-img-wrap {
+    min-height: 300px; display: flex; align-items: center; justify-content: center;
+    position: relative; padding: 40px 20px;
+  }
+  .visual-inner { position: relative; z-index: 2; text-align: center; }
+  .visual-badge {
+    display: inline-block; background: rgba(0,0,0,0.6); border: 1px solid var(--gold);
+    border-radius: 8px; padding: 8px 20px; margin-bottom: 12px;
+  }
+  .visual-badge-cat { font-size: 9px; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+  .visual-badge-model { font-size: 22px; font-weight: 300; color: #fff; letter-spacing: 3px; font-family: monospace; margin-top: 4px; }
+  .visual-type { font-size: 13px; color: var(--gold); letter-spacing: 1px; margin-top: 8px; }
+  .visual-series { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+  .visual-icon-big { font-size: 56px; display: block; margin-bottom: 16px; filter: drop-shadow(0 0 20px rgba(201,163,106,0.4)); }
+  .visual-info { background: var(--card); padding: 16px 20px; }
+  .visual-name { font-size: 14px; color: var(--text); font-weight: 600; margin-bottom: 8px; }
+  .visual-specs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .visual-spec { background: var(--card2); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: var(--muted); }
+
+  .scheme-card { background: var(--card); border-radius: 12px; padding: 20px 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .scheme-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 14px; }
+  .scheme-dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
+  .scheme-dim { text-align: center; background: var(--card2); border-radius: 8px; padding: 12px; }
+  .scheme-dim-letter { font-size: 11px; color: var(--gold); font-weight: 700; margin-bottom: 4px; }
+  .scheme-dim-val { font-size: 15px; color: var(--text); font-weight: 600; }
+  .scheme-dim-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .scheme-note { font-size: 11px; color: var(--muted); line-height: 1.6; padding-top: 10px; border-top: 1px solid var(--border); }
+
+  .about-card { background: var(--card); border-radius: 12px; padding: 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .about-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+  .about-text { font-size: 13px; color: var(--muted); line-height: 1.8; }
+  .steps { list-style: none; }
+  .steps li { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .steps li:last-child { border-bottom: none; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--gold); color: #000; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+  .contact-card { background: var(--card); border-radius: 12px; padding: 22px 16px; border: 1px solid var(--border); text-align: center; }
+  .contact-icon { font-size: 28px; margin-bottom: 10px; }
+  .contact-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .contact-val { font-size: 13px; color: var(--text); font-weight: 500; }
+  .contact-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .ai-note { background: var(--card); border-radius: 10px; padding: 14px 18px; font-size: 11px; color: #777; line-height: 1.7; font-style: italic; border: 1px solid var(--border); }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .compare-table th { background: var(--dd-blue); color: #fff; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; }
+  .compare-table th:first-child { border-radius: 8px 0 0 0; }
+  .compare-table th:last-child { border-radius: 0 8px 0 0; }
+  .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; background: var(--card); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .total-row td { background: var(--dd-blue); color: var(--gold); font-weight: 700; font-size: 15px; }
+
+  @media (max-width: 600px) {
+    .tab { padding: 20px 16px 40px; }
+    .header { padding: 20px 16px 16px; }
+    .brief-grid { grid-template-columns: 1fr; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .cond-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .compare-table { font-size: 11px; }
+    .compare-table td, .compare-table th { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-brand">Home Project · Коммерческое предложение</div>
+      <div class="header-title">De Dietrich · Комплект для кухни</div>
+      <div class="header-subtitle">Духовка · Варочная панель · Вытяжка · ПММ · Холодильник · Подогреватель</div>
+    </div>
+    <div class="header-meta">
+      <div>Подготовлено: <span>03.06.2026</span></div>
+      <div>Для: <span>Архитектор Тест</span></div>
+      <div>Вариант A: <span>Philharmonie (топ)</span></div>
+      <div>Вариант B: <span>Sequence (средняя)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="nav-btn active" onclick="showTab('brief', this)">📋 Запрос</button>
+    <button class="nav-btn" onclick="showTab('varA', this)">✦ Вариант A</button>
+    <button class="nav-btn" onclick="showTab('varB', this)">◈ Вариант B</button>
+    <button class="nav-btn" onclick="showTab('visuals', this)">🖼 Визуалы</button>
+    <button class="nav-btn" onclick="showTab('schemes', this)">📐 Схемы и хар-ки</button>
+    <button class="nav-btn" onclick="showTab('special', this)">🎯 Спецусловия</button>
+    <button class="nav-btn" onclick="showTab('about', this)">🏢 Как работаем</button>
+    <button class="nav-btn" onclick="showTab('contacts', this)">✉ Контакты</button>
+  </div>
+</div>
+
+<div id="tab-brief" class="tab active">
+  <div class="section-title">Запрос</div>
+  <div class="section-desc">Параметры подбора полного кухонного комплекта De Dietrich</div>
+  <div class="brief-grid">
+    <div class="brief-item"><div class="brief-label">Клиент</div><div class="brief-val">Архитектор Тест</div></div>
+    <div class="brief-item"><div class="brief-label">Бренд</div><div class="brief-val">De Dietrich (Франция, с 1684)</div></div>
+    <div class="brief-item"><div class="brief-label">Комплект (6 приборов)</div><div class="brief-val">Духовка · Варочная · Вытяжка · ПММ · Холодильник · Подогреватель</div></div>
+    <div class="brief-item"><div class="brief-label">Дата подготовки</div><div class="brief-val">03 июня 2026</div></div>
+    <div class="brief-item"><div class="brief-label">Вариант A</div><div class="brief-val gold">Philharmonie — флагман</div></div>
+    <div class="brief-item"><div class="brief-label">Вариант B</div><div class="brief-val" style="color:#6ab0e0;">Sequence — оптимальный</div></div>
+  </div>
+  <div style="background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border);">
+    <div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:10px;">Наше решение</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      Подобрали два варианта полного кухонного комплекта из 6 приборов бренда De Dietrich.<br><br>
+      <strong style="color:var(--text);">Вариант A — Philharmonie (топ-серия)</strong> — флагман с Ai Talent, HoriZone, Infinite Black / Stellar Steel. Итого: <strong style="color:var(--gold);">915 940 ₽</strong><br><br>
+      <strong style="color:#6ab0e0;">Вариант B — Sequence (средняя серия)</strong> — полный функциональный комплект, оптимальное соотношение цены и качества. Итого: <strong style="color:#6ab0e0;">726 960 ₽</strong>
+    </div>
+  </div>
+</div>
+
+<div id="tab-varA" class="tab">
+  <div class="variant-badge">✦ Вариант A · Philharmonie · Топ-серия</div>
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🔥</div>
+      <div><div class="appliance-name">Духовой шкаф</div><div class="appliance-model">DOP4556X — Philharmonie · Stellar Steel</div></div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Объём</div><div class="spec-val">73 л</div></div>
+        <div class="spec-item"><div class="spec-label">Класс энергии</div><div class="spec-val">A+</div></div>
+        <div class="spec-item"><div class="spec-label">Пиролиз</div><div class="spec-val">Да</div></div>
+        <div class="spec-item"><div class="spec-label">Ai Talent</div><div class="spec-val">53 рецепта</div></div>
+        <div class="spec-item"><div class="spec-label">Режимов</div><div class="spec-val">16+</div></div>
+        <div class="spec-item"><div class="spec-label">Стёкла двери</div><div class="spec-val">4</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Multifunction Plus · Soft Close · телескоп. направляющие · Pyro Express · 6 уровней · Stellar Steel</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">211 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">⚡</div>
+      <div><div class="appliance-name">Варочная панель (индукция)</div><div class="appliance-model">DPI4431B — Philharmonie · Infinite Black</div></div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Индукция</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">65 см</div></div>
+        <div class="spec-item"><div class="spec-label">Зоны</div><div class="spec-val">4 + HoriZone</div></div>
+        <div class="spec-item"><div class="spec-label">Мощность</div><div class="spec-val">7 400 Вт</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Infinite Black</div></div>
+        <div class="spec-item"><div class="spec-label">Дисплей</div><div class="spec-val">ЖК</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">HoriZone — гибкая модульная зона · Abyssal Black · бустер · таймер</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">159 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">💨</div>
+      <div><div class="appliance-name">Вытяжка настенная</div><div class="appliance-model">DHB4684B — Philharmonie · Infinite Black</div></div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Настенная</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Infinite Black</div></div>
+        <div class="spec-item"><div class="spec-label">Освещение</div><div class="spec-val">LED</div></div>
+        <div class="spec-item"><div class="spec-label">Режим</div><div class="spec-val">Отвод / рециркул.</div></div>
+        <div class="spec-item"><div class="spec-label">Воздуховод</div><div class="spec-val">Ø 150 мм</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Настенная декоративная · узкий короб · Infinite Black · LED подсветка</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">118 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🍽</div>
+      <div><div class="appliance-name">Посудомоечная машина</div><div class="appliance-model">DCJ632DQX — Philharmonie · Увел. высота</div></div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Комплектов</div><div class="spec-val">16</div></div>
+        <div class="spec-item"><div class="spec-label">Класс энергии</div><div class="spec-val">C</div></div>
+        <div class="spec-item"><div class="spec-label">Шум</div><div class="spec-val">42 дБ</div></div>
+        <div class="spec-item"><div class="spec-label">Мотор</div><div class="spec-val">Инверторный</div></div>
+        <div class="spec-item"><div class="spec-label">Программ</div><div class="spec-val">9</div></div>
+        <div class="spec-item"><div class="spec-label">3-я корзина</div><div class="spec-val">Да</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Clean Jet · Wash & Dry 55 · ICS+ · авто открытие · Aquablock · отложенный старт 24ч</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">149 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">❄️</div>
+      <div><div class="appliance-name">Встраиваемый холодильник</div><div class="appliance-model">DRC1775EN — комбинированный 178 см</div></div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Объём</div><div class="spec-val">242 л</div></div>
+        <div class="spec-item"><div class="spec-label">Класс энергии</div><div class="spec-val">E</div></div>
+        <div class="spec-item"><div class="spec-label">Шум</div><div class="spec-val">41 дБ</div></div>
+        <div class="spec-item"><div class="spec-label">No Frost</div><div class="spec-val">Гибридный</div></div>
+        <div class="spec-item"><div class="spec-label">Высота</div><div class="spec-val">178 см</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">54 см</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Maxi Fresh · Гибридный No Frost · LED · перенавешивание двери · внутренняя электроника</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">174 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="appliance-card">
+    <div class="appliance-header">
+      <div class="appliance-icon">🍲</div>
+      <div><div class="appliance-name">Подогреватель посуды</div><div class="appliance-model">DWD4810B — Philharmonie · Infinite Black</div></div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Infinite Black</div></div>
+        <div class="spec-item"><div class="spec-label">Встраивание</div><div class="spec-val">Да</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Встраиваемый подогреватель посуды · Infinite Black · единый дизайн с серией</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">99 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="total-block">
+    <div>
+      <div class="total-label">Итого · Вариант A · Philharmonie</div>
+      <div class="total-amount">915 940 ₽</div>
+      <div class="total-items">6 приборов · флагманская серия · наличие уточняется</div>
+    </div>
+    <div class="total-note">Все цены по РРЦ. Итоговая стоимость согласуется индивидуально. Уточните у менеджера.</div>
+  </div>
+</div>
+
+<div id="tab-varB" class="tab">
+  <div class="variant-badge-b">◈ Вариант B · Sequence · Оптимальный</div>
+  <div class="appliance-card">
+    <div class="appliance-header" style="background:linear-gradient(90deg,#1a3a6a 0%,#0f2550 100%);">
+      <div class="appliance-icon">🔥</div>
+      <div><div class="appliance-name">Духовой шкаф</div><div class="appliance-model">DOPH375X — Sequence · Stellar Steel</div></div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Объём</div><div class="spec-val">73 л</div></div>
+        <div class="spec-item"><div class="spec-label">Класс энергии</div><div class="spec-val">A+</div></div>
+        <div class="spec-item"><div class="spec-label">Пиролиз</div><div class="spec-val">Да + гидролиз</div></div>
+        <div class="spec-item"><div class="spec-label">Режимов</div><div class="spec-val">10</div></div>
+        <div class="spec-item"><div class="spec-label">Стёкла двери</div><div class="spec-val">4</div></div>
+        <div class="spec-item"><div class="spec-label">Soft Close</div><div class="spec-val">Да</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Multifunction Plus · двойная очистка (пиролиз+гидролиз) · Soft Close · LED · Stellar Steel</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">149 000 ₽</div></div>
+    </div>
+  </div>
+  <div class="appliance-card">
+    <div class="appliance-header" style="background:linear-gradient(90deg,#1a3a6a 0%,#0f2550 100%);">
+      <div class="appliance-icon">⚡</div>
+      <div><div class="appliance-name">Варочная панель (индукция)</div><div class="appliance-model">DPI4420X — Sequence · Stellar Steel</div></div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Тип</div><div class="spec-val">Индукция</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">65 см</div></div>
+        <div class="spec-item"><div class="spec-label">Зоны</div><div class="spec-val">4</div></div>
+        <div class="spec-item"><div class="spec-label">Мощность</div><div class="spec-val">7 400 Вт</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Stellar Steel</div></div>
+        <div class="spec-item"><div class="spec-label">Дисплей</div><div class="spec-val">ЖК</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">4 зоны · Stellar Steel · бустер · таймер · ЖК-дисплей</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">129 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="appliance-card">
+    <div class="appliance-header" style="background:linear-gradient(90deg,#1a3a6a 0%,#0f2550 100%);">
+      <div class="appliance-icon">💨</div>
+      <div><div class="appliance-name">Вытяжка встраиваемая</div><div class="appliance-model">DHT3622X — Sequence · Inox</div></div>
+      <div class="appliance-badge badge-stock">На складе</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Производит.</div><div class="spec-val">до 425 м³/ч</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Шум</div><div class="spec-val">57–69 дБ</div></div>
+        <div class="spec-item"><div class="spec-label">Освещение</div><div class="spec-val">LED 2×2.5 Вт</div></div>
+        <div class="spec-item"><div class="spec-label">Уровни</div><div class="spec-val">3</div></div>
+        <div class="spec-item"><div class="spec-label">Воздуховод</div><div class="spec-val">Ø 120 мм</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Встраиваемая с выдвижным экраном · рециркуляция и отвод · AFC-36 · Inox</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">62 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="appliance-card">
+    <div class="appliance-header" style="background:linear-gradient(90deg,#1a3a6a 0%,#0f2550 100%);">
+      <div class="appliance-icon">🍽</div>
+      <div><div class="appliance-name">Посудомоечная машина</div><div class="appliance-model">DCJ424DQX — Sequence · Inox</div></div>
+      <div class="appliance-badge badge-stock">На складе</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Комплектов</div><div class="spec-val">14</div></div>
+        <div class="spec-item"><div class="spec-label">Класс энергии</div><div class="spec-val">C</div></div>
+        <div class="spec-item"><div class="spec-label">Шум</div><div class="spec-val">44 дБ</div></div>
+        <div class="spec-item"><div class="spec-label">Мотор</div><div class="spec-val">Инверторный</div></div>
+        <div class="spec-item"><div class="spec-label">Программ</div><div class="spec-val">8</div></div>
+        <div class="spec-item"><div class="spec-label">Старт отлож.</div><div class="spec-val">24 ч</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">ICS+ · авто открытие двери · Aquablock · луч на полу · отложенный старт 24ч</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">134 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="appliance-card">
+    <div class="appliance-header" style="background:linear-gradient(90deg,#1a3a6a 0%,#0f2550 100%);">
+      <div class="appliance-icon">❄️</div>
+      <div><div class="appliance-name">Встраиваемый холодильник</div><div class="appliance-model">DRL1770EB — однодверный 178 см</div></div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Объём</div><div class="spec-val">294 л</div></div>
+        <div class="spec-item"><div class="spec-label">Класс энергии</div><div class="spec-val">E</div></div>
+        <div class="spec-item"><div class="spec-label">Шум</div><div class="spec-val">39 дБ</div></div>
+        <div class="spec-item"><div class="spec-label">Охлаждение</div><div class="spec-val">Вентиляция</div></div>
+        <div class="spec-item"><div class="spec-label">Высота</div><div class="spec-val">177 см</div></div>
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">54 см</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Maxi Fresh · LED · перенавешивание двери · циркуляция воздуха · коробка для сыра</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">149 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="appliance-card">
+    <div class="appliance-header" style="background:linear-gradient(90deg,#1a3a6a 0%,#0f2550 100%);">
+      <div class="appliance-icon">🍲</div>
+      <div><div class="appliance-name">Подогреватель посуды</div><div class="appliance-model">DWD4810B — Infinite Black</div></div>
+      <div class="appliance-badge badge-check">Уточняется</div>
+    </div>
+    <div class="appliance-body">
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-label">Ширина</div><div class="spec-val">60 см</div></div>
+        <div class="spec-item"><div class="spec-label">Цвет</div><div class="spec-val">Infinite Black</div></div>
+        <div class="spec-item"><div class="spec-label">Встраивание</div><div class="spec-val">Да</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Встраиваемый подогреватель посуды · Infinite Black</div>
+      <div class="price-row"><div class="price-label">РРЦ</div><div class="price-val">99 990 ₽</div></div>
+    </div>
+  </div>
+  <div class="total-block" style="border-color:#3a6ea8;">
+    <div>
+      <div class="total-label">Итого · Вариант B · Sequence</div>
+      <div class="total-amount" style="color:#6ab0e0;">726 960 ₽</div>
+      <div class="total-items">6 приборов · оптимальная серия · наличие уточняется</div>
+    </div>
+    <div class="total-note">Все цены по РРЦ. Итоговая стоимость согласуется индивидуально. Уточните у менеджера.</div>
+  </div>
+</div>
+
+<div id="tab-visuals" class="tab">
+  <div class="section-title">Визуалы</div>
+  <div class="section-desc">Бренд De Dietrich · Коллекции Philharmonie и Sequence</div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap" style="background:linear-gradient(135deg,#003264 0%,#001433 60%,#0a1a40 100%);">
+      <div class="visual-inner">
+        <span class="visual-icon-big">🔥</span>
+        <div class="visual-badge"><div class="visual-badge-cat">Духовой шкаф</div><div class="visual-badge-model">DOP4556X / DOPH375X</div></div>
+        <div class="visual-type">Multifunction Plus · Пиролиз · Soft Close</div>
+        <div class="visual-series">Philharmonie / Sequence · Stellar Steel</div>
+      </div>
+    </div>
+    <div class="visual-info">
+      <div class="visual-name">Духовой шкаф — A: DOP4556X (211 990 ₽) · B: DOPH375X (149 000 ₽)</div>
+      <div class="visual-specs"><span class="visual-spec">73 л</span><span class="visual-spec">A+</span><span class="visual-spec">Пиролиз</span><span class="visual-spec">Stellar Steel</span><span class="visual-spec">Soft Close</span><span class="visual-spec">6 уровней</span></div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap" style="background:linear-gradient(135deg,#050505 0%,#0d0d1a 50%,#000515 100%);">
+      <div class="visual-inner">
+        <span class="visual-icon-big">⚡</span>
+        <div class="visual-badge"><div class="visual-badge-cat">Варочная панель · Индукция</div><div class="visual-badge-model">DPI4431B / DPI4420X</div></div>
+        <div class="visual-type">4 зоны · HoriZone · 7 400 Вт</div>
+        <div class="visual-series">Infinite Black / Stellar Steel</div>
+      </div>
+    </div>
+    <div class="visual-info">
+      <div class="visual-name">Варочная индукция — A: DPI4431B Infinite Black (159 990 ₽) · B: DPI4420X Stellar (129 990 ₽)</div>
+      <div class="visual-specs"><span class="visual-spec">Индукция</span><span class="visual-spec">65 см</span><span class="visual-spec">4 зоны</span><span class="visual-spec">7 400 Вт</span><span class="visual-spec">HoriZone (A)</span><span class="visual-spec">Бустер</span></div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap" style="background:linear-gradient(135deg,#003264 0%,#1a4a8a 50%,#0a2a5a 100%);">
+      <div class="visual-inner">
+        <span class="visual-icon-big">💨</span>
+        <div class="visual-badge"><div class="visual-badge-cat">Вытяжка</div><div class="visual-badge-model">DHB4684B / DHT3622X</div></div>
+        <div class="visual-type">Настенная · Встраиваемая · LED</div>
+        <div class="visual-series">Infinite Black · Inox</div>
+      </div>
+    </div>
+    <div class="visual-info">
+      <div class="visual-name">Вытяжка — A: DHB4684B Настенная Black (118 990 ₽) · B: DHT3622X Встраиваемая (62 990 ₽)</div>
+      <div class="visual-specs"><span class="visual-spec">60 см</span><span class="visual-spec">LED</span><span class="visual-spec">Отвод / рециркуляция</span><span class="visual-spec">Фильтр AFC-36 (B)</span></div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap" style="background:linear-gradient(135deg,#003264 0%,#004080 50%,#002050 100%);">
+      <div class="visual-inner">
+        <span class="visual-icon-big">🍽</span>
+        <div class="visual-badge"><div class="visual-badge-cat">Посудомоечная машина</div><div class="visual-badge-model">DCJ632DQX / DCJ424DQX</div></div>
+        <div class="visual-type">Инвертор · Авто открытие · 3-я корзина</div>
+        <div class="visual-series">16 / 14 комплектов</div>
+      </div>
+    </div>
+    <div class="visual-info">
+      <div class="visual-name">ПММ — A: DCJ632DQX 16 компл., 9 прогр. (149 990 ₽) · B: DCJ424DQX 14 компл. (134 990 ₽)</div>
+      <div class="visual-specs"><span class="visual-spec">42–44 дБ</span><span class="visual-spec">Инвертор</span><span class="visual-spec">Aquablock</span><span class="visual-spec">Авто открытие</span><span class="visual-spec">ICS+</span></div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap" style="background:linear-gradient(135deg,#001a30 0%,#002a50 50%,#001020 100%);">
+      <div class="visual-inner">
+        <span class="visual-icon-big">❄️</span>
+        <div class="visual-badge"><div class="visual-badge-cat">Встраиваемый холодильник</div><div class="visual-badge-model">DRC1775EN / DRL1770EB</div></div>
+        <div class="visual-type">No Frost · Maxi Fresh · 178 см</div>
+        <div class="visual-series">Combi · Однодверный</div>
+      </div>
+    </div>
+    <div class="visual-info">
+      <div class="visual-name">Холодильник — A: DRC1775EN Combi 242л (174 990 ₽) · B: DRL1770EB 294л (149 990 ₽)</div>
+      <div class="visual-specs"><span class="visual-spec">178 см</span><span class="visual-spec">54 см</span><span class="visual-spec">No Frost / Maxi Fresh</span><span class="visual-spec">LED</span></div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-img-wrap" style="background:linear-gradient(135deg,#1a1a1a 0%,#0d0d0d 50%,#111 100%);">
+      <div class="visual-inner">
+        <span class="visual-icon-big">🍲</span>
+        <div class="visual-badge"><div class="visual-badge-cat">Подогреватель посуды</div><div class="visual-badge-model">DWD4810B</div></div>
+        <div class="visual-type">Встраиваемый · Infinite Black</div>
+        <div class="visual-series">Оба варианта · единый дизайн</div>
+      </div>
+    </div>
+    <div class="visual-info">
+      <div class="visual-name">Подогреватель DWD4810B — оба варианта (99 990 ₽)</div>
+      <div class="visual-specs"><span class="visual-spec">60 см</span><span class="visual-spec">Infinite Black</span><span class="visual-spec">Встраиваемый</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-schemes" class="tab">
+  <div class="section-title">Схемы встраивания и технические характеристики</div>
+  <div class="section-desc">Размеры ниш и ключевые параметры для каждого прибора</div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">🔥 Духовой шкаф — DOP4556X (A) / DOPH375X (B)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">585 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">560 мм</div><div class="scheme-dim-label">Ширина ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">550 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-note">Объём: 73 л · Пиролиз: Да · Soft Close · 4 стекла · 6 уровней · телескопические направляющие<br><strong>A (DOP4556X):</strong> Ai Talent 53 рецепта, 16+ режимов, Pyro Express, класс A+<br><strong>B (DOPH375X):</strong> 10 режимов, двойная очистка (пиролиз+гидролиз), класс A+</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">⚡ Варочная панель (индукция) — DPI4431B (A) / DPI4420X (B)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">65 см</div><div class="scheme-dim-label">Ширина панели</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">4</div><div class="scheme-dim-val">4 зоны</div><div class="scheme-dim-label">Индукционных зон</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">⚡</div><div class="scheme-dim-val">7 400 Вт</div><div class="scheme-dim-label">Макс. мощность</div></div>
+    </div>
+    <div class="scheme-note">Вырез в столешнице уточняется по документации. Требует электрической подводки 32А.<br><strong>A (DPI4431B):</strong> HoriZone (гибкая зона), Infinite Black / Abyssal Black, бустер, ЖК<br><strong>B (DPI4420X):</strong> 4 стандартных зоны, Stellar Steel, бустер, ЖК-дисплей</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">💨 Вытяжка — DHB4684B (A) / DHT3622X (B)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">60 см</div><div class="scheme-dim-label">Ширина</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ø</div><div class="scheme-dim-val">150 / 120 мм</div><div class="scheme-dim-label">Воздуховод</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">~</div><div class="scheme-dim-val">425–650 м³/ч</div><div class="scheme-dim-label">Производительность</div></div>
+    </div>
+    <div class="scheme-note"><strong>A (DHB4684B):</strong> Настенная, узкий короб, Infinite Black, Ø 150 мм, LED<br><strong>B (DHT3622X):</strong> Встраиваемая с выдвижным экраном, Inox, Ø 120 мм, до 425 м³/ч, AFC-36 в комплекте</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">🍽 Посудомоечная машина — DCJ632DQX (A) / DCJ424DQX (B)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">820–890 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">600 мм</div><div class="scheme-dim-label">Ширина ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">580 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-note"><strong>A (DCJ632DQX):</strong> 16 компл., 42 дБ, 9 прогр., 3-я корзина, Clean Jet, Wash & Dry 55, авто открытие, Aquablock<br><strong>B (DCJ424DQX):</strong> 14 компл., 44 дБ, 8 прогр., ICS+, авто открытие, Aquablock, инвертор</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">❄️ Встраиваемый холодильник — DRC1775EN (A) / DRL1770EB (B)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">1770 мм</div><div class="scheme-dim-label">Высота</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">540 мм</div><div class="scheme-dim-label">Ширина</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">545 мм</div><div class="scheme-dim-label">Глубина</div></div>
+    </div>
+    <div class="scheme-note">Габариты 1770×540×545 мм, перенавешивание двери, LED<br><strong>A (DRC1775EN):</strong> Combi, 242 л (179+63), No Frost (гибридный), 41 дБ, Ultra Fresh<br><strong>B (DRL1770EB):</strong> Однодверный, 294 л, авторазмораживание, 39 дБ, Maxi Fresh, коробка для сыра</div>
+  </div>
+
+  <div class="scheme-card">
+    <div class="scheme-title">🍲 Подогреватель посуды — DWD4810B (оба варианта)</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-letter">В</div><div class="scheme-dim-val">290 мм</div><div class="scheme-dim-label">Высота ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Ш</div><div class="scheme-dim-val">560 мм</div><div class="scheme-dim-label">Ширина ниши</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-letter">Г</div><div class="scheme-dim-val">545 мм</div><div class="scheme-dim-label">Глубина ниши</div></div>
+    </div>
+    <div class="scheme-note">Встраиваемый · Infinite Black · единый дизайн с серией. Устанавливается под духовым шкафом.</div>
+  </div>
+</div>
+
+<div id="tab-special" class="tab">
+  <div class="section-title">Специальные условия</div>
+  <div class="section-desc">Что входит в работу с Home Project</div>
+  <div class="cond-grid">
+    <div class="cond-card"><div class="cond-icon">✅</div><div class="cond-title">Официальная гарантия</div><div class="cond-text">Гарантия производителя De Dietrich. Авторизованные сервисные центры в Москве. Сопровождение на весь гарантийный срок.</div></div>
+    <div class="cond-card"><div class="cond-icon">📦</div><div class="cond-title">Подтверждение наличия</div><div class="cond-text">Актуальные остатки проверяем у поставщика перед заказом. Никаких «есть на сайте, но нет на складе».</div></div>
+    <div class="cond-card"><div class="cond-icon">📐</div><div class="cond-title">Техническое сопровождение</div><div class="cond-text">Предоставляем схемы встраивания, монтажные листы, технические паспорта для архитектора и монтажной бригады.</div></div>
+    <div class="cond-card"><div class="cond-icon">🚚</div><div class="cond-title">Доставка по Москве</div><div class="cond-text">Доставка со склада поставщика. Сроки: 3–10 рабочих дней. Работаем с физическими и юридическими лицами.</div></div>
+    <div class="cond-card"><div class="cond-icon">🤝</div><div class="cond-title">Партнёрская программа</div><div class="cond-text">Для архитекторов и дизайнеров — специальные условия сотрудничества. Уточните у менеджера при запросе.</div></div>
+    <div class="cond-card"><div class="cond-icon">📋</div><div class="cond-title">Срок действия КП</div><div class="cond-text">Цены действительны в течение 14 дней с даты подготовки.</div></div>
+  </div>
+  <div style="background:linear-gradient(135deg,#003264 0%,#001830 100%);border-radius:14px;padding:24px 28px;border:1px solid var(--gold);margin-top:24px;">
+    <div style="font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">De Dietrich — Créateur d'émotions depuis 1684</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.8;">Французский бренд с историей более 340 лет. Philharmonie — флагман: Ai Talent, HoriZone, Pyro Express, Soft Close. Дизайн Infinite Black и Stellar Steel — визуальный код премиальной кухни.</div>
+  </div>
+</div>
+
+<div id="tab-about" class="tab">
+  <div class="section-title">Как мы работаем</div>
+  <div class="about-card">
+    <div class="about-title">О компании Home Project</div>
+    <div class="about-text">Home Project — дистрибьютор премиальной встраиваемой техники европейских брендов в России. Специализируемся на De Dietrich, V-ZUG, BORA, Fhiaba, Küppersbusch, Schulthess и других марках.<br><br>Работаем напрямую с авторизованными дистрибьюторами, что гарантирует оригинальность техники и официальную гарантию производителя.</div>
+  </div>
+  <div class="about-card">
+    <div class="about-title">Этапы работы</div>
+    <ol class="steps">
+      <li><div class="step-num">1</div><div class="step-text"><strong>КП и согласование</strong> — подбираем технику по запросу, готовим два варианта комплекта с характеристиками и ценами</div></li>
+      <li><div class="step-num">2</div><div class="step-text"><strong>Подтверждение наличия</strong> — проверяем актуальные остатки на складе поставщика до оформления заказа</div></li>
+      <li><div class="step-num">3</div><div class="step-text"><strong>Техническое сопровождение</strong> — предоставляем схемы встраивания, монтажные листы, технические паспорта</div></li>
+      <li><div class="step-num">4</div><div class="step-text"><strong>Оформление заказа</strong> — договор, счёт, оплата. Работаем с физическими и юридическими лицами</div></li>
+      <li><div class="step-num">5</div><div class="step-text"><strong>Доставка</strong> — техника доставляется со склада в Москве. Срок: 3–10 рабочих дней</div></li>
+      <li><div class="step-num">6</div><div class="step-text"><strong>Гарантия и сервис</strong> — официальная гарантия производителя, авторизованные сервисные центры De Dietrich в Москве</div></li>
+    </ol>
+  </div>
+  <div class="about-card">
+    <div class="about-title">Почему Home Project</div>
+    <div class="about-text">✦ Прямой доступ к складу официального дистрибьютора Homeier<br>✦ Реальная проверка наличия до заказа<br>✦ Технические материалы для монтажных бригад и архитекторов<br>✦ Единое КП на весь комплект — экономия времени<br>✦ Партнёрские условия для постоянных клиентов</div>
+  </div>
+</div>
+
+<div id="tab-contacts" class="tab">
+  <div class="section-title">Контакты</div>
+  <div class="section-desc">Готовы ответить на вопросы по комплекту и условиям работы</div>
+  <div class="contact-grid">
+    <div class="contact-card"><div class="contact-icon">👤</div><div class="contact-label">Контактное лицо</div><div class="contact-val">Андрей Брагинский</div><div class="contact-sub">Home Project</div></div>
+    <div class="contact-card"><div class="contact-icon">✉️</div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:info@homeproject.online" style="color:var(--gold);text-decoration:none;">info@homeproject.online</a></div><div class="contact-sub">Ответим в течение рабочего дня</div></div>
+    <div class="contact-card"><div class="contact-icon">🌐</div><div class="contact-label">Сайт</div><div class="contact-val"><a href="https://homeproject.online" target="_blank" style="color:var(--gold);text-decoration:none;">homeproject.online</a></div><div class="contact-sub">Каталог всех брендов</div></div>
+  </div>
+  <div style="background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:10px;">Следующий шаг</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">Напишите нам выбранный вариант (A — Philharmonie или B — Sequence) — мы подтвердим актуальное наличие на складе, согласуем условия и подготовим счёт.</div>
+  </div>
+  <div style="background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border);margin-bottom:16px;">
+    <div style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:10px;">Сравнение вариантов (кратко)</div>
+    <table class="compare-table" style="margin-bottom:0;">
+      <thead><tr><th>Позиция</th><th>Вариант A · Philharmonie</th><th>Вариант B · Sequence</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--gold);">Духовка</td><td>DOP4556X · 211 990 ₽</td><td>DOPH375X · 149 000 ₽</td></tr>
+        <tr><td style="color:var(--gold);">Варочная</td><td>DPI4431B (Inf.Black) · 159 990 ₽</td><td>DPI4420X (Stellar) · 129 990 ₽</td></tr>
+        <tr><td style="color:var(--gold);">Вытяжка</td><td>DHB4684B (настенная) · 118 990 ₽</td><td>DHT3622X (встраив.) · 62 990 ₽</td></tr>
+        <tr><td style="color:var(--gold);">ПММ</td><td>DCJ632DQX (16 компл.) · 149 990 ₽</td><td>DCJ424DQX (14 компл.) · 134 990 ₽</td></tr>
+        <tr><td style="color:var(--gold);">Холодильник</td><td>DRC1775EN (combi) · 174 990 ₽</td><td>DRL1770EB (однодвер.) · 149 990 ₽</td></tr>
+        <tr><td style="color:var(--gold);">Подогреватель</td><td>DWD4810B · 99 990 ₽</td><td>DWD4810B · 99 990 ₽</td></tr>
+        <tr class="total-row"><td>ИТОГО РРЦ</td><td>915 940 ₽</td><td>726 960 ₽</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ai-note">✦ Этот документ подготовлен Home Project. Контакт: <a href="mailto:info@homeproject.online" style="color:var(--gold);">info@homeproject.online</a> · <a href="https://homeproject.online" target="_blank" style="color:var(--gold);">homeproject.online</a></div>
+</div>
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
