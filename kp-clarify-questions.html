@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Уточним детали · Home Project</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --dark: #181A20;
+    --gold: #c9a96e;
+    --gold-light: rgba(201,169,110,0.10);
+    --gold-border: rgba(201,169,110,0.35);
+    --bg: #f5f4f0;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --muted: #888;
+    --border: #e0e0e0;
+    --radius: 10px;
+    --block-border: #e8e4dc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--card);
+    min-height: 100vh;
+  }
+
+  /* ── ШАПКА ── */
+  .header {
+    background: var(--dark);
+    padding: 20px 24px 20px;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .logo { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: 0.06em; text-transform: uppercase; }
+  .logo-sub { font-size: 9px; color: #7a8099; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+  .badge { background: var(--gold); color: var(--dark); font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+
+  .header-promise {
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border-left: 3px solid var(--gold);
+  }
+  .promise-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.3; }
+  .promise-sub { font-size: 12px; color: #9aa0b8; line-height: 1.5; }
+
+  /* ── INTRO ── */
+  .intro {
+    padding: 20px 24px 4px;
+    background: #faf9f6;
+    border-bottom: 1px solid var(--block-border);
+  }
+  .intro p { font-size: 13px; color: #666; line-height: 1.6; }
+  .intro strong { color: var(--text); }
+  .steps {
+    display: flex;
+    gap: 6px;
+    margin-top: 14px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #888;
+    background: #fff;
+    border: 1px solid var(--block-border);
+    border-radius: 20px;
+    padding: 4px 10px;
+  }
+  .step-num {
+    width: 16px; height: 16px;
+    background: var(--gold);
+    color: var(--dark);
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── БЛОКИ ── */
+  .blocks { padding: 0 0 24px; }
+
+  .block {
+    border-bottom: 1px solid var(--block-border);
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+  .block.filled .block-header { background: #faf9f5; }
+
+  .block-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .block-header:hover { background: #faf9f6; }
+
+  .block-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--gold-light);
+    border: 1px solid var(--gold-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .block-title-wrap { flex: 1; min-width: 0; }
+  .block-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .block-subtitle { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  .block-status {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .block-status.empty { background: #f0ede8; color: #aaa; }
+  .block-status.done { background: #edf7ed; color: #3a8a3a; }
+  .block-status.partial { background: #fef8ed; color: #b87a00; }
+
+  .chevron {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .block.open .chevron { transform: rotate(180deg); }
+
+  .block-body {
+    display: none;
+    padding: 0 24px 20px;
+    background: #fafaf8;
+  }
+  .block.open .block-body { display: block; }
+
+  /* Зачем этот вопрос */
+  .block-why {
+    background: rgba(201,169,110,0.07);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: #7a6a4a;
+    line-height: 1.5;
+  }
+  .block-why strong { color: #6a5830; }
+
+  /* ── ВОПРОСЫ ── */
+  .question { margin-bottom: 18px; }
+  .q-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+    display: block;
+    line-height: 1.4;
+  }
+  .q-hint { font-size: 11px; color: var(--muted); margin-top: 3px; font-weight: 400; }
+
+  /* Чекбоксы / радио */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .options.inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 13px;
+    background: #fff;
+    user-select: none;
+  }
+  .opt:hover { border-color: var(--gold); background: var(--gold-light); }
+  .opt input { display: none; }
+  .opt-dot {
+    width: 16px; height: 16px;
+    border: 1.5px solid #ccc;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .opt.radio .opt-dot { border-radius: 50%; }
+  .opt.check .opt-dot { border-radius: 4px; }
+  .opt.selected { border-color: var(--gold); background: var(--gold-light); }
+  .opt.selected .opt-dot {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .opt.selected .opt-dot::after { content: '✓'; font-size: 9px; color: #fff; font-weight: 700; }
+
+  /* Inline chip-style */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    padding: 6px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    background: #fff;
+    transition: all 0.15s;
+    user-select: none;
+    color: var(--text);
+  }
+  .chip:hover { border-color: var(--gold); color: #9a7440; }
+  .chip.selected { border-color: var(--gold); background: var(--gold-light); color: #7a5a20; font-weight: 600; }
+
+  /* Числовой ввод */
+  .num-row { display: flex; gap: 10px; align-items: center; }
+  .num-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  .num-field label { font-size: 11px; color: var(--muted); }
+  input[type=number], input[type=text], textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+    transition: border 0.15s;
+    -webkit-appearance: none;
+  }
+  input[type=number]:focus, input[type=text]:focus, textarea:focus {
+    border-color: var(--gold);
+  }
+  textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+
+  /* Слайдер бюджета */
+  .budget-row { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .budget-val {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gold);
+    white-space: nowrap;
+    min-width: 110px;
+  }
+  input[type=range] {
+    -webkit-appearance: none;
+    height: 4px;
+    background: linear-gradient(to right, var(--gold) 0%, var(--gold) 50%, #e0e0e0 50%, #e0e0e0 100%);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    flex: 1;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    background: var(--gold);
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .budget-marks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── ИТОГО ── */
+  .summary-bar {
+    position: sticky;
+    bottom: 0;
+    background: var(--dark);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 2px solid var(--gold);
+    z-index: 10;
+  }
+  .summary-progress { flex: 1; }
+  .summary-label { font-size: 11px; color: #9aa0b8; margin-bottom: 6px; }
+  .summary-track {
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .summary-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+  .summary-pct {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-left: 8px;
+    white-space: nowrap;
+    align-self: flex-end;
+    margin-bottom: 1px;
+  }
+
+  .send-btn {
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, transform 0.1s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .send-btn:hover { background: #e0be82; }
+  .send-btn:active { transform: scale(0.97); }
+
+  /* ── THANKS ── */
+  .thanks {
+    display: none;
+    padding: 40px 24px;
+    text-align: center;
+  }
+  .thanks-icon { font-size: 48px; margin-bottom: 16px; }
+  .thanks h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .thanks p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .thanks .tg-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    background: #229ED9;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  /* Разделитель вопросов */
+  .question + .question { border-top: 1px solid #f0ede8; padding-top: 18px; }
+
+  @media (max-width: 480px) {
+    .header { padding: 16px 18px; }
+    .block-header { padding: 14px 18px; }
+    .block-body { padding: 0 18px 18px; }
+    .intro { padding: 16px 18px 4px; }
+    .summary-bar { padding: 12px 18px; }
+    .send-btn { padding: 10px 14px; font-size: 12px; }
+    .steps { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page" id="mainPage">
+
+  <!-- ШАПКА -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="logo">Home Project</div>
+        <div class="logo-sub">Premium Appliances · Moscow</div>
+      </div>
+      <div class="badge">КП · Уточним детали</div>
+    </div>
+    <div class="header-promise">
+      <div class="promise-title">Заполните — получите КП за&nbsp;5&nbsp;минут</div>
+      <div class="promise-sub">6 блоков · 2–3 минуты · ответит живой эксперт, не&nbsp;бот</div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <p>Чем точнее вы ответите, тем <strong>точнее подбор и смета</strong>. Пропускайте блоки, которые пока неизвестны — уточним при звонке.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div>Схема кухни</div>
+      <div class="step"><div class="step-num">2</div>Бюджет</div>
+      <div class="step"><div class="step-num">3</div>Сроки</div>
+      <div class="step"><div class="step-num">4</div>Стиль</div>
+      <div class="step"><div class="step-num">5</div>Техника</div>
+      <div class="step"><div class="step-num">6</div>Решение</div>
+    </div>
+  </div>
+
+  <!-- БЛОКИ -->
+  <div class="blocks" id="blocks">
+
+    <!-- ── БЛОК 1: СХЕМА ВСТРАИВАНИЯ ── -->
+    <div class="block open" id="block-1">
+      <div class="block-header" onclick="toggleBlock('block-1')">
+        <div class="block-icon">📐</div>
+        <div class="block-title-wrap">
+          <div class="block-title">Схема встраивания</div>
+          <div class="block-subtitle">Конфигурация кухни и размеры ниш</div>
+        </div>
+        <span class="block-status empty" id="status-block-1">Не заполнено</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="block-body">
+        <div class="block-why">
+          <strong>Почему важно:</strong> тип кухни и размеры ниш определяют, какие модели физически войдут. Многие бренды портфеля (BORA, Küppersbusch) имеют нестандартные габариты; ошибка в нише = возврат техники.
+        </div>
+
+        <div class="question" data-block="1">
+          <span class="q-label">1.1 Конфигурация кухни
+            <span class="q-hint">Влияет на тип и расположение варочной поверхности и вытяжки</span>
+          </span>
+          <div class="chips" id="q1_1">
+            <div class="chip" data-val="linear" onclick="toggleChip(this,'q1_1','single')">Линейная</div>
+            <div class="chip" data-val="l-shape" onclick="toggleChip(this,'q1_1','single')">Г-образная</div>
+            <div class="chip" data-val="u-shape" onclick="toggleChip(this,'q1_1','single')">П-образная</div>
+            <div class="chip" data-val="island" onclick="toggleChip(this,'q1_1','single')">С островом</div>
+            <div class="chip" data-val="peninsula" onclick="toggleChip(this,'q1_1','single')">Полуостров</div>
+            <div class="chip" data-val="unknown" onclick="toggleChip(this,'q1_1','single')">Ещё не решено</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="1">
+          <span class="q-label">1.2 Ширина ниши под духовой шкаф / паровую духовку
+            <span class="q-hint">Стандарт — 60 см. Для BORA X BO и Fhiaba возможны нестандартные размеры</span>
+          </span>
+          <div class="chips" id="q1_2">
+            <div class="chip" data-val="45" onclick="toggleChip(this,'q1_2','single')">45 см</div>
+            <div class="chip" data-val="60" onclick="toggleChip(this,'q1_2','single')">60 см</div>
+            <div class="chip" data-val="76" onclick="toggleChip(this,'q1_2','single')">76 см (wide)</div>
+            <div class="chip" data-val="90" onclick="toggleChip(this,'q1_2','single')">90 см</div>
+            <div class="chip" data-val="unknown" onclick="toggleChip(this,'q1_2','single')">Ещё не известна</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="1">
+          <span class="q-label">1.3 Высота потолков и тип вентиляции
+            <span class="q-hint">Определяет выбор между встраиваемой, настенной или потолочной вытяжкой / системой BORA</span>
+          </span>
+          <div class="options" id="q1_3">
+            <label class="opt radio" onclick="selectOpt(this,'q1_3')">
+              <input type="radio" name="q1_3" value="low">
+              <div class="opt-dot"></div>
+              До 2,7 м — стандарт
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q1_3')">
+              <input type="radio" name="q1_3" value="high">
+              <div class="opt-dot"></div>
+              2,7–3,2 м — высокий
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q1_3')">
+              <input type="radio" name="q1_3" value="very-high">
+              <div class="opt-dot"></div>
+              Более 3,2 м / двойной объём
+            </label>
+          </div>
+          <div style="margin-top:10px;">
+          <div class="chips" id="q1_3b">
+            <div class="chip" data-val="wall-duct" onclick="toggleChip(this,'q1_3b','single')">Воздуховод в стене</div>
+            <div class="chip" data-val="ceiling-duct" onclick="toggleChip(this,'q1_3b','single')">Воздуховод в потолке</div>
+            <div class="chip" data-val="recirculation" onclick="toggleChip(this,'q1_3b','single')">Рециркуляция (нет вывода)</div>
+            <div class="chip" data-val="bora" onclick="toggleChip(this,'q1_3b','single')">Планируем BORA (вытяжка в варочной)</div>
+            <div class="chip" data-val="unknown" onclick="toggleChip(this,'q1_3b','single')">Не известно</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="question" data-block="1">
+          <span class="q-label">1.4 Ниши для холодильника / морозильника
+            <span class="q-hint">Fhiaba и Liebherr имеют нестандартные габариты по высоте и глубине</span>
+          </span>
+          <div class="chips" id="q1_4">
+            <div class="chip" data-val="60h" onclick="toggleChip(this,'q1_4','multi')">Холодильник 60 см</div>
+            <div class="chip" data-val="90h" onclick="toggleChip(this,'q1_4','multi')">Холодильник 90 см</div>
+            <div class="chip" data-val="separate" onclick="toggleChip(this,'q1_4','multi')">Отдельные ниши х + м</div>
+            <div class="chip" data-val="column" onclick="toggleChip(this,'q1_4','multi')">Колонны в ряд</div>
+            <div class="chip" data-val="under" onclick="toggleChip(this,'q1_4','multi')">Под столешницей</div>
+            <div class="chip" data-val="no" onclick="toggleChip(this,'q1_4','multi')">Холодильник не нужен</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="1">
+          <span class="q-label">1.5 Напряжение и мощность электросети на кухне
+            <span class="q-hint">Индукция от 7 кВт и пароварки требуют выделенных линий 380В/32А</span>
+          </span>
+          <div class="chips" id="q1_5">
+            <div class="chip" data-val="220" onclick="toggleChip(this,'q1_5','single')">220В / однофазная</div>
+            <div class="chip" data-val="380" onclick="toggleChip(this,'q1_5','single')">380В / трёхфазная</div>
+            <div class="chip" data-val="check" onclick="toggleChip(this,'q1_5','single')">Нужно уточнить с электриком</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── БЛОК 2: БЮДЖЕТ ── -->
+    <div class="block" id="block-2">
+      <div class="block-header" onclick="toggleBlock('block-2')">
+        <div class="block-icon">💰</div>
+        <div class="block-title-wrap">
+          <div class="block-title">Бюджет</div>
+          <div class="block-subtitle">Ориентир по стоимости комплекта</div>
+        </div>
+        <span class="block-status empty" id="status-block-2">Не заполнено</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="block-body">
+        <div class="block-why">
+          <strong>Почему важно:</strong> диапазон бюджета сразу отсекает половину вариантов — нет смысла показывать V-ZUG Excellence при бюджете 400 тыс. Зная приоритет, мы оптимизируем состав, а не режем наугад.
+        </div>
+
+        <div class="question" data-block="2">
+          <span class="q-label">2.1 Общий бюджет на кухонную технику (₽, включая доставку и монтаж)
+            <span class="q-hint">Двигайте ползунок</span>
+          </span>
+          <div class="budget-row">
+            <input type="range" id="budgetRange" min="200000" max="5000000" step="50000" value="800000"
+              oninput="updateBudget(this.value)" data-block="2" data-q="2_1">
+            <div class="budget-val" id="budgetVal">800 000 ₽</div>
+          </div>
+          <div class="budget-marks">
+            <span>200 тыс</span>
+            <span>1 млн</span>
+            <span>2 млн</span>
+            <span>3 млн</span>
+            <span>5 млн+</span>
+          </div>
+        </div>
+
+        <div class="question" data-block="2">
+          <span class="q-label">2.2 Готовность скорректировать бюджет, если нужная модель чуть дороже?</span>
+          <div class="options" id="q2_2">
+            <label class="opt radio" onclick="selectOpt(this,'q2_2')">
+              <input type="radio" name="q2_2" value="firm">
+              <div class="opt-dot"></div>
+              Бюджет фиксированный — только в рамках
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q2_2')">
+              <input type="radio" name="q2_2" value="plus10">
+              <div class="opt-dot"></div>
+              Можно ±10–15%, если это принципиально важно
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q2_2')">
+              <input type="radio" name="q2_2" value="flex">
+              <div class="opt-dot"></div>
+              Бюджет гибкий — важен результат
+            </label>
+          </div>
+        </div>
+
+        <div class="question" data-block="2">
+          <span class="q-label">2.3 Если нужно уложиться — что можно упростить в первую очередь?
+            <span class="q-hint">Выберите 1–2 позиции, где снижение класса допустимо</span>
+          </span>
+          <div class="chips" id="q2_3">
+            <div class="chip" data-val="oven" onclick="toggleChip(this,'q2_3','multi')">Духовой шкаф</div>
+            <div class="chip" data-val="hob" onclick="toggleChip(this,'q2_3','multi')">Варочная поверхность</div>
+            <div class="chip" data-val="hood" onclick="toggleChip(this,'q2_3','multi')">Вытяжка</div>
+            <div class="chip" data-val="fridge" onclick="toggleChip(this,'q2_3','multi')">Холодильник</div>
+            <div class="chip" data-val="dishwasher" onclick="toggleChip(this,'q2_3','multi')">Посудомойка</div>
+            <div class="chip" data-val="extras" onclick="toggleChip(this,'q2_3','multi')">Доп. техника (кофе, пар)</div>
+            <div class="chip" data-val="none" onclick="toggleChip(this,'q2_3','multi')">Нигде — хочу лучшее везде</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="2">
+          <span class="q-label">2.4 Как предпочитаете оформлять покупку?</span>
+          <div class="chips" id="q2_4">
+            <div class="chip" data-val="full" onclick="toggleChip(this,'q2_4','single')">Оплата сразу / 100%</div>
+            <div class="chip" data-val="advance" onclick="toggleChip(this,'q2_4','single')">Аванс + остаток при поставке</div>
+            <div class="chip" data-val="leasing" onclick="toggleChip(this,'q2_4','single')">Интересует лизинг / рассрочка</div>
+            <div class="chip" data-val="entity" onclick="toggleChip(this,'q2_4','single')">Нужна оплата от юр. лица / ООО</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── БЛОК 3: СРОКИ ── -->
+    <div class="block" id="block-3">
+      <div class="block-header" onclick="toggleBlock('block-3')">
+        <div class="block-icon">📅</div>
+        <div class="block-title-wrap">
+          <div class="block-title">Сроки поставки</div>
+          <div class="block-subtitle">Когда нужна техника на объект</div>
+        </div>
+        <span class="block-status empty" id="status-block-3">Не заполнено</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="block-body">
+        <div class="block-why">
+          <strong>Почему важно:</strong> часть моделей V-ZUG и Fhiaba поставляется 8–14 недель из Европы. Срочные заказы уходят на склад в России — ассортимент там уже. Знать дедлайн = предложить то, что успеет.
+        </div>
+
+        <div class="question" data-block="3">
+          <span class="q-label">3.1 Когда планируется установка техники на объекте?</span>
+          <div class="chips" id="q3_1">
+            <div class="chip" data-val="1m" onclick="toggleChip(this,'q3_1','single')">Срочно — до 1 месяца</div>
+            <div class="chip" data-val="3m" onclick="toggleChip(this,'q3_1','single')">1–3 месяца</div>
+            <div class="chip" data-val="6m" onclick="toggleChip(this,'q3_1','single')">3–6 месяцев</div>
+            <div class="chip" data-val="6m+" onclick="toggleChip(this,'q3_1','single')">Более 6 месяцев</div>
+            <div class="chip" data-val="unknown" onclick="toggleChip(this,'q3_1','single')">Сроки ещё не определены</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="3">
+          <span class="q-label">3.2 Есть ли привязка к этапам строительства или отделки?
+            <span class="q-hint">Встраиваемая техника устанавливается в конце — после мебели. Холодильные колонны — раньше</span>
+          </span>
+          <div class="options" id="q3_2">
+            <label class="opt radio" onclick="selectOpt(this,'q3_2')">
+              <input type="radio" name="q3_2" value="new-build">
+              <div class="opt-dot"></div>
+              Новострой — идёт стройка / черновая отделка
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q3_2')">
+              <input type="radio" name="q3_2" value="renovation">
+              <div class="opt-dot"></div>
+              Ремонт — кухня в процессе монтажа
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q3_2')">
+              <input type="radio" name="q3_2" value="ready">
+              <div class="opt-dot"></div>
+              Кухня готова — нужна замена техники
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q3_2')">
+              <input type="radio" name="q3_2" value="design">
+              <div class="opt-dot"></div>
+              Ещё стадия дизайн-проекта
+            </label>
+          </div>
+        </div>
+
+        <div class="question" data-block="3">
+          <span class="q-label">3.3 Нужна ли ответственная поставка с хранением?
+            <span class="q-hint">Мы можем принять и хранить технику до окончания ремонта — спросите об условиях</span>
+          </span>
+          <div class="chips" id="q3_3">
+            <div class="chip" data-val="yes" onclick="toggleChip(this,'q3_3','single')">Да, нужно хранение</div>
+            <div class="chip" data-val="no" onclick="toggleChip(this,'q3_3','single')">Нет, доставить сразу</div>
+            <div class="chip" data-val="discuss" onclick="toggleChip(this,'q3_3','single')">Обсудим при звонке</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="3">
+          <span class="q-label">3.4 Если точной модели нет в наличии — готовы ждать поставку из Европы?</span>
+          <div class="options" id="q3_4">
+            <label class="opt radio" onclick="selectOpt(this,'q3_4')">
+              <input type="radio" name="q3_4" value="wait">
+              <div class="opt-dot"></div>
+              Да, важна именно эта модель — готов ждать
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q3_4')">
+              <input type="radio" name="q3_4" value="alt">
+              <div class="opt-dot"></div>
+              Предложите аналог со склада в России
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q3_4')">
+              <input type="radio" name="q3_4" value="decide">
+              <div class="opt-dot"></div>
+              Решим когда увидим сроки
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── БЛОК 4: СТИЛЬ И ЦВЕТ ── -->
+    <div class="block" id="block-4">
+      <div class="block-header" onclick="toggleBlock('block-4')">
+        <div class="block-icon">🎨</div>
+        <div class="block-title-wrap">
+          <div class="block-title">Стиль и цвет</div>
+          <div class="block-subtitle">Цветовая гамма и материалы фасадов</div>
+        </div>
+        <span class="block-status empty" id="status-block-4">Не заполнено</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="block-body">
+        <div class="block-why">
+          <strong>Почему важно:</strong> Küppersbusch предлагает 17 цветов ручек и рамок; V-ZUG — матовое стекло vs. нержавейка; BORA — только нержавейка или стекло. Выбор цвета может полностью изменить модельный ряд.
+        </div>
+
+        <div class="question" data-block="4">
+          <span class="q-label">4.1 Общая цветовая гамма кухни
+            <span class="q-hint">Цвет фасадов кухонной мебели — под него подбираем отделку техники</span>
+          </span>
+          <div class="chips" id="q4_1">
+            <div class="chip" data-val="white" onclick="toggleChip(this,'q4_1','multi')">⬜ Белый / светлый</div>
+            <div class="chip" data-val="grey" onclick="toggleChip(this,'q4_1','multi')">🩶 Серый</div>
+            <div class="chip" data-val="black" onclick="toggleChip(this,'q4_1','multi')">⬛ Чёрный / графит</div>
+            <div class="chip" data-val="wood" onclick="toggleChip(this,'q4_1','multi')">🪵 Дерево / шпон</div>
+            <div class="chip" data-val="color" onclick="toggleChip(this,'q4_1','multi')">🎨 Яркий акцентный цвет</div>
+            <div class="chip" data-val="mixed" onclick="toggleChip(this,'q4_1','multi')">Смешанная палитра</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="4">
+          <span class="q-label">4.2 Предпочтение по материалу фасадов техники</span>
+          <div class="chips" id="q4_2">
+            <div class="chip" data-val="steel" onclick="toggleChip(this,'q4_2','multi')">Нержавейка (классика)</div>
+            <div class="chip" data-val="black-steel" onclick="toggleChip(this,'q4_2','multi')">Чёрная нержавейка</div>
+            <div class="chip" data-val="glass-black" onclick="toggleChip(this,'q4_2','multi')">Стекло чёрное</div>
+            <div class="chip" data-val="glass-white" onclick="toggleChip(this,'q4_2','multi')">Стекло белое</div>
+            <div class="chip" data-val="custom" onclick="toggleChip(this,'q4_2','multi')">Кастомный цвет (Küppersbusch)</div>
+            <div class="chip" data-val="hidden" onclick="toggleChip(this,'q4_2','multi')">Скрытый монтаж (под фасад мебели)</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="4">
+          <span class="q-label">4.3 Ручки на технике — есть предпочтение?</span>
+          <div class="chips" id="q4_3">
+            <div class="chip" data-val="no-handle" onclick="toggleChip(this,'q4_3','single')">Без ручек (push-to-open)</div>
+            <div class="chip" data-val="bar" onclick="toggleChip(this,'q4_3','single')">Скоба / штанга</div>
+            <div class="chip" data-val="recessed" onclick="toggleChip(this,'q4_3','single')">Скрытая врезная</div>
+            <div class="chip" data-val="match-furniture" onclick="toggleChip(this,'q4_3','single')">В тон мебели</div>
+            <div class="chip" data-val="any" onclick="toggleChip(this,'q4_3','single')">Без разницы</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="4">
+          <span class="q-label">4.4 Стилевое направление кухни
+            <span class="q-hint">Помогает понять, насколько важна «незаметность» техники vs. дизайн-акцент</span>
+          </span>
+          <div class="chips" id="q4_4">
+            <div class="chip" data-val="minimalism" onclick="toggleChip(this,'q4_4','multi')">Минимализм</div>
+            <div class="chip" data-val="neoclassic" onclick="toggleChip(this,'q4_4','multi')">Неоклассика</div>
+            <div class="chip" data-val="modern" onclick="toggleChip(this,'q4_4','multi')">Современный</div>
+            <div class="chip" data-val="loft" onclick="toggleChip(this,'q4_4','multi')">Лофт</div>
+            <div class="chip" data-val="industrial" onclick="toggleChip(this,'q4_4','multi')">Индустриальный</div>
+            <div class="chip" data-val="classic" onclick="toggleChip(this,'q4_4','multi')">Классика</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── БЛОК 5: СОСТАВ ТЕХНИКИ ── -->
+    <div class="block" id="block-5">
+      <div class="block-header" onclick="toggleBlock('block-5')">
+        <div class="block-icon">✨</div>
+        <div class="block-title-wrap">
+          <div class="block-title">Состав техники</div>
+          <div class="block-subtitle">Что нужно в итоговый комплект</div>
+        </div>
+        <span class="block-status empty" id="status-block-5">Не заполнено</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="block-body">
+        <div class="block-why">
+          <strong>Почему важно:</strong> пароварка, кофемашина, drawer — каждый добавляет нишу 45–60 см. Планировать надо заранее, иначе при монтаже не хватит места. Также влияет на энергонагрузку.
+        </div>
+
+        <div class="question" data-block="5">
+          <span class="q-label">5.1 Какая техника точно нужна? <span class="q-hint">Отметьте все нужные позиции</span></span>
+          <div class="chips" id="q5_1">
+            <div class="chip" data-val="oven" onclick="toggleChip(this,'q5_1','multi')">Духовой шкаф</div>
+            <div class="chip" data-val="hob" onclick="toggleChip(this,'q5_1','multi')">Варочная поверхность</div>
+            <div class="chip" data-val="hood" onclick="toggleChip(this,'q5_1','multi')">Вытяжка</div>
+            <div class="chip" data-val="fridge" onclick="toggleChip(this,'q5_1','multi')">Холодильник</div>
+            <div class="chip" data-val="freezer" onclick="toggleChip(this,'q5_1','multi')">Морозильник</div>
+            <div class="chip" data-val="dishwasher" onclick="toggleChip(this,'q5_1','multi')">Посудомоечная машина</div>
+            <div class="chip" data-val="washer" onclick="toggleChip(this,'q5_1','multi')">Стиральная машина</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="5">
+          <span class="q-label">5.2 Дополнительная техника — что интересно? <span class="q-hint">Позиции, которые можно добавить в комплект</span></span>
+          <div class="chips" id="q5_2">
+            <div class="chip" data-val="steam" onclick="toggleChip(this,'q5_2','multi')">Пароварка / комби-пар</div>
+            <div class="chip" data-val="coffee" onclick="toggleChip(this,'q5_2','multi')">Кофемашина встраиваемая</div>
+            <div class="chip" data-val="warming" onclick="toggleChip(this,'q5_2','multi')">Drawer для подогрева</div>
+            <div class="chip" data-val="wine" onclick="toggleChip(this,'q5_2','multi')">Винный шкаф</div>
+            <div class="chip" data-val="microwave" onclick="toggleChip(this,'q5_2','multi')">Микроволновая печь</div>
+            <div class="chip" data-val="vacuum" onclick="toggleChip(this,'q5_2','multi')">Вакуумный ящик</div>
+            <div class="chip" data-val="none" onclick="toggleChip(this,'q5_2','multi')">Только базовый набор</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="5">
+          <span class="q-label">5.3 Есть предпочтения по бренду?
+            <span class="q-hint">Если нет предпочтений — подберём оптимальный mix из портфеля</span>
+          </span>
+          <div class="chips" id="q5_3">
+            <div class="chip" data-val="vzug" onclick="toggleChip(this,'q5_3','multi')">V-ZUG</div>
+            <div class="chip" data-val="bora" onclick="toggleChip(this,'q5_3','multi')">BORA</div>
+            <div class="chip" data-val="kuppersbusch" onclick="toggleChip(this,'q5_3','multi')">Küppersbusch</div>
+            <div class="chip" data-val="fhiaba" onclick="toggleChip(this,'q5_3','multi')">Fhiaba</div>
+            <div class="chip" data-val="graude" onclick="toggleChip(this,'q5_3','multi')">Graude</div>
+            <div class="chip" data-val="schulthess" onclick="toggleChip(this,'q5_3','multi')">Schulthess</div>
+            <div class="chip" data-val="sks" onclick="toggleChip(this,'q5_3','multi')">SKS</div>
+            <div class="chip" data-val="ilve" onclick="toggleChip(this,'q5_3','multi')">ILVE</div>
+            <div class="chip" data-val="de-dietrich" onclick="toggleChip(this,'q5_3','multi')">De Dietrich</div>
+            <div class="chip" data-val="any" onclick="toggleChip(this,'q5_3','multi')">Нет предпочтений</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="5">
+          <span class="q-label">5.4 Нужна ли «умная» техника с WiFi / app-управлением?</span>
+          <div class="chips" id="q5_4">
+            <div class="chip" data-val="yes" onclick="toggleChip(this,'q5_4','single')">Да, принципиально</div>
+            <div class="chip" data-val="nice" onclick="toggleChip(this,'q5_4','single')">Приятный бонус, но не обязательно</div>
+            <div class="chip" data-val="no" onclick="toggleChip(this,'q5_4','single')">Не важно</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── БЛОК 6: РЕШЕНИЕ О ПОКУПКЕ ── -->
+    <div class="block" id="block-6">
+      <div class="block-header" onclick="toggleBlock('block-6')">
+        <div class="block-icon">🤝</div>
+        <div class="block-title-wrap">
+          <div class="block-title">Решение о покупке</div>
+          <div class="block-subtitle">Кто принимает и что нужно для согласования</div>
+        </div>
+        <span class="block-status empty" id="status-block-6">Не заполнено</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="block-body">
+        <div class="block-why">
+          <strong>Почему важно:</strong> архитектору нужен один формат КП, застройщику — другой (смета с артикулами и ценами без НДС). Зная это, мы сразу готовим нужный документ и не делаем лишние итерации.
+        </div>
+
+        <div class="question" data-block="6">
+          <span class="q-label">6.1 Кто принимает итоговое решение о покупке?</span>
+          <div class="options" id="q6_1">
+            <label class="opt radio" onclick="selectOpt(this,'q6_1')">
+              <input type="radio" name="q6_1" value="architect">
+              <div class="opt-dot"></div>
+              Я (архитектор / дизайнер) — сам выбираю технику для клиента
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q6_1')">
+              <input type="radio" name="q6_1" value="client">
+              <div class="opt-dot"></div>
+              Конечный заказчик — я только рекомендую
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q6_1')">
+              <input type="radio" name="q6_1" value="joint">
+              <div class="opt-dot"></div>
+              Совместно — обсуждаем с заказчиком
+            </label>
+            <label class="opt radio" onclick="selectOpt(this,'q6_1')">
+              <input type="radio" name="q6_1" value="developer">
+              <div class="opt-dot"></div>
+              Застройщик / управляющая компания
+            </label>
+          </div>
+        </div>
+
+        <div class="question" data-block="6">
+          <span class="q-label">6.2 Какой формат документа нужен для согласования?</span>
+          <div class="chips" id="q6_2">
+            <div class="chip" data-val="kp" onclick="toggleChip(this,'q6_2','multi')">КП с ценами и фото</div>
+            <div class="chip" data-val="smeta" onclick="toggleChip(this,'q6_2','multi')">Смета по форме застройщика</div>
+            <div class="chip" data-val="spec" onclick="toggleChip(this,'q6_2','multi')">Спецификация с артикулами</div>
+            <div class="chip" data-val="3d" onclick="toggleChip(this,'q6_2','multi')">Референсы / 3D-визуализация</div>
+            <div class="chip" data-val="contract" onclick="toggleChip(this,'q6_2','multi')">Договор для подписания</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="6">
+          <span class="q-label">6.3 Работаете ли вы с нами впервые или уже есть опыт сотрудничества?</span>
+          <div class="chips" id="q6_3">
+            <div class="chip" data-val="first" onclick="toggleChip(this,'q6_3','single')">Впервые</div>
+            <div class="chip" data-val="prev" onclick="toggleChip(this,'q6_3','single')">Уже работали — хочу продолжить</div>
+            <div class="chip" data-val="referral" onclick="toggleChip(this,'q6_3','single')">По рекомендации коллеги</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="6">
+          <span class="q-label">6.4 Как удобнее получить КП и пообщаться?</span>
+          <div class="chips" id="q6_4">
+            <div class="chip" data-val="telegram" onclick="toggleChip(this,'q6_4','multi')">Telegram</div>
+            <div class="chip" data-val="whatsapp" onclick="toggleChip(this,'q6_4','multi')">WhatsApp</div>
+            <div class="chip" data-val="email" onclick="toggleChip(this,'q6_4','multi')">Email</div>
+            <div class="chip" data-val="call" onclick="toggleChip(this,'q6_4','multi')">Звонок</div>
+            <div class="chip" data-val="meeting" onclick="toggleChip(this,'q6_4','multi')">Встреча в шоу-руме</div>
+          </div>
+        </div>
+
+        <div class="question" data-block="6">
+          <span class="q-label">6.5 Ваши контакты для обратной связи</span>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <input type="text" id="contact_name" placeholder="Имя / компания" data-block="6" data-q="6_5">
+            <input type="text" id="contact_tg" placeholder="Telegram @username или номер телефона">
+          </div>
+        </div>
+
+        <div class="question" data-block="6">
+          <span class="q-label">6.6 Что ещё важно для вас? (необязательно)
+            <span class="q-hint">Особые пожелания, ограничения, референсы — напишите всё, что поможет</span>
+          </span>
+          <textarea id="q6_comment" placeholder="Например: кухня в загородном доме с котлом на 15 кВт; или предпочитаем немецкое производство..."></textarea>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /blocks -->
+
+  <!-- СТРАНИЦА БЛАГОДАРНОСТИ -->
+  <div class="thanks" id="thanksPage">
+    <div class="thanks-icon">🎯</div>
+    <h2>Отлично! Данные получены</h2>
+    <p>Ваши ответы уже у нашего эксперта.<br>КП подготовим в течение <strong>5 минут</strong> и пришлём удобным вам способом.</p>
+    <a href="https://t.me/AndreyBotyev" class="tg-link" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.562 8.247l-2.01 9.471c-.148.658-.537.818-1.087.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.215-3.053 5.56-5.023c.242-.215-.053-.334-.373-.12L6.9 14.384l-2.95-.92c-.64-.2-.653-.64.135-.948l11.527-4.446c.534-.194 1.001.13.95.177z"/></svg>
+      Написать в Telegram
+    </a>
+  </div>
+
+</div><!-- /page -->
+
+<!-- STICKY BAR -->
+<div class="summary-bar" id="summaryBar">
+  <div class="summary-progress">
+    <div class="summary-label" id="summaryLabel">Заполните хотя бы 3 блока для точного КП</div>
+    <div style="display:flex;align-items:center;">
+      <div class="summary-track" style="flex:1">
+        <div class="summary-fill" id="summaryFill"></div>
+      </div>
+      <div class="summary-pct" id="summaryPct">0%</div>
+    </div>
+  </div>
+  <button class="send-btn" onclick="sendToTelegram()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.562 8.247l-2.01 9.471c-.148.658-.537.818-1.087.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.215-3.053 5.56-5.023c.242-.215-.053-.334-.373-.12L6.9 14.384l-2.95-.92c-.64-.2-.653-.64.135-.948l11.527-4.446c.534-.194 1.001.13.95.177z"/></svg>
+    Отправить
+  </button>
+</div>
+
+<script>
+const state = {};
+const blockFilled = {};
+
+function toggleBlock(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function toggleChip(el, groupId, mode) {
+  if (mode === 'single') {
+    document.querySelectorAll('#' + groupId + ' .chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    state[groupId] = [el.dataset.val];
+  } else {
+    el.classList.toggle('selected');
+    state[groupId] = Array.from(document.querySelectorAll('#' + groupId + ' .chip.selected')).map(c => c.dataset.val);
+  }
+  updateBlockStatus(el.closest('.block').id);
+  updateProgress();
+}
+
+function selectOpt(el, groupId) {
+  document.querySelectorAll('#' + groupId + ' .opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state[groupId] = el.querySelector('input').value;
+  updateBlockStatus(el.closest('.block').id);
+  updateProgress();
+}
+
+function updateBudget(val) {
+  const n = parseInt(val);
+  let display = n >= 1000000 ? (n/1000000).toFixed(1).replace('.0','') + ' млн ₽' : Math.round(n/1000) + ' 000 ₽';
+  document.getElementById('budgetVal').textContent = display;
+  state['budget'] = val;
+  const pct = ((n - 200000) / (5000000 - 200000)) * 100;
+  document.getElementById('budgetRange').style.background = 'linear-gradient(to right, var(--gold) 0%, var(--gold) ' + pct + '%, #e0e0e0 ' + pct + '%, #e0e0e0 100%)';
+  updateBlockStatus('block-2');
+  updateProgress();
+}
+
+function countBlockAnswers(blockId) {
+  const num = blockId.replace('block-','');
+  let count = 0;
+  document.querySelectorAll('[id^="q' + num + '_"]').forEach(group => {
+    if (group.querySelector && group.querySelector('.chip.selected')) count++;
+    if (group.querySelector && group.querySelector('.opt.selected')) count++;
+  });
+  if (blockId === 'block-2' && state['budget']) count++;
+  if (blockId === 'block-6' && document.getElementById('contact_name') && document.getElementById('contact_name').value.trim()) count++;
+  return count;
+}
+
+function updateBlockStatus(blockId) {
+  const totals = {'block-1':5,'block-2':4,'block-3':4,'block-4':4,'block-5':4,'block-6':5};
+  const count = countBlockAnswers(blockId);
+  const total = totals[blockId] || 4;
+  const el = document.getElementById('status-' + blockId);
+  const block = document.getElementById(blockId);
+  if (count === 0) { el.textContent = 'Не заполнено'; el.className = 'block-status empty'; block.classList.remove('filled'); }
+  else if (count >= total * 0.6) { el.textContent = '✓ Заполнено'; el.className = 'block-status done'; block.classList.add('filled'); }
+  else { el.textContent = count + '/' + total + ' вопросов'; el.className = 'block-status partial'; block.classList.remove('filled'); }
+  blockFilled[blockId] = count > 0;
+}
+
+function updateProgress() {
+  const filled = Object.values(blockFilled).filter(Boolean).length;
+  const pct = Math.round(filled / 6 * 100);
+  document.getElementById('summaryFill').style.width = pct + '%';
+  document.getElementById('summaryPct').textContent = pct + '%';
+  const label = document.getElementById('summaryLabel');
+  if (pct === 0) label.textContent = 'Заполните хотя бы 3 блока для точного КП';
+  else if (pct < 50) label.textContent = 'Заполнено ' + filled + ' из 6 блоков — продолжайте';
+  else if (pct < 100) label.textContent = 'Почти готово! ' + filled + ' из 6 блоков';
+  else label.textContent = '✓ Все блоки заполнены — отправляем!';
+}
+
+function sendToTelegram() {
+  const contact = (document.getElementById('contact_name').value || '').trim() || '(не указано)';
+  const tg = (document.getElementById('contact_tg').value || '').trim();
+  const comment = (document.getElementById('q6_comment').value || '').trim();
+  const budget = document.getElementById('budgetVal').textContent;
+
+  const L = {
+    linear:'Линейная','l-shape':'Г-образная','u-shape':'П-образная',island:'С островом',peninsula:'Полуостров',
+    '45':'45 см','60':'60 см','76':'76 см','90':'90 см',
+    low:'До 2,7 м',high:'2,7–3,2 м','very-high':'Более 3,2 м',
+    'wall-duct':'Воздуховод в стене','ceiling-duct':'Воздуховод в потолке',recirculation:'Рециркуляция',bora:'BORA',
+    '60h':'Холодильник 60 см','90h':'Холодильник 90 см',separate:'Отдельные ниши',column:'Колонны в ряд',under:'Под столешницей',no:'Не нужен',
+    '220':'220В','380':'380В',check:'Уточнить с электриком',
+    firm:'Фиксированный','plus10':'±10–15%',flex:'Гибкий',
+    oven:'Духовой шкаф',hob:'Варочная',hood:'Вытяжка',fridge:'Холодильник',dishwasher:'Посудомойка',extras:'Доп. техника',none:'Лучшее везде',
+    full:'100%',advance:'Аванс+остаток',leasing:'Лизинг',entity:'Юр. лицо',
+    '1m':'До 1 мес','3m':'1–3 мес','6m':'3–6 мес','6m+':'6+ мес',unknown:'Не определено',
+    'new-build':'Новострой',renovation:'Ремонт',ready:'Замена техники',design:'Стадия проекта',
+    yes:'Да',discuss:'Обсудим',wait:'Готов ждать',alt:'Аналог со склада',decide:'Решим позже',
+    white:'Белый',grey:'Серый',black:'Чёрный',wood:'Дерево',color:'Акцентный',mixed:'Смешанный',
+    steel:'Нержавейка','black-steel':'Чёрная нержавейка','glass-black':'Стекло чёрное','glass-white':'Стекло белое',custom:'Кастомный',hidden:'Скрытый монтаж',
+    'no-handle':'Без ручек',bar:'Скоба',recessed:'Врезная','match-furniture':'В тон мебели',any:'Без разницы',
+    minimalism:'Минимализм',neoclassic:'Неоклассика',modern:'Современный',loft:'Лофт',industrial:'Индустриальный',classic:'Классика',
+    freezer:'Морозильник',washer:'Стиральная машина',
+    steam:'Пароварка',coffee:'Кофемашина',warming:'Drawer',wine:'Винный шкаф',microwave:'Микроволновка',vacuum:'Вакуумный ящик',
+    vzug:'V-ZUG',kuppersbusch:'Küppersbusch',fhiaba:'Fhiaba',graude:'Graude',schulthess:'Schulthess',sks:'SKS',ilve:'ILVE','de-dietrich':'De Dietrich',
+    nice:'Приятный бонус',
+    architect:'Архитектор/дизайнер',client:'Конечный заказчик',joint:'Совместно',developer:'Застройщик',
+    kp:'КП с фото',smeta:'Смета',spec:'Спецификация','3d':'3D/референсы',contract:'Договор',
+    first:'Впервые',prev:'Уже работали',referral:'По рекомендации',
+    telegram:'Telegram',whatsapp:'WhatsApp',email:'Email',call:'Звонок',meeting:'Встреча',
+  };
+
+  const lbl = v => L[v] || v;
+  const fmt = k => { const v = state[k]; if (!v || (Array.isArray(v) && !v.length)) return null; return Array.isArray(v) ? v.map(lbl).join(', ') : lbl(v); };
+
+  let msg = '🏠 *Новый запрос на КП · Home Project*\n\n👤 *' + contact + '*' + (tg ? ' · ' + tg : '') + '\n\n';
+
+  const blocks = [
+    ['📐 Схема', [['q1_1','Конфигурация'],['q1_2','Ниша'],['q1_3','Высота потолков'],['q1_3b','Вентиляция'],['q1_4','Холодильник'],['q1_5','Электросеть']]],
+    ['💰 Бюджет', [['budget_val','Бюджет'],['q2_2','Гибкость'],['q2_3','Где сэкономить'],['q2_4','Оплата']]],
+    ['📅 Сроки', [['q3_1','Срок'],['q3_2','Этап'],['q3_3','Хранение'],['q3_4','Ждать']]],
+    ['🎨 Стиль', [['q4_1','Цвет'],['q4_2','Материал'],['q4_3','Ручки'],['q4_4','Стиль']]],
+    ['✨ Техника', [['q5_1','Основная'],['q5_2','Доп.'],['q5_3','Бренды'],['q5_4','Smart']]],
+    ['🤝 Решение', [['q6_1','Кто решает'],['q6_2','Документ'],['q6_3','Опыт'],['q6_4','Связь']]],
+  ];
+
+  for (const [title, qs] of blocks) {
+    const lines = [];
+    for (const [key, name] of qs) {
+      if (key === 'budget_val') { lines.push('  • Бюджет: ' + budget); continue; }
+      const v = fmt(key);
+      if (v) lines.push('  • ' + name + ': ' + v);
+    }
+    if (lines.length) msg += title + '\n' + lines.join('\n') + '\n\n';
+  }
+  if (comment) msg += '💬 ' + comment + '\n\n';
+  msg += '_homeproject.online_';
+
+  document.getElementById('mainPage').style.display = 'none';
+  document.getElementById('summaryBar').style.display = 'none';
+  document.getElementById('thanksPage').style.display = 'block';
+  setTimeout(() => window.open('https://t.me/AndreyBotyev?text=' + encodeURIComponent(msg), '_blank'), 400);
+}
+
+document.addEventListener('input', function(e) {
+  if (['contact_name','contact_tg','q6_comment'].includes(e.target.id)) {
+    updateBlockStatus('block-6'); updateProgress();
+  }
+});
+
+updateBudget(800000);
+updateProgress();
+</script>
+</body>
+</html>
