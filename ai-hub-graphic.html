@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>HomeProject AI</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1080px; height: 1080px;
+    background: #080C14;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    overflow: hidden;
+  }
+  .canvas {
+    width: 1080px; height: 1080px;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  svg.bg {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+
+  /* CENTER HUB */
+  .hub {
+    position: absolute;
+    width: 210px; height: 210px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #1E2A4A, #0A0E1A);
+    border: 2px solid rgba(201,163,106,0.7);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 10;
+    box-shadow: 0 0 60px rgba(201,163,106,0.25), 0 0 120px rgba(201,163,106,0.1), inset 0 0 30px rgba(201,163,106,0.05);
+  }
+  .hub-label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #C9A36A; margin-bottom: 6px; font-weight: 500;
+  }
+  .hub-ai {
+    font-size: 52px; font-weight: 800; color: #FFFFFF;
+    letter-spacing: -2px; line-height: 1;
+    text-shadow: 0 0 20px rgba(201,163,106,0.6);
+  }
+  .hub-sub {
+    font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: rgba(201,163,106,0.7); margin-top: 8px; font-weight: 400;
+  }
+
+  /* ORBIT RING */
+  .orbit-ring {
+    position: absolute;
+    width: 560px; height: 560px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,163,106,0.12);
+  }
+  .orbit-ring-inner {
+    position: absolute;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* NODES */
+  .node {
+    position: absolute;
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    background: rgba(13,18,32,0.95);
+    border: 1.5px solid rgba(201,163,106,0.4);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(201,163,106,0.1);
+    z-index: 10;
+    transform: translate(-50%, -50%);
+  }
+  .node-icon {
+    font-size: 28px; line-height: 1; margin-bottom: 6px;
+  }
+  .node-title {
+    font-size: 10.5px; font-weight: 600; color: #E8D9BB;
+    line-height: 1.25; letter-spacing: 0.3px;
+  }
+  .node-sub {
+    font-size: 8.5px; color: rgba(201,163,106,0.6);
+    margin-top: 3px; line-height: 1.3;
+  }
+
+  /* BRAND TAGLINE */
+  .tagline {
+    position: absolute;
+    bottom: 58px; left: 0; right: 0;
+    text-align: center;
+    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(201,163,106,0.5); font-weight: 400;
+  }
+  .brand-name {
+    position: absolute;
+    top: 58px; left: 0; right: 0;
+    text-align: center;
+    font-size: 13px; letter-spacing: 5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); font-weight: 300;
+  }
+
+  /* CORNER DOTS */
+  .corner-accent {
+    position: absolute;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(201,163,106,0.4);
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- SVG lines from hub to nodes -->
+  <svg class="bg" viewBox="0 0 1080 1080">
+    <!-- gradient defs -->
+    <defs>
+      <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#C9A36A" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#C9A36A" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="line1" x1="540" y1="540" x2="540" y2="190" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#C9A36A" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#C9A36A" stop-opacity="0.2"/>
+      </linearGradient>
+      <linearGradient id="line2" x1="540" y1="540" x2="838" y2="350" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#C9A36A" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#C9A36A" stop-opacity="0.2"/>
+      </linearGradient>
+      <linearGradient id="line3" x1="540" y1="540" x2="838" y2="730" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#C9A36A" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#C9A36A" stop-opacity="0.2"/>
+      </linearGradient>
+      <linearGradient id="line4" x1="540" y1="540" x2="540" y2="890" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#C9A36A" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#C9A36A" stop-opacity="0.2"/>
+      </linearGradient>
+      <linearGradient id="line5" x1="540" y1="540" x2="242" y2="730" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#C9A36A" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#C9A36A" stop-opacity="0.2"/>
+      </linearGradient>
+      <linearGradient id="line6" x1="540" y1="540" x2="242" y2="350" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#C9A36A" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#C9A36A" stop-opacity="0.2"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Background glow at center -->
+    <circle cx="540" cy="540" r="320" fill="url(#hubGlow)"/>
+
+    <!-- Subtle grid dots -->
+    <g opacity="0.06">
+      <pattern id="dots" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+        <circle cx="30" cy="30" r="1" fill="#C9A36A"/>
+      </pattern>
+      <rect width="1080" height="1080" fill="url(#dots)"/>
+    </g>
+
+    <!-- Connection lines (hub → nodes) -->
+    <!-- Top: Каталоги -->
+    <line x1="540" y1="435" x2="540" y2="255" stroke="url(#line1)" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="540" cy="250" r="3" fill="#C9A36A" opacity="0.8"/>
+
+    <!-- Top-right: 1С -->
+    <line x1="617" y1="468" x2="793" y2="355" stroke="url(#line2)" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="797" cy="352" r="3" fill="#C9A36A" opacity="0.8"/>
+
+    <!-- Bottom-right: Сайт -->
+    <line x1="617" y1="612" x2="793" y2="725" stroke="url(#line3)" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="797" cy="728" r="3" fill="#C9A36A" opacity="0.8"/>
+
+    <!-- Bottom: Конкуренты -->
+    <line x1="540" y1="645" x2="540" y2="825" stroke="url(#line4)" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="540" cy="829" r="3" fill="#C9A36A" opacity="0.8"/>
+
+    <!-- Bottom-left: Запросы -->
+    <line x1="463" y1="612" x2="287" y2="725" stroke="url(#line5)" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="283" cy="728" r="3" fill="#C9A36A" opacity="0.8"/>
+
+    <!-- Top-left: История -->
+    <line x1="463" y1="468" x2="287" y2="355" stroke="url(#line6)" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="283" cy="352" r="3" fill="#C9A36A" opacity="0.8"/>
+  </svg>
+
+  <!-- Brand name top -->
+  <div class="brand-name">HOME PROJECT</div>
+
+  <!-- Orbit rings -->
+  <div class="orbit-ring"></div>
+  <div class="orbit-ring-inner"></div>
+
+  <!-- CENTER HUB -->
+  <div class="hub">
+    <div class="hub-label">powered by</div>
+    <div class="hub-ai">AI</div>
+    <div class="hub-sub">менеджер · Ария</div>
+  </div>
+
+  <!-- NODE 1: TOP — Каталоги брендов (12:00) -->
+  <div class="node" style="left:540px; top:190px;">
+    <div class="node-icon">📚</div>
+    <div class="node-title">Каталоги</div>
+    <div class="node-sub">14 брендов</div>
+  </div>
+
+  <!-- NODE 2: TOP-RIGHT — 1С (2:00) -->
+  <div class="node" style="left:838px; top:350px;">
+    <div class="node-icon">🗂</div>
+    <div class="node-title">1С · Учёт</div>
+    <div class="node-sub">остатки, заказы</div>
+  </div>
+
+  <!-- NODE 3: BOTTOM-RIGHT — Сайт (4:00) -->
+  <div class="node" style="left:838px; top:730px;">
+    <div class="node-icon">🌐</div>
+    <div class="node-title">Сайт</div>
+    <div class="node-sub">homeproject.online</div>
+  </div>
+
+  <!-- NODE 4: BOTTOM — Конкуренты (6:00) -->
+  <div class="node" style="left:540px; top:890px;">
+    <div class="node-icon">📊</div>
+    <div class="node-title">Конкуренты</div>
+    <div class="node-sub">анализ рынка</div>
+  </div>
+
+  <!-- NODE 5: BOTTOM-LEFT — Запросы (8:00) -->
+  <div class="node" style="left:242px; top:730px;">
+    <div class="node-icon">💬</div>
+    <div class="node-title">Запросы</div>
+    <div class="node-sub">чат-бот · email</div>
+  </div>
+
+  <!-- NODE 6: TOP-LEFT — История КП (10:00) -->
+  <div class="node" style="left:242px; top:350px;">
+    <div class="node-icon">📋</div>
+    <div class="node-title">База КП</div>
+    <div class="node-sub">история проектов</div>
+  </div>
+
+  <!-- Bottom tagline -->
+  <div class="tagline">пространство премиальных решений для вашего дома</div>
+
+</div>
+</body>
+</html>
