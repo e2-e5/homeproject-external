@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · Андрей · Bertazzoni · Чёрная кухня · Home Project</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--dark:#181A20;--gold:#c9a96e;--gold-lt:rgba(201,169,110,0.12);--bg:#f5f4f0;--text:#1a1a1a;--muted:#7a8099;--border:#e5e3db;--berta-red:#C41230;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+.header{background:var(--dark);padding:28px 48px 24px;display:flex;justify-content:space-between;align-items:flex-end;}
+.logo-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase;}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:3px;}
+.kp-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.kp-meta{font-size:22px;font-weight:700;color:#fff;margin-top:2px;}
+.kp-date{font-size:11px;color:var(--muted);margin-top:3px;}
+.brand-bar{background:var(--berta-red);padding:9px 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.brand-bar-name{font-size:13px;font-weight:700;color:#fff;letter-spacing:.08em;}
+.brand-bar-sep{color:rgba(255,255,255,.4);}
+.brand-bar-tagline{font-size:11px;color:rgba(255,255,255,.82);}
+.addressee{background:#fff;padding:16px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:36px;flex-wrap:wrap;}
+.addr-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.addr-val{font-size:14px;font-weight:600;}
+.kp-nav{background:#fff;border-bottom:2px solid var(--border);padding:0 48px;display:flex;gap:0;}
+.kp-tab{padding:13px 22px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;letter-spacing:.04em;}
+.kp-tab:hover{color:var(--text);}
+.kp-tab.active{color:var(--berta-red);border-bottom-color:var(--berta-red);}
+.container{max-width:960px;margin:0 auto;background:#fff;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.pad{padding:40px 48px 56px;}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.brief-hero{background:var(--dark);border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;}
+.brief-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;}
+.brief-text{font-size:13px;color:#aaa;line-height:1.7;}
+.brief-accent{color:var(--gold);font-weight:600;}
+.brief-quote{background:#fff;border:1px solid var(--border);border-left:4px solid var(--berta-red);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:24px;font-size:15px;color:#333;font-style:italic;line-height:1.7;}
+.brief-quote cite{display:block;margin-top:10px;font-style:normal;font-size:12px;color:var(--muted);}
+.brief-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px;}
+.brief-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.brief-chip-icon{font-size:24px;margin-bottom:8px;}
+.brief-chip-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px;}
+.brief-chip-val{font-size:14px;font-weight:700;}
+.brief-chip-sub{font-size:12px;color:#888;margin-top:2px;}
+.variant-header{background:var(--dark);border-radius:14px;padding:24px 28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.variant-badge{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:700;margin-bottom:6px;}
+.variant-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:6px;}
+.variant-desc{font-size:13px;color:#9aa0b8;line-height:1.6;max-width:440px;}
+.variant-right{text-align:right;flex-shrink:0;}
+.variant-price-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.variant-price{font-size:32px;font-weight:800;color:#fff;white-space:nowrap;}
+.variant-price-sub{font-size:11px;color:#6a7090;margin-top:3px;}
+.kp-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.kp-table th{background:var(--dark);color:#fff;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:11px 14px;text-align:left;}
+.kp-table td{padding:14px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+.kp-table tr:last-child td{border-bottom:none;}
+.kp-table tr:hover td{background:#fafaf8;}
+.item-num{font-size:11px;font-weight:700;color:var(--gold);width:28px;}
+.item-cat{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.item-model{font-size:14px;font-weight:700;}
+.item-sku{font-size:11px;color:var(--muted);font-family:monospace;margin-top:2px;}
+.item-desc{font-size:12px;color:#555;margin-top:3px;line-height:1.5;}
+.item-color{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#555;margin-top:4px;}
+.color-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.1);}
+.price-cell{text-align:right;white-space:nowrap;}
+.price-val{font-size:15px;font-weight:700;}
+.price-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.kp-total{background:var(--dark);border-radius:12px;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
+.kp-total-label{font-size:12px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.1em;}
+.kp-total-val{font-size:26px;font-weight:800;color:#fff;}
+.product-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px;}
+.product-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.product-card-img{height:180px;background:linear-gradient(135deg,#1a1c22,#2a2d38);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+.product-card-img-placeholder{width:100%;height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a1c22,#2a2d38);color:#6a7090;font-size:12px;text-align:center;padding:16px;}
+.product-card-img-placeholder .cat-icon{font-size:40px;opacity:.5;}
+.product-card-body{padding:16px 18px 20px;}
+.product-card-cat{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;}
+.product-card-name{font-size:15px;font-weight:700;margin-bottom:3px;}
+.product-card-sku{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:8px;}
+.product-card-specs{list-style:none;display:flex;flex-direction:column;gap:4px;margin-bottom:12px;}
+.product-card-specs li{font-size:12px;color:#555;display:flex;gap:4px;}
+.product-card-specs li::before{content:'•';color:var(--berta-red);flex-shrink:0;}
+.product-card-price{font-size:16px;font-weight:700;}
+.product-card-price-label{font-size:10px;color:var(--muted);margin-bottom:2px;}
+.color-badge{display:inline-flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:11px;margin-top:6px;}
+.notice{background:#f8f6f0;border:1px solid #e8d9a0;border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:20px;font-size:12px;color:#6b5700;line-height:1.7;}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+.how-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 18px;}
+.how-card-icon{font-size:28px;margin-bottom:12px;}
+.how-card-title{font-size:13px;font-weight:700;margin-bottom:6px;}
+.how-card-text{font-size:12px;color:#666;line-height:1.6;}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
+.contact-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;}
+.contact-card-icon{font-size:28px;margin-bottom:8px;}
+.contact-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:5px;}
+.contact-card-val{font-size:13px;font-weight:600;}
+.contact-card-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.ai-disclaimer{background:#f8f8f8;border-radius:10px;padding:14px 18px;font-size:11px;color:#777;line-height:1.7;font-style:italic;}
+@media(max-width:680px){.header,.brand-bar,.addressee,.kp-nav,.pad{padding-left:20px;padding-right:20px;}.brief-grid,.product-cards,.how-grid,.contact-grid{grid-template-columns:1fr;}.variant-header{flex-direction:column;align-items:flex-start;}.kp-tab{padding:13px 14px;font-size:11px;}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <div><div class="logo-title">Home Project</div><div class="logo-sub">Премиальная кухонная техника</div></div>
+  <div style="text-align:right;"><div class="kp-label">Коммерческое предложение</div><div class="kp-meta">Андрей</div><div class="kp-date">10 июня 2026 г.</div></div>
+</div>
+<div class="brand-bar">
+  <span class="brand-bar-name">BERTAZZONI</span><span class="brand-bar-sep">·</span>
+  <span class="brand-bar-tagline">F.lli Bertazzoni · Гвасталла, Италия · с 1882 года</span>
+</div>
+<div class="addressee">
+  <div><div class="addr-lbl">Клиент</div><div class="addr-val">Андрей</div></div>
+  <div><div class="addr-lbl">Запрос</div><div class="addr-val">10.06.2026</div></div>
+  <div><div class="addr-lbl">Бюджет</div><div class="addr-val">~500 000 ₽</div></div>
+  <div><div class="addr-lbl">Цвет</div><div class="addr-val">Чёрный</div></div>
+  <div><div class="addr-lbl">Бренд</div><div class="addr-val">Bertazzoni</div></div>
+</div>
+<div class="kp-nav">
+  <div class="kp-tab active" onclick="showTab('brief')">📋 Бриф</div>
+  <div class="kp-tab" onclick="showTab('va')">А · Essentials ~532 000 ₽</div>
+  <div class="kp-tab" onclick="showTab('vb')">Б · Premium ~649 000 ₽</div>
+  <div class="kp-tab" onclick="showTab('contacts')">✉ Контакты</div>
+</div>
+
+<div id="tab-brief" class="tab-panel active"><div class="pad">
+  <div class="section-title">Бриф клиента</div>
+  <div class="brief-hero">
+    <div class="brief-title">Встраиваемая техника Bertazzoni — чёрная кухня</div>
+    <div class="brief-text">Полный комплект одного бренда, <span class="brief-accent">чёрная гамма</span>, аналог Miele ~500 000 ₽. Два варианта — базовый и расширенный. Все позиции <span class="brief-accent">в наличии на складе в Москве</span>.</div>
+  </div>
+  <div class="brief-quote">«Подберите комплект. Духовка, индукция, холодильник. Чёрный. Один бренд. Bertazzoni.»<cite>— Андрей, 10.06.2026</cite></div>
+  <div class="brief-grid">
+    <div class="brief-chip"><div class="brief-chip-icon">💰</div><div class="brief-chip-label">Бюджет</div><div class="brief-chip-val">~500 000 ₽</div><div class="brief-chip-sub">Цена РРЦ</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🎨</div><div class="brief-chip-label">Цвет</div><div class="brief-chip-val">Чёрный</div><div class="brief-chip-sub">Чёрное стекло</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🏷</div><div class="brief-chip-label">Бренд</div><div class="brief-chip-val">Bertazzoni</div><div class="brief-chip-sub">Серия Modern · Италия</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:28px;">
+    <div style="background:var(--dark);border-radius:14px;padding:20px 22px;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:10px;">Вариант А · Essentials</div><div style="font-size:13px;color:#ccc;line-height:1.8;">✦ Духовой шкаф 60 см · Чёрное стекло<br>✦ Индукция 60 см · 4 зоны<br>✦ Холодильник встраиваемый<br>✦ Посудомоечная машина</div><div style="font-size:20px;font-weight:800;color:#fff;margin-top:14px;">532 100 ₽</div><div style="font-size:11px;color:#6a7090;margin-top:3px;">4 позиции · всё в наличии</div></div>
+    <div style="background:var(--dark);border-radius:14px;padding:20px 22px;border:1px solid rgba(201,169,110,0.3);"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:10px;">Вариант Б · Premium</div><div style="font-size:13px;color:#ccc;line-height:1.8;">✦ Духовой шкаф 60 см · Чёрное стекло<br>✦ Индукция 78 см · мультизона<br>✦ Холодильник встраиваемый<br>✦ Посудомойка с автооткрытием</div><div style="font-size:20px;font-weight:800;color:#fff;margin-top:14px;">649 100 ₽</div><div style="font-size:11px;color:#6a7090;margin-top:3px;">4 позиции · расширенная комплектация</div></div>
+  </div>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-card-icon">🚚</div><div class="how-card-title">Доставка — 1 неделя</div><div class="how-card-text">Все позиции на складе в Москве. Отгрузка 5–7 рабочих дней.</div></div>
+    <div class="how-card"><div class="how-card-icon">🔧</div><div class="how-card-title">Подключение</div><div class="how-card-text">Поможем с рекомендацией проверенной бригады.</div></div>
+    <div class="how-card"><div class="how-card-icon">📜</div><div class="how-card-title">Гарантия</div><div class="how-card-text">Официальная гарантия производителя.</div></div>
+  </div>
+</div></div>
+
+<div id="tab-va" class="tab-panel"><div class="pad">
+  <div class="variant-header">
+    <div><div class="variant-badge">Вариант А · Essentials</div><div class="variant-title">Чёрная кухня Modern · 4 позиции</div><div class="variant-desc">Полный базовый комплект в единой чёрной гамме серии Modern. Один бренд, один стиль.</div></div>
+    <div class="variant-right"><div class="variant-price-label">Итого РРЦ</div><div class="variant-price">532 100 ₽</div><div class="variant-price-sub">4 позиции · склад Москва</div></div>
+  </div>
+  <div class="section-title">Состав комплекта</div>
+  <div class="product-cards">
+    <div class="product-card"><div class="product-card-img"><div class="product-card-img-placeholder"><div class="cat-icon">🔲</div><div>Духовой шкаф<br>FMOD6115ELB1</div></div></div><div class="product-card-body"><div class="product-card-cat">Духовой шкаф</div><div class="product-card-name">Bertazzoni Modern 60</div><div class="product-card-sku">FMOD6115ELB1</div><ul class="product-card-specs"><li>Электрический, 60 см, серия Modern</li><li>Чёрное стекло</li><li>11 режимов, сенсор</li><li>В наличии: 19 шт</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">185 000 ₽</div><div class="color-badge"><span style="width:10px;height:10px;border-radius:50%;background:#1a1a1a;border:1px solid #555;display:inline-block;"></span> Чёрное стекло</div></div></div>
+    <div class="product-card"><div class="product-card-img"><div class="product-card-img-placeholder"><div class="cat-icon">⬛</div><div>Индукционная панель<br>P604I1B26NV</div></div></div><div class="product-card-body"><div class="product-card-cat">Варочная панель</div><div class="product-card-name">Bertazzoni Induction 60</div><div class="product-card-sku">P604I1B26NV</div><ul class="product-card-specs"><li>Индукция, 60 см, 4 зоны</li><li>Чёрное стекло, touch</li><li>В наличии: 22 шт</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">88 600 ₽</div><div class="color-badge"><span style="width:10px;height:10px;border-radius:50%;background:#1a1a1a;border:1px solid #555;display:inline-block;"></span> Чёрное стекло</div></div></div>
+    <div class="product-card"><div class="product-card-img"><div class="product-card-img-placeholder"><div class="cat-icon">🧊</div><div>Холодильник<br>REF603BBNPTC</div></div></div><div class="product-card-body"><div class="product-card-cat">Холодильник встраиваемый</div><div class="product-card-name">Bertazzoni Built-in 60</div><div class="product-card-sku">REF603BBNPTC</div><ul class="product-card-specs"><li>Встраиваемый, 60 × 177 см</li><li>Total No Frost · класс A</li><li>В наличии: 15 шт</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">169 900 ₽</div><div class="color-badge"><span style="width:10px;height:10px;border-radius:50%;background:#8a7a6a;border:1px solid #999;display:inline-block;"></span> Под панель мебели</div></div></div>
+    <div class="product-card"><div class="product-card-img"><div class="product-card-img-placeholder"><div class="cat-icon">🫧</div><div>Посудомоечная машина<br>DW60EPR/21</div></div></div><div class="product-card-body"><div class="product-card-cat">Посудомоечная машина</div><div class="product-card-name">Bertazzoni Dishwasher 60</div><div class="product-card-sku">DW60EPR/21</div><ul class="product-card-specs"><li>Полная встройка, 60 см</li><li>14 комплектов · 45 дБ</li><li>В наличии: 39 шт</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">88 600 ₽</div><div class="color-badge"><span style="width:10px;height:10px;border-radius:50%;background:#8a7a6a;border:1px solid #999;display:inline-block;"></span> Под панель мебели</div></div></div>
+  </div>
+  <div class="kp-total"><div><div class="kp-total-label">Итого · Вариант А · 4 позиции</div><div class="kp-total-val">532 100 ₽</div></div><div style="text-align:right;"><div style="font-size:12px;color:#6a7090;">Цены по РРЦ</div><div style="font-size:11px;color:#4a5070;margin-top:4px;">Все позиции в наличии · Москва</div></div></div>
+  <div class="notice">💡 <strong>Мойка:</strong> Bertazzoni не производит мойки. Рекомендуем <strong>Franke, Blanco или Alveus</strong>.</div>
+</div></div>
+
+<div id="tab-vb" class="tab-panel"><div class="pad">
+  <div class="variant-header">
+    <div><div class="variant-badge">Вариант Б · Premium</div><div class="variant-title">Чёрная кухня Modern · Расширенная</div><div class="variant-desc">Панель 78 см + посудомойка с автооткрыванием. Для тех, кто серьёзно готовит.</div></div>
+    <div class="variant-right"><div class="variant-price-label">Итого РРЦ</div><div class="variant-price">649 100 ₽</div><div class="variant-price-sub">4 позиции · расширенный</div></div>
+  </div>
+  <div class="section-title">Состав комплекта</div>
+  <div class="product-cards">
+    <div class="product-card"><div class="product-card-img"><div class="product-card-img-placeholder"><div class="cat-icon">🔲</div><div>Духовой шкаф<br>FMOD6115ELB1</div></div></div><div class="product-card-body"><div class="product-card-cat">Духовой шкаф</div><div class="product-card-name">Bertazzoni Modern 60</div><div class="product-card-sku">FMOD6115ELB1</div><ul class="product-card-specs"><li>Электрический, 60 см, серия Modern</li><li>Чёрное стекло, 11 режимов</li><li>В наличии: 19 шт</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">185 000 ₽</div><div class="color-badge"><span style="width:10px;height:10px;border-radius:50%;background:#1a1a1a;border:1px solid #555;display:inline-block;"></span> Чёрное стекло</div></div></div>
+    <div class="product-card" style="border-color:var(--gold);"><div class="product-card-img" style="position:relative;"><div class="product-card-img-placeholder"><div class="cat-icon">⬛</div><div>Индукция 78 см<br>P784I1M30NVS</div></div><div style="position:absolute;top:10px;right:10px;background:var(--gold);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;text-transform:uppercase;">Upgrade</div></div><div class="product-card-body"><div class="product-card-cat">Варочная панель</div><div class="product-card-name">Bertazzoni Induction 78</div><div class="product-card-sku">P784I1M30NVS</div><ul class="product-card-specs"><li>Индукция, <strong>78 см</strong></li><li>4 зоны + мультизона, Boost</li><li style="color:var(--berta-red);font-weight:600;">⚠ В наличии: только 2 шт</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">151 500 ₽</div><div class="color-badge"><span style="width:10px;height:10px;border-radius:50%;background:#1a1a1a;border:1px solid #555;display:inline-block;"></span> Чёрное стекло</div></div></div>
+    <div class="product-card"><div class="product-card-img"><div class="product-card-img-placeholder"><div class="cat-icon">🧊</div><div>Холодильник<br>REF603BBNPTC</div></div></div><div class="product-card-body"><div class="product-card-cat">Холодильник встраиваемый</div><div class="product-card-name">Bertazzoni Built-in 60</div><div class="product-card-sku">REF603BBNPTC</div><ul class="product-card-specs"><li>Встраиваемый, 60 × 177 см</li><li>Total No Frost · класс A</li><li>В наличии: 15 шт</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">169 900 ₽</div><div class="color-badge"><span style="width:10px;height:10px;border-radius:50%;background:#8a7a6a;border:1px solid #999;display:inline-block;"></span> Под панель мебели</div></div></div>
+    <div class="product-card" style="border-color:var(--gold);"><div class="product-card-img" style="position:relative;"><div class="product-card-img-placeholder"><div class="cat-icon">🫧</div><div>Посудомойка автооткрытие<br>DW6083PRV</div></div><div style="position:absolute;top:10px;right:10px;background:var(--gold);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;text-transform:uppercase;">Upgrade</div></div><div class="product-card-body"><div class="product-card-cat">Посудомоечная машина</div><div class="product-card-name">Bertazzoni DW6083PRV</div><div class="product-card-sku">DW6083PRV</div><ul class="product-card-specs"><li>Полная встройка, 60 см</li><li><strong>Автооткрывание дверцы</strong></li><li>14 комплектов · 44 дБ</li><li>В наличии: 14 шт</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">142 700 ₽</div><div class="color-badge"><span style="width:10px;height:10px;border-radius:50%;background:#8a7a6a;border:1px solid #999;display:inline-block;"></span> Под панель мебели</div></div></div>
+  </div>
+  <div class="kp-total"><div><div class="kp-total-label">Итого · Вариант Б · 4 позиции</div><div class="kp-total-val">649 100 ₽</div></div><div style="text-align:right;"><div style="font-size:12px;color:#6a7090;">Цены по РРЦ</div><div style="font-size:11px;color:#4a5070;margin-top:4px;">Все позиции в наличии · Москва</div></div></div>
+  <div class="notice">⚠️ <strong>Внимание:</strong> панель 78 см P784I1M30NVS — <strong>осталось 2 штуки на складе</strong>. Рекомендуем зафиксировать оперативно.</div>
+  <div class="notice" style="margin-top:12px;">💡 <strong>Мойка:</strong> рекомендуем <strong>Franke, Blanco или Alveus</strong> у кухонного поставщика.</div>
+</div></div>
+
+<div id="tab-contacts" class="tab-panel"><div class="pad">
+  <div class="section-title">Контакты</div>
+  <div class="brief-hero" style="margin-bottom:28px;"><div class="brief-title">Готовы ответить на вопросы</div><div class="brief-text">Для фиксации позиций или уточнения деталей — пишите. Индукция 78 см в Варианте Б <span class="brief-accent">осталась в 2 единицах</span>.</div></div>
+  <div class="contact-grid">
+    <div class="contact-card"><div class="contact-card-icon">📧</div><div class="contact-card-label">Email</div><div class="contact-card-val">info@homeproject.online</div><div class="contact-card-sub">Ответ в течение часа</div></div>
+    <div class="contact-card"><div class="contact-card-icon">📱</div><div class="contact-card-label">Telegram</div><div class="contact-card-val">@homeproject_online</div><div class="contact-card-sub">Быстрая связь</div></div>
+    <div class="contact-card"><div class="contact-card-icon">🌐</div><div class="contact-card-label">Сайт</div><div class="contact-card-val">homeproject.online</div><div class="contact-card-sub">Каталог и цены</div></div>
+  </div>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-card-icon">🏆</div><div class="how-card-title">Авторизованный дистрибьютор</div><div class="how-card-text">Официальный партнёр Bertazzoni в России. Гарантия производителя.</div></div>
+    <div class="how-card"><div class="how-card-icon">📦</div><div class="how-card-title">Склад в Москве</div><div class="how-card-text">Все позиции физически на складе. Отгрузка 5–7 дней.</div></div>
+    <div class="how-card"><div class="how-card-icon">🤝</div><div class="how-card-title">Работаем с дизайнерами</div><div class="how-card-text">Партнёрские условия для архитекторов и студий.</div></div>
+  </div>
+  <div class="ai-disclaimer">КП подготовлено 10.06.2026. Цены по РРЦ, актуальны на дату составления.</div>
+</div></div>
+</div>
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.kp-tab').forEach(t=>t.classList.remove('active'));
+  const panel=document.getElementById('tab-'+id);
+  if(panel)panel.classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
