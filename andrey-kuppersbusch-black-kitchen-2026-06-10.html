@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · Андрей · Küppersbusch · Чёрная кухня · Home Project</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--dark:#181A20;--gold:#c9a96e;--gold-lt:rgba(201,169,110,0.12);--bg:#f5f4f0;--text:#1a1a1a;--muted:#7a8099;--border:#e5e3db;--kupp:#1C1C1C;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+.header{background:var(--dark);padding:28px 48px 24px;display:flex;justify-content:space-between;align-items:flex-end;}
+.logo-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase;}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:3px;}
+.kp-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.kp-meta{font-size:22px;font-weight:700;color:#fff;margin-top:2px;}
+.kp-date{font-size:11px;color:var(--muted);margin-top:3px;}
+.brand-bar{background:var(--kupp);padding:9px 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.08);}
+.brand-bar-name{font-size:13px;font-weight:700;color:#fff;letter-spacing:.1em;}
+.brand-bar-sep{color:rgba(255,255,255,.35);}
+.brand-bar-tagline{font-size:11px;color:rgba(255,255,255,.65);}
+.addressee{background:#fff;padding:16px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:36px;flex-wrap:wrap;}
+.addr-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.addr-val{font-size:14px;font-weight:600;}
+.kp-nav{background:#fff;border-bottom:2px solid var(--border);padding:0 48px;display:flex;gap:0;}
+.kp-tab{padding:13px 22px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;letter-spacing:.04em;}
+.kp-tab:hover{color:var(--text);}
+.kp-tab.active{color:var(--kupp);border-bottom-color:var(--kupp);}
+.container{max-width:960px;margin:0 auto;background:#fff;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.pad{padding:40px 48px 56px;}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.brief-hero{background:var(--dark);border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;}
+.brief-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;}
+.brief-text{font-size:13px;color:#aaa;line-height:1.7;}
+.brief-accent{color:var(--gold);font-weight:600;}
+.brief-quote{background:#fff;border:1px solid var(--border);border-left:4px solid var(--kupp);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:24px;font-size:15px;color:#333;font-style:italic;line-height:1.7;}
+.brief-quote cite{display:block;margin-top:10px;font-style:normal;font-size:12px;color:var(--muted);}
+.brief-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px;}
+.brief-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.brief-chip-icon{font-size:24px;margin-bottom:8px;}
+.brief-chip-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px;}
+.brief-chip-val{font-size:14px;font-weight:700;}
+.brief-chip-sub{font-size:12px;color:#888;margin-top:2px;}
+.variant-header{background:var(--dark);border-radius:14px;padding:24px 28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.variant-badge{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:700;margin-bottom:6px;}
+.variant-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:6px;}
+.variant-desc{font-size:13px;color:#9aa0b8;line-height:1.6;max-width:440px;}
+.variant-right{text-align:right;flex-shrink:0;}
+.variant-price-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.variant-price{font-size:32px;font-weight:800;color:#fff;white-space:nowrap;}
+.variant-price-sub{font-size:11px;color:#6a7090;margin-top:3px;}
+.budget-bar{margin-top:8px;}
+.budget-bar-track{height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;}
+.budget-bar-fill{height:100%;background:var(--gold);border-radius:4px;}
+.budget-bar-label{font-size:10px;color:#6a7090;margin-top:5px;}
+.kp-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.kp-table th{background:var(--dark);color:#fff;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:11px 14px;text-align:left;}
+.kp-table td{padding:14px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+.kp-table tr:last-child td{border-bottom:none;}
+.kp-table tr:hover td{background:#fafaf8;}
+.item-num{font-size:11px;font-weight:700;color:var(--gold);width:28px;}
+.item-cat{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.item-model{font-size:14px;font-weight:700;}
+.item-sku{font-size:11px;color:var(--muted);font-family:monospace;margin-top:2px;}
+.item-desc{font-size:12px;color:#555;margin-top:3px;line-height:1.5;}
+.item-color{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#555;margin-top:4px;}
+.color-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.12);}
+.price-cell{text-align:right;white-space:nowrap;}
+.price-val{font-size:15px;font-weight:700;}
+.price-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.kp-total{background:var(--dark);border-radius:12px;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
+.kp-total-label{font-size:12px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.1em;}
+.kp-total-val{font-size:26px;font-weight:800;color:#fff;}
+.kp-total-sub{font-size:11px;color:var(--muted);margin-top:2px;text-align:right;}
+.product-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px;}
+.product-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.product-card-img{height:200px;background:#f0ede8;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.product-card-img img{width:100%;height:100%;object-fit:contain;padding:16px;}
+.product-card-img-placeholder{width:100%;height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a1c22,#2a2d38);color:#6a7090;font-size:12px;text-align:center;padding:16px;}
+.cat-icon{font-size:40px;opacity:.4;}
+.product-card-body{padding:16px 18px 20px;}
+.product-card-cat{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;}
+.product-card-name{font-size:15px;font-weight:700;margin-bottom:3px;}
+.product-card-sku{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:8px;}
+.product-card-specs{list-style:none;display:flex;flex-direction:column;gap:4px;margin-bottom:12px;}
+.product-card-specs li{font-size:12px;color:#555;display:flex;gap:4px;}
+.product-card-specs li::before{content:'·';color:var(--kupp);flex-shrink:0;font-weight:700;}
+.product-card-price{font-size:16px;font-weight:700;}
+.product-card-price-label{font-size:10px;color:var(--muted);margin-bottom:2px;}
+.addon-note{background:#fafaf8;border:1px dashed #d5d0c8;border-radius:12px;padding:18px 22px;margin-bottom:24px;display:flex;gap:14px;align-items:flex-start;}
+.addon-note-icon{font-size:22px;flex-shrink:0;}
+.addon-note-title{font-size:13px;font-weight:700;margin-bottom:4px;}
+.addon-note-text{font-size:12px;color:#666;line-height:1.6;}
+.brand-story{background:var(--dark);border-radius:14px;padding:28px 32px;margin-bottom:24px;color:#fff;}
+.brand-story-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:12px;}
+.brand-story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
+.brand-fact{border-top:1px solid rgba(255,255,255,.1);padding-top:14px;}
+.brand-fact-num{font-size:22px;font-weight:800;color:var(--gold);margin-bottom:4px;}
+.brand-fact-label{font-size:12px;color:#9aa0b8;}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
+.how-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 18px;}
+.how-card-icon{font-size:26px;margin-bottom:10px;}
+.how-card-title{font-size:13px;font-weight:700;margin-bottom:6px;}
+.how-card-text{font-size:12px;color:#666;line-height:1.6;}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+.contact-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;}
+.contact-card-icon{font-size:28px;margin-bottom:8px;}
+.contact-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:5px;}
+.contact-card-val{font-size:13px;font-weight:600;}
+.contact-card-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.variants-overview{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+.vo-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:20px 22px;cursor:pointer;transition:border-color .15s;}
+.vo-card:hover{border-color:#aaa;}
+.vo-card.recommended{border:2px solid var(--gold);}
+.vo-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;}
+.vo-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+.vo-desc{font-size:12px;color:#666;margin-bottom:10px;line-height:1.5;}
+.vo-price{font-size:20px;font-weight:800;}
+.vo-price-note{font-size:11px;color:var(--muted);margin-top:2px;}
+.tag-rec{display:inline-block;background:var(--gold);color:#fff;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:6px;}
+.ai-disclaimer{background:#f8f8f8;border-radius:10px;padding:14px 18px;font-size:11px;color:#777;line-height:1.7;font-style:italic;margin-top:20px;}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <div><div class="logo-title">Home Project</div><div class="logo-sub">Премиальная встраиваемая техника</div></div>
+  <div style="text-align:right;"><div class="kp-label">Коммерческое предложение</div><div class="kp-meta">Андрей</div><div class="kp-date">10 июня 2026 г. · действительно 14 дней</div></div>
+</div>
+<div class="brand-bar">
+  <span class="brand-bar-name">KÜPPERSBUSCH</span><span class="brand-bar-sep">·</span>
+  <span class="brand-bar-tagline">Krefeld, Deutschland · с 1875 года · 150 лет немецкой точности</span>
+</div>
+<div class="addressee">
+  <div><div class="addr-lbl">Клиент</div><div class="addr-val">Андрей</div></div>
+  <div><div class="addr-lbl">Запрос</div><div class="addr-val">10.06.2026</div></div>
+  <div><div class="addr-lbl">Бюджет</div><div class="addr-val">~500 000 ₽</div></div>
+  <div><div class="addr-lbl">Цвет</div><div class="addr-val">Чёрный · Black Velvet</div></div>
+  <div><div class="addr-lbl">Бренд</div><div class="addr-val">Küppersbusch</div></div>
+</div>
+<div class="kp-nav">
+  <div class="kp-tab active" onclick="showTab('brief')">📋 Бриф</div>
+  <div class="kp-tab" onclick="showTab('va')">А · В бюджете</div>
+  <div class="kp-tab" onclick="showTab('vb')">Б · Рекомендован ✦</div>
+  <div class="kp-tab" onclick="showTab('contacts')">✉ Контакты</div>
+</div>
+
+<div id="tab-brief" class="tab-panel active"><div class="pad">
+  <div class="section-title">Бриф клиента</div>
+  <div class="brief-hero">
+    <div class="brief-title">Чёрная кухня · Küppersbusch · Аналог Miele</div>
+    <div class="brief-text">Запрос получен <span class="brief-accent">10.06.2026</span>. Задача: подобрать комплект встраиваемой техники <span class="brief-accent">одного бренда</span> в чёрной гамме, бюджет ~500 тыс. ₽. Рекомендован <span class="brief-accent">Küppersbusch</span> — немецкий аналог Miele той же ценовой ниши с уникальным ColorEdition (Black Velvet / Matt Black).</div>
+  </div>
+  <div class="brief-quote">«Аналог Miele. Бюджет порядка 500 тысяч. Цветовая гамма — чёрный. Подбор по одному бренду.»<cite>— Андрей, 10.06.2026</cite></div>
+  <div class="brief-grid">
+    <div class="brief-chip"><div class="brief-chip-icon">💰</div><div class="brief-chip-label">Бюджет</div><div class="brief-chip-val">~500 000 ₽</div><div class="brief-chip-sub">РРЦ, все позиции</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🎨</div><div class="brief-chip-label">Цвет</div><div class="brief-chip-val">Чёрный</div><div class="brief-chip-sub">Black Velvet / Matt Black</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🏷</div><div class="brief-chip-label">Бренд</div><div class="brief-chip-val">Küppersbusch</div><div class="brief-chip-sub">Один бренд, Германия</div></div>
+  </div>
+  <div class="section-title">Почему Küppersbusch = аналог Miele</div>
+  <div class="brand-story">
+    <div class="brand-story-title">150 лет немецкой точности — Krefeld, Deutschland</div>
+    <div style="font-size:13px;color:#aaa;line-height:1.7;">Производится в Германии с 1875 года. Та же ценовая ниша, что и Miele: пиролизные духовки, индукция с PowerBoost. Главное отличие — <span style="color:var(--gold);font-weight:600;">ColorEdition</span>: <strong style="color:#fff;">Black Velvet</strong> и <strong style="color:#fff;">Matt Black</strong> — недоступно у Miele.</div>
+    <div class="brand-story-grid">
+      <div class="brand-fact"><div class="brand-fact-num">1875</div><div class="brand-fact-label">Год основания, Крефельд</div></div>
+      <div class="brand-fact"><div class="brand-fact-num">150+</div><div class="brand-fact-label">Лет производства в Германии</div></div>
+      <div class="brand-fact"><div class="brand-fact-num">10+</div><div class="brand-fact-label">Цветовых вариантов ColorEdition</div></div>
+    </div>
+  </div>
+  <div class="section-title">Два варианта комплекта</div>
+  <div class="variants-overview">
+    <div class="vo-card" onclick="showTab('va')">
+      <div class="vo-label">Вариант А</div><div class="vo-title">Базовый · В бюджете</div>
+      <div class="vo-desc">Духовка + панель 60 см в чёрном + холодильник. Три позиции, укладываемся в бюджет.</div>
+      <div class="vo-price" style="color:#2c7a4b;">506 970 ₽</div><div class="vo-price-note">3 позиции · +1,4% к бюджету</div>
+    </div>
+    <div class="vo-card recommended" onclick="showTab('vb')">
+      <div class="vo-label">Вариант Б <span class="tag-rec">✦ рекомендован</span></div><div class="vo-title">Matt Black · Полный матовый чёрный</div>
+      <div class="vo-desc">Духовка + панель 80 см Matt Black (KSMR) — идеальный цвет + посудомойка под фасад.</div>
+      <div class="vo-price">690 970 ₽</div><div class="vo-price-note">4 позиции · расширенный бюджет</div>
+    </div>
+  </div>
+  <div class="addon-note"><div class="addon-note-icon">🚿</div><div><div class="addon-note-title">Мойка — не в нашем каталоге</div><div class="addon-note-text">Рекомендуем Franke Mythos или Blanco Axon в чёрном — отлично сочетаются с Black Velvet. ~40–80 тыс. ₽.</div></div></div>
+</div></div>
+
+<div id="tab-va" class="tab-panel"><div class="pad">
+  <div class="section-title">Вариант А — Базовый · В бюджете</div>
+  <div class="variant-header">
+    <div><div class="variant-badge">Вариант А · Базовый</div><div class="variant-title">Küppersbusch · Black Velvet · 3 позиции</div><div class="variant-desc">Духовой шкаф с пиролизом, индукционная панель 60 см, встраиваемый холодильник. Укладываемся в бюджет.</div></div>
+    <div class="variant-right"><div class="variant-price-label">Итого РРЦ</div><div class="variant-price">506 970 ₽</div><div class="variant-price-sub">из ~500 000 ₽ бюджета</div><div class="budget-bar"><div class="budget-bar-track"><div class="budget-bar-fill" style="width:100%;"></div></div><div class="budget-bar-label">≈ в рамках бюджета (+1,4%)</div></div></div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px;">#</th><th>Позиция</th><th>Артикул</th><th>Цвет</th><th style="width:140px;text-align:right;">Цена РРЦ</th></tr></thead>
+    <tbody>
+      <tr><td class="item-num">1</td><td><div class="item-cat">Духовой шкаф · 60 см</div><div class="item-model">Küppersbusch BP 6350.0 S5</div><div class="item-desc">Пиролиз · 71 л · 8 режимов · TFT-дисплей · A+ · made in Germany</div></td><td><span class="item-sku">BP 6350.0 S5</span></td><td><span class="item-color"><span class="color-dot" style="background:#1a1a1a;"></span> Black Velvet</span></td><td class="price-cell"><div class="price-val">231 990 ₽</div></td></tr>
+      <tr><td class="item-num">2</td><td><div class="item-cat">Индукционная панель · 60 см</div><div class="item-model">Küppersbusch KI 6550.0 SR</div><div class="item-desc">4 зоны + FlexZone · PowerBoost · сенсор · чёрное стекло</div></td><td><span class="item-sku">KI 6550.0 SR</span></td><td><span class="item-color"><span class="color-dot" style="background:#111;"></span> Чёрное стекло</span></td><td class="price-cell"><div class="price-val">163 990 ₽</div></td></tr>
+      <tr><td class="item-num">3</td><td><div class="item-cat">Холодильник встраиваемый · 88,5 см</div><div class="item-model">Küppersbusch FK 4545.0i</div><div class="item-desc">Под мебельный фасад · ~145 л · тихий</div></td><td><span class="item-sku">FK 4545.0i</span></td><td><span class="item-color"><span class="color-dot" style="background:#e0ddd8;border:1px solid #ccc;"></span> Под фасад</span></td><td class="price-cell"><div class="price-val">110 990 ₽</div></td></tr>
+    </tbody>
+  </table>
+  <div class="kp-total"><div><div class="kp-total-label">Итого · 3 позиции</div><div style="font-size:11px;color:#6a7090;margin-top:3px;">Все цены — РРЦ</div></div><div><div class="kp-total-val">506 970 ₽</div><div class="kp-total-sub">≈ в рамках бюджета</div></div></div>
+  <div class="product-cards">
+    <div class="product-card"><div class="product-card-img"><img src="https://static.insales-cdn.com/images/products/1/2570/919710218/638a7313be3b183f0675327e2ccb2885_foto_dukhovoy_shkaf_kuppersbusch_bp_6350_0_s5_black_velvet_1.jpg" alt="BP 6350.0 S5" onerror="this.parentElement.innerHTML='<div class=\'product-card-img-placeholder\'><span class=\'cat-icon\'>🟫</span><span>BP 6350.0 S5</span></div>'"></div><div class="product-card-body"><div class="product-card-cat">Духовой шкаф · 60 см</div><div class="product-card-name">BP 6350.0 S5 Black Velvet</div><div class="product-card-sku">Küppersbusch · Germany</div><ul class="product-card-specs"><li>Пиролизная самоочистка</li><li>71 л · 8 режимов · TFT-дисплей</li><li>Класс A+ · сделано в Германии</li><li>Black Velvet — матовый чёрный</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">231 990 ₽</div></div></div>
+    <div class="product-card"><div class="product-card-img"><img src="https://static.insales-cdn.com/images/products/1/754/927195890/69a9afc2fda353357d92c7ffeda1a6fd_ki_6550.0_sr_1.jpg" alt="KI 6550.0 SR" onerror="this.parentElement.innerHTML='<div class=\'product-card-img-placeholder\'><span class=\'cat-icon\'>⚡</span><span>KI 6550.0 SR</span></div>'"></div><div class="product-card-body"><div class="product-card-cat">Варочная панель · 60 см</div><div class="product-card-name">KI 6550.0 SR</div><div class="product-card-sku">Küppersbusch · Germany</div><ul class="product-card-specs"><li>4 конфорки + FlexZone</li><li>PowerBoost · сенсор</li><li>Чёрное стекло</li><li>60 см · стандартный проём</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">163 990 ₽</div></div></div>
+  </div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 22px;display:flex;gap:20px;align-items:center;">
+    <div style="width:90px;height:90px;flex-shrink:0;overflow:hidden;border-radius:10px;background:#f0ede8;"><img src="https://static.insales-cdn.com/images/products/1/4546/925200834/FK-4545.0i_1.jpg" alt="FK 4545.0i" style="width:100%;height:100%;object-fit:contain;padding:6px;" onerror="this.parentElement.innerHTML='<div style=\'width:90px;height:90px;display:flex;align-items:center;justify-content:center;font-size:30px;\'>🧊</div>'"></div>
+    <div style="flex:1;"><div class="product-card-cat">Встраиваемый холодильник</div><div class="product-card-name" style="font-size:14px;">FK 4545.0i · под мебельный фасад</div><div class="product-card-sku">Küppersbusch · Germany</div><ul class="product-card-specs" style="margin-top:6px;"><li>Полная встройка · фасад кухни</li><li>88,5 × 55,6 × 54,2 см · ~145 л</li></ul></div>
+    <div style="text-align:right;flex-shrink:0;"><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price" style="font-size:18px;">110 990 ₽</div></div>
+  </div>
+</div></div>
+
+<div id="tab-vb" class="tab-panel"><div class="pad">
+  <div class="section-title">Вариант Б — Matt Black · Рекомендован ✦</div>
+  <div class="variant-header">
+    <div><div class="variant-badge">Вариант Б · Рекомендован ✦</div><div class="variant-title">Küppersbusch · Matt Black · 4 позиции</div><div class="variant-desc">Духовка Black Velvet + панель 80 см KSMR MattBlack — идеальное совпадение цвета. Плюс холодильник и посудомойка.</div></div>
+    <div class="variant-right"><div class="variant-price-label">Итого РРЦ</div><div class="variant-price">690 970 ₽</div><div class="variant-price-sub">4 позиции · полный комплект</div><div class="budget-bar"><div class="budget-bar-track"><div class="budget-bar-fill" style="width:85%;"></div></div><div class="budget-bar-label">+190 970 ₽ к бюджету · полный комплект</div></div></div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px;">#</th><th>Позиция</th><th>Артикул</th><th>Цвет</th><th style="width:140px;text-align:right;">Цена РРЦ</th></tr></thead>
+    <tbody>
+      <tr><td class="item-num">1</td><td><div class="item-cat">Духовой шкаф · 60 см</div><div class="item-model">Küppersbusch BP 6350.0 S5</div><div class="item-desc">Пиролиз · 71 л · 8 режимов · TFT · A+ · Germany</div></td><td><span class="item-sku">BP 6350.0 S5</span></td><td><span class="item-color"><span class="color-dot" style="background:#1a1a1a;"></span> Black Velvet</span></td><td class="price-cell"><div class="price-val">231 990 ₽</div></td></tr>
+      <tr style="background:#fffdf7;"><td class="item-num">2</td><td><div class="item-cat">Индукционная панель · 80 см ✦</div><div class="item-model">Küppersbusch KI 8550.0 KSMR MattBlack</div><div class="item-desc">Полный матовый чёрный · 80 см · 5 зон · PowerBoost</div></td><td><span class="item-sku">KI 8550.0 KSMR</span></td><td><span class="item-color"><span class="color-dot" style="background:#0d0d0d;"></span> Matt Black</span></td><td class="price-cell"><div class="price-val">235 990 ₽</div></td></tr>
+      <tr><td class="item-num">3</td><td><div class="item-cat">Холодильник встраиваемый · 88,5 см</div><div class="item-model">Küppersbusch FK 4545.0i</div><div class="item-desc">Под мебельный фасад · ~145 л</div></td><td><span class="item-sku">FK 4545.0i</span></td><td><span class="item-color"><span class="color-dot" style="background:#e0ddd8;border:1px solid #ccc;"></span> Под фасад</span></td><td class="price-cell"><div class="price-val">110 990 ₽</div></td></tr>
+      <tr><td class="item-num">4</td><td><div class="item-cat">Посудомоечная машина · 60 см</div><div class="item-model">Küppersbusch G 4800.1 V</div><div class="item-desc">Полная встройка · 14 комплектов · тихая · A++</div></td><td><span class="item-sku">G 4800.1 V</span></td><td><span class="item-color"><span class="color-dot" style="background:#e0ddd8;border:1px solid #ccc;"></span> Под фасад</span></td><td class="price-cell"><div class="price-val">118 990 ₽</div></td></tr>
+    </tbody>
+  </table>
+  <div class="kp-total"><div><div class="kp-total-label">Итого · 4 позиции</div><div style="font-size:11px;color:#6a7090;margin-top:3px;">Все цены — РРЦ</div></div><div><div class="kp-total-val">690 970 ₽</div><div class="kp-total-sub">полный комплект кухни</div></div></div>
+  <div class="addon-note"><div class="addon-note-icon">⭐</div><div><div class="addon-note-title">Почему вариант Б рекомендован</div><div class="addon-note-text">KI 8550.0 KSMR — единственная панель Küppersbusch с полностью матовым чёрным корпусом. Создана для сочетания с Black Velvet духовками. 80 см даёт больше пространства. Посудомойка G 4800.1 V закрывает кухню полностью — один бренд, единый стиль.</div></div></div>
+  <div class="product-cards">
+    <div class="product-card"><div class="product-card-img"><img src="https://static.insales-cdn.com/images/products/1/2570/919710218/638a7313be3b183f0675327e2ccb2885_foto_dukhovoy_shkaf_kuppersbusch_bp_6350_0_s5_black_velvet_1.jpg" alt="BP 6350.0 S5" onerror="this.parentElement.innerHTML='<div class=\'product-card-img-placeholder\'><span class=\'cat-icon\'>🟫</span><span>BP 6350.0 S5</span></div>'"></div><div class="product-card-body"><div class="product-card-cat">Духовой шкаф</div><div class="product-card-name">BP 6350.0 S5 Black Velvet</div><div class="product-card-sku">Küppersbusch · Germany</div><ul class="product-card-specs"><li>Пиролизная самоочистка</li><li>71 л · 8 режимов · TFT</li><li>Класс A+ · Germany</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">231 990 ₽</div></div></div>
+    <div class="product-card"><div class="product-card-img"><img src="https://static.insales-cdn.com/images/products/1/4456/927199592/induktsionnaya_varochnaya_panel_kuppersbusch_ki_8550_0_ksmr_mattblack_foto_1.jpg" alt="KI 8550.0 KSMR" onerror="this.parentElement.innerHTML='<div class=\'product-card-img-placeholder\'><span class=\'cat-icon\'>⚡</span><span>KI 8550.0 KSMR</span></div>'"></div><div class="product-card-body"><div class="product-card-cat">Панель · 80 см ✦</div><div class="product-card-name">KI 8550.0 KSMR MattBlack</div><div class="product-card-sku">Küppersbusch · Germany</div><ul class="product-card-specs"><li>Полный матовый чёрный</li><li>80 см · 5 зон · PowerBoost</li><li>Идеально к Black Velvet духовке</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">235 990 ₽</div></div></div>
+    <div class="product-card"><div class="product-card-img"><img src="https://static.insales-cdn.com/images/products/1/4546/925200834/FK-4545.0i_1.jpg" alt="FK 4545.0i" onerror="this.parentElement.innerHTML='<div class=\'product-card-img-placeholder\'><span class=\'cat-icon\'>🧊</span><span>FK 4545.0i</span></div>'"></div><div class="product-card-body"><div class="product-card-cat">Холодильник встраиваемый</div><div class="product-card-name">FK 4545.0i · под фасад</div><div class="product-card-sku">Küppersbusch · Germany</div><ul class="product-card-specs"><li>Полная встройка · фасад</li><li>88,5 × 55,6 × 54,2 см · ~145 л</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">110 990 ₽</div></div></div>
+    <div class="product-card"><div class="product-card-img"><img src="https://static.insales-cdn.com/images/products/1/2076/925247516/Kuppersbusch-G-4800.1-V_photo_1.jpg" alt="G 4800.1 V" onerror="this.parentElement.innerHTML='<div class=\'product-card-img-placeholder\'><span class=\'cat-icon\'>🍽</span><span>G 4800.1 V</span></div>'"></div><div class="product-card-body"><div class="product-card-cat">Посудомойка · 60 см</div><div class="product-card-name">G 4800.1 V · под фасад</div><div class="product-card-sku">Küppersbusch · Germany</div><ul class="product-card-specs"><li>Полная встройка · фасад</li><li>14 комплектов · тихий · A++</li></ul><div class="product-card-price-label">Цена РРЦ</div><div class="product-card-price">118 990 ₽</div></div></div>
+  </div>
+</div></div>
+
+<div id="tab-contacts" class="tab-panel"><div class="pad">
+  <div class="section-title">Следующий шаг</div>
+  <div class="brand-story" style="margin-bottom:24px;"><div class="brand-story-title">Как работаем</div><div style="font-size:13px;color:#aaa;line-height:1.7;">Home Project — дистрибутор премиальной встраиваемой техники в Москве. Поставка — от 4 до 8 недель в зависимости от наличия.</div></div>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-card-icon">✅</div><div class="how-card-title">Подтвердите выбор</div><div class="how-card-text">Укажите вариант А или Б — уточним наличие и сроки.</div></div>
+    <div class="how-card"><div class="how-card-icon">📐</div><div class="how-card-title">Согласование с мебельщиком</div><div class="how-card-text">Передадим монтажные чертежи и размеры.</div></div>
+    <div class="how-card"><div class="how-card-icon">🚚</div><div class="how-card-title">Поставка</div><div class="how-card-text">Доставка по Москве. Помогаем с монтажом.</div></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card"><div class="contact-card-icon">✉️</div><div class="contact-card-label">Email</div><div class="contact-card-val">info@homeproject.online</div><div class="contact-card-sub">Ответ в течение дня</div></div>
+    <div class="contact-card"><div class="contact-card-icon">💬</div><div class="contact-card-label">Telegram</div><div class="contact-card-val">@homeproject_bot</div><div class="contact-card-sub">Быстрый ответ</div></div>
+    <div class="contact-card"><div class="contact-card-icon">🌐</div><div class="contact-card-label">Сайт</div><div class="contact-card-val">homeproject.online</div><div class="contact-card-sub">Полный каталог</div></div>
+  </div>
+  <div class="ai-disclaimer">Все цены — РРЦ на 10.06.2026. Действительно 14 дней. Уточняйте наличие у менеджера.</div>
+</div></div>
+</div>
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.kp-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  const map={brief:0,va:1,vb:2,contacts:3};
+  if(map[id]!==undefined) document.querySelectorAll('.kp-tab')[map[id]].classList.add('active');
+}
+</script>
+</body>
+</html>
