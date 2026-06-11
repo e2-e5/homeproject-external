@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · Шоурум Demo · Постирочная · Schulthess / V-ZUG · Home Project</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--dark:#181A20;--gold:#c9a96e;--gold-lt:rgba(201,169,110,0.12);--bg:#f5f4f0;--text:#1a1a1a;--muted:#7a8099;--border:#e5e3db;--brand:#2d4a7a;--green:#22c55e;--green-lt:rgba(34,197,94,0.10);}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+.header{background:var(--dark);padding:28px 48px 24px;display:flex;justify-content:space-between;align-items:flex-end;}
+.logo-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase;}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:3px;}
+.kp-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.kp-meta{font-size:22px;font-weight:700;color:#fff;margin-top:2px;}
+.kp-date{font-size:11px;color:var(--muted);margin-top:3px;}
+.brand-bar{background:var(--brand);padding:9px 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.brand-bar-name{font-size:14px;font-weight:800;color:#fff;letter-spacing:.1em;text-transform:uppercase;}
+.brand-bar-sep{color:rgba(255,255,255,.4);}
+.brand-bar-series{font-size:11px;font-weight:600;color:rgba(255,255,255,.85);background:rgba(255,255,255,.12);padding:2px 10px;border-radius:10px;}
+.brand-bar-tagline{font-size:11px;color:rgba(255,255,255,.65);}
+.addressee{background:#fff;padding:14px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:32px;flex-wrap:wrap;}
+.addr-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.addr-val{font-size:14px;font-weight:600;}
+.tab-nav{background:#fff;border-bottom:2px solid var(--border);padding:0 48px;display:flex;gap:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.05);overflow-x:auto;}
+.tab-btn{display:flex;align-items:center;gap:6px;padding:15px 18px;border:none;background:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--text);border-bottom-color:var(--brand);font-weight:700;}
+.container{max-width:960px;margin:0 auto;background:#fff;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.pad{padding:40px 48px 56px;}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.brief-hero{background:var(--dark);border-radius:14px;padding:28px 32px;margin-bottom:24px;}
+.brief-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;}
+.brief-text{font-size:13px;color:#aaa;line-height:1.7;}
+.brief-quote{background:#fff;border:1px solid var(--border);border-left:4px solid var(--brand);border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:24px;font-size:15px;color:#333;font-style:italic;line-height:1.7;}
+.brief-quote cite{display:block;margin-top:8px;font-style:normal;font-size:12px;color:var(--muted);}
+.brief-chips{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.brief-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.brief-chip-icon{font-size:22px;margin-bottom:6px;}
+.brief-chip-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.brief-chip-val{font-size:14px;font-weight:700;}
+.brief-chip-sub{font-size:11px;color:#888;margin-top:2px;}
+.brand-story{background:var(--dark);border-radius:14px;padding:24px 28px;margin-bottom:24px;}
+.brand-story-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;}
+.brand-story-text{font-size:13px;color:#aaa;line-height:1.7;}
+.brand-story-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px;}
+.brand-fact{border-top:1px solid rgba(255,255,255,.1);padding-top:12px;}
+.brand-fact-num{font-size:22px;font-weight:800;color:var(--gold);margin-bottom:3px;}
+.brand-fact-label{font-size:12px;color:#9aa0b8;}
+.variants-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.vo-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:18px 20px;cursor:pointer;transition:border-color .15s;}
+.vo-card:hover{border-color:#aaa;}
+.vo-card.rec{border:2px solid var(--gold);}
+.vo-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px;}
+.vo-title{font-size:14px;font-weight:700;margin-bottom:4px;}
+.vo-desc{font-size:12px;color:#666;margin-bottom:8px;line-height:1.5;}
+.vo-price{font-size:18px;font-weight:800;}
+.vo-price-note{font-size:11px;color:var(--muted);margin-top:2px;}
+.tag-rec{display:inline-block;background:var(--gold);color:#fff;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:5px;}
+.brand-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-bottom:4px;}
+.brand-schulthess{background:rgba(201,169,110,.15);color:#8B6914;border:1px solid rgba(201,169,110,.3);}
+.brand-vzug{background:rgba(196,18,48,.1);color:#c41230;border:1px solid rgba(196,18,48,.3);}
+.variant-header{background:var(--dark);border-radius:14px;padding:22px 28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.variant-badge{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:700;margin-bottom:5px;}
+.variant-title{font-size:19px;font-weight:700;color:#fff;margin-bottom:5px;}
+.variant-desc{font-size:13px;color:#9aa0b8;line-height:1.6;max-width:420px;}
+.variant-right{text-align:right;flex-shrink:0;}
+.variant-price-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.variant-price{font-size:30px;font-weight:800;color:#fff;white-space:nowrap;}
+.variant-price-sub{font-size:11px;color:#6a7090;margin-top:3px;}
+.kp-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.kp-table th{background:var(--dark);color:#fff;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:10px 14px;text-align:left;}
+.kp-table th.right{text-align:right;}
+.kp-table td{padding:13px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+.kp-table tr:last-child td{border-bottom:none;}
+.kp-table tr:hover td{background:#fafaf8;}
+.item-num{font-size:11px;font-weight:700;color:var(--gold);width:28px;}
+.item-cat{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.item-model{font-size:14px;font-weight:700;}
+.item-sku{font-size:11px;color:var(--muted);font-family:monospace;margin-top:2px;}
+.item-desc{font-size:12px;color:#555;margin-top:3px;line-height:1.5;}
+.item-color{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#555;margin-top:4px;}
+.color-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.12);}
+.price-cell{text-align:right;white-space:nowrap;}
+.price-val{font-size:15px;font-weight:700;}
+.price-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.kp-total{background:var(--dark);border-radius:12px;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
+.kp-total-label{font-size:12px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.1em;}
+.kp-total-val{font-size:26px;font-weight:800;color:#fff;}
+.kp-total-sub{font-size:11px;color:var(--muted);margin-top:2px;text-align:right;}
+.notice{background:#fafaf8;border:1px dashed #d5d0c8;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start;}
+.notice-icon{font-size:20px;flex-shrink:0;}
+.notice-title{font-size:13px;font-weight:700;margin-bottom:3px;}
+.notice-text{font-size:12px;color:#666;line-height:1.6;}
+.badge{display:inline-block;border-radius:16px;padding:2px 8px;font-size:10px;font-weight:600;}
+.badge-ok{background:var(--green-lt);color:#166534;border:1px solid rgba(34,197,94,.3);}
+.pair-total{background:linear-gradient(135deg,var(--brand),#1a2f55);border-radius:12px;padding:16px 22px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+.pair-total-label{font-size:12px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.1em;}
+.pair-total-val{font-size:22px;font-weight:800;color:#fff;}
+.pair-total-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;text-align:right;}
+.addon-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.addon-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;}
+.addon-card-icon{font-size:28px;margin-bottom:10px;}
+.addon-card-title{font-size:14px;font-weight:700;margin-bottom:5px;}
+.addon-card-text{font-size:12px;color:#666;line-height:1.6;}
+.addon-card-price{font-size:13px;font-weight:700;color:var(--text);margin-top:8px;}
+.addon-card-note{font-size:11px;color:var(--muted);margin-top:2px;}
+.out-of-catalog{background:#f8f6f0;border:1px solid #e8d9a0;border-radius:12px;padding:18px 22px;margin-bottom:20px;}
+.ooc-title{font-size:12px;font-weight:700;color:#7a5a0a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em;}
+.ooc-list{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.ooc-list li{font-size:12px;color:#555;display:flex;gap:6px;}
+.ooc-list li::before{content:'—';color:#aaa;}
+.compare-offer{background:var(--dark);border-radius:14px;padding:22px 26px;display:flex;align-items:center;gap:20px;}
+.compare-offer-text{flex:1;}
+.compare-offer-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:5px;}
+.compare-offer-sub{font-size:12px;color:#9aa0b8;line-height:1.5;}
+.compare-offer-btn{background:var(--gold);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;}
+.vis-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px;}
+.vis-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.vis-img-placeholder{width:100%;height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a1c22,#2a2d38);color:#6a7090;font-size:12px;text-align:center;padding:20px;}
+.vis-body{padding:16px 18px 20px;}
+.vis-brand{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.vis-model{font-size:14px;font-weight:700;margin-bottom:3px;}
+.vis-sku{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:10px;}
+.vis-specs{list-style:none;display:flex;flex-direction:column;gap:0;}
+.vis-spec-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.vis-spec-row:last-child{border-bottom:none;}
+.vis-spec-key{color:var(--muted);}
+.vis-spec-val{font-weight:600;text-align:right;}
+.scheme-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:16px;}
+.scheme-title{font-size:13px;font-weight:700;margin-bottom:4px;}
+.scheme-sub{font-size:11px;color:var(--muted);margin-bottom:14px;}
+.scheme-dims{display:flex;gap:16px;flex-wrap:wrap;}
+.scheme-dim{background:var(--bg);border-radius:8px;padding:8px 14px;font-size:12px;}
+.scheme-dim-label{color:var(--muted);margin-bottom:1px;}
+.scheme-dim-val{font-weight:700;}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
+.how-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 18px;}
+.how-card-icon{font-size:26px;margin-bottom:10px;}
+.how-card-title{font-size:13px;font-weight:700;margin-bottom:5px;}
+.how-card-text{font-size:12px;color:#666;line-height:1.6;}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+.contact-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;}
+.contact-card-icon{font-size:28px;margin-bottom:8px;}
+.contact-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:5px;}
+.contact-card-val{font-size:13px;font-weight:600;}
+.contact-card-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.about-block{background:var(--dark);border-radius:14px;padding:24px 28px;margin-bottom:24px;}
+.about-block-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;}
+.about-block-text{font-size:13px;color:#aaa;line-height:1.7;}
+.ai-disclaimer{background:#f8f8f8;border-radius:10px;padding:14px 18px;font-size:11px;color:#777;line-height:1.7;font-style:italic;}
+.footnote{background:#fff;padding:14px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);}
+@media(max-width:680px){.header,.brand-bar,.addressee,.tab-nav,.pad{padding-left:20px;padding-right:20px;}.brief-chips,.variants-overview{grid-template-columns:1fr;}.how-grid,.contact-grid,.vis-grid,.addon-grid{grid-template-columns:1fr;}.variant-header{flex-direction:column;}.variant-right{text-align:left;}.kp-total{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <div><div class="logo-title">Home Project</div><div class="logo-sub">Премиальная встраиваемая техника · Москва</div></div>
+  <div style="text-align:right;"><div class="kp-label">Коммерческое предложение</div><div class="kp-meta">HP-2026-038</div><div class="kp-date">11.06.2026 · действительно 14 дней</div></div>
+</div>
+<div class="brand-bar">
+  <span class="brand-bar-name">Идеальная Постирочная</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-series">Schulthess · V-ZUG</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-tagline">Сравнение трёх вариантов</span>
+</div>
+<div class="addressee">
+  <div><div class="addr-lbl">Клиент</div><div class="addr-val">Шоурум Demo</div></div>
+  <div><div class="addr-lbl">Дата</div><div class="addr-val">11.06.2026</div></div>
+  <div><div class="addr-lbl">Бюджет</div><div class="addr-val">от 558 980 ₽</div></div>
+  <div><div class="addr-lbl">Тема</div><div class="addr-val">Постирочная</div></div>
+  <div><div class="addr-lbl">Пара</div><div class="addr-val">СМ + Сушилка</div></div>
+</div>
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('brief')">📋 Бриф</button>
+  <button class="tab-btn" onclick="showTab('v1')">💎 Вариант 1</button>
+  <button class="tab-btn" onclick="showTab('v2')">✅ Вариант 2 ✦</button>
+  <button class="tab-btn" onclick="showTab('v3')">🔧 Вариант 3</button>
+  <button class="tab-btn" onclick="showTab('addon')">➕ Аксессуары</button>
+  <button class="tab-btn" onclick="showTab('visual')">🖼 Визуал / Хар-ки</button>
+  <button class="tab-btn" onclick="showTab('contacts')">📞 Контакты</button>
+</div>
+
+<!-- БРИФ -->
+<div id="tab-brief" class="tab-panel active"><div class="pad">
+  <div class="section-title">Бриф клиента</div>
+  <div class="brief-hero">
+    <div class="brief-title">Постирочная комната — три уровня премиума</div>
+    <div class="brief-text">Сравнительное КП по трём вариантам постирочной: <strong style="color:#c9a96e;">Schulthess NeoStar</strong> (доступный премиум, антрацит), <strong style="color:#c9a96e;">Schulthess Classic Gold</strong> (золотой, рекомендован) и <strong style="color:#c9a96e;">V-ZUG AdoraWash V6000</strong> (топ, швейцарское совершенство). Все варианты — пара стиральная + сушильная машина.</div>
+  </div>
+  <div class="brief-quote">
+    "Хотим красивую постирочную. Пара стиральная + сушилка. Что лучше — Schulthess или V-ZUG?"
+    <cite>— Шоурум Demo, 11.06.2026</cite>
+  </div>
+  <div class="brief-chips">
+    <div class="brief-chip"><div class="brief-chip-icon">💰</div><div class="brief-chip-label">Бюджет</div><div class="brief-chip-val">от 558 980 ₽</div><div class="brief-chip-sub">РРЦ, пара</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🎨</div><div class="brief-chip-label">Цвет</div><div class="brief-chip-val">Антрацит / Золото</div><div class="brief-chip-sub">Или Inox (V-ZUG)</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🏷</div><div class="brief-chip-label">Бренды</div><div class="brief-chip-val">Schulthess / V-ZUG</div><div class="brief-chip-sub">Швейцарские</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🔁</div><div class="brief-chip-label">Формат</div><div class="brief-chip-val">Постирочная</div><div class="brief-chip-sub">СМ + Сушилка (пара)</div></div>
+  </div>
+  <div class="section-title">О брендах</div>
+  <div class="brand-story">
+    <div class="brand-story-title">Schulthess — швейцарские стиральные машины · самый красивый дизайн</div>
+    <div class="brand-story-text">Schulthess — швейцарский производитель (Цюрих), специализируется исключительно на стиральных и сушильных машинах. Уникальные цвета: NeoStar (антрацит, синий, бежевый) и Classic (золото, серебро, медь). WoolCare, SilkCare, умный расход воды. V-ZUG — общеизвестная экосистема всей премиальной кухни и прачечной.</div>
+    <div class="brand-story-facts">
+      <div class="brand-fact"><div class="brand-fact-num">Schulthess</div><div class="brand-fact-label">Швейцария · только СМ</div></div>
+      <div class="brand-fact"><div class="brand-fact-num">NeoStar / Classic</div><div class="brand-fact-label">Уникальные цвета</div></div>
+      <div class="brand-fact"><div class="brand-fact-num">V-ZUG</div><div class="brand-fact-label">Swiss Made · V6000</div></div>
+    </div>
+  </div>
+  <div class="section-title">Три варианта — три бренда и уровня</div>
+  <div class="variants-overview">
+    <div class="vo-card" onclick="showTab('v1')">
+      <div class="vo-label">Вариант 1</div>
+      <div class="vo-title">Schulthess NeoStar</div>
+      <div class="vo-desc">Антрацит · NeoStar серия. Доступный вход в Schulthess.</div>
+      <div class="vo-price">558 980 ₽</div>
+      <div class="vo-price-note">пара СМ + сушилка</div>
+    </div>
+    <div class="vo-card rec" onclick="showTab('v2')">
+      <div class="vo-label">Вариант 2 <span class="tag-rec">✦ рекомендован</span></div>
+      <div class="vo-title">Schulthess Classic Gold</div>
+      <div class="vo-desc">Золото · Classic серия. Максимальный стиль Schulthess.</div>
+      <div class="vo-price">895 980 ₽</div>
+      <div class="vo-price-note">пара СМ + сушилка</div>
+    </div>
+    <div class="vo-card" onclick="showTab('v3')">
+      <div class="vo-label">Вариант 3</div>
+      <div class="vo-title">V-ZUG V6000</div>
+      <div class="vo-desc">AdoraWash + AdoraDry V6000. Швейцарская экосистема.</div>
+      <div class="vo-price">1 493 980 ₽</div>
+      <div class="vo-price-note">пара СМ + сушилка</div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ВАРИАНТ 1 -->
+<div id="tab-v1" class="tab-panel"><div class="pad">
+  <div class="section-title">Вариант 1 — Schulthess NeoStar Антрацит</div>
+  <div class="variant-header">
+    <div>
+      <div class="variant-badge">Вариант 1 · Базовый · <span class="brand-badge brand-schulthess">Schulthess</span></div>
+      <div class="variant-title">Schulthess NeoStar · 2 позиции</div>
+      <div class="variant-desc">Пара стиральная + сушильная машина серии NeoStar в антрацитовом цвете. Доступный вход в премиальный Schulthess.</div>
+    </div>
+    <div class="variant-right">
+      <div class="variant-price-label">Итого РРЦ</div>
+      <div class="variant-price">558 980 ₽</div>
+      <div class="variant-price-sub">пара · NeoStar Антрацит</div>
+    </div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px;">#</th><th>Позиция</th><th>Артикул</th><th>Цвет / Отделка</th><th class="right" style="width:130px;">Цена РРЦ</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td>
+          <div class="item-cat">Стиральная машина · NeoStar · Антрацит</div>
+          <div class="item-model">ADA5.108 Антрацит NeoStar</div>
+          <div class="item-sku">ADA5.108</div>
+          <div class="item-desc">8 кг · 1400 об/мин · A · WoolCare · SilkCare · Антрацит NeoStar</div>
+        </td>
+        <td><span class="item-sku">ADA5.108</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#3a3a3a;"></span> Антрацит NeoStar</span></td>
+        <td class="price-cell"><div class="price-val">271 990 ₽</div><div class="price-sub"><span class="badge badge-ok">в наличии</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td>
+          <div class="item-cat">Сушильная машина · NeoStar · Антрацит</div>
+          <div class="item-model">MDA5.104 Антрацит NeoStar</div>
+          <div class="item-sku">MDA5.104</div>
+          <div class="item-desc">8 кг · тепловой насос · A++ · WoolCare · Антрацит NeoStar</div>
+        </td>
+        <td><span class="item-sku">MDA5.104</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#3a3a3a;"></span> Антрацит NeoStar</span></td>
+        <td class="price-cell"><div class="price-val">286 990 ₽</div><div class="price-sub"><span class="badge badge-ok">в наличии</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pair-total">
+    <div><div class="pair-total-label">Итого пара · Schulthess NeoStar</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;">Все цены — РРЦ на 11.06.2026</div></div>
+    <div><div class="pair-total-val">558 980 ₽</div><div class="pair-total-sub">стиральная + сушильная</div></div>
+  </div>
+  <div class="section-title">Об этом варианте</div>
+  <div class="notice">
+    <div class="notice-icon">ℹ️</div>
+    <div>
+      <div class="notice-title">Schulthess NeoStar — что включено</div>
+      <div class="notice-text">ADA5.108 — стиральная машина с программами WoolCare и SilkCare, бережная стирка деликатных тканей. MDA5.104 — сушилка с тепловым насосом, класс A++. Оба прибора в антрацитовом исполнении NeoStar с матовым покрытием. Возможна установка в стопку (крепёж — дополнительно).</div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ВАРИАНТ 2 -->
+<div id="tab-v2" class="tab-panel"><div class="pad">
+  <div class="section-title">Вариант 2 — Schulthess Classic Gold ✦ Рекомендован</div>
+  <div class="variant-header">
+    <div>
+      <div class="variant-badge">Вариант 2 · Рекомендован ✦ · <span class="brand-badge brand-schulthess">Schulthess</span></div>
+      <div class="variant-title">Schulthess Classic Gold · 2 позиции</div>
+      <div class="variant-desc">Пара в золотом исполнении Classic — эксклюзивный дизайн, которого нет ни у одного другого бренда. Постирочная как произведение искусства.</div>
+    </div>
+    <div class="variant-right">
+      <div class="variant-price-label">Итого РРЦ</div>
+      <div class="variant-price">895 980 ₽</div>
+      <div class="variant-price-sub">пара · Classic Gold</div>
+    </div>
+  </div>
+  <div class="notice">
+    <div class="notice-icon">💡</div>
+    <div>
+      <div class="notice-title">Почему этот вариант рекомендован</div>
+      <div class="notice-text">Schulthess Classic Gold — уникальное золотое исполнение, которого нет ни у одного другого производителя стиральных машин в мире. ADA1.102 (стиральная) + MDA1.102 (сушильная) — топ-линейка Schulthess с максимальными функциями. Постирочная комната становится акцентом интерьера, а не утилитарным пространством.</div>
+    </div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px;">#</th><th>Позиция</th><th>Артикул</th><th>Цвет / Отделка</th><th class="right" style="width:130px;">Цена РРЦ</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td>
+          <div class="item-cat">Стиральная машина · Classic · Золото</div>
+          <div class="item-model">ADA1.102 Золото Classic</div>
+          <div class="item-sku">ADA1.102</div>
+          <div class="item-desc">10 кг · 1600 об/мин · A · WoolCare · SilkCare · умное управление · Золото</div>
+        </td>
+        <td><span class="item-sku">ADA1.102</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#D4AF37;border:none;"></span> Золото Classic</span></td>
+        <td class="price-cell"><div class="price-val">439 990 ₽</div><div class="price-sub"><span class="badge badge-ok">в наличии</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td>
+          <div class="item-cat">Сушильная машина · Classic · Золото</div>
+          <div class="item-model">MDA1.102 Золото Classic</div>
+          <div class="item-sku">MDA1.102</div>
+          <div class="item-desc">10 кг · тепловой насос · A+++ · WoolCare · SilkCare · Золото Classic</div>
+        </td>
+        <td><span class="item-sku">MDA1.102</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#D4AF37;border:none;"></span> Золото Classic</span></td>
+        <td class="price-cell"><div class="price-val">455 990 ₽</div><div class="price-sub"><span class="badge badge-ok">в наличии</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pair-total">
+    <div><div class="pair-total-label">Итого пара · Schulthess Classic Gold</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;">Все цены — РРЦ на 11.06.2026</div></div>
+    <div><div class="pair-total-val">895 980 ₽</div><div class="pair-total-sub">стиральная + сушильная · Золото</div></div>
+  </div>
+</div></div>
+
+<!-- ВАРИАНТ 3 -->
+<div id="tab-v3" class="tab-panel"><div class="pad">
+  <div class="section-title">Вариант 3 — V-ZUG AdoraWash + AdoraDry V6000</div>
+  <div class="variant-header">
+    <div>
+      <div class="variant-badge">Вариант 3 · Топ · <span class="brand-badge brand-vzug">V-ZUG</span></div>
+      <div class="variant-title">V-ZUG AdoraWash + AdoraDry V6000 · 2 позиции</div>
+      <div class="variant-desc">Флагманская пара V-ZUG: AdoraWash V6000 + AdoraDry V6000. Умный дом, экосистема V-ZUG, Swiss Made. Максимальные функции и технологии.</div>
+    </div>
+    <div class="variant-right">
+      <div class="variant-price-label">Итого РРЦ</div>
+      <div class="variant-price">1 493 980 ₽</div>
+      <div class="variant-price-sub">пара · V6000</div>
+    </div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px;">#</th><th>Позиция</th><th>Артикул</th><th>Цвет / Отделка</th><th class="right" style="width:130px;">Цена РРЦ</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td>
+          <div class="item-cat">Стиральная машина V6000 · Swiss Made</div>
+          <div class="item-model">AdoraWash V6000</div>
+          <div class="item-sku">AW6T-11043 L</div>
+          <div class="item-desc">9 кг · 1400 об/мин · A · V-ZUG Home · WoolCare · SilkCare · Swiss Made</div>
+        </td>
+        <td><span class="item-sku">AW6T-11043 L</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#f5f5f5;border:1px solid #ccc;"></span> Inox / White</span></td>
+        <td class="price-cell"><div class="price-val">814 990 ₽</div><div class="price-sub"><span class="badge badge-ok">в наличии</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td>
+          <div class="item-cat">Сушильная машина V6000 · Swiss Made</div>
+          <div class="item-model">AdoraDry V6000</div>
+          <div class="item-sku">AT6T-12033 R</div>
+          <div class="item-desc">8 кг · тепловой насос · A+++ · V-ZUG Home · SilkCare · Swiss Made</div>
+        </td>
+        <td><span class="item-sku">AT6T-12033 R</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#f5f5f5;border:1px solid #ccc;"></span> Inox / White</span></td>
+        <td class="price-cell"><div class="price-val">678 990 ₽</div><div class="price-sub"><span class="badge badge-ok">в наличии</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pair-total">
+    <div><div class="pair-total-label">Итого пара · V-ZUG V6000</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;">Все цены — РРЦ на 11.06.2026</div></div>
+    <div><div class="pair-total-val">1 493 980 ₽</div><div class="pair-total-sub">V-ZUG AdoraWash + AdoraDry</div></div>
+  </div>
+  <div class="notice">
+    <div class="notice-icon">🇨🇭</div>
+    <div>
+      <div class="notice-title">V-ZUG V6000 — преимущества</div>
+      <div class="notice-text">Если в доме уже есть кухонная техника V-ZUG (CombairSteamer, CookTop), то стиральная пара V6000 объединяется в единую умную экосистему V-ZUG Home. Управление всеми приборами через одно приложение, сценарии автоматизации.</div>
+    </div>
+  </div>
+</div></div>
+
+<!-- АКСЕССУАРЫ -->
+<div id="tab-addon" class="tab-panel"><div class="pad">
+  <div class="section-title">Аксессуары и монтаж</div>
+  <div class="addon-grid">
+    <div class="addon-card"><div class="addon-card-icon">🔩</div><div class="addon-card-title">Крепёж для стопки</div><div class="addon-card-text">Набор крепёжных элементов для установки сушильной машины поверх стиральной (стопка). Schulthess и V-ZUG — разные крепёжные комплекты.</div><div class="addon-card-price">от 5 990 ₽</div><div class="addon-card-note">Уточняйте под конкретную модель</div></div>
+    <div class="addon-card"><div class="addon-card-icon">🏠</div><div class="addon-card-title">Подставка / Цоколь</div><div class="addon-card-text">Подставка-цоколь с выдвижным ящиком для белья. Удобнее загрузка без наклона.</div><div class="addon-card-price">от 18 990 ₽</div><div class="addon-card-note">Schulthess / V-ZUG</div></div>
+    <div class="addon-card"><div class="addon-card-icon">🧺</div><div class="addon-card-title">Дополнительные цвета Schulthess</div><div class="addon-card-text">NeoStar: антрацит, синий, бежевый. Classic: золото, серебро, медь. Уточните наличие нужного цвета.</div><div class="addon-card-price">от 271 990 ₽</div><div class="addon-card-note">Пара от 558 980 ₽</div></div>
+    <div class="addon-card"><div class="addon-card-icon">🔧</div><div class="addon-card-title">Профессиональный монтаж</div><div class="addon-card-text">Установка, подключение к водопроводу и вентиляции. Рекомендуем проверенных мастеров.</div><div class="addon-card-price">от 8 000 ₽</div><div class="addon-card-note">По Москве</div></div>
+  </div>
+  <div class="out-of-catalog">
+    <div class="ooc-title">⚠ Требования к помещению</div>
+    <ul class="ooc-list">
+      <li>Подвод холодной воды — отдельный кран или через тройник</li>
+      <li>Канализационный слив — высота 50-100 см от пола</li>
+      <li>Розетка 16А / 220В — рядом с машиной</li>
+      <li>Вентиляция — для сушилки с тепловым насосом не требуется</li>
+    </ul>
+  </div>
+  <div class="compare-offer">
+    <div class="compare-offer-text"><div class="compare-offer-title">Нужен другой цвет Schulthess?</div><div class="compare-offer-sub">Schulthess NeoStar: антрацит, синий, бежевый. Classic: золото, серебро, медь. Подготовим КП под нужный цвет.</div></div>
+    <button class="compare-offer-btn" onclick="window.open('mailto:info@homeproject.online?subject=Schulthess — выбор цвета')">Подобрать цвет →</button>
+  </div>
+</div></div>
+
+<!-- ВИЗУАЛ -->
+<div id="tab-visual" class="tab-panel"><div class="pad">
+  <div class="section-title">Галерея · Schulthess и V-ZUG</div>
+  <div class="vis-grid">
+    <div class="vis-card">
+      <div class="vis-img-placeholder"><span style="font-size:36px">🌀</span><span>ADA1.102 · Schulthess Classic Gold</span></div>
+      <div class="vis-body">
+        <div class="vis-brand">Schulthess · Classic</div>
+        <div class="vis-model">ADA1.102 Золото</div>
+        <div class="vis-sku">Стиральная машина 10 кг</div>
+        <ul class="vis-specs">
+          <li class="vis-spec-row"><span class="vis-spec-key">Загрузка</span><span class="vis-spec-val">10 кг</span></li>
+          <li class="vis-spec-row"><span class="vis-spec-key">Отжим</span><span class="vis-spec-val">1600 об/мин</span></li>
+          <li class="vis-spec-row"><span class="vis-spec-key">Класс</span><span class="vis-spec-val">A</span></li>
+          <li class="vis-spec-row"><span class="vis-spec-key">Цвет</span><span class="vis-spec-val">Золото Classic</span></li>
+          <li class="vis-spec-row"><span class="vis-spec-key">Цена РРЦ</span><span class="vis-spec-val">439 990 ₽</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-img-placeholder"><span style="font-size:36px">💨</span><span>AW6T-11043 L · V-ZUG AdoraWash V6000</span></div>
+      <div class="vis-body">
+        <div class="vis-brand">V-ZUG · V6000</div>
+        <div class="vis-model">AdoraWash V6000</div>
+        <div class="vis-sku">AW6T-11043 L · Swiss Made</div>
+        <ul class="vis-specs">
+          <li class="vis-spec-row"><span class="vis-spec-key">Загрузка</span><span class="vis-spec-val">9 кг</span></li>
+          <li class="vis-spec-row"><span class="vis-spec-key">Отжим</span><span class="vis-spec-val">1400 об/мин</span></li>
+          <li class="vis-spec-row"><span class="vis-spec-key">Экосистема</span><span class="vis-spec-val">V-ZUG Home</span></li>
+          <li class="vis-spec-row"><span class="vis-spec-key">Производство</span><span class="vis-spec-val">Swiss Made</span></li>
+          <li class="vis-spec-row"><span class="vis-spec-key">Цена РРЦ</span><span class="vis-spec-val">814 990 ₽</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="section-title">Монтажные размеры</div>
+  <div class="scheme-card">
+    <div class="scheme-title">Стиральная/сушильная машина · стандарт</div>
+    <div class="scheme-sub">Schulthess ADA / MDA и V-ZUG AdoraWash / AdoraDry</div>
+    <div class="scheme-dims">
+      <div class="scheme-dim"><div class="scheme-dim-label">Ширина</div><div class="scheme-dim-val">595 мм</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-label">Высота</div><div class="scheme-dim-val">850 мм</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-label">Глубина</div><div class="scheme-dim-val">600 мм</div></div>
+      <div class="scheme-dim"><div class="scheme-dim-label">В стопке</div><div class="scheme-dim-val">1750 мм</div></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- КОНТАКТЫ -->
+<div id="tab-contacts" class="tab-panel"><div class="pad">
+  <div class="section-title">Следующий шаг</div>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-card-icon">✅</div><div class="how-card-title">Выберите бренд</div><div class="how-card-text">Schulthess NeoStar, Classic Gold или V-ZUG V6000 — уточним наличие и цвет.</div></div>
+    <div class="how-card"><div class="how-card-icon">📐</div><div class="how-card-title">Планировка</div><div class="how-card-text">Рядом или в стопке? Передайте размеры постирочной — подберём оптимальную расстановку.</div></div>
+    <div class="how-card"><div class="how-card-icon">🚚</div><div class="how-card-title">Поставка</div><div class="how-card-text">Schulthess — 4–8 недель. V-ZUG — 6–10 недель. Доставка по Москве.</div></div>
+  </div>
+  <div class="section-title">Контакты</div>
+  <div class="contact-grid">
+    <div class="contact-card"><div class="contact-card-icon">✉️</div><div class="contact-card-label">Email</div><div class="contact-card-val">info@homeproject.online</div><div class="contact-card-sub">Ответ в течение дня</div></div>
+    <div class="contact-card"><div class="contact-card-icon">💬</div><div class="contact-card-label">Telegram</div><div class="contact-card-val">@homeproject_online</div><div class="contact-card-sub">Быстрый ответ</div></div>
+    <div class="contact-card"><div class="contact-card-icon">🌐</div><div class="contact-card-label">Сайт</div><div class="contact-card-val">homeproject.online</div><div class="contact-card-sub">Полный каталог</div></div>
+  </div>
+  <div class="about-block">
+    <div class="about-block-title">Дистрибутор премиальной встраиваемой техники · Москва</div>
+    <div class="about-block-text">Работаем с архитекторами, дизайнерами и частными клиентами. Портфель: Schulthess, V-ZUG, Küppersbusch, BORA, De Dietrich, Graude, SKS.</div>
+  </div>
+  <div class="ai-disclaimer">Коммерческое предложение HP-2026-038 подготовлено 11.06.2026 специалистом Home Project. Все цены — РРЦ. Действительно 14 дней.</div>
+</div></div>
+
+</div>
+<div class="footnote"><span>© Home Project 11.06.2026 · HP-2026-038</span><span>Все цены — РРЦ · Действительно 14 дней</span></div>
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('tab-' + id);
+  if (panel) panel.classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.getAttribute('onclick') === "showTab('" + id + "')") b.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
