@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стратегия Bertazzoni · Июнь–Декабрь 2026 · Home Project</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --dark:#181A20;--gold:#c9a96e;--gold-lt:rgba(201,169,110,0.12);
+  --bg:#f5f4f0;--text:#1a1a1a;--muted:#7a8099;--border:#e5e3db;
+  --brand:#A92E22;--terracotta:#C9633C;--ochre:#D4A24C;--graphite:#3A352F;--cream:#F5F0E8;
+  --success:#2d8659;--success-lt:#e6f3ec;--danger:#c0392b;--danger-lt:#fbeae8;--info:#2c5282;--info-lt:#e6eef8;
+  --m-jun:#6b8e7f;--m-jul:#c9633c;--m-aug:#d4a24c;--m-sep:#a6754b;--m-oct:#8a3f2a;--m-nov:#5b4b3a;--m-dec:#a92e22;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
+
+/* ── ШАПКА ── */
+.header{background:var(--dark);padding:32px 48px 28px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.logo-title{font-size:22px;font-weight:800;color:#fff;letter-spacing:.08em;text-transform:uppercase}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
+.h-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;line-height:1.15;margin-top:10px;max-width:560px}
+.h-title em{color:var(--ochre);font-style:normal}
+.h-sub{font-size:12px;color:#9aa0b8;margin-top:8px;letter-spacing:.06em;text-transform:uppercase}
+.kp-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.kp-meta{font-size:18px;font-weight:700;color:#fff;margin-top:4px}
+.kp-date{font-size:11px;color:var(--muted);margin-top:3px}
+.kp-pitch{display:inline-block;margin-top:8px;background:var(--brand);color:#fff;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;border-radius:4px}
+
+/* ── БРЕНД-ПОЛОСА ── */
+.brand-bar{background:linear-gradient(90deg,var(--brand) 0%,#7a1f17 100%);padding:12px 48px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand-bar-name{font-size:14px;font-weight:800;color:#fff;letter-spacing:.16em;text-transform:uppercase}
+.brand-bar-sep{color:rgba(255,255,255,.4)}
+.brand-bar-tagline{font-size:12px;color:rgba(255,255,255,.85);font-style:italic}
+.brand-bar-pill{margin-left:auto;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:18px;padding:3px 12px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.1em;text-transform:uppercase}
+
+/* ── НАВИГАЦИЯ ── */
+.kp-guide{background:#fff;border-bottom:1px solid var(--border);padding:12px 48px;position:sticky;top:0;z-index:10}
+.kp-guide-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.kp-guide-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.kp-guide-tab{display:flex;align-items:center;justify-content:center;gap:5px;flex:1;min-width:96px;background:var(--bg);border-radius:22px;padding:8px 10px;font-size:11px;font-weight:600;color:#555;cursor:pointer;transition:all .15s;border:1px solid transparent;text-align:center;white-space:nowrap}
+.kp-guide-tab:hover{border-color:var(--brand);color:var(--text);background:#fdf1ef}
+.kp-guide-tab.active{border-color:var(--brand);color:#fff;background:var(--brand);font-weight:700}
+.kp-guide-tab .gt-icon{font-size:12px;flex-shrink:0}
+
+/* ── КОНТЕЙНЕР ── */
+.container{max-width:1080px;margin:0 auto;background:#fff;box-shadow:0 0 60px rgba(0,0,0,.06)}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.pad{padding:48px 56px 40px}
+.section-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--brand);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.section-title small{color:var(--muted);font-weight:600;letter-spacing:.1em;font-size:10px}
+.h-display{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.1;margin-bottom:16px;letter-spacing:-.01em}
+.h-display em{font-style:italic;color:var(--brand)}
+.lead{font-size:16px;color:#3a3a3a;line-height:1.7;margin-bottom:28px;max-width:760px}
+
+/* ── ОБЩИЕ КАРТОЧКИ ── */
+.quote-hero{background:linear-gradient(135deg,#1c1f26 0%,#0f1115 100%);border-radius:18px;padding:36px 40px;margin-bottom:32px;position:relative;overflow:hidden}
+.quote-hero::before{content:'\201C';position:absolute;font-family:'Playfair Display',serif;font-size:220px;color:rgba(201,169,110,.1);top:-30px;left:18px;line-height:1}
+.quote-hero-label{font-size:10px;color:var(--ochre);text-transform:uppercase;letter-spacing:.18em;font-weight:700;margin-bottom:14px;position:relative}
+.quote-hero-text{font-size:17px;color:#e8e6e0;line-height:1.75;font-style:italic;position:relative}
+.quote-hero-text p+p{margin-top:10px}
+.quote-hero-cite{font-size:12px;color:var(--ochre);margin-top:18px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;position:relative}
+
+.tri-hero{background:linear-gradient(135deg,var(--brand) 0%,#6e1a12 100%);border-radius:20px;padding:48px 40px;margin-bottom:32px;color:#fff;text-align:center;position:relative;overflow:hidden}
+.tri-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(212,162,76,.25),transparent 50%);pointer-events:none}
+.tri-hero-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:700;margin-bottom:14px;position:relative}
+.tri-hero-msg{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;line-height:1.25;position:relative;letter-spacing:.01em}
+.tri-hero-msg .plus{color:var(--ochre);margin:0 12px;font-weight:400}
+.tri-hero-msg .pc{display:inline-block;padding:4px 0;border-bottom:3px solid var(--ochre)}
+.tri-hero-foot{font-size:13px;color:rgba(255,255,255,.85);margin-top:22px;position:relative;max-width:580px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+.nine-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+.nine-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 20px 18px;position:relative;transition:all .15s}
+.nine-card:hover{border-color:var(--brand);box-shadow:0 6px 18px rgba(169,46,34,.08);transform:translateY(-2px)}
+.nine-card-num{position:absolute;top:14px;right:16px;font-size:11px;font-weight:800;color:var(--brand);letter-spacing:.1em}
+.nine-card-icon{font-size:26px;margin-bottom:10px}
+.nine-card-cap{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px}
+.nine-card-title{font-size:14px;font-weight:800;margin-bottom:6px;line-height:1.3}
+.nine-card-text{font-size:12px;color:#666;line-height:1.55}
+.nine-card-pill{display:inline-block;margin-top:10px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:12px;background:var(--gold-lt);color:#8a6518;border:1px solid rgba(201,169,110,.4)}
+.nine-card-pill.p-red{background:var(--danger-lt);color:var(--danger);border-color:rgba(192,57,43,.3)}
+.nine-card-pill.p-orange{background:#fdeede;color:#a85a18;border-color:#f0c08c}
+.nine-card-pill.p-yellow{background:#fff9e0;color:#7a5810;border-color:#f0d870}
+
+/* ── МАНИФЕСТ (Таб 2) ── */
+.manifest-hero{background:linear-gradient(135deg,#181A20 0%,#2a2233 100%);border-radius:20px;padding:50px 44px;margin-bottom:32px;color:#fff;position:relative;overflow:hidden}
+.manifest-hero::before{content:'';position:absolute;width:280px;height:280px;background:radial-gradient(circle,var(--brand) 0%,transparent 70%);top:-100px;right:-80px;opacity:.45}
+.manifest-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ochre);font-weight:800;margin-bottom:18px;position:relative}
+.manifest-h{font-family:'Playfair Display',serif;font-size:44px;font-weight:900;line-height:1.1;margin-bottom:20px;position:relative}
+.manifest-h em{color:var(--ochre);font-style:italic}
+.manifest-sub{font-size:16px;color:#c8ccd6;line-height:1.75;max-width:680px;position:relative}
+.manifest-sub strong{color:#fff}
+
+.window-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px}
+.window-stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;border-top:4px solid var(--brand)}
+.window-stat-val{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--brand);line-height:1;margin-bottom:6px}
+.window-stat-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:600;line-height:1.4}
+
+.bullets-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px}
+.bullet{background:#fff;border:1px solid var(--border);border-left:4px solid var(--success);border-radius:0 12px 12px 0;padding:16px 20px}
+.bullet-h{font-size:13px;font-weight:800;margin-bottom:4px}
+.bullet-t{font-size:12px;color:#555;line-height:1.6}
+
+.audience-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.aud-card{background:linear-gradient(135deg,#1f2129 0%,#13151b 100%);color:#fff;border-radius:14px;padding:20px 18px;border-top:3px solid var(--ochre)}
+.aud-card-icon{font-size:24px;margin-bottom:8px}
+.aud-card-h{font-size:13px;font-weight:800;color:var(--ochre);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.aud-card-t{font-size:11px;color:#aab0c2;line-height:1.55}
+
+/* ── ROADMAP (Таб 3) ── */
+.roadmap-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:32px}
+.r-month{background:#fff;border-radius:14px;padding:18px 12px 16px;position:relative;color:#fff;overflow:hidden;cursor:default;transition:transform .2s}
+.r-month:hover{transform:translateY(-3px)}
+.r-month.m-jun{background:linear-gradient(160deg,var(--m-jun) 0%,#4a6c5d 100%)}
+.r-month.m-jul{background:linear-gradient(160deg,var(--m-jul) 0%,#a64a25 100%)}
+.r-month.m-aug{background:linear-gradient(160deg,var(--m-aug) 0%,#a87c2a 100%)}
+.r-month.m-sep{background:linear-gradient(160deg,var(--m-sep) 0%,#7a512f 100%)}
+.r-month.m-oct{background:linear-gradient(160deg,var(--m-oct) 0%,#5e2a18 100%)}
+.r-month.m-nov{background:linear-gradient(160deg,var(--m-nov) 0%,#3e3225 100%)}
+.r-month.m-dec{background:linear-gradient(160deg,var(--m-dec) 0%,#6e1a12 100%)}
+.r-m-num{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:4px}
+.r-m-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;margin-bottom:8px;line-height:1.1}
+.r-m-theme{font-size:11px;font-weight:700;line-height:1.4;margin-bottom:10px;min-height:60px}
+.r-m-posts{font-size:10px;color:rgba(255,255,255,.85);background:rgba(0,0,0,.22);border-radius:6px;padding:4px 8px;display:inline-block;font-weight:700;letter-spacing:.06em}
+
+.timeline-table{width:100%;border-collapse:separate;border-spacing:0 4px;margin-bottom:32px}
+.timeline-table th{background:var(--dark);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:12px 14px;text-align:left}
+.timeline-table th:first-child{border-radius:10px 0 0 10px}
+.timeline-table th:last-child{border-radius:0 10px 10px 0}
+.timeline-table td{padding:14px;background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);vertical-align:top;font-size:12.5px}
+.timeline-table td:first-child{border-left:1px solid var(--border);border-radius:10px 0 0 10px}
+.timeline-table td:last-child{border-right:1px solid var(--border);border-radius:0 10px 10px 0}
+.tm-month{font-weight:800;font-size:14px}
+.tm-month .ms{font-size:10px;color:var(--muted);font-weight:600;display:block;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.tm-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:12px;background:var(--gold-lt);color:#8a6518}
+.tm-cnt{font-weight:800;color:var(--brand);text-align:center}
+
+.events-card{background:linear-gradient(135deg,#1f2129 0%,#13151b 100%);border-radius:16px;padding:28px 32px;color:#fff;margin-bottom:24px}
+.events-card-h{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre);font-weight:800;margin-bottom:18px}
+.events-list{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.event-item{display:flex;gap:12px;align-items:flex-start}
+.event-dot{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:.04em}
+.event-text{font-size:12.5px;line-height:1.55;color:#d8dae0}
+.event-text strong{color:#fff;display:block;font-size:13px;margin-bottom:2px}
+
+/* ── СЛОГАНЫ (Таб 4) ── */
+.slogan-card{border-radius:18px;padding:40px 44px;margin-bottom:18px;position:relative;overflow:hidden;color:#fff}
+.slogan-card.s1{background:linear-gradient(135deg,var(--brand) 0%,#6e1a12 100%)}
+.slogan-card.s2{background:linear-gradient(135deg,#181A20 0%,#2a2030 100%)}
+.slogan-card.s3{background:linear-gradient(135deg,var(--ochre) 0%,#a87c2a 100%);color:#1a1a1a}
+.slogan-card.s3 .s-kicker{color:rgba(0,0,0,.7)}
+.slogan-card.s3 .s-purpose{color:#3a3a3a}
+.slogan-num{position:absolute;top:18px;right:24px;font-family:'Playfair Display',serif;font-size:90px;font-weight:900;color:rgba(255,255,255,.1);line-height:1}
+.slogan-card.s3 .slogan-num{color:rgba(0,0,0,.1)}
+.s-kicker{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--ochre);margin-bottom:14px;position:relative}
+.slogan-card.s1 .s-kicker{color:var(--ochre)}
+.s-text{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;line-height:1.2;position:relative;margin-bottom:14px;letter-spacing:-.005em}
+.s-purpose{font-size:13px;line-height:1.7;position:relative;color:rgba(255,255,255,.85);max-width:560px}
+
+.tov-section{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
+.tov-block{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px 26px}
+.tov-block h3{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--brand);margin-bottom:14px}
+.tov-block ul{list-style:none}
+.tov-block li{padding:7px 0;font-size:13px;color:#444;border-bottom:1px dashed var(--border);line-height:1.55}
+.tov-block li:last-child{border-bottom:none}
+.tov-block li::before{content:'→ ';color:var(--brand);font-weight:700;margin-right:4px}
+
+.forbidden-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.forbidden-chip{background:var(--danger-lt);border:1px solid rgba(192,57,43,.25);color:var(--danger);border-radius:10px;padding:14px 18px;font-size:13px;font-weight:700;text-decoration:line-through;position:relative;text-align:center}
+.forbidden-chip::after{content:'✕';position:absolute;top:-7px;right:-7px;width:22px;height:22px;background:var(--danger);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;text-decoration:none}
+
+.allowed-card{background:var(--success-lt);border:1px solid rgba(45,134,89,.25);border-left:4px solid var(--success);border-radius:0 14px 14px 0;padding:20px 24px;margin-bottom:24px}
+.allowed-card h3{font-size:12px;font-weight:800;color:var(--success);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+.allowed-card ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+.allowed-card li{font-size:13px;color:#234;line-height:1.55;padding-left:20px;position:relative}
+.allowed-card li::before{content:'✓';position:absolute;left:0;color:var(--success);font-weight:800}
+
+/* ── ВИЗУАЛ (Таб 5) ── */
+.palette-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:28px;border-radius:14px;overflow:hidden;border:1px solid var(--border)}
+.pal{padding:30px 22px 22px;color:#fff}
+.pal-1{background:var(--terracotta)}
+.pal-2{background:var(--ochre);color:#2a2a2a}
+.pal-3{background:var(--graphite)}
+.pal-4{background:var(--cream);color:#2a2a2a}
+.pal-name{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;opacity:.85}
+.pal-hex{font-family:'JetBrains Mono','SF Mono',monospace;font-size:18px;font-weight:800;margin-bottom:6px}
+.pal-role{font-size:11px;opacity:.85;line-height:1.5}
+
+.vis-tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.vis-tile{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 20px;border-top:3px solid var(--terracotta);position:relative}
+.vis-tile.t-food{border-top-color:var(--ochre)}
+.vis-tile.t-design{border-top-color:var(--graphite)}
+.vis-tile.t-palette{border-top-color:var(--brand)}
+.vis-tile.t-infogr{border-top-color:var(--success)}
+.vis-tile.t-video{border-top-color:var(--info)}
+.vis-tile-tag{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vis-tile-h{font-size:14px;font-weight:800;margin-bottom:8px}
+.vis-tile-t{font-size:12px;color:#555;line-height:1.55;margin-bottom:10px}
+.vis-tile-source{font-family:'JetBrains Mono','SF Mono',monospace;font-size:10px;color:var(--brand);background:var(--gold-lt);padding:4px 8px;border-radius:6px;display:inline-block;word-break:break-all}
+
+.assets-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.asset-col{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 24px}
+.asset-col h3{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--brand);margin-bottom:12px}
+.asset-col ul{list-style:none}
+.asset-col li{font-size:12px;color:#444;padding:6px 0;border-bottom:1px dashed var(--border);line-height:1.5}
+.asset-col li:last-child{border-bottom:none}
+.asset-col li code{font-family:'JetBrains Mono',monospace;font-size:10.5px;background:#f5f4f0;padding:1px 5px;border-radius:4px;color:#7a5810}
+
+.request-card{background:linear-gradient(135deg,#fff4ee 0%,#fdebe2 100%);border:1px solid #f0c0a0;border-left:4px solid var(--terracotta);border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:24px}
+.request-card h4{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--terracotta);margin-bottom:8px}
+.request-card ul{list-style:none}
+.request-card li{font-size:13px;color:#3a3a3a;padding:4px 0;padding-left:20px;position:relative;line-height:1.55}
+.request-card li::before{content:'→';position:absolute;left:0;color:var(--terracotta);font-weight:800}
+
+/* ── СРАВНЕНИЕ (Таб 6) ── */
+.cmp-table{width:100%;border-collapse:separate;border-spacing:0;margin-bottom:24px;font-size:12px;border-radius:14px;overflow:hidden;border:1px solid var(--border)}
+.cmp-table th{background:var(--dark);color:#fff;padding:14px 12px;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;border-bottom:2px solid #2a2d38}
+.cmp-table th.crit{text-align:left;background:#0e1014;width:24%}
+.cmp-table th.brand-hd{background:var(--brand);color:#fff;font-size:12.5px;font-weight:800}
+.cmp-table td{padding:12px 10px;text-align:center;border-bottom:1px solid var(--border);font-size:11.5px;line-height:1.4}
+.cmp-table td.crit{text-align:left;font-weight:700;color:#2a2a2a;background:#fafaf6}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-yes{background:var(--success-lt);color:var(--success);font-weight:800}
+.cmp-no{background:var(--danger-lt);color:var(--danger);font-weight:800}
+.cmp-mid{background:#fff7e3;color:#a06410;font-weight:700}
+.cmp-price{background:#fafaf6;font-weight:700;color:#333}
+.cmp-bertaz{background:#fff5f3 !important;border-left:3px solid var(--brand);border-right:3px solid var(--brand);font-weight:800;color:var(--brand) !important}
+/* Расширенная таблица — наш портфель + горизонтальный скролл */
+.cmp-wrap{position:relative;margin-bottom:24px;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#fff}
+.cmp-wrap-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cmp-wrap-hint{display:flex;align-items:center;gap:8px;background:linear-gradient(90deg,rgba(212,162,76,0.12) 0%,transparent 100%);padding:8px 14px;font-size:10px;font-weight:700;color:#8a6518;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--border)}
+.cmp-wrap-hint .arrow{animation:slide 1.6s ease-in-out infinite;display:inline-block}
+@keyframes slide{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+.cmp-table.wide{margin-bottom:0;min-width:1080px;border:none;border-radius:0}
+.cmp-table.wide th.crit,.cmp-table.wide td.crit{position:sticky;left:0;z-index:2;box-shadow:2px 0 4px rgba(0,0,0,0.06)}
+.cmp-table th.our{background:linear-gradient(180deg,#a87c2a 0%,#7a5810 100%) !important;border-bottom:2px solid var(--ochre)}
+.cmp-table th.our small{display:block;font-size:9px;color:#fce8b8;font-weight:600;letter-spacing:.08em;margin-top:3px;text-transform:uppercase}
+.cmp-table td.our-col{background:#fdf6e3}
+.cmp-table .cmp-yes-sm{background:var(--success-lt);color:var(--success);font-weight:700;font-size:11px}
+.cmp-table .cmp-no-sm{background:var(--danger-lt);color:var(--danger);font-weight:700;font-size:11px}
+.cmp-table .cmp-mid-sm{background:#fff7e3;color:#a06410;font-weight:700;font-size:11px}
+/* Bertazzoni vs ILVE — фокус-блок */
+.vs-ilve{background:linear-gradient(135deg,rgba(169,46,34,0.05) 0%,rgba(212,162,76,0.08) 100%);border:1px solid var(--ochre);border-left:5px solid var(--brand);border-radius:14px;padding:24px 28px;margin:28px 0;position:relative;overflow:hidden}
+.vs-ilve-kicker{font-size:10px;font-weight:800;letter-spacing:.18em;color:var(--brand);text-transform:uppercase;margin-bottom:10px}
+.vs-ilve-h{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--graphite);margin-bottom:8px;line-height:1.2}
+.vs-ilve-h em{color:var(--brand);font-style:italic}
+.vs-ilve-lead{font-size:13px;color:#444;line-height:1.7;margin-bottom:18px}
+.vs-ilve-table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.vs-ilve-table thead th{background:var(--dark);color:#fff;padding:10px 12px;text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.vs-ilve-table thead th.col-bz{background:var(--brand);text-align:center}
+.vs-ilve-table thead th.col-ilve{background:#3A352F;text-align:center}
+.vs-ilve-table tbody td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:11.5px;line-height:1.5}
+.vs-ilve-table tbody td:first-child{font-weight:700;color:#333;background:#fafaf6}
+.vs-ilve-table tbody td.cell-bz{background:#fff8f6;text-align:center;font-weight:600;color:var(--brand)}
+.vs-ilve-table tbody td.cell-ilve{background:#faf7f2;text-align:center;color:#3A352F}
+.vs-ilve-table tbody tr:last-child td{border-bottom:none}
+.vs-ilve-foot{font-size:13px;color:#444;line-height:1.7;margin-top:14px;padding-top:12px;border-top:1px dashed var(--ochre)}
+.vs-ilve-foot strong{color:#8a6518}
+
+.cmp-legend{display:flex;gap:14px;justify-content:flex-end;margin-bottom:16px;font-size:11px;flex-wrap:wrap}
+.cmp-legend span{padding:4px 10px;border-radius:12px;font-weight:700}
+
+.cmp-vinod{background:linear-gradient(135deg,var(--brand) 0%,#6e1a12 100%);color:#fff;border-radius:18px;padding:30px 34px;margin-bottom:24px}
+.cmp-vinod h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:10px;line-height:1.25}
+.cmp-vinod p{font-size:14px;color:rgba(255,255,255,.92);line-height:1.7}
+
+/* ── КОНТЕНТ-ПЛАН (Таб 7) ── */
+.month-section{margin-bottom:42px}
+.month-head{display:flex;align-items:center;gap:18px;padding:20px 24px;border-radius:14px;color:#fff;margin-bottom:18px}
+.month-head.m-jul{background:linear-gradient(135deg,var(--m-jul) 0%,#a64a25 100%)}
+.month-head.m-aug{background:linear-gradient(135deg,var(--m-aug) 0%,#a87c2a 100%)}
+.month-head.m-sep{background:linear-gradient(135deg,var(--m-sep) 0%,#7a512f 100%)}
+.month-head.m-oct{background:linear-gradient(135deg,var(--m-oct) 0%,#5e2a18 100%)}
+.month-head.m-nov{background:linear-gradient(135deg,var(--m-nov) 0%,#3e3225 100%)}
+.month-head.m-dec{background:linear-gradient(135deg,var(--m-dec) 0%,#6e1a12 100%)}
+.month-head-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;line-height:1;opacity:.45}
+.month-head-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;line-height:1.1}
+.month-head-theme{font-size:13px;color:rgba(255,255,255,.88);margin-top:4px;letter-spacing:.04em}
+.month-head-cnt{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:rgba(0,0,0,.22);padding:6px 14px;border-radius:18px}
+
+.week-label{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);margin:18px 0 10px;display:flex;align-items:center;gap:10px}
+.week-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.posts-table{width:100%;border-collapse:collapse;margin-bottom:14px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.posts-table th{background:#fafaf6;color:var(--muted);padding:10px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--border)}
+.posts-table td{padding:12px;border-bottom:1px solid var(--border);font-size:12.5px;vertical-align:top;line-height:1.5}
+.posts-table tr:last-child td{border-bottom:none}
+.posts-table tr:hover td{background:#fcfaf5}
+.post-id{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;color:var(--brand);white-space:nowrap}
+.post-fmt{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:12px;background:var(--gold-lt);color:#8a6518;white-space:nowrap}
+.post-fmt.f-reels{background:#f4e6ff;color:#5a2d8a}
+.post-fmt.f-car{background:var(--info-lt);color:var(--info)}
+.post-fmt.f-long{background:#fff0e0;color:#a85a18}
+.post-fmt.f-cmp{background:var(--success-lt);color:var(--success)}
+.post-fmt.f-event{background:#fde7e5;color:var(--brand)}
+.post-fmt.f-email{background:#e6eaf5;color:#3a4a7a}
+.post-cta{font-size:10.5px;color:var(--muted);font-style:italic}
+
+.draft-card{background:#0f1115;border-left:4px solid var(--ochre);border-radius:0 10px 10px 0;padding:16px 22px;margin:14px 0;color:#d8dae0;font-size:13px;line-height:1.7;font-style:italic}
+.draft-card-h{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ochre);font-style:normal;margin-bottom:8px}
+
+/* ── AI-USP (Таб 8) ── */
+.usp-hero{background:linear-gradient(135deg,var(--info) 0%,#1a3a5a 100%);border-radius:20px;padding:50px 44px;margin-bottom:32px;color:#fff;position:relative;overflow:hidden}
+.usp-hero::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,var(--ochre) 0%,transparent 70%);top:-100px;right:-80px;opacity:.3}
+.usp-hero-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ochre);font-weight:800;margin-bottom:18px;position:relative}
+.usp-hero-h{font-family:'Playfair Display',serif;font-size:46px;font-weight:900;line-height:1.1;margin-bottom:18px;position:relative;letter-spacing:-.01em}
+.usp-hero-sub{font-size:15px;color:rgba(255,255,255,.88);line-height:1.7;max-width:640px;position:relative}
+
+.usp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:32px}
+.usp-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:28px 30px;position:relative;border-top:5px solid var(--info);transition:all .15s}
+.usp-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.07)}
+.usp-card.c2{border-top-color:var(--brand)}
+.usp-card.c3{border-top-color:var(--success)}
+.usp-card.c4{border-top-color:var(--ochre)}
+.usp-card.c5{border-top-color:var(--terracotta)}
+.usp-card.c6{border-top-color:var(--graphite)}
+.usp-card.c7{border-top-color:var(--info)}
+.usp-card-num{position:absolute;top:18px;right:24px;font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:rgba(0,0,0,.06);line-height:1}
+.usp-card-ico{font-size:32px;margin-bottom:12px}
+.usp-card-h{font-size:18px;font-weight:800;margin-bottom:10px;line-height:1.25;letter-spacing:-.005em}
+.usp-card-t{font-size:13px;color:#555;line-height:1.65;margin-bottom:14px}
+.usp-card-bul{list-style:none}
+.usp-card-bul li{font-size:12px;color:#444;padding:5px 0;padding-left:18px;position:relative;line-height:1.55}
+.usp-card-bul li::before{content:'→';position:absolute;left:0;color:var(--info);font-weight:800}
+.usp-card.c2 .usp-card-bul li::before{color:var(--brand)}
+.usp-card.c3 .usp-card-bul li::before{color:var(--success)}
+.usp-card.c4 .usp-card-bul li::before{color:#8a6518}
+.usp-card.c5 .usp-card-bul li::before{color:var(--terracotta)}
+.usp-card.c6 .usp-card-bul li::before{color:var(--graphite)}
+.usp-card-foot{margin-top:12px;background:var(--info-lt);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--info);font-weight:700;line-height:1.5}
+.usp-card.c2 .usp-card-foot{background:#fff0ee;color:var(--brand)}
+.usp-card.c3 .usp-card-foot{background:var(--success-lt);color:var(--success)}
+.usp-card.c4 .usp-card-foot{background:var(--gold-lt);color:#8a6518}
+.usp-card.c5 .usp-card-foot{background:#fbeee5;color:#a14a20}
+.usp-card.c6 .usp-card-foot{background:#f0eee8;color:var(--graphite)}
+
+.dialog-card{background:#0f1115;border-radius:16px;padding:26px 30px;margin-bottom:24px;color:#d8dae0;font-size:13.5px;line-height:1.75}
+.dialog-card-h{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ochre);font-weight:800;margin-bottom:14px}
+.dialog-line{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.dialog-line:last-of-type{border-bottom:none}
+.dialog-line.user{color:#9aa6b8}
+.dialog-line.ai{color:#fff}
+.dialog-line strong{color:var(--ochre)}
+
+.usp-cmp-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);font-size:12.5px;margin-bottom:24px}
+.usp-cmp-table th{background:var(--dark);color:#fff;padding:12px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.usp-cmp-table th.hp{background:var(--brand)}
+.usp-cmp-table td{padding:12px 14px;border-bottom:1px solid var(--border)}
+.usp-cmp-table td.dim{color:var(--muted);text-align:center}
+.usp-cmp-table td.win{background:var(--success-lt);color:var(--success);font-weight:700;text-align:center}
+
+/* ── ЗАПРОСЫ (Таб 9) ── */
+.req-checklist{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.req-item{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px 28px;display:grid;grid-template-columns:48px 1fr 160px;gap:20px;align-items:start;border-left:5px solid var(--brand)}
+.req-item.r2{border-left-color:var(--terracotta)}
+.req-item.r3{border-left-color:var(--ochre)}
+.req-item.r4{border-left-color:var(--success)}
+.req-item.r5{border-left-color:var(--info)}
+.req-item.r6{border-left-color:var(--graphite)}
+.req-box{width:42px;height:42px;border:2.5px solid var(--brand);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--brand)}
+.req-item.r2 .req-box{border-color:var(--terracotta);color:var(--terracotta)}
+.req-item.r3 .req-box{border-color:var(--ochre);color:#8a6518}
+.req-item.r4 .req-box{border-color:var(--success);color:var(--success)}
+.req-item.r5 .req-box{border-color:var(--info);color:var(--info)}
+.req-item.r6 .req-box{border-color:var(--graphite);color:var(--graphite)}
+.req-h{font-size:15px;font-weight:800;margin-bottom:8px;line-height:1.3}
+.req-t{font-size:12.5px;color:#555;line-height:1.65}
+.req-t ul{list-style:none;margin-top:6px}
+.req-t li{padding:3px 0;padding-left:16px;position:relative;font-size:12px}
+.req-t li::before{content:'•';position:absolute;left:0;color:var(--brand);font-weight:800}
+.req-meta{font-size:11px}
+.req-deadline{background:var(--gold-lt);border:1px solid rgba(201,169,110,.4);border-radius:8px;padding:10px 12px;text-align:center}
+.req-deadline-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:3px}
+.req-deadline-val{font-size:13px;font-weight:800;color:#8a6518;line-height:1.3}
+
+.contacts-card{background:linear-gradient(135deg,#181A20 0%,#2a2030 100%);border-radius:18px;padding:32px 36px;color:#fff;margin-bottom:24px}
+.contacts-card-h{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre);font-weight:800;margin-bottom:18px}
+.contacts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.contact-row{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:14px 18px}
+.contact-row-lbl{font-size:10px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.contact-row-val{font-size:13px;font-weight:600;color:#fff}
+.contact-row-val a{color:var(--ochre);text-decoration:none}
+
+/* ── KPI (Таб 10) ── */
+.kpi-hero{background:linear-gradient(135deg,#181A20 0%,#2a2233 100%);border-radius:20px;padding:44px 40px;margin-bottom:32px;color:#fff;position:relative;overflow:hidden}
+.kpi-hero::before{content:'';position:absolute;width:300px;height:300px;background:radial-gradient(circle,var(--ochre) 0%,transparent 70%);top:-120px;right:-80px;opacity:.18}
+.kpi-hero-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ochre);font-weight:800;margin-bottom:14px;position:relative}
+.kpi-hero-h{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;line-height:1.1;margin-bottom:14px;position:relative}
+.kpi-hero-h em{color:var(--ochre);font-style:italic}
+.kpi-hero-sub{font-size:15px;color:#c8ccd6;line-height:1.7;max-width:680px;position:relative}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:28px}
+.kpi-stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 20px;position:relative;border-top:4px solid var(--brand);transition:transform .2s}
+.kpi-stat:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.06)}
+.kpi-stat.s-ochre{border-top-color:var(--ochre)}
+.kpi-stat.s-success{border-top-color:var(--success)}
+.kpi-stat.s-info{border-top-color:var(--info)}
+.kpi-stat-lbl{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+.kpi-stat-val{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--brand);line-height:1;margin-bottom:6px}
+.kpi-stat.s-ochre .kpi-stat-val{color:#8a6518}
+.kpi-stat.s-success .kpi-stat-val{color:var(--success)}
+.kpi-stat.s-info .kpi-stat-val{color:var(--info)}
+.kpi-stat-desc{font-size:11.5px;color:#666;line-height:1.5}
+.kpi-stat-mini{font-size:10px;color:#999;margin-top:8px;font-style:italic}
+.kpi-table{width:100%;border-collapse:separate;border-spacing:0;margin-bottom:24px;font-size:12px;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.kpi-table th{background:var(--dark);color:#fff;padding:13px 14px;text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.kpi-table th.center{text-align:center}
+.kpi-table td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:12px;line-height:1.5}
+.kpi-table tr:last-child td{border-bottom:none}
+.kpi-table td.metric{font-weight:700;color:#2a2a2a;background:#fafaf6;width:34%}
+.kpi-table td.center{text-align:center}
+.kpi-table td.target{font-weight:700;color:var(--success)}
+.kpi-table td.minimum{color:#a06410}
+.kpi-row-section{background:linear-gradient(90deg,var(--brand) 0%,#7a1f17 100%) !important;color:#fff !important;font-weight:800 !important;font-size:11px !important;text-transform:uppercase;letter-spacing:.1em}
+.kpi-row-section td{color:#fff !important;background:transparent !important}
+
+/* ── ПОДВАЛ КАЖДОГО ТАБА ── */
+.tab-foot{margin-top:36px;padding-top:24px;border-top:1px solid var(--border)}
+.tab-foot-msg{background:linear-gradient(90deg,var(--brand) 0%,#6e1a12 100%);color:#fff;border-radius:12px;padding:14px 22px;text-align:center;font-size:12.5px;font-weight:700;letter-spacing:.06em;margin-bottom:12px}
+.tab-foot-msg .plus{color:var(--ochre);margin:0 8px}
+.tab-foot-sign{text-align:center;font-size:11px;color:var(--muted);letter-spacing:.06em;font-style:italic}
+.tab-foot-sign strong{color:var(--brand);font-style:normal}
+
+/* ── ФУТЕР ── */
+.footer{background:var(--dark);color:#888;text-align:center;padding:32px 24px;font-size:12px;line-height:2}
+.footer strong{color:var(--ochre)}
+.footer a{color:var(--ochre);text-decoration:none}
+
+@media(max-width:900px){
+  .pad{padding:28px 22px 32px}
+  .header{padding:22px 22px}
+  .brand-bar{padding:10px 22px}
+  .kp-guide{padding:10px 22px}
+  .kp-guide-tab{flex:none}
+  .nine-grid,.window-grid,.bullets-grid,.audience-grid,.vis-tile-grid,.forbidden-grid,.tov-section,.assets-grid,.usp-grid,.events-list,.contacts-grid{grid-template-columns:1fr}
+  .roadmap-strip{grid-template-columns:repeat(2,1fr)}
+  .h-display,.usp-hero-h,.manifest-h{font-size:30px}
+  .tri-hero-msg,.s-text{font-size:22px}
+  .req-item{grid-template-columns:1fr;gap:12px}
+  .allowed-card ul{grid-template-columns:1fr}
+  .palette-strip{grid-template-columns:repeat(2,1fr)}
+  .cmp-table{font-size:10px}
+  .cmp-table th,.cmp-table td{padding:8px 6px}
+}
+@media print{
+  .kp-guide{display:none!important;position:static}
+  .tab-panel{display:block!important;page-break-after:always}
+  body{background:#fff}
+  .container{box-shadow:none;max-width:100%}
+  .pad{padding:24px}
+  .header,.brand-bar,.footer,.tab-foot-msg,.tri-hero,.manifest-hero,.usp-hero,.month-head{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ═══ ШАПКА ═══ -->
+<div class="header">
+  <div>
+    <div class="logo-title">Home Project</div>
+    <div class="logo-sub">Премиальная встраиваемая техника · homeproject.online</div>
+    <div class="h-title">Стратегия продвижения <em>Bertazzoni</em><br>Июнь — Декабрь 2026</div>
+    <div class="h-sub">Контент-кампания · 54 публикации · 7 месяцев · 4 канала</div>
+    <div style="margin-top:14px; display:inline-flex; align-items:center; gap:8px; background:rgba(212,162,76,0.14); border:1px solid rgba(212,162,76,0.5); padding:6px 12px; border-radius:22px;">
+      <span style="font-size:9px; font-weight:800; letter-spacing:.16em; color:#D4A24C; text-transform:uppercase;">⚠ Первичный драфт</span>
+      <span style="font-size:11px; color:#c8ccd6;">готовы доработать после ваших комментариев</span>
+    </div>
+  </div>
+  <div style="text-align:right">
+    <div class="kp-label">Документ</div>
+    <div class="kp-meta">Pitch-deck v1.0 · draft</div>
+    <div class="kp-date">11 июня 2026 · первичная версия</div>
+    <span class="kp-pitch">персонально для Константина Яроха</span>
+    <div style="font-size:10px; color:#9aa0b8; margin-top:8px; max-width:220px; line-height:1.5;">Документ конфиденциальный · дальнейшая передача только по согласованию с Home Project</div>
+  </div>
+</div>
+
+<!-- ═══ БРЕНД-ПОЛОСА ═══ -->
+<div class="brand-bar">
+  <span class="brand-bar-name">Bertazzoni</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-tagline">Officina Bertazzoni · с 1882 · Guastalla, Italia</span>
+  <span class="brand-bar-pill">Pitch для Константина Яроха</span>
+</div>
+
+<!-- ═══ НАВИГАЦИЯ ═══ -->
+<div class="kp-guide">
+  <div class="kp-guide-title">10 разделов стратегии:</div>
+  <div class="kp-guide-tabs">
+    <div class="kp-guide-tab active" onclick="showTab('heard',this)"><span class="gt-icon">📋</span> Услышали</div>
+    <div class="kp-guide-tab" onclick="showTab('answer',this)"><span class="gt-icon">🎯</span> Наш ответ</div>
+    <div class="kp-guide-tab" onclick="showTab('roadmap',this)"><span class="gt-icon">🗓</span> Roadmap</div>
+    <div class="kp-guide-tab" onclick="showTab('slogans',this)"><span class="gt-icon">✍️</span> Слоганы</div>
+    <div class="kp-guide-tab" onclick="showTab('visual',this)"><span class="gt-icon">🖼</span> Визуал</div>
+    <div class="kp-guide-tab" onclick="showTab('compare',this)"><span class="gt-icon">📊</span> Сравнение</div>
+    <div class="kp-guide-tab" onclick="showTab('plan',this)"><span class="gt-icon">📱</span> Контент-план</div>
+    <div class="kp-guide-tab" onclick="showTab('usp',this)"><span class="gt-icon">🤖</span> AI-USP</div>
+    <div class="kp-guide-tab" onclick="showTab('asks',this)"><span class="gt-icon">🤝</span> Запросы</div>
+    <div class="kp-guide-tab" onclick="showTab('kpi',this)"><span class="gt-icon">📈</span> KPI</div>
+  </div>
+</div>
+
+<!-- ════════════ ТАБ 1 · УСЛЫШАЛИ ════════════ -->
+<div id="tab-heard" class="tab-panel active">
+<div class="pad">
+
+  <div class="section-title">Раздел 01 · Услышали производителя <small>дословная позиция и наш разбор</small></div>
+
+  <h1 class="h-display">Что говорит <em>Константин Ярох</em></h1>
+  <p class="lead">Это не наша интерпретация и не «дилерская догадка». Это позиция, которую сам производитель просит подсвечивать в коммуникации. Мы услышали — и строим всю кампанию H2 2026 от неё. <strong>Документ — первичный драфт, готовы доработать после ваших комментариев.</strong></p>
+
+  <div class="quote-hero">
+    <div class="quote-hero-label">Письмо · Bertazzoni RU → Home Project</div>
+    <div class="quote-hero-text">
+      <p>Хотел бы предложить в коммуникации про Bertazzoni чуть сильнее подсвечивать несколько ключевых преимуществ бренда:</p>
+      <p><strong style="color:var(--ochre)">1.</strong> Официальное присутствие в России — один из немногих/единственный премиальный бренд с официальными поставками и поддержкой производителя.</p>
+      <p><strong style="color:var(--ochre)">2.</strong> Функция пара в духовках — пар можно добавить к ЛЮБОЙ программе, даже во время приготовления.</p>
+      <p><strong style="color:var(--ochre)">3.</strong> Уникальное сочетание пиролиз + пар — нет у конкурентов.</p>
+      <p><strong style="color:var(--ochre)">4.</strong> Bertazzoni Assist — 450 автоматических программ.</p>
+      <p><strong style="color:var(--ochre)">5.</strong> Ширина ассортимента и дизайнов — от хай-тек до классики, любые цвета.</p>
+      <p><strong style="color:var(--ochre)">6.</strong> Надёжность — техника по наследству.</p>
+      <p><strong style="color:var(--ochre)">7.</strong> Уникальные продукты — варочный центр с интегрированной вытяжкой 3-в-1 (можно ставить у окна).</p>
+      <p><strong style="color:var(--ochre)">8.</strong> Ценности бренда — итальянская инженерия, любовь к готовке, cooking experience.</p>
+      <p><strong style="color:var(--ochre)">9.</strong> Choice of designers/stars — ru.bertazzoni.com/design-partner-projects</p>
+    </div>
+    <div class="quote-hero-cite">— Константин Ярох, Bertazzoni RU · июнь 2026</div>
+  </div>
+
+  <div class="section-title" style="margin-top:36px">9 опор → 9 активных треков <small>как переводим в контент</small></div>
+
+  <div class="nine-grid">
+    <div class="nine-card">
+      <div class="nine-card-num">01</div>
+      <div class="nine-card-icon">🇷🇺</div>
+      <div class="nine-card-cap">Опора производителя</div>
+      <div class="nine-card-title">Официально в РФ</div>
+      <div class="nine-card-text">Trust-layer: гарантия, склад МСК, сервис. Бейджи «официально» в каждом touchpoint, FAQ, посты-разборы.</div>
+      <span class="nine-card-pill p-red">Обязательно везде</span>
+    </div>
+    <div class="nine-card">
+      <div class="nine-card-num">02</div>
+      <div class="nine-card-icon">💨</div>
+      <div class="nine-card-cap">Опора производителя</div>
+      <div class="nine-card-title">Пар к любой программе</div>
+      <div class="nine-card-text">Steam-any-time: демо-видео + рецепт. Reels и карусели «добавь пар прямо сейчас».</div>
+      <span class="nine-card-pill p-red">Главный месседж июль–август</span>
+    </div>
+    <div class="nine-card">
+      <div class="nine-card-num">03</div>
+      <div class="nine-card-icon">🔥</div>
+      <div class="nine-card-cap">Опора производителя</div>
+      <div class="nine-card-title">Пиролиз + пар</div>
+      <div class="nine-card-text">Unique combo: сравнительная таблица, инфографика vs конкуренты, технический лонгрид.</div>
+      <span class="nine-card-pill p-orange">Дифференциатор №1</span>
+    </div>
+    <div class="nine-card">
+      <div class="nine-card-num">04</div>
+      <div class="nine-card-icon">🎛</div>
+      <div class="nine-card-cap">Опора производителя</div>
+      <div class="nine-card-title">Bertazzoni Assist</div>
+      <div class="nine-card-text">Smart kitchen: демо 450 автопрограмм, карусель «нажми одну кнопку», видео.</div>
+      <span class="nine-card-pill p-orange">Август–сентябрь</span>
+    </div>
+    <div class="nine-card">
+      <div class="nine-card-num">05</div>
+      <div class="nine-card-icon">🎨</div>
+      <div class="nine-card-cap">Опора производителя</div>
+      <div class="nine-card-title">Цвета и серии</div>
+      <div class="nine-card-text">Color palette: 4 серии × N цветов. Мудборды, галерея, Heritage-палитра.</div>
+      <span class="nine-card-pill p-yellow">Сентябрь + НГ-выпуск</span>
+    </div>
+    <div class="nine-card">
+      <div class="nine-card-num">06</div>
+      <div class="nine-card-icon">⏳</div>
+      <div class="nine-card-cap">Опора производителя</div>
+      <div class="nine-card-title">По наследству</div>
+      <div class="nine-card-text">Heritage story: семья Bertazzoni с 1882, лонгрид «техника по наследству», видео.</div>
+      <span class="nine-card-pill p-yellow">Декабрь — пик</span>
+    </div>
+    <div class="nine-card">
+      <div class="nine-card-num">07</div>
+      <div class="nine-card-icon">🪟</div>
+      <div class="nine-card-cap">Опора производителя</div>
+      <div class="nine-card-title">Варочный центр у окна</div>
+      <div class="nine-card-text">Window cooker: рендер-схема, кейс дизайнера, отдельный пресс-релиз с Bertazzoni RU.</div>
+      <span class="nine-card-pill p-orange">Август + PR</span>
+    </div>
+    <div class="nine-card">
+      <div class="nine-card-num">08</div>
+      <div class="nine-card-icon">🇮🇹</div>
+      <div class="nine-card-cap">Опора производителя</div>
+      <div class="nine-card-title">Итальянская инженерия</div>
+      <div class="nine-card-text">Brand story: Guastalla, family heritage. Вплавлен во все материалы — не отдельный трек.</div>
+      <span class="nine-card-pill p-yellow">Сквозной</span>
+    </div>
+    <div class="nine-card">
+      <div class="nine-card-num">09</div>
+      <div class="nine-card-icon">⭐</div>
+      <div class="nine-card-cap">Опора производителя</div>
+      <div class="nine-card-title">Выбор дизайнеров</div>
+      <div class="nine-card-text">Social proof: design-partner-projects, подборка мировых проектов, локальный кейс.</div>
+      <span class="nine-card-pill p-orange">Сентябрь + ивент окт-нояб</span>
+    </div>
+  </div>
+
+  <div class="tri-hero">
+    <div class="tri-hero-label">★ Главный триединый месседж кампании ★</div>
+    <div class="tri-hero-msg">
+      <span class="pc">ОФИЦИАЛЬНО</span><span class="plus">+</span><span class="pc">СКЛАД</span><span class="plus">+</span><span class="pc">СЕРВИС</span>
+    </div>
+    <div class="tri-hero-foot">
+      В каждом touchpoint. В подвале каждого материала. На каждом слайде КП. Формулировка не меняется — это фундамент доверия. Пока конкуренты уходят, замораживают поставки или работают через серые схемы — Bertazzoni официально, со складом в Москве и гарантией производителя.
+    </div>
+  </div>
+
+  <div class="tab-foot">
+    <div class="tab-foot-msg">BERTAZZONI = ОФИЦИАЛЬНО В РФ<span class="plus">+</span>АКТУАЛЬНЫЙ СКЛАД<span class="plus">+</span>СЕРВИС ПРОИЗВОДИТЕЛЯ</div>
+    <div class="tab-foot-sign">Подготовлено <strong>Арией</strong> — AI-менеджером Home Project · от Андрея Ботьева (owner) · 11 июня 2026 · первичный драфт</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════ ТАБ 2 · НАШ ОТВЕТ ════════════ -->
+<div id="tab-answer" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Раздел 02 · Наш ответ <small>манифест и обоснование</small></div>
+
+  <div class="manifest-hero">
+    <div class="manifest-kicker">★ Манифест кампании H2 2026 ★</div>
+    <div class="manifest-h">Bertazzoni. <em>Освежим рынок —</em><br>не дозированно, агрессивно.</div>
+    <div class="manifest-sub">
+      Bertazzoni — <strong>один из немногих премиальных европейских брендов, который остался в России официально</strong>. Это не случайно и не временно. Это выбор производителя и его российских партнёров.
+      Пока конкуренты уходили, замораживали поставки или работали через серые схемы — Bertazzoni держит позицию. <strong>Окно возможности открыто — и мы им воспользуемся.</strong>
+    </div>
+  </div>
+
+  <div class="section-title">Окно возможности — в цифрах</div>
+
+  <div class="window-grid">
+    <div class="window-stat">
+      <div class="window-stat-val">1 из ≤5</div>
+      <div class="window-stat-lbl">премиум-брендов с официальным каналом в РФ</div>
+    </div>
+    <div class="window-stat">
+      <div class="window-stat-val">143</div>
+      <div class="window-stat-lbl">SKU на складе в Москве</div>
+    </div>
+    <div class="window-stat">
+      <div class="window-stat-val">₽137,6 M</div>
+      <div class="window-stat-lbl">по РРЦ — актуальный сток</div>
+    </div>
+    <div class="window-stat">
+      <div class="window-stat-val">7 мес</div>
+      <div class="window-stat-lbl">системной кампании с нарастанием к декабрю</div>
+    </div>
+  </div>
+
+  <div class="section-title">Что держит Bertazzoni в РФ</div>
+
+  <div class="bullets-grid">
+    <div class="bullet">
+      <div class="bullet-h">✅ Официальные поставки</div>
+      <div class="bullet-t">Прямой канал производитель → дистрибьютор → клиент. Без параллельного импорта и серых схем.</div>
+    </div>
+    <div class="bullet">
+      <div class="bullet-h">✅ Гарантия и сервис</div>
+      <div class="bullet-t">Гарантийный и постгарантийный сервис в РФ. Запчасти, диагностика, выезд мастера.</div>
+    </div>
+    <div class="bullet">
+      <div class="bullet-h">✅ Склад в Москве</div>
+      <div class="bullet-t">143 SKU физически в наличии. Без ожидания 3–6 месяцев под заказ. Отгрузка за дни, не недели.</div>
+    </div>
+    <div class="bullet">
+      <div class="bullet-h">✅ Поддержка производителя</div>
+      <div class="bullet-t">Техконсультации, обновления каталога, маркетинговые материалы. Связь с RU-офисом — живая.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Почему «взять прайс — опубликовать» не работает</div>
+
+  <p class="lead">Дилерская модель для премиума мертва. Работает только то, что строит компетенцию и доверие — а не то, что качает остатки. Наш фокус на четырёх вещах:</p>
+
+  <div class="bullets-grid">
+    <div class="bullet" style="border-left-color:var(--info)">
+      <div class="bullet-h">🎓 Обучение дизайнеров и архитекторов</div>
+      <div class="bullet-t">Они принимают решение о технике в проекте. Их компетенция — наши продажи.</div>
+    </div>
+    <div class="bullet" style="border-left-color:var(--terracotta)">
+      <div class="bullet-h">⚙️ Технические компетенции</div>
+      <div class="bullet-t">Пар, пиролиз, автопрограммы — мы знаем о технике больше, чем кто-либо на рынке РФ.</div>
+    </div>
+    <div class="bullet" style="border-left-color:var(--ochre)">
+      <div class="bullet-h">⚡ Скорость закрытия сделки</div>
+      <div class="bullet-t">КП за 5 минут с монтажным листом, актуальные остатки, никаких «уточняю и перезваниваю».</div>
+    </div>
+    <div class="bullet" style="border-left-color:var(--brand)">
+      <div class="bullet-h">🛡 Доверие к источнику</div>
+      <div class="bullet-t">Официально = без рисков для клиента. Дизайнер не рискует репутацией, рекомендуя нас.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Целевые аудитории</div>
+
+  <div class="audience-grid">
+    <div class="aud-card"><div class="aud-card-icon">🎨</div><div class="aud-card-h">Дизайнеры интерьеров</div><div class="aud-card-t">Объекты 100–300 м². Выбирают технику в проект. Главный канал решения.</div></div>
+    <div class="aud-card"><div class="aud-card-icon">📐</div><div class="aud-card-h">Архитекторы</div><div class="aud-card-t">Застройщики, концептуальные проекты. Думают системно, ценят официальный канал.</div></div>
+    <div class="aud-card"><div class="aud-card-icon">🍳</div><div class="aud-card-h">Кухонные студии</div><div class="aud-card-t">Типовые и эксклюзивные кухни, b2b-продажи. Объёмные регулярные сделки.</div></div>
+    <div class="aud-card"><div class="aud-card-icon">👤</div><div class="aud-card-h">Конечные покупатели</div><div class="aud-card-t">Через своего дизайнера или напрямую — Telegram-бот, сайт, рекомендация.</div></div>
+  </div>
+
+  <p class="lead" style="margin-top:24px"><strong>Home Project берёт Bertazzoni в приоритетный трек H2 2026.</strong> Не один запуск — системная кампания на 7 месяцев, с нарастающей интенсивностью к декабрю. И с конкретными KPI, которые покажем в разделе «Запросы».</p>
+
+  <div class="tab-foot">
+    <div class="tab-foot-msg">BERTAZZONI = ОФИЦИАЛЬНО В РФ<span class="plus">+</span>АКТУАЛЬНЫЙ СКЛАД<span class="plus">+</span>СЕРВИС ПРОИЗВОДИТЕЛЯ</div>
+    <div class="tab-foot-sign">Подготовлено <strong>Арией</strong> — AI-менеджером Home Project · от Андрея Ботьева (owner) · 11 июня 2026 · первичный драфт</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════ ТАБ 3 · ROADMAP ════════════ -->
+<div id="tab-roadmap" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Раздел 03 · Roadmap Июнь → Декабрь 2026 <small>54 публикации · 4 канала · 7 месяцев</small></div>
+
+  <h1 class="h-display">7 месяцев — <em>от тизера до НГ-пика</em></h1>
+  <p class="lead">Каждый месяц имеет свою фазу, тему и форматный фокус. Интенсивность нарастает: июнь — фундамент, июль — первый удар, август-сентябрь — техно-differentiators, октябрь-ноябрь — кейсы и ивент, декабрь — эмоциональный пик с лонгридом «по наследству» и НГ-кампанией.</p>
+
+  <div class="roadmap-strip">
+    <div class="r-month m-jun">
+      <div class="r-m-num">М 01 · Июнь</div>
+      <div class="r-m-name">Июнь</div>
+      <div class="r-m-theme">Фундамент Trust-layer: официально + склад + сервис</div>
+      <div class="r-m-posts">4 поста</div>
+    </div>
+    <div class="r-month m-jul">
+      <div class="r-m-num">М 02 · Июль ⚡</div>
+      <div class="r-m-name">Июль</div>
+      <div class="r-m-theme">Активный подогрев. Пар + пиролиз — тизер новой эры</div>
+      <div class="r-m-posts">8 постов</div>
+    </div>
+    <div class="r-month m-aug">
+      <div class="r-m-num">М 03 · Август</div>
+      <div class="r-m-name">Август</div>
+      <div class="r-m-theme">Differentiators: 3-в-1 центр у окна + Bertazzoni Assist</div>
+      <div class="r-m-posts">10 постов</div>
+    </div>
+    <div class="r-month m-sep">
+      <div class="r-m-name">Сентябрь</div>
+      <div class="r-m-num">М 04 · Сентябрь</div>
+      <div class="r-m-theme">Кулинарный + дизайнерский. Cooking experience + проекты</div>
+      <div class="r-m-posts">8 постов</div>
+    </div>
+    <div class="r-month m-oct">
+      <div class="r-m-num">М 05 · Октябрь</div>
+      <div class="r-m-name">Октябрь</div>
+      <div class="r-m-theme">Acceleration. Кейсы завершённых проектов + ивент дизайнеров</div>
+      <div class="r-m-posts">8 постов</div>
+    </div>
+    <div class="r-month m-nov">
+      <div class="r-m-num">М 06 · Ноябрь</div>
+      <div class="r-m-name">Ноябрь</div>
+      <div class="r-m-theme">Разгон к НГ. Comparison + bundle acceleration + email</div>
+      <div class="r-m-posts">8 постов</div>
+    </div>
+    <div class="r-month m-dec">
+      <div class="r-m-num">М 07 · Декабрь ★</div>
+      <div class="r-m-name">Декабрь</div>
+      <div class="r-m-theme">НГ-пик. «По наследству», бандлы, эмоциональный максимум</div>
+      <div class="r-m-posts">8 постов</div>
+    </div>
+  </div>
+
+  <div class="section-title">Roadmap в табличной развёртке</div>
+
+  <table class="timeline-table">
+    <thead><tr><th>Месяц / Фаза</th><th>Главная тема</th><th>Форматы</th><th>Каналы</th><th style="text-align:center">Кол-во</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="tm-month">Июнь<span class="ms">Подготовка фундамента</span></div></td>
+        <td>Trust-layer: «официально, склад, сервис»</td>
+        <td><span class="tm-tag">Пост-анонс</span> <span class="tm-tag">FAQ</span> <span class="tm-tag">Карточки бренда</span></td>
+        <td>TG, VK</td>
+        <td class="tm-cnt">4</td>
+      </tr>
+      <tr>
+        <td><div class="tm-month">Июль ⚡<span class="ms">Старт подогрева</span></div></td>
+        <td>Пар + пиролиз — тизер новой эры</td>
+        <td><span class="tm-tag">Reels</span> <span class="tm-tag">Карусели</span> <span class="tm-tag">Сравнение</span></td>
+        <td>TG, VK, IG</td>
+        <td class="tm-cnt">8</td>
+      </tr>
+      <tr>
+        <td><div class="tm-month">Август<span class="ms">Техно-differentiators</span></div></td>
+        <td>Варочный центр у окна + Bertazzoni Assist</td>
+        <td><span class="tm-tag">Видео-демо</span> <span class="tm-tag">Инфографика</span> <span class="tm-tag">Кейсы</span></td>
+        <td>TG, VK, IG, Email</td>
+        <td class="tm-cnt">10</td>
+      </tr>
+      <tr>
+        <td><div class="tm-month">Сентябрь<span class="ms">Кулинар + дизайн</span></div></td>
+        <td>Cooking experience + design-partner-projects</td>
+        <td><span class="tm-tag">Фуд-фото</span> <span class="tm-tag">Архитектура</span> <span class="tm-tag">Deck</span></td>
+        <td>TG, VK, Email</td>
+        <td class="tm-cnt">8</td>
+      </tr>
+      <tr>
+        <td><div class="tm-month">Октябрь<span class="ms">Acceleration</span></div></td>
+        <td>Кейсы + дизайнер-ивент</td>
+        <td><span class="tm-tag">Кейсы</span> <span class="tm-tag">Репортаж</span> <span class="tm-tag">Ивент</span></td>
+        <td>TG, VK, IG</td>
+        <td class="tm-cnt">8</td>
+      </tr>
+      <tr>
+        <td><div class="tm-month">Ноябрь<span class="ms">Разгон к НГ</span></div></td>
+        <td>Comparison + bundle acceleration</td>
+        <td><span class="tm-tag">Сравнения</span> <span class="tm-tag">Бандлы</span> <span class="tm-tag">Email</span></td>
+        <td>TG, VK, IG, Email</td>
+        <td class="tm-cnt">8</td>
+      </tr>
+      <tr>
+        <td><div class="tm-month">Декабрь ★<span class="ms">НГ-пик · максимум</span></div></td>
+        <td>«По наследству», НГ-кухня, бандлы</td>
+        <td><span class="tm-tag">Лонгрид</span> <span class="tm-tag">Видео</span> <span class="tm-tag">НГ-оформление</span></td>
+        <td>TG, VK, IG, Email</td>
+        <td class="tm-cnt">8</td>
+      </tr>
+      <tr style="background:var(--gold-lt)">
+        <td colspan="4" style="font-weight:800;color:var(--brand)">Итого: 7 месяцев системной кампании</td>
+        <td class="tm-cnt" style="font-size:18px">54</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="events-card">
+    <div class="events-card-h">★ Ключевые события по месяцам</div>
+    <div class="events-list">
+      <div class="event-item"><div class="event-dot">06</div><div class="event-text"><strong>Июнь</strong>Обновление landing страницы homeproject.online + полный фотобанк выложен</div></div>
+      <div class="event-item"><div class="event-dot">07</div><div class="event-text"><strong>Июль</strong>Первый Reels «пар к любой программе» — сигнальная публикация месяца + старт еженедельной «Склад на этой неделе»</div></div>
+      <div class="event-item"><div class="event-dot">08</div><div class="event-text"><strong>Август</strong>Пресс-релиз «варочный центр 3-в-1» — первый уникальный материал в РФ · первый приведённый визит дизайнеров в шоу-рум Bertazzoni</div></div>
+      <div class="event-item"><div class="event-dot">09</div><div class="event-text"><strong>Сентябрь</strong>Deck design-partner-projects — презентация для дизайнерского сообщества + регулярные визиты в шоу-рум (1–2/мес)</div></div>
+      <div class="event-item"><div class="event-dot">10·11</div><div class="event-text"><strong>Октябрь–Ноябрь</strong>Закрытое мероприятие для дизайнеров МСК с инженером Bertazzoni</div></div>
+      <div class="event-item"><div class="event-dot">12</div><div class="event-text"><strong>Декабрь</strong>НГ-кампания «Техника по наследству» — эмоциональный пик года · удвоение частоты подборок склада (2/нед)</div></div>
+    </div>
+  </div>
+
+  <!-- ── Новый регулярный формат · подборки склада ── -->
+  <div style="background:linear-gradient(135deg,rgba(212,162,76,0.08) 0%,#fff 100%);border:1px solid var(--ochre);border-left:5px solid var(--ochre);border-radius:14px;padding:26px 30px;margin-top:24px">
+    <div style="font-size:10px;font-weight:800;letter-spacing:.18em;color:#8a6518;text-transform:uppercase;margin-bottom:10px">📦 Новый постоянный формат · еженедельная подборка склада</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--graphite);margin-bottom:10px;line-height:1.2"><em>«Склад на этой неделе»</em> — постоянная рубрика, не разовая акция</h3>
+    <p style="font-size:13px;color:#444;line-height:1.7;margin-bottom:16px;max-width:760px">
+      AI-агент Home Project каждую среду собирает подборку Bertazzoni-моделей, реально доступных со склада в Москве, с фото, ценами и сроком отгрузки. Публикуется в Telegram-канале + Instagram Stories + email-рассылке дизайнерам с активными проектами.
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px">
+      <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px">
+        <div style="font-size:10px;font-weight:800;color:#8a6518;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Зачем дизайнеру</div>
+        <div style="font-size:12px;color:#444;line-height:1.55">Точно знает, что можно включить в спецификацию «прямо сейчас», без риска «а вдруг не привезут»</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px">
+        <div style="font-size:10px;font-weight:800;color:#8a6518;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Зачем Bertazzoni</div>
+        <div style="font-size:12px;color:#444;line-height:1.55">Регулярный органический контент, подсветка медленно движущихся SKU — стимулирует их ротацию</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px">
+        <div style="font-size:10px;font-weight:800;color:#8a6518;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Зачем нам</div>
+        <div style="font-size:12px;color:#444;line-height:1.55">Конверсия «увидел → запросил КП» по подборке — 8–12%. Закрытие сделок по складу 7–14 дней вместо 60.</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#555;line-height:1.6;padding-top:12px;border-top:1px dashed var(--ochre)">
+      <strong style="color:#8a6518">Технически:</strong> подборка автогенерится из <code style="background:#f5f4f0;padding:1px 6px;border-radius:3px;font-size:11px">catalog.json</code> + остатков InSales. Алгоритм отбирает по критериям: наличие &gt; 1 шт, фото есть, цена обновлена. От заявки до публикации — 30 минут. Шаблон поста и пример визуала — в разделе «Контент-план».
+    </p>
+  </div>
+
+  <div class="tab-foot">
+    <div class="tab-foot-msg">BERTAZZONI = ОФИЦИАЛЬНО В РФ<span class="plus">+</span>АКТУАЛЬНЫЙ СКЛАД<span class="plus">+</span>СЕРВИС ПРОИЗВОДИТЕЛЯ</div>
+    <div class="tab-foot-sign">Подготовлено <strong>Арией</strong> — AI-менеджером Home Project · от Андрея Ботьева (owner) · 11 июня 2026 · первичный драфт</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════ ТАБ 4 · СЛОГАНЫ И TOV ════════════ -->
+<div id="tab-slogans" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Раздел 04 · Слоганы и Tone of Voice <small>3 баннера + правила речи</small></div>
+
+  <h1 class="h-display">Три удара. <em>Без воды.</em></h1>
+  <p class="lead">Три слогана — три аудитории, три типа задач. Trust-first снимает главный страх. Техно-дифференциатор отстраивает от конкурентов. Social proof работает на дизайнеров. Все три — короткие, конкретные, без штампов.</p>
+
+  <div class="slogan-card s1">
+    <div class="slogan-num">01</div>
+    <div class="s-kicker">Trust-first · базовый, в каждом материале</div>
+    <div class="s-text">«Bertazzoni. Италия — официально в России.<br>Гарантия, сервис, склад.»</div>
+    <div class="s-purpose"><strong>Назначение:</strong> снять главный страх покупателя. Уверяем, не уговариваем. Используется в подвале постов, на бейджах, в КП и FAQ.</div>
+  </div>
+
+  <div class="slogan-card s2">
+    <div class="slogan-num">02</div>
+    <div class="s-kicker">Техно-дифференциатор · для технически грамотной аудитории</div>
+    <div class="s-text">«Пар. Пиролиз. Италия.<br>То, чего нет ни у кого.»</div>
+    <div class="s-purpose"><strong>Назначение:</strong> отстройка от конкурентов через уникальные функции. Для дизайнеров и архитекторов. Без лишних слов — три удара.</div>
+  </div>
+
+  <div class="slogan-card s3">
+    <div class="slogan-num">03</div>
+    <div class="s-kicker">Social proof · дизайнерская аудитория</div>
+    <div class="s-text">«Выбор мировых дизайнеров —<br>теперь и для ваших проектов.»</div>
+    <div class="s-purpose"><strong>Назначение:</strong> авторитет через партнёрство с известными студиями. Ссылка на ru.bertazzoni.com/design-partner-projects. Сентябрьская кампания и ивент.</div>
+  </div>
+
+  <div class="section-title" style="margin-top:36px">Tone of Voice <small>как мы говорим</small></div>
+
+  <p class="lead" style="font-size:17px"><strong>Голос:</strong> уверенный мастер, а не продавец. Знаем о технике больше, чем кто-либо — и говорим об этом прямо.</p>
+
+  <div class="tov-section">
+    <div class="tov-block">
+      <h3>Принципы — что делаем</h3>
+      <ul>
+        <li><strong>Конкретно:</strong> «пар к ЛЮБОЙ программе, даже в процессе» — не «удобное управление паром»</li>
+        <li><strong>Без воды:</strong> один пост = одна идея = одно действие</li>
+        <li><strong>С уважением:</strong> дизайнеры знают что такое пиролиз — объясняем разницу, не азбуку</li>
+        <li><strong>Опыт мастера:</strong> «ваш клиент будет готовить лучше» — не «премиальное качество»</li>
+        <li><strong>Итальянский характер:</strong> страсть к готовке — не снобизм, а искренность</li>
+      </ul>
+    </div>
+    <div class="tov-block">
+      <h3>Разрешено и приветствуется</h3>
+      <ul>
+        <li>Конкретные характеристики с цифрами («450 автопрограмм», «6 поколений мастеров»)</li>
+        <li>Истории людей («семья Бертаццони из Гуасталлы основала мастерскую в 1882»)</li>
+        <li>Прямые сравнения («у Miele пар — отдельный режим, у Bertazzoni — к любому»)</li>
+        <li>Честные ограничения («пара нет у сушек — зато у духовок его больше, чем у кого-либо»)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Запрещённые клише <small>не пишем никогда</small></div>
+
+  <div class="forbidden-grid">
+    <div class="forbidden-chip">инновационный</div>
+    <div class="forbidden-chip">не имеющий аналогов</div>
+    <div class="forbidden-chip">лучшее на рынке</div>
+    <div class="forbidden-chip">уникальное предложение</div>
+    <div class="forbidden-chip">высокое качество</div>
+    <div class="forbidden-chip">современные технологии</div>
+  </div>
+
+  <div class="allowed-card">
+    <h3>✓ Почему это важно</h3>
+    <ul>
+      <li>Эти штампы используют все — мы пройдём мимо</li>
+      <li>Они не несут никакой информации</li>
+      <li>Дизайнеры воспринимают их как «продавец, который ничего не знает»</li>
+      <li>Конкретика всегда сильнее эпитета</li>
+    </ul>
+  </div>
+
+  <div class="tab-foot">
+    <div class="tab-foot-msg">BERTAZZONI = ОФИЦИАЛЬНО В РФ<span class="plus">+</span>АКТУАЛЬНЫЙ СКЛАД<span class="plus">+</span>СЕРВИС ПРОИЗВОДИТЕЛЯ</div>
+    <div class="tab-foot-sign">Подготовлено <strong>Арией</strong> — AI-менеджером Home Project · от Андрея Ботьева (owner) · 11 июня 2026 · первичный драфт</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════ ТАБ 5 · ВИЗУАЛ ════════════ -->
+<div id="tab-visual" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Раздел 05 · Визуальное направление <small>палитра, фотобанк, ассеты</small></div>
+
+  <h1 class="h-display">Тёплая Италия <em>vs</em> холодный минимализм</h1>
+  <p class="lead">Наш визуальный дифференциатор — палитра. Терракота + охра + графит + крем. Это итальянский цвет, итальянский свет, итальянский характер. Конкуренты делают серо-белые «премиум-кадры». Мы делаем тёплые — и сразу узнаваемые.</p>
+
+  <div class="section-title">Фирменная палитра Bertazzoni</div>
+
+  <div class="palette-strip">
+    <div class="pal pal-1">
+      <div class="pal-name">Terracotta</div>
+      <div class="pal-hex">#C9633C</div>
+      <div class="pal-role">Основной акцентный цвет. Заголовки, кнопки CTA, выделения</div>
+    </div>
+    <div class="pal pal-2">
+      <div class="pal-name">Ochre</div>
+      <div class="pal-hex">#D4A24C</div>
+      <div class="pal-role">Золото/охра. Второй акцент. Бейджи, рамки, лейблы</div>
+    </div>
+    <div class="pal pal-3">
+      <div class="pal-name">Graphite</div>
+      <div class="pal-hex">#3A352F</div>
+      <div class="pal-role">Тёмный фон и основной текст. Hero-блоки, заголовки</div>
+    </div>
+    <div class="pal pal-4">
+      <div class="pal-name">Cream</div>
+      <div class="pal-hex">#F5F0E8</div>
+      <div class="pal-role">Светлый фон, подложки. База для типографики</div>
+    </div>
+  </div>
+
+  <div class="section-title">Типографика</div>
+
+  <div class="bullets-grid">
+    <div class="bullet" style="border-left-color:var(--graphite)">
+      <div class="bullet-h">Inter — корпоративный стандарт Home Project</div>
+      <div class="bullet-t">Основной текст, подписи, элементы UI. Variable, чистый, читается с экрана и в печати.</div>
+    </div>
+    <div class="bullet" style="border-left-color:var(--terracotta)">
+      <div class="bullet-h">Playfair Display — заголовки Heritage-треков</div>
+      <div class="bullet-t">Для лонгридов «по наследству», брендовых стори, эмоциональных пиков. Курсив = акцент.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Готовые ключевые ассеты <small>уже отрисованы · можно использовать с июня</small></div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-bottom:32px">
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.05)">
+      <div style="background:#0f1115;padding:0;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;overflow:hidden">
+        <img src="bertazzoni-roadmap-yarokh-2026-06-11-assets/professional-aspiration-grid-technical-callouts.png" alt="Варочный центр Bertazzoni — технические callouts" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+      <div style="padding:18px 20px">
+        <div style="font-size:10px;font-weight:800;color:var(--brand);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px">★ Ключевой ассет №1</div>
+        <h3 style="font-size:15px;font-weight:800;margin-bottom:6px;color:var(--graphite)">Варочный центр Professional · технические callouts</h3>
+        <p style="font-size:12px;color:#666;line-height:1.55;margin-bottom:8px">Главный продуктовый визуал кампании. Используется в табе «Сравнение», в постах TG/IG августа («варочный центр у окна»), в deck сентября. Patent Pending.</p>
+        <div style="font-size:10px;color:#8a6518;font-family:'JetBrains Mono',monospace">bertazzoni-2026-06/assets/professional-aspiration-grid-technical-callouts.png</div>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.05)">
+      <div style="background:#0f1115;padding:0;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;overflow:hidden">
+        <img src="bertazzoni-roadmap-yarokh-2026-06-11-assets/professional-7-colors-palette.png" alt="Палитра Bertazzoni Professional · 7 цветов" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+      <div style="padding:18px 20px">
+        <div style="font-size:10px;font-weight:800;color:var(--brand);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px">★ Ключевой ассет №2</div>
+        <h3 style="font-size:15px;font-weight:800;margin-bottom:6px;color:var(--graphite)">Палитра Professional · 7 цветов со склада</h3>
+        <p style="font-size:12px;color:#666;line-height:1.55;margin-bottom:8px">Цветовая раскладка серии. Используется в табе «Сравнение» (палитра одной модели — преимущество vs немцы), в reels июля и в дизайнерских деках.</p>
+        <div style="font-size:10px;color:#8a6518;font-family:'JetBrains Mono',monospace">bertazzoni-2026-06/assets/professional-7-colors-palette.png</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Форматы изображений и стиль</div>
+
+  <div class="vis-tile-grid">
+    <div class="vis-tile">
+      <div class="vis-tile-tag">Техника в интерьере</div>
+      <div class="vis-tile-h">Студийный нейтраль</div>
+      <div class="vis-tile-t">Белый/серый фон, студийный свет. Подчёркивает геометрию техники.</div>
+      <div class="vis-tile-source">docs/product/Bertazzoni/images/</div>
+    </div>
+    <div class="vis-tile t-food">
+      <div class="vis-tile-tag">Еда / cooking</div>
+      <div class="vis-tile-h">Тёплое макро</div>
+      <div class="vis-tile-t">Макро, тёплый свет, живые текстуры. Эмоция вкуса и заботы.</div>
+      <div class="vis-tile-source">bertazzoni-tagliatelle-recipe-2026-06-07.png</div>
+    </div>
+    <div class="vis-tile t-palette">
+      <div class="vis-tile-tag">Heritage palette</div>
+      <div class="vis-tile-h">Мудборд цветов</div>
+      <div class="vis-tile-t">Раскладка серий и цветов на нейтральном фоне. Для дизайнерских деков.</div>
+      <div class="vis-tile-source">assets/professional-7-colors-palette.png</div>
+    </div>
+    <div class="vis-tile t-design">
+      <div class="vis-tile-tag">Design-partner-projects</div>
+      <div class="vis-tile-h">Архитектурные рендеры</div>
+      <div class="vis-tile-t">Реальные объекты + hi-res рендеры. Запрашиваем у Bertazzoni RU.</div>
+      <div class="vis-tile-source">→ запрос #2 (см. таб «Запросы»)</div>
+    </div>
+    <div class="vis-tile t-infogr">
+      <div class="vis-tile-tag">Сравнения / инфографика</div>
+      <div class="vis-tile-h">Тёмный фон + охра</div>
+      <div class="vis-tile-t">SVG/HTML-инфографика, не скриншоты. Чёткая иерархия, акценты охрой.</div>
+      <div class="vis-tile-source">генерим под каждый пост</div>
+    </div>
+    <div class="vis-tile t-video">
+      <div class="vis-tile-tag">Видео-демо</div>
+      <div class="vis-tile-h">Бренд-оверсайт x3</div>
+      <div class="vis-tile-t">Горизонталь, альтернатива, квадрат для соцсетей — все ready.</div>
+      <div class="vis-tile-source">docs/marketing/video-demo/bertazzoni-brand-*</div>
+    </div>
+  </div>
+
+  <div class="section-title">Фотобанк и видео-ассеты <small>готово к использованию</small></div>
+
+  <div class="assets-grid">
+    <div class="asset-col">
+      <h3>📸 Фото — готово</h3>
+      <ul>
+        <li><code>docs/product/Bertazzoni/images/</code> — 50+ продуктовых WebP</li>
+        <li><code>docs/marketing/strategy/bertazzoni-2026-06/assets/</code> — палитра Professional</li>
+        <li><code>docs/marketing/social/bertazzoni-tagliatelle-recipe-2026-06-07.png</code> — лайфстайл, готово к постингу</li>
+      </ul>
+    </div>
+    <div class="asset-col">
+      <h3>🎬 Видео — готово</h3>
+      <ul>
+        <li><code>bertazzoni-brand-overview-v1.mp4</code> — бренд-оверсайт горизонталь</li>
+        <li><code>bertazzoni-brand-overview-v2.mp4</code> — альтернативный монтаж</li>
+        <li><code>bertazzoni-brand-overview-sq.mp4</code> — квадрат для соцсетей</li>
+        <li><code>bertazzoni-tg-preview.jpg</code> — превью для Telegram</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="request-card">
+    <h4>🤝 Запрашиваем у Bertazzoni RU</h4>
+    <ul>
+      <li>Hi-res фото design-partner-projects (3–5 российских/релевантных, ≥3000px)</li>
+      <li>Видео-демо функции пара «в процессе» — рука жмёт кнопку</li>
+      <li>Фото варочного центра 3-в-1 в интерьере (real-life или premium render)</li>
+    </ul>
+    <p style="margin-top:8px;font-size:12px;color:#666"><em>Дедлайн: до конца июля — чтобы вписаться в сентябрьскую кампанию. Подробнее в разделе «Запросы».</em></p>
+  </div>
+
+  <div class="tab-foot">
+    <div class="tab-foot-msg">BERTAZZONI = ОФИЦИАЛЬНО В РФ<span class="plus">+</span>АКТУАЛЬНЫЙ СКЛАД<span class="plus">+</span>СЕРВИС ПРОИЗВОДИТЕЛЯ</div>
+    <div class="tab-foot-sign">Подготовлено <strong>Арией</strong> — AI-менеджером Home Project · от Андрея Ботьева (owner) · 11 июня 2026 · первичный драфт</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════ ТАБ 6 · СРАВНЕНИЕ ════════════ -->
+<div id="tab-compare" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Раздел 06 · Сравнение с конкурентами <small>5 брендов × 8 критериев · публичные данные</small></div>
+
+  <h1 class="h-display">Открытая таблица. <em>Без оговорок.</em></h1>
+  <p class="lead">Мы не «продаём Bertazzoni», скрывая чужие сильные стороны. Мы делаем честное сравнение по публичным данным производителей и техническим спецификациям. Дизайнер, который увидит эту таблицу, поймёт где Bertazzoni реально первый — и поверит нам в остальных утверждениях.</p>
+
+  <div class="cmp-legend">
+    <span class="cmp-yes">✅ Да / есть</span>
+    <span class="cmp-no">❌ Нет</span>
+    <span class="cmp-mid">⚠️ Частично</span>
+    <span style="background:#fdf6e3;color:#8a6518;font-weight:800;padding:5px 10px;border-radius:6px;border:1px solid var(--ochre);font-size:11px">★ Наш портфель</span>
+  </div>
+
+  <p style="font-size:12.5px; color:#555; line-height:1.7; margin:-8px 0 18px 0; max-width:780px;">
+    <strong>Расширили сравнение:</strong> добавили <strong style="color:#8a6518;">ILVE, Küppersbusch и SKS</strong> — премиальные бренды из нашего собственного портфеля. Так Bertazzoni видит, как он садится в существующую корзину предложений Home Project и где у него уникальное непересекающееся место. ILVE — прямой итальянский сосед по категории range cooker, ему отдельный фокус-блок ниже.
+  </p>
+
+  <div class="cmp-wrap">
+    <div class="cmp-wrap-hint">
+      <span>📊 8 брендов × 8 критериев · прокрутите вправо</span>
+      <span class="arrow">→</span>
+    </div>
+    <div class="cmp-wrap-scroll">
+      <table class="cmp-table wide">
+        <thead>
+          <tr>
+            <th class="crit">Характеристика</th>
+            <th class="brand-hd">Bertazzoni</th>
+            <th class="our">ILVE<small>наш портфель</small></th>
+            <th class="our">Küppersbusch<small>наш портфель</small></th>
+            <th class="our">SKS<small>наш портфель</small></th>
+            <th>Miele</th>
+            <th>Gaggenau</th>
+            <th>V-ZUG</th>
+            <th>De Dietrich</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="crit">Пар к любому режиму <small style="display:block;color:#888;font-weight:500;margin-top:2px">даже в процессе приготовления</small></td>
+            <td class="cmp-bertaz">✅ К ЛЮБОЙ программе</td>
+            <td class="our-col cmp-no-sm">❌ Нет</td>
+            <td class="our-col cmp-mid-sm">⚠️ Отд. режим</td>
+            <td class="our-col cmp-no-sm">❌ Нет</td>
+            <td class="cmp-mid-sm">⚠️ Отдельный паровой</td>
+            <td class="cmp-mid-sm">⚠️ Отдельный паровой</td>
+            <td class="cmp-mid-sm">⚠️ SteamFinish</td>
+            <td class="cmp-mid-sm">⚠️ Выборочно</td>
+          </tr>
+          <tr>
+            <td class="crit">Пиролиз + пар одновременно <small style="display:block;color:#888;font-weight:500;margin-top:2px">уникальная комбинация</small></td>
+            <td class="cmp-bertaz">✅ Уникальная комбинация</td>
+            <td class="our-col cmp-no-sm">❌ Нет</td>
+            <td class="our-col cmp-mid-sm">⚠️ Раздельно</td>
+            <td class="our-col cmp-no-sm">❌ Нет</td>
+            <td class="cmp-no-sm">❌ Нет</td>
+            <td class="cmp-no-sm">❌ Нет</td>
+            <td class="cmp-no-sm">❌ Нет</td>
+            <td class="cmp-no-sm">❌ Нет</td>
+          </tr>
+          <tr>
+            <td class="crit">Варочный центр с вытяжкой 3-в-1 <small style="display:block;color:#888;font-weight:500;margin-top:2px">можно ставить у окна · Patent Pending</small></td>
+            <td class="cmp-bertaz">✅ Интегрированный</td>
+            <td class="our-col cmp-no-sm">❌ Нет</td>
+            <td class="our-col cmp-no-sm">❌ Нет</td>
+            <td class="our-col cmp-no-sm">❌ Нет</td>
+            <td class="cmp-no-sm">❌ Нет</td>
+            <td class="cmp-no-sm">❌ Нет</td>
+            <td class="cmp-no-sm">❌ Нет</td>
+            <td class="cmp-mid-sm">⚠️ Downdraft, иной формат</td>
+          </tr>
+          <tr>
+            <td class="crit">Палитра цветов одной модели <small style="display:block;color:#888;font-weight:500;margin-top:2px">multicolor линейка</small></td>
+            <td class="cmp-bertaz">✅ 7 цветов (Pro)</td>
+            <td class="our-col cmp-yes-sm">✅ 8+ Custom RAL</td>
+            <td class="our-col cmp-yes-sm">✅ 5–6 (K-Series)</td>
+            <td class="our-col cmp-no-sm">❌ 1–2</td>
+            <td class="cmp-no-sm">❌ 2–3</td>
+            <td class="cmp-no-sm">❌ 1–2</td>
+            <td class="cmp-no-sm">❌ 2–3</td>
+            <td class="cmp-no-sm">❌ 2–3</td>
+          </tr>
+          <tr>
+            <td class="crit">Автопрограммы Assist <small style="display:block;color:#888;font-weight:500;margin-top:2px">количество программ</small></td>
+            <td class="cmp-bertaz">✅ 450 программ</td>
+            <td class="our-col cmp-no-sm">❌ Механика</td>
+            <td class="our-col cmp-yes-sm">✅ Аналог</td>
+            <td class="our-col cmp-no-sm">❌ Базовые</td>
+            <td class="cmp-yes-sm">✅ ~100 MasterChef</td>
+            <td class="cmp-yes-sm">✅ ~50 G.Cooking</td>
+            <td class="cmp-mid-sm">⚠️ Меньше</td>
+            <td class="cmp-mid-sm">⚠️ Базовый набор</td>
+          </tr>
+          <tr>
+            <td class="crit">Складская программа в РФ <small style="display:block;color:#888;font-weight:500;margin-top:2px">актуальное наличие 2026</small></td>
+            <td class="cmp-bertaz">✅ 143 SKU, МСК</td>
+            <td class="our-col cmp-yes-sm">✅ Склад МСК</td>
+            <td class="our-col cmp-yes-sm">✅ Склад МСК</td>
+            <td class="our-col cmp-yes-sm">✅ Склад МСК</td>
+            <td class="cmp-mid-sm">⚠️ Частичное</td>
+            <td class="cmp-no-sm">❌ Поставки на паузе</td>
+            <td class="cmp-yes-sm">✅ Полноценный склад</td>
+            <td class="cmp-mid-sm">⚠️ Ограниченно</td>
+          </tr>
+          <tr>
+            <td class="crit">Гарантия производителя в РФ <small style="display:block;color:#888;font-weight:500;margin-top:2px">официальный сервис</small></td>
+            <td class="cmp-bertaz">✅ Официальная</td>
+            <td class="our-col cmp-yes-sm">✅ Официальная</td>
+            <td class="our-col cmp-yes-sm">✅ Официальная</td>
+            <td class="our-col cmp-yes-sm">✅ Официальная</td>
+            <td class="cmp-mid-sm">⚠️ Неоф. сервис</td>
+            <td class="cmp-no-sm">❌ Нет официальной</td>
+            <td class="cmp-yes-sm">✅ Официальная</td>
+            <td class="cmp-mid-sm">⚠️ Ограниченный</td>
+          </tr>
+          <tr>
+            <td class="crit">Ценовой диапазон духовок <small style="display:block;color:#888;font-weight:500;margin-top:2px">РРЦ, вход 60 см</small></td>
+            <td class="cmp-bertaz" style="color:var(--success) !important">↓ ₽100–400 тыс</td>
+            <td class="our-col">≈ или ↑</td>
+            <td class="our-col">↑ выше</td>
+            <td class="our-col">↑ выше</td>
+            <td>₽150–600 тыс</td>
+            <td>₽300–900 тыс</td>
+            <td>₽200–700 тыс</td>
+            <td>₽120–350 тыс</td>
+          </tr>
+          <tr>
+            <td class="crit">Range cookers (отдельностоящие) <small style="display:block;color:#888;font-weight:500;margin-top:2px">плита-центр</small></td>
+            <td class="cmp-bertaz">✅ 4 серии до ₽1М+</td>
+            <td class="our-col cmp-yes-sm">✅ 5+ серий</td>
+            <td class="our-col cmp-no-sm">встроенная</td>
+            <td class="our-col cmp-no-sm">встроенная</td>
+            <td class="cmp-mid-sm">⚠️ Ограниченно</td>
+            <td class="cmp-yes-sm">✅ Есть</td>
+            <td class="cmp-no-sm">❌ Нет</td>
+            <td class="cmp-mid-sm">⚠️ Единичные</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Фокус-блок Bertazzoni vs ILVE -->
+  <div class="vs-ilve">
+    <div class="vs-ilve-kicker">🥊 Отдельный фокус · прямой итальянский сосед в нашем портфеле</div>
+    <h3 class="vs-ilve-h"><em>Bertazzoni</em> vs ILVE — лоб-в-лоб</h3>
+    <p class="vs-ilve-lead">
+      ILVE — единственный бренд в нашем портфеле, который реально пересекается с Bertazzoni по категории: <strong>отдельностоящие плиты + цветная палитра + итальянское происхождение</strong>. Поэтому отдельный честный разбор, где ILVE сильнее, где Bertazzoni сильнее, и почему оба нужны.
+    </p>
+    <table class="vs-ilve-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Параметр</th>
+          <th class="col-ilve" style="width:35%">ILVE</th>
+          <th class="col-bz" style="width:35%">Bertazzoni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Стилистика</td><td class="cell-ilve">Ретро / классика / Nostalgie</td><td class="cell-bz">Современный итальянский / Modern Pro</td></tr>
+        <tr><td>Палитра цветов</td><td class="cell-ilve">✅ 8+ цветов + Custom RAL под заказ</td><td class="cell-bz">✅ 7 цветов одной модели — со склада</td></tr>
+        <tr><td>Технологии духовки</td><td class="cell-ilve">Классическая конвекция</td><td class="cell-bz"><strong>Пар + пиролиз + 450 программ</strong></td></tr>
+        <tr><td>Варочный центр у окна</td><td class="cell-ilve">❌ Нет</td><td class="cell-bz">✅ Patent Pending</td></tr>
+        <tr><td>Срок поставки кастомного цвета</td><td class="cell-ilve">8–14 недель (RAL под заказ)</td><td class="cell-bz"><strong>Со склада МСК — 7 цветов</strong></td></tr>
+        <tr><td>Целевой проект дизайнера</td><td class="cell-ilve">Загородные дома, классика, прованс</td><td class="cell-bz">Лофт, скандинавия, минимализм с акцентом</td></tr>
+        <tr><td>Кухонные блоки / станции</td><td class="cell-ilve">Range cookers 90 / 120 / 150 см</td><td class="cell-bz"><strong>Варочный центр</strong> (плита+вытяжка+поворот к окну)</td></tr>
+      </tbody>
+    </table>
+    <p class="vs-ilve-foot">
+      <strong>Вывод:</strong> ILVE и Bertazzoni — не конкуренты в нашем портфеле, а <strong>две дополняющие позиции для разных типов проектов</strong>. ILVE = классика и ретро с уникальным цветом на заказ. Bertazzoni = современная итальянская кухня с уникальной технологичной начинкой (пар/пиролиз/центр у окна) и складом 7 цветов «здесь и сейчас». Дизайнер выбирает по проекту, а не «или-или».
+    </p>
+  </div>
+
+  <div class="cmp-vinod">
+    <h3>Вывод для Bertazzoni — есть чистое место в нашем портфеле</h3>
+    <p>
+      <strong>1.</strong> Пар-в-любой-программе, пар+пиролиз в одной духовке, варочный центр у окна — этого нет ни у одного из 8 сравниваемых брендов, включая собственные ILVE, Küppersbusch и SKS.<br>
+      <strong>2.</strong> По цвету лидеры — ILVE (8+, под заказ), Bertazzoni (7, со склада), Küppersbusch (5–6). Это не конкуренция, а сегментация по проекту.<br>
+      <strong>3.</strong> Цена Bertazzoni — единственная ниже всех немцев И ниже наших ILVE/Küppersbusch/SKS.<br>
+      <strong>4.</strong> В категории «отдельностоящая плита» — два бренда у нас: ILVE (классика) и Bertazzoni (современный Pro). Варочный центр Bertazzoni — отдельная категория, нет ни у кого.<br>
+      <strong>Итого:</strong> мы не каннибализируем ILVE / Küppersbusch / SKS, а расширяем категорию.
+    </p>
+  </div>
+
+  <p class="lead" style="font-size:13px;color:#666"><em>Источник данных: публичные сайты производителей, технические спецификации, наш каталог <code style="background:#f5f4f0;padding:1px 5px;border-radius:3px;font-size:11px">docs/catalog/catalog.json</code>, прайсы на июнь 2026. Таблица обновляется при изменении факта.</em></p>
+
+  <div class="tab-foot">
+    <div class="tab-foot-msg">BERTAZZONI = ОФИЦИАЛЬНО В РФ<span class="plus">+</span>АКТУАЛЬНЫЙ СКЛАД<span class="plus">+</span>СЕРВИС ПРОИЗВОДИТЕЛЯ</div>
+    <div class="tab-foot-sign">Подготовлено <strong>Арией</strong> — AI-менеджером Home Project · от Андрея Ботьева (owner) · 11 июня 2026 · первичный драфт</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════ ТАБ 7 · КОНТЕНТ-ПЛАН ════════════ -->
+<div id="tab-plan" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Раздел 07 · Контент-план Июнь → Декабрь <small>каждый из 54 постов с форматом и CTA</small></div>
+
+  <h1 class="h-display">54 публикации. <em>Поштучно.</em></h1>
+  <p class="lead">Не «5–10 постов как у обычного дилера». Каждый пост имеет идентификатор, формат, тему, визуал и CTA. Группировка — по неделям внутри месяца. Это рабочий календарь — мы выкатим его как контент-конвейер.</p>
+
+  <!-- ─── ИЮНЬ ─── -->
+  <div class="month-section">
+    <div class="month-head m-jul" style="background:linear-gradient(135deg,var(--m-jun) 0%,#4a6c5d 100%)">
+      <div class="month-head-num">06</div>
+      <div>
+        <div class="month-head-name">Июнь · Подготовка фундамента</div>
+        <div class="month-head-theme">Trust-layer · landing + фотобанк + первые анонсы</div>
+      </div>
+      <div class="month-head-cnt">4 поста</div>
+    </div>
+    <div class="week-label">Неделя 24–26 · Подготовка</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема / заголовок</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Июн-01</span></td><td><span class="post-fmt">Пост TG+VK</span></td><td>Анонс обновлённого landing Bertazzoni на homeproject.online</td><td>Скрин landing + логотип</td><td class="post-cta">→ homeproject.online</td></tr>
+        <tr><td><span class="post-id">Июн-02</span></td><td><span class="post-fmt f-car">Карусель</span></td><td>4 серии Bertazzoni — Professional / Master / Modern / Heritage</td><td>Карточки серий + цвета</td><td class="post-cta">→ Каталог</td></tr>
+        <tr><td><span class="post-id">Июн-03</span></td><td><span class="post-fmt">FAQ</span></td><td>«Bertazzoni: 7 вопросов, которые задают дизайнеры»</td><td>Q&A инфографика</td><td class="post-cta">→ Бот @homeproject_ai</td></tr>
+        <tr><td><span class="post-id">Июн-04</span></td><td><span class="post-fmt">Пост</span></td><td>Тизер: «Что готовим на июль — пар к любой программе»</td><td>Видео-превью</td><td class="post-cta">→ Подписаться</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── ИЮЛЬ ─── -->
+  <div class="month-section">
+    <div class="month-head m-jul">
+      <div class="month-head-num">07</div>
+      <div>
+        <div class="month-head-name">Июль · Trust-layer + Техно-тизер</div>
+        <div class="month-head-theme">Блок А «Официально» + Блок Б «Пар + пиролиз — тизер»</div>
+      </div>
+      <div class="month-head-cnt">8 постов</div>
+    </div>
+
+    <div class="week-label">Блок А · «Официально» — недели 27–28</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Июл-01</span></td><td><span class="post-fmt">Пост TG+VK</span></td><td>«Bertazzoni: официально в России»</td><td>Логотип + бейдж дистрибьютора</td><td class="post-cta">→ Каталог на сайте</td></tr>
+        <tr><td><span class="post-id">Июл-02</span></td><td><span class="post-fmt f-car">Карусель</span></td><td>«Склад Москва: что есть прямо сейчас»</td><td>Фото техники + индикатор наличия</td><td class="post-cta">→ Запрос остатков</td></tr>
+        <tr><td><span class="post-id">Июл-03</span></td><td><span class="post-fmt">Пост</span></td><td>«Гарантия производителя — что это значит»</td><td>Инфографика «что покрывает гарантия»</td><td class="post-cta">→ Бот @homeproject_ai</td></tr>
+        <tr><td><span class="post-id">Июл-04</span></td><td><span class="post-fmt f-long">Лонгрид</span></td><td>«Почему официальное присутствие важно для вашего проекта»</td><td>Кухня с Bertazzoni + текст</td><td class="post-cta">→ Консультация</td></tr>
+      </tbody>
+    </table>
+
+    <div class="draft-card">
+      <div class="draft-card-h">★ Черновик Июл-01</div>
+      Bertazzoni в России — официально.<br>
+      Не параллельный импорт. Не серые схемы. Официальные поставки, гарантия производителя, склад в Москве.<br>
+      Пока другие уходили — Bertazzoni выбрал остаться. Для тех, кто строит на годы вперёд.<br>
+      📍 Актуальные остатки и условия — через @homeproject_ai_bot
+    </div>
+
+    <div class="week-label">Блок Б · «Пар + пиролиз — тизер» — недели 29–30</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Июл-05</span></td><td><span class="post-fmt f-reels">Reels</span></td><td>«Добавь пар прямо сейчас — во время приготовления»</td><td>Видео: рука жмёт кнопку пара</td><td class="post-cta">→ Следующий пост</td></tr>
+        <tr><td><span class="post-id">Июл-06</span></td><td><span class="post-fmt f-car">Карусель</span></td><td>«Пиролиз + пар. Вместе. У Bertazzoni — можно»</td><td>Инфографика: схема режимов</td><td class="post-cta">→ Тех-характеристики</td></tr>
+        <tr><td><span class="post-id">Июл-07</span></td><td><span class="post-fmt f-cmp">Сравнение</span></td><td>«У всех пар — отдельный режим. У Bertazzoni — к любому»</td><td>Таблица vs 3 конкурента</td><td class="post-cta">→ Шоурум / бот</td></tr>
+        <tr><td><span class="post-id">Июл-08</span></td><td><span class="post-fmt">Пост</span></td><td>«450 программ Bertazzoni Assist — не нужно быть шефом»</td><td>Экран управления + блюдо</td><td class="post-cta">→ Каталог духовок</td></tr>
+      </tbody>
+    </table>
+
+    <div class="draft-card">
+      <div class="draft-card-h">★ Черновик Июл-05 · Reels-субтитры</div>
+      Тесто в духовке. Ещё 15 минут.<br>
+      Нажимаешь одну кнопку — добавляешь пар.<br>
+      Прямо сейчас. Без остановки.<br>
+      Так работают духовки Bertazzoni.<br>
+      [логотип] Официально в России. Склад Москва.
+    </div>
+  </div>
+
+  <!-- ─── АВГУСТ ─── -->
+  <div class="month-section">
+    <div class="month-head m-aug">
+      <div class="month-head-num">08</div>
+      <div>
+        <div class="month-head-name">Август · Differentiators</div>
+        <div class="month-head-theme">Пар + пиролиз глубже · варочный центр 3-в-1 · пресс-релиз</div>
+      </div>
+      <div class="month-head-cnt">10 постов</div>
+    </div>
+
+    <div class="week-label">Блок А · Пар + пиролиз — недели 31–32</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Авг-01</span></td><td><span class="post-fmt f-long">Лонгрид</span></td><td>«Что происходит с едой при пиролизе + паре» — научпоп</td><td>Схема + текст</td><td class="post-cta">→ Каталог духовок</td></tr>
+        <tr><td><span class="post-id">Авг-02</span></td><td><span class="post-fmt f-car">Карусель</span></td><td>«5 блюд, где пар меняет результат» + рецепты</td><td>Фуд-фото х5</td><td class="post-cta">→ Бот рецепты</td></tr>
+        <tr><td><span class="post-id">Авг-03</span></td><td><span class="post-fmt f-reels">Reels</span></td><td>«Пиролиз закончился, пар начинается» — видео-демо</td><td>Видео процесса</td><td class="post-cta">→ Подробнее</td></tr>
+        <tr><td><span class="post-id">Авг-04</span></td><td><span class="post-fmt f-cmp">Пост-сравнение</span></td><td>«Режимы в деталях: таблица по 6 конкурентам»</td><td>Сравнительная таблица</td><td class="post-cta">→ Полный гайд</td></tr>
+      </tbody>
+    </table>
+
+    <div class="week-label">Блок Б · Варочный центр 3-в-1 — недели 33–34</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Авг-05</span></td><td><span class="post-fmt">Пост-анонс</span></td><td>«Техника, которую ставят у окна» — интригующий старт</td><td>Кухня у окна</td><td class="post-cta">→ Следующий пост</td></tr>
+        <tr><td><span class="post-id">Авг-06</span></td><td><span class="post-fmt">Схема-рендер</span></td><td>«Как работает варочный центр с интегрированной вытяжкой»</td><td>Технический рендер</td><td class="post-cta">→ Технические характеристики</td></tr>
+        <tr><td><span class="post-id">Авг-07</span></td><td><span class="post-fmt">Кейс</span></td><td>Архитектурный проект: вытяжка «мешала» — Bertazzoni решил</td><td>Фото кухни + план</td><td class="post-cta">→ Консультация</td></tr>
+        <tr><td><span class="post-id">Авг-08</span></td><td><span class="post-fmt f-event">Пресс-релиз</span></td><td>Совместный пресс-релиз с Bertazzoni RU про 3-в-1</td><td>Hi-res фото</td><td class="post-cta">→ Полный текст PR</td></tr>
+      </tbody>
+    </table>
+
+    <div class="week-label">Блок В · Bertazzoni Assist — неделя 35</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Авг-09</span></td><td><span class="post-fmt f-car">Карусель</span></td><td>«450 автопрограмм — что внутри» (топ-15 категорий)</td><td>UI экраны + блюда</td><td class="post-cta">→ Каталог духовок</td></tr>
+        <tr><td><span class="post-id">Авг-10</span></td><td><span class="post-fmt f-reels">Reels</span></td><td>«Нажми одну кнопку» — видео работы Assist</td><td>Видео-демо</td><td class="post-cta">→ Бот @homeproject_ai</td></tr>
+      </tbody>
+    </table>
+
+    <div class="draft-card">
+      <div class="draft-card-h">★ Черновик Авг-05</div>
+      Есть кухни, где вытяжка невозможна. Нет нужной стены. Нет места для воздуховода.<br>
+      Для таких проектов — варочный центр Bertazzoni с интегрированной вытяжкой.<br>
+      Варка + вытяжка + стеклокерамика — в одном модуле. Встаёт у окна.<br>
+      Один вопрос меньше для вашего проекта.<br>
+      📐 Технические характеристики — у @homeproject_ai_bot
+    </div>
+  </div>
+
+  <!-- ─── СЕНТЯБРЬ ─── -->
+  <div class="month-section">
+    <div class="month-head m-sep">
+      <div class="month-head-num">09</div>
+      <div>
+        <div class="month-head-name">Сентябрь · Кулинарный + Дизайнерский</div>
+        <div class="month-head-theme">6 cooking-постов + 2 design-partner deck</div>
+      </div>
+      <div class="month-head-cnt">8 постов</div>
+    </div>
+
+    <div class="week-label">Блок А · Cooking — недели 36–38</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Сен-01</span></td><td><span class="post-fmt">Пост</span></td><td>«Тальятелле Bertazzoni» — лайфстайл-визуал ready</td><td>bertazzoni-tagliatelle-recipe.png</td><td class="post-cta">→ Рецепт в боте</td></tr>
+        <tr><td><span class="post-id">Сен-02</span></td><td><span class="post-fmt">Рецепт+демо</span></td><td>«Пицца: пиролиз как секретный ингредиент»</td><td>Видео + фуд-фото</td><td class="post-cta">→ Тех-характеристики духовки</td></tr>
+        <tr><td><span class="post-id">Сен-03</span></td><td><span class="post-fmt">Инфо-рецепт</span></td><td>«Ризотто на индукции: почему важна точность»</td><td>Макро рисотто + варочная</td><td class="post-cta">→ Каталог варочных</td></tr>
+        <tr><td><span class="post-id">Сен-04</span></td><td><span class="post-fmt">Пост</span></td><td>«Морская рыба на пару: без духовки-пароварки»</td><td>Эмоц. фото блюда</td><td class="post-cta">→ Серия Professional</td></tr>
+        <tr><td><span class="post-id">Сен-05</span></td><td><span class="post-fmt f-car">Lifestyle</span></td><td>«Итальянский завтрак: 4 устройства Bertazzoni»</td><td>Подборка кадров</td><td class="post-cta">→ Бандлы</td></tr>
+        <tr><td><span class="post-id">Сен-06</span></td><td><span class="post-fmt">Social proof</span></td><td>«Осенние рецепты от шеф-поваров, которые выбирают Bertazzoni»</td><td>Шеф + рецепт</td><td class="post-cta">→ Бренд-стори</td></tr>
+      </tbody>
+    </table>
+
+    <div class="week-label">Блок Б · Design-partner-projects — неделя 39</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Сен-07</span></td><td><span class="post-fmt f-long">Deck</span></td><td>«Как мировые дизайнеры выбирают Bertazzoni» (5–7 проектов)</td><td>Hi-res фото проектов</td><td class="post-cta">→ ru.bertazzoni.com</td></tr>
+        <tr><td><span class="post-id">Сен-08</span></td><td><span class="post-fmt">Кейс</span></td><td>Локальный кейс: российский архитектор + Bertazzoni</td><td>Фото объекта</td><td class="post-cta">→ Консультация для дизайнеров</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── ОКТЯБРЬ ─── -->
+  <div class="month-section">
+    <div class="month-head m-oct">
+      <div class="month-head-num">10</div>
+      <div>
+        <div class="month-head-name">Октябрь · Кейсы + Ивент</div>
+        <div class="month-head-theme">6 кейс-постов + закрытое мероприятие для дизайнеров МСК</div>
+      </div>
+      <div class="month-head-cnt">8 постов</div>
+    </div>
+
+    <div class="week-label">Блок А · Кейсы завершённых объектов — недели 40–42</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Окт-01</span></td><td><span class="post-fmt">Кейс</span></td><td>Объект 1: задача → решение Bertazzoni → результат</td><td>Финал. интерьер</td><td class="post-cta">→ Свой проект — в бот</td></tr>
+        <tr><td><span class="post-id">Окт-02</span></td><td><span class="post-fmt">Кейс</span></td><td>Объект 2: цветовая палитра + Heritage серия</td><td>Фото в интерьере</td><td class="post-cta">→ Каталог цветов</td></tr>
+        <tr><td><span class="post-id">Окт-03</span></td><td><span class="post-fmt">Кейс</span></td><td>Объект 3: пар + пиролиз как аргумент в проекте</td><td>Кухня + техника</td><td class="post-cta">→ Технические характеристики</td></tr>
+        <tr><td><span class="post-id">Окт-04</span></td><td><span class="post-fmt">Кейс</span></td><td>Объект 4: варочный центр у окна — реальная установка</td><td>Кухня у окна</td><td class="post-cta">→ Запрос техники</td></tr>
+        <tr><td><span class="post-id">Окт-05</span></td><td><span class="post-fmt">Кейс</span></td><td>Объект 5: bundle полный — все 5 категорий Bertazzoni</td><td>Кухня целиком</td><td class="post-cta">→ Бандлы</td></tr>
+        <tr><td><span class="post-id">Окт-06</span></td><td><span class="post-fmt">Кейс</span></td><td>Объект 6: малая кухня + Modern серия</td><td>Фото + план</td><td class="post-cta">→ Подбор под параметры</td></tr>
+      </tbody>
+    </table>
+
+    <div class="week-label">Блок Б · Ивент дизайнеров МСК — неделя 43</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Окт-07</span></td><td><span class="post-fmt f-event">Ивент</span></td><td>Закрытая демо для 20–30 дизайнеров (инженер Bertazzoni)</td><td>Репортаж + stories</td><td class="post-cta">→ Регистрация</td></tr>
+        <tr><td><span class="post-id">Окт-08</span></td><td><span class="post-fmt f-event">Итоги</span></td><td>«Итоги ивента»: metrics + цитаты дизайнеров</td><td>Фото гостей + цитаты</td><td class="post-cta">→ Следующая встреча</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── НОЯБРЬ ─── -->
+  <div class="month-section">
+    <div class="month-head m-nov">
+      <div class="month-head-num">11</div>
+      <div>
+        <div class="month-head-name">Ноябрь · Acceleration к НГ</div>
+        <div class="month-head-theme">Сравнения, бандлы, email-волна по 14 000 контактов</div>
+      </div>
+      <div class="month-head-cnt">8 постов</div>
+    </div>
+
+    <div class="week-label">Недели 44–46 · Разгон</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Ноя-01</span></td><td><span class="post-fmt f-cmp">Comparison</span></td><td>Релиз полной comparison-таблицы (отдельный пост)</td><td>Большая таблица</td><td class="post-cta">→ Скачать PDF</td></tr>
+        <tr><td><span class="post-id">Ноя-02</span></td><td><span class="post-fmt">Пост</span></td><td>«Почему выбирают Bertazzoni для проектов — №1: официально»</td><td>Бейдж + текст</td><td class="post-cta">→ Гарантии</td></tr>
+        <tr><td><span class="post-id">Ноя-03</span></td><td><span class="post-fmt">Пост</span></td><td>«Почему выбирают Bertazzoni — №2: пар + пиролиз»</td><td>Анимация режимов</td><td class="post-cta">→ Каталог</td></tr>
+        <tr><td><span class="post-id">Ноя-04</span></td><td><span class="post-fmt">Пост</span></td><td>«Почему выбирают Bertazzoni — №3: ширина ассортимента»</td><td>Цвета + серии</td><td class="post-cta">→ Подбор</td></tr>
+        <tr><td><span class="post-id">Ноя-05</span></td><td><span class="post-fmt">Анонс</span></td><td>НГ-специальные конфигурации бандлов</td><td>Карточки бандлов</td><td class="post-cta">→ Запрос условий</td></tr>
+        <tr><td><span class="post-id">Ноя-06</span></td><td><span class="post-fmt">Практ. пост</span></td><td>«Сроки поставки под НГ — как успеть»</td><td>Календарь логистики</td><td class="post-cta">→ Бот @homeproject_ai</td></tr>
+      </tbody>
+    </table>
+
+    <div class="week-label">Неделя 47 · Бандлы и Email-волна</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Ноя-07</span></td><td><span class="post-fmt">Бандл-разгон</span></td><td>Все 5 пресконфигурированных бандлов в одном посте</td><td>Бандлы + остатки</td><td class="post-cta">→ Бот / прайс</td></tr>
+        <tr><td><span class="post-id">Ноя-08</span></td><td><span class="post-fmt f-email">Email</span></td><td>Рассылка по сегменту дизайнеры+архитекторы+студии (14K база)</td><td>HTML-письмо</td><td class="post-cta">→ Лендинг кампании</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── ДЕКАБРЬ ─── -->
+  <div class="month-section">
+    <div class="month-head m-dec">
+      <div class="month-head-num">12</div>
+      <div>
+        <div class="month-head-name">Декабрь · НГ-пик ★</div>
+        <div class="month-head-theme">Лонгрид «По наследству» + НГ-стол + бандлы + закрытие года</div>
+      </div>
+      <div class="month-head-cnt">8 постов</div>
+    </div>
+
+    <div class="week-label">Неделя 48 · Главный лонгрид месяца</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Дек-01</span></td><td><span class="post-fmt f-long">Лонгрид ★</span></td><td>«Техника по наследству» — 6 поколений семьи Бертаццони, 140 лет</td><td>Архивные фото + Heritage</td><td class="post-cta">→ Heritage серия</td></tr>
+      </tbody>
+    </table>
+
+    <div class="draft-card">
+      <div class="draft-card-h">★ Главный материал года · Дек-01</div>
+      Заголовок: «Техника по наследству». История семьи Бертаццони из Гуасталлы: 6 поколений, 140 лет, один принцип — делать кухонную технику как вещь на всю жизнь. Архивные фото из музея, портреты мастеров, современная техника как продолжение традиции. Это материал, который не закрывает продажу — он строит репутацию.
+    </div>
+
+    <div class="week-label">Недели 49–52 · НГ-кампания</div>
+    <table class="posts-table">
+      <thead><tr><th style="width:80px">ID</th><th style="width:90px">Формат</th><th>Тема</th><th>Визуал</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><span class="post-id">Дек-02</span></td><td><span class="post-fmt">НГ-атмосфера</span></td><td>«Новогодний стол с Bertazzoni» — фото + рецепты</td><td>НГ-сервировка</td><td class="post-cta">→ Рецепты в боте</td></tr>
+        <tr><td><span class="post-id">Дек-03</span></td><td><span class="post-fmt">Бандл-спец</span></td><td>«Под ключ для подарка» — НГ-бандлы</td><td>Подарочные карточки</td><td class="post-cta">→ Запрос условий</td></tr>
+        <tr><td><span class="post-id">Дек-04</span></td><td><span class="post-fmt">Пост</span></td><td>«5 причин начать 2027 год с новой кухней» (закрытие года)</td><td>Кухня в свете</td><td class="post-cta">→ Консультация</td></tr>
+        <tr><td><span class="post-id">Дек-05</span></td><td><span class="post-fmt">Итоги</span></td><td>«Bertazzoni в проектах 2026: проект №1»</td><td>Фото кейса</td><td class="post-cta">→ Архив кейсов</td></tr>
+        <tr><td><span class="post-id">Дек-06</span></td><td><span class="post-fmt">Итоги</span></td><td>«Bertazzoni в проектах 2026: проект №2»</td><td>Фото кейса</td><td class="post-cta">→ Свой проект — в бот</td></tr>
+        <tr><td><span class="post-id">Дек-07</span></td><td><span class="post-fmt">Итоги</span></td><td>«Bertazzoni в проектах 2026: проект №3 + цифры года»</td><td>Инфографика года</td><td class="post-cta">→ Отчёт PDF</td></tr>
+        <tr><td><span class="post-id">Дек-08</span></td><td><span class="post-fmt">Анонс</span></td><td>Программа 2027: что ждёт дизайнеров и клиентов</td><td>Roadmap-тизер</td><td class="post-cta">→ Подписаться</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── ПОСТОЯННАЯ РУБРИКА · еженедельная подборка склада ── -->
+  <div style="background:linear-gradient(135deg,rgba(212,162,76,0.10) 0%,#fff 100%);border:1px solid var(--ochre);border-left:5px solid var(--ochre);border-radius:14px;padding:24px 28px;margin-top:30px">
+    <div style="font-size:10px;font-weight:800;letter-spacing:.18em;color:#8a6518;text-transform:uppercase;margin-bottom:8px">★ Постоянная рубрика · поверх 54 датированных постов</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--graphite);margin-bottom:10px;line-height:1.2"><em>«Склад на этой неделе»</em> — каждую среду, с июля до конца года</h3>
+    <p style="font-size:13px;color:#444;line-height:1.7;margin-bottom:16px;max-width:760px">
+      Это не один из 54 постов кампании, а <strong>отдельная регулярная рубрика поверх плана</strong>. AI-агент собирает подборку Bertazzoni-моделей, реально доступных со склада МСК. Из <code style="background:#f5f4f0;padding:1px 5px;border-radius:3px;font-size:11px">catalog.json</code> + остатков InSales в реальном времени.
+    </p>
+    <div style="background:#0f1115;border-radius:12px;padding:22px 26px;color:#e8e6e0;font-size:13px;line-height:1.75;margin:14px 0">
+      <div style="font-size:10px;color:var(--ochre);text-transform:uppercase;letter-spacing:.14em;font-weight:800;margin-bottom:12px">Пример поста (адаптируется каждую неделю)</div>
+      <div style="font-style:italic;color:var(--ochre);margin-bottom:10px">📦 Bertazzoni · склад на этой неделе</div>
+      5 моделей, которые можно отгрузить дизайнеру до конца недели:<br><br>
+      🔥 <strong style="color:#fff">Professional 90 см, цвет Rosso</strong> — 1 шт, готов к отгрузке<br>
+      🔥 <strong style="color:#fff">Modern 60 см духовка с паром + пиролизом</strong> — 2 шт<br>
+      🔥 <strong style="color:#fff">Варочный центр Heritage (Patent Pending)</strong> — 1 шт, экспозиция<br>
+      ✨ <strong style="color:#fff">Range cooker Master 100 см, Bianco Latte</strong> — 1 шт<br>
+      ✨ <strong style="color:#fff">Индукционная варочная 60 см с интегрированной вытяжкой</strong> — 3 шт<br><br>
+      Все позиции — со склада в Москве. Гарантия производителя.<br>
+      Запрос на КП с подбором — <span style="color:var(--ochre)">@homeproject_ai_bot</span> или info@homeproject.online<br><br>
+      <em style="color:var(--ochre)">⚡ КП от AI-агента Арии за 5 минут.</em>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:14px">
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px"><div style="font-size:10px;color:#8a6518;text-transform:uppercase;letter-spacing:.1em;font-weight:800;margin-bottom:4px">Каналы</div><div style="font-size:12px;color:#444">TG · IG Stories · Email (сегмент: активные проекты)</div></div>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px"><div style="font-size:10px;color:#8a6518;text-transform:uppercase;letter-spacing:.1em;font-weight:800;margin-bottom:4px">Частота</div><div style="font-size:12px;color:#444">Июл–Ноя: 1/нед · Декабрь: 2/нед (НГ-пик)</div></div>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px"><div style="font-size:10px;color:#8a6518;text-transform:uppercase;letter-spacing:.1em;font-weight:800;margin-bottom:4px">Всего за H2</div><div style="font-size:12px;color:#444"><strong>~24 публикации</strong> сверх 54 датированных</div></div>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px"><div style="font-size:10px;color:#8a6518;text-transform:uppercase;letter-spacing:.1em;font-weight:800;margin-bottom:4px">Конверсия</div><div style="font-size:12px;color:#444">8–12% «увидел → запросил КП»</div></div>
+    </div>
+    <p style="font-size:12px;color:#666;line-height:1.6;margin-top:14px;padding-top:12px;border-top:1px dashed var(--ochre)">
+      <strong style="color:#8a6518">Визуал поста:</strong> сетка 5 карточек товара (фото из catalog.json + название + бейдж «склад»). Автогенерация дизайн-агентом — от заявки до публикации 30 минут.
+    </p>
+  </div>
+
+  <div class="cmp-vinod">
+    <h3>Итого: 54 датированных + ~24 регулярных подборки = ~78 публикаций за H2</h3>
+    <p>Контент-конвейер с равномерной плотностью и нарастающей интенсивностью к декабрю. Каждый пост — с указанным форматом, темой, визуалом и CTA. Это не план — это календарь, который мы выкатим в работу с июля. Источник «сырья»: <code style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:4px;color:var(--ochre)">docs/marketing/strategy/bertazzoni-2026-h2-spec.md</code></p>
+  </div>
+
+  <div class="tab-foot">
+    <div class="tab-foot-msg">BERTAZZONI = ОФИЦИАЛЬНО В РФ<span class="plus">+</span>АКТУАЛЬНЫЙ СКЛАД<span class="plus">+</span>СЕРВИС ПРОИЗВОДИТЕЛЯ</div>
+    <div class="tab-foot-sign">Подготовлено <strong>Арией</strong> — AI-менеджером Home Project · от Андрея Ботьева (owner) · 11 июня 2026 · первичный драфт</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════ ТАБ 8 · AI-USP ════════════ -->
+<div id="tab-usp" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Раздел 08 · AI-USP <small>почему мы освежим рынок</small></div>
+
+  <div class="usp-hero">
+    <div class="usp-hero-kicker">★ Принципиальная отстройка от любого дилера ★</div>
+    <div class="usp-hero-h">Никто из дилеров такого не делает.<br>Мы — единственные.</div>
+    <div class="usp-hero-sub">Контент-конвейер, AI-консультант, КП за 5 минут, актуальные остатки в реальном времени, база 14 000 контактов, омниканальная коммуникация и сравнения через AI. Семь систем, которые превращают дилера в проводника бренда. И всё это — для Bertazzoni в H2 2026.</div>
+  </div>
+
+  <div class="usp-grid">
+    <div class="usp-card c1">
+      <div class="usp-card-num">01</div>
+      <div class="usp-card-ico">🤖</div>
+      <div class="usp-card-h">Ария — AI-консультант 24/7</div>
+      <div class="usp-card-t">Бот <strong>@homeproject_ai_bot</strong> отвечает на вопросы дизайнеров и клиентов по Bertazzoni круглосуточно — без выходных и без менеджера в очереди.</div>
+      <ul class="usp-card-bul">
+        <li>Подберёт модель под параметры (площадь, стиль, бюджет)</li>
+        <li>Сравнит серии Professional / Master / Modern / Heritage</li>
+        <li>Уточнит наличие конкретного SKU на складе</li>
+        <li>Рассчитает примерный состав бандла</li>
+      </ul>
+      <div class="usp-card-foot">Для производителя: ни один другой дилер не даёт такого инструмента своим клиентам.</div>
+    </div>
+
+    <div class="usp-card c2">
+      <div class="usp-card-num">02</div>
+      <div class="usp-card-ico">📄</div>
+      <div class="usp-card-h">КП за 5 минут с монтажным листом</div>
+      <div class="usp-card-t">Формат, которого нет на рынке РФ. Этот документ — пример того, что мы делаем для каждого клиента.</div>
+      <ul class="usp-card-bul">
+        <li>9-табовый HTML с полным обоснованием выбора</li>
+        <li>Монтажный лист по конкретному объекту</li>
+        <li>Актуальные цены с датой прайса</li>
+        <li>Ссылки на технические документы и сертификаты</li>
+      </ul>
+      <div class="usp-card-foot">Для дизайнера: экономит 2–3 часа. Для покупателя: понятный документ, не «прайс в Excel».</div>
+    </div>
+
+    <div class="usp-card c3">
+      <div class="usp-card-num">03</div>
+      <div class="usp-card-ico">📦</div>
+      <div class="usp-card-h">Точные складские остатки в реальном времени</div>
+      <div class="usp-card-t">Источник: прайс от 07.05.2026, <strong>143 SKU в наличии</strong>, обновляется при каждом поступлении. Никаких «обещали — нет в наличии».</div>
+      <ul class="usp-card-bul">
+        <li>Дизайнер не тратит время на уточнение наличия</li>
+        <li>Нет ситуаций «обещали — нет на складе»</li>
+        <li>Бот даёт ответ мгновенно, без менеджера</li>
+        <li>Цены актуальны на каждое обращение</li>
+      </ul>
+      <div class="usp-card-foot">Скорость закрытия сделки в 5–10 раз выше типичного дилера.</div>
+    </div>
+
+    <div class="usp-card c4">
+      <div class="usp-card-num">04</div>
+      <div class="usp-card-ico">📰</div>
+      <div class="usp-card-h">Контент-конвейер 50+ публикаций за полгода</div>
+      <div class="usp-card-t">Сравнение с типичным дилером — в табличной развёртке ниже. Мы не «продаём» — мы <strong>обучаем рынок</strong>.</div>
+      <table class="usp-cmp-table" style="margin-top:8px;margin-bottom:0">
+        <thead><tr><th>Метрика</th><th>Типичный дилер</th><th class="hp">Home Project</th></tr></thead>
+        <tbody>
+          <tr><td>Публикаций за 6 мес</td><td class="dim">5–10</td><td class="win">50+</td></tr>
+          <tr><td>Уникальный контент</td><td class="dim">❌ Репост</td><td class="win">✅ Авторский</td></tr>
+          <tr><td>Тех. разборы</td><td class="dim">❌ Нет</td><td class="win">✅ Еженедельно</td></tr>
+          <tr><td>Рецепты + lifestyle</td><td class="dim">❌ Нет</td><td class="win">✅ Ежемесячно</td></tr>
+          <tr><td>Сравнения с конкурентами</td><td class="dim">❌ Никогда</td><td class="win">✅ Открыто</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="usp-card c5">
+      <div class="usp-card-num">05</div>
+      <div class="usp-card-ico">📇</div>
+      <div class="usp-card-h">База 14 000 контактов в CRM</div>
+      <div class="usp-card-t">Источник: <code style="font-size:10px;background:#f5f4f0;padding:2px 6px;border-radius:4px">data/crm.db</code>. Структура — дизайнеры, архитекторы, кухонные студии. Москва и регионы.</div>
+      <ul class="usp-card-bul">
+        <li>Email — персонализированные письма по сегментам</li>
+        <li>Telegram — прямая коммуникация через бот</li>
+        <li>VK — визуальный контент для широкой аудитории</li>
+        <li>Instagram — lifestyle и design-partner-projects</li>
+      </ul>
+      <div class="usp-card-foot">Охват без платной рекламы: 14 000 прямых контактов × правильное сообщение = больше, чем у 90% дилеров.</div>
+    </div>
+
+    <div class="usp-card c6">
+      <div class="usp-card-num">06</div>
+      <div class="usp-card-ico">🔗</div>
+      <div class="usp-card-h">Омниканальная коммуникация</div>
+      <div class="usp-card-t">Каждый канал имеет свою функцию. Email — длинные материалы. TG — оперативность. VK — охват. IG — визуал. Бот — конверсия.</div>
+      <div style="background:#0f1115;border-radius:10px;padding:14px 18px;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#d8dae0;line-height:1.7">
+        Email (14K)<br>
+        &nbsp;&nbsp;→ TG-канал @HomeProjectMsk<br>
+        &nbsp;&nbsp;→ VK-группа<br>
+        &nbsp;&nbsp;→ IG<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--ochre)">↓</span><br>
+        &nbsp;&nbsp;Бот <span style="color:var(--ochre)">@homeproject_ai_bot</span> (конверсия)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--ochre)">↓</span><br>
+        &nbsp;&nbsp;Менеджер → КП за 5 мин
+      </div>
+      <div class="usp-card-foot" style="margin-top:14px">Один контакт ведёт клиента по воронке от email до подписи счёта.</div>
+    </div>
+
+    <div class="usp-card c7">
+      <div class="usp-card-num">07</div>
+      <div class="usp-card-ico">💬</div>
+      <div class="usp-card-h">Сравнения и рекомендации через AI</div>
+      <div class="usp-card-t">Дизайнер задаёт вопрос — Ария отвечает с конкретной моделью, ценой, остатком, конкурентами. За 2 минуты.</div>
+      <div class="usp-card-foot">Такой разговор без AI занимает 2 часа. Это превращает каждого нашего клиента в апологета Bertazzoni.</div>
+    </div>
+  </div>
+
+  <div class="dialog-card">
+    <div class="dialog-card-h">★ Реальный диалог с Арией</div>
+    <div class="dialog-line user">— <strong>Клиент:</strong> хочу духовку с паром до 300 тыс.</div>
+    <div class="dialog-line ai">— <strong>Ария:</strong> Рекомендую Bertazzoni Professional <strong>BOP60PROPX</strong> — 287 тыс. Пар к любому режиму, Bertazzoni Assist 450 программ. Есть на складе.<br>Ближайший конкурент: Miele H 2860 B — 340 тыс., пар только в Steam режиме. Bertazzoni выгоднее на 53 тыс и функциональнее по пару.</div>
+    <p style="font-size:11px;color:#777;margin-top:14px;font-style:italic;text-align:center">⏱ Время диалога: 2 минуты. Без Арии: 2 часа поиска и сравнений.</p>
+  </div>
+
+  <div class="tab-foot">
+    <div class="tab-foot-msg">BERTAZZONI = ОФИЦИАЛЬНО В РФ<span class="plus">+</span>АКТУАЛЬНЫЙ СКЛАД<span class="plus">+</span>СЕРВИС ПРОИЗВОДИТЕЛЯ</div>
+    <div class="tab-foot-sign">Подготовлено <strong>Арией</strong> — AI-менеджером Home Project · от Андрея Ботьева (owner) · 11 июня 2026 · первичный драфт</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════ ТАБ 9 · ЗАПРОСЫ ════════════ -->
+<div id="tab-asks" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Раздел 09 · Запросы к Bertazzoni RU <small>7 пунктов с дедлайнами</small></div>
+
+  <h1 class="h-display">Что нам нужно <em>от партнёра</em></h1>
+  <p class="lead">Кампания H2 2026 уже спланирована. Часть треков требует участия Bertazzoni RU — ассеты, инженер на ивент, согласование пресс-релиза, доступ к шоу-руму. Ниже — конкретный список с дедлайнами. Чек-лист, который можно открыть на встрече и пройти по пунктам. <strong>Это первичный драфт</strong> — формат и сроки готовы корректировать после ваших комментариев.</p>
+
+  <div class="req-checklist">
+
+    <div class="req-item r1">
+      <div class="req-box">☐</div>
+      <div>
+        <div class="req-h">1. Кросс-публикации в официальных каналах Bertazzoni RU</div>
+        <div class="req-t">
+          Усилить охват ключевых материалов через bertazzoni-каналы.
+          <ul>
+            <li>Репосты наших материалов (варочный центр, технический лонгрид)</li>
+            <li>Упоминание Home Project как рекомендованного партнёра</li>
+            <li>Частота: по согласованию, не чаще 2 раз в месяц</li>
+          </ul>
+        </div>
+      </div>
+      <div class="req-meta">
+        <div class="req-deadline">
+          <div class="req-deadline-lbl">Дедлайн</div>
+          <div class="req-deadline-val">Старт<br>с июля</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="req-item r2">
+      <div class="req-box">☐</div>
+      <div>
+        <div class="req-h">2. Hi-res ассеты design-partner-projects</div>
+        <div class="req-t">
+          Без качественных фото не получится сделать deck в сентябре.
+          <ul>
+            <li>5–10 фотографий с разрешением ≥3000px по длинной стороне</li>
+            <li>Приоритет: 3–5 российских / Восточноевропейских проектов</li>
+            <li>Права на использование: для публикаций Home Project в РФ</li>
+          </ul>
+        </div>
+      </div>
+      <div class="req-meta">
+        <div class="req-deadline">
+          <div class="req-deadline-lbl">Дедлайн</div>
+          <div class="req-deadline-val">До конца<br>июля 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="req-item r3">
+      <div class="req-box">☐</div>
+      <div>
+        <div class="req-h">3. Участие инженера Bertazzoni в закрытом мероприятии</div>
+        <div class="req-t">
+          Главный социальный момент кампании. Дизайнеры должны увидеть инженера живьём.
+          <ul>
+            <li>Дата: октябрь–ноябрь 2026, Москва</li>
+            <li>Формат: живая демонстрация пар + пиролиз + варочный центр</li>
+            <li>Аудитория: 20–30 архитекторов и дизайнеров МСК</li>
+            <li>Нужно: ФИО + контакт инженера для согласования программы</li>
+          </ul>
+        </div>
+      </div>
+      <div class="req-meta">
+        <div class="req-deadline">
+          <div class="req-deadline-lbl">Договорённость</div>
+          <div class="req-deadline-val">До конца<br>августа 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="req-item r4">
+      <div class="req-box">☐</div>
+      <div>
+        <div class="req-h">4. Подтверждение складских остатков и сроков пополнения</div>
+        <div class="req-t">
+          От этого зависит точность КП и обещаний клиентам.
+          <ul>
+            <li>Актуальный прайс с датой (есть 07.05.2026 — нужно обновление)</li>
+            <li>Плановые даты следующих поступлений</li>
+            <li>Топ-10 SKU, которые «заходят» у других дилеров — ориентир для приоритизации</li>
+          </ul>
+        </div>
+      </div>
+      <div class="req-meta">
+        <div class="req-deadline">
+          <div class="req-deadline-lbl">Регулярно</div>
+          <div class="req-deadline-val">Раз в месяц<br>с июля</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="req-item r5">
+      <div class="req-box">☐</div>
+      <div>
+        <div class="req-h">5. Совместный пресс-релиз про варочный центр с вытяжкой</div>
+        <div class="req-t">
+          Первый уникальный материал об этом продукте в РФ — большая медиа-возможность.
+          <ul>
+            <li>Формат: 1 страница A4 с фото, технические характеристики</li>
+            <li>Публикация: TG + VK + рассылка дизайнерам</li>
+            <li>Согласовать в июле, публикация в августе</li>
+          </ul>
+        </div>
+      </div>
+      <div class="req-meta">
+        <div class="req-deadline">
+          <div class="req-deadline-lbl">Согласование</div>
+          <div class="req-deadline-val">Июль 2026<br>публикация — август</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="req-item r6">
+      <div class="req-box">☐</div>
+      <div>
+        <div class="req-h">6. Маркетинговый бюджет — открытый вопрос</div>
+        <div class="req-t">
+          Прямой вопрос к Bertazzoni RU. Готовы обсуждать форматы сотрудничества.
+          <ul>
+            <li>Вопрос: есть ли маркетинговый бюджет для дилеров в РФ?</li>
+            <li>Предложение: совместное финансирование ивента октябрь–ноябрь</li>
+            <li>Обсудить: эксклюзивные условия в обмен на приоритетный маркетинг</li>
+          </ul>
+        </div>
+      </div>
+      <div class="req-meta">
+        <div class="req-deadline">
+          <div class="req-deadline-lbl">Обсудить</div>
+          <div class="req-deadline-val">Pitch-встреча<br>июнь–июль</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Новый запрос · доступ к шоу-руму -->
+    <div class="req-item r7" style="border-left:5px solid var(--brand);background:linear-gradient(135deg,rgba(169,46,34,0.04) 0%,rgba(212,162,76,0.06) 100%)">
+      <div class="req-box">☐</div>
+      <div>
+        <div class="req-h">7. Доступ к шоу-руму Bertazzoni — регулярные приведённые визиты дизайнеров</div>
+        <div class="req-t">
+          У нас <strong>14 001 контакт</strong> в CRM, из них около 3 000 — активные архитекторы и дизайнеры Москвы. Готовы организовать <strong>регулярные приведённые визиты в ваш шоу-рум</strong> — группами 5–8 человек, 1–2 раза в месяц.
+          <ul>
+            <li>Отбираем дизайнеров под целевые сегменты (загородные дома, элитные новостройки, проекты с акцентом на варочный центр)</li>
+            <li>Согласовываем график визитов и анонсируем в наших каналах (TG / Instagram / email)</li>
+            <li>На каждой встрече — короткий разбор Bertazzoni-проектов из нашей практики + демонстрация «вживую» (особенно варочного центра, который сложно прочувствовать по фото)</li>
+            <li>После визита — рассылка follow-up материалов и КП-шаблонов</li>
+          </ul>
+          <strong>Что нужно от Bertazzoni:</strong> подтверждение готовности принимать группы, контакт менеджера шоу-рума, окно записи (например, 2 четверга в месяц). <strong>От нас</strong> — организация, отбор, follow-up, отчёт после каждого визита.
+        </div>
+      </div>
+      <div class="req-meta">
+        <div class="req-deadline">
+          <div class="req-deadline-lbl">Старт</div>
+          <div class="req-deadline-val">Тест — июль<br>регулярно — авг.–дек.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-title">Контакты для координации</div>
+
+  <div class="contacts-card">
+    <div class="contacts-card-h">★ Кто работает над кампанией</div>
+    <div class="contacts-grid">
+      <div class="contact-row">
+        <div class="contact-row-lbl">Bertazzoni RU · адресат</div>
+        <div class="contact-row-val">Константин Ярох</div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-lbl">Home Project · владелец</div>
+        <div class="contact-row-val">Андрей Ботьев (owner)</div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-lbl">Home Project · бот</div>
+        <div class="contact-row-val"><a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-lbl">Home Project · канал</div>
+        <div class="contact-row-val"><a href="https://t.me/HomeProjectMsk">@HomeProjectMsk</a></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-lbl">Сайт</div>
+        <div class="contact-row-val"><a href="https://homeproject.online">homeproject.online</a></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-lbl">Email</div>
+        <div class="contact-row-val"><a href="mailto:info@homeproject.online">info@homeproject.online</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cmp-vinod" style="background:linear-gradient(135deg,var(--info) 0%,#1a3a5a 100%)">
+    <h3>Следующий шаг → pitch-встреча с Константином Ярохом</h3>
+    <p>Это <strong>первичный драфт</strong> — основа для разговора. Готовы обсуждать каждый пункт, корректировать сроки, согласовывать форматы и формулировки. После получения ваших комментариев выпустим v1.1 с правками. Цель встречи — получить «зелёный свет» по запросам и стартовать кампанию с июля 2026 без задержек.</p>
+  </div>
+
+  <p class="lead" style="text-align:center;font-size:13px;color:#666;margin-top:24px"><em>Первичный драфт · 11 июня 2026 · версия 1.0 · следующая ревизия — после комментариев Bertazzoni · от владельца Home Project — Андрей Ботьев</em></p>
+
+  <div class="tab-foot">
+    <div class="tab-foot-msg">BERTAZZONI = ОФИЦИАЛЬНО В РФ<span class="plus">+</span>АКТУАЛЬНЫЙ СКЛАД<span class="plus">+</span>СЕРВИС ПРОИЗВОДИТЕЛЯ</div>
+    <div class="tab-foot-sign">Подготовлено <strong>Арией</strong> — AI-менеджером Home Project · от Андрея Ботьева (owner) · 11 июня 2026 · первичный драфт</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════ ТАБ 10 · KPI И ЗАМЕРЫ ════════════ -->
+<div id="tab-kpi" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Раздел 10 · KPI и замеры <small>цели горизонта декабрь 2026 · что считаем успехом</small></div>
+
+  <div class="kpi-hero">
+    <div class="kpi-hero-kicker">📈 Что считаем успехом</div>
+    <h1 class="kpi-hero-h">Не «отчитаемся». <em>Замеряем то, что управляемо.</em></h1>
+    <p class="kpi-hero-sub">
+      Нет смысла декларировать «вырастим продажи в 3 раза» — это не управляемая величина. Замеряем то, на что у нас прямое влияние: охват, контакты, конверсии в КП, скорость отклика, удержание подписчиков. По каждой метрике — целевая планка декабря и минимально допустимая. По итогам H2 — открытый отчёт Bertazzoni с цифрами.
+    </p>
+  </div>
+
+  <!-- Главные цифры — крупно -->
+  <div class="kpi-grid">
+    <div class="kpi-stat">
+      <div class="kpi-stat-lbl">Публикации H2 2026</div>
+      <div class="kpi-stat-val">~78</div>
+      <div class="kpi-stat-desc">54 датированных + ~24 регулярных «Склад на этой неделе»</div>
+      <div class="kpi-stat-mini">~11 публикаций в месяц</div>
+    </div>
+    <div class="kpi-stat s-ochre">
+      <div class="kpi-stat-lbl">Уник. охват TG + IG + VK</div>
+      <div class="kpi-stat-val">120K+</div>
+      <div class="kpi-stat-desc">Целевая суммарная аудитория уникальных пользователей к декабрю</div>
+      <div class="kpi-stat-mini">минимум: 70K · текущий: ~12K</div>
+    </div>
+    <div class="kpi-stat s-success">
+      <div class="kpi-stat-lbl">Запросы на КП Bertazzoni</div>
+      <div class="kpi-stat-val">180+</div>
+      <div class="kpi-stat-desc">От архитекторов и дизайнеров за июль–декабрь</div>
+      <div class="kpi-stat-mini">минимум: 100 · ~25–30/мес в пике</div>
+    </div>
+    <div class="kpi-stat s-info">
+      <div class="kpi-stat-lbl">Дизайнеры в шоу-руме</div>
+      <div class="kpi-stat-val">60–80</div>
+      <div class="kpi-stat-desc">Прошли приведённые визиты, познакомились с продуктом вживую</div>
+      <div class="kpi-stat-mini">10–12 групп × 5–8 человек</div>
+    </div>
+  </div>
+
+  <!-- Развёрнутая таблица KPI по 4 блокам -->
+  <table class="kpi-table">
+    <thead>
+      <tr>
+        <th>Метрика</th>
+        <th class="center" style="width:18%">Базовый (июнь)</th>
+        <th class="center" style="width:18%">Цель (декабрь)</th>
+        <th class="center" style="width:14%">Минимум</th>
+        <th class="center" style="width:16%">Замер</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="kpi-row-section"><td colspan="5">⬢ Охват и подписки</td></tr>
+      <tr><td class="metric">@HomeProjectMsk · подписчики TG</td><td class="center">~2 400</td><td class="center target">6 500</td><td class="center minimum">4 200</td><td class="center">еженедельно</td></tr>
+      <tr><td class="metric">Instagram · подписчики</td><td class="center">~1 800</td><td class="center target">5 000</td><td class="center minimum">3 000</td><td class="center">еженедельно</td></tr>
+      <tr><td class="metric">VK-группа · подписчики</td><td class="center">~900</td><td class="center target">3 500</td><td class="center minimum">2 000</td><td class="center">еженедельно</td></tr>
+      <tr><td class="metric">Email-база сегмента «активные дизайнеры»</td><td class="center">~3 000</td><td class="center target">5 500</td><td class="center minimum">4 000</td><td class="center">ежемесячно</td></tr>
+
+      <tr class="kpi-row-section"><td colspan="5">⬢ Вовлечение в Bertazzoni-контент</td></tr>
+      <tr><td class="metric">Средн. ER на Bertazzoni-постах</td><td class="center">3,5%</td><td class="center target">7%+</td><td class="center minimum">5%</td><td class="center">по каждому посту</td></tr>
+      <tr><td class="metric">Просмотры Reels «варочный центр у окна»</td><td class="center">—</td><td class="center target">25K+</td><td class="center minimum">12K</td><td class="center">после публ.</td></tr>
+      <tr><td class="metric">Сохранения / репосты на тех. лонгридах</td><td class="center">—</td><td class="center target">800+/пост</td><td class="center minimum">400/пост</td><td class="center">после публ.</td></tr>
+      <tr><td class="metric">Подписки на бот @homeproject_ai_bot</td><td class="center">~120</td><td class="center target">800+</td><td class="center minimum">500</td><td class="center">еженедельно</td></tr>
+
+      <tr class="kpi-row-section"><td colspan="5">⬢ Конверсия в коммерческий запрос</td></tr>
+      <tr><td class="metric">Запросы КП Bertazzoni за месяц</td><td class="center">—</td><td class="center target">30+/мес (дек.)</td><td class="center minimum">15+/мес</td><td class="center">ежемесячно</td></tr>
+      <tr><td class="metric">Всего запросов КП Bertazzoni за H2</td><td class="center">—</td><td class="center target">180+</td><td class="center minimum">100</td><td class="center">итого</td></tr>
+      <tr><td class="metric">SLA первого ответа Арии</td><td class="center">—</td><td class="center target">≤2 мин (24/7)</td><td class="center minimum">≤10 мин</td><td class="center">логи бота</td></tr>
+      <tr><td class="metric">Время сборки КП (от брифа до PDF)</td><td class="center">—</td><td class="center target">5 мин</td><td class="center minimum">15 мин</td><td class="center">логи агентов</td></tr>
+      <tr><td class="metric">Конверсия «подборка склада → КП»</td><td class="center">—</td><td class="center target">10–12%</td><td class="center minimum">6%</td><td class="center">по каждой</td></tr>
+
+      <tr class="kpi-row-section"><td colspan="5">⬢ Офлайн и партнёрство</td></tr>
+      <tr><td class="metric">Приведённые визиты в шоу-рум</td><td class="center">—</td><td class="center target">10–12 групп</td><td class="center minimum">6 групп</td><td class="center">ежемесячно</td></tr>
+      <tr><td class="metric">Дизайнеры в шоу-руме (всего за H2)</td><td class="center">—</td><td class="center target">60–80</td><td class="center minimum">40</td><td class="center">итого</td></tr>
+      <tr><td class="metric">Закрытое мероприятие октябрь–ноябрь</td><td class="center">—</td><td class="center target">20–30 гостей</td><td class="center minimum">15 гостей</td><td class="center">по факту</td></tr>
+      <tr><td class="metric">Кросс-публикации в каналах Bertazzoni RU</td><td class="center">—</td><td class="center target">≥6 за H2</td><td class="center minimum">3 за H2</td><td class="center">по факту</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Что замеряем для производителя отдельно -->
+  <div class="cmp-vinod" style="background:linear-gradient(135deg,#3A352F 0%,#1f1c18 100%)">
+    <h3>Отдельный отчёт Bertazzoni — раз в месяц</h3>
+    <p>
+      Каждый месяц высылаем отчёт по 4 блокам выше — что сделано, какие цифры, что не получилось и почему. Дашборд в формате <strong>HTML-страницы с фактами на дату</strong> — не «слайды в PowerPoint», а живой документ с возможностью кликнуть в любую метрику и увидеть конкретные посты / запросы / визиты. Прозрачно, без «лакировки». Если что-то идёт хуже минимума — пишем сразу, не ждём итогов квартала.
+    </p>
+  </div>
+
+  <!-- Финальный «обещаем — не обещаем» -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:24px">
+    <div style="background:var(--success-lt);border:1px solid var(--success);border-radius:14px;padding:20px 22px">
+      <div style="font-size:10px;font-weight:800;color:var(--success);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px">✅ Что обещаем</div>
+      <ul style="font-size:13px;color:#1f5132;line-height:1.7;padding-left:18px;margin:0">
+        <li>Системно публиковать контент по плану — без срывов сроков</li>
+        <li>Отвечать архитекторам в течение 2 минут (Ария, 24/7)</li>
+        <li>Собирать КП за 5 минут, не за 2–5 дней</li>
+        <li>Ежемесячно высылать отчёт с цифрами по всем 4 блокам KPI</li>
+        <li>Поддерживать каталог и остатки в актуальном состоянии</li>
+      </ul>
+    </div>
+    <div style="background:var(--danger-lt);border:1px solid var(--danger);border-radius:14px;padding:20px 22px">
+      <div style="font-size:10px;font-weight:800;color:var(--danger);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px">⛔ Что НЕ обещаем</div>
+      <ul style="font-size:13px;color:#7a2218;line-height:1.7;padding-left:18px;margin:0">
+        <li>«Гарантированные продажи N штук» — это не управляемая нами величина</li>
+        <li>«Удвоение оборота за 6 месяцев» — без чудес и громких лозунгов</li>
+        <li>«Привести 1000 дизайнеров в шоу-рум» — рост через качество, не объём</li>
+        <li>Платное продвижение без согласования с Bertazzoni — только органика</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="lead" style="text-align:center;font-size:13px;color:#666;margin-top:24px;font-style:italic">
+    Все цифры выше — <strong>первичный драфт</strong>. Готовы скорректировать целевые планки после ваших комментариев и понимания приоритетов Bertazzoni RU.
+  </p>
+
+  <div class="tab-foot">
+    <div class="tab-foot-msg">KPI = ПРОЗРАЧНОСТЬ<span class="plus">+</span>ЕЖЕМЕСЯЧНЫЙ ОТЧЁТ<span class="plus">+</span>УПРАВЛЯЕМЫЕ МЕТРИКИ</div>
+    <div class="tab-foot-sign">Подготовлено <strong>Арией</strong> — AI-менеджером Home Project · 11 июня 2026 · первичный драфт</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══ ФУТЕР ═══ -->
+<div class="footer">
+  <strong>Home Project</strong> · ИП Кривов С.С. · ИНН 772171614801 · 109439, г. Москва<br>
+  <a href="https://homeproject.online">homeproject.online</a> · <a href="mailto:info@homeproject.online">info@homeproject.online</a> · <a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a><br>
+  Стратегия продвижения Bertazzoni · Июнь – Декабрь 2026 · версия 1.0 — <strong style="color:var(--ochre)">первичный драфт</strong> · 11 июня 2026<br>
+  Персонально для Константина Яроха (Bertazzoni RU) · от Андрея Ботьева (owner, Home Project) · документ конфиденциальный, дальнейшая передача — только по согласованию
+</div>
+
+</div>
+
+<script>
+function showTab(id, el) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.kp-guide-tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('tab-' + id);
+  if (panel) panel.classList.add('active');
+  if (el) el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
