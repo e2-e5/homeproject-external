@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП · Андрей Ботьев · Bertazzoni · Полный комплект 60 см · Home Project</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --dark:#181A20;
+  --gold:#c9a96e;
+  --gold-lt:rgba(201,169,110,0.12);
+  --bg:#f5f4f0;
+  --text:#1a1a1a;
+  --muted:#7a8099;
+  --border:#e5e3db;
+  --brand:#C8102E;
+  --green:#22c55e;
+  --green-lt:rgba(34,197,94,0.10);
+  --orange:#f59e0b;
+  --red:#ef4444;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+.header{background:var(--dark);padding:28px 48px 24px;display:flex;justify-content:space-between;align-items:flex-end;}
+.logo-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase;}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:3px;}
+.kp-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.kp-meta{font-size:22px;font-weight:700;color:#fff;margin-top:2px;}
+.kp-date{font-size:11px;color:var(--muted);margin-top:3px;}
+.brand-bar{background:#C8102E;padding:9px 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.brand-bar-name{font-size:14px;font-weight:800;color:#fff;letter-spacing:.1em;text-transform:uppercase;}
+.brand-bar-sep{color:rgba(255,255,255,.4);}
+.brand-bar-series{font-size:11px;font-weight:600;color:rgba(255,255,255,.85);background:rgba(255,255,255,.12);padding:2px 10px;border-radius:10px;}
+.brand-bar-tagline{font-size:11px;color:rgba(255,255,255,.65);}
+.addressee{background:#fff;padding:14px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:32px;flex-wrap:wrap;}
+.addr-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.addr-val{font-size:14px;font-weight:600;}
+.tab-nav{background:#fff;border-bottom:2px solid var(--border);padding:0 48px;display:flex;gap:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.05);overflow-x:auto;}
+.tab-btn{display:flex;align-items:center;gap:6px;padding:15px 18px;border:none;background:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--text);border-bottom-color:var(--brand);font-weight:700;}
+.tab-icon{font-size:14px;}
+.container{max-width:960px;margin:0 auto;background:#fff;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.pad{padding:40px 48px 56px;}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.brief-hero{background:var(--dark);border-radius:14px;padding:28px 32px;margin-bottom:24px;}
+.brief-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;}
+.brief-text{font-size:13px;color:#aaa;line-height:1.7;}
+.brief-accent{color:var(--gold);font-weight:600;}
+.brief-quote{background:#fff;border:1px solid var(--border);border-left:4px solid var(--brand);border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:24px;font-size:15px;color:#333;font-style:italic;line-height:1.7;}
+.brief-quote cite{display:block;margin-top:8px;font-style:normal;font-size:12px;color:var(--muted);}
+.brief-chips{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.brief-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.brief-chip-icon{font-size:22px;margin-bottom:6px;}
+.brief-chip-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.brief-chip-val{font-size:14px;font-weight:700;}
+.brief-chip-sub{font-size:11px;color:#888;margin-top:2px;}
+.brand-story{background:var(--dark);border-radius:14px;padding:24px 28px;margin-bottom:24px;}
+.brand-story-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;}
+.brand-story-text{font-size:13px;color:#aaa;line-height:1.7;}
+.brand-story-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px;}
+.brand-fact{border-top:1px solid rgba(255,255,255,.1);padding-top:12px;}
+.brand-fact-num{font-size:22px;font-weight:800;color:var(--gold);margin-bottom:3px;}
+.brand-fact-label{font-size:12px;color:#9aa0b8;}
+.variants-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.vo-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:18px 20px;cursor:pointer;transition:border-color .15s;}
+.vo-card:hover{border-color:#aaa;}
+.vo-card.rec{border:2px solid var(--gold);}
+.vo-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px;}
+.vo-title{font-size:14px;font-weight:700;margin-bottom:4px;}
+.vo-desc{font-size:12px;color:#666;margin-bottom:8px;line-height:1.5;}
+.vo-price{font-size:18px;font-weight:800;}
+.vo-price-note{font-size:11px;color:var(--muted);margin-top:2px;}
+.tag-rec{display:inline-block;background:var(--gold);color:#fff;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:5px;}
+.variant-header{background:var(--dark);border-radius:14px;padding:22px 28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.variant-badge{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:700;margin-bottom:5px;}
+.variant-title{font-size:19px;font-weight:700;color:#fff;margin-bottom:5px;}
+.variant-desc{font-size:13px;color:#9aa0b8;line-height:1.6;max-width:420px;}
+.variant-right{text-align:right;flex-shrink:0;}
+.variant-price-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.variant-price{font-size:30px;font-weight:800;color:#fff;white-space:nowrap;}
+.variant-price-sub{font-size:11px;color:#6a7090;margin-top:3px;}
+.kp-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.kp-table th{background:var(--dark);color:#fff;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:10px 14px;text-align:left;}
+.kp-table th.right{text-align:right;}
+.kp-table td{padding:13px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+.kp-table tr:last-child td{border-bottom:none;}
+.kp-table tr:hover td{background:#fafaf8;}
+.item-num{font-size:11px;font-weight:700;color:var(--gold);width:28px;}
+.item-cat{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.item-model{font-size:14px;font-weight:700;}
+.item-sku{font-size:11px;color:var(--muted);font-family:monospace;margin-top:2px;}
+.item-desc{font-size:12px;color:#555;margin-top:3px;line-height:1.5;}
+.item-color{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#555;margin-top:4px;}
+.color-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.12);}
+.price-cell{text-align:right;white-space:nowrap;}
+.price-val{font-size:15px;font-weight:700;}
+.price-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.kp-total{background:var(--dark);border-radius:12px;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
+.kp-total-label{font-size:12px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.1em;}
+.kp-total-val{font-size:26px;font-weight:800;color:#fff;}
+.kp-total-sub{font-size:11px;color:var(--muted);margin-top:2px;text-align:right;}
+.product-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.product-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.pc-placeholder{width:100%;height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a1c22,#2a2d38);color:#6a7090;font-size:12px;text-align:center;padding:16px;}
+.pc-icon{font-size:32px;opacity:.45;}
+.product-card-body{padding:14px 16px 18px;}
+.pc-cat{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px;}
+.pc-name{font-size:14px;font-weight:700;margin-bottom:2px;}
+.pc-sku{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:7px;}
+.pc-specs{list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:10px;}
+.pc-specs li{font-size:12px;color:#555;display:flex;gap:4px;}
+.pc-specs li::before{content:'·';color:var(--brand);flex-shrink:0;font-weight:700;}
+.pc-price-label{font-size:10px;color:var(--muted);margin-bottom:2px;}
+.pc-price{font-size:15px;font-weight:700;}
+.badge{display:inline-block;border-radius:16px;padding:2px 8px;font-size:10px;font-weight:600;}
+.badge-ok{background:var(--green-lt);color:#166534;border:1px solid rgba(34,197,94,.3);}
+.badge-new{background:rgba(201,169,110,0.15);color:#7a5a10;border:1px solid rgba(201,169,110,.4);}
+.addon-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.addon-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;}
+.addon-card-icon{font-size:28px;margin-bottom:10px;}
+.addon-card-title{font-size:14px;font-weight:700;margin-bottom:5px;}
+.addon-card-text{font-size:12px;color:#666;line-height:1.6;}
+.addon-card-price{font-size:13px;font-weight:700;color:var(--text);margin-top:8px;}
+.vis-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px;}
+.vis-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.vis-img-placeholder{width:100%;height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a1c22,#2a2d38);color:#6a7090;font-size:12px;text-align:center;padding:20px;}
+.vis-body{padding:16px 18px 20px;}
+.vis-brand{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.vis-model{font-size:14px;font-weight:700;margin-bottom:3px;}
+.vis-sku{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:10px;}
+.vis-specs{list-style:none;}
+.vis-spec-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.vis-spec-row:last-child{border-bottom:none;}
+.vis-spec-key{color:var(--muted);}
+.vis-spec-val{font-weight:600;text-align:right;}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
+.how-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 18px;}
+.how-card-icon{font-size:26px;margin-bottom:10px;}
+.how-card-title{font-size:13px;font-weight:700;margin-bottom:5px;}
+.how-card-text{font-size:12px;color:#666;line-height:1.6;}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+.contact-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;}
+.contact-card-icon{font-size:28px;margin-bottom:8px;}
+.contact-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:5px;}
+.contact-card-val{font-size:13px;font-weight:600;}
+.contact-card-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.about-block{background:var(--dark);border-radius:14px;padding:24px 28px;margin-bottom:24px;}
+.about-block-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;}
+.about-block-text{font-size:13px;color:#aaa;line-height:1.7;}
+.kp-note{background:var(--gold-lt);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#555;line-height:1.65;margin-top:20px;}
+.kp-note strong{color:var(--text);}
+.ai-disclaimer{background:#f8f8f8;border-radius:10px;padding:14px 18px;font-size:11px;color:#777;line-height:1.7;font-style:italic;}
+.footnote{background:#fff;padding:14px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);}
+@media(max-width:680px){
+  .header,.brand-bar,.addressee,.tab-nav,.pad{padding-left:20px;padding-right:20px;}
+  .brief-chips,.variants-overview,.product-cards,.vis-grid,.addon-grid,.how-grid,.contact-grid{grid-template-columns:1fr;}
+  .variant-header{flex-direction:column;align-items:flex-start;}
+  .variant-right{text-align:left;}
+  .kp-total{flex-direction:column;align-items:flex-start;}
+  .tab-btn{padding:14px 12px;font-size:11px;}
+  .footnote{flex-direction:column;gap:6px;text-align:center;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div>
+    <div class="logo-title">Home Project</div>
+    <div class="logo-sub">Премиальная встраиваемая техника · Москва</div>
+  </div>
+  <div style="text-align:right;">
+    <div class="kp-label">Коммерческое предложение</div>
+    <div class="kp-meta">HP-2026-013</div>
+    <div class="kp-date">12 июня 2026 · действительно 14 дней</div>
+  </div>
+</div>
+
+<div class="brand-bar">
+  <span class="brand-bar-name">Bertazzoni</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-series">Modern &amp; Professional</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-tagline">Нержавейка / Тёмный · Полный кухонный комплект 60 см · Guastalla, Italia · с 1882 года</span>
+</div>
+
+<div class="addressee">
+  <div><div class="addr-lbl">Клиент</div><div class="addr-val">Андрей Ботьев</div></div>
+  <div><div class="addr-lbl">Дата</div><div class="addr-val">12.06.2026</div></div>
+  <div><div class="addr-lbl">Запрос</div><div class="addr-val">4 прибора · 60 см</div></div>
+  <div><div class="addr-lbl">Цвет</div><div class="addr-val">Нержавейка / Тёмный</div></div>
+  <div><div class="addr-lbl">Наличие</div><div class="addr-val">Только в стоке</div></div>
+</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('brief')"><span class="tab-icon">📋</span> Бриф</button>
+  <button class="tab-btn" onclick="showTab('v1')"><span class="tab-icon">🖤</span> Вариант 1</button>
+  <button class="tab-btn" onclick="showTab('v2')"><span class="tab-icon">✅</span> Вариант 2 ✦</button>
+  <button class="tab-btn" onclick="showTab('v3')"><span class="tab-icon">💎</span> Вариант 3</button>
+  <button class="tab-btn" onclick="showTab('addon')"><span class="tab-icon">➕</span> Доп. позиции</button>
+  <button class="tab-btn" onclick="showTab('visual')"><span class="tab-icon">🖼</span> Визуал / Хар-ки</button>
+  <button class="tab-btn" onclick="showTab('contacts')"><span class="tab-icon">📞</span> Контакты</button>
+</div>
+
+<div id="tab-brief" class="tab-panel active">
+<div class="pad">
+  <div class="section-title">Бриф клиента · 12.06.2026</div>
+  <div class="brief-hero">
+    <div class="brief-title">Bertazzoni · Полный комплект 60 см · Нержавейка или Тёмный</div>
+    <div class="brief-text">Задача — подобрать 4 встраиваемых прибора 60 см: духовой шкаф, варочную панель, вытяжку и посудомоечную машину. Только из наличия на складе поставщика (Москва, данные 12.06.2026).
+    Серия <span class="brief-accent">Professional</span> — итальянская профессиональная эстетика, нержавеющая сталь, строгие ручки. Серия <span class="brief-accent">Modern</span> — скрытое управление, минималистичный тёмный образ. Три комплекта на выбор по бюджету.</div>
+  </div>
+  <div class="brief-quote">
+    «Подготовьте мне КП на Бертацони. Интересует: духовой шкаф на 60, варочная панель 60×60, вытяжка на 60, посудомоечная машина. Цвет — нержавейка или тёмный. Интересует товар в наличии.»
+    <cite>— Андрей Ботьев, 12.06.2026, 11:51</cite>
+  </div>
+  <div class="brief-chips">
+    <div class="brief-chip"><div class="brief-chip-icon">📦</div><div class="brief-chip-label">Состав</div><div class="brief-chip-val">4 прибора</div><div class="brief-chip-sub">Духовка + варочная + вытяжка + ПММ</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">📐</div><div class="brief-chip-label">Формат</div><div class="brief-chip-val">60 см</div><div class="brief-chip-sub">Вся техника встраиваемая 60 см</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🎨</div><div class="brief-chip-label">Цвет</div><div class="brief-chip-val">Нержавейка / Тёмный</div><div class="brief-chip-sub">Чёрное стекло, карбонио, нерж.</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">✅</div><div class="brief-chip-label">Наличие</div><div class="brief-chip-val">Только в стоке</div><div class="brief-chip-sub">Склад Москва, 12.06.2026</div></div>
+  </div>
+  <div class="section-title">О бренде</div>
+  <div class="brand-story">
+    <div class="brand-story-title">Bertazzoni — итальянская классика с 1882 года</div>
+    <div class="brand-story-text">Bertazzoni производится в Гуасталле (Италия) с 1882 года. В серии <b style="color:#fff">Professional</b> — выразительные ручки из нержавеющей стали, строгая геометрия, мощные горелки. Серия <b style="color:#fff">Modern</b> — скрытое управление, тёмный минимализм. Все позиции из реального стока поставщика на дату КП.</div>
+    <div class="brand-story-facts">
+      <div class="brand-fact"><div class="brand-fact-num">140+</div><div class="brand-fact-label">лет на рынке</div></div>
+      <div class="brand-fact"><div class="brand-fact-num">4</div><div class="brand-fact-label">серии: Modern, Professional, Master, Heritage</div></div>
+      <div class="brand-fact"><div class="brand-fact-num">Guastalla</div><div class="brand-fact-label">производство Италия</div></div>
+    </div>
+  </div>
+  <div class="section-title">Три варианта комплекта</div>
+  <div class="variants-overview">
+    <div class="vo-card" onclick="showTab('v1')">
+      <div class="vo-label">Вариант 1</div>
+      <div class="vo-title">Modern Тёмный</div>
+      <div class="vo-desc">Серия Modern · чёрное стекло + нержавейка. Индукция, слайдерная вытяжка, ПММ авто-открытие.</div>
+      <div class="vo-price">466 300 ₽</div>
+      <div class="vo-price-note">4 позиции · в стоке</div>
+    </div>
+    <div class="vo-card rec" onclick="showTab('v2')">
+      <div class="vo-label">Вариант 2 <span class="tag-rec">✦ рекомендован</span></div>
+      <div class="vo-title">Professional Нержавейка</div>
+      <div class="vo-desc">Серия Professional · нержавейка + чёрное стекло. Газ, настенная вытяжка, ПММ авто-открытие. Новинка 2026.</div>
+      <div class="vo-price">542 200 ₽</div>
+      <div class="vo-price-note">4 позиции · в стоке</div>
+    </div>
+    <div class="vo-card" onclick="showTab('v3')">
+      <div class="vo-label">Вариант 3</div>
+      <div class="vo-title">Professional Premium Dark</div>
+      <div class="vo-desc">Серия Professional · карбонио + чёрное стекло. Духовой шкаф с паром, газ 4 горелки, настенная вытяжка, ПММ слайдер.</div>
+      <div class="vo-price">736 500 ₽</div>
+      <div class="vo-price-note">4 позиции · в стоке</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="tab-v1" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Вариант 1 — Modern Тёмный</div>
+  <div class="variant-header">
+    <div>
+      <div class="variant-badge">Вариант 1 · Modern · Тёмный</div>
+      <div class="variant-title">Bertazzoni Modern · 4 позиции · Чёрное стекло + Нержавейка</div>
+      <div class="variant-desc">Серия Modern — скрытое управление, строгий минимализм. Духовой шкаф и индукционная панель в чёрном стекле, слайдерная встроенная вытяжка и посудомойка с авто-открытием. Доступный вход в Bertazzoni.</div>
+    </div>
+    <div class="variant-right">
+      <div class="variant-price-label">Итого</div>
+      <div class="variant-price">466 300 ₽</div>
+      <div class="variant-price-sub">4 позиции · все в наличии</div>
+    </div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px;">#</th><th>Позиция</th><th>Артикул</th><th>Цвет / Отделка</th><th class="right" style="width:130px;">Цена, ₽</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td><div class="item-cat">Духовой шкаф · 60 см · электрический</div><div class="item-model">Bertazzoni FMOD6115ELB1</div><div class="item-sku">арт. FMOD6115ELB1</div><div class="item-desc">Встраиваемый электрический духовой шкаф 60 см · Modern · чёрное стекло · Италия</div></td>
+        <td><span class="item-sku">FMOD6115ELB1</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#111;"></span> Чёрное стекло (Nero)</span></td>
+        <td class="price-cell"><div class="price-val">185 000 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 19 шт</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td><div class="item-cat">Варочная панель · 60 см · индукция</div><div class="item-model">Bertazzoni P604I1B26NV</div><div class="item-sku">арт. P604I1B26NV</div><div class="item-desc">Индукционная варочная панель 60 см · 4 зоны + 1 мультизона · чёрное стекло</div></td>
+        <td><span class="item-sku">P604I1B26NV</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#111;"></span> Чёрное стекло (Nero)</span></td>
+        <td class="price-cell"><div class="price-val">88 600 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 22 шт</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">3</td>
+        <td><div class="item-cat">Вытяжка · встраиваемая · слайдер · 60 см</div><div class="item-model">Bertazzoni KTE60MOD1B</div><div class="item-sku">арт. KTE60MOD1B</div><div class="item-desc">Встраиваемая слайдерная вытяжка 60 см · Modern · нержавеющая сталь · скрытый монтаж</div></td>
+        <td><span class="item-sku">KTE60MOD1B</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#c0c0c0;"></span> Нержавеющая сталь</span></td>
+        <td class="price-cell"><div class="price-val">50 000 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 9 шт</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">4</td>
+        <td><div class="item-cat">Посудомоечная машина · 60 см · встраиваемая</div><div class="item-model">Bertazzoni DW6083PRV</div><div class="item-sku">арт. DW6083PRV</div><div class="item-desc">Полностью встраиваемая ПММ 60 см · авто-открывание дверцы · под декор. панель</div></td>
+        <td><span class="item-sku">DW6083PRV</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#e0ddd5;"></span> Под декоративную панель</span></td>
+        <td class="price-cell"><div class="price-val">142 700 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 14 шт</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="kp-total">
+    <div><div class="kp-total-label">Итого · 4 позиции</div><div style="font-size:11px;color:#6a7090;margin-top:3px;">Все позиции в наличии · 12.06.2026</div></div>
+    <div><div class="kp-total-val">466 300 ₽</div><div class="kp-total-sub">Modern Тёмный · 4 прибора Bertazzoni</div></div>
+  </div>
+  <div class="section-title">Описание позиций</div>
+  <div class="product-cards">
+    <div class="product-card"><div class="pc-placeholder"><div class="pc-icon">🔲</div><div>FMOD6115ELB1<br>Modern · Чёрное стекло</div></div><div class="product-card-body"><div class="pc-cat">Духовой шкаф · 60 см</div><div class="pc-name">FMOD6115ELB1 Modern</div><div class="pc-sku">арт. FMOD6115ELB1</div><ul class="pc-specs"><li>Встраиваемый электрический</li><li>Ниша 595 мм</li><li>Серия Modern, Чёрное стекло</li><li>Конвекция · Италия</li></ul><div class="pc-price-label">Цена</div><div class="pc-price">185 000 ₽</div></div></div>
+    <div class="product-card"><div class="pc-placeholder"><div class="pc-icon">⚡</div><div>P604I1B26NV<br>Индукция 60 см</div></div><div class="product-card-body"><div class="pc-cat">Варочная панель · 60 см · индукция</div><div class="pc-name">P604I1B26NV</div><div class="pc-sku">арт. P604I1B26NV</div><ul class="pc-specs"><li>4 зоны + 1 мультизона</li><li>Чёрное стекло · 60 см</li><li>Сенсорное управление</li></ul><div class="pc-price-label">Цена</div><div class="pc-price">88 600 ₽</div></div></div>
+    <div class="product-card"><div class="pc-placeholder"><div class="pc-icon">💨</div><div>KTE60MOD1B<br>Слайдер Modern 60 см</div></div><div class="product-card-body"><div class="pc-cat">Вытяжка · встраиваемая слайдерная</div><div class="pc-name">KTE60MOD1B Modern</div><div class="pc-sku">арт. KTE60MOD1B</div><ul class="pc-specs"><li>Встраиваемая (скрытая в шкафу)</li><li>Выдвижной козырёк · 60 см</li><li>Нержавеющая сталь · Modern</li></ul><div class="pc-price-label">Цена</div><div class="pc-price">50 000 ₽</div></div></div>
+    <div class="product-card"><div class="pc-placeholder"><div class="pc-icon">🍽</div><div>DW6083PRV<br>ПММ 60 см · Авто-открытие</div></div><div class="product-card-body"><div class="pc-cat">Посудомоечная машина · 60 см</div><div class="pc-name">DW6083PRV</div><div class="pc-sku">арт. DW6083PRV</div><ul class="pc-specs"><li>Полностью встраиваемая · 60 см</li><li>Авто-открывание (AirDry)</li><li>Под декоративную панель</li></ul><div class="pc-price-label">Цена</div><div class="pc-price">142 700 ₽</div></div></div>
+  </div>
+</div>
+</div>
+
+<div id="tab-v2" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Вариант 2 — Professional Нержавейка ✦ Рекомендован</div>
+  <div class="variant-header">
+    <div>
+      <div class="variant-badge">Вариант 2 · Professional · Нержавейка ✦</div>
+      <div class="variant-title">Bertazzoni Professional · 4 позиции · Нержавейка + Чёрное стекло</div>
+      <div class="variant-desc">Серия Professional — итальянская профессиональная эстетика, выразительные ручки. Новинка 2026 в духовом шкафу, газовая панель 4 горелки с WOK, настенная вытяжка Professional, ПММ с авто-открытием.</div>
+    </div>
+    <div class="variant-right">
+      <div class="variant-price-label">Итого</div>
+      <div class="variant-price">542 200 ₽</div>
+      <div class="variant-price-sub">4 позиции · все в наличии</div>
+    </div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px;">#</th><th>Позиция</th><th>Артикул</th><th>Цвет / Отделка</th><th class="right" style="width:130px;">Цена, ₽</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td><div class="item-cat">Духовой шкаф · 60 см · электрический · Новинка 2026</div><div class="item-model">Bertazzoni F605PROGKX</div><div class="item-sku">арт. F605PROGKX</div><div class="item-desc">Встраиваемый электрический духовой шкаф 60 см · Professional · нержавеющая сталь · Новинка 2026</div></td>
+        <td><span class="item-sku">F605PROGKX</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#c0c0c0;"></span> Нержавеющая сталь <span class="badge badge-new">Новинка 2026</span></span></td>
+        <td class="price-cell"><div class="price-val">145 000 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 8 шт</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td><div class="item-cat">Варочная панель · 60 см · газ · 4 конфорки</div><div class="item-model">Bertazzoni P604LPROGNE</div><div class="item-sku">арт. P604LPROGNE</div><div class="item-desc">Газовая варочная панель 60 см · Professional · 4 конфорки (включая WOK) · чёрное стекло</div></td>
+        <td><span class="item-sku">P604LPROGNE</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#111;"></span> Чёрное стекло (Nero)</span></td>
+        <td class="price-cell"><div class="price-val">109 900 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 4 шт</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">3</td>
+        <td><div class="item-cat">Вытяжка · настенная · 60 см · Professional</div><div class="item-model">Bertazzoni KT60P1AXT</div><div class="item-sku">арт. KT60P1AXT</div><div class="item-desc">Настенная вытяжка нержавеющая сталь 60 см · Professional · в тон духовому шкафу</div></td>
+        <td><span class="item-sku">KT60P1AXT</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#c0c0c0;"></span> Нержавеющая сталь</span></td>
+        <td class="price-cell"><div class="price-val">138 500 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 2 шт</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">4</td>
+        <td><div class="item-cat">Посудомоечная машина · 60 см · встраиваемая</div><div class="item-model">Bertazzoni DW6083PRT</div><div class="item-sku">арт. DW6083PRT</div><div class="item-desc">Полностью встраиваемая ПММ 60 см · авто-открывание дверцы · под декор. панель</div></td>
+        <td><span class="item-sku">DW6083PRT</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#e0ddd5;"></span> Под декоративную панель</span></td>
+        <td class="price-cell"><div class="price-val">148 800 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 7 шт</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="kp-total">
+    <div><div class="kp-total-label">Итого · 4 позиции</div><div style="font-size:11px;color:#6a7090;margin-top:3px;">Все позиции в наличии · 12.06.2026</div></div>
+    <div><div class="kp-total-val">542 200 ₽</div><div class="kp-total-sub">Professional Нержавейка · 4 прибора · Рекомендован</div></div>
+  </div>
+  <div class="section-title">Описание позиций</div>
+  <div class="product-cards">
+    <div class="product-card"><div class="pc-placeholder"><div class="pc-icon">🔲</div><div>F605PROGKX<br>Professional Нерж. · Новинка 2026</div></div><div class="product-card-body"><div class="pc-cat">Духовой шкаф · 60 см</div><div class="pc-name">F605PROGKX Professional <span class="badge badge-new">Новинка 2026</span></div><div class="pc-sku">арт. F605PROGKX</div><ul class="pc-specs"><li>Встраиваемый электрический · 60 см</li><li>Серия Professional · нержавеющая сталь</li><li>Новая модель 2026 · Guastalla, Италия</li><li>Выразительные ручки Professional</li></ul><div class="pc-price-label">Цена</div><div class="pc-price">145 000 ₽</div></div></div>
+    <div class="product-card"><div class="pc-placeholder"><div class="pc-icon">🔥</div><div>P604LPROGNE<br>Professional Газ 60 см · WOK</div></div><div class="product-card-body"><div class="pc-cat">Варочная панель · 60 см · газ</div><div class="pc-name">P604LPROGNE Professional</div><div class="pc-sku">арт. P604LPROGNE</div><ul class="pc-specs"><li>4 газовых конфорки + WOK</li><li>На чёрном стекле · 60 см</li><li>Серия Professional</li><li>Итальянский огонь — мгновенный отклик</li></ul><div class="pc-price-label">Цена</div><div class="pc-price">109 900 ₽</div></div></div>
+    <div class="product-card"><div class="pc-placeholder"><div class="pc-icon">💨</div><div>KT60P1AXT<br>Professional Нержавейка 60 см</div></div><div class="product-card-body"><div class="pc-cat">Вытяжка · настенная · 60 см</div><div class="pc-name">KT60P1AXT Professional</div><div class="pc-sku">арт. KT60P1AXT</div><ul class="pc-specs"><li>Настенная · 60 см</li><li>Нержавеющая сталь</li><li>Серия Professional · в стиль духовки</li></ul><div class="pc-price-label">Цена</div><div class="pc-price">138 500 ₽</div></div></div>
+    <div class="product-card"><div class="pc-placeholder"><div class="pc-icon">🍽</div><div>DW6083PRT<br>ПММ 60 см · Авто-открытие</div></div><div class="product-card-body"><div class="pc-cat">Посудомоечная машина · 60 см</div><div class="pc-name">DW6083PRT</div><div class="pc-sku">арт. DW6083PRT</div><ul class="pc-specs"><li>Полностью встраиваемая · 60 см</li><li>Авто-открывание (AirDry)</li><li>Под декоративную панель кухни</li></ul><div class="pc-price-label">Цена</div><div class="pc-price">148 800 ₽</div></div></div>
+  </div>
+  <div class="kp-note"><strong>Внимание:</strong> Вытяжка KT60P1AXT — остаток 2 штуки. При интересе к варианту 2 или 3 рекомендуем подтвердить бронирование в течение недели.</div>
+</div>
+</div>
+
+<div id="tab-v3" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Вариант 3 — Professional Premium Dark</div>
+  <div class="variant-header">
+    <div>
+      <div class="variant-badge">Вариант 3 · Professional · Карбонио / Тёмный</div>
+      <div class="variant-title">Bertazzoni Professional · 4 позиции · Карбонио + Чёрное стекло</div>
+      <div class="variant-desc">Топовый тёмный Professional. Духовой шкаф с паром — для су-вид, деликатной готовки. Газовая панель 4 горелки с WOK, настенная вытяжка, посудомойка со слайдерной дверцей.</div>
+    </div>
+    <div class="variant-right">
+      <div class="variant-price-label">Итого</div>
+      <div class="variant-price">736 500 ₽</div>
+      <div class="variant-price-sub">4 позиции · все в наличии</div>
+    </div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px;">#</th><th>Позиция</th><th>Артикул</th><th>Цвет / Отделка</th><th class="right" style="width:130px;">Цена, ₽</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td><div class="item-cat">Духовой шкаф с паром · 60 см · электрический</div><div class="item-model">Bertazzoni F6011PROVTN</div><div class="item-sku">арт. F6011PROVTN</div><div class="item-desc">Встраиваемый духовой шкаф с паром 60 см · Professional · карбонио · су-вид · Италия</div></td>
+        <td><span class="item-sku">F6011PROVTN</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#2d2d2d;"></span> Карбонио (матовый антрацит)</span></td>
+        <td class="price-cell"><div class="price-val">325 000 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 6 шт</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td><div class="item-cat">Варочная панель · 60 см · газ · 4 конфорки</div><div class="item-model">Bertazzoni P604LPROGNE</div><div class="item-sku">арт. P604LPROGNE</div><div class="item-desc">Газовая варочная панель 60 см · Professional · 4 конфорки (включая WOK) · чёрное стекло</div></td>
+        <td><span class="item-sku">P604LPROGNE</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#111;"></span> Чёрное стекло (Nero)</span></td>
+        <td class="price-cell"><div class="price-val">109 900 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 4 шт</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">3</td>
+        <td><div class="item-cat">Вытяжка · настенная · 60 см · Professional</div><div class="item-model">Bertazzoni KT60P1AXT</div><div class="item-sku">арт. KT60P1AXT</div><div class="item-desc">Настенная вытяжка нержавеющая сталь 60 см · Professional</div></td>
+        <td><span class="item-sku">KT60P1AXT</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#c0c0c0;"></span> Нержавеющая сталь</span></td>
+        <td class="price-cell"><div class="price-val">138 500 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 2 шт</span></div></td>
+      </tr>
+      <tr>
+        <td class="item-num">4</td>
+        <td><div class="item-cat">Посудомоечная машина · 60 см · слайдер</div><div class="item-model">Bertazzoni DW6083PRTS</div><div class="item-sku">арт. DW6083PRTS</div><div class="item-desc">Полностью встраиваемая ПММ 60 см · слайдерная дверца · под декоративную панель</div></td>
+        <td><span class="item-sku">DW6083PRTS</span></td>
+        <td><span class="item-color"><span class="color-dot" style="background:#e0ddd5;"></span> Под декоративную панель</span></td>
+        <td class="price-cell"><div class="price-val">163 100 ₽</div><div class="price-sub"><span class="badge badge-ok">✓ в наличии 8 шт</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="kp-total">
+    <div><div class="kp-total-label">Итого · 4 позиции</div><div style="font-size:11px;color:#6a7090;margin-top:3px;">Все позиции в наличии · 12.06.2026</div></div>
+    <div><div class="kp-total-val">736 500 ₽</div><div class="kp-total-sub">Professional Premium Dark · 4 прибора</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;margin-top:24px;">
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;"><div style="font-size:24px;margin-bottom:10px;">💧</div><div style="font-size:14px;font-weight:700;margin-bottom:5px;">Паровая готовка</div><div style="font-size:12px;color:#666;line-height:1.6;">F6011PROVTN — функция пара: су-вид, деликатные блюда, сочное мясо, хрустящий хлеб. Итальянская технология в 60 см нише.</div></div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;"><div style="font-size:24px;margin-bottom:10px;">🔥</div><div style="font-size:14px;font-weight:700;margin-bottom:5px;">Газ + WOK горелка</div><div style="font-size:12px;color:#666;line-height:1.6;">P604LPROGNE — 4 конфорки на чёрном стекле, мощная WOK. Итальянский огонь — мгновенный отклик, точная регулировка.</div></div>
+  </div>
+  <div class="kp-note"><strong>Внимание:</strong> Вытяжка KT60P1AXT — остаток 2 штуки. При интересе к этому варианту рекомендуем оперативно подтвердить бронирование.</div>
+</div>
+</div>
+
+<div id="tab-addon" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Дополнительные позиции Bertazzoni в наличии</div>
+  <div class="addon-grid">
+    <div class="addon-card"><div class="addon-card-icon">📦</div><div class="addon-card-title">Базовая посудомойка DW60EPR/21</div><div class="addon-card-text">Полностью встраиваемая ПММ 60 см. Оптимальный выбор если нужно сэкономить на этой позиции. Большой сток — 39 штук.</div><div class="addon-card-price">88 600 ₽</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">арт. DW60EPR/21 · 39 шт</div></div>
+    <div class="addon-card"><div class="addon-card-icon">🌡️</div><div class="addon-card-title">Вытяжка слайдер KTE60MOD1C</div><div class="addon-card-text">Встраиваемая вытяжка Modern 60 см, нержавейка. Аналог KTE60MOD1B. Большой сток — 20 штук. Подходит к Варианту 1.</div><div class="addon-card-price">45 500 ₽</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">арт. KTE60MOD1C · 20 шт</div></div>
+    <div class="addon-card"><div class="addon-card-icon">🔲</div><div class="addon-card-title">Компактный духовой шкаф FMOD6093ESB1</div><div class="addon-card-text">Встраиваемый духовой шкаф 60 см Modern, чёрное стекло. Компактная версия для нестандартных ниш. 8 штук в наличии.</div><div class="addon-card-price">112 200 ₽</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">арт. FMOD6093ESB1 · 8 шт</div></div>
+    <div class="addon-card"><div class="addon-card-icon">🏛</div><div class="addon-card-title">Серия Heritage — ретро-эстетика</div><div class="addon-card-text">Кухня в стиле ретро — Bertazzoni Heritage (кремовый, слоновая кость, золото). Духовки, газ, вытяжки — в наличии. Отдельный КП под запрос.</div><div class="addon-card-price">от 107 000 ₽</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">Отдельный запрос менеджеру</div></div>
+  </div>
+  <div style="background:var(--dark);border-radius:14px;padding:22px 26px;display:flex;align-items:center;gap:20px;">
+    <div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:5px;">Сравнить с Küppersbusch K.5 Black Velvet?</div><div style="font-size:12px;color:#9aa0b8;line-height:1.5;">Немецкая инженерия против итальянского дизайна — схожий диапазон, разная философия. Подготовим КП по Küppersbusch за 30 минут.</div></div>
+    <div><div style="font-size:12px;color:var(--gold);font-weight:600;">Запросить →</div><div style="font-size:11px;color:#6a7090;margin-top:3px;">info@homeproject.online</div></div>
+  </div>
+</div>
+</div>
+
+<div id="tab-visual" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Визуал и технические характеристики</div>
+  <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:14px;">Вариант 1 — Modern Тёмный</div>
+  <div class="vis-grid" style="margin-bottom:32px;">
+    <div class="vis-card"><div class="vis-img-placeholder"><div style="font-size:32px;opacity:.4;">🔲</div><div>FMOD6115ELB1<br>Modern · Чёрное стекло</div></div><div class="vis-body"><div class="vis-brand">Bertazzoni · Modern</div><div class="vis-model">Духовой шкаф FMOD6115ELB1</div><div class="vis-sku">арт. FMOD6115ELB1</div><div class="vis-specs"><div class="vis-spec-row"><span class="vis-spec-key">Тип</span><span class="vis-spec-val">Электрический встраиваемый</span></div><div class="vis-spec-row"><span class="vis-spec-key">Ниша</span><span class="vis-spec-val">60 см (595 мм)</span></div><div class="vis-spec-row"><span class="vis-spec-key">Серия</span><span class="vis-spec-val">Modern</span></div><div class="vis-spec-row"><span class="vis-spec-key">Цвет</span><span class="vis-spec-val">Чёрное стекло</span></div><div class="vis-spec-row"><span class="vis-spec-key">Страна</span><span class="vis-spec-val">Италия</span></div></div></div></div>
+    <div class="vis-card"><div class="vis-img-placeholder"><div style="font-size:32px;opacity:.4;">⚡</div><div>P604I1B26NV<br>Индукция 60 · Nero</div></div><div class="vis-body"><div class="vis-brand">Bertazzoni</div><div class="vis-model">Варочная P604I1B26NV</div><div class="vis-sku">арт. P604I1B26NV</div><div class="vis-specs"><div class="vis-spec-row"><span class="vis-spec-key">Тип</span><span class="vis-spec-val">Индукция</span></div><div class="vis-spec-row"><span class="vis-spec-key">Зоны</span><span class="vis-spec-val">4 + 1 мультизона</span></div><div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">60 см</span></div><div class="vis-spec-row"><span class="vis-spec-key">Цвет</span><span class="vis-spec-val">Чёрное стекло</span></div></div></div></div>
+    <div class="vis-card"><div class="vis-img-placeholder"><div style="font-size:32px;opacity:.4;">💨</div><div>KTE60MOD1B<br>Слайдер Modern 60 см</div></div><div class="vis-body"><div class="vis-brand">Bertazzoni · Modern</div><div class="vis-model">Вытяжка KTE60MOD1B</div><div class="vis-sku">арт. KTE60MOD1B</div><div class="vis-specs"><div class="vis-spec-row"><span class="vis-spec-key">Тип</span><span class="vis-spec-val">Встраиваемая слайдерная</span></div><div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">60 см</span></div><div class="vis-spec-row"><span class="vis-spec-key">Цвет</span><span class="vis-spec-val">Нержавеющая сталь</span></div></div></div></div>
+    <div class="vis-card"><div class="vis-img-placeholder"><div style="font-size:32px;opacity:.4;">🍽</div><div>DW6083PRV<br>ПММ авто-открытие 60 см</div></div><div class="vis-body"><div class="vis-brand">Bertazzoni</div><div class="vis-model">Посудомойка DW6083PRV</div><div class="vis-sku">арт. DW6083PRV</div><div class="vis-specs"><div class="vis-spec-row"><span class="vis-spec-key">Тип</span><span class="vis-spec-val">Полностью встраиваемая</span></div><div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">60 см</span></div><div class="vis-spec-row"><span class="vis-spec-key">Дверца</span><span class="vis-spec-val">Авто-открывание</span></div></div></div></div>
+  </div>
+  <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:14px;">Варианты 2 и 3 — Professional</div>
+  <div class="vis-grid">
+    <div class="vis-card"><div class="vis-img-placeholder"><div style="font-size:32px;opacity:.4;">🔲</div><div>F605PROGKX<br>Professional Нерж. · Новинка 2026</div></div><div class="vis-body"><div class="vis-brand">Bertazzoni · Professional</div><div class="vis-model">Духовой шкаф F605PROGKX</div><div class="vis-sku">арт. F605PROGKX · Вариант 2</div><div class="vis-specs"><div class="vis-spec-row"><span class="vis-spec-key">Тип</span><span class="vis-spec-val">Электрический встраиваемый</span></div><div class="vis-spec-row"><span class="vis-spec-key">Ниша</span><span class="vis-spec-val">60 см</span></div><div class="vis-spec-row"><span class="vis-spec-key">Серия</span><span class="vis-spec-val">Professional</span></div><div class="vis-spec-row"><span class="vis-spec-key">Цвет</span><span class="vis-spec-val">Нержавеющая сталь</span></div><div class="vis-spec-row"><span class="vis-spec-key">Статус</span><span class="vis-spec-val">Новинка 2026</span></div></div></div></div>
+    <div class="vis-card"><div class="vis-img-placeholder"><div style="font-size:32px;opacity:.4;">💧</div><div>F6011PROVTN<br>Professional Карбонио · Пар</div></div><div class="vis-body"><div class="vis-brand">Bertazzoni · Professional</div><div class="vis-model">Духовой шкаф F6011PROVTN</div><div class="vis-sku">арт. F6011PROVTN · Вариант 3</div><div class="vis-specs"><div class="vis-spec-row"><span class="vis-spec-key">Тип</span><span class="vis-spec-val">Электрический с паром</span></div><div class="vis-spec-row"><span class="vis-spec-key">Функции</span><span class="vis-spec-val">Пар + су-вид</span></div><div class="vis-spec-row"><span class="vis-spec-key">Цвет</span><span class="vis-spec-val">Карбонио (матовый антрацит)</span></div><div class="vis-spec-row"><span class="vis-spec-key">Страна</span><span class="vis-spec-val">Италия</span></div></div></div></div>
+    <div class="vis-card"><div class="vis-img-placeholder"><div style="font-size:32px;opacity:.4;">🔥</div><div>P604LPROGNE<br>Professional Газ 60 · WOK</div></div><div class="vis-body"><div class="vis-brand">Bertazzoni · Professional</div><div class="vis-model">Варочная P604LPROGNE</div><div class="vis-sku">арт. P604LPROGNE · Вар. 2 и 3</div><div class="vis-specs"><div class="vis-spec-row"><span class="vis-spec-key">Тип</span><span class="vis-spec-val">Газ</span></div><div class="vis-spec-row"><span class="vis-spec-key">Конфорки</span><span class="vis-spec-val">4 (включая WOK)</span></div><div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">60 см</span></div><div class="vis-spec-row"><span class="vis-spec-key">Поверхность</span><span class="vis-spec-val">Чёрное стекло</span></div></div></div></div>
+    <div class="vis-card"><div class="vis-img-placeholder"><div style="font-size:32px;opacity:.4;">💨</div><div>KT60P1AXT<br>Professional Нерж. 60 см</div></div><div class="vis-body"><div class="vis-brand">Bertazzoni · Professional</div><div class="vis-model">Вытяжка KT60P1AXT</div><div class="vis-sku">арт. KT60P1AXT · Вар. 2 и 3</div><div class="vis-specs"><div class="vis-spec-row"><span class="vis-spec-key">Тип</span><span class="vis-spec-val">Настенная</span></div><div class="vis-spec-row"><span class="vis-spec-key">Ширина</span><span class="vis-spec-val">60 см</span></div><div class="vis-spec-row"><span class="vis-spec-key">Цвет</span><span class="vis-spec-val">Нержавеющая сталь</span></div><div class="vis-spec-row"><span class="vis-spec-key">Серия</span><span class="vis-spec-val">Professional</span></div></div></div></div>
+  </div>
+</div>
+</div>
+
+<div id="tab-contacts" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Как мы работаем</div>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-card-icon">💬</div><div class="how-card-title">1. Уточняем детали</div><div class="how-card-text">Обсуждаем планировку, газ или индукция, размеры ниш, финальный вариант. Согласовываем комплект и сроки.</div></div>
+    <div class="how-card"><div class="how-card-icon">📦</div><div class="how-card-title">2. Быстрая поставка из стока</div><div class="how-card-text">Все позиции на складе в Москве. После подтверждения и оплаты — готовы к отгрузке в течение нескольких дней.</div></div>
+    <div class="how-card"><div class="how-card-icon">🔧</div><div class="how-card-title">3. Поддержка и гарантия</div><div class="how-card-text">Помогаем с монтажниками, официальная гарантия производителя. На связи весь период проекта.</div></div>
+  </div>
+  <div class="section-title">Контакты Home Project</div>
+  <div class="contact-grid">
+    <div class="contact-card"><div class="contact-card-icon">✉️</div><div class="contact-card-label">Email</div><div class="contact-card-val">info@homeproject.online</div><div class="contact-card-sub">Ответ в течение 2 часов</div></div>
+    <div class="contact-card"><div class="contact-card-icon">💬</div><div class="contact-card-label">Telegram</div><div class="contact-card-val">@homeproject_ru</div><div class="contact-card-sub">Оперативная связь</div></div>
+    <div class="contact-card"><div class="contact-card-icon">🌐</div><div class="contact-card-label">Сайт</div><div class="contact-card-val">homeproject.online</div><div class="contact-card-sub">Каталог всех брендов</div></div>
+  </div>
+  <div class="about-block"><div class="about-block-title">О Home Project</div><div class="about-block-text">Специализируемся на европейской встраиваемой технике премиального сегмента: V-ZUG, BORA, Küppersbusch, Bertazzoni, De Dietrich, Fhiaba, Schulthess, SKS, ILVE, Graude. Работаем напрямую с дистрибьюторами — без посредников. Помогаем архитекторам и дизайнерам подобрать технику: от одного прибора до полного оснащения кухни. Все позиции настоящего КП — из реального складского наличия на 12.06.2026.</div></div>
+  <div class="ai-disclaimer">Цены действительны на 12.06.2026 в течение 14 дней. Наличие на складе подтверждено на дату составления КП. Окончательная доступность уточняется при оформлении заказа. КП подготовлено командой Home Project.</div>
+</div>
+</div>
+
+<div class="footnote">
+  <span>Home Project · homeproject.online · info@homeproject.online</span>
+  <span>КП HP-2026-013 · Bertazzoni Modern &amp; Professional · 60 см · 12.06.2026</span>
+</div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('tab-' + id);
+  if (panel) panel.classList.add('active');
+  const btns = document.querySelectorAll('.tab-btn');
+  const map = {brief:0,v1:1,v2:2,v3:3,addon:4,visual:5,contacts:6};
+  if (map[id] !== undefined && btns[map[id]]) btns[map[id]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
