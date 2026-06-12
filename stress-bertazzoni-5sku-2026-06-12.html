@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП 2026-0612-STRESS · Тестовый клиент · Bertazzoni · Home Project</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --dark:#181A20;--gold:#c9a96e;--gold-lt:rgba(201,169,110,0.12);
+  --bg:#f5f4f0;--text:#1a1a1a;--muted:#7a8099;--border:#e5e3db;
+  --brand:#C8102E;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+.header{background:var(--dark);padding:28px 48px 24px;display:flex;justify-content:space-between;align-items:flex-end;}
+.logo-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase;}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:3px;}
+.kp-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.kp-meta{font-size:22px;font-weight:700;color:#fff;margin-top:2px;}
+.kp-date{font-size:11px;color:var(--muted);margin-top:3px;}
+.brand-bar{background:#C8102E;padding:9px 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.brand-bar-name{font-size:14px;font-weight:800;color:#fff;letter-spacing:.1em;text-transform:uppercase;}
+.brand-bar-sep{color:rgba(255,255,255,.4);}
+.brand-bar-series{font-size:11px;font-weight:600;color:rgba(255,255,255,.85);background:rgba(255,255,255,.12);padding:2px 10px;border-radius:10px;}
+.brand-bar-tagline{font-size:11px;color:rgba(255,255,255,.65);}
+.addressee{background:#fff;padding:14px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:32px;flex-wrap:wrap;}
+.addr-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.addr-val{font-size:14px;font-weight:600;}
+.kp-guide{background:#fff;border-bottom:1px solid var(--border);padding:10px 48px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.kp-guide-title{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;}
+.kp-guide-tabs{display:flex;gap:6px;flex-wrap:wrap;}
+.kp-guide-tab{display:flex;align-items:center;justify-content:center;gap:4px;flex:1;min-width:88px;background:var(--bg);border-radius:20px;padding:6px 8px;font-size:11px;font-weight:500;color:#555;cursor:pointer;transition:all .15s;border:1px solid transparent;text-align:center;white-space:nowrap;}
+.kp-guide-tab:hover{border-color:var(--gold);color:var(--text);background:#fdf5e8;}
+.kp-guide-tab.active{border-color:var(--gold);color:var(--text);background:#fdf5e8;font-weight:600;}
+.kp-guide-tab .gt-icon{font-size:12px;flex-shrink:0;}
+.kp-guide-tab.promo-tab{border-color:rgba(201,169,110,.5);background:#fdf5e8;color:#8a6518;}
+.kp-guide-tab.promo-tab.active{border-color:var(--gold);background:var(--gold);color:#fff;}
+.kp-guide-tab.install-tab{border-color:rgba(231,76,60,.4);background:#fff5f0;color:#a13b1f;}
+.kp-guide-tab.install-tab.active{border-color:#e74c3c;background:#e74c3c;color:#fff;}
+.container{max-width:960px;margin:0 auto;background:#fff;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.pad{padding:40px 48px 56px;}
+.brief-intro{background:var(--dark);border-radius:14px;padding:28px 32px;margin-bottom:24px;}
+.brief-intro-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;}
+.brief-intro-text{font-size:13px;color:#aaa;line-height:1.7;}
+.brief-intro-accent{color:var(--gold);font-weight:600;}
+.brief-quote{background:#fff;border:1px solid var(--border);border-left:4px solid var(--brand);border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:24px;font-size:15px;color:#333;font-style:italic;line-height:1.7;}
+.brief-quote cite{display:block;margin-top:8px;font-style:normal;font-size:12px;color:var(--muted);}
+.reality-card{background:var(--gold-lt);border:1px solid rgba(201,169,110,.3);border-radius:12px;padding:24px 28px;margin-bottom:28px;}
+.reality-card h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:10px;}
+.reality-card p{font-size:14px;color:#444;line-height:1.75;}
+.reality-card p+p{margin-top:10px;}
+.brand-story{background:var(--dark);border-radius:14px;padding:24px 28px;margin-bottom:24px;}
+.brand-story-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;}
+.brand-story-text{font-size:13px;color:#aaa;line-height:1.7;}
+.brand-story-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px;}
+.brand-fact{border-top:1px solid rgba(255,255,255,.1);padding-top:12px;}
+.brand-fact-num{font-size:22px;font-weight:800;color:var(--gold);margin-bottom:3px;}
+.brand-fact-label{font-size:12px;color:#9aa0b8;}
+.brief-chips{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.brief-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.brief-chip-icon{font-size:22px;margin-bottom:6px;}
+.brief-chip-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.brief-chip-val{font-size:14px;font-weight:700;}
+.brief-chip-sub{font-size:11px;color:#888;margin-top:2px;}
+.variant-header{background:var(--dark);border-radius:14px;padding:22px 28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.variant-badge{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:700;margin-bottom:5px;}
+.variant-title{font-size:19px;font-weight:700;color:#fff;margin-bottom:5px;}
+.variant-desc{font-size:13px;color:#9aa0b8;line-height:1.6;max-width:420px;}
+.variant-right{text-align:right;flex-shrink:0;}
+.variant-price-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.variant-price{font-size:30px;font-weight:800;color:#fff;white-space:nowrap;}
+.variant-price-sub{font-size:11px;color:#6a7090;margin-top:3px;}
+.kp-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.kp-table th{background:var(--dark);color:#fff;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:10px 14px;text-align:left;}
+.kp-table th.right{text-align:right;}
+.kp-table td{padding:13px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+.kp-table tr:last-child td{border-bottom:none;}
+.kp-table tr:hover td{background:#fafaf8;}
+.item-num{font-size:11px;font-weight:700;color:var(--gold);width:28px;}
+.item-cat{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:2px;}
+.item-model{font-size:14px;font-weight:700;}
+.item-sku{font-size:11px;color:var(--muted);font-family:monospace;margin-top:2px;}
+.item-desc{font-size:12px;color:#555;margin-top:3px;line-height:1.5;}
+.item-price{text-align:right;font-weight:700;white-space:nowrap;font-size:15px;}
+.badge-stock{display:inline-block;background:#e8f5e9;color:#2e7d32;border-radius:20px;padding:2px 9px;font-size:10px;font-weight:600;}
+.kp-total{background:var(--dark);border-radius:12px;padding:22px 28px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
+.kp-total-label{font-size:12px;color:#aaa;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.kp-total-note{font-size:11px;color:var(--muted);margin-top:3px;}
+.kp-total-sum{font-size:32px;font-weight:800;color:#fff;}
+.conditions-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+.cond-card{border:1px solid var(--border);border-radius:12px;padding:18px 20px;background:#fff;}
+.cond-icon{font-size:22px;margin-bottom:8px;}
+.cond-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.cond-val{font-size:13px;color:#555;line-height:1.5;}
+.kp-note{background:var(--gold-lt);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#555;line-height:1.65;}
+.urgency-banner{background:linear-gradient(135deg,#8a1a1a 0%,#c02a2a 100%);border-radius:14px;padding:20px 28px;margin-bottom:28px;display:flex;align-items:center;gap:20px;}
+.urgency-flame{font-size:36px;flex-shrink:0;}
+.urgency-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:4px;}
+.urgency-sub{font-size:13px;color:rgba(255,255,255,.75);line-height:1.5;}
+.promo-hero-card{background:linear-gradient(135deg,var(--dark) 0%,#1e2d1e 100%);border:2px solid var(--gold);border-radius:16px;padding:32px;margin-bottom:24px;}
+.promo-hero-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;}
+.promo-hero-desc{font-size:14px;color:#9aa0b8;line-height:1.7;margin-bottom:20px;}
+.promo-conditions{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:24px;}
+.promo-conditions h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:14px;}
+.cond-list{list-style:none;}
+.cond-list li{padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;color:#444;display:flex;align-items:flex-start;gap:8px;}
+.cond-list li:last-child{border-bottom:none;}
+.cond-list .ci{flex-shrink:0;font-size:14px;}
+.vis-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:28px;}
+.vis-card{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.vis-body{padding:28px 36px 32px;}
+.vis-cat{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);font-weight:600;margin-bottom:6px;}
+.vis-model{font-size:24px;font-weight:800;margin-bottom:6px;}
+.vis-name-sub{font-size:14px;color:var(--muted);margin-bottom:12px;}
+.vis-desc{font-size:14px;color:#444;line-height:1.75;margin-bottom:14px;}
+.vis-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.vis-pill{background:#f5f4f0;color:#333;border-radius:24px;padding:5px 14px;font-size:13px;font-weight:500;}
+.vis-pill-gold{background:#fdf5e8;color:#8a6518;font-weight:600;}
+.vis-note{background:#f8f8f5;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 18px;font-size:13px;color:#444;line-height:1.65;max-width:780px;margin-top:14px;}
+.spec-block{margin-bottom:28px;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.spec-block-head{background:var(--dark);padding:16px 22px;}
+.spec-block-model{font-size:18px;font-weight:800;color:#fff;}
+.spec-block-type{font-size:11px;color:var(--muted);margin-top:2px;}
+.spec-cols{display:grid;grid-template-columns:1fr 1fr;}
+.spec-col{padding:18px 22px;}
+.spec-col:first-child{border-right:1px solid var(--border);}
+.spec-col h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:12px;}
+.spec-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:7px 0;border-bottom:1px solid #f4f3ef;font-size:13px;}
+.spec-row:last-child{border-bottom:none;}
+.spec-row-key{color:#888;flex-shrink:0;}
+.spec-row-val{font-weight:600;text-align:right;}
+.steps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:32px;}
+.step-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px 22px;}
+.step-num{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
+.step-title{font-size:15px;font-weight:700;margin-bottom:8px;}
+.step-text{font-size:13px;color:#666;line-height:1.65;}
+.contact-hero{background:var(--dark);border-radius:14px;padding:36px 40px;margin-bottom:28px;text-align:center;}
+.contact-hero h2{font-size:24px;font-weight:700;color:#fff;margin-bottom:10px;}
+.contact-hero p{font-size:14px;color:#9aa0b8;line-height:1.7;max-width:560px;margin:0 auto 28px;}
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:560px;margin:0 auto;}
+.contact-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px 20px;text-align:left;}
+.contact-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:5px;}
+.contact-card-val{font-size:14px;font-weight:600;color:#fff;}
+.contact-card-val a{color:var(--gold);text-decoration:none;}
+.reqs{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:20px;}
+.reqs h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:12px;}
+.reqs-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.reqs-row:last-child{border-bottom:none;}
+.reqs-row span:first-child{color:#888;}
+.reqs-row span:last-child{font-weight:600;}
+.intro-alert{background:#fff3e0;border:1px solid #ffe0b2;border-radius:8px;padding:16px 20px;margin-bottom:28px;}
+.intro-alert-title{font-size:13px;font-weight:700;color:#e65100;margin-bottom:6px;}
+.intro-alert-text{font-size:12px;color:#bf360c;line-height:1.6;}
+.product-block{margin-bottom:28px;border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;}
+.product-block-header{background:#181A20;padding:14px 20px;display:flex;align-items:center;gap:14px;}
+.product-block-num{width:28px;height:28px;border-radius:50%;background:#c9a96e;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#181A20;flex-shrink:0;}
+.product-block-model{font-size:16px;font-weight:700;color:#fff;}
+.product-block-cat{font-size:11px;color:#9aa0b8;margin-top:1px;}
+.product-block-badge{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;}
+.badge-elec{background:#ffd54f;color:#333;border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;}
+.badge-vent{background:#a5d6a7;color:#1b5e20;border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;}
+.product-block-body{padding:20px;}
+.install-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
+.spec-item{background:#f8f8f5;border-radius:6px;padding:10px 12px;}
+.spec-label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#9a9a9a;margin-bottom:4px;font-weight:600;}
+.spec-value{font-size:13px;font-weight:700;color:#1a1a1a;line-height:1.3;}
+.spec-note{font-size:10px;color:#777;margin-top:2px;}
+.cross-section{margin-bottom:28px;}
+.cross-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #181A20;}
+.cross-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.cross-item{background:#181A20;border-radius:8px;padding:16px;}
+.cross-item-title{font-size:12px;font-weight:700;color:#c9a96e;margin-bottom:8px;}
+.cross-item-text{font-size:11px;color:#9aa0b8;line-height:1.6;}
+.footer{background:var(--dark);color:#888;text-align:center;padding:28px 24px;font-size:12px;line-height:2;}
+.footer strong{color:var(--gold);}
+.footer a{color:var(--gold);text-decoration:none;}
+.print-bar{display:flex;justify-content:flex-end;margin-bottom:20px;}
+.btn-print{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s;}
+.btn-print:hover{border-color:var(--gold);color:var(--text);}
+@media(max-width:768px){
+  .header{padding:20px;flex-direction:column;align-items:flex-start;gap:12px;}
+  .brand-bar{padding:9px 20px;}
+  .addressee{padding:14px 20px;}
+  .kp-guide{padding:10px 20px;}
+  .pad{padding:24px 20px 40px;}
+  .brief-chips,.conditions-grid,.steps-grid,.contact-grid{grid-template-columns:1fr;}
+  .variant-header{flex-direction:column;align-items:flex-start;gap:12px;}
+  .spec-cols{grid-template-columns:1fr;}
+  .spec-col:first-child{border-right:none;border-bottom:1px solid var(--border);}
+  .brand-story-facts,.install-specs{grid-template-columns:repeat(2,1fr);}
+  .cross-grid{grid-template-columns:1fr;}
+}
+@media print{
+  .kp-guide,.print-bar{display:none!important;}
+  .tab-panel{display:block!important;}
+  .container{max-width:100%;}
+  .pad{padding:24px;}
+  body{background:#fff;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <div>
+    <div class="logo-title">Home Project</div>
+    <div class="logo-sub">Премиальная встраиваемая техника · homeproject.online</div>
+  </div>
+  <div style="text-align:right">
+    <div class="kp-label">Коммерческое предложение</div>
+    <div class="kp-meta">КП 2026-0612-STRESS · 12.06.2026</div>
+    <div class="kp-date">действует до 12.07.2026</div>
+  </div>
+</div>
+<div class="brand-bar">
+  <span class="brand-bar-name">Bertazzoni</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-series">Modern · Heritage</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-tagline">Семейный бренд из Гуасталлы, 1882. 144 года итальянского мастерства.</span>
+</div>
+<div class="addressee">
+  <div><div class="addr-lbl">Подготовлено для</div><div class="addr-val">Тестовый клиент</div></div>
+  <div><div class="addr-lbl">Проект</div><div class="addr-val">STRESS-TEST 5 SKU</div></div>
+  <div><div class="addr-lbl">Менеджер</div><div class="addr-val">Андрей Ботьев, Home Project</div></div>
+  <div><div class="addr-lbl">Бюджет</div><div class="addr-val" style="color:var(--gold)">до 750 000 ₽</div></div>
+</div>
+<div class="kp-guide">
+  <div class="kp-guide-title">Навигация по разделам:</div>
+  <div class="kp-guide-tabs">
+    <div class="kp-guide-tab active" onclick="showTab('brief',this)"><span class="gt-icon">📋</span> Запрос</div>
+    <div class="kp-guide-tab" onclick="showTab('varA',this)"><span class="gt-icon">💰</span> Вариант A</div>
+    <div class="kp-guide-tab" onclick="showTab('varB',this)"><span class="gt-icon">💰</span> Вариант B</div>
+    <div class="kp-guide-tab promo-tab" onclick="showTab('promo',this)"><span class="gt-icon">🎁</span> Спецусловия</div>
+    <div class="kp-guide-tab" onclick="showTab('visual',this)"><span class="gt-icon">🖼</span> Визуалы</div>
+    <div class="kp-guide-tab" onclick="showTab('specs',this)"><span class="gt-icon">📐</span> Схемы и хар-ки</div>
+    <div class="kp-guide-tab install-tab" onclick="showTab('install',this)"><span class="gt-icon">🔧</span> Монтажный лист</div>
+    <div class="kp-guide-tab" onclick="showTab('about',this)"><span class="gt-icon">🏢</span> Как работаем</div>
+    <div class="kp-guide-tab" onclick="showTab('contacts',this)"><span class="gt-icon">📞</span> Контакты</div>
+  </div>
+</div>
+
+<div id="tab-brief" class="tab-panel active">
+<div class="pad">
+  <div class="section-title">О запросе клиента</div>
+  <div class="brief-intro">
+    <div class="brief-intro-title">Тестовый клиент — STRESS-TEST 5 SKU</div>
+    <div class="brief-intro-text">Запрос поступил 12.06.2026. КП подготовлено по регламенту: <span class="brief-intro-accent">два варианта — Modern Essentials и Heritage Boutique — 5 позиций каждый, все на складе в Москве.</span> Bertazzoni — официально в РФ через ООО «КРЕДО М», 2 года гарантии производителя, сервис в 40+ городах.</div>
+  </div>
+  <div class="brief-quote">«Подберите встраиваемый комплект Bertazzoni — духовка, варочная панель, вытяжка, посудомойка, холодильник или warming drawer. Бюджет до 750 тыс. руб. Интересует современный или классический стиль.»<cite>— Тестовый клиент, 12.06.2026</cite></div>
+  <div class="reality-card">
+    <h3>⚖️ Почему Bertazzoni — правильный выбор</h3>
+    <p><strong>Heritage (1882):</strong> Bertazzoni — семейный бизнес из Гуасталлы (Эмилия-Романья, Италия). 1882 год основания, 144 года истории, 6-е поколение семьи у руля. Семейная философия «рациональность и эмоции, функции и стиль».</p>
+    <p><strong>Гарантия и присутствие в РФ:</strong> Эксклюзивный дистрибьютор в РФ и ЕАЭС — ООО «КРЕДО М» (Москва, ул. Нижняя Красносельская, 35с7). 2 года гарантии производителя. Авторизованный сервис в 40+ городах, единый телефон +7 495 120 35 33.</p>
+    <p><strong>Линейка:</strong> 4 серии (Professional · Master · Modern · Heritage), 6 размеров от 60 до 120 см, до 7 цветов в Professional.</p>
+    <p><strong>Технология:</strong> Пар к любой программе. Пиролиз + пар одновременно. Варочный центр 3-в-1 с интегрированной вытяжкой — Patent Pending, можно ставить у окна.</p>
+  </div>
+  <div class="brand-story">
+    <div class="brand-story-title">Bertazzoni — 144 года итальянского мастерства</div>
+    <div class="brand-story-text">Основана в 1882 году в Гуасталле. Семья Бертацони — 6 поколений у руля. Производство — Италия (Эмилия-Романья). В России — единственный итальянский бренд встраиваемой техники с единой юридической точкой ответственности: ООО «КРЕДО М».</div>
+    <div class="brand-story-facts">
+      <div class="brand-fact"><div class="brand-fact-num">1882</div><div class="brand-fact-label">год основания</div></div>
+      <div class="brand-fact"><div class="brand-fact-num">144</div><div class="brand-fact-label">года истории</div></div>
+      <div class="brand-fact"><div class="brand-fact-num">6-е</div><div class="brand-fact-label">поколение семьи</div></div>
+      <div class="brand-fact"><div class="brand-fact-num">40+</div><div class="brand-fact-label">сервис-центров в РФ</div></div>
+    </div>
+  </div>
+  <div class="brief-chips">
+    <div class="brief-chip"><div class="brief-chip-icon">📦</div><div class="brief-chip-label">Категории</div><div class="brief-chip-val">5 приборов</div><div class="brief-chip-sub">Духовка, панель, вытяжка, ПММ, холод./warming</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🎨</div><div class="brief-chip-label">Серии</div><div class="brief-chip-val">Modern / Heritage</div><div class="brief-chip-sub">Вариант A: минимализм · Вариант B: классика</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🏭</div><div class="brief-chip-label">Наличие</div><div class="brief-chip-val">Всё на складе</div><div class="brief-chip-sub">Москва · отгрузка 5–7 рабочих дней</div></div>
+    <div class="brief-chip"><div class="brief-chip-icon">🛡</div><div class="brief-chip-label">Гарантия</div><div class="brief-chip-val">2 года</div><div class="brief-chip-sub">Производителя · ООО «КРЕДО М»</div></div>
+  </div>
+</div>
+</div>
+
+<div id="tab-varA" class="tab-panel">
+<div class="pad">
+<div class="print-bar"><button class="btn-print" onclick="window.print()">🖨 Распечатать</button></div>
+  <div class="section-title">Спецификация · Вариант A — Modern Essentials</div>
+  <div class="variant-header">
+    <div>
+      <div class="variant-badge">ВАРИАНТ A · РЕКОМЕНДОВАН</div>
+      <div class="variant-title">Modern Essentials — технологичный минимализм</div>
+      <div class="variant-desc">Серия Modern: TFT-дисплей, скрытое управление, Bertazzoni Assistant. Чистые линии. 5 позиций, все на складе в Москве.</div>
+    </div>
+    <div class="variant-right">
+      <div class="variant-price-label">Итого (РРЦ)</div>
+      <div class="variant-price">668 900 ₽</div>
+      <div class="variant-price-sub">5 приборов · на складе</div>
+    </div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px">#</th><th>Прибор</th><th style="width:120px">Артикул</th><th class="right" style="width:120px">Цена РРЦ</th><th style="width:90px">Наличие</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">01</td>
+        <td><div class="item-cat">Духовой шкаф · 60 см · Modern</div><div class="item-model">Bertazzoni FMOD6115ELB1</div><div class="item-desc">Электрический 60 см, 10 режимов, пар к любой программе, пиролиз, TFT-дисплей, чёрный матовый.</div></td>
+        <td style="font-size:11px;color:var(--muted);font-family:monospace;">FMOD6115ELB1</td>
+        <td class="item-price">185 000 ₽</td>
+        <td><span class="badge-stock">В наличии</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">02</td>
+        <td><div class="item-cat">Газовая варочная панель · 75 см · Modern</div><div class="item-model">Bertazzoni P755CMODGNE</div><div class="item-desc">Газовая 75 см, 5 конфорок, автоэлектрозажигание, чугунные решётки.</div></td>
+        <td style="font-size:11px;color:var(--muted);font-family:monospace;">P755CMODGNE</td>
+        <td class="item-price">121 300 ₽</td>
+        <td><span class="badge-stock">В наличии</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">03</td>
+        <td><div class="item-cat">Вытяжка-слайдер · 60 см · Modern</div><div class="item-model">Bertazzoni KTE60MOD1B</div><div class="item-desc">Выдвижной экран, 3 скорости, LED, чёрный матовый.</div></td>
+        <td style="font-size:11px;color:var(--muted);font-family:monospace;">KTE60MOD1B</td>
+        <td class="item-price">50 000 ₽</td>
+        <td><span class="badge-stock">В наличии</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">04</td>
+        <td><div class="item-cat">Посудомоечная машина · 60 см</div><div class="item-model">Bertazzoni DW6083PRV</div><div class="item-desc">Встраиваемая 60 см, 13 комплектов, 5 программ, класс A, тихий ход.</div></td>
+        <td style="font-size:11px;color:var(--muted);font-family:monospace;">DW6083PRV</td>
+        <td class="item-price">142 700 ₽</td>
+        <td><span class="badge-stock">В наличии</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">05</td>
+        <td><div class="item-cat">Холодильник встраиваемый · 60 см</div><div class="item-model">Bertazzoni REF603BBNPTC</div><div class="item-desc">60 см, Total No Frost, класс A++, тихий режим.</div></td>
+        <td style="font-size:11px;color:var(--muted);font-family:monospace;">REF603BBNPTC</td>
+        <td class="item-price">169 900 ₽</td>
+        <td><span class="badge-stock">В наличии</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="kp-total">
+    <div><div class="kp-total-label">Итого · Modern Essentials</div><div class="kp-total-note">5 позиций · цены РРЦ · все на складе в Москве</div></div>
+    <div class="kp-total-sum">668 900 ₽</div>
+  </div>
+  <div class="conditions-grid">
+    <div class="cond-card"><div class="cond-icon">🚚</div><div class="cond-title">Доставка</div><div class="cond-val">Москва и МО — 5–7 рабочих дней. Всё на складе.</div></div>
+    <div class="cond-card"><div class="cond-icon">🛡</div><div class="cond-title">Гарантия</div><div class="cond-val">2 года — гарантия производителя через ООО «КРЕДО М». Сервис 40+ городов.</div></div>
+    <div class="cond-card"><div class="cond-icon">💳</div><div class="cond-title">Оплата</div><div class="cond-val">100% предоплата по счёту. Безналичный расчёт, закрывающие документы.</div></div>
+    <div class="cond-card"><div class="cond-icon">📦</div><div class="cond-title">Упаковка</div><div class="cond-val">Заводская упаковка. Проверка при получении.</div></div>
+  </div>
+  <div class="kp-note">💡 <strong>Modern Essentials</strong> — 5 приборов в едином чёрном матовом стиле Bertazzoni Modern. Духовка с паром и пиролизом, газовая панель + вытяжка-слайдер, ПММ, холодильник.</div>
+</div>
+</div>
+
+<div id="tab-varB" class="tab-panel">
+<div class="pad">
+<div class="print-bar"><button class="btn-print" onclick="window.print()">🖨 Распечатать</button></div>
+  <div class="section-title">Спецификация · Вариант B — Heritage Boutique</div>
+  <div class="variant-header">
+    <div>
+      <div class="variant-badge">ВАРИАНТ B · КЛАССИКА</div>
+      <div class="variant-title">Heritage Boutique — итальянский характер</div>
+      <div class="variant-desc">Серия Heritage: антик-латунная фурнитура, стиль 1960-х. Для проектов с историей. 5 позиций, ограниченный сток.</div>
+    </div>
+    <div class="variant-right">
+      <div class="variant-price-label">Итого (РРЦ)</div>
+      <div class="variant-price">703 800 ₽</div>
+      <div class="variant-price-sub">5 приборов · ограниченный сток</div>
+    </div>
+  </div>
+  <table class="kp-table">
+    <thead><tr><th style="width:28px">#</th><th>Прибор</th><th style="width:120px">Артикул</th><th class="right" style="width:120px">Цена РРЦ</th><th style="width:90px">Наличие</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">01</td>
+        <td><div class="item-cat">Духовой шкаф · 60 см · Heritage</div><div class="item-model">Bertazzoni F609HEREKTAG</div><div class="item-desc">Электрический 60 см, антик-латунная фурнитура, 9 режимов, пар, пиролиз. Визуальный якорь кухни.</div></td>
+        <td style="font-size:11px;color:var(--muted);font-family:monospace;">F609HEREKTAG</td>
+        <td class="item-price">203 900 ₽</td>
+        <td><span class="badge-stock">В наличии</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">02</td>
+        <td><div class="item-cat">Газовая варочная панель · 90 см · Heritage</div><div class="item-model">Bertazzoni P905CHERAG</div><div class="item-desc">Газовая 90 см, 5 конфорок, антик-латунные решётки, электрозажигание. Единый стиль с духовкой.</div></td>
+        <td style="font-size:11px;color:var(--muted);font-family:monospace;">P905CHERAG</td>
+        <td class="item-price">138 600 ₽</td>
+        <td><span class="badge-stock">В наличии</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">03</td>
+        <td><div class="item-cat">Вытяжка настенная · 90 см · Professional</div><div class="item-model">Bertazzoni KU90PRO1XA</div><div class="item-desc">Настенная 90 см, нержавейка, 3 скорости, LED. Гармонирует с Heritage-эстетикой.</div></td>
+        <td style="font-size:11px;color:var(--muted);font-family:monospace;">KU90PRO1XA</td>
+        <td class="item-price">117 000 ₽</td>
+        <td><span class="badge-stock">В наличии</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">04</td>
+        <td><div class="item-cat">Посудомоечная машина · 60 см</div><div class="item-model">Bertazzoni DW6083PRT</div><div class="item-desc">Встраиваемая 60 см, 13 комплектов, 5 программ, класс A, тихий ход.</div></td>
+        <td style="font-size:11px;color:var(--muted);font-family:monospace;">DW6083PRT</td>
+        <td class="item-price">148 800 ₽</td>
+        <td><span class="badge-stock">В наличии</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">05</td>
+        <td><div class="item-cat">Ящик для подогрева · 60 см · Heritage ⚠ Осталось 3 шт</div><div class="item-model">Bertazzoni WD60HERNE</div><div class="item-desc">Warming drawer Heritage, антик-латунная фурнитура, 3 режима. Дефицит — всего 3 шт на складе.</div></td>
+        <td style="font-size:11px;color:var(--muted);font-family:monospace;">WD60HERNE</td>
+        <td class="item-price">95 500 ₽</td>
+        <td><span class="badge-stock" style="background:#fff3e0;color:#e65100;">⚠ 3 шт</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="kp-total">
+    <div><div class="kp-total-label">Итого · Heritage Boutique</div><div class="kp-total-note">5 позиций · цены РРЦ · ограниченный сток на warming drawer</div></div>
+    <div class="kp-total-sum">703 800 ₽</div>
+  </div>
+  <div class="conditions-grid">
+    <div class="cond-card"><div class="cond-icon">🚚</div><div class="cond-title">Доставка</div><div class="cond-val">Москва и МО — 5–7 рабочих дней.</div></div>
+    <div class="cond-card"><div class="cond-icon">🛡</div><div class="cond-title">Гарантия</div><div class="cond-val">2 года — гарантия производителя. ООО «КРЕДО М», сервис в 40+ городах.</div></div>
+    <div class="cond-card"><div class="cond-icon">💳</div><div class="cond-title">Оплата</div><div class="cond-val">100% предоплата по счёту. Безналичный расчёт, закрывающие документы.</div></div>
+    <div class="cond-card"><div class="cond-icon">✨</div><div class="cond-title">Единый стиль</div><div class="cond-val">Антик-латунная фурнитура на духовке, панели и warming drawer — кухня-ансамбль.</div></div>
+  </div>
+  <div class="kp-note">⚠ <strong>Warming drawer WD60HERNE — в наличии 3 шт.</strong> Рекомендуем бронировать под проект. Резерв: <a href="https://t.me/homeproject_ai_bot" style="color:var(--gold)">@homeproject_ai_bot</a>.</div>
+</div>
+</div>
+
+<div id="tab-promo" class="tab-panel">
+<div class="pad">
+<div class="print-bar"><button class="btn-print" onclick="window.print()">🖨 Распечатать</button></div>
+  <div class="section-title">Специальные условия Bertazzoni · до 12.07.2026</div>
+  <div class="urgency-banner">
+    <div class="urgency-flame">🔥</div>
+    <div><div class="urgency-title">Специальные условия действуют до 12.07.2026</div><div class="urgency-sub">Bertazzoni официально в РФ — работаем по партнёрской программе. Условия — индивидуально при первом контакте.</div></div>
+  </div>
+  <div class="promo-hero-card">
+    <div class="promo-hero-title">🤝 Партнёрская программа Home Project × Bertazzoni</div>
+    <div class="promo-hero-desc">Работаем напрямую с ООО «КРЕДО М» — без посредников. Индивидуальные условия для архитекторов, дизайнеров и студий фиксируются в соглашении. Подробности — при первом знакомстве.</div>
+  </div>
+  <div class="promo-conditions">
+    <h3>Что включает партнёрская работа</h3>
+    <ul class="cond-list">
+      <li><span class="ci">🎯</span>Индивидуальные условия для архитекторов и дизайнеров — обсуждаем при знакомстве</li>
+      <li><span class="ci">📦</span>Резервирование товара под проект с подтверждением наличия</li>
+      <li><span class="ci">🛡</span>Гарантия 2 года через ООО «КРЕДО М» — единая юридическая точка ответственности</li>
+      <li><span class="ci">🏛</span>Визит в брендовый шоу-рум Bertazzoni в Москве — тест-драйв техники вживую</li>
+      <li><span class="ci">📐</span>Технические паспорта, схемы встраивания, 3D-файлы — по запросу</li>
+      <li><span class="ci">🚀</span>Приоритетная отгрузка для партнёров при ограниченном стоке</li>
+    </ul>
+  </div>
+  <div class="kp-note">📞 <strong>Для партнёрских условий</strong> — свяжитесь до 12.07.2026: <a href="https://t.me/homeproject_ai_bot" style="color:var(--gold)">@homeproject_ai_bot</a> · <a href="mailto:info@homeproject.online" style="color:var(--gold)">info@homeproject.online</a></div>
+</div>
+</div>
+
+<div id="tab-visual" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Внешний вид техники · Bertazzoni</div>
+  <div class="brief-intro" style="margin-bottom:28px;">
+    <div class="brief-intro-title">4 серии · 6 размеров · до 7 цветов в Professional</div>
+    <div class="brief-intro-text">Professional · Master · Modern · Heritage — каждая в собственной эстетике. Оба варианта КП — ансамбли единого стиля.</div>
+  </div>
+  <div class="vis-grid">
+    <div class="vis-card"><div class="vis-body">
+      <div class="vis-cat">Вариант A · Серия Modern</div>
+      <div class="vis-model">Modern Essentials</div>
+      <div class="vis-name-sub">Технологичный минимализм · чёрный матовый</div>
+      <div class="vis-desc">TFT-дисплей, Bertazzoni Assistant с 450 авто-циклами, скрытый слайдер вытяжки. Чёрный матовый — подходит к любому фасаду.</div>
+      <div class="vis-pills">
+        <span class="vis-pill">Духовка FMOD6115ELB1</span><span class="vis-pill">Панель P755CMODGNE</span><span class="vis-pill">Вытяжка KTE60MOD1B</span><span class="vis-pill">ПММ DW6083PRV</span><span class="vis-pill">Холодильник REF603BBNPTC</span>
+        <span class="vis-pill-gold">Итого РРЦ: 668 900 ₽</span>
+      </div>
+      <div class="vis-note">Пар к любой программе, пиролиз, TFT — без компромиссов по функционалу.</div>
+    </div></div>
+    <div class="vis-card"><div class="vis-body">
+      <div class="vis-cat">Вариант B · Серия Heritage</div>
+      <div class="vis-model">Heritage Boutique</div>
+      <div class="vis-name-sub">Итальянский характер · антик-латунная фурнитура</div>
+      <div class="vis-desc">Эмалевые панели, латунная фурнитура, стиль 1960-х из Гуасталлы. Warming drawer Heritage — редкость на московском складе (3 шт).</div>
+      <div class="vis-pills">
+        <span class="vis-pill">Духовка F609HEREKTAG</span><span class="vis-pill">Панель P905CHERAG</span><span class="vis-pill">Вытяжка KU90PRO1XA</span><span class="vis-pill">ПММ DW6083PRT</span><span class="vis-pill">Warming WD60HERNE</span>
+        <span class="vis-pill-gold">Итого РРЦ: 703 800 ₽</span>
+      </div>
+      <div class="vis-note">⚠ WD60HERNE Heritage — всего 3 шт на складе.</div>
+    </div></div>
+    <div class="vis-card"><div class="vis-body">
+      <div class="vis-cat">Линейка Bertazzoni</div>
+      <div class="vis-model">Professional · Master · Modern · Heritage</div>
+      <div class="vis-name-sub">6 размеров от 60 до 120 см · до 7 цветов в Professional</div>
+      <div class="vis-desc"><strong>Professional</strong> — 7 цветов (Nero, Bianco, Bordeaux, Arancio, Giallo, Verde, Inox). <strong>Master</strong> — элегантная классика. <strong>Modern</strong> — TFT, Bertazzoni Assistant. <strong>Heritage</strong> — стиль 1960-х, латунные фурнитуры.</div>
+      <div class="vis-pills">
+        <span class="vis-pill">60 см</span><span class="vis-pill">78 см</span><span class="vis-pill">90 см</span><span class="vis-pill">100 см</span><span class="vis-pill">110 см</span><span class="vis-pill">120 см</span>
+        <span class="vis-pill-gold">Варочный центр 3-в-1 · Patent Pending</span>
+      </div>
+      <div class="vis-note">Варочный центр 3-в-1 с интегрированной вытяжкой (Patent Pending) — можно ставить у окна.</div>
+    </div></div>
+  </div>
+  <div class="kp-note">🖼 Изображения из официального каталога Bertazzoni 2026. Для просмотра в шоу-руме Москвы — запрос через Telegram.</div>
+</div>
+</div>
+
+<div id="tab-specs" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Технические характеристики и схемы встраивания</div>
+  <div class="reality-card" style="margin-bottom:28px;"><h3>📐 Как пользоваться</h3><p>Ключевые характеристики и <strong>размеры ниш</strong> для дизайнера/строителей. Все размеры в мм.</p></div>
+  <div class="spec-block">
+    <div class="spec-block-head"><div class="spec-block-model">FMOD6115ELB1 · Духовой шкаф Modern 60 см</div><div class="spec-block-type">Электрический · серия Modern · чёрный матовый</div></div>
+    <div class="spec-cols">
+      <div class="spec-col"><h4>Характеристики</h4>
+        <div class="spec-row"><span class="spec-row-key">Тип</span><span class="spec-row-val">Электрический</span></div>
+        <div class="spec-row"><span class="spec-row-key">Объём</span><span class="spec-row-val">76 л</span></div>
+        <div class="spec-row"><span class="spec-row-key">Режимы</span><span class="spec-row-val">10</span></div>
+        <div class="spec-row"><span class="spec-row-key">Пар</span><span class="spec-row-val">К любой программе</span></div>
+        <div class="spec-row"><span class="spec-row-key">Очистка</span><span class="spec-row-val">Пиролиз</span></div>
+        <div class="spec-row"><span class="spec-row-key">Дисплей</span><span class="spec-row-val">TFT</span></div>
+      </div>
+      <div class="spec-col"><h4>Ниша встраивания</h4>
+        <div class="spec-row"><span class="spec-row-key">Высота ниши</span><span class="spec-row-val">595 мм</span></div>
+        <div class="spec-row"><span class="spec-row-key">Ширина ниши</span><span class="spec-row-val">560 мм</span></div>
+        <div class="spec-row"><span class="spec-row-key">Глубина ниши</span><span class="spec-row-val">550 мм</span></div>
+        <div class="spec-row"><span class="spec-row-key">Питание</span><span class="spec-row-val">220–240 В · 16А</span></div>
+        <div class="spec-row"><span class="spec-row-key">Мощность</span><span class="spec-row-val">~3 700 Вт</span></div>
+        <div class="spec-row"><span class="spec-row-key">Выделенная линия</span><span class="spec-row-val">Обязательна</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="spec-block">
+    <div class="spec-block-head"><div class="spec-block-model">P755CMODGNE · Газовая варочная панель Modern 75 см</div><div class="spec-block-type">Газовая · 5 конфорок · серия Modern</div></div>
+    <div class="spec-cols">
+      <div class="spec-col"><h4>Характеристики</h4>
+        <div class="spec-row"><span class="spec-row-key">Тип</span><span class="spec-row-val">Газовая</span></div>
+        <div class="spec-row"><span class="spec-row-key">Конфорки</span><span class="spec-row-val">5</span></div>
+        <div class="spec-row"><span class="spec-row-key">Зажигание</span><span class="spec-row-val">Авто</span></div>
+        <div class="spec-row"><span class="spec-row-key">Решётки</span><span class="spec-row-val">Чугунные</span></div>
+      </div>
+      <div class="spec-col"><h4>Ниша встраивания</h4>
+        <div class="spec-row"><span class="spec-row-key">Вырез столешницы Ш</span><span class="spec-row-val">700 мм</span></div>
+        <div class="spec-row"><span class="spec-row-key">Вырез столешницы Г</span><span class="spec-row-val">490 мм</span></div>
+        <div class="spec-row"><span class="spec-row-key">Тип газа</span><span class="spec-row-val">G20 · природный</span></div>
+        <div class="spec-row"><span class="spec-row-key">Давление</span><span class="spec-row-val">2,0 кПа</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="spec-block">
+    <div class="spec-block-head"><div class="spec-block-model">F609HEREKTAG · Духовой шкаф Heritage 60 см (антик-латунь)</div><div class="spec-block-type">Электрический · серия Heritage · латунная фурнитура</div></div>
+    <div class="spec-cols">
+      <div class="spec-col"><h4>Характеристики</h4>
+        <div class="spec-row"><span class="spec-row-key">Тип</span><span class="spec-row-val">Электрический</span></div>
+        <div class="spec-row"><span class="spec-row-key">Объём</span><span class="spec-row-val">76 л</span></div>
+        <div class="spec-row"><span class="spec-row-key">Режимы</span><span class="spec-row-val">9</span></div>
+        <div class="spec-row"><span class="spec-row-key">Пар</span><span class="spec-row-val">Да</span></div>
+        <div class="spec-row"><span class="spec-row-key">Очистка</span><span class="spec-row-val">Пиролиз</span></div>
+        <div class="spec-row"><span class="spec-row-key">Фурнитура</span><span class="spec-row-val">Антик-латунь</span></div>
+      </div>
+      <div class="spec-col"><h4>Ниша встраивания</h4>
+        <div class="spec-row"><span class="spec-row-key">Высота ниши</span><span class="spec-row-val">595 мм</span></div>
+        <div class="spec-row"><span class="spec-row-key">Ширина ниши</span><span class="spec-row-val">560 мм</span></div>
+        <div class="spec-row"><span class="spec-row-key">Глубина ниши</span><span class="spec-row-val">550 мм</span></div>
+        <div class="spec-row"><span class="spec-row-key">Питание</span><span class="spec-row-val">220–240 В · 16А</span></div>
+        <div class="spec-row"><span class="spec-row-key">Мощность</span><span class="spec-row-val">~3 700 Вт</span></div>
+        <div class="spec-row"><span class="spec-row-key">Выделенная линия</span><span class="spec-row-val">Обязательна</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="kp-note">📐 Полные технические паспорта — по запросу в Telegram <a href="https://t.me/homeproject_ai_bot" style="color:var(--gold)">@homeproject_ai_bot</a>.</div>
+</div>
+</div>
+
+<div id="tab-install" class="tab-panel">
+<div class="pad">
+<div class="print-bar"><button class="btn-print" onclick="window.print()">🖨 Распечатать для монтажника</button></div>
+  <div class="section-title">🔧 Монтажный лист · электрик, мебельщик, установщик</div>
+  <div class="intro-alert">
+    <div class="intro-alert-title">Важно перед монтажом</div>
+    <div class="intro-alert-text">Все размеры в мм. Проверьте ниши до получения техники. Электрика — <strong>до установки техники</strong>. Подключение — только квалифицированным специалистом. Нарушение вентиляционных зазоров — потеря гарантии.</div>
+  </div>
+  <div class="product-block">
+    <div class="product-block-header">
+      <div class="product-block-num">01</div>
+      <div><div class="product-block-model">Духовой шкаф 60 см (Modern / Heritage)</div><div class="product-block-cat">FMOD6115ELB1 · F609HEREKTAG · Электрический · пар · пиролиз</div></div>
+      <div class="product-block-badge"><span class="badge-elec">⚡ 16А выделенная</span><span class="badge-vent">🌬 50 мм сверху</span></div>
+    </div>
+    <div class="product-block-body">
+      <div class="install-specs">
+        <div class="spec-item"><div class="spec-label">Ниша (В×Ш×Г)</div><div class="spec-value">595×560×550 мм</div></div>
+        <div class="spec-item"><div class="spec-label">Питание</div><div class="spec-value">220–240В · 16А</div><div class="spec-note">~3700 Вт · выделенная</div></div>
+        <div class="spec-item"><div class="spec-label">Розетка</div><div class="spec-value">За нишей, сзади</div></div>
+        <div class="spec-item"><div class="spec-label">Вентиляция</div><div class="spec-value">Мин. 50 мм сверху</div></div>
+        <div class="spec-item"><div class="spec-label">Петли</div><div class="spec-value">Регулируемые</div></div>
+        <div class="spec-item"><div class="spec-label">Вес</div><div class="spec-value">~38 кг</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="product-block">
+    <div class="product-block-header">
+      <div class="product-block-num">02</div>
+      <div><div class="product-block-model">Газовая варочная панель 75/90 см</div><div class="product-block-cat">P755CMODGNE / P905CHERAG · Газовая · 5 конфорок</div></div>
+      <div class="product-block-badge"><span class="badge-elec">⚡ 220В зажигание</span></div>
+    </div>
+    <div class="product-block-body">
+      <div class="install-specs">
+        <div class="spec-item"><div class="spec-label">Вырез Ш</div><div class="spec-value">700 / 860 мм</div><div class="spec-note">75 см / 90 см</div></div>
+        <div class="spec-item"><div class="spec-label">Вырез Г</div><div class="spec-value">490 мм</div></div>
+        <div class="spec-item"><div class="spec-label">Газ</div><div class="spec-value">G20 · 2,0 кПа</div></div>
+        <div class="spec-item"><div class="spec-label">Питание</div><div class="spec-value">220В · 3А</div><div class="spec-note">Только зажигание</div></div>
+        <div class="spec-item"><div class="spec-label">Монтаж</div><div class="spec-value">Только специалист</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="cross-section">
+    <div class="cross-title">Сводные требования к подготовке объекта</div>
+    <div class="cross-grid">
+      <div class="cross-item">
+        <div class="cross-item-title">⚡ Электрика</div>
+        <div class="cross-item-text">Духовка: <strong>выделенная 16А</strong>, розетка за нишей.<br>Газовая панель: <strong>220В 3А</strong> для зажигания.<br>ПММ: <strong>10А</strong> + водоснабжение.<br>Холодильник: стандарт 220В · 10А.<br>Warming drawer: <strong>10А</strong>.</div>
+      </div>
+      <div class="cross-item">
+        <div class="cross-item-title">🔧 Ниши</div>
+        <div class="cross-item-text">Духовка: <strong>595×560×550 мм</strong>.<br>Панель 75 см: вырез <strong>700×490 мм</strong>.<br>Панель 90 см: вырез <strong>860×490 мм</strong>.<br>ПММ: <strong>820×600×550 мм</strong>.<br>Warming: <strong>290×560×550 мм</strong>.</div>
+      </div>
+    </div>
+  </div>
+  <div class="kp-note" style="margin-top:24px;">📋 Вопросы монтажника — в Telegram <a href="https://t.me/homeproject_ai_bot" style="color:var(--gold)">@homeproject_ai_bot</a>.</div>
+</div>
+</div>
+
+<div id="tab-about" class="tab-panel">
+<div class="pad">
+  <div class="section-title">Как мы работаем</div>
+  <div class="brief-intro" style="margin-bottom:28px;">
+    <div class="brief-intro-title">Home Project — один контакт, весь результат</div>
+    <div class="brief-intro-text">Дистрибьюторы 9 европейских брендов: V-ZUG, BORA, Fhiaba, Küppersbusch, De Dietrich, Graude, Schulthess, SKS, ILVE. Bertazzoni — через ООО «КРЕДО М». <span class="brief-intro-accent">Без посредников и серого импорта.</span></div>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">01 / БРИФ</div><div class="step-title">Запрос в любом формате</div><div class="step-text">Email, Telegram, телефон. Разбираем параметры — категории, серия, размеры ниш, бюджет, срок.</div></div>
+    <div class="step-card"><div class="step-num">02 / ПОДБОР</div><div class="step-title">Сверка со стоком</div><div class="step-text">Только то, что физически на складе в Москве. Никаких «привезём за 2 месяца».</div></div>
+    <div class="step-card"><div class="step-num">03 / КП</div><div class="step-title">Лендинг за 30–60 минут</div><div class="step-text">Документ с вариантами, ценами и характеристиками. Ссылкой, PDF или в мессенджер.</div></div>
+    <div class="step-card"><div class="step-num">04 / СОПРОВОЖДЕНИЕ</div><div class="step-title">До отгрузки</div><div class="step-text">Коммуникации с поставщиками, документы, согласования — на нашей стороне.</div></div>
+  </div>
+  <div class="reality-card">
+    <h3>4 причины Bertazzoni через Home Project</h3>
+    <p><strong>1. Официальный путь:</strong> Bertazzoni → ООО «КРЕДО М» → Home Project → клиент. 2 года гарантии производителя.</p>
+    <p><strong>2. Сток в Москве:</strong> 143 SKU на складе. Отгрузка 5–7 рабочих дней.</p>
+    <p><strong>3. Шоу-рум:</strong> Визит в брендовый шоу-рум Bertazzoni в Москве — техника вживую.</p>
+    <p><strong>4. Документация:</strong> Технические паспорта, схемы встраивания, 3D-файлы по запросу.</p>
+  </div>
+</div>
+</div>
+
+<div id="tab-contacts" class="tab-panel">
+<div class="pad">
+  <div class="contact-hero">
+    <h2>Что дальше?</h2>
+    <p>Выберите вариант — уточним детали, оформим заказ. Для партнёрских условий — свяжитесь до 12.07.2026.</p>
+    <div class="contact-grid">
+      <div class="contact-card"><div class="contact-card-label">Email</div><div class="contact-card-val"><a href="mailto:info@homeproject.online">info@homeproject.online</a></div></div>
+      <div class="contact-card"><div class="contact-card-label">Telegram-бот</div><div class="contact-card-val"><a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a></div></div>
+      <div class="contact-card"><div class="contact-card-label">Telegram-канал</div><div class="contact-card-val"><a href="https://t.me/HomeProjectMsk">@HomeProjectMsk</a></div></div>
+      <div class="contact-card"><div class="contact-card-label">Сайт</div><div class="contact-card-val"><a href="https://homeproject.online">homeproject.online</a></div></div>
+    </div>
+  </div>
+  <div class="reqs">
+    <h3>Реквизиты</h3>
+    <div class="reqs-row"><span>Компания</span><span>Home Project (ИП Кривов С.С.)</span></div>
+    <div class="reqs-row"><span>ИНН</span><span>772171614801</span></div>
+    <div class="reqs-row"><span>Адрес</span><span>109439, г. Москва</span></div>
+    <div class="reqs-row"><span>Номер предложения</span><span>2026-0612-STRESS</span></div>
+    <div class="reqs-row"><span>Дата</span><span>12.06.2026</span></div>
+    <div class="reqs-row"><span>Действует до</span><span>12.07.2026</span></div>
+    <div class="reqs-row"><span>Цены</span><span>РРЦ, включая НДС</span></div>
+  </div>
+  <div class="kp-note">📌 Bertazzoni: гарантия 2 года через ООО «КРЕДО М», сервис 40+ городов, +7 495 120 35 33.</div>
+</div>
+</div>
+
+<div class="footer">
+  <strong>Home Project</strong> · ИП Кривов С.С. · ИНН 772171614801 · 109439, г. Москва<br>
+  <a href="https://homeproject.online">homeproject.online</a> · <a href="mailto:info@homeproject.online">info@homeproject.online</a> · <a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a><br>
+  КП 2026-0612-STRESS · 12.06.2026 · до 12.07.2026<br>
+  <strong>Bertazzoni</strong> · ООО «КРЕДО М» · Гарантия производителя 2 года · 40+ сервис-центров
+</div>
+</div>
+<script>
+function showTab(id,el){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.kp-guide-tab').forEach(t=>t.classList.remove('active'));
+  const p=document.getElementById('tab-'+id);
+  if(p)p.classList.add('active');
+  if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
