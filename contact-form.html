@@ -4,449 +4,635 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Оставить заявку — Home Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { font-size: 16px; }
+
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #F8F7F4;
-      color: #1A1A1A;
+      font-family: 'Montserrat', sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Header */
-    .header {
-      background: #fff;
-      border-bottom: 1px solid #E8E6E1;
-      padding: 18px 24px;
+    /* ─── HEADER ─── */
+    .site-header {
+      border-bottom: 1px solid #e8e8e8;
+      padding: 0 40px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 100;
     }
-    .header-logo {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-      color: #1A1A1A;
+    .site-logo {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #1a1a1a;
       text-decoration: none;
     }
-    .header-back {
-      font-size: 13px;
-      color: #8B7355;
-      text-decoration: none;
+    .site-nav {
       display: flex;
+      gap: 28px;
       align-items: center;
-      gap: 6px;
     }
-    .header-back:hover { color: #1A1A1A; }
-
-    /* Hero */
-    .hero {
-      background: #1A1A1A;
-      color: #fff;
-      text-align: center;
-      padding: 56px 24px 48px;
-    }
-    .hero-eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #C8A96E;
-      margin-bottom: 16px;
-    }
-    .hero h1 {
-      font-size: clamp(26px, 5vw, 40px);
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      line-height: 1.2;
-      margin-bottom: 14px;
-    }
-    .hero p {
-      font-size: 15px;
-      color: rgba(255,255,255,0.65);
-      max-width: 480px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    /* Main */
-    .main {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      padding: 48px 16px 64px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 40px 40px 36px;
-      width: 100%;
-      max-width: 560px;
-      box-shadow: 0 2px 24px rgba(0,0,0,0.07);
-    }
-
-    @media (max-width: 600px) {
-      .card { padding: 28px 20px 24px; border-radius: 12px; }
-    }
-
-    .card-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #1A1A1A;
-    }
-    .card-sub {
-      font-size: 13px;
-      color: #888;
-      margin-bottom: 28px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
+    .site-nav a {
       font-size: 12px;
-      font-weight: 600;
-      color: #555;
-      letter-spacing: 0.3px;
-      margin-bottom: 6px;
-      text-transform: uppercase;
+      font-weight: 400;
+      color: #1a1a1a;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .site-nav a:hover { opacity: 0.6; }
+    .header-icons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .header-icon { cursor: pointer; opacity: 0.7; }
+    .header-icon:hover { opacity: 1; }
+
+    @media (max-width: 768px) {
+      .site-header { padding: 0 20px; }
+      .site-nav { display: none; }
     }
 
-    input, textarea, select {
+    /* ─── PAGE TITLE ─── */
+    .page-title-section {
+      padding: 64px 40px 48px;
+      max-width: 900px;
+      margin: 0 auto;
       width: 100%;
-      border: 1.5px solid #E4E1DB;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 15px;
-      font-family: inherit;
-      color: #1A1A1A;
-      background: #FAFAF8;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      -webkit-appearance: none;
     }
-    input:focus, textarea:focus, select:focus {
-      border-color: #C8A96E;
-      box-shadow: 0 0 0 3px rgba(200,169,110,0.15);
-      background: #fff;
+    .page-breadcrumb {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 20px;
     }
-    input::placeholder, textarea::placeholder { color: #C0B9AF; }
-    textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
+    .page-breadcrumb a { color: #999; text-decoration: none; }
+    .page-breadcrumb a:hover { color: #1a1a1a; }
+    .page-h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+    .page-h1 strong { font-weight: 600; }
+    .page-subtitle {
+      font-size: 14px;
+      font-weight: 400;
+      color: #666;
+      line-height: 1.65;
+      max-width: 520px;
+    }
 
-    .required { color: #C8A96E; }
+    /* ─── DIVIDER ─── */
+    .divider {
+      border: none;
+      border-top: 1px solid #e8e8e8;
+      margin: 0 40px;
+    }
 
-    .form-row {
+    /* ─── FORM LAYOUT ─── */
+    .form-section {
+      flex: 1;
+      padding: 56px 40px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    @media (max-width: 600px) {
+      .page-title-section { padding: 40px 20px 32px; }
+      .divider { margin: 0 20px; }
+      .form-section { padding: 40px 20px 64px; }
+    }
+
+    .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 0;
     }
-    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+    @media (max-width: 700px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
 
-    /* Topic select */
-    .select-wrap { position: relative; }
-    .select-wrap::after {
-      content: '▾';
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #888;
-      pointer-events: none;
+    /* ─── FORM GROUPS ─── */
+    .form-group {
+      padding: 24px 0;
+      border-bottom: 1px solid #e8e8e8;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group:first-child { padding-top: 0; }
+
+    .form-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #999;
+    }
+    .form-label .req { color: #1a1a1a; }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    select,
+    textarea {
+      border: none;
+      outline: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: #1a1a1a;
+      background: transparent;
+      width: 100%;
+      padding: 0;
+      line-height: 1.5;
+      -webkit-appearance: none;
+    }
+    input::placeholder,
+    textarea::placeholder { color: #ccc; }
+    textarea { resize: none; min-height: 72px; }
+
+    select { cursor: pointer; color: #1a1a1a; }
+    select option[value=""] { color: #ccc; }
+
+    /* ─── TOPICS ─── */
+    .topic-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 4px;
+    }
+    .topic-chip {
+      border: 1px solid #d8d8d8;
+      border-radius: 100px;
+      padding: 6px 14px;
       font-size: 12px;
+      font-weight: 400;
+      font-family: 'Montserrat', sans-serif;
+      color: #666;
+      cursor: pointer;
+      background: #fff;
+      transition: all 0.15s;
+      white-space: nowrap;
     }
-    select { padding-right: 32px; cursor: pointer; }
+    .topic-chip:hover,
+    .topic-chip.active {
+      border-color: #1a1a1a;
+      color: #1a1a1a;
+    }
+    .topic-chip.active {
+      background: #1a1a1a;
+      color: #fff;
+    }
 
-    /* Consent */
-    .consent {
+    /* ─── CONSENT ─── */
+    .consent-group {
+      grid-column: 1 / -1;
+      padding: 28px 0 0;
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      margin: 20px 0 24px;
-      padding: 14px 16px;
-      background: #F8F7F4;
-      border-radius: 10px;
-      border: 1.5px solid #E4E1DB;
+      gap: 12px;
     }
-    .consent input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      min-width: 18px;
-      border-radius: 5px;
-      border: 1.5px solid #C0B9AF;
+    .consent-check {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
       background: #fff;
       cursor: pointer;
-      margin-top: 1px;
-      padding: 0;
-      accent-color: #C8A96E;
+      margin-top: 2px;
+      accent-color: #1a1a1a;
     }
     .consent-text {
-      font-size: 12px;
-      color: #666;
-      line-height: 1.55;
+      font-size: 11px;
+      font-weight: 400;
+      color: #999;
+      line-height: 1.7;
     }
     .consent-text a {
-      color: #C8A96E;
+      color: #1a1a1a;
       text-decoration: underline;
       text-underline-offset: 2px;
     }
-    .consent-text a:hover { color: #9A7A40; }
+    .consent-text a:hover { opacity: 0.6; }
 
-    .btn-submit {
-      width: 100%;
-      background: #1A1A1A;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 15px 24px;
-      font-size: 15px;
-      font-weight: 600;
-      font-family: inherit;
+    /* ─── SUBMIT ─── */
+    .submit-row {
+      grid-column: 1 / -1;
+      padding-top: 36px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid #1a1a1a;
+      border-radius: 100px;
+      padding: 13px 32px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: #1a1a1a;
+      background: transparent;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      letter-spacing: 0.1px;
+      transition: background 0.2s, color 0.2s;
+      min-width: 200px;
+      text-align: center;
     }
-    .btn-submit:hover { background: #2D2D2D; }
-    .btn-submit:active { transform: scale(0.99); }
-    .btn-submit:disabled { background: #C0B9AF; cursor: not-allowed; transform: none; }
+    .btn-primary:hover {
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    .btn-primary:disabled:hover {
+      background: transparent;
+      color: #1a1a1a;
+    }
+    .submit-note {
+      font-size: 11px;
+      color: #bbb;
+      line-height: 1.5;
+    }
 
-    /* Success state */
-    .success {
+    /* ─── ERRORS ─── */
+    .field-err {
+      font-size: 10px;
+      color: #c0392b;
       display: none;
-      text-align: center;
-      padding: 32px 16px;
+      letter-spacing: 0.03em;
     }
-    .success-icon {
-      width: 56px; height: 56px;
-      background: #F0F9EC;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 16px;
-      font-size: 24px;
+
+    /* ─── SUCCESS ─── */
+    #successBlock {
+      display: none;
+      padding: 80px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
     }
-    .success h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-    .success p { font-size: 14px; color: #666; line-height: 1.5; }
-
-    /* Error */
-    .field-error { font-size: 11px; color: #D04040; margin-top: 4px; display: none; }
-
-    /* Footer */
-    .footer {
-      background: #1A1A1A;
-      color: rgba(255,255,255,0.45);
-      text-align: center;
-      padding: 24px;
+    .success-mark {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 24px;
+    }
+    .success-h {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .success-p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.65;
+      max-width: 480px;
+      margin-bottom: 32px;
+    }
+    .btn-ghost {
+      border: 1px solid #1a1a1a;
+      border-radius: 100px;
+      padding: 12px 28px;
+      font-family: 'Montserrat', sans-serif;
       font-size: 12px;
+      font-weight: 500;
+      color: #1a1a1a;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
     }
-    .footer a { color: rgba(255,255,255,0.5); text-decoration: underline; }
+    .btn-ghost:hover { background: #1a1a1a; color: #fff; }
+
+    /* ─── CONTACTS ASIDE ─── */
+    .contacts-bar {
+      border-top: 1px solid #e8e8e8;
+      padding: 40px;
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .contacts-bar-item { }
+    .contacts-bar-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 6px;
+    }
+    .contacts-bar-value {
+      font-size: 14px;
+      color: #1a1a1a;
+      text-decoration: none;
+    }
+    .contacts-bar-value:hover { opacity: 0.6; }
+    @media (max-width: 600px) {
+      .contacts-bar { padding: 32px 20px; gap: 28px; }
+    }
+
+    /* ─── FOOTER ─── */
+    .site-footer {
+      background: #1a1a1a;
+      color: rgba(255,255,255,0.5);
+      padding: 32px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .footer-logo {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+    @media (max-width: 600px) {
+      .site-footer { padding: 24px 20px; }
+    }
   </style>
 </head>
 <body>
 
-<header class="header">
-  <a href="https://homeproject.online/ru" class="header-logo">Home Project</a>
-  <a href="javascript:history.back()" class="header-back">← Назад</a>
+<!-- HEADER -->
+<header class="site-header">
+  <a href="https://homeproject.online/ru" class="site-logo">Home Project</a>
+  <nav class="site-nav">
+    <a href="https://homeproject.online/ru/catalog">Каталог</a>
+    <a href="https://homeproject.online/ru/page/about-us">О компании</a>
+    <a href="https://homeproject.online/ru/page/cooperation">Сотрудничество</a>
+    <a href="https://homeproject.online/ru/page/contacts">Контакты</a>
+  </nav>
+  <div class="header-icons">
+    <svg class="header-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+  </div>
 </header>
 
-<section class="hero">
-  <div class="hero-eyebrow">Свяжитесь с нами</div>
-  <h1>Оставить заявку</h1>
-  <p>Ответим в течение одного рабочего дня. Подберём технику, рассчитаем стоимость, проконсультируем по брендам.</p>
-</section>
+<!-- PAGE TITLE -->
+<div class="page-title-section">
+  <div class="page-breadcrumb">
+    <a href="https://homeproject.online/ru">Главная</a> &nbsp;/&nbsp; Оставить заявку
+  </div>
+  <h1 class="page-h1">Оставить <strong>заявку</strong></h1>
+  <p class="page-subtitle">Ответим в течение одного рабочего дня. Подберём технику, рассчитаем стоимость, проконсультируем по брендам и условиям сотрудничества.</p>
+</div>
 
-<main class="main">
-  <div class="card">
+<hr class="divider" />
 
-    <div id="formWrap">
-      <div class="card-title">Ваши контактные данные</div>
-      <div class="card-sub">Поля отмеченные <span class="required">*</span> обязательны для заполнения</div>
+<!-- FORM -->
+<div class="form-section" id="formSection">
+  <form id="mainForm" novalidate>
+    <div class="form-grid">
 
-      <form id="contactForm" novalidate>
+      <!-- Имя -->
+      <div class="form-group">
+        <label class="form-label" for="fName">Имя <span class="req">*</span></label>
+        <input type="text" id="fName" placeholder="Ваше имя" autocomplete="given-name" />
+        <span class="field-err" id="err-name">Укажите имя</span>
+      </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="fname">Имя <span class="required">*</span></label>
-            <input type="text" id="fname" name="name" placeholder="Александр" autocomplete="given-name" />
-            <div class="field-error" id="fname-err">Укажите ваше имя</div>
-          </div>
-          <div class="form-group">
-            <label for="fphone">Телефон <span class="required">*</span></label>
-            <input type="tel" id="fphone" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" />
-            <div class="field-error" id="fphone-err">Укажите номер телефона</div>
-          </div>
+      <!-- Телефон -->
+      <div class="form-group">
+        <label class="form-label" for="fPhone">Телефон <span class="req">*</span></label>
+        <input type="tel" id="fPhone" placeholder="+7 (___) ___-__-__" autocomplete="tel" />
+        <span class="field-err" id="err-phone">Укажите телефон</span>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label" for="fEmail">E-mail</label>
+        <input type="email" id="fEmail" placeholder="name@example.com" autocomplete="email" />
+        <span class="field-err" id="err-email">Введите корректный e-mail</span>
+      </div>
+
+      <!-- Компания -->
+      <div class="form-group">
+        <label class="form-label" for="fCompany">Компания или студия</label>
+        <input type="text" id="fCompany" placeholder="Необязательно" autocomplete="organization" />
+      </div>
+
+      <!-- Тема -->
+      <div class="form-group full">
+        <label class="form-label">Тема обращения</label>
+        <div class="topic-list" id="topicList">
+          <button type="button" class="topic-chip" data-val="consultation">Консультация по технике</button>
+          <button type="button" class="topic-chip" data-val="price">Расчёт стоимости</button>
+          <button type="button" class="topic-chip" data-val="cooperation">Сотрудничество / партнёрство</button>
+          <button type="button" class="topic-chip" data-val="delivery">Доставка и монтаж</button>
+          <button type="button" class="topic-chip" data-val="other">Другой вопрос</button>
         </div>
+        <input type="hidden" id="fTopic" value="" />
+      </div>
 
-        <div class="form-group">
-          <label for="femail">E-mail</label>
-          <input type="email" id="femail" name="email" placeholder="name@example.com" autocomplete="email" />
-          <div class="field-error" id="femail-err">Введите корректный e-mail</div>
+      <!-- Сообщение -->
+      <div class="form-group full">
+        <label class="form-label" for="fMessage">Комментарий</label>
+        <textarea id="fMessage" placeholder="Расскажите о вашем проекте, объёме или конкретном запросе…"></textarea>
+      </div>
+
+      <!-- Согласие -->
+      <div class="consent-group">
+        <input type="checkbox" id="fConsent" class="consent-check" />
+        <div class="consent-text">
+          <label for="fConsent">
+            Отправляя заявку, я соглашаюсь с
+            <a href="https://homeproject.online/ru/page/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a>
+            и даю согласие на обработку персональных данных согласно&nbsp;ФЗ&#8209;152 «О персональных данных».
+          </label>
+          <div class="field-err" id="err-consent" style="margin-top:4px;">Необходимо ваше согласие</div>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label for="ftopic">Тема обращения</label>
-          <div class="select-wrap">
-            <select id="ftopic" name="topic">
-              <option value="">Выберите тему...</option>
-              <option value="consultation">Консультация по технике</option>
-              <option value="price">Расчёт стоимости</option>
-              <option value="cooperation">Сотрудничество (дизайнеры/архитекторы)</option>
-              <option value="delivery">Доставка и монтаж</option>
-              <option value="other">Другое</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="fmessage">Комментарий</label>
-          <textarea id="fmessage" name="message" placeholder="Расскажите о вашем проекте или вопросе..."></textarea>
-        </div>
-
-        <div class="consent">
-          <input type="checkbox" id="fConsent" name="consent" />
-          <div class="consent-text">
-            <label for="fConsent">
-              Я даю согласие на обработку моих персональных данных в соответствии с
-              <a href="https://homeproject.online/ru/page/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a>
-              и соглашаюсь с условиями обработки персональных данных согласно ФЗ-152. <span class="required">*</span>
-            </label>
-          </div>
-        </div>
-        <div class="field-error" id="fconsent-err" style="display:none; margin-top:-12px; margin-bottom:12px;">Необходимо ваше согласие</div>
-
-        <button type="submit" class="btn-submit" id="btnSubmit">
+      <!-- Кнопка -->
+      <div class="submit-row">
+        <button type="submit" class="btn-primary" id="btnSend">
           Отправить заявку
         </button>
+        <span class="submit-note">Ответим в течение<br>одного рабочего дня</span>
+      </div>
 
-      </form>
     </div>
+  </form>
+</div>
 
-    <div class="success" id="successMsg">
-      <div class="success-icon">✓</div>
-      <h2>Заявка принята!</h2>
-      <p>Спасибо, <span id="successName"></span>! Мы свяжемся с вами по указанному телефону в течение одного рабочего дня.</p>
-    </div>
+<!-- SUCCESS -->
+<div id="successBlock">
+  <div class="success-mark">Заявка принята</div>
+  <h2 class="success-h">Спасибо!<br>Мы скоро свяжемся с вами</h2>
+  <p class="success-p" id="successText">Ваша заявка зарегистрирована. Менеджер ответит по указанному телефону в течение одного рабочего дня.</p>
+  <a href="https://homeproject.online/ru" class="btn-ghost">На главную</a>
+</div>
 
+<!-- CONTACTS BAR -->
+<div class="contacts-bar">
+  <div class="contacts-bar-item">
+    <div class="contacts-bar-label">Телефон</div>
+    <a href="tel:+79363148636" class="contacts-bar-value">+7 (936) 314-86-36</a>
   </div>
-</main>
+  <div class="contacts-bar-item">
+    <div class="contacts-bar-label">E-mail</div>
+    <a href="mailto:info@homeproject.online" class="contacts-bar-value">info@homeproject.online</a>
+  </div>
+  <div class="contacts-bar-item">
+    <div class="contacts-bar-label">WhatsApp</div>
+    <a href="https://wa.me/79363148636" class="contacts-bar-value" target="_blank">Написать</a>
+  </div>
+  <div class="contacts-bar-item">
+    <div class="contacts-bar-label">Telegram</div>
+    <a href="https://t.me/homeproject_online" class="contacts-bar-value" target="_blank">@homeproject_online</a>
+  </div>
+</div>
 
-<footer class="footer">
-  © 2025 Home Project · <a href="https://homeproject.online/ru/page/privacy" target="_blank">Политика конфиденциальности</a> · info@homeproject.online
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-logo">Home Project</div>
+  <div class="footer-links">
+    <a href="https://homeproject.online/ru/page/delivery">Доставка</a>
+    <a href="https://homeproject.online/ru/page/payment">Оплата</a>
+    <a href="https://homeproject.online/ru/page/contacts">Контакты</a>
+    <a href="https://homeproject.online/ru/page/privacy">Конфиденциальность</a>
+  </div>
 </footer>
 
 <script>
-  // Phone mask
-  const phoneInput = document.getElementById('fphone');
-  phoneInput.addEventListener('input', function(e) {
-    let val = e.target.value.replace(/\D/g, '');
-    if (val.startsWith('8')) val = '7' + val.slice(1);
-    if (!val.startsWith('7') && val.length > 0) val = '7' + val;
-    if (val.length > 11) val = val.slice(0, 11);
-    if (val.length === 0) { e.target.value = ''; return; }
-    let formatted = '+7';
-    if (val.length > 1) formatted += ' (' + val.slice(1, 4);
-    if (val.length >= 4) formatted += ') ' + val.slice(4, 7);
-    if (val.length >= 7) formatted += '-' + val.slice(7, 9);
-    if (val.length >= 9) formatted += '-' + val.slice(9, 11);
-    e.target.value = formatted;
+  // Topic chips
+  document.querySelectorAll('.topic-chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      document.querySelectorAll('.topic-chip').forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+      document.getElementById('fTopic').value = this.dataset.val;
+    });
   });
 
-  function showError(id, show) {
+  // Phone mask
+  const fPhone = document.getElementById('fPhone');
+  fPhone.addEventListener('input', function() {
+    let d = this.value.replace(/\D/g,'');
+    if (d.startsWith('8')) d = '7' + d.slice(1);
+    if (d.length && !d.startsWith('7')) d = '7' + d;
+    d = d.slice(0, 11);
+    if (!d) { this.value = ''; return; }
+    let out = '+7';
+    if (d.length > 1) out += ' (' + d.slice(1,4);
+    if (d.length >= 4) out += ') ' + d.slice(4,7);
+    if (d.length >= 7) out += '-' + d.slice(7,9);
+    if (d.length >= 9) out += '-' + d.slice(9,11);
+    this.value = out;
+  });
+
+  function showErr(id, show) {
     document.getElementById(id).style.display = show ? 'block' : 'none';
   }
 
-  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  document.getElementById('mainForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const name = document.getElementById('fname').value.trim();
-    const phone = document.getElementById('fphone').value.trim();
-    const email = document.getElementById('femail').value.trim();
+
+    const name    = document.getElementById('fName').value.trim();
+    const phone   = document.getElementById('fPhone').value.trim();
+    const email   = document.getElementById('fEmail').value.trim();
     const consent = document.getElementById('fConsent').checked;
+    const topic   = document.getElementById('fTopic').value;
+    const msg     = document.getElementById('fMessage').value.trim();
+    const company = document.getElementById('fCompany').value.trim();
 
-    let valid = true;
+    let ok = true;
+    showErr('err-name',    !name);          if (!name) ok = false;
+    showErr('err-phone',   phone.length < 10); if (phone.length < 10) ok = false;
+    showErr('err-email',   email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) ok = false;
+    showErr('err-consent', !consent);       if (!consent) ok = false;
+    if (!ok) return;
 
-    showError('fname-err', !name);
-    if (!name) valid = false;
-
-    showError('fphone-err', phone.length < 10);
-    if (phone.length < 10) valid = false;
-
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      showError('femail-err', true); valid = false;
-    } else { showError('femail-err', false); }
-
-    showError('fconsent-err', !consent);
-    if (!consent) valid = false;
-
-    if (!valid) return;
-
-    const btn = document.getElementById('btnSubmit');
+    const btn = document.getElementById('btnSend');
     btn.disabled = true;
-    btn.textContent = 'Отправляем...';
+    btn.textContent = 'Отправляем…';
 
-    const topic = document.getElementById('ftopic').value;
-    const message = document.getElementById('fmessage').value.trim();
+    const topicMap = {
+      consultation: 'Консультация по технике',
+      price:        'Расчёт стоимости',
+      cooperation:  'Сотрудничество / партнёрство',
+      delivery:     'Доставка и монтаж',
+      other:        'Другой вопрос'
+    };
 
     try {
-      // Отправка в Telegram
-      const BOT_TOKEN = ''; // будет заменён инженером
-      const CHAT_ID = '';   // будет заменён инженером
-      const text = [
-        '📋 <b>Новая заявка с сайта</b>',
-        '',
-        `👤 <b>Имя:</b> ${name}`,
-        `📞 <b>Телефон:</b> ${phone}`,
-        email ? `✉️ <b>E-mail:</b> ${email}` : null,
-        topic ? `📌 <b>Тема:</b> ${topicLabel(topic)}` : null,
-        message ? `💬 <b>Сообщение:</b> ${message}` : null,
-        '',
-        `🕐 ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })} (МСК)`,
-      ].filter(Boolean).join('\n');
-
-      if (BOT_TOKEN && CHAT_ID) {
-        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'HTML' })
-        });
-      }
-
-      // Email fallback — через FormSubmit (без бэкенда)
       await fetch('https://formsubmit.co/ajax/info@homeproject.online', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          name, phone, email, topic: topicLabel(topic), message,
+          Имя: name,
+          Телефон: phone,
+          'E-mail': email || '—',
+          Компания: company || '—',
+          Тема: topicMap[topic] || '—',
+          Сообщение: msg || '—',
           _subject: `Заявка с сайта: ${name}`,
-          _template: 'box'
+          _template: 'box',
+          _captcha: 'false'
         })
       });
-
     } catch(err) {
-      console.warn('Send error:', err);
+      console.warn('Ошибка отправки:', err);
     }
 
-    // Показываем успех в любом случае
-    document.getElementById('formWrap').style.display = 'none';
-    document.getElementById('successName').textContent = name;
-    document.getElementById('successMsg').style.display = 'block';
+    // Show success
+    document.getElementById('formSection').style.display = 'none';
+    document.getElementById('successBlock').style.display = 'block';
+    if (name) {
+      document.getElementById('successText').textContent =
+        `${name}, ваша заявка зарегистрирована. Менеджер ответит по указанному телефону в течение одного рабочего дня.`;
+    }
   });
-
-  function topicLabel(val) {
-    const map = {
-      consultation: 'Консультация по технике',
-      price: 'Расчёт стоимости',
-      cooperation: 'Сотрудничество',
-      delivery: 'Доставка и монтаж',
-      other: 'Другое'
-    };
-    return map[val] || val;
-  }
 </script>
-
 </body>
 </html>
