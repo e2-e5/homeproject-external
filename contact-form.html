@@ -13,11 +13,9 @@
       --card: #1F2129;
       --border: #2A2D38;
       --accent: #C8A96E;
-      --accent-hover: #B8996E;
       --text: #F0F0F0;
       --text-secondary: #9CA3AF;
       --text-muted: #6B7280;
-      --input-bg: transparent;
       --radius: 4px;
     }
 
@@ -32,12 +30,8 @@
       padding: 60px 20px 80px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 540px;
-    }
+    .container { width: 100%; max-width: 540px; }
 
-    /* Header */
     .brand {
       font-size: 11px;
       font-weight: 500;
@@ -51,25 +45,19 @@
       font-size: 28px;
       font-weight: 300;
       letter-spacing: 0.03em;
-      color: var(--text);
-      margin-bottom: 10px;
       line-height: 1.3;
+      margin-bottom: 10px;
     }
 
     .page-subtitle {
       font-size: 14px;
-      font-weight: 400;
       color: var(--text-secondary);
       line-height: 1.6;
       margin-bottom: 44px;
     }
 
-    .page-subtitle em {
-      color: var(--accent);
-      font-style: normal;
-    }
+    .page-subtitle em { color: var(--accent); font-style: normal; }
 
-    /* Form */
     .form-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -85,13 +73,7 @@
       margin-bottom: 16px;
     }
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
     .field:last-of-type { margin-bottom: 0; }
 
     .field-label {
@@ -102,42 +84,89 @@
       color: var(--text-muted);
     }
 
-    .field-label span {
-      color: var(--accent);
-      margin-left: 2px;
-    }
+    .field-label span { color: var(--accent); margin-left: 2px; }
 
     input, textarea {
-      background: var(--input-bg);
+      background: transparent;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 12px 16px;
       font-family: 'Montserrat', sans-serif;
       font-size: 14px;
-      font-weight: 400;
       color: var(--text);
       outline: none;
-      transition: border-color 0.2s ease;
+      transition: border-color 0.2s;
       width: 100%;
     }
 
-    input::placeholder, textarea::placeholder {
-      color: var(--text-muted);
+    input::placeholder, textarea::placeholder { color: var(--text-muted); }
+    input:focus, textarea:focus { border-color: var(--accent); }
+
+    textarea { resize: vertical; min-height: 120px; }
+
+    /* Consent checkbox */
+    .consent-block {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
     }
 
-    input:focus, textarea:focus {
+    .consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .consent-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: transparent;
+      cursor: pointer;
+      margin-top: 1px;
+      position: relative;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .consent-checkbox:checked {
+      background: var(--accent);
       border-color: var(--accent);
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 120px;
+    .consent-checkbox:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 6px;
+      height: 10px;
+      border: 2px solid #181A20;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
     }
 
-    .divider-field {
-      border-top: 1px solid var(--border);
-      margin: 24px 0;
+    .consent-checkbox.error { border-color: #E57373; }
+
+    .consent-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
     }
+
+    .consent-text a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(200,169,110,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .consent-text a:hover { border-color: var(--accent); }
 
     .btn-submit {
       width: 100%;
@@ -152,20 +181,14 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: opacity 0.2s ease, transform 0.15s ease;
-      margin-top: 24px;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-top: 20px;
       display: block;
     }
 
-    .btn-submit:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-    }
-
-    .btn-submit:active {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); opacity: 1; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
     .form-note {
       font-size: 11px;
@@ -175,39 +198,22 @@
       line-height: 1.5;
     }
 
-    /* Success state */
+    /* Success */
     .success-msg {
       display: none;
       background: var(--card);
       border: 1px solid var(--accent);
       border-radius: 8px;
-      padding: 32px;
+      padding: 40px 32px;
       text-align: center;
       margin-bottom: 16px;
     }
 
-    .success-msg.visible { display: block; }
-    .success-msg .form-card { display: none; }
+    .success-icon { font-size: 32px; margin-bottom: 16px; }
+    .success-title { font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+    .success-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
-    .success-icon {
-      font-size: 32px;
-      margin-bottom: 16px;
-    }
-
-    .success-title {
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .success-text {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* Channels section */
+    /* Channels */
     .channels-header {
       font-size: 11px;
       font-weight: 500;
@@ -218,11 +224,7 @@
       padding-left: 4px;
     }
 
-    .channel-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .channel-list { display: flex; flex-direction: column; gap: 8px; }
 
     .channel-item {
       display: flex;
@@ -234,36 +236,19 @@
       padding: 14px 18px;
       text-decoration: none;
       color: var(--text);
-      transition: border-color 0.2s ease;
+      transition: border-color 0.2s;
     }
 
-    .channel-item:hover {
-      border-color: rgba(200, 169, 110, 0.5);
-    }
+    .channel-item:hover { border-color: rgba(200,169,110,0.5); }
 
-    .channel-icon {
-      width: 32px;
-      height: 32px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .channel-icon { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .channel-icon svg { width: 20px; height: 20px; }
 
-    .channel-icon svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .channel-info {
-      flex: 1;
-      min-width: 0;
-    }
+    .channel-info { flex: 1; min-width: 0; }
 
     .channel-name {
       font-size: 13px;
       font-weight: 500;
-      color: var(--text);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -280,16 +265,8 @@
       padding: 2px 5px;
     }
 
-    .channel-handle {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .channel-arrow {
-      color: var(--text-muted);
-      flex-shrink: 0;
-    }
+    .channel-handle { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .channel-arrow { color: var(--text-muted); flex-shrink: 0; }
 
     @media (max-width: 480px) {
       body { padding: 40px 16px 60px; }
@@ -300,166 +277,161 @@
   </style>
 </head>
 <body>
-  <div class="container">
+<div class="container">
 
-    <div class="brand">Home Project</div>
+  <div class="brand">Home Project</div>
 
-    <h1 class="page-title">Подберём технику<br>для вашего проекта</h1>
-    <p class="page-subtitle">
-      Подготовим расчёт и ответим в рабочие часы в течение 4 часов.<br>
-      Через <em>Telegram-бот</em> — быстрее.
-    </p>
+  <h1 class="page-title">Подберём технику<br>для вашего проекта</h1>
+  <p class="page-subtitle">
+    Подготовим расчёт и ответим в рабочие часы в течение 4 часов.<br>
+    Через <em>Telegram-бот</em> — быстрее.
+  </p>
 
-    <!-- Form -->
-    <div class="form-card" id="formCard">
-      <form id="contactForm" novalidate>
+  <!-- Form card -->
+  <div class="form-card" id="formCard">
+    <form id="contactForm" novalidate>
 
-        <div class="field-row">
-          <div class="field">
-            <label class="field-label" for="name">Имя<span>*</span></label>
-            <input type="text" id="name" name="name" placeholder="Александра" required />
-          </div>
-          <div class="field">
-            <label class="field-label" for="company">Компания</label>
-            <input type="text" id="company" name="company" placeholder="Студия / проект" />
-          </div>
-        </div>
-
+      <div class="field-row">
         <div class="field">
-          <label class="field-label" for="email">Email<span>*</span></label>
-          <input type="email" id="email" name="email" placeholder="you@studio.ru" required />
+          <label class="field-label" for="name">Имя<span>*</span></label>
+          <input type="text" id="name" name="name" placeholder="Александра" required />
         </div>
+        <div class="field">
+          <label class="field-label" for="company">Компания</label>
+          <input type="text" id="company" name="company" placeholder="Студия / проект" />
+        </div>
+      </div>
 
-        <div class="field" style="margin-bottom: 0;">
-          <label class="field-label" for="message">Сообщение</label>
-          <textarea id="message" name="message" placeholder="Тип проекта, бренд или категория техники, сроки — любая информация ускорит подбор."></textarea>
-        </div>
+      <div class="field">
+        <label class="field-label" for="email">Email<span>*</span></label>
+        <input type="email" id="email" name="email" placeholder="you@studio.ru" required />
+      </div>
 
-        <button type="submit" class="btn-submit">Получить подбор и расчёт</button>
+      <div class="field" style="margin-bottom:0">
+        <label class="field-label" for="message">Сообщение</label>
+        <textarea id="message" name="message" placeholder="Тип проекта, бренд или категория техники, сроки — любая информация ускорит подбор."></textarea>
+      </div>
 
-        <p class="form-note">
-          Запрос принимает AI-ассистент — квалифицированные заявки передаются консультанту.
-        </p>
-      </form>
-    </div>
+      <!-- Consent -->
+      <div class="consent-block">
+        <label class="consent-label">
+          <input type="checkbox" class="consent-checkbox" id="consent" required />
+          <span class="consent-text">
+            Я даю согласие на обработку персональных данных в соответствии
+            с <a href="https://homeproject.online/ru/page/privacy-policy" target="_blank">Политикой конфиденциальности</a>
+            и принимаю условия обработки моих данных компанией Home Project.
+          </span>
+        </label>
+      </div>
 
-    <!-- Success -->
-    <div class="success-msg" id="successMsg">
-      <div class="success-icon">✓</div>
-      <div class="success-title">Заявка принята</div>
-      <p class="success-text">Мы ответим в течение 4 рабочих часов.<br>Для срочных вопросов — Telegram-бот ниже.</p>
-    </div>
+      <button type="submit" class="btn-submit">Получить подбор и расчёт</button>
 
-    <!-- Channels -->
-    <p class="channels-header">Или напишите напрямую</p>
+      <p class="form-note">
+        Запрос принимает AI-ассистент — квалифицированные заявки передаются консультанту.
+      </p>
 
-    <div class="channel-list">
+    </form>
+  </div>
 
-      <a href="https://t.me/homeproject_ai_bot" target="_blank" class="channel-item">
-        <div class="channel-icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686l-1.74 8.2c-.13.577-.466.718-.943.446l-2.6-1.916-1.254 1.207c-.138.138-.255.255-.524.255l.187-2.656 4.833-4.366c.21-.187-.046-.29-.325-.103L7.77 14.357l-2.54-.793c-.552-.172-.562-.552.116-.818l9.92-3.824c.46-.167.863.113.664.764z" fill="#26A5E4"/>
-          </svg>
-        </div>
-        <div class="channel-info">
-          <div class="channel-name">
-            Telegram-бот
-            <span class="channel-badge">Быстрее всего</span>
-          </div>
-          <div class="channel-handle">@homeproject_ai_bot</div>
-        </div>
-        <div class="channel-arrow">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        </div>
-      </a>
+  <!-- Success -->
+  <div class="success-msg" id="successMsg">
+    <div class="success-icon">✓</div>
+    <div class="success-title">Заявка принята</div>
+    <p class="success-text">Мы ответим в течение 4 рабочих часов.<br>Для срочных вопросов — Telegram-бот ниже.</p>
+  </div>
 
-      <a href="https://t.me/HomeProjectMsk" target="_blank" class="channel-item">
-        <div class="channel-icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686l-1.74 8.2c-.13.577-.466.718-.943.446l-2.6-1.916-1.254 1.207c-.138.138-.255.255-.524.255l.187-2.656 4.833-4.366c-.21-.187-.046-.29-.325-.103L7.77 14.357l-2.54-.793c-.552-.172-.562-.552.116-.818l9.92-3.824c.46-.167.863.113.664.764z" fill="#26A5E4"/>
-          </svg>
-        </div>
-        <div class="channel-info">
-          <div class="channel-name">
-            Telegram-канал
-            <span class="channel-badge">Новинки</span>
-          </div>
-          <div class="channel-handle">@HomeProjectMsk</div>
-        </div>
-        <div class="channel-arrow">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        </div>
-      </a>
+  <!-- Channels -->
+  <p class="channels-header">Или напишите напрямую</p>
 
-      <a href="https://vk.com/club223468013" target="_blank" class="channel-item">
-        <div class="channel-icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M13.162 18.994c.609 0 .858-.406.851-.915-.031-1.917.828-2.874 2.089-1.195l2.338 3.057c.374.479.614.664 1.088.664h1.881c1.073 0 1.3-.498.741-1.311l-2.418-3.199c-.729-.963-.688-1.245.12-2.08 1.531-1.624 2.908-3.539 2.93-4.828.024-.883-.272-1.163-1.1-1.163h-1.841c-.74 0-1.059.339-1.249.749-.581 1.24-1.662 3.244-2.754 4.139-.481.4-.687.218-.687-.469V8.48c0-.722-.19-1.121-.882-1.121H11.82c-.471 0-.748.34-.748.655 0 .681.951.825.936 2.744v4.01c0 .87-.145 1.032-.59 1.032C9.986 15.8 8.316 13.779 7.1 10.26 6.82 9.48 6.553 9.36 5.795 9.36H3.953c-.797 0-.96.379-.96.794 0 .758 1.047 4.64 4.867 9.066C10.4 21.967 13.177 22 14.085 22c.639 0 .853-.396.876-.915l.025-.422c.049-.781.289-1.14.872-1.14.346 0 .859.198 2.065 1.295.934.847 1.133 1.177 1.672 1.177h1.841c.797 0 1.215-.396.981-1.175-.25-.83-1.276-1.996-2.439-3.244-.536-.596-.664-.791-.108-.967.479-.152.765.152.765-.765z" fill="#4A76A8"/>
-          </svg>
-        </div>
-        <div class="channel-info">
-          <div class="channel-name">
-            ВКонтакте
-            <span class="channel-badge">Фото и кейсы</span>
-          </div>
-          <div class="channel-handle">vk.com/club223468013</div>
-        </div>
-        <div class="channel-arrow">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        </div>
-      </a>
+  <div class="channel-list">
 
-      <a href="mailto:info@homeproject.online" class="channel-item">
-        <div class="channel-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="1.5">
-            <rect x="2" y="4" width="20" height="16" rx="2"/>
-            <path d="M22 7l-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/>
-          </svg>
-        </div>
-        <div class="channel-info">
-          <div class="channel-name">Email</div>
-          <div class="channel-handle">info@homeproject.online</div>
-        </div>
-        <div class="channel-arrow">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        </div>
-      </a>
+    <a href="https://t.me/homeproject_ai_bot" target="_blank" class="channel-item">
+      <div class="channel-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686l-1.74 8.2c-.13.577-.466.718-.943.446l-2.6-1.916-1.254 1.207c-.138.138-.255.255-.524.255l.187-2.656 4.833-4.366c.21-.187-.046-.29-.325-.103L7.77 14.357l-2.54-.793c-.552-.172-.562-.552.116-.818l9.92-3.824c.46-.167.863.113.664.764z" fill="#26A5E4"/></svg>
+      </div>
+      <div class="channel-info">
+        <div class="channel-name">Telegram-бот <span class="channel-badge">Быстрее всего</span></div>
+        <div class="channel-handle">@homeproject_ai_bot</div>
+      </div>
+      <div class="channel-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+    </a>
 
-    </div>
+    <a href="https://t.me/HomeProjectMsk" target="_blank" class="channel-item">
+      <div class="channel-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686l-1.74 8.2c-.13.577-.466.718-.943.446l-2.6-1.916-1.254 1.207c-.138.138-.255.255-.524.255l.187-2.656 4.833-4.366c-.21-.187-.046-.29-.325-.103L7.77 14.357l-2.54-.793c-.552-.172-.562-.552.116-.818l9.92-3.824c.46-.167.863.113.664.764z" fill="#26A5E4"/></svg>
+      </div>
+      <div class="channel-info">
+        <div class="channel-name">Telegram-канал <span class="channel-badge">Новинки</span></div>
+        <div class="channel-handle">@HomeProjectMsk</div>
+      </div>
+      <div class="channel-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+    </a>
+
+    <a href="https://vk.com/club223468013" target="_blank" class="channel-item">
+      <div class="channel-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M13.162 18.994c.609 0 .858-.406.851-.915-.031-1.917.828-2.874 2.089-1.195l2.338 3.057c.374.479.614.664 1.088.664h1.881c1.073 0 1.3-.498.741-1.311l-2.418-3.199c-.729-.963-.688-1.245.12-2.08 1.531-1.624 2.908-3.539 2.93-4.828.024-.883-.272-1.163-1.1-1.163h-1.841c-.74 0-1.059.339-1.249.749-.581 1.24-1.662 3.244-2.754 4.139-.481.4-.687.218-.687-.469V8.48c0-.722-.19-1.121-.882-1.121H11.82c-.471 0-.748.34-.748.655 0 .681.951.825.936 2.744v4.01c0 .87-.145 1.032-.59 1.032C9.986 15.8 8.316 13.779 7.1 10.26 6.82 9.48 6.553 9.36 5.795 9.36H3.953c-.797 0-.96.379-.96.794 0 .758 1.047 4.64 4.867 9.066C10.4 21.967 13.177 22 14.085 22c.639 0 .853-.396.876-.915l.025-.422c.049-.781.289-1.14.872-1.14.346 0 .859.198 2.065 1.295.934.847 1.133 1.177 1.672 1.177h1.841c.797 0 1.215-.396.981-1.175-.25-.83-1.276-1.996-2.439-3.244-.536-.596-.664-.791-.108-.967.479-.152.765.152.765-.765z" fill="#4A76A8"/></svg>
+      </div>
+      <div class="channel-info">
+        <div class="channel-name">ВКонтакте <span class="channel-badge">Фото и кейсы</span></div>
+        <div class="channel-handle">vk.com/club223468013</div>
+      </div>
+      <div class="channel-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+    </a>
+
+    <a href="mailto:info@homeproject.online" class="channel-item">
+      <div class="channel-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+      </div>
+      <div class="channel-info">
+        <div class="channel-name">Email</div>
+        <div class="channel-handle">info@homeproject.online</div>
+      </div>
+      <div class="channel-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+    </a>
 
   </div>
 
-  <script>
-    const form = document.getElementById('contactForm');
-    const formCard = document.getElementById('formCard');
-    const successMsg = document.getElementById('successMsg');
+</div>
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+<script>
+  const form = document.getElementById('contactForm');
+  const formCard = document.getElementById('formCard');
+  const successMsg = document.getElementById('successMsg');
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
 
-      if (!name || !email) {
-        const empty = !name ? 'name' : 'email';
-        document.getElementById(empty).focus();
-        document.getElementById(empty).style.borderColor = '#E57373';
-        setTimeout(() => {
-          document.getElementById(empty).style.borderColor = '';
-        }, 2000);
-        return;
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const consent = document.getElementById('consent');
+    let valid = true;
+
+    [name, email].forEach(el => {
+      if (!el.value.trim()) {
+        el.style.borderColor = '#E57373';
+        el.focus();
+        valid = false;
+        setTimeout(() => { el.style.borderColor = ''; }, 2000);
       }
-
-      // Send to Formspree (replace with actual endpoint if needed)
-      const btn = form.querySelector('.btn-submit');
-      btn.textContent = 'Отправляем...';
-      btn.disabled = true;
-
-      setTimeout(() => {
-        formCard.style.display = 'none';
-        successMsg.style.display = 'block';
-      }, 800);
     });
-  </script>
+
+    if (!consent.checked) {
+      consent.classList.add('error');
+      valid = false;
+      setTimeout(() => { consent.classList.remove('error'); }, 2000);
+    }
+
+    if (!valid) return;
+
+    const btn = form.querySelector('.btn-submit');
+    btn.textContent = 'Отправляем...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      formCard.style.display = 'none';
+      successMsg.style.display = 'block';
+    }, 800);
+  });
+</script>
 </body>
 </html>
