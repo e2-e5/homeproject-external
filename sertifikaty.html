@@ -90,6 +90,20 @@
     justify-content: center;
     overflow: hidden;
     flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .cert-preview::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background 0.2s ease;
+    z-index: 4;
+  }
+
+  .cert-preview:hover::after {
+    background: rgba(0,0,0,0.12);
   }
 
   .cert-card[data-brand="dedietrich"] .cert-preview { background: linear-gradient(135deg, #1B2B4B 0%, #2A3F6B 100%); }
@@ -214,6 +228,8 @@
     transition: background 0.18s ease, transform 0.15s ease;
     align-self: flex-start;
     margin-top: auto;
+    border: none;
+    cursor: pointer;
   }
 
   .cert-btn:hover {
@@ -236,9 +252,243 @@
     font-size: 12.5px;
     line-height: 1.7;
   }
+
+  /* ===== LIGHTBOX ===== */
+  .lb-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .lb-overlay.active {
+    display: flex;
+  }
+
+  .lb-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    z-index: 9010;
+  }
+
+  .lb-title {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .lb-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+  }
+
+  .lb-btn:hover {
+    background: rgba(255,255,255,0.16);
+  }
+
+  .lb-btn svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .lb-btn-close {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lb-stage {
+    position: fixed;
+    inset: 56px 0 48px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: grab;
+  }
+
+  .lb-stage:active {
+    cursor: grabbing;
+  }
+
+  .lb-img-wrap {
+    position: relative;
+    transform-origin: center center;
+    transition: transform 0.1s ease;
+    user-select: none;
+  }
+
+  .lb-img {
+    display: block;
+    max-width: 90vw;
+    max-height: calc(100vh - 120px);
+    border-radius: 4px;
+    box-shadow: 0 8px 64px rgba(0,0,0,0.6);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .lb-hint {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    background: rgba(0,0,0,0.5);
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.04em;
+  }
+
+  .lb-hint span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .lb-hint kbd {
+    display: inline-block;
+    padding: 2px 5px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 3px;
+    font-size: 10px;
+    font-family: inherit;
+  }
+
+  .lb-zoom-indicator {
+    position: fixed;
+    bottom: 58px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.6);
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .lb-zoom-indicator.visible {
+    opacity: 1;
+  }
+
+  /* Nav arrows */
+  .lb-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9010;
+    transition: background 0.15s;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .lb-nav:hover { background: rgba(255,255,255,0.15); }
+  .lb-nav-prev { left: 12px; }
+  .lb-nav-next { right: 12px; }
+  .lb-nav svg { width: 20px; height: 20px; }
 </style>
 </head>
 <body>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр сертификата">
+  <div class="lb-toolbar">
+    <span class="lb-title" id="lb-title"></span>
+    <div class="lb-actions">
+      <a class="lb-btn" id="lb-download" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Скачать
+      </a>
+      <button class="lb-btn lb-btn-close" id="lb-close" aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="lb-stage" id="lb-stage">
+    <div class="lb-img-wrap" id="lb-img-wrap">
+      <img class="lb-img" id="lb-img" src="" alt="">
+    </div>
+  </div>
+
+  <button class="lb-nav lb-nav-prev" id="lb-prev" aria-label="Предыдущий">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+  <button class="lb-nav lb-nav-next" id="lb-next" aria-label="Следующий">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </button>
+
+  <div class="lb-zoom-indicator" id="lb-zoom-indicator">100%</div>
+
+  <div class="lb-hint">
+    <span><kbd>Scroll</kbd> или щипок — масштаб</span>
+    <span><kbd>←</kbd><kbd>→</kbd> — навигация</span>
+    <span><kbd>Esc</kbd> — закрыть</span>
+  </div>
+</div>
 
 <div class="page-header">
   <div class="breadcrumb">Главная &nbsp;/&nbsp; О компании &nbsp;/&nbsp; Сертификаты</div>
@@ -254,7 +504,7 @@
 
     <!-- 1. De Dietrich -->
     <div class="cert-card" data-brand="dedietrich">
-      <div class="cert-preview">
+      <div class="cert-preview" data-img="http://80.91.86.53:9000/static/1781530551511-dealer-certificate-De-Dietrich.jpg" data-label="De Dietrich" role="button" tabindex="0" aria-label="Открыть сертификат De Dietrich">
         <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530551511-dealer-certificate-De-Dietrich.jpg" alt="Сертификат De Dietrich">
         <span class="cert-badge">Официальный дилер</span>
         <div class="cert-preview-inner">
@@ -263,7 +513,7 @@
               <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
               <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
               <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
-              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <text x="14" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">JPG</text>
               <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
               <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
             </svg>
@@ -277,20 +527,20 @@
           Дилерский сертификат<br>
           <span class="validity">действует до 31.12.2026</span>
         </p>
-        <a href="http://80.91.86.53:9000/static/1781530551511-dealer-certificate-De-Dietrich.jpg" class="cert-btn" target="_blank" rel="noopener">
+        <button class="cert-btn" data-img="http://80.91.86.53:9000/static/1781530551511-dealer-certificate-De-Dietrich.jpg" data-label="De Dietrich">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15,3 21,3 21,9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
           </svg>
-          Открыть PDF
-        </a>
+          Открыть в полном размере
+        </button>
       </div>
     </div>
 
     <!-- 2. ILVE -->
     <div class="cert-card" data-brand="ilve">
-      <div class="cert-preview">
+      <div class="cert-preview" data-img="http://80.91.86.53:9000/static/1781530551649-dealer-certificate-ILVE.jpg" data-label="ILVE" role="button" tabindex="0" aria-label="Открыть сертификат ILVE">
         <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530551649-dealer-certificate-ILVE.jpg" alt="Сертификат ILVE">
         <span class="cert-badge">Официальный дилер</span>
         <div class="cert-preview-inner">
@@ -299,7 +549,7 @@
               <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
               <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
               <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
-              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <text x="14" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">JPG</text>
               <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
               <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
             </svg>
@@ -313,20 +563,20 @@
           Дилерский сертификат<br>
           <span class="validity">действует до 31.12.2026</span>
         </p>
-        <a href="http://80.91.86.53:9000/static/1781530551649-dealer-certificate-ILVE.jpg" class="cert-btn" target="_blank" rel="noopener">
+        <button class="cert-btn" data-img="http://80.91.86.53:9000/static/1781530551649-dealer-certificate-ILVE.jpg" data-label="ILVE">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15,3 21,3 21,9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
           </svg>
-          Открыть PDF
-        </a>
+          Открыть в полном размере
+        </button>
       </div>
     </div>
 
     <!-- 3. SKS -->
     <div class="cert-card" data-brand="sks">
-      <div class="cert-preview">
+      <div class="cert-preview" data-img="http://80.91.86.53:9000/static/1781530552766-dealer-certificate-SKS.jpg" data-label="SKS" role="button" tabindex="0" aria-label="Открыть сертификат SKS">
         <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530552766-dealer-certificate-SKS.jpg" alt="Сертификат SKS">
         <span class="cert-badge">Официальный дилер</span>
         <div class="cert-preview-inner">
@@ -335,7 +585,7 @@
               <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
               <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
               <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
-              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <text x="14" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">JPG</text>
               <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
               <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
             </svg>
@@ -349,20 +599,20 @@
           Дилерский сертификат<br>
           <span class="validity">действует до 31.12.2026</span>
         </p>
-        <a href="http://80.91.86.53:9000/static/1781530552766-dealer-certificate-SKS.jpg" class="cert-btn" target="_blank" rel="noopener">
+        <button class="cert-btn" data-img="http://80.91.86.53:9000/static/1781530552766-dealer-certificate-SKS.jpg" data-label="SKS">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15,3 21,3 21,9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
           </svg>
-          Открыть PDF
-        </a>
+          Открыть в полном размере
+        </button>
       </div>
     </div>
 
     <!-- 4. Küppersbusch -->
     <div class="cert-card" data-brand="kuppersbusch">
-      <div class="cert-preview">
+      <div class="cert-preview" data-img="http://80.91.86.53:9000/static/1781530552934-dealer-certificate-Kuppersbusch.jpg" data-label="Küppersbusch" role="button" tabindex="0" aria-label="Открыть сертификат Küppersbusch">
         <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530552934-dealer-certificate-Kuppersbusch.jpg" alt="Сертификат Küppersbusch">
         <span class="cert-badge">Официальный дилер</span>
         <div class="cert-preview-inner">
@@ -371,7 +621,7 @@
               <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
               <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
               <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
-              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <text x="14" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">JPG</text>
               <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
               <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
             </svg>
@@ -385,20 +635,20 @@
           Дилерский сертификат<br>
           <span class="validity">действует до 31.12.2026</span>
         </p>
-        <a href="http://80.91.86.53:9000/static/1781530552934-dealer-certificate-Kuppersbusch.jpg" class="cert-btn" target="_blank" rel="noopener">
+        <button class="cert-btn" data-img="http://80.91.86.53:9000/static/1781530552934-dealer-certificate-Kuppersbusch.jpg" data-label="Küppersbusch">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15,3 21,3 21,9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
           </svg>
-          Открыть PDF
-        </a>
+          Открыть в полном размере
+        </button>
       </div>
     </div>
 
     <!-- 5. Schulthess -->
     <div class="cert-card" data-brand="schulthess">
-      <div class="cert-preview">
+      <div class="cert-preview" data-img="http://80.91.86.53:9000/static/1781530553407-dealer-certificate-Schulthess.jpg" data-label="Schulthess" role="button" tabindex="0" aria-label="Открыть сертификат Schulthess">
         <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530553407-dealer-certificate-Schulthess.jpg" alt="Сертификат Schulthess">
         <span class="cert-badge">Официальный дилер</span>
         <div class="cert-preview-inner">
@@ -407,7 +657,7 @@
               <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
               <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
               <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
-              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <text x="14" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">JPG</text>
               <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
               <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
             </svg>
@@ -421,20 +671,20 @@
           Дилерский сертификат<br>
           <span class="validity">действует до 31.12.2026</span>
         </p>
-        <a href="http://80.91.86.53:9000/static/1781530553407-dealer-certificate-Schulthess.jpg" class="cert-btn" target="_blank" rel="noopener">
+        <button class="cert-btn" data-img="http://80.91.86.53:9000/static/1781530553407-dealer-certificate-Schulthess.jpg" data-label="Schulthess">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15,3 21,3 21,9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
           </svg>
-          Открыть PDF
-        </a>
+          Открыть в полном размере
+        </button>
       </div>
     </div>
 
     <!-- 6. Brandt -->
     <div class="cert-card" data-brand="brandt">
-      <div class="cert-preview">
+      <div class="cert-preview" data-img="http://80.91.86.53:9000/static/1781530553632-dealer-certificate-Brandt.jpg" data-label="Brandt" role="button" tabindex="0" aria-label="Открыть сертификат Brandt">
         <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530553632-dealer-certificate-Brandt.jpg" alt="Сертификат Brandt">
         <span class="cert-badge">Официальный дилер</span>
         <div class="cert-preview-inner">
@@ -443,7 +693,7 @@
               <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
               <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
               <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
-              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <text x="14" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">JPG</text>
               <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
               <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
             </svg>
@@ -457,20 +707,20 @@
           Дилерский сертификат<br>
           <span class="validity">действует до 31.12.2026</span>
         </p>
-        <a href="http://80.91.86.53:9000/static/1781530553632-dealer-certificate-Brandt.jpg" class="cert-btn" target="_blank" rel="noopener">
+        <button class="cert-btn" data-img="http://80.91.86.53:9000/static/1781530553632-dealer-certificate-Brandt.jpg" data-label="Brandt">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15,3 21,3 21,9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
           </svg>
-          Открыть PDF
-        </a>
+          Открыть в полном размере
+        </button>
       </div>
     </div>
 
     <!-- 7. Fulgor Milano -->
     <div class="cert-card" data-brand="fulgormilano">
-      <div class="cert-preview">
+      <div class="cert-preview" data-img="http://80.91.86.53:9000/static/1781530553972-dealer-certificate-Fulgor-Milano.jpg" data-label="Fulgor Milano" role="button" tabindex="0" aria-label="Открыть сертификат Fulgor Milano">
         <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530553972-dealer-certificate-Fulgor-Milano.jpg" alt="Сертификат Fulgor Milano">
         <span class="cert-badge">Официальный дилер</span>
         <div class="cert-preview-inner">
@@ -479,7 +729,7 @@
               <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
               <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
               <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
-              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <text x="14" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">JPG</text>
               <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
               <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
             </svg>
@@ -493,14 +743,14 @@
           Дилерский сертификат<br>
           <span class="validity">действует до 31.12.2026</span>
         </p>
-        <a href="http://80.91.86.53:9000/static/1781530553972-dealer-certificate-Fulgor-Milano.jpg" class="cert-btn" target="_blank" rel="noopener">
+        <button class="cert-btn" data-img="http://80.91.86.53:9000/static/1781530553972-dealer-certificate-Fulgor-Milano.jpg" data-label="Fulgor Milano">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15,3 21,3 21,9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
           </svg>
-          Открыть PDF
-        </a>
+          Открыть в полном размере
+        </button>
       </div>
     </div>
 
@@ -512,5 +762,234 @@
   </div>
 </div>
 
+<script>
+(function () {
+  'use strict';
+
+  // Collect all cert entries in order
+  const entries = Array.from(document.querySelectorAll('.cert-preview[data-img]')).map(el => ({
+    img: el.dataset.img,
+    label: el.dataset.label
+  }));
+
+  let currentIndex = 0;
+  let scale = 1;
+  let panX = 0;
+  let panY = 0;
+  let isPanning = false;
+  let panStartX = 0;
+  let panStartY = 0;
+  let panOriginX = 0;
+  let panOriginY = 0;
+  let zoomTimer = null;
+
+  const lb        = document.getElementById('lb');
+  const lbImg     = document.getElementById('lb-img');
+  const lbWrap    = document.getElementById('lb-img-wrap');
+  const lbTitle   = document.getElementById('lb-title');
+  const lbDl      = document.getElementById('lb-download');
+  const lbClose   = document.getElementById('lb-close');
+  const lbPrev    = document.getElementById('lb-prev');
+  const lbNext    = document.getElementById('lb-next');
+  const lbZoomInd = document.getElementById('lb-zoom-indicator');
+  const lbStage   = document.getElementById('lb-stage');
+
+  function applyTransform() {
+    lbWrap.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+  }
+
+  function showZoomIndicator() {
+    lbZoomInd.textContent = Math.round(scale * 100) + '%';
+    lbZoomInd.classList.add('visible');
+    clearTimeout(zoomTimer);
+    zoomTimer = setTimeout(() => lbZoomInd.classList.remove('visible'), 1200);
+  }
+
+  function resetView() {
+    scale = 1;
+    panX = 0;
+    panY = 0;
+    lbWrap.style.transition = 'transform 0.25s ease';
+    applyTransform();
+    setTimeout(() => lbWrap.style.transition = 'transform 0.08s ease', 260);
+  }
+
+  function openLightbox(index) {
+    currentIndex = index;
+    const entry = entries[index];
+    lbImg.src = entry.img;
+    lbImg.alt = 'Сертификат ' + entry.label;
+    lbTitle.textContent = 'Сертификат ' + entry.label;
+    lbDl.href = entry.img;
+    lbDl.download = 'certificate-' + entry.label.toLowerCase().replace(/\s+/g, '-') + '.jpg';
+    resetView();
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    lbPrev.style.display = entries.length > 1 ? '' : 'none';
+    lbNext.style.display = entries.length > 1 ? '' : 'none';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  function navigate(dir) {
+    currentIndex = (currentIndex + dir + entries.length) % entries.length;
+    const entry = entries[currentIndex];
+    lbImg.src = entry.img;
+    lbImg.alt = 'Сертификат ' + entry.label;
+    lbTitle.textContent = 'Сертификат ' + entry.label;
+    lbDl.href = entry.img;
+    lbDl.download = 'certificate-' + entry.label.toLowerCase().replace(/\s+/g, '-') + '.jpg';
+    resetView();
+  }
+
+  // Trigger open from previews and buttons
+  document.querySelectorAll('.cert-preview[data-img]').forEach((el, i) => {
+    el.addEventListener('click', () => openLightbox(i));
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(i); } });
+  });
+
+  document.querySelectorAll('.cert-btn[data-img]').forEach((btn, i) => {
+    btn.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(i); });
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', () => navigate(-1));
+  lbNext.addEventListener('click', () => navigate(1));
+
+  // Close on overlay click (not on image itself)
+  lbStage.addEventListener('click', e => {
+    if (e.target === lbStage) closeLightbox();
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+    if (e.key === '0' || e.key === 'Home') resetView();
+  });
+
+  // Mouse wheel zoom
+  lbStage.addEventListener('wheel', e => {
+    e.preventDefault();
+    const delta = e.deltaY < 0 ? 1.12 : 0.89;
+    const newScale = Math.min(Math.max(scale * delta, 0.5), 6);
+    scale = newScale;
+    lbWrap.style.transition = 'none';
+    applyTransform();
+    showZoomIndicator();
+  }, { passive: false });
+
+  // Mouse drag pan
+  lbStage.addEventListener('mousedown', e => {
+    if (e.target === lbStage) return;
+    isPanning = true;
+    panStartX = e.clientX;
+    panStartY = e.clientY;
+    panOriginX = panX;
+    panOriginY = panY;
+    lbWrap.style.transition = 'none';
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!isPanning) return;
+    panX = panOriginX + (e.clientX - panStartX);
+    panY = panOriginY + (e.clientY - panStartY);
+    applyTransform();
+  });
+
+  document.addEventListener('mouseup', () => { isPanning = false; });
+
+  // Touch pinch zoom + pan
+  let lastTouchDist = null;
+  let lastTouchMidX = null;
+  let lastTouchMidY = null;
+  let touchPanOriginX = 0;
+  let touchPanOriginY = 0;
+
+  function getTouchDist(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.hypot(dx, dy);
+  }
+
+  function getTouchMid(touches) {
+    return {
+      x: (touches[0].clientX + touches[1].clientX) / 2,
+      y: (touches[0].clientY + touches[1].clientY) / 2
+    };
+  }
+
+  lbStage.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      lastTouchDist = getTouchDist(e.touches);
+      const mid = getTouchMid(e.touches);
+      lastTouchMidX = mid.x;
+      lastTouchMidY = mid.y;
+      touchPanOriginX = panX;
+      touchPanOriginY = panY;
+    } else if (e.touches.length === 1) {
+      isPanning = true;
+      panStartX = e.touches[0].clientX;
+      panStartY = e.touches[0].clientY;
+      panOriginX = panX;
+      panOriginY = panY;
+    }
+  }, { passive: true });
+
+  lbStage.addEventListener('touchmove', e => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const dist = getTouchDist(e.touches);
+      const mid = getTouchMid(e.touches);
+      if (lastTouchDist) {
+        scale = Math.min(Math.max(scale * (dist / lastTouchDist), 0.5), 6);
+      }
+      panX = touchPanOriginX + (mid.x - lastTouchMidX);
+      panY = touchPanOriginY + (mid.y - lastTouchMidY);
+      lbWrap.style.transition = 'none';
+      applyTransform();
+      showZoomIndicator();
+      lastTouchDist = dist;
+      lastTouchMidX = mid.x;
+      lastTouchMidY = mid.y;
+      touchPanOriginX = panX;
+      touchPanOriginY = panY;
+    } else if (e.touches.length === 1 && isPanning) {
+      panX = panOriginX + (e.touches[0].clientX - panStartX);
+      panY = panOriginY + (e.touches[0].clientY - panStartY);
+      lbWrap.style.transition = 'none';
+      applyTransform();
+    }
+  }, { passive: false });
+
+  lbStage.addEventListener('touchend', e => {
+    if (e.touches.length < 2) {
+      lastTouchDist = null;
+    }
+    if (e.touches.length === 0) {
+      isPanning = false;
+    }
+  }, { passive: true });
+
+  // Double-tap to reset zoom
+  let lastTap = 0;
+  lbStage.addEventListener('touchend', e => {
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      e.preventDefault();
+      if (scale !== 1) { resetView(); showZoomIndicator(); }
+      else { scale = 2; applyTransform(); showZoomIndicator(); }
+    }
+    lastTap = now;
+  }, { passive: false });
+
+})();
+</script>
 </body>
 </html>
