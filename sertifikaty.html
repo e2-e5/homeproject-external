@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дилерские сертификаты — HOMEPROJECT</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    background: #F8F7F5;
+    color: #1A1A1A;
+    min-height: 100vh;
+  }
+
+  .page-header {
+    background: #FFFFFF;
+    border-bottom: 1px solid #E8E4DE;
+    padding: 56px 24px 48px;
+    text-align: center;
+  }
+
+  .page-header .breadcrumb {
+    font-size: 12px;
+    color: #999;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: #1A1A1A;
+    margin-bottom: 12px;
+  }
+
+  .page-header .subtitle {
+    font-size: 15px;
+    color: #777;
+    font-weight: 400;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .cert-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 580px) {
+    .cert-grid { grid-template-columns: 1fr; }
+    .container { padding: 32px 16px 56px; }
+  }
+
+  .cert-card {
+    background: #FFFFFF;
+    border: 1px solid #E8E4DE;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .cert-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.09);
+  }
+
+  .cert-preview {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .cert-card[data-brand="dedietrich"] .cert-preview { background: linear-gradient(135deg, #1B2B4B 0%, #2A3F6B 100%); }
+  .cert-card[data-brand="ilve"] .cert-preview { background: linear-gradient(135deg, #1A1A1A 0%, #3D2B2B 100%); }
+  .cert-card[data-brand="sks"] .cert-preview { background: linear-gradient(135deg, #1A3A2A 0%, #2A5A40 100%); }
+  .cert-card[data-brand="kuppersbusch"] .cert-preview { background: linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 100%); }
+  .cert-card[data-brand="schulthess"] .cert-preview { background: linear-gradient(135deg, #2A1A3A 0%, #4A2A5A 100%); }
+  .cert-card[data-brand="brandt"] .cert-preview { background: linear-gradient(135deg, #3A1A1A 0%, #5A2A2A 100%); }
+  .cert-card[data-brand="fulgormilano"] .cert-preview { background: linear-gradient(135deg, #1A2A1A 0%, #2A4A2A 100%); }
+
+  .cert-preview-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    z-index: 2;
+  }
+
+  .cert-thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.18;
+    z-index: 1;
+  }
+
+  .pdf-icon {
+    width: 52px;
+    height: 64px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .pdf-icon svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  }
+
+  .brand-label-preview {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    color: rgba(255,255,255,0.92);
+    text-transform: uppercase;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    z-index: 2;
+  }
+
+  .cert-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.30);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    backdrop-filter: blur(4px);
+    z-index: 3;
+  }
+
+  .cert-body {
+    padding: 24px 24px 28px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0;
+  }
+
+  .cert-brand {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1A1A1A;
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+  }
+
+  .cert-meta {
+    font-size: 12.5px;
+    color: #8A8A8A;
+    letter-spacing: 0.02em;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .cert-meta .validity {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .cert-meta .validity::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4CAF50;
+    flex-shrink: 0;
+  }
+
+  .cert-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 20px;
+    background: #1A1A1A;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.18s ease, transform 0.15s ease;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+
+  .cert-btn:hover {
+    background: #333333;
+    transform: translateY(-1px);
+  }
+
+  .cert-btn svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .footer-note {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid #E8E4DE;
+    color: #AAA;
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="breadcrumb">Главная &nbsp;/&nbsp; О компании &nbsp;/&nbsp; Сертификаты</div>
+  <h1>Дилерские сертификаты</h1>
+  <p class="subtitle">
+    HOMEPROJECT является официальным дилером 7 премиальных брендов бытовой техники.
+    Все сертификаты действительны в 2026 году.
+  </p>
+</div>
+
+<div class="container">
+  <div class="cert-grid">
+
+    <!-- 1. De Dietrich -->
+    <div class="cert-card" data-brand="dedietrich">
+      <div class="cert-preview">
+        <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530551511-dealer-certificate-De-Dietrich.jpg" alt="Сертификат De Dietrich">
+        <span class="cert-badge">Официальный дилер</span>
+        <div class="cert-preview-inner">
+          <div class="pdf-icon">
+            <svg viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
+              <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+              <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+              <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="brand-label-preview">De Dietrich</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <h3 class="cert-brand">De Dietrich</h3>
+        <p class="cert-meta">
+          Дилерский сертификат<br>
+          <span class="validity">действует до 31.12.2026</span>
+        </p>
+        <a href="http://80.91.86.53:9000/static/1781530551511-dealer-certificate-De-Dietrich.jpg" class="cert-btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Открыть PDF
+        </a>
+      </div>
+    </div>
+
+    <!-- 2. ILVE -->
+    <div class="cert-card" data-brand="ilve">
+      <div class="cert-preview">
+        <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530551649-dealer-certificate-ILVE.jpg" alt="Сертификат ILVE">
+        <span class="cert-badge">Официальный дилер</span>
+        <div class="cert-preview-inner">
+          <div class="pdf-icon">
+            <svg viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
+              <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+              <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+              <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="brand-label-preview">ILVE</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <h3 class="cert-brand">ILVE</h3>
+        <p class="cert-meta">
+          Дилерский сертификат<br>
+          <span class="validity">действует до 31.12.2026</span>
+        </p>
+        <a href="http://80.91.86.53:9000/static/1781530551649-dealer-certificate-ILVE.jpg" class="cert-btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Открыть PDF
+        </a>
+      </div>
+    </div>
+
+    <!-- 3. SKS -->
+    <div class="cert-card" data-brand="sks">
+      <div class="cert-preview">
+        <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530552766-dealer-certificate-SKS.jpg" alt="Сертификат SKS">
+        <span class="cert-badge">Официальный дилер</span>
+        <div class="cert-preview-inner">
+          <div class="pdf-icon">
+            <svg viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
+              <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+              <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+              <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="brand-label-preview">SKS</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <h3 class="cert-brand">SKS</h3>
+        <p class="cert-meta">
+          Дилерский сертификат<br>
+          <span class="validity">действует до 31.12.2026</span>
+        </p>
+        <a href="http://80.91.86.53:9000/static/1781530552766-dealer-certificate-SKS.jpg" class="cert-btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Открыть PDF
+        </a>
+      </div>
+    </div>
+
+    <!-- 4. Küppersbusch -->
+    <div class="cert-card" data-brand="kuppersbusch">
+      <div class="cert-preview">
+        <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530552934-dealer-certificate-Kuppersbusch.jpg" alt="Сертификат Küppersbusch">
+        <span class="cert-badge">Официальный дилер</span>
+        <div class="cert-preview-inner">
+          <div class="pdf-icon">
+            <svg viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
+              <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+              <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+              <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="brand-label-preview">Küppersbusch</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <h3 class="cert-brand">Küppersbusch</h3>
+        <p class="cert-meta">
+          Дилерский сертификат<br>
+          <span class="validity">действует до 31.12.2026</span>
+        </p>
+        <a href="http://80.91.86.53:9000/static/1781530552934-dealer-certificate-Kuppersbusch.jpg" class="cert-btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Открыть PDF
+        </a>
+      </div>
+    </div>
+
+    <!-- 5. Schulthess -->
+    <div class="cert-card" data-brand="schulthess">
+      <div class="cert-preview">
+        <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530553407-dealer-certificate-Schulthess.jpg" alt="Сертификат Schulthess">
+        <span class="cert-badge">Официальный дилер</span>
+        <div class="cert-preview-inner">
+          <div class="pdf-icon">
+            <svg viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
+              <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+              <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+              <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="brand-label-preview">Schulthess</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <h3 class="cert-brand">Schulthess</h3>
+        <p class="cert-meta">
+          Дилерский сертификат<br>
+          <span class="validity">действует до 31.12.2026</span>
+        </p>
+        <a href="http://80.91.86.53:9000/static/1781530553407-dealer-certificate-Schulthess.jpg" class="cert-btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Открыть PDF
+        </a>
+      </div>
+    </div>
+
+    <!-- 6. Brandt -->
+    <div class="cert-card" data-brand="brandt">
+      <div class="cert-preview">
+        <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530553632-dealer-certificate-Brandt.jpg" alt="Сертификат Brandt">
+        <span class="cert-badge">Официальный дилер</span>
+        <div class="cert-preview-inner">
+          <div class="pdf-icon">
+            <svg viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
+              <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+              <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+              <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="brand-label-preview">Brandt</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <h3 class="cert-brand">Brandt</h3>
+        <p class="cert-meta">
+          Дилерский сертификат<br>
+          <span class="validity">действует до 31.12.2026</span>
+        </p>
+        <a href="http://80.91.86.53:9000/static/1781530553632-dealer-certificate-Brandt.jpg" class="cert-btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Открыть PDF
+        </a>
+      </div>
+    </div>
+
+    <!-- 7. Fulgor Milano -->
+    <div class="cert-card" data-brand="fulgormilano">
+      <div class="cert-preview">
+        <img class="cert-thumb" src="http://80.91.86.53:9000/static/1781530553972-dealer-certificate-Fulgor-Milano.jpg" alt="Сертификат Fulgor Milano">
+        <span class="cert-badge">Официальный дилер</span>
+        <div class="cert-preview-inner">
+          <div class="pdf-icon">
+            <svg viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="52" height="64" rx="4" fill="rgba(255,255,255,0.12)"/>
+              <rect x="1" y="1" width="50" height="62" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+              <path d="M8 44h36M8 50h24" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <text x="10" y="34" font-family="Arial" font-size="10" font-weight="700" fill="rgba(255,255,255,0.9)">PDF</text>
+              <path d="M34 4v12h12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+              <path d="M34 4l12 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="brand-label-preview">Fulgor Milano</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <h3 class="cert-brand">Fulgor Milano</h3>
+        <p class="cert-meta">
+          Дилерский сертификат<br>
+          <span class="validity">действует до 31.12.2026</span>
+        </p>
+        <a href="http://80.91.86.53:9000/static/1781530553972-dealer-certificate-Fulgor-Milano.jpg" class="cert-btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Открыть PDF
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-note">
+    Все сертификаты выданы официальными представительствами брендов в России.<br>
+    По вопросам сотрудничества: <strong>info@homeproject.online</strong>
+  </div>
+</div>
+
+</body>
+</html>
