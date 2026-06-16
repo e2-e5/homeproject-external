@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Превью: Уценка — Design B «Честная выгода»</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #F7F7F5; color: #1A1A1A; }
+
+  /* Preview banner */
+  .preview-banner {
+    background: #1A1A1A; color: #F7F7F5; padding: 12px; text-align: center;
+    font-weight: 600; font-size: 13px; border-bottom: 3px solid #C0392B;
+    position: sticky; top: 0; z-index: 100; letter-spacing: 0.02em;
+  }
+  .preview-banner span { color: #C0392B; }
+
+  /* Site header */
+  .site-header {
+    background: #fff; border-bottom: 1px solid #E8E8E8; padding: 16px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-logo { font-size: 16px; font-weight: 700; letter-spacing: 0.08em; }
+  .nav { display: flex; gap: 24px; font-size: 13px; }
+  .nav a { color: #888; text-decoration: none; }
+  .nav a.active { color: #1A1A1A; font-weight: 600; }
+
+  /* Hero — светлый, с левой полосой */
+  .utcenka-hero {
+    background: #fff;
+    border-left: 5px solid #C0392B;
+    padding: 40px 48px;
+    border-bottom: 1px solid #E8E8E8;
+  }
+  .hero-tag {
+    color: #C0392B; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .hero-title { font-size: 32px; font-weight: 700; margin-bottom: 8px; color: #1A1A1A; }
+  .hero-sub { color: #666; font-size: 14px; max-width: 520px; line-height: 1.6; margin-bottom: 24px; }
+
+  .hero-stats {
+    display: flex; gap: 40px; align-items: center;
+    padding-top: 20px; border-top: 1px solid #EBEBEB;
+  }
+  .stat-item { }
+  .stat-num { font-size: 24px; font-weight: 700; color: #1A1A1A; }
+  .stat-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+  .stat-sep { width: 1px; height: 36px; background: #E8E8E8; }
+
+  /* Content */
+  .content-area { max-width: 1200px; margin: 0 auto; padding: 32px 40px; }
+
+  /* Filter row */
+  .filter-row { display: flex; gap: 8px; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+  .filter-label { font-size: 13px; color: #888; margin-right: 4px; }
+  .filter-btn {
+    padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 500;
+    border: 1px solid #E5E5E5; background: #fff; color: #666; cursor: pointer;
+    font-family: 'Inter', sans-serif; transition: all 0.15s;
+  }
+  .filter-btn.active { background: #1A1A1A; color: #fff; border-color: #1A1A1A; }
+  .filter-btn:hover:not(.active) { border-color: #CCC; color: #333; }
+
+  .results-meta { font-size: 13px; color: #888; margin-bottom: 24px; }
+  .results-meta strong { color: #1A1A1A; }
+
+  /* Cards grid */
+  .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+
+  /* Card Design B */
+  .utcenka-card {
+    background: #fff;
+    border: 1px solid #E5E5E5;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .utcenka-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  }
+
+  /* Photo placeholder */
+  .card-photo {
+    position: relative;
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ph-1 { background: #F5F5F3; }
+  .ph-2 { background: #EEF0EE; }
+  .ph-3 { background: #F0EEEE; }
+  .ph-4 { background: #EEF0F5; }
+  .ph-5 { background: #F5F0EE; }
+  .photo-icon { font-size: 52px; opacity: 0.12; }
+
+  /* Badges */
+  .badge-discount {
+    position: absolute; top: 10px; left: 10px;
+    background: #1A1A1A; color: #fff;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+  .badge-utcenka {
+    position: absolute; top: 10px; right: 10px;
+    background: #C0392B; color: #fff;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 9px; border-radius: 4px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* Card body */
+  .card-body { padding: 14px 16px; }
+  .card-brand { font-size: 10px; font-weight: 700; color: #AAA; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .card-name { font-size: 13px; font-weight: 600; color: #1A1A1A; line-height: 1.35; margin-bottom: 10px; }
+
+  /* Defect — subtle, no red background */
+  .defect-line {
+    display: flex; align-items: flex-start; gap: 5px;
+    margin-bottom: 12px;
+  }
+  .defect-icon { font-size: 11px; flex-shrink: 0; margin-top: 1px; line-height: 1.4; }
+  .defect-text { font-size: 11px; color: #777; line-height: 1.4; }
+
+  /* Prices */
+  .price-block { margin-bottom: 12px; }
+  .price-rrts {
+    font-size: 11px; color: #AAA;
+    text-decoration: line-through;
+    margin-bottom: 2px;
+  }
+  .price-sale { font-size: 20px; font-weight: 700; color: #1A1A1A; line-height: 1; margin-bottom: 4px; }
+  .price-economy { font-size: 11px; color: #2D6A4F; font-weight: 500; }
+
+  /* Button */
+  .btn-request {
+    display: block; width: 100%;
+    background: #1A1A1A; color: #fff; border: none;
+    padding: 9px; border-radius: 7px; font-size: 12px; font-weight: 600;
+    cursor: pointer; font-family: 'Inter', sans-serif; text-align: center;
+    transition: background 0.15s;
+  }
+  .btn-request:hover { background: #333; }
+
+  /* CTA block at bottom */
+  .cta-block {
+    background: #fff; border: 1px solid #E5E5E5; border-radius: 12px;
+    padding: 28px 32px; text-align: center; margin-bottom: 40px;
+  }
+  .cta-block h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .cta-block p { font-size: 14px; color: #666; margin-bottom: 20px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .cta-actions { display: flex; gap: 12px; justify-content: center; }
+  .cta-btn-main {
+    background: #C0392B; color: #fff; border: none;
+    padding: 11px 28px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+  }
+  .cta-btn-sec {
+    background: #fff; color: #1A1A1A; border: 1px solid #E5E5E5;
+    padding: 11px 28px; border-radius: 8px; font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+  }
+
+  /* Section title */
+  .section-title {
+    font-size: 13px; font-weight: 600; color: #888; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 16px; padding-bottom: 12px;
+    border-bottom: 1px solid #E8E8E8;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title-count {
+    font-size: 11px; color: #BBB; text-transform: none; letter-spacing: 0; font-weight: 400;
+  }
+</style>
+</head>
+<body>
+
+<!-- Preview Banner -->
+<div class="preview-banner">
+  🔮 ПРЕВЬЮ <span>Design B</span> — вариант для сравнения с Design A &nbsp;·&nbsp; Концепция «Честная выгода» &nbsp;·&nbsp; Светлый hero, акцент на экономии
+</div>
+
+<!-- Site Header -->
+<header class="site-header">
+  <div class="site-logo">HOME PROJECT</div>
+  <nav class="nav">
+    <a href="#">Каталог</a>
+    <a href="#">Бренды</a>
+    <a href="#">Outlet</a>
+    <a href="#" class="active">Уценка</a>
+    <a href="#">О нас</a>
+  </nav>
+</header>
+
+<!-- Hero — Design B (светлый) -->
+<div class="utcenka-hero">
+  <div class="hero-tag">Раздел · Уценённая техника</div>
+  <h1 class="hero-title">Техника с дефектом — цена без наценки</h1>
+  <p class="hero-sub">Каждый прибор имеет описание конкретного дефекта. Техника исправна, гарантия полная.</p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">135</div>
+      <div class="stat-label">Позиции</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Брендов</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <div class="stat-num">до −33%</div>
+      <div class="stat-label">Скидка от РРЦ</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Гарантия</div>
+    </div>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content-area">
+
+  <!-- Filter row -->
+  <div class="filter-row">
+    <span class="filter-label">Бренд:</span>
+    <button class="filter-btn active">Все (135)</button>
+    <button class="filter-btn">Küppersbusch (78)</button>
+    <button class="filter-btn">De Dietrich (22)</button>
+    <button class="filter-btn">GRAUDE (15)</button>
+    <button class="filter-btn">ILVE (5)</button>
+    <button class="filter-btn">Schulthess (3)</button>
+    <button class="filter-btn">Другие (12)</button>
+  </div>
+
+  <div class="results-meta"><strong>135 позиций</strong> · Все с описанием дефекта · Обновлено 16.06.2026</div>
+
+  <!-- Section label -->
+  <div class="section-title">
+    Выбранные позиции
+    <span class="section-title-count">8 из 135</span>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="cards-grid">
+
+    <!-- Card 1: Küppersbusch KI 6130.0 SR -->
+    <div class="utcenka-card">
+      <div class="card-photo ph-1">
+        <div class="photo-icon">🍳</div>
+        <div class="badge-discount">−14%</div>
+        <div class="badge-utcenka">Уценка</div>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Küppersbusch</div>
+        <div class="card-name">Варочная панель KI 6130.0 SR</div>
+        <div class="defect-line">
+          <span class="defect-icon">📋</span>
+          <span class="defect-text">Непрокрас торцевой части левой стороны</span>
+        </div>
+        <div class="price-block">
+          <div class="price-rrts">РРЦ 111 990 ₽</div>
+          <div class="price-sale">96 760 ₽</div>
+          <div class="price-economy">Экономия 15 230 ₽</div>
+        </div>
+        <button class="btn-request">Запросить условия</button>
+      </div>
+    </div>
+
+    <!-- Card 2: Küppersbusch KI 6550.0 SR -->
+    <div class="utcenka-card">
+      <div class="card-photo ph-2">
+        <div class="photo-icon">🍳</div>
+        <div class="badge-discount">−13%</div>
+        <div class="badge-utcenka">Уценка</div>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Küppersbusch</div>
+        <div class="card-name">Варочная панель KI 6550.0 SR</div>
+        <div class="defect-line">
+          <span class="defect-icon">📋</span>
+          <span class="defect-text">Незначительные царапины на корпусе</span>
+        </div>
+        <div class="price-block">
+          <div class="price-rrts">РРЦ 163 990 ₽</div>
+          <div class="price-sale">142 308 ₽</div>
+          <div class="price-economy">Экономия 21 682 ₽</div>
+        </div>
+        <button class="btn-request">Запросить условия</button>
+      </div>
+    </div>
+
+    <!-- Card 3: GRAUDE GS 30.1 W -->
+    <div class="utcenka-card">
+      <div class="card-photo ph-3">
+        <div class="photo-icon">🔥</div>
+        <div class="badge-discount">−24%</div>
+        <div class="badge-utcenka">Уценка</div>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">GRAUDE</div>
+        <div class="card-name">Варочная панель GS 30.1 W</div>
+        <div class="defect-line">
+          <span class="defect-icon">📋</span>
+          <span class="defect-text">Непрокрас торцевой части левой и правой сторон</span>
+        </div>
+        <div class="price-block">
+          <div class="price-rrts">РРЦ 24 990 ₽</div>
+          <div class="price-sale">18 990 ₽</div>
+          <div class="price-economy">Экономия 6 000 ₽</div>
+        </div>
+        <button class="btn-request">Запросить условия</button>
+      </div>
+    </div>
+
+    <!-- Card 4: GRAUDE GS 60.1 WM -->
+    <div class="utcenka-card">
+      <div class="card-photo ph-4">
+        <div class="photo-icon">🔥</div>
+        <div class="badge-discount">−25%</div>
+        <div class="badge-utcenka">Уценка</div>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">GRAUDE</div>
+        <div class="card-name">Варочная панель GS 60.1 WM</div>
+        <div class="defect-line">
+          <span class="defect-icon">📋</span>
+          <span class="defect-text">Царапины на стеклянной поверхности</span>
+        </div>
+        <div class="price-block">
+          <div class="price-rrts">РРЦ 32 490 ₽</div>
+          <div class="price-sale">24 490 ₽</div>
+          <div class="price-economy">Экономия 8 000 ₽</div>
+        </div>
+        <button class="btn-request">Запросить условия</button>
+      </div>
+    </div>
+
+    <!-- Card 5: Küppersbusch VKI 3550.0 SR -->
+    <div class="utcenka-card">
+      <div class="card-photo ph-5">
+        <div class="photo-icon">📦</div>
+        <div class="badge-discount">−19%</div>
+        <div class="badge-utcenka">Уценка</div>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Küppersbusch</div>
+        <div class="card-name">Вытяжка VKI 3550.0 SR</div>
+        <div class="defect-line">
+          <span class="defect-icon">📋</span>
+          <span class="defect-text">Незначительное повреждение упаковки</span>
+        </div>
+        <div class="price-block">
+          <div class="price-rrts">РРЦ 149 990 ₽</div>
+          <div class="price-sale">121 540 ₽</div>
+          <div class="price-economy">Экономия 28 450 ₽</div>
+        </div>
+        <button class="btn-request">Запросить условия</button>
+      </div>
+    </div>
+
+    <!-- Card 6: De Dietrich DPE7620XF -->
+    <div class="utcenka-card">
+      <div class="card-photo ph-1">
+        <div class="photo-icon">🔥</div>
+        <div class="badge-discount">−26%</div>
+        <div class="badge-utcenka">Уценка</div>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">De Dietrich</div>
+        <div class="card-name">Газовая панель DPE7620XF</div>
+        <div class="defect-line">
+          <span class="defect-icon">📋</span>
+          <span class="defect-text">Следы встраивания, царапины на поверхности</span>
+        </div>
+        <div class="price-block">
+          <div class="price-rrts">РРЦ 68 000 ₽</div>
+          <div class="price-sale">50 268 ₽</div>
+          <div class="price-economy">Экономия 17 732 ₽</div>
+        </div>
+        <button class="btn-request">Запросить условия</button>
+      </div>
+    </div>
+
+    <!-- Card 7: GRAUDE IK 30.1 S -->
+    <div class="utcenka-card">
+      <div class="card-photo ph-2">
+        <div class="photo-icon">🍳</div>
+        <div class="badge-discount">−33%</div>
+        <div class="badge-utcenka">Уценка</div>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">GRAUDE</div>
+        <div class="card-name">Индукционная панель IK 30.1 S</div>
+        <div class="defect-line">
+          <span class="defect-icon">📋</span>
+          <span class="defect-text">Мелкие царапины на стеклокерамике</span>
+        </div>
+        <div class="price-block">
+          <div class="price-rrts">РРЦ 19 990 ₽</div>
+          <div class="price-sale">13 493 ₽</div>
+          <div class="price-economy">Экономия 6 497 ₽</div>
+        </div>
+        <button class="btn-request">Запросить условия</button>
+      </div>
+    </div>
+
+    <!-- Card 8: Küppersbusch KI 6750.0 SR -->
+    <div class="utcenka-card">
+      <div class="card-photo ph-3">
+        <div class="photo-icon">🍳</div>
+        <div class="badge-discount">−19%</div>
+        <div class="badge-utcenka">Уценка</div>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Küppersbusch</div>
+        <div class="card-name">Варочная панель KI 6750.0 SR</div>
+        <div class="defect-line">
+          <span class="defect-icon">📋</span>
+          <span class="defect-text">Незначительный скол эмали</span>
+        </div>
+        <div class="price-block">
+          <div class="price-rrts">РРЦ 269 990 ₽</div>
+          <div class="price-sale">218 064 ₽</div>
+          <div class="price-economy">Экономия 51 926 ₽</div>
+        </div>
+        <button class="btn-request">Запросить условия</button>
+      </div>
+    </div>
+
+  </div>
+  <!-- /cards-grid -->
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <h3>Нужна помощь с выбором?</h3>
+    <p>Уточним наличие, расскажем подробнее о дефекте, согласуем условия доставки и оплаты.</p>
+    <div class="cta-actions">
+      <button class="cta-btn-main">Написать в WhatsApp</button>
+      <button class="cta-btn-sec">Вся уценка — 135 позиций</button>
+    </div>
+  </div>
+
+</div>
+<!-- /content-area -->
+
+</body>
+</html>
