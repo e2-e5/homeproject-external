@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outlet — Home Project</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #2A2418; color: #FAF7F2; font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; }
+  a { color: inherit; text-decoration: none; }
+  .hero {
+    background: linear-gradient(135deg, #1A1E2A 0%, #2A2418 55%, #1A1E2A 100%);
+    padding: 64px 24px 48px;
+    text-align: center;
+    border-bottom: 1px solid #2A3040;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: #1A3A5C;
+    color: #6AB4FF;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #2A5080;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 4.5vw, 44px);
+    font-weight: 700;
+    color: #FAF7F2;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: #C9A36A; }
+  .hero p {
+    font-size: 17px;
+    color: #C4B89A;
+    max-width: 600px;
+    margin: 0 auto 32px;
+    line-height: 1.65;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-stat .num { font-size: 32px; font-weight: 700; color: #C9A36A; }
+  .hero-stat .label { font-size: 11px; color: #8A7E68; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px; }
+  .filters-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: #1A1C24;
+    border-bottom: 1px solid #2A3040;
+    padding: 14px 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  }
+  .filters-inner { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .filter-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #6A7080; min-width: 80px; }
+  .filter-btn {
+    padding: 6px 14px; border-radius: 20px; border: 1px solid #2A3040;
+    background: transparent; color: #A4A8B8; font-size: 13px; cursor: pointer; transition: all 0.18s;
+  }
+  .filter-btn:hover { border-color: #C9A36A; color: #C9A36A; }
+  .filter-btn.active { background: #C9A36A; border-color: #C9A36A; color: #1A1C10; font-weight: 600; }
+  .main { max-width: 1280px; margin: 0 auto; padding: 40px 24px 80px; }
+  .results-info { font-size: 13px; color: #6A7080; margin-bottom: 24px; }
+  .results-info span { color: #C9A36A; font-weight: 600; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 580px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: #222830;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #2A3040;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    display: flex; flex-direction: column;
+  }
+  .card:hover { transform: translateY(-3px); border-color: #C9A36A; box-shadow: 0 8px 32px rgba(201,163,106,0.1); }
+  .card.hidden { display: none; }
+  .card-img {
+    position: relative; height: 200px;
+    background: #181C24;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .card-img img { width: 100%; height: 100%; object-fit: contain; padding: 16px; }
+  .badge-outlet {
+    position: absolute; top: 12px; left: 12px;
+    background: #1A3A5C; color: #6AB4FF;
+    font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px;
+    border: 1px solid #2A5080; letter-spacing: 0.3px;
+  }
+  .badge-last {
+    position: absolute; top: 12px; right: 12px;
+    background: #2A1A00; color: #C9A36A;
+    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+    border: 1px solid #5A4010; letter-spacing: 0.3px;
+  }
+  .badge-discontinued {
+    position: absolute; top: 12px; right: 12px;
+    background: #1A2A1A; color: #6AC96A;
+    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+    border: 1px solid #2A5A2A; letter-spacing: 0.3px;
+  }
+  .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .card-brand { font-size: 11px; font-weight: 600; color: #C9A36A; text-transform: uppercase; letter-spacing: 1px; }
+  .card-title { font-size: 14px; font-weight: 500; color: #FAF7F2; line-height: 1.45; }
+  .card-category { font-size: 11px; color: #6A7080; }
+  .card-price { margin-top: auto; }
+  .price-new { font-size: 20px; font-weight: 700; color: #C9A36A; }
+  .card-footer { padding: 0 16px 16px; }
+  .btn-detail {
+    display: block; text-align: center; padding: 10px; border-radius: 8px;
+    border: 1px solid #C9A36A; color: #C9A36A; font-size: 13px; font-weight: 600; transition: all 0.18s;
+  }
+  .btn-detail:hover { background: #C9A36A; color: #1A1C10; }
+  .no-results { text-align: center; padding: 80px 24px; color: #6A7080; font-size: 16px; display: none; }
+  .info-box {
+    background: #1A1E2A; border: 1px solid #2A3A50; border-radius: 10px;
+    padding: 20px 24px; margin-bottom: 32px; display: flex; gap: 16px; align-items: flex-start;
+  }
+  .info-box-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+  .info-box-text h3 { font-size: 15px; font-weight: 600; color: #C9A36A; margin-bottom: 6px; }
+  .info-box-text p { font-size: 13px; color: #8A9AAA; line-height: 1.6; }
+  .no-img { height:100%;background:#181C24;display:flex;align-items:center;justify-content:center;color:#3A4050; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-badge">Outlet</div>
+  <h1>Снятые с производства модели<br>по <span>специальным ценам</span></h1>
+  <p>Оригинальная техника Kuppersbusch из прекращённых линеек — новая, в заводской упаковке, с полной гарантией. Ограниченный остаток.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">24</div><div class="label">Позиции</div></div>
+    <div class="hero-stat"><div class="num">1</div><div class="label">Бренд</div></div>
+    <div class="hero-stat"><div class="num">100%</div><div class="label">Новые</div></div>
+  </div>
+</section>
+
+<div class="filters-bar">
+  <div class="filters-inner">
+    <div class="filter-row">
+      <span class="filter-label">Бренд</span>
+      <button class="filter-btn active" onclick="setFilter('brand','all',this)">Все</button>
+      <button class="filter-btn" onclick="setFilter('brand','Kuppersbusch',this)">Kuppersbusch <span style="opacity:0.6;font-size:11px">(24)</span></button>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Тип</span>
+      <button class="filter-btn active" onclick="setFilter('cat','all',this)">Все</button>
+      <button class="filter-btn" onclick="setFilter('cat','Холодильники',this)">Холодильники и винные шкафы</button>
+      <button class="filter-btn" onclick="setFilter('cat','Духовые шкафы',this)">Духовые шкафы</button>
+      <button class="filter-btn" onclick="setFilter('cat','Варочные панели',this)">Варочные панели</button>
+      <button class="filter-btn" onclick="setFilter('cat','Вытяжки',this)">Вытяжки</button>
+    </div>
+  </div>
+</div>
+
+<main class="main">
+  <div class="info-box">
+    <div class="info-box-icon">ℹ️</div>
+    <div class="info-box-text">
+      <h3>Что такое Outlet?</h3>
+      <p>Это техника из прекращённых производственных серий Kuppersbusch. Товар новый, в оригинальной упаковке. После окончания склада модели не возобновляются. Полная гарантия производителя сохраняется.</p>
+    </div>
+  </div>
+
+  <p class="results-info">Показано <span id="count">10</span> товаров</p>
+  <div class="grid" id="grid">
+
+    <div class="card" data-brand="Kuppersbusch" data-cat="Холодильники">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/1818/925247258/large_FWKU-1870.0-X1_1.jpg" alt="">
+        <span class="badge-outlet">Outlet</span>
+        <span class="badge-discontinued">Снято с произ-ва</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Kuppersbusch</div>
+        <div class="card-title">Встраиваемый винный шкаф FWKU 1870.0 X1 Stainless Steel</div>
+        <div class="card-category">Холодильники и винные шкафы · 44 бутылки · 2 зоны</div>
+        <div class="card-price"><div class="price-new">234 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><a href="/ru/products/kuppersbusch-fwku-1870-0-x1" class="btn-detail">Подробнее →</a></div>
+    </div>
+
+    <div class="card" data-brand="Kuppersbusch" data-cat="Холодильники">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/1970/925247410/large_FWKU-1870.0-X2.jpg" alt="">
+        <span class="badge-outlet">Outlet</span>
+        <span class="badge-last">Последний экз.</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Kuppersbusch</div>
+        <div class="card-title">Встраиваемый винный шкаф FWKU 1870.0 X2 Black Chrome</div>
+        <div class="card-category">Холодильники и винные шкафы · 44 бутылки · 2 зоны</div>
+        <div class="card-price"><div class="price-new">242 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><a href="/ru/products/kuppersbusch-fwku-1870-0-x2" class="btn-detail">Подробнее →</a></div>
+    </div>
+
+    <div class="card" data-brand="Kuppersbusch" data-cat="Холодильники">
+      <div class="card-img">
+        <div class="no-img"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="6" width="32" height="36" rx="3"/><line x1="8" y1="20" x2="40" y2="20"/><circle cx="34" cy="13" r="2"/><circle cx="34" cy="29" r="2"/></svg></div>
+        <span class="badge-outlet">Outlet</span>
+        <span class="badge-discontinued">Снято с произ-ва</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Kuppersbusch</div>
+        <div class="card-title">Встраиваемый винный шкаф FWKU 1870.0 X4 Gold</div>
+        <div class="card-category">Холодильники и винные шкафы · 44 бутылки · 2 зоны</div>
+        <div class="card-price"><div class="price-new">247 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><a href="/ru/products/kuppersbusch-fwku-1870-0-x4" class="btn-detail">Подробнее →</a></div>
+    </div>
+
+    <div class="card" data-brand="Kuppersbusch" data-cat="Духовые шкафы">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/2835/920447763/large_1815ab4f5e8a2a8549252184be76b497_foto_kompaktnyy_dukhovoy_shkaf_kuppersbusch_cbp_6550_0_g4_gold_.jpg" alt="">
+        <span class="badge-outlet">Outlet</span>
+        <span class="badge-discontinued">Снято с произ-ва</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Kuppersbusch</div>
+        <div class="card-title">Компактный духовой шкаф CBP 6550.0 G4 Gold</div>
+        <div class="card-category">Духовые шкафы · 44 л · Пиролиз</div>
+        <div class="card-price"><div class="price-new">154 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><a href="/ru/products/kuppersbusch-cbp-6550-g4" class="btn-detail">Подробнее →</a></div>
+    </div>
+
+    <div class="card" data-brand="Kuppersbusch" data-cat="Духовые шкафы">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/8961/920448769/large_kuppersbusch_cbp_6550_g7.jpg" alt="" onerror="this.style.display='none'">
+        <span class="badge-outlet">Outlet</span>
+        <span class="badge-last">Последний экз.</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Kuppersbusch</div>
+        <div class="card-title">Компактный духовой шкаф CBP 6550.0 G7 Copper</div>
+        <div class="card-category">Духовые шкафы · 44 л · Пиролиз</div>
+        <div class="card-price"><div class="price-new">153 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><a href="/ru/products/kuppersbusch-cbp-6550-g7" class="btn-detail">Подробнее →</a></div>
+    </div>
+
+    <div class="card" data-brand="Kuppersbusch" data-cat="Варочные панели">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/1760/927205088/large_34d107e0ced391265f61b9d18b313d00_5d3cfd6596425b08c05a920a7757cf59_foto_induktsionnaya_varochnaya.jpg" alt="">
+        <span class="badge-outlet">Outlet</span>
+        <span class="badge-discontinued">Снято с произ-ва</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Kuppersbusch</div>
+        <div class="card-title">Индукционная варочная панель KI 8820.0 SF</div>
+        <div class="card-category">Варочные панели · 6 зон · 80 см</div>
+        <div class="card-price"><div class="price-new">368 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><a href="/ru/products/kuppersbusch-ki-8820-sf" class="btn-detail">Подробнее →</a></div>
+    </div>
+
+    <div class="card" data-brand="Kuppersbusch" data-cat="Варочные панели">
+      <div class="card-img">
+        <div class="no-img"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="10" width="36" height="28" rx="3"/><circle cx="24" cy="24" r="7"/></svg></div>
+        <span class="badge-outlet">Outlet</span>
+        <span class="badge-discontinued">Снято с произ-ва</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Kuppersbusch</div>
+        <div class="card-title">Индукционная варочная панель KI 6343.0 SR</div>
+        <div class="card-category">Варочные панели · 4 зоны · 60 см</div>
+        <div class="card-price"><div class="price-new">138 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><a href="/ru/products/kuppersbusch-ki-6343-sr" class="btn-detail">Подробнее →</a></div>
+    </div>
+
+    <div class="card" data-brand="Kuppersbusch" data-cat="Холодильники">
+      <div class="card-img">
+        <div class="no-img"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="6" width="32" height="36" rx="3"/><line x1="8" y1="20" x2="40" y2="20"/><circle cx="34" cy="13" r="2"/><circle cx="34" cy="29" r="2"/></svg></div>
+        <span class="badge-outlet">Outlet</span>
+        <span class="badge-last">Последний экз.</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Kuppersbusch</div>
+        <div class="card-title">Холодильник Kuppersbusch FKG 6875.0 S-02</div>
+        <div class="card-category">Холодильники · А++</div>
+        <div class="card-price"><div class="price-new">149 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><a href="/ru/products/kuppersbusch-fkg-6875" class="btn-detail">Подробнее →</a></div>
+    </div>
+
+    <div class="card" data-brand="Kuppersbusch" data-cat="Холодильники">
+      <div class="card-img">
+        <div class="no-img"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="6" width="32" height="36" rx="3"/><line x1="8" y1="20" x2="40" y2="20"/><circle cx="34" cy="13" r="2"/><circle cx="34" cy="29" r="2"/></svg></div>
+        <span class="badge-outlet">Outlet</span>
+        <span class="badge-discontinued">Снято с произ-ва</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Kuppersbusch</div>
+        <div class="card-title">Встраиваемый холодильник Kuppersbusch FK 4500.1i</div>
+        <div class="card-category">Холодильники · Без морозильной камеры</div>
+        <div class="card-price"><div class="price-new">112 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><a href="/ru/products/kuppersbusch-fk-4500-1i" class="btn-detail">Подробнее →</a></div>
+    </div>
+
+    <div class="card" data-brand="Kuppersbusch" data-cat="Вытяжки">
+      <div class="card-img">
+        <div class="no-img"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="10" width="36" height="8" rx="2"/><path d="M12 18 L8 40 h32 L36 18"/><line x1="20" y1="30" x2="28" y2="30"/></svg></div>
+        <span class="badge-outlet">Outlet</span>
+        <span class="badge-discontinued">Снято с произ-ва</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Kuppersbusch</div>
+        <div class="card-title">Встраиваемая вытяжка Kuppersbusch LB 8650.1 E в шкаф</div>
+        <div class="card-category">Вытяжки · В шкаф · 86 см</div>
+        <div class="card-price"><div class="price-new">26 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><a href="/ru/products/kuppersbusch-lb-8650" class="btn-detail">Подробнее →</a></div>
+    </div>
+
+  </div>
+  <div class="no-results" id="noResults">По выбранным фильтрам товаров не найдено</div>
+</main>
+
+<script>
+  const filters = { brand: 'all', cat: 'all' };
+  function setFilter(type, value, btn) {
+    filters[type] = value;
+    btn.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+  }
+  function applyFilters() {
+    const cards = document.querySelectorAll('.card');
+    let visible = 0;
+    cards.forEach(card => {
+      const ok = (filters.brand === 'all' || card.dataset.brand === filters.brand)
+               && (filters.cat === 'all' || card.dataset.cat === filters.cat);
+      card.classList.toggle('hidden', !ok);
+      if (ok) visible++;
+    });
+    document.getElementById('count').textContent = visible;
+    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+  }
+</script>
+</body>
+</html>
