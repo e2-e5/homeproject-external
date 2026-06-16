@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Хиты продаж — Home Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#FAF7F2;color:#1A1A1A;line-height:1.5;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.hero{background:#fff;border-left:5px solid #1A6FA8;padding:48px 48px 40px;border-bottom:1px solid #E8E4DB}
+.hero-eyebrow{color:#1A6FA8;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;margin-bottom:10px;line-height:1.2}
+.hero h1 span{color:#1A6FA8}
+.hero p{color:#666;font-size:15px;max-width:600px;line-height:1.65}
+.hero-stats{display:flex;gap:40px;margin-top:28px;padding-top:24px;border-top:1px solid #E8E4DB;flex-wrap:wrap}
+.stat-num{font-size:24px;font-weight:700;color:#1A1A1A}
+.stat-sub{font-size:11px;color:#1A6FA8;font-weight:600;margin-left:2px}
+.stat-label{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.filters-bar{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #E8E4DB;padding:14px 24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.filters-inner{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.filter-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#999;min-width:60px}
+.filter-btn{padding:5px 14px;border-radius:20px;border:1.5px solid #E0DBD3;background:#FAF7F2;color:#555;font-size:12px;font-family:inherit;cursor:pointer;transition:all .18s;font-weight:500}
+.filter-btn:hover{border-color:#1A6FA8;color:#1A6FA8;background:#fff}
+.filter-btn.active{background:#1A1A1A;border-color:#1A1A1A;color:#fff;font-weight:600}
+.main{max-width:1240px;margin:0 auto;padding:32px 24px 80px}
+.results-info{font-size:13px;color:#999;margin-bottom:20px}
+.results-info strong{color:#1A1A1A;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+.section-head{grid-column:1/-1;padding:20px 0 8px;border-bottom:2px solid #E8E4DB;margin-bottom:4px}
+.section-head h2{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#555}
+.section-head span{font-size:12px;color:#1A6FA8;font-weight:500;margin-left:8px}
+.card{background:#fff;border:1px solid #E8E4DB;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;cursor:pointer}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.10)}
+.card.hidden{display:none}
+.card-img{height:190px;position:relative;background:#F5F2ED;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:contain;padding:12px;display:block}
+.no-img{color:#CCC;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.no-img svg{width:48px;height:48px}
+.badge-stock{position:absolute;top:10px;left:10px;background:#1A6FA8;color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.04em;text-transform:uppercase}
+.badge-hit{position:absolute;top:10px;left:10px;background:#C9A36A;color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.04em;text-transform:uppercase}
+.badge-set{position:absolute;top:10px;right:10px;background:#2A6B3C;color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.04em;text-transform:uppercase}
+.badge-sale{position:absolute;top:10px;left:10px;background:#B94040;color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.04em;text-transform:uppercase}
+.card-body{padding:14px 16px 10px;flex:1;display:flex;flex-direction:column;gap:6px}
+.card-brand{font-size:10px;font-weight:700;color:#C9A36A;text-transform:uppercase;letter-spacing:.1em}
+.card-title{font-size:13px;font-weight:500;line-height:1.4;color:#1A1A1A}
+.card-type{font-size:11px;color:#AAA}
+.stock-row{display:flex;align-items:center;gap:5px;margin-top:2px}
+.stock-dot{width:7px;height:7px;border-radius:50%;background:#27A85F;flex-shrink:0}
+.stock-text{font-size:11px;color:#27A85F;font-weight:600}
+.card-price{margin-top:auto;padding-top:8px}
+.price{font-size:17px;font-weight:700;color:#1A1A1A}
+.price-old{font-size:12px;color:#AAA;text-decoration:line-through;margin-bottom:2px}
+.price-sale{font-size:17px;font-weight:700;color:#B94040}
+.card-footer{padding:0 16px 14px}
+.btn-more{display:block;text-align:center;padding:9px;border-radius:8px;border:1.5px solid #1A6FA8;color:#1A6FA8;font-size:12px;font-weight:600;transition:all .18s}
+.card:hover .btn-more{background:#1A6FA8;color:#fff}
+.no-results{display:none;text-align:center;padding:64px 24px;color:#AAA;font-size:15px}
+.card-desc{font-size:13px;color:#555;margin:6px 0 4px;line-height:1.5}
+.card-specs{font-size:12px;padding-left:16px;margin:4px 0 0;color:#444}
+.card-specs li{margin:2px 0}
+.card-thumbs{display:flex;gap:6px;margin-top:8px;overflow-x:auto;padding-bottom:2px}
+.card-thumbs img{width:60px;height:45px;object-fit:cover;border-radius:4px;border:1px solid #ddd;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div style="max-width:1240px;margin:0 auto">
+    <div class="hero-eyebrow">Витрина · Хиты продаж</div>
+    <h1>Хиты <span>продаж</span></h1>
+    <p>Лучшие модели в наличии. Готовы к отгрузке. Комплекты со скидкой.</p>
+    <div class="hero-stats">
+      <div><div class="stat-num">24<span class="stat-sub">+</span></div><div class="stat-label">Позиций</div></div>
+      <div><div class="stat-num">В наличии</div><div class="stat-label">Статус склада</div></div>
+      <div><div class="stat-num">4</div><div class="stat-label">Бренда</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="filters-bar">
+  <div class="filters-inner">
+    <div class="filter-row">
+      <span class="filter-label">Бренд</span>
+      <button class="filter-btn active" data-filter="brand" data-val="all">Все</button>
+      <button class="filter-btn" data-filter="brand" data-val="Graude">Graude</button>
+      <button class="filter-btn" data-filter="brand" data-val="Kuppersbusch">Küppersbusch</button>
+      <button class="filter-btn" data-filter="brand" data-val="Salini">Salini</button>
+      <button class="filter-btn" data-filter="brand" data-val="Bertazzoni">Bertazzoni</button>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Тип</span>
+      <button class="filter-btn active" data-filter="type" data-val="all">Все</button>
+      <button class="filter-btn" data-filter="type" data-val="Стирка и сушка">Стирка и сушка</button>
+      <button class="filter-btn" data-filter="type" data-val="Духовые шкафы">Духовые шкафы</button>
+      <button class="filter-btn" data-filter="type" data-val="Варочные панели">Варочные панели</button>
+      <button class="filter-btn" data-filter="type" data-val="Вытяжки">Вытяжки</button>
+      <button class="filter-btn" data-filter="type" data-val="Кофемашины">Кофемашины</button>
+      <button class="filter-btn" data-filter="type" data-val="Ванны">Ванны</button>
+    </div>
+  </div>
+</div>
+
+<main class="main">
+  <p class="results-info">Показано <strong id="count">24</strong> позиций · все в наличии</p>
+  <div class="grid" id="grid">
+
+    <div class="section-head"><h2>Graude · Стирка и сушка <span>qty 11+ · отгрузка сразу</span></h2></div>
+
+    <a href="https://homeproject.online/ru/products/insales-1704810033-2017774497" class="card" data-brand="Graude" data-type="Стирка и сушка" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/6377/2675022057/large_otdelnostoyashchaya_stiralnaya_mashina_graude_premium_wa_100_3.png" alt="Graude WA 100.3" loading="lazy">
+        <span class="badge-stock">В наличии</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Стиральная машина Premium WA 100.3 — 10 кг, 1200 об/мин</div>
+        <div class="card-type">Стирка и сушка · Отдельностоящая</div>
+        <p class="card-desc">Класс А, инверторный мотор, 10 кг, 14 программ, уровень шума 54 дБ. LED-дисплей, электронное управление.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>PREMIUM</strong></li><li>Загрузка: <strong>10 кг</strong></li><li>Дисплей: <strong>LED</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/b28/isq3pvwh5ei5dtixrib9c1ct12onf537.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/1d7/gygqag1au695mv1jlh6se2df61s7lvdx.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/484/02mkys2j73a23f98kdeelgk6ld086c2h.png" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (11+)</span></div>
+        <div class="card-price"><div class="price">69 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/insales-1704810049-2017774505" class="card" data-brand="Graude" data-type="Стирка и сушка" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/5449/2675021129/large_TA_100.3_2.png" alt="Graude TA 100.3" loading="lazy">
+        <span class="badge-stock">В наличии</span>
+        <span class="badge-set">Комплект ↑</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Сушильная машина Premium TA 100.3 — 10 кг, класс А+ <em style="color:#1A6FA8;font-size:11px;font-style:normal">[комплект с WA 100.3]</em></div>
+        <div class="card-type">Стирка и сушка · Отдельностоящая</div>
+        <p class="card-desc">Класс А+, 14 программ сушки, 10 кг. Хлопок, рубашки и другие режимы. Освещение барабана, LED-дисплей.</p>
+        <ul class="card-specs"><li>Загрузка: <strong>10 кг</strong></li><li>Класс: <strong>A+</strong></li><li>Дисплей: <strong>LED</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/ebf/m8eimfoc6rsfr4osfhkfpc64x0n2uqer.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/6f1/2n2gnw5suhc8zanffkl6ptix8grzv4n9.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/611/0r5ypelhf6eqvqdqj6pcksxct08omdkj.png" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (11+)</span></div>
+        <div class="card-price"><div class="price">88 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/insales-1704810073-2017774529" class="card" data-brand="Graude" data-type="Стирка и сушка" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/4817/2675020497/large_vstraivaemaya_stiralno_sushilnaya_mashina_graude_ewta_80_1__1_.png" alt="Graude EWTA 80.1" loading="lazy">
+        <span class="badge-hit">Хит</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Встраиваемая стирально-сушильная машина EWTA 80.1 — 8/5 кг</div>
+        <div class="card-type">Стирка и сушка · Встраиваемая · 2-в-1</div>
+        <p class="card-desc">Класс А, 8 кг стирка / 5 кг сушка, 15 программ. LED-дисплей, встраиваемая — всё в одном приборе.</p>
+        <ul class="card-specs"><li>Стирка: <strong>8 кг</strong></li><li>Сушка: <strong>5 кг</strong></li><li>Тип: <strong>Встраиваемая 2-в-1</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/8b2/l5q3ykrkr1ypx2o0cm5l98dg110y0g3h.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/af6/0g577r6biuxadekqkya4rkbjepq1880r.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/200/flxy33tkfiq6jftz6yplnoxkh7v260w1.png" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии</span></div>
+        <div class="card-price"><div class="price">98 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <div class="section-head"><h2>Graude · Духовые шкафы <span>qty 2-11</span></h2></div>
+
+    <a href="https://homeproject.online/ru/products/insales-464413566-772632990" class="card" data-brand="Graude" data-type="Духовые шкафы" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/2810/932555514/large_kombinirovannyy_dukhovoy_shkaf_s_parom_graude_bmdp_60_2_s.jpg" alt="Graude BMDP 60.2 S" loading="lazy">
+        <span class="badge-hit">Хит</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Комбинированный духовой шкаф BMDP 60.2 S — пар + конвекция</div>
+        <div class="card-type">Духовые шкафы · Пар</div>
+        <p class="card-desc">5 режимов нагрева, управление Classic Control, конвекция, 5 уровней приготовления, CoolTouch стекло.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>CLASSIC</strong></li><li>Управление: <strong>Поворотные переключатели</strong></li><li>Очистка: <strong>Каталитическая</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/fa1/ila9mx4wzp3xvqpyawljrbc1wd1lxxzl.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/286/86dcnr0x4frxglk7pri2vpnmy4mbs4ub.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/79c/ihmdqe2f29kv3ky54zxzp137xz8z1czb.png" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (11+)</span></div>
+        <div class="card-price"><div class="price">131 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/insales-464413563-772632988" class="card" data-brand="Graude" data-type="Духовые шкафы" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/2810/932555514/large_kombinirovannyy_dukhovoy_shkaf_s_parom_graude_bmdp_60_2_s.jpg" alt="Graude BMP 60.3 SE" loading="lazy">
+        <span class="badge-stock">В наличии</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Духовой шкаф PREMIUM BMP 60.3 SE — 14 программ, конвекция</div>
+        <div class="card-type">Духовые шкафы · Premium</div>
+        <p class="card-desc">7 режимов нагрева, аналоговые часы, телескопические направляющие, CoolTouch стекло, 3-слойное остекление.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>CLASSIC</strong></li><li>Управление: <strong>Поворотные переключатели</strong></li><li>Освещение: <strong>Да</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/8fe/kj386j4cvxhyw01t0yx5s17hv023r3j3.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/d15/a7ckk8tv03uva5na10bcjf8wniot34hl.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/b35/vd4ugyp3s05r3wmteal9qbonj6dcaqdf.png" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (11+)</span></div>
+        <div class="card-price"><div class="price">109 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/insales-464413567-772632991" class="card" data-brand="Graude" data-type="Духовые шкафы" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/2810/932555514/large_kombinirovannyy_dukhovoy_shkaf_s_parom_graude_bmdp_60_2_s.jpg" alt="Graude BMDP 60.1 E" loading="lazy">
+        <span class="badge-sale">Акция</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Комбинированный духовой шкаф-пароварка PREMIUM BMDP 60.1 E</div>
+        <div class="card-type">Духовые шкафы · Пар · Акция</div>
+        <p class="card-desc">8 режимов нагрева, конвекция, Classic Control, 2-слойное остекление, 5 уровней. Акционная цена на остаток 2 шт.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>CLASSIC</strong></li><li>Управление: <strong>Поворотные переключатели</strong></li><li>Остаток: <strong>2 шт — акция</strong></li></ul>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (2 шт)</span></div>
+        <div class="card-price">
+          <div class="price-old">131 990 ₽</div>
+          <div class="price-sale">104 490 ₽</div>
+        </div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <div class="section-head"><h2>Graude · Кофемашины <span>qty 11+</span></h2></div>
+
+    <a href="https://homeproject.online/ru/products/insales-464488494-772747171" class="card" data-brand="Graude" data-type="Кофемашины" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/4017/932556721/large_vstraivaemaya_kofemashina_graude_kv_45_0_se.png" alt="Graude KV 45.0 SE" loading="lazy">
+        <span class="badge-hit">Хит</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Встраиваемая кофемашина KV 45.0 SE — 20 бар, капучино, зерно/молотый</div>
+        <div class="card-type">Кофемашины · Встраиваемая</div>
+        <p class="card-desc">Сенсорное управление Easy Control, LCD-дисплей, 20 бар, интеллектуальное смачивание. Автоматическая встраиваемая кофемашина.</p>
+        <ul class="card-specs"><li>Управление: <strong>Сенсорное Easy Control</strong></li><li>Давление: <strong>20 бар</strong></li><li>Тип: <strong>Автоматическая</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/72f/yaefs92lnvrzdg1fw2t7qa4x40i8i5gm.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/f15/07qnw1yunr9z020nife3yd3uxj1buf10.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/825/8543y8vmbxfjq0s2s0wx9ig4vbf4sfjy.png" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (11+)</span></div>
+        <div class="card-price"><div class="price">214 490 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/insales-1704807121-2017771385" class="card" data-brand="Graude" data-type="Кофемашины" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/4017/932556721/large_vstraivaemaya_kofemashina_graude_kv_45_0_se.png" alt="Graude KV 30.3" loading="lazy">
+        <span class="badge-stock">В наличии</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Настольная кофемашина KV 30.3 — компактный вариант</div>
+        <div class="card-type">Кофемашины · Настольная</div>
+        <p class="card-desc">2000 мл бак, 150 г зернового кофе, 12 порций гущи, 19 бар насос ULKA. TFT 4.3" дисплей, светодиодное освещение.</p>
+        <ul class="card-specs"><li>Управление: <strong>Сенсорное</strong></li><li>Дисплей: <strong>TFT 4.3"</strong></li><li>Давление: <strong>19 бар (ULKA)</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/19c/pkcsnd91oxg7pd0abarn9lb8gibwrv4g.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/a44/xo4iedmn24u3dh3nxchyybz1tkzzz2cs.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/6aa/0s0z5tubdsvpb696ezab5d464v4ceqe3.png" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (11+)</span></div>
+        <div class="card-price"><div class="price">79 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <div class="section-head"><h2>Graude · Варочные панели <span>qty 11+</span></h2></div>
+
+    <a href="https://homeproject.online/ru/products/insales-464501380-772772428" class="card" data-brand="Graude" data-type="Варочные панели" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <div class="no-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="15.5" cy="8.5" r="1.5"/><circle cx="8.5" cy="15.5" r="1.5"/><circle cx="15.5" cy="15.5" r="1.5"/></svg></div>
+        <span class="badge-hit">Хит</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Индукционная варочная панель PREMIUM IK 60.2 B — 60 см</div>
+        <div class="card-type">Варочные панели · Индукция</div>
+        <p class="card-desc">Сенсорное управление, 9 ступеней нагрева, Booster, объединение зон, таймер. PREMIUM серия Graude.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>PREMIUM</strong></li><li>Управление: <strong>Сенсорное</strong></li><li>Функция: <strong>Booster + объединение зон</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/e5c/otogn5kcrx2gmwy424fjao368x4d8yqa.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/4d2/ykwp984onarcbvfrcsyz7dxyplpol3e8.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/4f5/p3orvce16297lr9bxy3foq4v9lt0362x.png" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (11+)</span></div>
+        <div class="card-price"><div class="price">50 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/insales-464501381-772772429" class="card" data-brand="Graude" data-type="Варочные панели" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <div class="no-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="15.5" cy="8.5" r="1.5"/><circle cx="8.5" cy="15.5" r="1.5"/><circle cx="15.5" cy="15.5" r="1.5"/></svg></div>
+        <span class="badge-stock">В наличии</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Индукционная варочная панель PREMIUM IK 60.1 — 60 см</div>
+        <div class="card-type">Варочные панели · Индукция</div>
+        <p class="card-desc">Сенсорное управление, 9 ступеней, Booster, таймер, автоотключение, индикация остаточного тепла.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>PREMIUM</strong></li><li>Управление: <strong>Сенсорное</strong></li><li>Функция: <strong>Booster + таймер</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/ce9/rjsxftbn4ffbngutn6okpe5waiyd06yg.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/33e/m1abgiixwn7xc5jaa9j9t53qamf6nf7t.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/ce7/o2zy2r8y8zttfjbxuq248ph232dgu3th.png" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (11+)</span></div>
+        <div class="card-price"><div class="price">47 490 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <div class="section-head"><h2>Graude · Вытяжки <span>qty 7-11</span></h2></div>
+
+    <a href="https://homeproject.online/ru/products/insales-464488709-772749656" class="card" data-brand="Graude" data-type="Вытяжки" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <div class="no-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h18v4a9 9 0 01-18 0V5z"/><line x1="12" y1="9" x2="12" y2="20"/></svg></div>
+        <span class="badge-stock">В наличии</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Настенная вытяжка PREMIUM DH 60.3 GE — 60 см, нерж. сталь</div>
+        <div class="card-type">Вытяжки · Premium</div>
+        <p class="card-desc">Сенсорное + дистанционное управление Easy Control, закалённое стекло, телескопический короб нерж. сталь, 3 ступени мощности.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>PREMIUM</strong></li><li>Управление: <strong>Сенсорное + пульт</strong></li><li>Цвет: <strong>Нержавеющая сталь</strong></li></ul>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (11+)</span></div>
+        <div class="card-price"><div class="price">38 490 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/insales-464488710-772749657" class="card" data-brand="Graude" data-type="Вытяжки" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <div class="no-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h18v4a9 9 0 01-18 0V5z"/><line x1="12" y1="9" x2="12" y2="20"/></svg></div>
+        <span class="badge-stock">В наличии</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Graude</div>
+        <div class="card-title">Настенная вытяжка PREMIUM DH 60.3 WE — 60 см, белая</div>
+        <div class="card-type">Вытяжки · Premium</div>
+        <p class="card-desc">Белое исполнение. Сенсорное + дистанционное управление, закалённое стекло, телескопический короб, 3 ступени.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>PREMIUM</strong></li><li>Управление: <strong>Сенсорное + пульт</strong></li><li>Цвет: <strong>Белая</strong></li></ul>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (11+)</span></div>
+        <div class="card-price"><div class="price">41 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <div class="section-head"><h2>Küppersbusch · Дизайнерские духовые шкафы <span>цветные серии</span></h2></div>
+
+    <a href="https://homeproject.online/ru/products/insales-459532946-763664855" class="card" data-brand="Kuppersbusch" data-type="Духовые шкафы" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://technika-vkusa.ru/upload/iblock/e2b/om0hg4cebpjmkitld2mmfh739bn8fj47.png" alt="Kuppersbusch BP 6550.0 S2 Black Chrome" loading="lazy">
+        <span class="badge-hit">Хит</span>
+        <span class="badge-set">Black Chrome</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Küppersbusch</div>
+        <div class="card-title">Духовой шкаф BP 6550.0 S2 Black Chrome — 14 программ</div>
+        <div class="card-type">Духовые шкафы · Black Chrome</div>
+        <p class="card-desc">TFT 3,9", 14 режимов, 40+ автоматических программ. Флагманская серия K.5 с чёрно-хромовой ручкой и фурнитурой.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>K.5</strong></li><li>Управление: <strong>Электронное</strong></li><li>Дисплей: <strong>TFT 3.9"</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/591/jb3lm9thpn8ry5r6ammuml63u0x2ddax.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/e32/jvj44gbexy34bir25siri9z8uktq5yty.jpg" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии</span></div>
+        <div class="card-price"><div class="price">290 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/insales-459532972-763664881" class="card" data-brand="Kuppersbusch" data-type="Духовые шкафы" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://technika-vkusa.ru/upload/iblock/036/xfsqur0brgf5l43sf41dna55sfr712zp.png" alt="Kuppersbusch BP 6350.0 S4 Gold" loading="lazy">
+        <span class="badge-hit">Хит</span>
+        <span class="badge-set">Gold</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Küppersbusch</div>
+        <div class="card-title">Духовой шкаф BP 6350.0 S4 Gold — золотая отделка</div>
+        <div class="card-type">Духовые шкафы · Gold</div>
+        <p class="card-desc">TFT 3,9", 10 режимов, каталитическая очистка, объём 70 л. Серия K.3 с золотой ручкой.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>K.3</strong></li><li>Объём: <strong>70 л</strong></li><li>Дисплей: <strong>TFT 3.9"</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/036/xfsqur0brgf5l43sf41dna55sfr712zp.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/e32/jvj44gbexy34bir25siri9z8uktq5yty.jpg" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии</span></div>
+        <div class="card-price"><div class="price">254 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/insales-459532974-763664883" class="card" data-brand="Kuppersbusch" data-type="Духовые шкафы" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://technika-vkusa.ru/upload/iblock/776/ua4r5a84l3iorlmcki4vgvpkg3kp5ha2.png" alt="Kuppersbusch BP 6350.0 S7 Copper" loading="lazy">
+        <span class="badge-hit">Хит</span>
+        <span class="badge-set">Copper</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Küppersbusch</div>
+        <div class="card-title">Духовой шкаф BP 6350.0 S7 Copper — медная отделка</div>
+        <div class="card-type">Духовые шкафы · Copper</div>
+        <p class="card-desc">TFT 3,9", 10 режимов, каталитическая очистка, объём 70 л. Серия K.3 с медной ручкой.</p>
+        <ul class="card-specs"><li>Коллекция: <strong>K.3</strong></li><li>Объём: <strong>70 л</strong></li><li>Дисплей: <strong>TFT 3.9"</strong></li></ul>
+        <div class="card-thumbs"><img src="https://technika-vkusa.ru/upload/iblock/776/ua4r5a84l3iorlmcki4vgvpkg3kp5ha2.png" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/343/krobpsdei48rpfrh6nxbo7vb5q7ylnn2.jpg" alt="" loading="lazy"><img src="https://technika-vkusa.ru/upload/iblock/635/iscdhuhq0s2ul9720z7107hw573j8bjp.jpg" alt="" loading="lazy"></div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии</span></div>
+        <div class="card-price"><div class="price">253 990 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <div class="section-head"><h2>Salini · Ванны — доступные модели <span>S-Stone</span></h2></div>
+
+    <a href="https://homeproject.online/ru/products/103213g" class="card" data-brand="Salini" data-type="Ванны" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/2025/927811561/large_Orlanda__1_.jpg" alt="Salini ORLANDA AXIS 170x75" loading="lazy">
+        <span class="badge-hit">Хит</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Salini</div>
+        <div class="card-title">ORLANDA AXIS 170×75 — отдельностоящая, S-Stone</div>
+        <div class="card-type">Ванны · S-Stone</div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">Под заказ / наличие уточняется</span></div>
+        <div class="card-price"><div class="price">104 500 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/103611g" class="card" data-brand="Salini" data-type="Ванны" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/2025/927811561/large_Orlanda__1_.jpg" alt="Salini SOFIA LIGHT" loading="lazy">
+        <span class="badge-stock">В наличии</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Salini</div>
+        <div class="card-title">SOFIA LIGHT без перелива — компактная встраиваемая ванна</div>
+        <div class="card-type">Ванны · Встраиваемая</div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии</span></div>
+        <div class="card-price"><div class="price">135 000 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/103711g" class="card" data-brand="Salini" data-type="Ванны" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <img src="https://static.insales-cdn.com/images/products/1/2025/927811561/large_Orlanda__1_.jpg" alt="Salini SOFIA LIGHT перелив" loading="lazy">
+        <span class="badge-stock">В наличии</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Salini</div>
+        <div class="card-title">SOFIA LIGHT с переливом — компактная встраиваемая ванна</div>
+        <div class="card-type">Ванны · Встраиваемая</div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии</span></div>
+        <div class="card-price"><div class="price">135 000 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <div class="section-head"><h2>Bertazzoni · Варочные панели <span>в наличии</span></h2></div>
+
+    <a href="https://homeproject.online/ru/products/p784ic1b2nee" class="card" data-brand="Bertazzoni" data-type="Варочные панели" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <div class="no-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="15.5" cy="8.5" r="1.5"/><circle cx="8.5" cy="15.5" r="1.5"/><circle cx="15.5" cy="15.5" r="1.5"/></svg></div>
+        <span class="badge-hit">Хит</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Bertazzoni</div>
+        <div class="card-title">Индукционная варочная панель P784IC1B2NEE — 78 см, Heritage</div>
+        <div class="card-type">Варочные панели · Индукция · Heritage</div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (уточнять)</span></div>
+        <div class="card-price"><div class="price">91 700 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/p604i2m28nv" class="card" data-brand="Bertazzoni" data-type="Варочные панели" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <div class="no-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="15.5" cy="8.5" r="1.5"/><circle cx="8.5" cy="15.5" r="1.5"/><circle cx="15.5" cy="15.5" r="1.5"/></svg></div>
+        <span class="badge-stock">В наличии</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Bertazzoni</div>
+        <div class="card-title">Индукционная варочная панель P604I2M28NV — 60 см, Master</div>
+        <div class="card-type">Варочные панели · Индукция · Master</div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (уточнять)</span></div>
+        <div class="card-price"><div class="price">94 800 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+    <a href="https://homeproject.online/ru/products/p604lherac" class="card" data-brand="Bertazzoni" data-type="Варочные панели" style="text-decoration:none;color:inherit">
+      <div class="card-img">
+        <div class="no-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="10" r="2"/><circle cx="15.5" cy="10" r="2"/><ellipse cx="12" cy="16" rx="3" ry="2"/></svg></div>
+        <span class="badge-stock">В наличии</span>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">Bertazzoni</div>
+        <div class="card-title">Газовая варочная панель P604LHERAC — 60 см, Heritage, нерж.</div>
+        <div class="card-type">Варочные панели · Газ · Heritage</div>
+        <div class="stock-row"><span class="stock-dot"></span><span class="stock-text">В наличии (уточнять)</span></div>
+        <div class="card-price"><div class="price">71 300 ₽</div></div>
+      </div>
+      <div class="card-footer"><span class="btn-more">Подробнее →</span></div>
+    </a>
+
+  </div>
+  <div class="no-results" id="no-results">По выбранным фильтрам ничего не найдено</div>
+</main>
+
+<script>
+(function(){
+  const grid = document.getElementById('grid')
+  const count = document.getElementById('count')
+  const noRes = document.getElementById('no-results')
+  let brandFilter = 'all', typeFilter = 'all'
+
+  function applyFilters(){
+    let visible = 0
+    grid.querySelectorAll('.card').forEach(c => {
+      const b = c.dataset.brand, t = c.dataset.type
+      if(!b) return
+      const show = (brandFilter === 'all' || b === brandFilter) && (typeFilter === 'all' || t === typeFilter)
+      c.classList.toggle('hidden', !show)
+      if(show) visible++
+    })
+    grid.querySelectorAll('.section-head').forEach(h => {
+      let next = h.nextElementSibling
+      let hasVisible = false
+      while(next && !next.classList.contains('section-head')){
+        if(next.classList.contains('card') && !next.classList.contains('hidden')) hasVisible = true
+        next = next.nextElementSibling
+      }
+      h.style.display = hasVisible ? '' : 'none'
+    })
+    count.textContent = visible
+    noRes.style.display = visible === 0 ? 'block' : 'none'
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter, v = btn.dataset.val
+      document.querySelectorAll(`.filter-btn[data-filter="${f}"]`).forEach(b => b.classList.remove('active'))
+      btn.classList.add('active')
+      if(f === 'brand') brandFilter = v
+      else typeFilter = v
+      applyFilters()
+    })
+  })
+})()
+</script>
+
+</body>
+</html>
