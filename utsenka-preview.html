@@ -1,529 +1,306 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Уценка — Home Project</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Уценённые товары — HOMEPROJECT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F4F7F6;
-  --white:#ffffff;
-  --border:#D5DDDB;
-  --soft:#EEF2F1;
-  --text:#17201F;
-  --text-sec:#64716E;
-  --text-muted:#9CA3AF;
-  --sale:#C0392B;
-  --outlet:#D4730A;
-  --ex:#2E7D6B;
-  --radius:8px;
+  --bg:#F4F7F6;--white:#fff;--border:#D5DDDB;--soft:#EEF2F1;
+  --text:#17201F;--text-sec:#64716E;--text-muted:#9CA3AF;
+  --sale:#C0392B;--accent:#17201F;
 }
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
-
-.site-header{background:#fff;border-bottom:1px solid var(--border);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.site-logo{font-size:16px;font-weight:600;letter-spacing:0.02em;text-decoration:none;color:var(--text)}
-.site-nav{display:flex;gap:28px}
-.site-nav a{font-size:13px;color:var(--text-sec);text-decoration:none;font-weight:500}
-.site-nav a.active{color:var(--text);font-weight:600}
-
-.page{max-width:1200px;margin:0 auto;padding:44px 32px 80px}
-
-/* Hero */
-.page-hero{margin-bottom:32px}
-.page-hero h1{font-size:30px;font-weight:500;letter-spacing:-0.01em;margin-bottom:10px}
-.page-hero p{font-size:14px;color:var(--text-sec);line-height:1.65;max-width:560px}
-.items-count{display:inline-block;font-size:12px;font-weight:500;color:var(--text-muted);background:var(--soft);border-radius:20px;padding:4px 14px;margin-top:12px}
-
-/* Legend */
-.legend{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 32px;padding:16px 20px;background:#fff;border:1px solid var(--border);border-radius:var(--radius)}
-.legend-title{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);width:100%;margin-bottom:6px}
-.legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-sec)}
-.legend-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:4px;padding:3px 8px;color:#fff}
-.lb-sale{background:var(--sale)}
-.lb-outlet{background:var(--outlet)}
-.lb-ex{background:var(--ex)}
-
-/* Filters */
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
-.filter-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border:1px solid var(--border);border-radius:var(--radius);background:#fff;font-family:inherit;font-size:13px;font-weight:500;color:var(--text-sec);cursor:pointer;transition:all .15s}
-.filter-btn:hover,.filter-btn.active{border-color:var(--text);background:var(--text);color:#fff}
-.filter-btn .cnt{font-size:11px;opacity:.6}
-
-/* Brand section */
-.brand-block{margin-bottom:52px}
-.brand-header{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
-.brand-name{font-size:20px;font-weight:600;letter-spacing:-0.01em}
-.brand-count{font-size:13px;color:var(--text-muted)}
-.brand-divider{border:none;border-top:2px solid var(--text);margin-bottom:24px}
-.cat-label{font-size:11px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-muted);margin:28px 0 12px}
-
-/* Grid */
-.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-
-/* Card */
-.product-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s}
-.product-card:hover{border-color:#b0bcba;box-shadow:0 4px 18px rgba(23,32,31,.08)}
-
-/* Card image area */
-.card-image{height:148px;background:var(--soft);position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-
-/* Condition badge - top left */
-.cond-badge{position:absolute;top:10px;left:10px;font-size:9px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;border-radius:4px;padding:3px 8px;color:#fff}
-.cond-sale{background:var(--sale)}
-.cond-outlet{background:var(--outlet)}
-.cond-ex{background:var(--ex)}
-
-/* Discount badge - top right */
-.discount-badge{position:absolute;top:10px;right:10px;font-size:12px;font-weight:800;color:#fff;background:var(--sale);border-radius:4px;padding:4px 9px;letter-spacing:-0.01em}
-.cond-ex~.discount-badge,.cond-outlet~.discount-badge{background:var(--outlet)}
-.cond-ex+.discount-badge{background:var(--ex)}
-
-/* Reason tag - bottom */
-.reason-tag{position:absolute;bottom:0;left:0;right:0;padding:6px 10px;background:rgba(23,32,31,.55);backdrop-filter:blur(3px);font-size:10px;color:rgba(255,255,255,.88);font-weight:400;line-height:1.3}
-
-/* Card body */
-.card-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
-.card-cat{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px}
-.card-name{font-size:13px;font-weight:500;color:var(--text);line-height:1.45;margin-bottom:14px;flex:1}
-
-/* Price block */
-.card-prices{margin-bottom:14px}
-.price-rrts{font-size:11px;color:var(--text-muted);text-decoration:line-through;margin-bottom:3px}
-.price-rrts span{font-weight:500}
-.price-current{font-size:20px;font-weight:700;color:var(--text);letter-spacing:-0.02em;line-height:1}
-.price-economy{display:inline-block;margin-top:5px;font-size:11px;font-weight:600;color:var(--sale);background:#FDF0EE;border-radius:4px;padding:2px 8px}
-.cond-ex .price-economy{color:var(--ex);background:#EDF4F2}
-
-/* CTA */
-.card-btn{display:block;width:100%;text-align:center;padding:9px 12px;background:var(--text);color:#fff;border:none;border-radius:var(--radius);font-family:inherit;font-size:12px;font-weight:600;letter-spacing:0.02em;cursor:pointer;text-decoration:none;transition:opacity .15s}
-.card-btn:hover{opacity:.85}
-
-/* Page CTA */
-.page-cta{text-align:center;padding:44px 24px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-top:48px}
-.page-cta p{font-size:15px;color:var(--text-sec);margin-bottom:22px;line-height:1.6}
-.cta-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
-.cta-primary{display:inline-block;padding:13px 32px;background:var(--text);color:#fff;border-radius:var(--radius);text-decoration:none;font-size:13px;font-weight:600;transition:opacity .2s}
-.cta-primary:hover{opacity:.85}
-.cta-secondary{font-size:13px;color:var(--text-muted);text-decoration:underline;text-underline-offset:3px}
-
-/* Note banner */
-.note-banner{background:#FFF8EC;border:1px solid #F0D49A;border-radius:var(--radius);padding:14px 18px;margin-bottom:32px;font-size:13px;color:#7A5A00;line-height:1.6}
-.note-banner strong{font-weight:600}
-
-@media(max-width:1100px){.product-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:768px){.product-grid{grid-template-columns:repeat(2,1fr)}.page{padding:24px 16px 60px}.site-nav{display:none}}
-@media(max-width:480px){.product-grid{grid-template-columns:1fr}.price-current{font-size:18px}}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:inherit;text-decoration:none}
+.page-header{background:var(--white);border-bottom:1px solid var(--border);padding:24px 0}
+.page-header .inner{max-width:1200px;margin:0 auto;padding:0 24px}
+.page-header h1{font-size:2rem;font-weight:700;letter-spacing:-0.02em}
+.page-header p{color:var(--text-sec);margin-top:6px;font-size:.95rem}
+.legend{max-width:1200px;margin:20px auto 0;padding:0 24px}
+.legend-box{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text-sec)}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot-sale{background:#C0392B}
+.brand-nav{max-width:1200px;margin:20px auto 0;padding:0 24px}
+.brand-nav-inner{display:flex;gap:10px;flex-wrap:wrap}
+.brand-nav-inner a{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:.85rem;font-weight:500;transition:all .15s;display:flex;align-items:center;gap:6px}
+.brand-nav-inner a em{font-style:normal;color:var(--text-muted);font-size:.8rem}
+.brand-nav-inner a:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.brand-nav-inner a:hover em{color:rgba(255,255,255,.7)}
+.main{max-width:1200px;margin:0 auto;padding:24px}
+.brand-section{margin-bottom:48px}
+.brand-header{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--text)}
+.brand-header h2{font-size:1.5rem;font-weight:700;letter-spacing:-0.01em}
+.brand-count{font-size:.85rem;color:var(--text-muted);font-weight:500}
+.subcat{margin-bottom:24px}
+.subcat h3{font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-sec);margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.card-img{position:relative;background:var(--soft);aspect-ratio:4/3;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.card-img-placeholder{font-size:2.5rem;opacity:.18}
+.cond-badge{position:absolute;top:10px;left:10px;background:var(--sale);color:#fff;font-size:.72rem;font-weight:600;padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.04em}
+.disc-badge{position:absolute;top:10px;right:10px;background:#17201F;color:#fff;font-size:.8rem;font-weight:700;padding:4px 9px;border-radius:6px}
+.card-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:6px}
+.cat-label{font-size:.75rem;color:var(--text-muted);font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+.card-title{font-size:.88rem;font-weight:600;color:var(--text);line-height:1.35;flex:1}
+.prices{display:flex;flex-direction:column;gap:2px;margin-top:4px}
+.rrc{font-size:.8rem;color:var(--text-muted)}
+.rrc span{text-decoration:line-through}
+.sale-price{font-size:1.15rem;font-weight:700;color:var(--text);letter-spacing:-0.01em}
+.economy{font-size:.78rem;color:#2E7D6B;font-weight:600;background:#EBF5F2;padding:2px 7px;border-radius:4px;display:inline-block;width:fit-content}
+.btn-req{display:block;text-align:center;margin-top:10px;background:var(--text);color:#fff;padding:9px 16px;border-radius:8px;font-size:.82rem;font-weight:600;transition:opacity .15s}
+.btn-req:hover{opacity:.85}
+.cta-block{background:var(--text);color:#fff;border-radius:16px;padding:40px;text-align:center;margin:40px 0}
+.cta-block h2{font-size:1.6rem;font-weight:700;margin-bottom:8px}
+.cta-block p{color:rgba(255,255,255,.7);margin-bottom:20px}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-tg{background:#26A5E4;color:#fff;padding:12px 28px;border-radius:10px;font-weight:600;font-size:.9rem}
+.btn-contact{background:rgba(255,255,255,.15);color:#fff;padding:12px 28px;border-radius:10px;font-weight:600;font-size:.9rem;border:1px solid rgba(255,255,255,.3)}
+.btn-tg:hover,.btn-contact:hover{opacity:.9}
+@media(max-width:640px){
+  .page-header h1{font-size:1.5rem}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
+  .card-title{font-size:.82rem}
+  .sale-price{font-size:1rem}
+}
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <a class="site-logo" href="#">Home Project</a>
-  <nav class="site-nav">
-    <a href="#">Каталог</a>
-    <a href="#" class="active">Уценка</a>
-    <a href="#">Акции</a>
-    <a href="#">Архитекторам</a>
-  </nav>
+<header class="page-header">
+  <div class="inner">
+    <h1>Уценённые товары</h1>
+    <p>Премиальная техника с уценкой за косметические дефекты — полностью рабочая, с гарантией. 114 позиций в наличии.</p>
+  </div>
 </header>
 
-<div class="page">
-
-  <div class="page-hero">
-    <h1>Выставочные образцы и уценённые товары</h1>
-    <p>Техника из выставочных экспозиций и аутлет-партий — с полной гарантией производителя. Количество единиц ограничено.</p>
-    <span class="items-count">115 позиций — уточняйте наличие</span>
+<div class="legend">
+  <div class="legend-box">
+    <div class="legend-item"><span class="legend-dot dot-sale"></span><strong>Уценка</strong> — товар рабочий, причина указана в описании. Цена снижена относительно РРЦ.</div>
+    <div class="legend-item">📌 У 29 позиций показано сравнение с РРЦ и процент скидки.</div>
   </div>
-
-  <!-- Легенда -->
-  <div class="legend">
-    <div class="legend-title">Статус товара</div>
-    <div class="legend-item"><span class="legend-badge lb-ex">Выставочный образец</span> Техника из действующей экспозиции: в рабочем состоянии, внешний вид — как новый или с минимальными следами демонстрации</div>
-    <div class="legend-item"><span class="legend-badge lb-outlet">Аутлет</span> Новый товар в оригинальной упаковке из закрытых или актуальных партий по специальной цене</div>
-    <div class="legend-item"><span class="legend-badge lb-sale">Уценка</span> Товар со следами хранения, повреждением упаковки или незначительными косметическими дефектами — указано в описании каждой позиции</div>
-  </div>
-
-  <!-- Фильтры -->
-  <div class="filters">
-    <button class="filter-btn active">Все бренды</button>
-    <button class="filter-btn">Küppersbusch <span class="cnt">85</span></button>
-    <button class="filter-btn">GRAUDE <span class="cnt">20</span></button>
-    <button class="filter-btn">ILVE <span class="cnt">5</span></button>
-    <button class="filter-btn">Fulgor Milano <span class="cnt">5</span></button>
-    <button class="filter-btn">Schulthess <span class="cnt">2</span></button>
-  </div>
-
-  <!-- ══ KÜPPERSBUSCH ══ -->
-  <div class="brand-block">
-    <div class="brand-header"><span class="brand-name">Küppersbusch</span><span class="brand-count">85 позиций</span></div>
-    <hr class="brand-divider"/>
-
-    <div class="cat-label">Варочные панели — индукционные</div>
-    <div class="product-grid">
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-ex">Выставочный образец</span>
-          <span class="discount-badge">−30%</span>
-          <div class="reason-tag">Витринный образец из салона, рабочий, без следов использования</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Индукционная варочная панель</div>
-          <div class="card-name">KI 6130.0 SE стальная рамка</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>108 000 ₽</span></div>
-            <div class="price-current">75 520 ₽</div>
-            <span class="price-economy">Экономия 32 480 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-outlet">Аутлет</span>
-          <span class="discount-badge">−28%</span>
-          <div class="reason-tag">Новый товар из актуальной партии, оригинальная упаковка</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Индукционная варочная панель</div>
-          <div class="card-name">KI 6800.0 SR</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>148 000 ₽</span></div>
-            <div class="price-current">106 908 ₽</div>
-            <span class="price-economy">Экономия 41 092 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-sale">Уценка</span>
-          <span class="discount-badge">−25%</span>
-          <div class="reason-tag">Незначительные царапины на корпусе, функционально исправен</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Индукционная варочная панель</div>
-          <div class="card-name">KI 6750.0 SR</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>291 000 ₽</span></div>
-            <div class="price-current">218 064 ₽</div>
-            <span class="price-economy">Экономия 72 936 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-outlet">Аутлет</span>
-          <span class="discount-badge">−26%</span>
-          <div class="reason-tag">Новый товар из актуальной партии, оригинальная упаковка</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Индукционная варочная панель</div>
-          <div class="card-name">KI 9880.1 SR</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>520 000 ₽</span></div>
-            <div class="price-current">384 990 ₽</div>
-            <span class="price-economy">Экономия 135 010 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-ex">Выставочный образец</span>
-          <span class="discount-badge">−28%</span>
-          <div class="reason-tag">Витринный образец из салона, рабочий</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Индукционная варочная панель</div>
-          <div class="card-name">EKIF 6940.1 без рамки</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>210 000 ₽</span></div>
-            <div class="price-current">151 040 ₽</div>
-            <span class="price-economy">Экономия 58 960 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-outlet">Аутлет</span>
-          <span class="discount-badge">−24%</span>
-          <div class="reason-tag">Новый товар из актуальной партии, оригинальная упаковка</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Варочная панель газовая</div>
-          <div class="card-name">GWS 3811.0 ED стальная рамка</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>105 000 ₽</span></div>
-            <div class="price-current">79 768 ₽</div>
-            <span class="price-economy">Экономия 25 232 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="cat-label">Духовые шкафы</div>
-    <div class="product-grid">
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-ex">Выставочный образец</span>
-          <span class="discount-badge">−25%</span>
-          <div class="reason-tag">Витринный образец, рабочий, без видимых дефектов</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Духовой шкаф</div>
-          <div class="card-name">B 6330.0-Airfry S3 Silver Chrome</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>150 000 ₽</span></div>
-            <div class="price-current">112 808 ₽</div>
-            <span class="price-economy">Экономия 37 192 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-outlet">Аутлет</span>
-          <span class="discount-badge">−22%</span>
-          <div class="reason-tag">Новый товар, оригинальная упаковка</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Духовой шкаф</div>
-          <div class="card-name">B 6550.0 S3 Silver Chrome</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>242 000 ₽</span></div>
-            <div class="price-current">188 800 ₽</div>
-            <span class="price-economy">Экономия 53 200 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-sale">Уценка</span>
-          <span class="discount-badge">−24%</span>
-          <div class="reason-tag">Вскрытая упаковка, товар новый, следов использования нет</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Духовой шкаф</div>
-          <div class="card-name">BP 6332.0 S4 Gold</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>274 000 ₽</span></div>
-            <div class="price-current">208 624 ₽</div>
-            <span class="price-economy">Экономия 65 376 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-ex">Выставочный образец</span>
-          <span class="discount-badge">−27%</span>
-          <div class="reason-tag">Витринный образец из закрытой экспозиции</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Компактный духовой шкаф</div>
-          <div class="card-name">CBM 6350.0 S3 Silver Chrome (с СВЧ)</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>400 000 ₽</span></div>
-            <div class="price-current">292 640 ₽</div>
-            <span class="price-economy">Экономия 107 360 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="cat-label">Холодильники</div>
-    <div class="product-grid">
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-outlet">Аутлет</span>
-          <span class="discount-badge">−25%</span>
-          <div class="reason-tag">Новый товар из актуальной партии, оригинальная упаковка</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Холодильник встраиваемый</div>
-          <div class="card-name">FK 4500.1i</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>151 000 ₽</span></div>
-            <div class="price-current">112 990 ₽</div>
-            <span class="price-economy">Экономия 38 010 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-outlet">Аутлет</span>
-          <span class="discount-badge">−30%</span>
-          <div class="reason-tag">Новый товар из актуальной партии, оригинальная упаковка</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Холодильник встраиваемый</div>
-          <div class="card-name">FKGF 8800.1i</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>597 000 ₽</span></div>
-            <div class="price-current">417 720 ₽</div>
-            <span class="price-economy">Экономия 179 280 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-ex">Выставочный образец</span>
-          <span class="discount-badge">−28%</span>
-          <div class="reason-tag">Витринный образец, в рабочем состоянии</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Холодильник двухдверный</div>
-          <div class="card-name">KEI 9750-0-2 T</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>1 267 000 ₽</span></div>
-            <div class="price-current">912 376 ₽</div>
-            <span class="price-economy">Экономия 354 624 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="card-image">
-          <span class="cond-badge cond-ex">Выставочный образец</span>
-          <span class="discount-badge">−26%</span>
-          <div class="reason-tag">Витринный образец, в рабочем состоянии</div>
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Винный шкаф встраиваемый</div>
-          <div class="card-name">FWK 4800.0 S5 Black Velvet</div>
-          <div class="card-prices">
-            <div class="price-rrts">РРЦ <span>363 000 ₽</span></div>
-            <div class="price-current">268 804 ₽</div>
-            <span class="price-economy">Экономия 94 196 ₽</span>
-          </div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══ GRAUDE ══ -->
-  <div class="brand-block">
-    <div class="brand-header"><span class="brand-name">GRAUDE</span><span class="brand-count">20 позиций</span></div>
-    <hr class="brand-divider"/>
-
-    <div class="cat-label">Варочные панели — газовые</div>
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-outlet">Аутлет</span><span class="discount-badge">−24%</span><div class="reason-tag">Новый товар, оригинальная упаковка</div></div>
-        <div class="card-body"><div class="card-cat">Варочная панель газовая</div><div class="card-name">GS 30.1 W (30 см)</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>25 000 ₽</span></div><div class="price-current">18 990 ₽</div><span class="price-economy">Экономия 6 010 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-outlet">Аутлет</span><span class="discount-badge">−22%</span><div class="reason-tag">Новый товар, оригинальная упаковка</div></div>
-        <div class="card-body"><div class="card-cat">Варочная панель газовая</div><div class="card-name">GS 60.1 WM (60 см)</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>31 500 ₽</span></div><div class="price-current">24 490 ₽</div><span class="price-economy">Экономия 7 010 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-outlet">Аутлет</span><span class="discount-badge">−21%</span><div class="reason-tag">Новый товар, оригинальная упаковка</div></div>
-        <div class="card-body"><div class="card-cat">Варочная панель газовая</div><div class="card-name">GS 70.1 CM (70 см)</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>36 700 ₽</span></div><div class="price-current">28 990 ₽</div><span class="price-economy">Экономия 7 710 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-    </div>
-
-    <div class="cat-label">Духовые шкафы</div>
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-ex">Выставочный образец</span><span class="discount-badge">−26%</span><div class="reason-tag">Витринный образец, рабочий</div></div>
-        <div class="card-body"><div class="card-cat">Духовой шкаф PREMIUM</div><div class="card-name">BMP 60.3 SE (с паром)</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>149 000 ₽</span></div><div class="price-current">109 990 ₽</div><span class="price-economy">Экономия 39 010 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-outlet">Аутлет</span><span class="discount-badge">−20%</span><div class="reason-tag">Новый товар, оригинальная упаковка</div></div>
-        <div class="card-body"><div class="card-cat">Духовой шкаф CLASSIC</div><div class="card-name">BK 60.2 EL</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>73 100 ₽</span></div><div class="price-current">58 490 ₽</div><span class="price-economy">Экономия 14 610 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-sale">Уценка</span><span class="discount-badge">−26%</span><div class="reason-tag">Вскрытая упаковка, незначительные следы на корпусе</div></div>
-        <div class="card-body"><div class="card-cat">Духовой шкаф COMFORT</div><div class="card-name">BE 60.2 W</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>51 300 ₽</span></div><div class="price-current">37 990 ₽</div><span class="price-economy">Экономия 13 310 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-outlet">Аутлет</span><span class="discount-badge">−19%</span><div class="reason-tag">Новый товар, оригинальная упаковка</div></div>
-        <div class="card-body"><div class="card-cat">Духовой шкаф COMFORT</div><div class="card-name">BE 60.0 C</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>24 900 ₽</span></div><div class="price-current">20 235 ₽</div><span class="price-economy">Экономия 4 665 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ ILVE ══ -->
-  <div class="brand-block">
-    <div class="brand-header"><span class="brand-name">ILVE</span><span class="brand-count">5 позиций</span></div>
-    <hr class="brand-divider"/>
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-ex">Выставочный образец</span><span class="discount-badge">−25%</span><div class="reason-tag">Витринный образец из салона</div></div>
-        <div class="card-body"><div class="card-cat">Духовой шкаф</div><div class="card-name">800-LVG/I сталь, ручки хром</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>216 000 ₽</span></div><div class="price-current">162 225 ₽</div><span class="price-economy">Экономия 53 775 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-ex">Выставочный образец</span><span class="discount-badge">−27%</span><div class="reason-tag">Витринный образец, рабочий</div></div>
-        <div class="card-body"><div class="card-cat">Вытяжка настенная</div><div class="card-name">AM-70/A (70 см)</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>382 000 ₽</span></div><div class="price-current">279 645 ₽</div><span class="price-economy">Экономия 102 355 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-ex">Выставочный образец</span><span class="discount-badge">−24%</span><div class="reason-tag">Витринный образец, рабочий</div></div>
-        <div class="card-body"><div class="card-cat">Вытяжка настенная</div><div class="card-name">AM-120/B white (120 см)</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>329 000 ₽</span></div><div class="price-current">250 393 ₽</div><span class="price-economy">Экономия 78 607 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-      <div class="product-card">
-        <div class="card-image"><span class="cond-badge cond-outlet">Аутлет</span><span class="discount-badge">−22%</span><div class="reason-tag">Новый товар, оригинальная упаковка</div></div>
-        <div class="card-body"><div class="card-cat">Кофеварка Espresso встраиваемая</div><div class="card-name">ES645C/RB</div>
-          <div class="card-prices"><div class="price-rrts">РРЦ <span>86 000 ₽</span></div><div class="price-current">67 156 ₽</div><span class="price-economy">Экономия 18 844 ₽</span></div>
-          <a class="card-btn" href="https://e2-e5.github.io/homeproject-external/contact-form.html">Запросить условия</a></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <div class="page-cta">
-    <p>Подберите технику под проект — ответим в течение рабочего дня.</p>
-    <div class="cta-actions">
-      <a class="cta-primary" href="https://t.me/homeproject_ai_bot" target="_blank">Написать в Telegram</a>
-      <a class="cta-secondary" href="https://e2-e5.github.io/homeproject-external/contact-form.html">или оставьте заявку</a>
-    </div>
-  </div>
-
 </div>
+
+<nav class="brand-nav">
+  <div class="brand-nav-inner">
+    <a href="#kuppersbusch">Küppersbusch <em>85</em></a>
+    <a href="#graude">GRAUDE <em>20</em></a>
+    <a href="#ilve">ILVE <em>6</em></a>
+    <a href="#fulgor-milano">Fulgor Milano <em>5</em></a>
+    <a href="#schulthess">Schulthess <em>2</em></a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ===== KÜPPERSBUSCH ===== -->
+<section class="brand-section" id="kuppersbusch">
+  <div class="brand-header"><h2>Küppersbusch</h2><span class="brand-count">85 поз.</span></div>
+
+  <div class="subcat"><h3>Варочные панели</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Газовая варочная панель Kuppersbusch GWS 3811.0 ED стальная рамка</div><div class="prices"><div class="sale-price">79&#160;768 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><img src="https://static.insales-cdn.com/images/products/1/5010/947581842/large_a6a533ebe2c3183af4d52e10d6802939.jpeg" alt="KI 6800.0 SR" loading="lazy"><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 6800.0 SR</div><div class="prices"><div class="sale-price">106&#160;908 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 6870.0 SR</div><div class="prices"><div class="sale-price">204&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 9880.1 SR</div><div class="prices"><div class="sale-price">384&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch EKIF 6940.1 без рамки</div><div class="prices"><div class="sale-price">151&#160;040 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 6750.0 SR</div><div class="prices"><div class="sale-price">218&#160;064 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Электрическая варочная панель Kuppersbusch KE 6130.1 SE стальная рамка</div><div class="prices"><div class="sale-price">61&#160;124 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Электрическая варочная панель Kuppersbusch KE 6330.0 SE стальная рамка</div><div class="prices"><div class="sale-price">66&#160;788 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Электрическая варочная панель Kuppersbusch KE 6130.1 SE стальная рамка</div><div class="prices"><div class="sale-price">91&#160;568 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 8820.0 SR</div><div class="prices"><div class="sale-price">338&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 8800.0 SR</div><div class="prices"><div class="sale-price">258&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 6800.0 SF фацет</div><div class="prices"><div class="sale-price">220&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 9800.0 SR</div><div class="prices"><div class="sale-price">358&#160;484 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 8820.0 SF</div><div class="prices"><div class="sale-price">368&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 8810.0 SR</div><div class="prices"><div class="sale-price">228&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 6550.0 SR</div><div class="prices"><div class="sale-price">142&#160;308 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 6130.0 SE стальная рамка</div><div class="prices"><div class="sale-price">75&#160;520 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch VKI 3550.0 SR</div><div class="prices"><div class="sale-price">121&#160;540 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Индукционная варочная панель Kuppersbusch KI 6130.0 SR</div><div class="prices"><div class="sale-price">96&#160;760 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Электрическая варочная панель Kuppersbusch KE 8330.0 SR</div><div class="prices"><div class="sale-price">136&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Духовые шкафы</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−31%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch B 6330.0 S3 Silver Chrome</div><div class="prices"><div class="rrc">РРЦ: <span>162&#160;990 ₽</span></div><div class="sale-price">112&#160;808 ₽</div><div class="economy">Экономия 50&#160;182 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−26%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch BP 6550.0 S2 Black Chrome</div><div class="prices"><div class="rrc">РРЦ: <span>285&#160;990 ₽</span></div><div class="sale-price">210&#160;748 ₽</div><div class="economy">Экономия 75&#160;242 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−34%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch B 6550.0 S3 Silver Chrome</div><div class="prices"><div class="rrc">РРЦ: <span>283&#160;990 ₽</span></div><div class="sale-price">188&#160;800 ₽</div><div class="economy">Экономия 95&#160;190 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−34%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch B 6350.0 S2 Black Chrome</div><div class="prices"><div class="rrc">РРЦ: <span>244&#160;990 ₽</span></div><div class="sale-price">162&#160;604 ₽</div><div class="economy">Экономия 82&#160;386 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−16%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch B 6550.0 S2 Black Chrome</div><div class="prices"><div class="rrc">РРЦ: <span>285&#160;990 ₽</span></div><div class="sale-price">239&#160;776 ₽</div><div class="economy">Экономия 46&#160;214 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−44%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch B 6550.0 S5 Black Velvet</div><div class="prices"><div class="rrc">РРЦ: <span>269&#160;990 ₽</span></div><div class="sale-price">150&#160;804 ₽</div><div class="economy">Экономия 119&#160;186 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−23%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch BP 6332.0 S4 Gold</div><div class="prices"><div class="rrc">РРЦ: <span>271&#160;990 ₽</span></div><div class="sale-price">208&#160;624 ₽</div><div class="economy">Экономия 63&#160;366 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−33%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch B 6350.0 S5 Black Velvet</div><div class="prices"><div class="rrc">РРЦ: <span>228&#160;990 ₽</span></div><div class="sale-price">152&#160;928 ₽</div><div class="economy">Экономия 76&#160;062 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−9%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch B 6330.0 S5 Black Velvet</div><div class="prices"><div class="rrc">РРЦ: <span>148&#160;990 ₽</span></div><div class="sale-price">135&#160;700 ₽</div><div class="economy">Экономия 13&#160;290 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−25%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch BP 6350.0 S2 Black Chrome</div><div class="prices"><div class="rrc">РРЦ: <span>404&#160;990 ₽</span></div><div class="sale-price">304&#160;912 ₽</div><div class="economy">Экономия 100&#160;078 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−13%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch B 6350.0 S5 Black Velvet</div><div class="prices"><div class="rrc">РРЦ: <span>228&#160;990 ₽</span></div><div class="sale-price">198&#160;712 ₽</div><div class="economy">Экономия 30&#160;278 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−54%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch B 6120.0 S</div><div class="prices"><div class="rrc">РРЦ: <span>109&#160;990 ₽</span></div><div class="sale-price">50&#160;504 ₽</div><div class="economy">Экономия 59&#160;486 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−22%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Kuppersbusch B 6120.0 S</div><div class="prices"><div class="rrc">РРЦ: <span>109&#160;990 ₽</span></div><div class="sale-price">85&#160;668 ₽</div><div class="economy">Экономия 24&#160;322 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−31%</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Компактный духовой шкаф Kuppersbusch CBP 6550.0 G9</div><div class="prices"><div class="rrc">РРЦ: <span>254&#160;990 ₽</span></div><div class="sale-price">174&#160;876 ₽</div><div class="economy">Экономия 80&#160;114 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Микроволновые печи</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−22%</span></div><div class="card-body"><div class="cat-label">Микроволновые печи</div><div class="card-title">Микроволновая печь Kuppersbusch MR 6330.0 S черное стекло</div><div class="prices"><div class="rrc">РРЦ: <span>168&#160;990 ₽</span></div><div class="sale-price">132&#160;396 ₽</div><div class="economy">Экономия 36&#160;594 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−21%</span></div><div class="card-body"><div class="cat-label">Микроволновые печи</div><div class="card-title">Микроволновая печь Kuppersbusch ML 6330.0 S черное стекло</div><div class="prices"><div class="rrc">РРЦ: <span>145&#160;990 ₽</span></div><div class="sale-price">114&#160;696 ₽</div><div class="economy">Экономия 31&#160;294 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−21%</span></div><div class="card-body"><div class="cat-label">Микроволновые печи</div><div class="card-title">Встраиваемая микроволновая печь Kuppersbusch CM 6330.0 S2 Black Chrome</div><div class="prices"><div class="rrc">РРЦ: <span>276&#160;990 ₽</span></div><div class="sale-price">218&#160;536 ₽</div><div class="economy">Экономия 58&#160;454 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−22%</span></div><div class="card-body"><div class="cat-label">Микроволновые печи</div><div class="card-title">Микроволновая печь Kuppersbusch MR 6330.0 S2 Black Chrome</div><div class="prices"><div class="rrc">РРЦ: <span>183&#160;990 ₽</span></div><div class="sale-price">144&#160;196 ₽</div><div class="economy">Экономия 39&#160;794 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Микроволновые печи</div><div class="card-title">Встраиваемая микроволновая печь Kuppersbusch MR 6330.0 GPH</div><div class="prices"><div class="sale-price">176&#160;056 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Компактная техника</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−25%</span></div><div class="card-body"><div class="cat-label">Компактная техника</div><div class="card-title">Вакууматор Kuppersbusch CSV 6800.0 без стеклянного фронта</div><div class="prices"><div class="rrc">РРЦ: <span>497&#160;990 ₽</span></div><div class="sale-price">375&#160;476 ₽</div><div class="economy">Экономия 122&#160;514 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−24%</span></div><div class="card-body"><div class="cat-label">Компактная техника</div><div class="card-title">Компактный духовой шкаф с микроволнами Kuppersbusch CBM 6350.0 S3 Silver Chrome</div><div class="prices"><div class="rrc">РРЦ: <span>386&#160;990 ₽</span></div><div class="sale-price">292&#160;640 ₽</div><div class="economy">Экономия 94&#160;350 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Компактная техника</div><div class="card-title">Блендер Kuppersbusch B 353</div><div class="prices"><div class="sale-price">9&#160;912 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−20%</span></div><div class="card-body"><div class="cat-label">Компактная техника</div><div class="card-title">Вакууматор Kuppersbusch CSV 6800.0 S5 Black Velvet</div><div class="prices"><div class="rrc">РРЦ: <span>561&#160;990 ₽</span></div><div class="sale-price">451&#160;468 ₽</div><div class="economy">Экономия 110&#160;522 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Компактная техника</div><div class="card-title">Блендер Kuppersbusch B 353</div><div class="prices"><div class="sale-price">11&#160;564 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−29%</span></div><div class="card-body"><div class="cat-label">Компактная техника</div><div class="card-title">Встраиваемая кофемашина Kuppersbusch CKV 6550.0 G1 Stainless Steel</div><div class="prices"><div class="rrc">РРЦ: <span>467&#160;990 ₽</span></div><div class="sale-price">333&#160;704 ₽</div><div class="economy">Экономия 134&#160;286 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−19%</span></div><div class="card-body"><div class="cat-label">Компактная техника</div><div class="card-title">Встраиваемая кофемашина Kuppersbusch CKV 6550.0 G1 Stainless Steel</div><div class="prices"><div class="rrc">РРЦ: <span>467&#160;990 ₽</span></div><div class="sale-price">378&#160;072 ₽</div><div class="economy">Экономия 89&#160;918 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Компактная техника</div><div class="card-title">Автоматическая кофемашина Kuppersbusch KVS 308 S</div><div class="prices"><div class="sale-price">114&#160;932 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Вытяжки</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Вытяжка Kuppersbusch DEL 6550.0 E</div><div class="prices"><div class="sale-price">113&#160;752 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Настенная вытяжка Kuppersbusch DW 9800.0 S черное стекло</div><div class="prices"><div class="sale-price">400&#160;728 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Настенная вытяжка Kuppersbusch KD 9570.2 W белое стекло</div><div class="prices"><div class="sale-price">159&#160;190 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Островная вытяжка Kuppersbusch IKD 9400.0 GA</div><div class="prices"><div class="sale-price">71&#160;272 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Встраиваемая вытяжка Kuppersbusch LB 6650.1 E в шкаф</div><div class="prices"><div class="sale-price">19&#160;116 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Встраиваемая вытяжка с выдвижным экраном Kuppersbusch DEF 6300.0 E</div><div class="prices"><div class="sale-price">47&#160;436 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Встраиваемая вытяжка Kuppersbusch LB 8650.1 E в шкаф</div><div class="prices"><div class="sale-price">34&#160;220 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Встраиваемая вытяжка Kuppersbusch LB 8650.1 E в шкаф</div><div class="prices"><div class="sale-price">20&#160;060 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Встраиваемая вытяжка с выдвижным экраном Kuppersbusch DEF 6800.0 E</div><div class="prices"><div class="sale-price">51&#160;212 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Встраиваемая вытяжка Kuppersbusch LB 6650.1 E в шкаф</div><div class="prices"><div class="sale-price">23&#160;128 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Островная вытяжка Kuppersbusch DI 3800.0 W Белое стекло</div><div class="prices"><div class="sale-price">222&#160;784 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Посудомоечные машины</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Посудомоечные машины</div><div class="card-title">Посудомоечная машина Kuppersbusch G 6300.0 V</div><div class="prices"><div class="sale-price">117&#160;420 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Стиральные машины</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Стиральные машины</div><div class="card-title">Стиральная машина Kuppersbusch W 40.0 W White</div><div class="prices"><div class="sale-price">334&#160;884 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Стиральные машины</div><div class="card-title">Стиральная машина Kuppersbusch W 40.0 AT Anthracite</div><div class="prices"><div class="sale-price">260&#160;072 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Стиральные машины</div><div class="card-title">Сушильная машина Kuppersbusch T 40.0 W White</div><div class="prices"><div class="sale-price">427&#160;396 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Стиральные машины</div><div class="card-title">Сушильная машина Kuppersbusch T 40.0 W White</div><div class="prices"><div class="sale-price">326&#160;860 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Холодильники и винные шкафы</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−17%</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемый винный шкаф Kuppersbusch FWK 4800.0 S5 Black Velvet</div><div class="prices"><div class="rrc">РРЦ: <span>373&#160;990 ₽</span></div><div class="sale-price">310&#160;104 ₽</div><div class="economy">Экономия 63&#160;886 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−28%</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемый винный шкаф Kuppersbusch FWK 4800.0 S5 Black Velvet</div><div class="prices"><div class="rrc">РРЦ: <span>373&#160;990 ₽</span></div><div class="sale-price">268&#160;804 ₽</div><div class="economy">Экономия 105&#160;186 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемый холодильник Kuppersbusch FK 2500.1i</div><div class="prices"><div class="sale-price">204&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемый холодильник Kuppersbusch FK 4500.1i</div><div class="prices"><div class="sale-price">112&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемый холодильник Kuppersbusch FKGF 8800.1i</div><div class="prices"><div class="sale-price">417&#160;720 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Двухдверный холодильник Kuppersbusch KEI 9750-0-2 T</div><div class="prices"><div class="sale-price">912&#160;376 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Холодильник Kuppersbusch FKG 6600.0 E-02</div><div class="prices"><div class="sale-price">203&#160;196 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Холодильник Kuppersbusch FKG 6600.0 E-02</div><div class="prices"><div class="sale-price">233&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−5%</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемая морозильная камера Kuppersbusch FG 8840.0i</div><div class="prices"><div class="rrc">РРЦ: <span>129&#160;990 ₽</span></div><div class="sale-price">123&#160;428 ₽</div><div class="economy">Экономия 6&#160;562 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−23%</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемая морозильная камера Kuppersbusch FG 8840.0i</div><div class="prices"><div class="rrc">РРЦ: <span>129&#160;990 ₽</span></div><div class="sale-price">160&#160;244 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−41%</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемый холодильник с нижней морозильной камерой Kuppersbusch FKG 8340.0i</div><div class="prices"><div class="rrc">РРЦ: <span>183&#160;990 ₽</span></div><div class="sale-price">108&#160;088 ₽</div><div class="economy">Экономия 75&#160;902 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−26%</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемый холодильник с нижней морозильной камерой Kuppersbusch FKGF 8860.0i</div><div class="prices"><div class="rrc">РРЦ: <span>248&#160;990 ₽</span></div><div class="sale-price">183&#160;608 ₽</div><div class="economy">Экономия 65&#160;382 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемый холодильник Kuppersbusch FK 2545.0i</div><div class="prices"><div class="sale-price">105&#160;728 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−3%</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемый холодильник Kuppersbusch FK 4540.0i</div><div class="prices"><div class="rrc">РРЦ: <span>141&#160;990 ₽</span></div><div class="sale-price">137&#160;588 ₽</div><div class="economy">Экономия 4&#160;402 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Встраиваемый холодильник Kuppersbusch FK 8840.1i</div><div class="prices"><div class="sale-price">241&#160;664 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Двухдверный холодильник Kuppersbusch FKG 9803.0 E</div><div class="prices"><div class="sale-price">333&#160;468 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span><span class="disc-badge">−33%</span></div><div class="card-body"><div class="cat-label">Холодильники и винные шкафы</div><div class="card-title">Холодильник Kuppersbusch FKG 6875.0 S-02</div><div class="prices"><div class="rrc">РРЦ: <span>149&#160;990 ₽</span></div><div class="sale-price">198&#160;712 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Аксессуары</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Аксессуары</div><div class="card-title">Дизайнерский комплект KUPPERSBUSCH ZC 8021</div><div class="prices"><div class="sale-price">14&#160;868 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+</section>
+
+<!-- ===== GRAUDE ===== -->
+<section class="brand-section" id="graude">
+  <div class="brand-header"><h2>GRAUDE</h2><span class="brand-count">20 поз.</span></div>
+
+  <div class="subcat"><h3>Варочные панели</h3><div class="grid">
+    <div class="card"><div class="card-img"><img src="https://static.insales-cdn.com/images/products/1/3422/946515294/large_biv2vbbb3etni0x53wy0eqqu9imov14e.png" alt="GS 30.1 W" loading="lazy"><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Газовая варочная панель GRAUDE GS 30.1 W</div><div class="prices"><div class="sale-price">18&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Газовая варочная панель GRAUDE GS 60.1 WM</div><div class="prices"><div class="sale-price">24&#160;490 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Варочные панели</div><div class="card-title">Газовая варочная панель GRAUDE GS 70.1 CM</div><div class="prices"><div class="sale-price">28&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Духовые шкафы</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф GRAUDE PREMIUM BMP 60.3 SE</div><div class="prices"><div class="sale-price">109&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф GRAUDE PREMIUM BMP 60.3 SE</div><div class="prices"><div class="sale-price">109&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф GRAUDE CLASSIC BK 60.2 S</div><div class="prices"><div class="sale-price">46&#160;490 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф GRAUDE CLASSIC BK 60.1 SM</div><div class="prices"><div class="sale-price">47&#160;490 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф GRAUDE COMFORT BE 60.2 W</div><div class="prices"><div class="sale-price">37&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф GRAUDE COMFORT BE 60.0 C</div><div class="prices"><div class="sale-price">20&#160;235 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф GRAUDE CLASSIC BK 60.2 EL</div><div class="prices"><div class="sale-price">58&#160;490 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Вытяжки</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Настенная вытяжка GRAUDE PREMIUM DH 60.3 GE</div><div class="prices"><div class="sale-price">38&#160;490 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Настенная вытяжка GRAUDE PREMIUM DH 60.1 WE</div><div class="prices"><div class="sale-price">29&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Настенная вытяжка GRAUDE PREMIUM DH 90.3 GE</div><div class="prices"><div class="sale-price">42&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Настенная вытяжка GRAUDE PREMIUM DH 90.1 WE</div><div class="prices"><div class="sale-price">35&#160;490 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Настенная вытяжка GRAUDE CLASSIC DHE 60.1 W</div><div class="prices"><div class="sale-price">13&#160;490 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Настенная вытяжка GRAUDE PREMIUM DH 60.1 GE</div><div class="prices"><div class="sale-price">32&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Настенная вытяжка GRAUDE PREMIUM DH 60.3 WE</div><div class="prices"><div class="sale-price">41&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Настенная вытяжка GRAUDE PREMIUM DH 90.3 WE</div><div class="prices"><div class="sale-price">43&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Холодильники</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Холодильники</div><div class="card-title">Холодильно-морозильный шкаф GRAUDE IKG 190.1</div><div class="prices"><div class="sale-price">61&#160;245 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+
+  <div class="subcat"><h3>Аксессуары</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Аксессуары</div><div class="card-title">Угольный фильтр Graude CF-130</div><div class="prices"><div class="sale-price">757 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+</section>
+
+<!-- ===== ILVE ===== -->
+<section class="brand-section" id="ilve">
+  <div class="brand-header"><h2>ILVE</h2><span class="brand-count">6 поз.</span></div>
+  <div class="subcat"><h3>Духовые шкафы</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф ILVE 800-LVG/I сталь (ручки хром)</div><div class="prices"><div class="sale-price">162&#160;225 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+  <div class="subcat"><h3>Вытяжки</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Вытяжка настенная 70 см ILVE AM-70/A</div><div class="prices"><div class="sale-price">279&#160;645 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Вытяжка настенная ILVE AM-120/B белая</div><div class="prices"><div class="sale-price">250&#160;393 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Вытяжка 150 см ILVE AM-150/BL синяя</div><div class="prices"><div class="sale-price">321&#160;875 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+  <div class="subcat"><h3>Компактная техника</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Компактная техника</div><div class="card-title">Подогреватель посуды ILVE 615-SCWD/A античный белый</div><div class="prices"><div class="sale-price">67&#160;465 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Компактная техника</div><div class="card-title">Встраиваемая кофеварка Espresso ILVE ES645C/RB</div><div class="prices"><div class="sale-price">67&#160;156 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+</section>
+
+<!-- ===== FULGOR MILANO ===== -->
+<section class="brand-section" id="fulgor-milano">
+  <div class="brand-header"><h2>Fulgor Milano</h2><span class="brand-count">5 поз.</span></div>
+  <div class="subcat"><h3>Духовые шкафы</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Fulgor Milano FCLO 6215 TEM BK</div><div class="prices"><div class="sale-price">105&#160;728 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Духовые шкафы</div><div class="card-title">Духовой шкаф Fulgor Milano LO 4512 TC BK</div><div class="prices"><div class="sale-price">30&#160;762 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+  <div class="subcat"><h3>Вытяжки</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Вытяжки</div><div class="card-title">Встраиваемая вытяжка Fulgor Milano CHDD 9010 RC X</div><div class="prices"><div class="sale-price">102&#160;400 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+  <div class="subcat"><h3>Кофемашины</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Кофемашины</div><div class="card-title">Кофемашина Fulgor Milano FCLCM 4500 TF BK</div><div class="prices"><div class="sale-price">224&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Кофемашины</div><div class="card-title">Кофемашина Fulgor Milano FCM 4500 TF BK</div><div class="prices"><div class="sale-price">224&#160;990 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+</section>
+
+<!-- ===== SCHULTHESS ===== -->
+<section class="brand-section" id="schulthess">
+  <div class="brand-header"><h2>Schulthess</h2><span class="brand-count">2 поз.</span></div>
+  <div class="subcat"><h3>Стиральные машины</h3><div class="grid">
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Стиральные машины</div><div class="card-title">Стиральная машина Schulthess Spirit 530 White</div><div class="prices"><div class="sale-price">357&#160;540 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+    <div class="card"><div class="card-img"><div class="card-img-placeholder">◻</div><span class="cond-badge">Уценка</span></div><div class="card-body"><div class="cat-label">Стиральные машины</div><div class="card-title">Сушильная машина Schulthess Spirit 660 White</div><div class="prices"><div class="sale-price">322&#160;140 ₽</div></div><a class="btn-req" href="https://t.me/homeproject_ai_bot" target="_blank">Запросить условия</a></div></div>
+  </div></div>
+</section>
+
+<div class="cta-block">
+  <h2>Нужна помощь в выборе?</h2>
+  <p>Наш менеджер ответит на вопросы, уточнит состояние и наличие, рассчитает финальную стоимость</p>
+  <div class="cta-btns">
+    <a class="btn-tg" href="https://t.me/homeproject_ai_bot" target="_blank">Написать в Telegram</a>
+    <a class="btn-contact" href="/ru/page/contacts">или оставьте заявку</a>
+  </div>
+</div>
+</main>
 </body>
 </html>
