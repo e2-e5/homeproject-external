@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Аутлет — Home Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F4F7F6;color:#17201F;line-height:1.5}
+.hero{padding:44px 24px 36px;text-align:center;background:#F4F7F6;color:#17201F;border-bottom:1px solid #D5DDDB}
+.hero h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:10px}
+.hero p{font-size:1rem;max-width:580px;margin:0 auto;color:#64716E}
+.hero-eyebrow{display:inline-block;background:#2F3736;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 12px;border-radius:20px;margin-bottom:14px}
+.page{max-width:1200px;margin:0 auto;padding:28px 16px 64px}
+.brand-section{margin-bottom:44px}
+.brand-header{display:flex;align-items:baseline;gap:12px;padding-bottom:10px;border-bottom:2px solid #D5DDDB;margin-bottom:8px}
+.brand-name{font-size:1.5rem;font-weight:700}
+.brand-count{font-size:12px;color:#64716E;background:#EEF2F1;padding:2px 10px;border-radius:20px}
+.cat-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9CA3AF;margin:20px 0 10px}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+@media(max-width:600px){.prod-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+@media(max-width:480px){
+  .prod-grid{grid-template-columns:1fr}
+  .card{flex-direction:row;height:90px}
+  .card-img{width:80px;min-width:80px;height:100%;flex-shrink:0;border-bottom:none;border-right:1px solid #D5DDDB}
+  .card-body{gap:3px;padding:10px}
+}
+.card{background:#fff;border:1px solid #D5DDDB;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 6px 20px rgba(0,0,0,.09);transform:translateY(-2px)}
+.card-img{height:120px;position:relative;display:flex;align-items:center;justify-content:center;background:#F5F5F4}
+.disc-badge{position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700;color:#fff;background:#2F3736}
+.qty-badge{position:absolute;top:8px;right:8px;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:600;color:#64716E;background:#EEF2F1}
+.card-body{padding:12px;flex:1;display:flex;flex-direction:column;gap:6px}
+.card-name{font-size:12px;color:#17201F;line-height:1.4;flex:1}
+.prices{display:flex;flex-direction:column;gap:3px}
+.outlet-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#2F3736}
+.price-now{font-size:22px;font-weight:700;color:#17201F}
+.price-note-card{font-size:10px;color:#9CA3AF}
+.btn-card{display:block;text-align:center;padding:8px;border-radius:7px;font-size:12px;font-weight:600;text-decoration:none;margin-top:auto;background:#2F3736;color:#fff;transition:opacity .15s}
+.btn-card:hover{opacity:.88}
+.page-cta{text-align:center;padding:36px 24px;border-top:1px solid #D5DDDB;margin-top:32px}
+.page-cta h3{font-size:1.3rem;font-weight:700;margin-bottom:8px}
+.page-cta p{color:#64716E;margin-bottom:18px;font-size:14px}
+.cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-p{padding:11px 22px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px}
+.btn-p.primary{background:#2F3736;color:#fff}
+.btn-p.secondary{border:1.5px solid #D5DDDB;color:#17201F}
+.price-note{text-align:center;font-size:11px;color:#9CA3AF;padding:6px 24px 0;max-width:700px;margin:0 auto}
+details.info-details{background:#fff;border-bottom:1px solid #D5DDDB}
+details.info-details summary{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;cursor:pointer;list-style:none;max-width:860px;margin:0 auto;font-size:14px;font-weight:600;color:#17201F;user-select:none}
+details.info-details summary::-webkit-details-marker{display:none}
+details.info-details summary::after{content:'▼';font-size:11px;opacity:.5;transition:transform .2s}
+details.info-details[open] summary::after{transform:rotate(180deg)}
+details.info-details .info-inner{padding:4px 24px 18px;max-width:860px;margin:0 auto}
+details.info-details .info-inner ul{padding-left:18px;font-size:13px;line-height:1.9;color:#374151}
+</style>
+</head>
+<body>
+<div class="hero">
+  <span class="hero-eyebrow">Аутлет</span>
+  <h1>Новые приборы снятых моделей</h1>
+  <p>Снятые модели — без дефектов, с полной гарантией производителя, по цене ниже</p>
+</div>
+<details class="info-details">
+<summary>ℹ️ Что такое аутлет-техника?</summary>
+<div class="info-inner"><ul>
+<li>Совершенно новые приборы, не бывшие в эксплуатации</li>
+<li>Позиции, выведенные из актуальной программы бренда или снятые с производства</li>
+<li>Товар поступает в заводской упаковке — оригинальной или аналогичной</li>
+<li>Полная гарантия производителя на весь срок</li>
+<li>Скидка обусловлена закрытием позиции, а не состоянием прибора</li>
+<li>Подходит, если нужна конкретная модель — новая, по цене ниже</li>
+</ul></div>
+</details>
+<div class="page">
+<section class="brand-section">
+  <div class="brand-header">
+    <h2 class="brand-name">De Dietrich</h2>
+    <span class="brand-count">41&nbsp;позиция</span>
+  </div>
+  <div class="cat-title">Вакууматор</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Вакууматор De Dietrich DWD4820B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">129 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Варочная панель</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Газовая варочная поверхность De Dietrich DPE4620XF</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">106 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Газовая варочная поверхность De Dietrich DPE4729XF</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">132 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Газовая варочная поверхность De Dietrich DPE4929XF</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">136 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Вытяжка</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая в шкаф вытяжка с выдвижным экраном De Dietrich DHT3622X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">62 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Вытяжка De Dietrich DHB4674X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">106 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Вытяжка De Dietrich DHB4974B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">108 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Вытяжка De Dietrich DHB46740B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">114 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Вытяжка De Dietrich DHB4934B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">114 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Вытяжка De Dietrich DHB4684B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">118 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Вытяжка De Dietrich DHV4984B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">162 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Духовой шкаф</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф De Dietrich DOP4543X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">194 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Компактный духовой шкаф De Dietrich DKP4531X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">196 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф-пароварка De Dietrich DKV4530B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">196 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф-пароварка De Dietrich DKV4530H</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">196 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">5 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф-пароварка De Dietrich DKV4530X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">196 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф De Dietrich DOP4546HT</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">199 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф De Dietrich DOP4556H</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">211 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф De Dietrich DOP4556X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">211 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Компактный духовой шкаф De Dietrich DKP4531B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">219 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф De Dietrich DOP4746BT</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">258 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф De Dietrich DOP4746HT</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">258 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф De Dietrich DOP4755MB</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">267 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый духовой шкаф-пароварка De Dietrich DKR4741B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">278 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Микроволновая печь</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Микроволновая печь De Dietrich DKE4220H</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">187 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Микроволновая печь De Dietrich DKE4220X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">187 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая микроволновая печь De Dietrich DKE4535X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">200 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая комбинированная микроволновая печь De Dietrich DKC4536W</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">215 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая комбинированная микроволновая печь De Dietrich DKC4536X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">215 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Морозильная камера</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая морозильная камера De Dietrich DFU1781EN</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">179 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Подогреватель посуды</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый подогреватель посуды De Dietrich DWD7400G</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">54 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый подогреватель посуды De Dietrich DWD7400W</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">54 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый подогреватель посуды De Dietrich DWD4810W</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">99 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Посудомоечная</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Посудомоечная машина De Dietrich DVC1434J2</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">112 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая посудомоечная машина De Dietrich DV1434QJ</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">119 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая посудомоечная машина De Dietrich DBJ422DQX</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">134 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая посудомоечная машина De Dietrich DCJ424DQX</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">134 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Посудомоечная машина De Dietrich DCJ422QSX</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">139 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая посудомоечная машина De Dietrich DCJ434DB</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">149 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Холодильник</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая холодильная камера De Dietrich DRL1247ES</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">102 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый холодильник с внутренней морозильной камерой De Dietrich DRS1247ES</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">104 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+</section>
+<section class="brand-section">
+  <div class="brand-header">
+    <h2 class="brand-name">Brandt</h2>
+    <span class="brand-count">18&nbsp;позиций</span>
+  </div>
+  <div class="cat-title">Варочная панель</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Газовая варочная панель BRANDT BPG6210B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">23 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Вытяжка</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая в шкаф вытяжка BRANDT BHT2611B</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">25 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Настенная вытяжка BRANDT BHB6602X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">29 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Настенная вытяжка BRANDT AD1049X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">32 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Настенная вытяжка BRANDT BHB6902X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">35 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Настенная вытяжка кухонная BRANDT BHV6801X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">37 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Наклонная вытяжка BRANDT BHV1674IB</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">48 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Наклонная вытяжка BRANDT BHV1974IB</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">59 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Наклонная вытяжка BRANDT BHV2673XB</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">61 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Островная вытяжка BRANDT BHI2353G</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">86 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">5 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Островная вытяжка BRANDT BHI1043X</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">90 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Микроволновая печь</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая микроволновая печь BRANDT BMS7120WW</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">56 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая микроволновая печь BRANDT BKS7131LX</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">79 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая микроволновая печь BRANDT BKS7131BB</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">81 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая микроволновая печь BRANDT BKC7153BB</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">108 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая комбинированная микроволновая печь BRANDT BKC7153LX</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">119 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Посудомоечная</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая посудомоечная машина BRANDT LVE127J</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">41 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Стиральная/сушильная</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Отдельностоящая сушильная машина BRANDT WFB106QWE</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">77 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+</section>
+<section class="brand-section">
+  <div class="brand-header">
+    <h2 class="brand-name">Kuppersbusch</h2>
+    <span class="brand-count">24&nbsp;позиции</span>
+  </div>
+  <div class="cat-title">Варочная панель</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель Kuppersbusch KI 6343.0 SR</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">138 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель Kuppersbusch KI 8330.0 SE</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">233 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель Kuppersbusch KI 8330.0 SR</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">236 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель Kuppersbusch KI 8800.0 SR последователей нет</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">279 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель Kuppersbusch KI 8800.0 SE</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">287 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель Kuppersbusch KI 8560.0 SR</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">293 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель Kuppersbusch KI 8880.1 SR</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">293 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Варочная панель Teppan Yaki Kuppersbusch VKET 3800.0 SR</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">303 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель Kuppersbusch KI 8560.0 SE</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">310 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель &quot;WOK&quot; Kuppersbusch VKIW 3800.0 SR</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">355 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель Kuppersbusch KI 8800.1 MR</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">366 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель Kuppersbusch KI 8820.0 MR</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">467 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель с вытяжкой Kuppersbusch KMI 8500.0 SR</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">699 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель с вытяжкой Kuppersbusch KMI 8500.0 SR Нержавеющая сталь</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">715 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель с вытяжкой Kuppersbusch KMI 9850.0 SR</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">799 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная панель с вытяжкой Kuppersbusch KMI 9850.0 SR Нержавеющая сталь</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">815 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Вытяжка</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая вытяжка Kuppersbusch LB 8650.1 E сталь последователь DEL 8550.0 E</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">26 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Каминная вытяжка Kuppersbusch DW 8540.0 S</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">179 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Островная вытяжка Kuppersbusch DI 9340.0 E</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">199 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Духовой шкаф</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Электрический Духовой шкаф Kuppersbusch B 6130.0 S1 Нержавеющая сталь</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">68 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Электрический духовой шкаф Kuppersbusch B 6850.0 S4 Золотой</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">460 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">ЖК-телевизор</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">ЖК-телевизор Kuppersbusch CTV BUILT3</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">96 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Морозильная камера</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая морозильная камера Kuppersbusch FG 8840.0i (последователь FG 8840.1i)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">129 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемая морозильная камера Kuppersbusch FG 8840.1i</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">129 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+</section>
+<section class="brand-section">
+  <div class="brand-header">
+    <h2 class="brand-name">ILVE</h2>
+    <span class="brand-count">25&nbsp;позиций</span>
+  </div>
+  <div class="cat-title">Варочная панель</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Газовая варочная поверхность, ш.30см ILVE HCG30K/BK глянцевый черный (фурн. матовый черный)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">62 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Газовая варочная поверхность, ш.30см ILVE HCG30CK/BK глянцевый черный (фурн. матовый черный)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">67 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Независимая газовая варочная панель ILVE HCB 70SDN/AWG антич.белый, (ручки латунь)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">153 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Независимая газовая варочная панель ILVE HCB 70SDN/AWB антич.белый, (ручки бронза)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">160 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционная варочная поверхность Professional Plus ILVE HVI395/BK, ш.90 см, глянцевый черный</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">198 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Индукционнаяварочная панель HI-TECH ILVE KHVI 90-TC</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">271 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Духовой шкаф</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Многофункциональный духовой шкаф 60см ILVE OV60STCT3/BK</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">262 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Многофункциональный духовой шкаф ILVE OV60-SNT3/AWB античный белый (ручки бронза)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">270 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Многофункциональный духовой шкаф ILVE OV60-SNT3/MGB матовый графит (ручки бронза)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">270 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Комбинированный духовой шкаф с паром, микроволнами IILVE 645-SCHSW/BUG бургунди (ручки латунь)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">318 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Комбинированный духовой шкаф с паром, микроволнами IILVE 645-SCHSW/SSC сталь (ручки хром)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">318 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Многофункциональный духовой шкаф ILVE 645-SZTCT4/BK (черный)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">354 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Духовой шкаф Panoramagic, ш.60 см ILVE OV60PMT3/MK матовый черный (фурн. хром)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">403 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Многофункциональный духовой шкаф ILVE OV60-PMT3/SS сталь (хром)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">403 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Многофункциональный духовой шкаф ILVE 645-SLHSW/I сталь</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">501 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">4 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Комбинированный духовой шкаф с паром и микроволнами ILVE 645SNHSW/AWG антик (ручки латунь)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">501 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Духовой шкаф ILVE 645SNHSW/MGC графит (ручки хром)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">501 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Духовой шкаф ILVE 645SNHSW/MGG графит (ручки латунь)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">501 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Комбинированный духовой шкаф (черный) ILVE 645STCHSW/BK</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">501 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Духовой шкаф ILVE 645-SNHSW/AWB антич.белый (ручки бронза)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">509 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Комбинированный духовой шкаф с паром и микроволнами ILVE 645SNHSW/MGB графит (ручки бронза)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">509 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Компактный шкаф шоковой заморозки, ш.60см ILVE BC645SLTC/I нерж.сталь (фурн. сатин.сталь)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">528 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">3 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Шкаф шоковой заморозки ILVE BC 645 SNTC/AWB антич.белый (бронза)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">536 990&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+
+  <div class="cat-title">Подогреватель посуды</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">2 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Подогреватель посуды ILVE 615SWD/BK черное стекло, (ручки латунь)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">42 650&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">1 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Подогреватель посуды Slim Country ILVE 615SCWD/A антич.белый, (ручки латунь)</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">44 980&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+</section>
+<section class="brand-section">
+  <div class="brand-header">
+    <h2 class="brand-name">Liebherr</h2>
+    <span class="brand-count">1&nbsp;позиция</span>
+  </div>
+  <div class="cat-title">Холодильник</div>
+  <div class="prod-grid">
+<div class="card">
+  <div class="card-img"><span class="disc-badge">Аутлет</span><div class="qty-badge">6 шт.</div></div>
+  <div class="card-body">
+    <p class="card-name">Встраиваемый холодильник с внутренней морозильной камерой Liebherr IRBd 4551-20 001 DL</p>
+    <div class="prices">
+      <div class="outlet-label">Аутлет-цена</div>
+      <div class="price-now">134 200&nbsp;₽</div>
+      <div class="price-note-card">Новый прибор · Гарантия производителя</div>
+    </div>
+    <a href="https://t.me/homeproject_ai_bot" class="btn-card" target="_blank">Запросить условия</a>
+  </div>
+</div>
+  </div>
+</section>
+
+<p class="price-note">Аутлет-цена — итоговая цена на новый прибор снятой модели. Уточняйте наличие и условия у менеджера.</p>
+</div>
+<div class="page-cta">
+  <h3>Нужна консультация?</h3>
+  <p>Уточним наличие, комплектацию и условия — ответим быстро</p>
+  <div class="cta-btns">
+    <a href="https://t.me/homeproject_ai_bot" class="btn-p primary" target="_blank">Написать в Telegram</a>
+    <a href="/ru/page/contacts" class="btn-p secondary">Все контакты</a>
+  </div>
+</div>
+</body></html>
