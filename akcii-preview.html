@@ -1,257 +1,235 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Акции — Home Project (превью)</title>
-<meta name="description" content="Актуальные акции от поставщиков: GRAUDE и Küppersbusch. Специальные предложения на премиальную бытовую технику.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#F7F7F5;color:#1A1A1A;line-height:1.5}
-.hero{background:#1A1A1A;color:#fff;padding:36px 40px;text-align:center}
-.hero h1{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;margin-bottom:8px}
-.hero p{color:rgba(255,255,255,.6);font-size:14px;max-width:500px;margin:0 auto}
-.preview-bar{background:#856404;color:#fff;text-align:center;padding:8px 16px;font-size:12px;font-weight:600}
-.tabs-wrap{background:#fff;border-bottom:1px solid #E5E5E5;position:sticky;top:0;z-index:50}
-.tabs{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;gap:0}
-.tab{padding:14px 24px;font-size:14px;font-weight:600;border:none;background:none;cursor:pointer;color:#888;border-bottom:3px solid transparent;transition:all .2s;font-family:'Inter',sans-serif}
-.tab.active{color:#1A1A1A;border-bottom-color:#1A1A1A}
-.tab .count{display:inline-block;background:#F0F0EE;color:#666;font-size:11px;padding:1px 7px;border-radius:20px;margin-left:6px;font-weight:500}
-.tab.active .count{background:#1A1A1A;color:#fff}
-.page{max-width:1200px;margin:0 auto;padding:32px 16px 64px}
-.brand-section{margin-bottom:48px}
-.brand-header{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:2px solid #E5E5E5;margin-bottom:20px;flex-wrap:wrap}
-.brand-name{font-size:1.4rem;font-weight:700}
-.brand-count{font-size:12px;color:#888}
-.deadline-badge{font-size:11px;font-weight:700;background:#FFF3CD;color:#856404;padding:3px 10px;border-radius:20px;margin-left:auto}
-.promo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-@media(max-width:640px){.promo-grid{grid-template-columns:1fr}}
-.promo-card{background:#fff;border:1px solid #E5E5E5;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s}
-.promo-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.10)}
-.promo-img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
-.promo-img-wide{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
-.promo-body{padding:18px}
-.promo-title{font-size:16px;font-weight:700;margin-bottom:6px}
-.promo-desc{font-size:13px;color:#555;line-height:1.5;margin-bottom:12px}
-.promo-conditions{font-size:11px;color:#999;background:#F7F7F5;padding:8px 10px;border-radius:6px;margin-bottom:14px;line-height:1.5}
-.promo-deadline{font-size:11px;font-weight:700;color:#856404;margin-bottom:12px}
-.btn-promo{display:block;text-align:center;padding:10px 16px;background:#1A1A1A;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;transition:background .15s}
-.btn-promo:hover{background:#333}
-.cta-block{background:#fff;border:1px solid #E5E5E5;border-radius:14px;padding:32px;text-align:center;margin-top:8px}
-.cta-block h2{font-size:1.2rem;font-weight:700;margin-bottom:8px}
-.cta-block p{font-size:13px;color:#666;margin-bottom:20px}
-.btn-cta{display:inline-block;padding:12px 28px;background:#1A1A1A;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
-.archive-note{font-size:13px;color:#999;margin-bottom:20px;padding:12px 16px;background:#F5F5F3;border-radius:8px}
-.archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.archive-item{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1}
-.archive-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(60%) brightness(0.7)}
-.archive-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Акции — Home Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #F7F7F5; color: #1A1A1A; line-height: 1.5; }
+
+    .page { max-width: 1200px; margin: 0 auto; padding: 32px 24px 64px; }
+
+    /* Промо-сетка */
+    .promo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    @media(max-width: 900px) { .promo-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(max-width: 600px) { .promo-grid { grid-template-columns: 1fr; } }
+
+    /* Промо-карточка */
+    .promo-card { background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid #E8E8E8; box-shadow: 0 2px 10px rgba(0,0,0,.06); transition: transform .2s, box-shadow .2s; }
+    .promo-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.10); }
+
+    .promo-img { position: relative; aspect-ratio: 1/1; overflow: hidden; background: #1A1A1A; }
+    .promo-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .promo-badge { position: absolute; bottom: 12px; left: 12px; background: rgba(192,57,43,.9); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: .04em; backdrop-filter: blur(4px); }
+
+    .promo-body { padding: 18px 20px; }
+    .promo-brand { font-size: 10px; font-weight: 700; color: #AAA; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+    .promo-title { font-size: 16px; font-weight: 700; color: #1A1A1A; margin-bottom: 10px; line-height: 1.3; }
+    .promo-desc { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 16px; }
+    .promo-btn { display: inline-block; background: #1A1A1A; color: #fff; font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 8px; text-decoration: none; transition: background .15s; }
+    .promo-btn:hover { background: #333; }
+
+    /* Архив */
+    .archive-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media(max-width: 900px) { .archive-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .archive-card { position: relative; border-radius: 10px; overflow: hidden; opacity: .55; border: 1px solid #E8E8E8; }
+    .archive-card img { width: 100%; display: block; aspect-ratio: 1/1; object-fit: cover; }
+    .archive-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.35); }
+    .archive-label span { background: rgba(0,0,0,.7); color: #fff; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 6px; letter-spacing: .06em; }
+
+    /* Таб-контент */
+    #section-archive { display: none; }
+
+    /* Section heading */
+    .section-heading { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #E8E8E8; }
+  </style>
 </head>
 <body>
 
-<div class="preview-bar">⚠️ ПРЕВЬЮ — не опубликовано на основном сайте</div>
-
-<div class="hero">
-  <h1>Акции и специальные предложения</h1>
-  <p>Актуальные акции от поставщиков на премиальную встраиваемую технику</p>
+<!-- Баннер превью -->
+<div style="background:#1a1a1a;color:#fff;text-align:center;padding:10px;font-size:13px;font-weight:600;position:sticky;top:0;z-index:999">
+  🔮 ПРЕВЬЮ страницы «Акции» — не опубликовано · 5 активных + 9 в архиве
 </div>
 
-<div class="tabs-wrap">
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('active', this)">🔥 Активные акции <span class="count">5</span></button>
-    <button class="tab" onclick="switchTab('archive', this)">Архив <span class="count">12</span></button>
+<!-- Шапка -->
+<header style="background:#fff;border-bottom:1px solid #E8E8E8;padding:16px 40px;display:flex;align-items:center;justify-content:space-between">
+  <div style="font-size:16px;font-weight:700;letter-spacing:.05em">HOME PROJECT</div>
+  <nav style="display:flex;gap:24px;font-size:13px;color:#888">
+    <a href="#" style="color:#888;text-decoration:none">Каталог</a>
+    <a href="#" style="color:#1A1A1A;font-weight:600;text-decoration:none">Акции</a>
+    <a href="#" style="color:#888;text-decoration:none">Уценка</a>
+    <a href="#" style="color:#888;text-decoration:none">Аутлет</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<div style="background:#1A1A1A;color:#fff;padding:40px 48px;border-bottom:1px solid #333">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="color:#aaa;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Специальные предложения</div>
+    <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;margin-bottom:8px">Акции от поставщиков</h1>
+    <p style="color:#aaa;font-size:14px;max-width:520px">Актуальные предложения от GRAUDE и Küppersbusch. Акции действуют при заказе через Home Project.</p>
   </div>
 </div>
 
-<!-- АКТИВНЫЕ АКЦИИ -->
-<div id="tab-active" class="tab-content">
-  <div class="page">
-
-    <!-- GRAUDE -->
-    <div class="brand-section">
-      <div class="brand-header">
-        <span class="brand-name">GRAUDE</span>
-        <span class="brand-count">3 акции · до 30 июня 2026</span>
-        <span class="deadline-badge" id="graude-deadline">⏳ Считаем...</span>
-      </div>
-      <div class="promo-grid">
-
-        <!-- 3+1 -->
-        <div class="promo-card">
-          <img class="promo-img" src="https://homeproject.online/promo-graude-3plus1.png" alt="GRAUDE 3+1 — Подарок на выбор">
-          <div class="promo-body">
-            <div class="promo-title">3+1 — Подарок на выбор</div>
-            <div class="promo-desc">Купите 3 прибора GRAUDE и получите посудомоечную машину или кофемашину в подарок</div>
-            <div class="promo-conditions">📋 Наличие духового шкафа в комплекте обязательно. Акция не суммируется с другими предложениями.</div>
-            <div class="promo-deadline">⏳ До 30 июня 2026</div>
-            <a href="https://t.me/homeproject_ai_bot" class="btn-promo" target="_blank">Узнать подробнее</a>
-          </div>
-        </div>
-
-        <!-- Холодильник -->
-        <div class="promo-card">
-          <img class="promo-img" src="https://homeproject.online/promo-graude-fridge.png" alt="GRAUDE холодильник за 34 990 ₽">
-          <div class="promo-body">
-            <div class="promo-title">3 + Холодильник за 34 990 ₽</div>
-            <div class="promo-desc">При покупке 3 приборов GRAUDE — встраиваемый холодильник IKG180.4 за 34 990 ₽ вместо 104 990 ₽</div>
-            <div class="promo-conditions">📋 Один из 3 приборов — обязательно духовой шкаф. Скидка 70 000 ₽ на холодильник.</div>
-            <div class="promo-deadline">⏳ До 30 июня 2026</div>
-            <a href="https://t.me/homeproject_ai_bot" class="btn-promo" target="_blank">Узнать подробнее</a>
-          </div>
-        </div>
-
-        <!-- Каскад скидок -->
-        <div class="promo-card">
-          <img class="promo-img" src="https://homeproject.online/promo-graude-cascade.png" alt="GRAUDE каскад скидок до 100%">
-          <div class="promo-body">
-            <div class="promo-title">Каскад скидок — до 100%</div>
-            <div class="promo-desc">2 прибора −25%, 3 прибора −50%, 4 прибора −75%, 5+ приборов −100% на самый дешёвый</div>
-            <div class="promo-conditions">📋 Приборы из разных категорий, наличие духового шкафа обязательно.</div>
-            <div class="promo-deadline">⏳ До 30 июня 2026</div>
-            <a href="https://t.me/homeproject_ai_bot" class="btn-promo" target="_blank">Узнать подробнее</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Küppersbusch -->
-    <div class="brand-section">
-      <div class="brand-header">
-        <span class="brand-name">Küppersbusch</span>
-        <span class="brand-count">2 акции</span>
-      </div>
-      <div class="promo-grid">
-
-        <!-- 150 лет K3/K5 -->
-        <div class="promo-card">
-          <img class="promo-img" src="https://homeproject.online/promo-kuppersbusch-k3k5.png" alt="Küppersbusch 150 лет — промо цена K-3 и K-5">
-          <div class="promo-body">
-            <div class="promo-title">150 лет — промо цена серий К-3 и К-5</div>
-            <div class="promo-desc">Масштабная акция в честь 150-летия бренда. Специальные промо цены на все приборы серий K-3 и K-5</div>
-            <div class="promo-conditions">📋 Уточняйте актуальные цены у менеджера. Ограниченный срок действия.</div>
-            <div class="promo-deadline">⏳ Срок уточняется</div>
-            <a href="https://t.me/homeproject_ai_bot" class="btn-promo" target="_blank">Узнать подробнее</a>
-          </div>
-        </div>
-
-        <!-- CBD + CSV -->
-        <div class="promo-card">
-          <img class="promo-img-wide" src="https://homeproject.online/promo-kuppersbusch-cbd-csv.png" alt="Küppersbusch CBD+CSV комплект">
-          <div class="promo-body">
-            <div class="promo-title">Технологии вкуса — комплект CBD + CSV</div>
-            <div class="promo-desc">Специальная цена на комплект: духовой шкаф CBD 6550.0 S + пароварка CSV 6800.0 S — <strong>649 990 ₽</strong> вместо 775 980 ₽</div>
-            <div class="promo-conditions">📋 Экономия 125 990 ₽. Доступно под заказ.</div>
-            <div class="promo-deadline">⏳ Срок уточняется</div>
-            <a href="https://t.me/homeproject_ai_bot" class="btn-promo" target="_blank">Узнать подробнее</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="cta-block">
-      <h2>Нужна консультация по акциям?</h2>
-      <p>Наш менеджер подберёт оптимальный комплект с максимальной выгодой</p>
-      <a href="https://t.me/homeproject_ai_bot" class="btn-cta" target="_blank">Написать в Telegram</a>
-    </div>
-
+<!-- Таб-переключатель -->
+<div style="background:#fff;border-bottom:2px solid #E8E8E8;padding:0 48px">
+  <div style="max-width:1200px;margin:0 auto;display:flex;gap:0">
+    <button onclick="showTab('active')" id="tab-active" style="padding:16px 24px;font-size:14px;font-weight:600;border:none;background:none;border-bottom:2px solid #1A1A1A;margin-bottom:-2px;cursor:pointer;color:#1A1A1A">
+      Активные <span style="background:#C0392B;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px">5</span>
+    </button>
+    <button onclick="showTab('archive')" id="tab-archive" style="padding:16px 24px;font-size:14px;font-weight:600;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;color:#999">
+      Архив <span style="background:#E8E8E8;color:#999;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px">9</span>
+    </button>
   </div>
 </div>
 
-<!-- АРХИВ -->
-<div id="tab-archive" class="tab-content" style="display:none">
-  <div class="page">
-    <p class="archive-note">Эти акции завершены. Оставлены для истории.</p>
+<!-- Контент -->
+<div class="page">
+
+  <!-- Активные акции -->
+  <div id="section-active">
+    <div class="section-heading">5 активных акций</div>
+    <div class="promo-grid">
+
+      <!-- 1. GRAUDE — Каскад скидок -->
+      <div class="promo-card">
+        <div class="promo-img">
+          <img src="https://80.91.86.53.nip.io/api/file?path=docs/marketing/promotions/Graude/banners-2026-06/cascade-discounts/square-1080.png" alt="GRAUDE — Каскад скидок">
+          <div class="promo-badge">До 30 июня 2026</div>
+        </div>
+        <div class="promo-body">
+          <div class="promo-brand">GRAUDE</div>
+          <h3 class="promo-title">Каскад скидок — до 100%</h3>
+          <p class="promo-desc">При покупке комплекта из приборов разных категорий (обязателен духовой шкаф): 2 прибора −25%, 3 прибора −50%, 4 прибора −75%, 5 и более −100% на наименее дорогой прибор.</p>
+          <a href="https://t.me/homeproject_ai_bot" class="promo-btn" target="_blank">Узнать условия →</a>
+        </div>
+      </div>
+
+      <!-- 2. GRAUDE — 3+1 подарок -->
+      <div class="promo-card">
+        <div class="promo-img">
+          <img src="https://80.91.86.53.nip.io/api/file?path=docs/marketing/promotions/Graude/banners-2026-06/3plus1-gift/square-1080.png" alt="GRAUDE — 3+1: подарок на выбор">
+          <div class="promo-badge">До 30 июня 2026</div>
+        </div>
+        <div class="promo-body">
+          <div class="promo-brand">GRAUDE</div>
+          <h3 class="promo-title">3+1: подарок на выбор</h3>
+          <p class="promo-desc">Купите 3 прибора GRAUDE и получите посудомоечную машину или кофемашину в подарок.</p>
+          <a href="https://t.me/homeproject_ai_bot" class="promo-btn" target="_blank">Узнать условия →</a>
+        </div>
+      </div>
+
+      <!-- 3. GRAUDE — 3 + Холодильник -->
+      <div class="promo-card">
+        <div class="promo-img">
+          <img src="https://80.91.86.53.nip.io/api/file?path=docs/marketing/promotions/Graude/banners-2026-06/fridge-34990/square-1080.png" alt="GRAUDE — 3 + Холодильник">
+          <div class="promo-badge">До 30 июня 2026</div>
+        </div>
+        <div class="promo-body">
+          <div class="promo-brand">GRAUDE</div>
+          <h3 class="promo-title">3 прибора + Холодильник</h3>
+          <p class="promo-desc">При покупке 3 приборов GRAUDE (один должен быть духовой шкаф) — встраиваемый холодильник IKG180.4 за 34 990 ₽ вместо 104 990 ₽.</p>
+          <a href="https://t.me/homeproject_ai_bot" class="promo-btn" target="_blank">Узнать условия →</a>
+        </div>
+      </div>
+
+      <!-- 4. Küppersbusch — 150 лет -->
+      <div class="promo-card">
+        <div class="promo-img">
+          <img src="https://80.91.86.53.nip.io/api/file?path=docs/marketing/landing-pages/_assets/banner-references/homeproject-promoK3K5-1920x1920.png" alt="Küppersbusch — 150 лет: серии К-3 и К-5">
+        </div>
+        <div class="promo-body">
+          <div class="promo-brand">Küppersbusch</div>
+          <h3 class="promo-title">150 лет: серии К-3 и К-5</h3>
+          <p class="promo-desc">Масштабная акция в честь 150-летия бренда. Специальные промо-цены на все приборы серий К-3 и К-5.</p>
+          <a href="https://t.me/homeproject_ai_bot" class="promo-btn" target="_blank">Узнать условия →</a>
+        </div>
+      </div>
+
+      <!-- 5. Küppersbusch — Технологии вкуса -->
+      <div class="promo-card">
+        <div class="promo-img">
+          <img src="https://80.91.86.53.nip.io/api/file?path=docs/marketing/landing-pages/_assets/banner-references/kuppersbusch-shop-1500x400.png" alt="Küppersbusch — Технологии вкуса" style="object-fit:cover">
+        </div>
+        <div class="promo-body">
+          <div class="promo-brand">Küppersbusch</div>
+          <h3 class="promo-title">Технологии вкуса</h3>
+          <p class="promo-desc">Специальная цена на комплект духового шкафа и пароварки: CBD 6550.0 S + CSV 6800.0 S за 649 990 ₽ (вместо 775 980 ₽). Экономия 125 990 ₽.</p>
+          <a href="https://t.me/homeproject_ai_bot" class="promo-btn" target="_blank">Узнать условия →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Архив -->
+  <div id="section-archive">
+    <div class="section-heading">9 завершённых акций</div>
     <div class="archive-grid">
 
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/312/37953848/original/-40__на_4й_прибор_1080х1080_285219f1b86e1dca31f030c7a06d0f65_902afe4869003b34450585fe8996c561.png" alt="−40% на 4-й прибор">
-        <div class="archive-label">Архив</div>
+      <div class="archive-card">
+        <img src="https://static.insales-cdn.com/files/1/312/37953848/original/-40__на_4й_прибор_1080х1080_285219f1b86e1dca31f030c7a06d0f65_902afe4869003b34450585fe8996c561.png" alt="Архивная акция">
+        <div class="archive-label"><span>Завершена</span></div>
       </div>
 
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4322/37327074/original/МБТ_кофемашина_1080х1080___копия_ee5915d926b4555a7a9f68c1ff06fa95.png" alt="МБТ кофемашина">
-        <div class="archive-label">Архив</div>
+      <div class="archive-card">
+        <img src="https://static.insales-cdn.com/files/1/4322/37327074/original/МБТ_кофемашина_1080х1080___копия_ee5915d926b4555a7a9f68c1ff06fa95.png" alt="Архивная акция">
+        <div class="archive-label"><span>Завершена</span></div>
       </div>
 
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4310/37327062/original/МБТ_пылесос_1080х1080___копия_d0cd324e0b9782957849fad18f730c4e.png" alt="МБТ пылесос">
-        <div class="archive-label">Архив</div>
+      <div class="archive-card">
+        <img src="https://static.insales-cdn.com/files/1/4310/37327062/original/МБТ_пылесос_1080х1080___копия_d0cd324e0b9782957849fad18f730c4e.png" alt="Архивная акция">
+        <div class="archive-label"><span>Завершена</span></div>
       </div>
 
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4335/37327087/original/Вытяжка_в_подарок_1080х1080_e7e467b712f2d8e67fbb97aa93206764.png" alt="Вытяжка в подарок">
-        <div class="archive-label">Архив</div>
+      <div class="archive-card">
+        <img src="https://static.insales-cdn.com/files/1/4335/37327087/original/Вытяжка_в_подарок_1080х1080_e7e467b712f2d8e67fbb97aa93206764.png" alt="Архивная акция">
+        <div class="archive-label"><span>Завершена</span></div>
       </div>
 
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4285/37327037/original/Пост_1080x1080_Spirit_660_Anthracite_0b52af31e4f4d8d6ffa2aadd786e2ea3.png" alt="Spirit 660 Anthracite">
-        <div class="archive-label">Архив</div>
+      <div class="archive-card">
+        <img src="https://static.insales-cdn.com/files/1/4337/37327089/original/Outlet-10__1080х1080_2699764808ab4c0b4c05827d7e5e9338.png" alt="Архивная акция">
+        <div class="archive-label"><span>Завершена</span></div>
       </div>
 
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4287/37327039/original/Пост_1080x1080_Spirit_620_White_cba9f6506ab2c5ec7ef671a285568dee.png" alt="Spirit 620 White">
-        <div class="archive-label">Архив</div>
+      <div class="archive-card">
+        <img src="https://static.insales-cdn.com/files/1/4339/37327091/original/Объемная_скидка_1080х1080_ilve_02d10b4adc9707927df74a759a1262bc_349fbe918ee0ee747c84b73a57518b04.png" alt="Архивная акция">
+        <div class="archive-label"><span>Завершена</span></div>
       </div>
 
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4301/37327053/original/Пост_1080х1080_Titan_Rock_b45c1e81031e88c168c0d81cf9b056cd.png" alt="Titan Rock">
-        <div class="archive-label">Архив</div>
+      <div class="archive-card">
+        <img src="https://static.insales-cdn.com/files/1/4367/37327119/original/Объемная_скидка_1080х1080_kuppersbusch_4386aa4ec1b9c42c2918cec892bfe4a9_b20f348b39f6044fd0bb0d7d.png" alt="Архивная акция">
+        <div class="archive-label"><span>Завершена</span></div>
       </div>
 
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4337/37327089/original/Outlet-10__1080х1080_2699764808ab4c0b4c05827d7e5e9338.png" alt="Outlet −10%">
-        <div class="archive-label">Архив</div>
+      <div class="archive-card">
+        <img src="https://static.insales-cdn.com/files/1/4369/37327121/original/Снижение_цен_FWK4800.0S_1080х1080_9fc504f23ecf8b92ce5c4c0869f78957.png" alt="Архивная акция">
+        <div class="archive-label"><span>Завершена</span></div>
       </div>
 
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4339/37327091/original/Объемная_скидка_1080х1080_ilve_02d10b4adc9707927df74a759a1262bc_349fbe918ee0ee747c84b73a57518b04.png" alt="Объёмная скидка ILVE">
-        <div class="archive-label">Архив</div>
-      </div>
-
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4367/37327119/original/Объемная_скидка_1080х1080_kuppersbusch_4386aa4ec1b9c42c2918cec892bfe4a9_b20f348b39f6044fd0bb0d7d.png" alt="Объёмная скидка Küppersbusch">
-        <div class="archive-label">Архив</div>
-      </div>
-
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4369/37327121/original/Снижение_цен_FWK4800.0S_1080х1080_9fc504f23ecf8b92ce5c4c0869f78957.png" alt="Снижение цен FWK4800.0S">
-        <div class="archive-label">Архив</div>
-      </div>
-
-      <div class="archive-item">
-        <img src="https://static.insales-cdn.com/files/1/4371/37327123/original/Снижение_цен_G4800.1v_1080х1080_13aee828d1e3b7d1b945124031af903b.png" alt="Снижение цен G4800.1v">
-        <div class="archive-label">Архив</div>
+      <div class="archive-card">
+        <img src="https://static.insales-cdn.com/files/1/4371/37327123/original/Снижение_цен_G4800.1v_1080х1080_13aee828d1e3b7d1b945124031af903b.png" alt="Архивная акция">
+        <div class="archive-label"><span>Завершена</span></div>
       </div>
 
     </div>
   </div>
+
 </div>
 
 <script>
-function switchTab(name, btn) {
-  document.querySelectorAll('.tab-content').forEach(function(t){ t.style.display='none'; });
-  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
-  document.getElementById('tab-'+name).style.display='block';
-  btn.classList.add('active');
+function showTab(tab) {
+  document.getElementById('section-active').style.display = tab === 'active' ? 'block' : 'none';
+  document.getElementById('section-archive').style.display = tab === 'archive' ? 'block' : 'none';
+  document.getElementById('tab-active').style.borderBottomColor = tab === 'active' ? '#1A1A1A' : 'transparent';
+  document.getElementById('tab-active').style.color = tab === 'active' ? '#1A1A1A' : '#999';
+  document.getElementById('tab-archive').style.borderBottomColor = tab === 'archive' ? '#1A1A1A' : 'transparent';
+  document.getElementById('tab-archive').style.color = tab === 'archive' ? '#1A1A1A' : '#999';
 }
-
-// Countdown to June 30, 2026
-(function(){
-  var deadline = new Date('2026-06-30T23:59:59');
-  var now = new Date();
-  var diff = Math.ceil((deadline - now) / 86400000);
-  var el = document.getElementById('graude-deadline');
-  if(el) {
-    if(diff > 0) el.textContent = '⏳ Осталось ' + diff + ' дн.';
-    else el.textContent = '⚠️ Акция завершена';
-  }
-})();
 </script>
 
 </body>
