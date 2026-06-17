@@ -1,0 +1,563 @@
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Mulish',system-ui,sans-serif;background:#FAF7F2;color:#1A1A1A;line-height:1.55;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* === BREADCRUMB === */
+.crumbs{max-width:1240px;margin:0 auto;padding:24px 24px 0;font-size:12px;color:#999;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.crumbs a{color:#1A1A1A;text-decoration:underline;text-decoration-color:#E0DBD3}
+.crumbs a:hover{text-decoration-color:#C9A36A}
+
+/* === HERO === */
+.hero{background:#fff;border-left:5px solid #1A1A1A;padding:40px 48px 36px;border-bottom:1px solid #E8E4DB;max-width:1240px;margin:18px auto 0;border-radius:0 12px 12px 0}
+.hero-eyebrow{color:#1A1A1A;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px;display:inline-flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:#C9A36A;display:inline-block}
+.hero h1{font-size:clamp(1.5rem,3vw,2.4rem);font-weight:800;margin-bottom:12px;line-height:1.18;letter-spacing:-.01em}
+.hero h1 span{color:#C9A36A}
+.hero p.lead{color:#555;font-size:14.5px;max-width:680px;line-height:1.7}
+.hero-stats{display:flex;gap:42px;margin-top:26px;padding-top:22px;border-top:1px solid #E8E4DB;flex-wrap:wrap}
+.hero-stats .stat .num{font-size:22px;font-weight:800;color:#1A1A1A;letter-spacing:-.01em}
+.hero-stats .stat .num span{color:#C9A36A;font-weight:700;font-size:13px;margin-left:3px}
+.hero-stats .stat .label{font-size:10.5px;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-top:4px;font-weight:600}
+
+/* === FILTER BAR === */
+.filter-bar{position:sticky;top:0;z-index:30;background:rgba(250,247,242,.97);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid #E8E4DB;padding:14px 0;margin-top:32px}
+.filter-inner{max-width:1240px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.02em;padding:8px 14px;border:1.5px solid #E0DBD3;border-radius:999px;background:#fff;color:#1A1A1A;cursor:pointer;transition:all .15s;white-space:nowrap}
+.chip:hover{border-color:#C9A36A}
+.chip-active{background:#1A1A1A;color:#fff;border-color:#1A1A1A}
+.chip-active:hover{border-color:#1A1A1A}
+
+/* === GRID === */
+.grid-wrap{max-width:1240px;margin:0 auto;padding:32px 24px 60px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px}
+.card{background:#fff;border:1px solid #E8E4DB;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s,border-color .22s;min-height:520px}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.08);border-color:#C9A36A}
+.card-media{aspect-ratio:1/1;background:#FBF8F2;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #F0EDE6;padding:18px}
+.card-media img{max-width:100%;max-height:100%;object-fit:contain;mix-blend-mode:multiply}
+.card-body{padding:18px 20px 14px;flex:1;display:flex;flex-direction:column;gap:8px}
+.card-sku{font-size:18px;font-weight:800;color:#C9A36A;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.card-name{font-size:13.5px;font-weight:700;color:#1A1A1A;line-height:1.35}
+.card-type{font-size:10.5px;color:#999;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.card-features{list-style:none;display:flex;flex-direction:column;gap:5px;font-size:11.5px;color:#555;line-height:1.45}
+.card-features li{position:relative;padding-left:11px}
+.card-features li::before{content:'';position:absolute;left:0;top:6px;width:4px;height:4px;background:#C9A36A;border-radius:50%}
+.card-cta{display:flex;justify-content:space-between;align-items:center;padding:13px 20px;background:#FBF8F2;border-top:1px solid #F0EDE6;font-size:11.5px;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+.card-cta span:first-child{color:#999}
+.cta-arrow{color:#1A1A1A;transition:transform .18s}
+.card:hover .cta-arrow{transform:translateX(4px);color:#C9A36A}
+
+/* === FOOTER CTA === */
+.footer-cta{max-width:1240px;margin:0 auto 60px;padding:0 24px}
+.cta-card{background:#1A1A1A;color:#F0EDE6;border-radius:14px;padding:44px 44px;display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:center;position:relative;overflow:hidden}
+.cta-card::after{content:'';position:absolute;top:0;right:0;width:45%;height:100%;background:linear-gradient(135deg,transparent 0%,rgba(201,163,106,.06) 100%);pointer-events:none}
+@media(max-width:760px){.cta-card{grid-template-columns:1fr;padding:32px 24px}}
+.cta-card h2{font-size:1.5rem;font-weight:800;margin-bottom:10px;color:#fff;letter-spacing:-.01em}
+.cta-card .cta-eb{color:#C9A36A;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.cta-card p{font-size:14px;color:#B0AC9F;line-height:1.7}
+.cta-actions{display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;background:#C9A36A;color:#1A1A1A;border:none;border-radius:9px;font-family:inherit;font-size:13.5px;font-weight:800;letter-spacing:.01em;cursor:pointer;transition:all .15s;text-decoration:none}
+.btn-primary:hover{background:#D6B380}
+.btn-tg{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 22px;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3);border-radius:9px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none}
+.btn-tg:hover{border-color:#27A4E2;background:#27A4E2}
+
+.note{text-align:center;color:#999;font-size:11.5px;margin:30px auto 50px;max-width:600px;line-height:1.65;padding:0 24px}
+.note b{color:#1A1A1A}
+
+@media(max-width:720px){
+  .hero{padding:32px 22px 26px;margin:14px 14px 0;border-radius:0 10px 10px 0}
+  .hero-stats{gap:24px}
+  .grid-wrap{padding:24px 14px 50px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+  .card{min-height:440px}
+  .card-sku{font-size:15px}
+  .card-name{font-size:12px}
+  .card-features{font-size:10.5px}
+}
+</style>
+
+
+<nav class="crumbs"><a href="/ru/page/brand-gaggenau">← Gaggenau</a> · Серия 400</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">Серия 400 · Флагман</div>
+  <h1>Maximum line — <span>полноразмерные модули</span> для проектной кухни</h1>
+  <p class="lead">Полноразмерные модули максимальной комплектации Gaggenau. Массивная нержавеющая сталь, литые рамки, профессиональная функциональность, единый дизайн-код. Под каждый проект подбирается комплект в одной серии — модули совмещаются без ограничений. Цены — по запросу, ассортимент частично в наличии.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="num">43<span>модели</span></div><div class="label">в каталоге серии</div></div>
+    <div class="stat"><div class="num">10<span>категорий</span></div><div class="label">от духовых до ящиков</div></div>
+    <div class="stat"><div class="num">По запросу<span></span></div><div class="label">цены и наличие</div></div>
+  </div>
+</header>
+
+<div class="filter-bar">
+  <div class="filter-inner"><button class="chip chip-active" data-filter="all">Все · 43</button><button class="chip" data-filter="ovens">Духовые шкафы · 6</button><button class="chip" data-filter="combisteam">Combi-Steam · 5</button><button class="chip" data-filter="microwave">Микроволновки · 2</button><button class="chip" data-filter="cooktops">Варочные поверхности · 9</button><button class="chip" data-filter="hoods">Вытяжки · 3</button><button class="chip" data-filter="cooling">Холодильное · 8</button><button class="chip" data-filter="wine">Винные шкафы · 3</button><button class="chip" data-filter="coffee">Кофемашины · 2</button><button class="chip" data-filter="dishwasher">Посудомойки · 2</button><button class="chip" data-filter="drawers">Доп. ящики · 3</button></div>
+</div>
+
+<main class="grid-wrap">
+  <div class="grid" id="grid">
+<a class="card" data-cat="ovens" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BO470112_def.png" alt="BO 470" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BO+470'"></div>
+  <div class="card-body">
+    <div class="card-sku">BO 470</div>
+    <div class="card-name">Духовой шкаф BO 470, серия 400</div>
+    <div class="card-type">Духовой шкаф</div>
+    <ul class="card-features"><li>Ниша: 60 x 60 x 55 см (ВxШxГ)</li><li>Объём 76 л, нержавеющая сталь с антрацитовой эмалью</li><li>До 17 режимов нагрева, макс. 300 °C</li><li>Боковая откидная дверь, открывается до 180°</li><li>Pyrolytic self-cleaning, TFT touch display + поворотные регуляторы</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="ovens" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BO471112_def.png" alt="BO 471" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BO+471'"></div>
+  <div class="card-body">
+    <div class="card-sku">BO 471</div>
+    <div class="card-name">Духовой шкаф BO 471, серия 400 (левая навеска)</div>
+    <div class="card-type">Духовой шкаф</div>
+    <ul class="card-features"><li>Ниша: 60 x 60 x 55 см</li><li>Объём 76 л, 17 режимов нагрева</li><li>Макс. температура 300 °C, пиролиз</li><li>Боковая дверь, левая навеска, открытие до 180°</li><li>TFT touch display, термощуп с 3-точечным замером</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="ovens" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BO480112_def.png" alt="BO 480" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BO+480'"></div>
+  <div class="card-body">
+    <div class="card-sku">BO 480</div>
+    <div class="card-name">Духовой шкаф BO 480, серия 400 (76 см)</div>
+    <div class="card-type">Духовой шкаф широкий</div>
+    <ul class="card-features"><li>Ниша: 60 x 76 x 55 см (расширенная 76 см ширина)</li><li>Объём 111 л — самый большой в серии 400</li><li>До 17 режимов нагрева, макс. 300 °C</li><li>Pyrolytic self-cleaning</li><li>Боковая дверь, правая навеска (BO 481 — левая)</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="ovens" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BO481112_def.png" alt="BO 481" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BO+481'"></div>
+  <div class="card-body">
+    <div class="card-sku">BO 481</div>
+    <div class="card-name">Духовой шкаф BO 481, серия 400 (76 см, левая навеска)</div>
+    <div class="card-type">Духовой шкаф широкий</div>
+    <ul class="card-features"><li>Ниша: 60 x 76 x 55 см</li><li>Объём 111 л</li><li>17 режимов нагрева, пиролиз</li><li>Левая навеска боковой двери</li><li>TFT touch, термощуп с автоотключением</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="ovens" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BO450112_def.png" alt="BO 450" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BO+450'"></div>
+  <div class="card-body">
+    <div class="card-sku">BO 450</div>
+    <div class="card-name">Духовой шкаф BO 450, серия 400 (нижнее управление)</div>
+    <div class="card-type">Духовой шкаф</div>
+    <ul class="card-features"><li>Ниша: 60 x 60 x 55 см</li><li>Объём 76 л, нижнее расположение панели управления</li><li>Боковая дверь, правая навеска (BO 451 — левая)</li><li>Pyrolytic self-cleaning</li><li>TFT touch display + поворотный регулятор</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="ovens" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BO451112_def.png" alt="BO 451" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BO+451'"></div>
+  <div class="card-body">
+    <div class="card-sku">BO 451</div>
+    <div class="card-name">Духовой шкаф BO 451, серия 400 (левая навеска, нижнее управление)</div>
+    <div class="card-type">Духовой шкаф</div>
+    <ul class="card-features"><li>Ниша: 60 x 60 x 55 см</li><li>Объём 76 л</li><li>Левая навеска двери</li><li>Pyrolytic self-cleaning</li><li>Нижняя панель управления TFT touch</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="combisteam" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BS470112_def.png" alt="BS 470" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BS+470'"></div>
+  <div class="card-body">
+    <div class="card-sku">BS 470</div>
+    <div class="card-name">Пароконвектомат BS 470, серия 400 (60 см, верхнее управление)</div>
+    <div class="card-type">Combi-Steam Oven</div>
+    <ul class="card-features"><li>Ниша: 60 x 60 x 55 см</li><li>Объём 50 л, верхняя панель управления</li><li>Подключение к водопроводу + слив (plumbed)</li><li>5 уровней влажности, макс. 230 °C</li><li>Sous-vide, регенерация, бережное приготовление</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="combisteam" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BS471112_def.png" alt="BS 471" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BS+471'"></div>
+  <div class="card-body">
+    <div class="card-sku">BS 471</div>
+    <div class="card-name">Пароконвектомат BS 471, серия 400 (60 см, левая навеска)</div>
+    <div class="card-type">Combi-Steam Oven</div>
+    <ul class="card-features"><li>Ниша: 60 x 60 x 55 см</li><li>Объём 50 л</li><li>Plumbed (стационарная подача воды и слив)</li><li>5 уровней пара, макс. 230 °C</li><li>Левая навеска двери</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="combisteam" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BS474112_def.png" alt="BS 474" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BS+474'"></div>
+  <div class="card-body">
+    <div class="card-sku">BS 474</div>
+    <div class="card-name">Пароконвектомат BS 474, серия 400 (60 см, нижнее управление)</div>
+    <div class="card-type">Combi-Steam Oven</div>
+    <ul class="card-features"><li>Ниша: 60 x 60 x 55 см</li><li>Объём 50 л, нижняя панель управления</li><li>Plumbed</li><li>5 уровней влажности до 230 °C</li><li>Правая навеска двери</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="combisteam" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BS484112_def.png" alt="BS 484" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BS+484'"></div>
+  <div class="card-body">
+    <div class="card-sku">BS 484</div>
+    <div class="card-name">Пароконвектомат BS 484, серия 400 (76 см)</div>
+    <div class="card-type">Combi-Steam Oven широкий</div>
+    <ul class="card-features"><li>Ниша: 60 x 76 x 55 см</li><li>Объём 76 л, ширина 76 см</li><li>Подключение к водопроводу + слив</li><li>5 уровней пара, температура до 230 °C</li><li>Sous-vide, gentle baking, регенерация</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="combisteam" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BS485112_def.png" alt="BS 485" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BS+485'"></div>
+  <div class="card-body">
+    <div class="card-sku">BS 485</div>
+    <div class="card-name">Пароконвектомат BS 485, серия 400 (76 см, левая навеска)</div>
+    <div class="card-type">Combi-Steam Oven широкий</div>
+    <ul class="card-features"><li>Ниша: 60 x 76 x 55 см</li><li>Объём 76 л</li><li>Plumbed + drain</li><li>5 уровней влажности, до 230 °C</li><li>Левая навеска двери</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="microwave" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BM484112_def.png" alt="BM 484" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BM+484'"></div>
+  <div class="card-body">
+    <div class="card-sku">BM 484</div>
+    <div class="card-name">Комби-микроволновая печь BM 484, серия 400 (76 см)</div>
+    <div class="card-type">Combi-Microwave Oven</div>
+    <ul class="card-features"><li>Ширина 76 см, нетто-объём ~37 л (1.3 cu.ft.)</li><li>Комбинация: микроволны + гриль + конвекция</li><li>5 уровней мощности СВЧ: 1000/600/360/180/90 Вт</li><li>Гриль 3 уровня, макс. 2000 Вт</li><li>Боковая дверь до 180°, правая навеска (BM 485 — левая)</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="microwave" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_BM485112_def.png" alt="BM 485" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=BM+485'"></div>
+  <div class="card-body">
+    <div class="card-sku">BM 485</div>
+    <div class="card-name">Комби-микроволновая печь BM 485, серия 400 (76 см, левая навеска)</div>
+    <div class="card-type">Combi-Microwave Oven</div>
+    <ul class="card-features"><li>Ширина 76 см, объём 37 л</li><li>СВЧ + гриль + конвекция</li><li>Макс. мощность 1000 Вт СВЧ / 2000 Вт гриль</li><li>Левая навеска боковой двери</li><li>TFT touch display</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooktops" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_CX482101_def.png" alt="CX 482" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=CX+482'"></div>
+  <div class="card-body">
+    <div class="card-sku">CX 482</div>
+    <div class="card-name">Полноповерхностная индукционная варочная панель CX 482, серия 400</div>
+    <div class="card-type">Full-surface induction cooktop</div>
+    <ul class="card-features"><li>Ширина 80 см, единая cooking zone 2750 см²</li><li>Авто-распознавание посуды в любой точке поверхности</li><li>До 5 предметов посуды одновременно</li><li>Макс. мощность 5.5 кВт на одну ёмкость, total 7.2 кВт</li><li>Большой TFT touch display с визуализацией посуды</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooktops" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_VG491212_def.png" alt="VG 491" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=VG+491'"></div>
+  <div class="card-body">
+    <div class="card-sku">VG 491</div>
+    <div class="card-name">Газовая варочная панель Vario VG 491, серия 400 (90 см)</div>
+    <div class="card-type">Gas cooktop</div>
+    <ul class="card-features"><li>Ширина 90 см (36&quot;), нержавеющая сталь</li><li>5 газовых конфорок, включая wok-конфорку с двойной короной</li><li>Чугунные решётки, точное управление пламенем</li><li>Модульная Vario-философия — стыкуется с CX/VI/VL</li><li>Безопасность: газ-контроль на всех конфорках</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooktops" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_VI482112_def.png" alt="VI 482" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=VI+482'"></div>
+  <div class="card-body">
+    <div class="card-sku">VI 482</div>
+    <div class="card-name">Vario индукционная варочная панель VI 482, серия 400 (80 см)</div>
+    <div class="card-type">Vario Flex Induction</div>
+    <ul class="card-features"><li>Ширина 80 см, 4 индукционные зоны</li><li>Flex-функция — объединение зон до 32 см ширины</li><li>Безрамочное исполнение для flush-монтажа</li><li>Двухцветный дисплей и поворотный регулятор из нержавеющей стали</li><li>Booster на каждую зону</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooktops" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_VI492112_def.png" alt="VI 492" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=VI+492'"></div>
+  <div class="card-body">
+    <div class="card-sku">VI 492</div>
+    <div class="card-name">Vario индукционная варочная панель VI 492, серия 400 (90 см)</div>
+    <div class="card-type">Vario Flex Induction</div>
+    <ul class="card-features"><li>Ширина 90 см, 5 индукционных зон</li><li>Flex-зоны, индивидуальный booster</li><li>Frameless flush-монтаж</li><li>TFT touch управление</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooktops" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_VI422112_def.png" alt="VI 422" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=VI+422'"></div>
+  <div class="card-body">
+    <div class="card-sku">VI 422</div>
+    <div class="card-name">Vario индукционная панель VI 422, серия 400 (38 см)</div>
+    <div class="card-type">Vario Induction (модуль)</div>
+    <ul class="card-features"><li>Ширина 38 см, 2 индукционные зоны</li><li>Модуль для комбинирования с другими Vario</li><li>Поворотный регулятор из нержавейки</li><li>Booster, taймер на каждую зону</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooktops" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_VI414112_def.png" alt="VI 414" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=VI+414'"></div>
+  <div class="card-body">
+    <div class="card-sku">VI 414</div>
+    <div class="card-name">Vario индукционный wok VI 414, серия 400 (38 см)</div>
+    <div class="card-type">Vario Induction Wok</div>
+    <ul class="card-features"><li>Ширина 38 см (15&quot;)</li><li>Cooking zone 28 см под wok</li><li>Высокая мощность для wok-готовки</li><li>Модульный, стыкуется с VL/VG/VI</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooktops" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_VP414112_def.png" alt="VP 414" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=VP+414'"></div>
+  <div class="card-body">
+    <div class="card-sku">VP 414</div>
+    <div class="card-name">Vario Teppan Yaki VP 414, серия 400 (38 см)</div>
+    <div class="card-type">Teppan Yaki</div>
+    <ul class="card-features"><li>Ширина 38 см (15&quot;)</li><li>Поверхность hard chrome-plated сталь</li><li>Точное управление температурой до 240 °C</li><li>Две независимые зоны нагрева</li><li>Поворотные регуляторы из нержавейки</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooktops" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_VR414112_def.png" alt="VR 414" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=VR+414'"></div>
+  <div class="card-body">
+    <div class="card-sku">VR 414</div>
+    <div class="card-name">Vario электрогриль VR 414, серия 400 (38 см)</div>
+    <div class="card-type">Electric Grill</div>
+    <ul class="card-features"><li>Ширина 38 см</li><li>Гриль с лавовыми камнями</li><li>Раздельные зоны нагрева</li><li>Модульный для Vario-комбинаций</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooktops" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_VL414112_def.png" alt="VL 414" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=VL+414'"></div>
+  <div class="card-body">
+    <div class="card-sku">VL 414</div>
+    <div class="card-name">Vario встроенная даундрафт-вытяжка VL 414, серия 400 (38 см)</div>
+    <div class="card-type">Downdraft Ventilation</div>
+    <ul class="card-features"><li>Ширина 38 см, встроенный downdraft</li><li>Подъём на стол при включении</li><li>Сменные жироулавливающие фильтры</li><li>Без двигателя — комбинируется с remote blower</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="hoods" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_AW442720_def.png" alt="AW 442" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=AW+442'"></div>
+  <div class="card-body">
+    <div class="card-sku">AW 442</div>
+    <div class="card-name">Профессиональная настенная вытяжка AW 442, серия 400</div>
+    <div class="card-type">Wall Hood</div>
+    <ul class="card-features"><li>Ширина 90 / 120 / 160 см</li><li>Угловые baffle-фильтры из нержавейки с высоким сбором жира</li><li>LED neutral white с диммированием</li><li>Без вентилятора — под BLDC remote blower</li><li>Авто-режим с сенсорным управлением, 50 Вт</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="hoods" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_AI442720_def.png" alt="AI 442" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=AI+442'"></div>
+  <div class="card-body">
+    <div class="card-sku">AI 442</div>
+    <div class="card-name">Профессиональная островная вытяжка AI 442, серия 400</div>
+    <div class="card-type">Island Hood</div>
+    <ul class="card-features"><li>Ширина 90 / 120 / 160 см</li><li>Островное исполнение, baffle-фильтры</li><li>LED neutral white, диммирование</li><li>Без вентилятора — с remote blower AR 400</li><li>Автоматика с датчиком воздуха</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="hoods" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_AR400743_def.png" alt="AR 400" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=AR+400'"></div>
+  <div class="card-body">
+    <div class="card-sku">AR 400</div>
+    <div class="card-name">Внутренний blower AR 400, серия 400</div>
+    <div class="card-type">Internal Blower</div>
+    <ul class="card-features"><li>Металлический корпус</li><li>Высокая производительность air extraction</li><li>Совместим с AW 442 / AI 442</li><li>Низкий уровень шума</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooling" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RC492304_def.png" alt="RC 492" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RC+492'"></div>
+  <div class="card-body">
+    <div class="card-sku">RC 492</div>
+    <div class="card-name">Vario холодильник-колонна RC 492, серия 400 (91 см)</div>
+    <div class="card-type">Built-in Refrigerator Column</div>
+    <ul class="card-features"><li>Ниша: 213.4 x 91.4 x 61 см (84&quot; x 36&quot;)</li><li>Полностью встраиваемая, fully integrated</li><li>TFT touch внутри, LED иллюминация</li><li>Antibacterial интерьер, no-frost</li><li>iF gold design award 2018</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooling" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RC472304_def.png" alt="RC 472" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RC+472'"></div>
+  <div class="card-body">
+    <div class="card-sku">RC 472</div>
+    <div class="card-name">Vario холодильник-колонна RC 472, серия 400 (76 см)</div>
+    <div class="card-type">Built-in Refrigerator Column</div>
+    <ul class="card-features"><li>Ниша: 213.4 x 76.2 x 61 см (84&quot; x 30&quot;)</li><li>Fully integrated, fixed hinge</li><li>Внутренний TFT touch, LED</li><li>Климат-зоны: холодильник + crisper</li><li>Демпфер soft-close</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooling" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RC462304_def.png" alt="RC 462" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RC+462'"></div>
+  <div class="card-body">
+    <div class="card-sku">RC 462</div>
+    <div class="card-name">Vario холодильник-колонна RC 462, серия 400 (61 см)</div>
+    <div class="card-type">Built-in Refrigerator Column</div>
+    <ul class="card-features"><li>Ниша: 213.4 x 61 x 61 см (84&quot; x 24&quot;)</li><li>Fully integrated</li><li>TFT touch внутри, LED</li><li>No-frost, антибактериальный интерьер</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooling" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RF471304_def.png" alt="RF 471" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RF+471'"></div>
+  <div class="card-body">
+    <div class="card-sku">RF 471</div>
+    <div class="card-name">Vario морозильник-колонна RF 471, серия 400 (76 см)</div>
+    <div class="card-type">Built-in Freezer Column</div>
+    <ul class="card-features"><li>Ширина 76.2 см (30&quot;)</li><li>Fully integrated, ice maker</li><li>No-frost, LED</li><li>TFT touch управление</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooling" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RF461304_def.png" alt="RF 461" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RF+461'"></div>
+  <div class="card-body">
+    <div class="card-sku">RF 461</div>
+    <div class="card-name">Vario морозильник-колонна RF 461, серия 400 (61 см)</div>
+    <div class="card-type">Built-in Freezer Column</div>
+    <ul class="card-features"><li>Ширина 61 см (24&quot;)</li><li>Fully integrated freezer</li><li>Ice maker, no-frost</li><li>LED, TFT touch</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooling" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RF411304_def.png" alt="RF 411" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RF+411'"></div>
+  <div class="card-body">
+    <div class="card-sku">RF 411</div>
+    <div class="card-name">Vario морозильник-колонна RF 411, серия 400 (45.7 см)</div>
+    <div class="card-type">Built-in Freezer Column</div>
+    <ul class="card-features"><li>Ширина 45.7 см (18&quot;) — самая узкая колонна</li><li>Fully integrated</li><li>No-frost, ice maker</li><li>LED, soft-close</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooling" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RB492304_def.png" alt="RB 492" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RB+492'"></div>
+  <div class="card-body">
+    <div class="card-sku">RB 492</div>
+    <div class="card-name">Vario холодильник-морозильник RB 492, серия 400 (91 см)</div>
+    <div class="card-type">Fridge-Freezer Combination</div>
+    <ul class="card-features"><li>Ширина 91 см (36&quot;)</li><li>Fully integrated, нижняя морозильная зона</li><li>No-frost, ice maker</li><li>TFT touch внутри</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="cooling" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RB472304_def.png" alt="RB 472" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RB+472'"></div>
+  <div class="card-body">
+    <div class="card-sku">RB 472</div>
+    <div class="card-name">Vario холодильник-морозильник RB 472, серия 400 (76 см)</div>
+    <div class="card-type">Fridge-Freezer Combination</div>
+    <ul class="card-features"><li>Ширина 76.2 см (30&quot;)</li><li>Fully integrated</li><li>No-frost, ice maker</li><li>LED, TFT</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="wine" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RW466364_def.png" alt="RW 466" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RW+466'"></div>
+  <div class="card-body">
+    <div class="card-sku">RW 466</div>
+    <div class="card-name">Vario винный шкаф RW 466, серия 400 (61 см, 99 бутылок)</div>
+    <div class="card-type">Wine Cabinet</div>
+    <ul class="card-features"><li>Ширина 61 см (24&quot;), вместимость до 99 бутылок</li><li>3 независимые климат-зоны: +5…+20 °C</li><li>Антрацитовые выкатные полки из алюминия</li><li>Низковибрационный компрессор</li><li>UV-защитное стекло, LED</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="wine" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RW464364_def.png" alt="RW 464" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RW+464'"></div>
+  <div class="card-body">
+    <div class="card-sku">RW 464</div>
+    <div class="card-name">Vario винный шкаф RW 464, серия 400 (61 см)</div>
+    <div class="card-type">Wine Cabinet</div>
+    <ul class="card-features"><li>Ширина 61 см</li><li>2 независимые климат-зоны</li><li>Антрацитовые выкатные полки</li><li>Низковибрационный мотор</li><li>Fully integrated</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="wine" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_RW414364_def.png" alt="RW 414" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=RW+414'"></div>
+  <div class="card-body">
+    <div class="card-sku">RW 414</div>
+    <div class="card-name">Vario винный шкаф RW 414, серия 400 (45.7 см)</div>
+    <div class="card-type">Wine Cabinet</div>
+    <ul class="card-features"><li>Ширина 45.7 см (18&quot;) — узкий</li><li>1 климат-зона, ~34 бутылки</li><li>Анти-вибрационные полки</li><li>UV-защитное стекло, LED</li><li>Fully integrated</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="coffee" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_CM450112_def.png" alt="CM 450" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=CM+450'"></div>
+  <div class="card-body">
+    <div class="card-sku">CM 450</div>
+    <div class="card-name">Полностью автоматическая кофемашина CM 450, серия 400</div>
+    <div class="card-type">Built-in Espresso Machine</div>
+    <ul class="card-features"><li>Ширина 60 см, ниша 45 см высота</li><li>Резервуар воды (tanked), без водопровода</li><li>Автоматическая мельница из керамики</li><li>TFT touch + поворотный регулятор</li><li>Хранение профилей напитков, дисплей</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="coffee" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_CM470112_def.png" alt="CM 470" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=CM+470'"></div>
+  <div class="card-body">
+    <div class="card-sku">CM 470</div>
+    <div class="card-name">Полностью автоматическая кофемашина CM 470, серия 400 (verge-edge дизайн)</div>
+    <div class="card-type">Built-in Espresso Machine</div>
+    <ul class="card-features"><li>Ширина 60 см, серия 400 anthracite finish</li><li>Резервуар + опция водопровод</li><li>Кубики 14 напитков-пресетов</li><li>TFT touch full-color</li><li>Двойной нагреватель, два независимых пара/кофе круга</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="dishwasher" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_DF480100_def.png" alt="DF 480" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=DF+480'"></div>
+  <div class="card-body">
+    <div class="card-sku">DF 480</div>
+    <div class="card-name">Посудомоечная машина DF 480, серия 400 (Euro tub)</div>
+    <div class="card-type">Dishwasher (fully integrated)</div>
+    <ul class="card-features"><li>Ширина 60 см, Euro tub (стандартная высота)</li><li>Zeolite — мойка + сушка за 57 мин</li><li>Расход воды 3.5 галлона (~13 л)</li><li>42 dBA (один из самых тихих)</li><li>8 программ + 4 опции, glass protection</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="dishwasher" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_DF481100_def.png" alt="DF 481" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=DF+481'"></div>
+  <div class="card-body">
+    <div class="card-sku">DF 481</div>
+    <div class="card-name">Посудомоечная машина DF 481, серия 400 (tall tub)</div>
+    <div class="card-type">Dishwasher (fully integrated, tall tub)</div>
+    <ul class="card-features"><li>Ширина 60 см, tall tub — выше Euro</li><li>Zeolite drying</li><li>42 dBA, расход воды 3.5 галлона</li><li>8 программ, aqua sensor, load sensor</li><li>Flexible basket system с soft close</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="drawers" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_WS482110_def.png" alt="WS 482" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=WS+482'"></div>
+  <div class="card-body">
+    <div class="card-sku">WS 482</div>
+    <div class="card-name">Подогреватель посуды WS 482, серия 400 (76 см)</div>
+    <div class="card-type">Warming Drawer</div>
+    <ul class="card-features"><li>Ширина 76 см, ниша высота 14 см</li><li>4 режима: 30-80 °C</li><li>До 10 комплектов посуды</li><li>Handleless push-to-open ящик</li><li>Подсветка, glass bottom interior, soft close</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="drawers" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_WS461110_def.png" alt="WS 461" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=WS+461'"></div>
+  <div class="card-body">
+    <div class="card-sku">WS 461</div>
+    <div class="card-name">Кулинарный warming drawer WS 461, серия 400 (60 см)</div>
+    <div class="card-type">Culinary Warming Drawer</div>
+    <ul class="card-features"><li>Ширина 60 см, ниша 14 см</li><li>Расширенные кулинарные режимы (slow cooking, proofing)</li><li>30-80 °C, 4 режима</li><li>Handleless push-to-open</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+<a class="card" data-cat="drawers" href="/ru/page/brand-gaggenau#contact">
+  <div class="card-media"><img src="https://media3.gaggenau.com/Product/Detail/600x600/EU_DV461110_def.png" alt="DV 461" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FAF7F2/C9A36A?text=DV+461'"></div>
+  <div class="card-body">
+    <div class="card-sku">DV 461</div>
+    <div class="card-name">Ящик для вакуумирования DV 461, серия 400 (60 см)</div>
+    <div class="card-type">Vacuum Drawer</div>
+    <ul class="card-features"><li>Ширина 60 см, ниша 14 см</li><li>Для sous-vide подготовки</li><li>3 уровня вакуума + 3 уровня запайки</li><li>Stainless steel камера</li><li>Handleless push-to-open</li></ul>
+  </div>
+  <div class="card-cta"><span>По запросу</span><span class="cta-arrow">Запросить цену →</span></div>
+</a>
+  </div>
+</main>
+
+<section class="footer-cta">
+  <div class="cta-card">
+    <div>
+      <div class="cta-eb">Запрос предложения</div>
+      <h2>Подберём комплект Gaggenau под ваш проект</h2>
+      <p>Опишите кухню или пришлите планировку — мы вернёмся со спецификацией, ценой и сроками поставки в течение одного рабочего дня. Альтернативно — мгновенная консультация в Telegram-боте.</p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn-primary" href="/ru/page/brand-gaggenau#contact">Запросить персональное предложение →</a>
+      <a class="btn-tg" href="https://t.me/homeproject_bot" target="_blank">Telegram-бот @homeproject_bot</a>
+    </div>
+  </div>
+</section>
+
+<p class="note">Gaggenau — премиум-сегмент. Часть моделей серии 400 доступна в ограниченном наличии, основной ассортимент поставляется под заказ. Окончательная цена, сроки и условия гарантии подтверждаются после согласования спецификации. <b>Home Project — официальный канал поставки.</b></p>
+
+<script>
+(function(){
+  const chips=document.querySelectorAll('.chip');
+  const cards=document.querySelectorAll('.card');
+  chips.forEach(ch=>ch.addEventListener('click',()=>{
+    chips.forEach(c=>c.classList.remove('chip-active'));
+    ch.classList.add('chip-active');
+    const f=ch.dataset.filter;
+    cards.forEach(c=>{
+      c.style.display=(f==='all'||c.dataset.cat===f)?'':'none';
+    });
+  }));
+})();
+</script>
