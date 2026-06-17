@@ -1,0 +1,365 @@
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Mulish',system-ui,sans-serif;background:#FAF7F2;color:#1A1A1A;line-height:1.55;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+.hero{background:#fff;border-left:5px solid #1A1A1A;padding:48px 48px 40px;border-bottom:1px solid #E8E4DB}
+.hero-inner{max-width:1240px;margin:0 auto}
+.hero-eyebrow{color:#1A1A1A;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;display:inline-flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:#C9A36A;display:inline-block}
+.hero h1{font-size:clamp(1.6rem,3.2vw,2.6rem);font-weight:800;margin-bottom:14px;line-height:1.18;letter-spacing:-.01em}
+.hero h1 span{color:#C9A36A}
+.hero p.lead{color:#555;font-size:15px;max-width:620px;line-height:1.7}
+.hero-stats{display:flex;gap:48px;margin-top:32px;padding-top:24px;border-top:1px solid #E8E4DB;flex-wrap:wrap}
+.hero-stats .stat .num{font-size:24px;font-weight:800;color:#1A1A1A;letter-spacing:-.01em}
+.hero-stats .stat .num span{color:#C9A36A;font-weight:700;font-size:14px;margin-left:3px}
+.hero-stats .stat .label{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-top:4px;font-weight:600}
+
+.section{max-width:1240px;margin:0 auto;padding:56px 24px}
+.section-eyebrow{color:#C9A36A;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-size:clamp(1.3rem,2.4vw,1.85rem);font-weight:800;margin-bottom:14px;letter-spacing:-.01em}
+.section-sub{font-size:14px;color:#666;max-width:680px;line-height:1.7;margin-bottom:36px}
+
+.about{background:#fff;border-radius:14px;border:1px solid #E8E4DB;padding:40px 44px}
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:24px}}
+.about p{font-size:14.5px;color:#3A3A3A;line-height:1.75;margin-bottom:14px}
+.about p strong{color:#1A1A1A;font-weight:700}
+.about-facts{background:#FAF7F2;border-radius:10px;padding:24px 22px;display:flex;flex-direction:column;gap:18px}
+.about-fact{display:flex;gap:14px;align-items:flex-start}
+.about-fact-icon{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:#1A1A1A;color:#C9A36A;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.about-fact-text{font-size:13px;color:#3A3A3A;line-height:1.55}
+.about-fact-text b{color:#1A1A1A;font-weight:700;display:block;margin-bottom:2px}
+
+.series-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.series-card{background:#fff;border:1px solid #E8E4DB;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s;min-height:380px}
+.series-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.10)}
+.series-card-head{padding:24px 24px 18px;border-bottom:1px solid #F0EDE6;background:linear-gradient(180deg,#fff 0%,#FBF8F2 100%)}
+.series-tier{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#C9A36A;margin-bottom:8px}
+.series-card-head h3{font-size:18px;font-weight:800;color:#1A1A1A;margin-bottom:6px;letter-spacing:-.005em}
+.series-card-head .series-tag{font-size:11px;color:#999;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.series-card-body{padding:20px 24px 22px;flex:1;display:flex;flex-direction:column;gap:14px}
+.series-desc{font-size:13.5px;color:#444;line-height:1.65}
+.series-models{display:flex;flex-direction:column;gap:8px;margin-top:auto;padding-top:14px;border-top:1px solid #F0EDE6}
+.series-models-label{font-size:10.5px;font-weight:700;color:#999;letter-spacing:.09em;text-transform:uppercase;margin-bottom:2px}
+.series-model{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;line-height:1.45}
+.series-model .sku{font-weight:700;color:#1A1A1A;font-variant-numeric:tabular-nums;letter-spacing:.01em;white-space:nowrap}
+.series-model .desc{color:#666;text-align:right;flex:1}
+
+.process{background:#1A1A1A;color:#F0EDE6;border-radius:14px;padding:48px 44px;position:relative;overflow:hidden}
+.process::after{content:'';position:absolute;top:0;right:0;width:45%;height:100%;background:linear-gradient(135deg,transparent 0%,rgba(201,163,106,.06) 100%);pointer-events:none}
+.process .section-eyebrow{color:#C9A36A}
+.process .section-title{color:#fff;margin-bottom:8px}
+.process .section-sub{color:#B0AC9F;margin-bottom:36px;position:relative;z-index:1}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;position:relative;z-index:1}
+@media(max-width:840px){.process-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.process-grid{grid-template-columns:1fr}}
+.process-step{background:rgba(255,255,255,.03);border:1px solid rgba(201,163,106,.18);border-radius:10px;padding:22px 20px;position:relative}
+.process-step-num{font-size:11px;font-weight:700;color:#C9A36A;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;display:inline-block}
+.process-step-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px}
+.process-step-desc{font-size:12.5px;color:#B0AC9F;line-height:1.6}
+
+.contact{background:#fff;border-radius:14px;border:1px solid #E8E4DB;padding:48px 44px;display:grid;grid-template-columns:1.1fr 1fr;gap:48px}
+@media(max-width:880px){.contact{grid-template-columns:1fr;gap:32px;padding:36px 28px}}
+.contact-intro h2{font-size:1.5rem;font-weight:800;margin-bottom:14px;letter-spacing:-.005em}
+.contact-intro p{font-size:14px;color:#555;line-height:1.7;margin-bottom:22px}
+.contact-channels{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.channel-row{display:flex;gap:12px;align-items:center;padding:12px 14px;background:#FAF7F2;border:1px solid #EDE9E1;border-radius:10px}
+.channel-icon{flex-shrink:0;width:36px;height:36px;border-radius:8px;background:#1A1A1A;color:#C9A36A;display:flex;align-items:center;justify-content:center}
+.channel-text{font-size:12.5px;color:#3A3A3A;line-height:1.5}
+.channel-text b{display:block;color:#1A1A1A;font-weight:700;margin-bottom:1px;font-size:13px}
+
+.form{display:flex;flex-direction:column;gap:14px}
+.form-row{display:flex;flex-direction:column;gap:6px}
+.form-row.row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.form-row.row-2{grid-template-columns:1fr}}
+.form-label{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#666}
+.form-input,.form-select,.form-textarea{font-family:inherit;font-size:14px;padding:11px 13px;border:1.5px solid #E0DBD3;border-radius:8px;background:#fff;color:#1A1A1A;transition:border-color .15s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:#C9A36A}
+.form-textarea{resize:vertical;min-height:84px}
+.form-agree{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:#777;line-height:1.55;margin-top:4px}
+.form-agree input{margin-top:3px;flex-shrink:0;accent-color:#C9A36A}
+.form-agree a{color:#1A1A1A;text-decoration:underline;text-decoration-color:#C9A36A;text-underline-offset:2px}
+.form-actions{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;background:#1A1A1A;color:#fff;border:none;border-radius:9px;font-family:inherit;font-size:14px;font-weight:700;letter-spacing:.01em;cursor:pointer;transition:background .15s}
+.btn-primary:hover{background:#2C2C2E}
+.btn-secondary{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 22px;background:#fff;color:#1A1A1A;border:1.5px solid #1A1A1A;border-radius:9px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none}
+.btn-secondary:hover{background:#1A1A1A;color:#C9A36A}
+.btn-tg{background:#27A4E2;color:#fff;border-color:#27A4E2}
+.btn-tg:hover{background:#1E8EC4;color:#fff;border-color:#1E8EC4}
+
+.note{text-align:center;color:#999;font-size:12px;margin:40px auto 60px;max-width:560px;line-height:1.65}
+.note b{color:#1A1A1A}
+
+@media(max-width:720px){
+  .hero{padding:36px 24px 28px}
+  .section{padding:40px 16px}
+  .about{padding:28px 22px}
+  .process{padding:36px 22px}
+}
+</style>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">По запросу · Ограниченное наличие</div>
+    <h1>Gaggenau — профессиональная техника <span>с&nbsp;1683&nbsp;года</span></h1>
+    <p class="lead">Люксовая встраиваемая техника для частного дома в эстетике профессиональной кухни. Серии 400, 200, Vario и Combi-Steam. Часть моделей мы держим в ограниченном количестве в наличии — остальной ассортимент поставляется под индивидуальный проект с участием менеджера Home Project.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="num">1683<span>год основания</span></div><div class="label">Шварцвальд, Германия</div></div>
+      <div class="stat"><div class="num">Made in <span>Germany</span></div><div class="label">Lipsheim · Мюнхен</div></div>
+      <div class="stat"><div class="num">Часть <span>BSH Group</span></div><div class="label">Гарантия и сервис</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-eyebrow">О бренде</div>
+  <h2 class="section-title">Three centuries of professional craft</h2>
+  <p class="section-sub">Gaggenau начался в 1683 году как железоделательное производство в немецком Шварцвальде. За три с лишним столетия бренд прошёл путь от индустриального оборудования к люксовой технике для частной кухни — сохранив инженерную ДНК.</p>
+
+  <div class="about">
+    <div class="about-grid">
+      <div>
+        <p>Бренд основан в 1683 году по решению маркграфа Людвига Вильгельма Баденского — как железоделательное производство в одноимённом городке в Шварцвальде. С индустриализацией XIX века <strong>Eisenwerke Gaggenau A.G.</strong> перешла к выпуску инструмента и товаров длительного пользования, а в XX веке — к встраиваемой кухонной технике для дома.</p>
+        <p>С 1995 года Gaggenau входит в состав <strong>BSH Hausgeräte GmbH</strong> — крупнейшего европейского производителя бытовой техники со штаб-квартирой в Мюнхене. Производство сохранено в Германии и на исторической площадке в <strong>Липсхайме (Эльзас)</strong>; бренд-менеджмент и дизайн — в Мюнхене.</p>
+        <p>Узнаваемый язык дизайна — <strong>«professional kitchen principle»</strong>: функциональность и долговечность профессионального оборудования в эстетике домашнего интерьера. Матовый металл, чёрное стекло, массивные ручки, индустриальная типографика. Никаких декоративных излишеств.</p>
+      </div>
+      <div class="about-facts">
+        <div class="about-fact">
+          <div class="about-fact-icon">340</div>
+          <div class="about-fact-text"><b>340+ лет наследия</b>Бренд старше большинства домов, для которых выпускает технику.</div>
+        </div>
+        <div class="about-fact">
+          <div class="about-fact-icon">DE</div>
+          <div class="about-fact-text"><b>Производство в Германии</b>Продуктовое ядро остаётся в Германии и на исторической площадке в Эльзасе.</div>
+        </div>
+        <div class="about-fact">
+          <div class="about-fact-icon">⚙</div>
+          <div class="about-fact-text"><b>Модульная архитектура</b>Vario-серии позволяют собрать варочный центр под любую конфигурацию кухни.</div>
+        </div>
+        <div class="about-fact">
+          <div class="about-fact-icon">★</div>
+          <div class="about-fact-text"><b>Сервис BSH</b>Сертифицированный сервис и подлинные комплектующие через дилерскую сеть.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-eyebrow">Серии и линейки</div>
+  <h2 class="section-title">Шесть продуктовых направлений</h2>
+  <p class="section-sub">Полный ассортимент Gaggenau организован по сериям. Под каждый проект подбирается комплектация в одном дизайн-коде — серии совмещаются без ограничений.</p>
+
+  <div class="series-grid">
+
+    <div class="series-card">
+      <div class="series-card-head">
+        <span class="series-tier">Флагман</span>
+        <h3>Серия 400</h3>
+        <span class="series-tag">Maximum line · Полноразмерные модули</span>
+      </div>
+      <div class="series-card-body">
+        <p class="series-desc">Полноразмерные модули максимальной комплектации, премиальные материалы (массивная нержавеющая сталь, литые рамки), профессиональная функциональность.</p>
+        <div class="series-models">
+          <div class="series-models-label">Ключевые модели</div>
+          <div class="series-model"><span class="sku">BO 470 / BO 450</span><span class="desc">Духовой шкаф, 13 режимов, TFT-дисплей</span></div>
+          <div class="series-model"><span class="sku">BS 484 / BS 485</span><span class="desc">Комбинированный пароконвектомат</span></div>
+          <div class="series-model"><span class="sku">CX 482</span><span class="desc">Full-surface индукция 80 см</span></div>
+          <div class="series-model"><span class="sku">CM 450</span><span class="desc">Встраиваемая кофемашина</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="series-card">
+      <div class="series-card-head">
+        <span class="series-tier">Базовая премиум-линия</span>
+        <h3>Серия 200</h3>
+        <span class="series-tag">Compact line · Тот же дизайн-код</span>
+      </div>
+      <div class="series-card-body">
+        <p class="series-desc">Встраиваемая техника более компактного формата с тем же дизайн-кодом, что и 400-я серия, но в более доступном сегменте линейки.</p>
+        <div class="series-models">
+          <div class="series-models-label">Ключевые модели</div>
+          <div class="series-model"><span class="sku">BOP 250 / BOP 251</span><span class="desc">Духовой шкаф 76 л, термощуп, камень</span></div>
+          <div class="series-model"><span class="sku">BSP 250</span><span class="desc">Комбинированный паровой шкаф</span></div>
+          <div class="series-model"><span class="sku">BS 250</span><span class="desc">Паровой шкаф</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="series-card">
+      <div class="series-card-head">
+        <span class="series-tier">Модульные варочные</span>
+        <h3>Vario 400 / Vario 200</h3>
+        <span class="series-tag">Modular cooktops · Свобода композиции</span>
+      </div>
+      <div class="series-card-body">
+        <p class="series-desc">Отдельные блоки (индукция, газ, гриль, теппан-яки, вок, фритюр, паровар) собираются в единую варочную композицию по проекту кухни.</p>
+        <div class="series-models">
+          <div class="series-models-label">Ключевые модули</div>
+          <div class="series-model"><span class="sku">VI 482</span><span class="desc">Индукционный модуль Vario 400</span></div>
+          <div class="series-model"><span class="sku">VL 414</span><span class="desc">Vario Cooktop teppan-yaki</span></div>
+          <div class="series-model"><span class="sku">VR / VG</span><span class="desc">Гриль и газовые модули — по запросу</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="series-card">
+      <div class="series-card-head">
+        <span class="series-tier">Паровые системы</span>
+        <h3>Combi-Steam</h3>
+        <span class="series-tag">Пар + конвекция в одном модуле</span>
+      </div>
+      <div class="series-card-body">
+        <p class="series-desc">Комбинированные паровые шкафы Gaggenau — основной инструмент здоровой и низкотемпературной кухни. Полная программируемая автоматика.</p>
+        <div class="series-models">
+          <div class="series-models-label">Ключевые модели</div>
+          <div class="series-model"><span class="sku">BS 470 / BS 450</span><span class="desc">Серия 400, пар + конвекция</span></div>
+          <div class="series-model"><span class="sku">BSP 250</span><span class="desc">Серия 200, пар + конвекция</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="series-card">
+      <div class="series-card-head">
+        <span class="series-tier">Холодильное</span>
+        <h3>RC · RB · RF · RT · RY</h3>
+        <span class="series-tag">Cooling columns · Full-integration</span>
+      </div>
+      <div class="series-card-body">
+        <p class="series-desc">Холодильные колонны (RC), морозильные (RB), модели с лёдогенератором (RF), полностью встраиваемые холодильники (RT / RY). Конфигурация под нишу.</p>
+        <div class="series-models">
+          <div class="series-models-label">Ключевые модели</div>
+          <div class="series-model"><span class="sku">RC 492 / 472 / 462</span><span class="desc">Холодильная колонна, серия 400</span></div>
+          <div class="series-model"><span class="sku">RB · RF</span><span class="desc">Морозильные модули</span></div>
+          <div class="series-model"><span class="sku">RT · RY</span><span class="desc">Полностью встраиваемые ХК</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="series-card">
+      <div class="series-card-head">
+        <span class="series-tier">Винные климатические шкафы</span>
+        <h3>Серия RW</h3>
+        <span class="series-tag">Vinothèque · Климат-зоны</span>
+      </div>
+      <div class="series-card-body">
+        <p class="series-desc">Винные климатические шкафы Gaggenau с несколькими температурными зонами. Сомелье-ориентированные интерьеры — массив дуба, кожа, мягкая подсветка.</p>
+        <div class="series-models">
+          <div class="series-models-label">Ключевые модели</div>
+          <div class="series-model"><span class="sku">RW 466 / 414</span><span class="desc">Полноразмерный винный шкаф</span></div>
+          <div class="series-model"><span class="sku">RW 222</span><span class="desc">Подстолье / встраиваемый</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="process">
+    <div class="section-eyebrow">Как мы работаем с Gaggenau</div>
+    <h2 class="section-title">Ограниченное наличие + индивидуальный заказ</h2>
+    <p class="section-sub">Мы держим часть ключевых моделей Gaggenau в ограниченном количестве на нашем складе для срочных проектов. Полный модельный ряд подбирается и поставляется под конкретный проект кухни — поэтому работа всегда начинается с запроса.</p>
+    <div class="process-grid">
+      <div class="process-step">
+        <span class="process-step-num">Шаг 01</span>
+        <div class="process-step-title">Проект</div>
+        <div class="process-step-desc">Получаем планировку кухни от вас или вашего архитектора. Уточняем серии, размер ниш, желаемую функциональность.</div>
+      </div>
+      <div class="process-step">
+        <span class="process-step-num">Шаг 02</span>
+        <div class="process-step-title">Конфигурация</div>
+        <div class="process-step-desc">Подбираем артикулы и комплектацию в одном дизайн-коде. Проверяем доступность поставки и сроки производства Gaggenau.</div>
+      </div>
+      <div class="process-step">
+        <span class="process-step-num">Шаг 03</span>
+        <div class="process-step-title">Расчёт</div>
+        <div class="process-step-desc">Готовим персональное коммерческое предложение с фиксацией цены и условий. Согласуем сроки и поэтапную оплату.</div>
+      </div>
+      <div class="process-step">
+        <span class="process-step-num">Шаг 04</span>
+        <div class="process-step-title">Доставка и монтаж</div>
+        <div class="process-step-desc">Логистика до объекта, координация со встраивателем и сервисом BSH. Активация гарантии производителя.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="contact">
+    <div class="contact-intro">
+      <div class="section-eyebrow">Запрос предложения</div>
+      <h2>Запросить персональное предложение</h2>
+      <p>Опишите проект — мы подготовим подбор моделей Gaggenau под вашу планировку и пришлём предложение в течение одного рабочего дня. Альтернативно — напишите нам в Telegram-бот для быстрой консультации.</p>
+
+      <div class="contact-channels">
+        <div class="channel-row">
+          <div class="channel-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="channel-text"><b>info@homeproject.online</b>Запросы по проектам Gaggenau обрабатываются в течение 1 рабочего дня</div>
+        </div>
+        <div class="channel-row">
+          <div class="channel-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+          </div>
+          <div class="channel-text"><b>@homeproject_bot</b>Telegram-бот — мгновенный отклик, удобно для быстрых вопросов</div>
+        </div>
+      </div>
+    </div>
+
+    <form class="form" id="gaggenau-request-form" action="mailto:info@homeproject.online" method="post" enctype="text/plain">
+      <div class="form-row">
+        <label class="form-label" for="g-name">Имя</label>
+        <input class="form-input" id="g-name" name="name" type="text" required placeholder="Как к вам обращаться">
+      </div>
+      <div class="form-row row-2">
+        <div class="form-row">
+          <label class="form-label" for="g-phone">Телефон</label>
+          <input class="form-input" id="g-phone" name="phone" type="tel" required placeholder="+7">
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="g-email">Email</label>
+          <input class="form-input" id="g-email" name="email" type="email" placeholder="опционально">
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="g-series">Интересующая серия</label>
+        <select class="form-select" id="g-series" name="series">
+          <option value="">— подскажет менеджер</option>
+          <option>Серия 400 (флагман)</option>
+          <option>Серия 200</option>
+          <option>Vario 400 / 200 (модульные)</option>
+          <option>Combi-Steam (паровые)</option>
+          <option>Холодильное (RC / RB / RF / RT)</option>
+          <option>Винные шкафы (RW)</option>
+          <option>Полный проект — нужна консультация</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="g-msg">Комментарий по проекту</label>
+        <textarea class="form-textarea" id="g-msg" name="message" placeholder="Опишите проект кухни, размеры ниш, желаемые модели, сроки готовности. Можно приложить план — пришлём ответом."></textarea>
+      </div>
+      <label class="form-agree">
+        <input type="checkbox" required>
+        <span>Я согласен на обработку персональных данных согласно <a href="/page/privacy-policy">политике конфиденциальности</a></span>
+      </label>
+      <div class="form-actions">
+        <button class="btn-primary" type="submit">
+          Запросить персональное предложение
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+        </button>
+        <a class="btn-secondary btn-tg" href="https://t.me/homeproject_bot" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+          Написать в Telegram-бот
+        </a>
+      </div>
+    </form>
+  </div>
+
+  <p class="note">Gaggenau — премиум-сегмент. Часть моделей доступна в ограниченном наличии, основной ассортимент поставляется под заказ. Окончательная цена, сроки и условия гарантии подтверждаются после согласования спецификации. <b>Home Project — официальный канал поставки.</b></p>
+</section>
