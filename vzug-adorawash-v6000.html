@@ -5,335 +5,243 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex,nofollow">
   <title>V-ZUG AdoraWash V6000 — HOMEPROJECT</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-    :root {
-      --bg:      #F7F8FA;
-      --card:    #FFFFFF;
-      --border:  #E2E4EA;
-      --text:    #111418;
-      --body:    #374151;
-      --muted:   #6B7280;
-      --gold:    #B8924A;
-      --gold-lt: #C9A96E;
-      --gold-bg: #FBF6EE;
-      --gold-bd: #E8D5B0;
-    }
-
-    html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: #F7F8FA;
+      color: #111418;
       font-family: 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── HEADER ── */
+    /* HEADER */
     .header {
-      position: fixed; top:0; left:0; right:0; z-index:100;
-      background: rgba(247,248,250,0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+      border-bottom: 1px solid #E2E4EA;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 40px;
+      padding: 18px 40px;
+      position: sticky; top: 0; z-index: 100;
     }
-    .logo {
-      font-size:13px; font-weight:800; letter-spacing:3px;
-      text-transform:uppercase; color:var(--text);
+    .logo { font-size:13px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:#111418; }
+    .logo em { color:#B8924A; font-style:normal; }
+    .header-btn {
+      background:#B8924A; color:#fff;
+      font-size:12px; font-weight:700; letter-spacing:0.5px;
+      padding:10px 22px; border-radius:30px; text-decoration:none;
+      transition: background .2s;
     }
-    .logo em { color: var(--gold); font-style:normal; }
-    .header-cta {
-      background: var(--gold);
-      color: #fff;
-      font-size:12px; font-weight:600; letter-spacing:0.5px;
-      padding:9px 20px; border-radius:30px;
-      text-decoration:none;
-      transition: background 0.2s;
-    }
-    .header-cta:hover { background: var(--gold-lt); }
+    .header-btn:hover { background:#C9A96E; }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
-      min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding-top: 64px;
+      min-height: 90vh;
+      background: #ffffff;
     }
     .hero-left {
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 80px 60px 80px 60px;
+      display:flex; flex-direction:column; justify-content:center;
+      padding: 70px 56px;
     }
-    .hero-brand {
+    .hero-kicker {
       font-size:11px; font-weight:700; letter-spacing:4px;
-      text-transform:uppercase; color:var(--gold);
+      text-transform:uppercase; color:#B8924A;
       margin-bottom:20px;
-      display:flex; align-items:center; gap:10px;
+      display:flex; align-items:center; gap:12px;
     }
-    .hero-brand::before {
-      content:''; display:block;
-      width:30px; height:1px; background:var(--gold);
+    .hero-kicker::before { content:''; width:28px; height:1px; background:#B8924A; flex-shrink:0; }
+    .hero-h1 {
+      font-size:clamp(42px,5vw,68px);
+      font-weight:800; line-height:1.0; letter-spacing:-2px;
+      color:#111418; margin-bottom:10px;
     }
-    .hero-title {
-      font-size: clamp(44px, 5vw, 72px);
-      font-weight:800; line-height:1.0;
-      letter-spacing:-2px;
-      color: var(--text);
-      margin-bottom:10px;
+    .hero-h1 em { color:#B8924A; font-style:normal; }
+    .hero-sub {
+      font-size:17px; font-weight:300; color:#6B7280;
+      margin-bottom:36px; letter-spacing:0.2px;
     }
-    .hero-title span { color: var(--gold); }
-    .hero-model {
-      font-size:18px; font-weight:300; color:var(--muted);
-      margin-bottom:36px; letter-spacing:1px;
-    }
-    .hero-price {
+    .price-box {
       display:inline-flex; flex-direction:column;
-      background: var(--gold-bg);
-      border: 1px solid var(--gold-bd);
-      border-radius:16px;
-      padding:20px 28px;
-      margin-bottom:36px;
-      width: fit-content;
+      background:#FBF6EE; border:1px solid #E8D5B0;
+      border-radius:14px; padding:20px 26px;
+      margin-bottom:32px; width:fit-content;
     }
-    .hero-price-num {
-      font-size:38px; font-weight:800; color:var(--gold);
-      letter-spacing:-1px; line-height:1;
-    }
-    .hero-price-label { font-size:12px; color:var(--muted); margin-top:4px; }
-    .hero-tags {
-      display:flex; flex-wrap:wrap; gap:8px;
-    }
-    .hero-tag {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius:30px;
-      font-size:12px; font-weight:500; color:var(--body);
-      padding:6px 14px;
+    .price-num { font-size:36px; font-weight:800; color:#B8924A; line-height:1; letter-spacing:-1px; }
+    .price-lbl { font-size:12px; color:#9CA3AF; margin-top:5px; }
+    .hero-chips { display:flex; flex-wrap:wrap; gap:8px; }
+    .chip {
+      background:#F3F4F6; border:1px solid #E5E7EB;
+      border-radius:30px; font-size:12px; font-weight:500; color:#374151;
+      padding:7px 15px;
     }
 
     .hero-right {
       position:relative; overflow:hidden;
-      background: #EDE8E0;
+      background:#EDE8E0;
     }
     .hero-right img {
       width:100%; height:100%;
       object-fit:cover; object-position:center;
-      display:block;
     }
-    .hero-img-badge {
-      position:absolute; bottom:28px; left:28px;
+    .hero-caption {
+      position:absolute; bottom:24px; left:24px;
       background:rgba(255,255,255,0.92);
       backdrop-filter:blur(8px);
-      border-radius:12px;
-      padding:14px 18px;
-      font-size:12px; color:var(--muted);
+      border-radius:12px; padding:14px 18px;
     }
-    .hero-img-badge strong { display:block; color:var(--text); font-size:14px; margin-bottom:2px; }
+    .hero-caption strong { display:block; font-size:13px; color:#111418; margin-bottom:2px; }
+    .hero-caption span { font-size:12px; color:#9CA3AF; }
 
-    /* ── SECTION WRAPPER ── */
-    .section { max-width:1100px; margin:0 auto; padding:80px 40px; }
-    .section-tag {
-      font-size:11px; font-weight:700; letter-spacing:3px;
-      text-transform:uppercase; color:var(--gold);
-      margin-bottom:12px;
-    }
-    .section-title {
-      font-size:clamp(28px,4vw,42px); font-weight:700;
-      color:var(--text); margin-bottom:48px; line-height:1.15;
-    }
-
-    /* ── USP ── */
-    .usp-row {
-      display:grid;
-      grid-template-columns: repeat(5,1fr);
-      gap:1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius:20px;
-      overflow:hidden;
-    }
-    .usp-item {
-      background: var(--card);
-      padding:32px 24px 28px;
-      display:flex; flex-direction:column; gap:14px;
-    }
-    .usp-num {
-      font-size:11px; font-weight:700; letter-spacing:2px;
-      color:var(--gold); text-transform:uppercase;
-    }
-    .usp-icon-wrap {
-      width:48px; height:48px;
-      background: var(--gold-bg);
-      border-radius:14px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:22px;
-    }
-    .usp-ttl {
-      font-size:14px; font-weight:700; color:var(--text);
-      line-height:1.3;
-    }
-    .usp-body {
-      font-size:13px; color:var(--muted); line-height:1.6;
-    }
-    .usp-pill {
-      display:inline-block;
-      background:var(--gold-bg); border:1px solid var(--gold-bd);
-      color:var(--gold); border-radius:6px;
-      font-size:11px; font-weight:600;
-      padding:3px 9px; letter-spacing:0.5px;
-      width:fit-content;
-    }
-
-    /* ── SPECS ── */
-    .specs-band {
-      background: var(--text);
-      padding:0;
-    }
-    .specs-inner {
-      max-width:1100px; margin:0 auto;
-      display:grid; grid-template-columns:repeat(6,1fr);
-      gap:1px; background:rgba(255,255,255,0.08);
-    }
-    .spec-cell {
-      background:var(--text);
-      padding:40px 24px; text-align:center;
-    }
-    .spec-val {
-      font-size:34px; font-weight:800; color:var(--gold);
-      line-height:1; margin-bottom:8px;
-    }
-    .spec-lbl {
-      font-size:11px; font-weight:500; letter-spacing:1.5px;
-      text-transform:uppercase; color:rgba(255,255,255,0.45);
-    }
-
-    /* ── COMPARISON ── */
-    .cmp-wrap {
-      border:1px solid var(--border);
-      border-radius:20px; overflow:hidden;
-    }
-    table { width:100%; border-collapse:collapse; background:var(--card); }
-    thead tr { background:var(--bg); }
-    th {
-      padding:16px 20px; text-align:left;
-      font-size:12px; font-weight:700; letter-spacing:1px;
-      text-transform:uppercase; color:var(--muted);
-      border-bottom:1px solid var(--border);
-    }
-    th.hl { background:var(--gold-bg); color:var(--gold); }
-    td {
-      padding:15px 20px; font-size:14px; color:var(--body);
-      border-bottom:1px solid #F0F1F5;
-      vertical-align:middle;
-    }
-    td.hl { background:#FDFAF4; font-weight:600; color:var(--text); }
-    tr:last-child td { border-bottom:none; }
-    .win { color:#16A34A; font-weight:700; }
-    .neu { color:var(--muted); }
-    .chk { color:#16A34A; font-size:17px; }
-    .xmk { color:#D1D5DB; font-size:17px; }
-    .badge {
-      display:inline-block; margin-left:6px;
-      background:var(--gold-bg); border:1px solid var(--gold-bd);
-      color:var(--gold); border-radius:4px;
-      font-size:10px; font-weight:700; padding:1px 6px; letter-spacing:0.5px;
-    }
-
-    /* ── ORIGIN STRIP ── */
-    .origin-strip {
-      background:var(--gold-bg);
-      border-top:1px solid var(--gold-bd);
-      border-bottom:1px solid var(--gold-bd);
-    }
-    .origin-inner {
-      max-width:1100px; margin:0 auto;
-      padding:60px 40px;
-      display:grid; grid-template-columns:auto 1fr;
-      gap:48px; align-items:center;
-    }
-    .origin-flag { font-size:72px; line-height:1; }
-    .origin-text h3 {
-      font-size:22px; font-weight:700; color:var(--text);
-      margin-bottom:10px;
-    }
-    .origin-text p { font-size:15px; color:var(--body); line-height:1.7; max-width:560px; }
-
-    /* ── PHOTO STRIP ── */
+    /* PHOTO STRIP */
     .photo-strip {
       display:grid; grid-template-columns:repeat(3,1fr);
-      height:320px; overflow:hidden;
+      height:280px; overflow:hidden;
     }
-    .photo-strip-item { overflow:hidden; position:relative; }
-    .photo-strip-item img {
-      width:100%; height:100%; object-fit:cover;
-      display:block; transition:transform 0.5s;
-    }
-    .photo-strip-item:hover img { transform:scale(1.04); }
-    .photo-strip-item .caption {
+    .ps-item { position:relative; overflow:hidden; }
+    .ps-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s; }
+    .ps-item:hover img { transform:scale(1.05); }
+    .ps-label {
       position:absolute; bottom:0; left:0; right:0;
-      background:linear-gradient(transparent, rgba(0,0,0,0.6));
-      padding:20px 18px 16px;
-      font-size:12px; font-weight:500; color:#fff; letter-spacing:0.5px;
+      background:linear-gradient(transparent, rgba(0,0,0,0.55));
+      padding:28px 16px 14px;
+      font-size:12px; font-weight:500; color:#fff; letter-spacing:0.4px;
     }
 
-    /* ── CTA ── */
-    .cta-section {
-      background: var(--text);
-      padding:80px 40px;
-      text-align:center;
-    }
-    .cta-label {
+    /* SECTION */
+    .wrap { max-width:1080px; margin:0 auto; padding:72px 40px; }
+    .kicker {
       font-size:11px; font-weight:700; letter-spacing:3px;
-      text-transform:uppercase; color:var(--gold);
-      margin-bottom:16px;
+      text-transform:uppercase; color:#B8924A; margin-bottom:10px;
     }
-    .cta-title {
-      font-size:clamp(28px,4vw,46px); font-weight:700;
-      color:#fff; margin-bottom:14px; line-height:1.15;
+    .sec-title {
+      font-size:clamp(26px,3.5vw,38px); font-weight:700;
+      color:#111418; margin-bottom:44px; line-height:1.2;
     }
-    .cta-sub {
-      font-size:15px; color:rgba(255,255,255,0.5);
-      margin-bottom:36px;
-    }
-    .cta-btn {
-      display:inline-block;
-      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
-      color:#fff; font-size:15px; font-weight:700;
-      padding:18px 48px; border-radius:50px;
-      text-decoration:none; letter-spacing:0.3px;
-      transition:opacity 0.2s, transform 0.2s;
-    }
-    .cta-btn:hover { opacity:0.88; transform:translateY(-2px); }
-    .cta-note { margin-top:20px; font-size:13px; color:rgba(255,255,255,0.35); }
 
-    /* ── FOOTER ── */
+    /* USP GRID */
+    .usp-grid {
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:1px; background:#E2E4EA;
+      border:1px solid #E2E4EA; border-radius:18px; overflow:hidden;
+    }
+    .usp-card {
+      background:#ffffff;
+      padding:28px 22px 26px;
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .usp-n { font-size:11px; font-weight:700; letter-spacing:2px; color:#B8924A; }
+    .usp-ico {
+      width:44px; height:44px; border-radius:12px;
+      background:#FBF6EE;
+      display:flex; align-items:center; justify-content:center;
+      font-size:20px;
+    }
+    .usp-t { font-size:13px; font-weight:700; color:#111418; line-height:1.3; }
+    .usp-d { font-size:12px; color:#6B7280; line-height:1.6; }
+    .usp-tag {
+      display:inline-block; width:fit-content;
+      background:#FBF6EE; border:1px solid #E8D5B0;
+      color:#B8924A; border-radius:5px;
+      font-size:10px; font-weight:700; padding:3px 8px; letter-spacing:0.5px;
+    }
+
+    /* SPECS BAND */
+    .specs-band { background:#111418; }
+    .specs-inner {
+      max-width:1080px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(6,1fr);
+      gap:1px; background:rgba(255,255,255,0.06);
+    }
+    .spec-c { background:#111418; padding:40px 20px; text-align:center; }
+    .spec-v { font-size:32px; font-weight:800; color:#C9A96E; line-height:1; margin-bottom:8px; }
+    .spec-l { font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.38); }
+
+    /* TABLE */
+    .tbl-wrap { border:1px solid #E2E4EA; border-radius:16px; overflow:hidden; }
+    table { width:100%; border-collapse:collapse; background:#ffffff; }
+    thead tr { background:#F7F8FA; }
+    th {
+      padding:15px 18px; text-align:left;
+      font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+      color:#9CA3AF; border-bottom:1px solid #E5E7EB;
+    }
+    th.hl { background:#FBF6EE; color:#B8924A; }
+    td {
+      padding:14px 18px; font-size:13px; color:#374151;
+      border-bottom:1px solid #F3F4F6; vertical-align:middle;
+    }
+    td.hl { background:#FDFAF4; font-weight:600; color:#111418; }
+    tr:last-child td { border-bottom:none; }
+    .win { color:#16A34A; font-weight:700; }
+    .dim { color:#D1D5DB; }
+    .chk { color:#16A34A; font-size:16px; }
+    .xmk { color:#D1D5DB; font-size:16px; }
+    .bdg {
+      display:inline-block; margin-left:5px;
+      background:#FBF6EE; border:1px solid #E8D5B0;
+      color:#B8924A; border-radius:4px;
+      font-size:9px; font-weight:700; padding:1px 5px; letter-spacing:0.5px;
+    }
+
+    /* ORIGIN */
+    .origin { background:#FBF6EE; border-top:1px solid #E8D5B0; border-bottom:1px solid #E8D5B0; }
+    .origin-in {
+      max-width:1080px; margin:0 auto; padding:56px 40px;
+      display:grid; grid-template-columns:auto 1fr; gap:44px; align-items:center;
+    }
+    .origin-flag { font-size:64px; line-height:1; }
+    .origin-in h3 { font-size:20px; font-weight:700; color:#111418; margin-bottom:10px; }
+    .origin-in p { font-size:14px; color:#6B7280; line-height:1.7; max-width:520px; }
+
+    /* CTA */
+    .cta {
+      background:#111418;
+      padding:80px 40px; text-align:center;
+    }
+    .cta-k { font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#B8924A; margin-bottom:14px; }
+    .cta-h { font-size:clamp(26px,4vw,42px); font-weight:700; color:#ffffff; margin-bottom:12px; line-height:1.15; }
+    .cta-s { font-size:15px; color:rgba(255,255,255,0.4); margin-bottom:32px; }
+    .cta-a {
+      display:inline-block;
+      background:linear-gradient(135deg,#B8924A,#C9A96E);
+      color:#fff; font-size:15px; font-weight:700;
+      padding:18px 48px; border-radius:50px; text-decoration:none;
+      letter-spacing:0.3px; transition:opacity .2s, transform .2s;
+    }
+    .cta-a:hover { opacity:.88; transform:translateY(-2px); }
+    .cta-note { margin-top:18px; font-size:12px; color:rgba(255,255,255,0.25); }
+
+    /* FOOTER */
     footer {
-      border-top:1px solid var(--border);
-      background:var(--card);
+      background:#ffffff; border-top:1px solid #E2E4EA;
       padding:20px 40px;
       display:flex; align-items:center; justify-content:space-between;
     }
-    footer .fl { font-size:12px; font-weight:800; letter-spacing:2px; color:var(--text); }
-    footer .fr { font-size:12px; color:var(--muted); }
+    .ft-l { font-size:12px; font-weight:800; letter-spacing:2px; color:#111418; }
+    .ft-r { font-size:12px; color:#9CA3AF; }
 
-    /* ── RESPONSIVE ── */
-    @media(max-width:900px){
+    /* RESPONSIVE */
+    @media(max-width:860px){
       .hero { grid-template-columns:1fr; min-height:auto; }
-      .hero-right { height:55vw; }
-      .hero-left { padding:40px 24px; }
-      .usp-row { grid-template-columns:1fr 1fr; }
+      .hero-right { height:60vw; }
+      .hero-left { padding:44px 24px; }
+      .usp-grid { grid-template-columns:1fr 1fr; }
       .specs-inner { grid-template-columns:repeat(3,1fr); }
-      .photo-strip { grid-template-columns:1fr; height:auto; }
-      .photo-strip-item { height:220px; }
-      .origin-inner { grid-template-columns:1fr; gap:20px; }
+      .photo-strip { height:auto; }
+      .ps-item { height:52vw; }
+      .origin-in { grid-template-columns:1fr; gap:16px; }
       .header { padding:14px 20px; }
-      .section { padding:60px 20px; }
-    }
-    @media(max-width:600px){
-      .usp-row { grid-template-columns:1fr; }
-      .specs-inner { grid-template-columns:repeat(2,1fr); }
+      .wrap { padding:52px 20px; }
       footer { flex-direction:column; gap:6px; text-align:center; }
+    }
+    @media(max-width:560px){
+      .usp-grid { grid-template-columns:1fr; }
+      .specs-inner { grid-template-columns:repeat(2,1fr); }
+      .photo-strip { grid-template-columns:1fr; }
+      .ps-item { height:64vw; }
     }
   </style>
 </head>
@@ -342,146 +250,121 @@
 <!-- HEADER -->
 <header class="header">
   <div class="logo">HOME<em>PROJECT</em></div>
-  <a href="https://t.me/homeproject_ai_bot" class="header-cta">Получить КП →</a>
+  <a href="https://t.me/homeproject_ai_bot" class="header-btn">Получить КП →</a>
 </header>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-brand">V-ZUG · Швейцария</div>
-    <h1 class="hero-title">Adora<span>Wash</span><br>V6000</h1>
-    <p class="hero-model">Лучшая стиральная машина нашего портфеля</p>
-    <div class="hero-price">
-      <div class="hero-price-num">815 000 ₽</div>
-      <div class="hero-price-label">рекомендованная розничная цена</div>
+    <div class="hero-kicker">V-ZUG · Швейцария · с 1913 года</div>
+    <h1 class="hero-h1">Adora<em>Wash</em><br>V6000</h1>
+    <p class="hero-sub">Лучшая стиральная машина нашего портфеля</p>
+    <div class="price-box">
+      <div class="price-num">815 000 ₽</div>
+      <div class="price-lbl">рекомендованная розничная цена</div>
     </div>
-    <div class="hero-tags">
-      <span class="hero-tag">🇨🇭 Swiss Made</span>
-      <span class="hero-tag">8 кг · 1600 об/мин</span>
-      <span class="hero-tag">71 дБ тишина</span>
-      <span class="hero-tag">Класс A</span>
+    <div class="hero-chips">
+      <span class="chip">🇨🇭 Swiss Made</span>
+      <span class="chip">8 кг · 1600 об/мин</span>
+      <span class="chip">71 дБ тишина</span>
+      <span class="chip">Класс A</span>
     </div>
   </div>
   <div class="hero-right">
-    <img
-      src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1000&q=85"
-      alt="V-ZUG AdoraWash V6000"
-      loading="eager"
-    >
-    <div class="hero-img-badge">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1000&q=85" alt="V-ZUG AdoraWash V6000">
+    <div class="hero-caption">
       <strong>AdoraWash V6000</strong>
-      Встраиваемая · 60 л барабан
+      <span>Встраиваемая · барабан 60 л</span>
     </div>
   </div>
 </section>
 
 <!-- PHOTO STRIP -->
 <div class="photo-strip">
-  <div class="photo-strip-item">
+  <div class="ps-item">
     <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=700&q=80" alt="Постирочная">
-    <div class="caption">Встраиваемое решение</div>
+    <div class="ps-label">Встраиваемое решение</div>
   </div>
-  <div class="photo-strip-item">
+  <div class="ps-item">
     <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=700&q=80" alt="Интерьер">
-    <div class="caption">Люкс-интерьер</div>
+    <div class="ps-label">Люкс-интерьер</div>
   </div>
-  <div class="photo-strip-item">
+  <div class="ps-item">
     <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=700&q=80" alt="Детали">
-    <div class="caption">Швейцарское качество</div>
+    <div class="ps-label">Швейцарское качество</div>
   </div>
 </div>
 
 <!-- USP -->
-<section class="section">
-  <div class="section-tag">Почему V-ZUG V6000</div>
-  <h2 class="section-title">5 ключевых преимуществ</h2>
-  <div class="usp-row">
-
-    <div class="usp-item">
-      <div class="usp-num">01</div>
-      <div class="usp-icon-wrap">🇨🇭</div>
-      <div class="usp-ttl">Swiss Made без оговорок</div>
-      <div class="usp-body">Завод в кантоне Цуг. Мотор, электроника, барабан — всё собрано в Швейцарии с 1913 года.</div>
-      <span class="usp-pill">Только V-ZUG</span>
+<section style="background:#F7F8FA; padding:1px 0;">
+<div class="wrap">
+  <div class="kicker">Почему V-ZUG V6000</div>
+  <h2 class="sec-title">5 ключевых преимуществ</h2>
+  <div class="usp-grid">
+    <div class="usp-card">
+      <div class="usp-n">01</div>
+      <div class="usp-ico">🇨🇭</div>
+      <div class="usp-t">Swiss Made без оговорок</div>
+      <div class="usp-d">Завод в Цуге. Мотор, электроника, барабан — всё собрано в Швейцарии с 1913 года.</div>
+      <span class="usp-tag">Только V-ZUG</span>
     </div>
-
-    <div class="usp-item">
-      <div class="usp-num">02</div>
-      <div class="usp-icon-wrap">🔇</div>
-      <div class="usp-ttl">Тише Miele и Schulthess</div>
-      <div class="usp-body">71 дБ при 1600 об/мин — патентованная система гашения вибрации. Ставьте в спальне.</div>
-      <span class="usp-pill">Тишайший в классе</span>
+    <div class="usp-card">
+      <div class="usp-n">02</div>
+      <div class="usp-ico">🔇</div>
+      <div class="usp-t">Тише Miele и Schulthess</div>
+      <div class="usp-d">71 дБ при 1600 об/мин — патентованное гашение вибрации. Можно ставить в спальне.</div>
+      <span class="usp-tag">Тишайший в классе</span>
     </div>
-
-    <div class="usp-item">
-      <div class="usp-num">03</div>
-      <div class="usp-icon-wrap">🚪</div>
-      <div class="usp-ttl">Дверца открывается сама</div>
-      <div class="usp-body">После стирки — автоматическое проветривание барабана. Ни у Miele, ни у Schulthess этого нет.</div>
-      <span class="usp-pill">Уникальная функция</span>
+    <div class="usp-card">
+      <div class="usp-n">03</div>
+      <div class="usp-ico">🚪</div>
+      <div class="usp-t">Дверца открывается сама</div>
+      <div class="usp-d">Автопроветривание барабана после стирки. Ни Miele, ни Schulthess этого не делают.</div>
+      <span class="usp-tag">Уникально</span>
     </div>
-
-    <div class="usp-item">
-      <div class="usp-num">04</div>
-      <div class="usp-icon-wrap">🖥</div>
-      <div class="usp-ttl">Сенсор + поворот</div>
-      <div class="usp-body">Интерфейс как у смартфона. Сенсорная панель с поворотным контроллером — управление без поиска нужной кнопки.</div>
-      <span class="usp-pill">Современный UX</span>
+    <div class="usp-card">
+      <div class="usp-n">04</div>
+      <div class="usp-ico">🖥</div>
+      <div class="usp-t">Сенсор + поворотный контроллер</div>
+      <div class="usp-d">Управление как у смартфона — интуитивно, без схемок и поиска нужной кнопки.</div>
+      <span class="usp-tag">Современный UX</span>
     </div>
-
-    <div class="usp-item">
-      <div class="usp-num">05</div>
-      <div class="usp-icon-wrap">💎</div>
-      <div class="usp-ttl">Статус в проекте</div>
-      <div class="usp-body">В интерьере за 10+ млн рублей V-ZUG — такой же маркер класса, как Bulthaup для кухни.</div>
-      <span class="usp-pill">Luxury-марка</span>
+    <div class="usp-card">
+      <div class="usp-n">05</div>
+      <div class="usp-ico">💎</div>
+      <div class="usp-t">Статусный маркер интерьера</div>
+      <div class="usp-d">В проекте за 10+ млн V-ZUG — такой же знак качества, как Bulthaup для кухни.</div>
+      <span class="usp-tag">Luxury-марка</span>
     </div>
-
   </div>
+</div>
 </section>
 
-<!-- SPECS BAND -->
+<!-- SPECS -->
 <div class="specs-band">
   <div class="specs-inner">
-    <div class="spec-cell">
-      <div class="spec-val">8 кг</div>
-      <div class="spec-lbl">Загрузка</div>
-    </div>
-    <div class="spec-cell">
-      <div class="spec-val">1600</div>
-      <div class="spec-lbl">Об/мин</div>
-    </div>
-    <div class="spec-cell">
-      <div class="spec-val">71 дБ</div>
-      <div class="spec-lbl">Шум отжима</div>
-    </div>
-    <div class="spec-cell">
-      <div class="spec-val">60 л</div>
-      <div class="spec-lbl">Барабан</div>
-    </div>
-    <div class="spec-cell">
-      <div class="spec-val">A</div>
-      <div class="spec-lbl">Класс энергии</div>
-    </div>
-    <div class="spec-cell">
-      <div class="spec-val">1913</div>
-      <div class="spec-lbl">Год основания</div>
-    </div>
+    <div class="spec-c"><div class="spec-v">8 кг</div><div class="spec-l">Загрузка</div></div>
+    <div class="spec-c"><div class="spec-v">1600</div><div class="spec-l">Об/мин</div></div>
+    <div class="spec-c"><div class="spec-v">71 дБ</div><div class="spec-l">Шум отжима</div></div>
+    <div class="spec-c"><div class="spec-v">60 л</div><div class="spec-l">Барабан</div></div>
+    <div class="spec-c"><div class="spec-v">A</div><div class="spec-l">Класс энергии</div></div>
+    <div class="spec-c"><div class="spec-v">1913</div><div class="spec-l">Год основания</div></div>
   </div>
 </div>
 
 <!-- COMPARISON -->
-<section class="section">
-  <div class="section-tag">Сравнение</div>
-  <h2 class="section-title">Против ближайших альтернатив</h2>
-  <div class="cmp-wrap">
+<section style="background:#F7F8FA; padding:1px 0;">
+<div class="wrap">
+  <div class="kicker">Сравнение</div>
+  <h2 class="sec-title">Против ближайших альтернатив</h2>
+  <div class="tbl-wrap">
     <table>
       <thead>
         <tr>
           <th>Параметр</th>
-          <th class="hl">V-ZUG AdoraWash V6000 <span class="badge">наш</span></th>
+          <th class="hl">V-ZUG AdoraWash V6000 <span class="bdg">наш</span></th>
           <th>Miele W1 WCR890</th>
-          <th>Schulthess ADA1 Gold <span class="badge">наш</span></th>
+          <th>Schulthess ADA1 Gold <span class="bdg">наш</span></th>
         </tr>
       </thead>
       <tbody>
@@ -499,7 +382,7 @@
         </tr>
         <tr>
           <td>Шум при отжиме</td>
-          <td class="hl win">71 дБ ✦ тише всех</td>
+          <td class="hl win">71 дБ — тише всех</td>
           <td>72 дБ</td>
           <td>72 дБ</td>
         </tr>
@@ -512,8 +395,8 @@
         <tr>
           <td>Управление</td>
           <td class="hl win">Сенсор + поворот</td>
-          <td class="neu">Кнопки + поворот</td>
-          <td class="neu">Кнопки + поворот</td>
+          <td class="dim">Кнопки + поворот</td>
+          <td class="dim">Кнопки + поворот</td>
         </tr>
         <tr>
           <td>LED-барабан</td>
@@ -523,39 +406,40 @@
         </tr>
         <tr>
           <td>Выбор цветов</td>
-          <td class="hl neu">1 (нержавеющая)</td>
-          <td class="neu">2–3</td>
+          <td class="hl dim">1 (нержавеющая)</td>
+          <td class="dim">2–3</td>
           <td class="win">7 дизайнерских</td>
         </tr>
       </tbody>
     </table>
   </div>
+</div>
 </section>
 
-<!-- ORIGIN STRIP -->
-<div class="origin-strip">
-  <div class="origin-inner">
+<!-- ORIGIN -->
+<div class="origin">
+  <div class="origin-in">
     <div class="origin-flag">🇨🇭</div>
-    <div class="origin-text">
+    <div>
       <h3>Швейцарское производство — не маркетинг</h3>
-      <p>V-ZUG основана в 1913 году в Цуге. За 110 лет компания не перенесла производство в Азию и не продала марку концерну. Сегодня это публичная швейцарская компания с листингом на Zürich Stock Exchange. Каждая машина — полный цикл в Швейцарии.</p>
+      <p>V-ZUG основана в 1913 году в кантоне Цуг. За 110 лет не перенесла производство в Азию и не продала марку концерну. Публичная компания на Zürich Stock Exchange — каждая машина полный цикл в Швейцарии.</p>
     </div>
   </div>
 </div>
 
 <!-- CTA -->
-<section class="cta-section">
-  <div class="cta-label">HOMEPROJECT · Официальный дистрибьютор</div>
-  <h2 class="cta-title">Хотите уточнить наличие<br>или получить КП?</h2>
-  <p class="cta-sub">Работаем с частными клиентами, дизайнерами и архитекторами</p>
-  <a href="https://t.me/homeproject_ai_bot" class="cta-btn">Написать нам в Telegram →</a>
+<section class="cta">
+  <div class="cta-k">HOMEPROJECT · Официальный дистрибьютор</div>
+  <h2 class="cta-h">Хотите уточнить наличие<br>или получить КП?</h2>
+  <p class="cta-s">Работаем с частными клиентами, дизайнерами и архитекторами</p>
+  <a href="https://t.me/homeproject_ai_bot" class="cta-a">Написать в Telegram →</a>
   <div class="cta-note">Отвечаем быстро · Без обязательств</div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="fl">HOMEPROJECT</div>
-  <div class="fr">Официальный дистрибьютор V-ZUG в России · 2026</div>
+  <div class="ft-l">HOMEPROJECT</div>
+  <div class="ft-r">Официальный дистрибьютор V-ZUG в России · 2026</div>
 </footer>
 
 </body>
