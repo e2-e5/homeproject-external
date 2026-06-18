@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Home Project · UX-каталог v2 — AI-first (Ария)</title>
+<style>
+  :root {
+    --bg:#FAF7F2; --ink:#1A1410; --ink-soft:#4A3F2C; --line:#E5DCC6;
+    --accent:#C9A36A; --accent-dark:#8B6E3E; --accent-soft:#F0E2C4;
+    --card:#FFFFFF; --charcoal:#2A2418;
+    --good:#2c8a4a; --warn:#b87900; --bad:#c0392b;
+  }
+  * { box-sizing:border-box; }
+  body {
+    font-family:'Inter','Helvetica','Arial',sans-serif;
+    background:var(--bg); color:var(--ink); margin:0;
+    padding:32px 20px; line-height:1.6; font-size:14.5px;
+  }
+  .wrap { max-width:1080px; margin:0 auto; }
+  h1 { font-size:26px; margin:0 0 6px; letter-spacing:-0.015em; }
+  h2 { font-size:18px; margin:32px 0 10px; color:var(--accent); text-transform:uppercase; letter-spacing:1.2px; font-weight:600; }
+  h3 { font-size:16px; margin:18px 0 8px; }
+  .sub { color:var(--ink-soft); font-size:13px; margin-bottom:20px; }
+  .v2-tag { display:inline-block; background:var(--good); color:#fff; padding:3px 10px; border-radius:3px; font-size:11px; letter-spacing:1px; font-weight:700; vertical-align:middle; margin-left:8px; }
+
+  section {
+    background:var(--card); border:1px solid var(--line);
+    border-radius:6px; padding:20px 26px; margin-bottom:18px;
+  }
+  .key-finding {
+    background:#FFF8E8; border-left:4px solid var(--accent);
+    padding:16px 22px; margin:20px 0; border-radius:4px;
+  }
+  .key-finding .label {
+    font-size:11px; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--warn); font-weight:700; margin-bottom:6px;
+  }
+
+  table { border-collapse:collapse; width:100%; margin:14px 0; font-size:13px; }
+  th, td { border:1px solid var(--line); padding:8px 12px; vertical-align:top; text-align:left; }
+  th { background:var(--accent-soft); color:var(--ink); font-weight:600; }
+  tr:nth-child(even) td { background:#FBF8F1; }
+
+  ul { margin:8px 0; padding-left:22px; }
+  ul li { margin-bottom:5px; }
+
+  .mockup {
+    background:#fff; border:1px solid var(--line); border-radius:6px;
+    padding:0; margin:14px 0; overflow:hidden;
+  }
+  .mockup .caption {
+    background:#F0E9DA; padding:6px 14px; font-size:11px;
+    color:var(--ink-soft); letter-spacing:1px; text-transform:uppercase;
+    border-bottom:1px solid var(--line);
+  }
+
+  /* ===== HEADER MOCKUP ===== */
+  .demo-header { background:#fff; }
+  .demo-topbar {
+    display:flex; align-items:center; gap:18px; padding:14px 22px;
+  }
+  .demo-logo {
+    font-family:Georgia,serif; font-size:18px; letter-spacing:1px;
+    font-weight:700; color:var(--ink); margin-right:12px;
+  }
+  .demo-nav {
+    display:flex; gap:22px; font-size:13.5px; font-weight:500;
+    color:var(--ink); flex:1;
+  }
+  .demo-nav .item { cursor:pointer; padding:4px 0; border-bottom:2px solid transparent; }
+  .demo-nav .item:hover { border-color:var(--accent); }
+  .demo-nav .item.highlight { color:var(--accent); font-weight:700; }
+  .demo-tools {
+    display:flex; gap:12px; align-items:center; font-size:13px;
+  }
+  .demo-search {
+    width:200px; background:#F0E9DA; border:1px solid var(--line);
+    padding:6px 10px; border-radius:3px; font-size:12px; color:#7a6e57;
+  }
+  .demo-cta {
+    background:var(--ink); color:#fff; padding:7px 14px;
+    border-radius:3px; font-size:12px; font-weight:600;
+  }
+
+  /* ===== ARIA CAPSULE ===== */
+  .aria-capsule {
+    display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(135deg,#fff7e6,#f0e2c4);
+    border:1px solid var(--accent); border-radius:24px;
+    padding:5px 12px 5px 8px; cursor:pointer;
+    transition:all .18s ease;
+  }
+  .aria-capsule:hover {
+    transform:translateY(-1px);
+    box-shadow:0 4px 14px rgba(201,163,106,0.25);
+  }
+  .aria-avatar {
+    position:relative; width:28px; height:28px; border-radius:50%;
+    background:linear-gradient(135deg,#C9A36A,#8B6E3E);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family:Georgia,serif; font-weight:700; font-size:16px;
+    flex-shrink:0;
+  }
+  .aria-online-dot {
+    position:absolute; bottom:-1px; right:-1px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--good); border:2px solid #fff;
+  }
+  .aria-text { line-height:1.15; }
+  .aria-text .name {
+    font-size:13px; font-weight:700; color:var(--ink);
+  }
+  .aria-text .role {
+    font-size:10px; color:#7A6E4C; letter-spacing:0.3px;
+  }
+
+  /* ===== MEGAMENU ===== */
+  .demo-megamenu {
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1.4fr;
+    gap:24px; padding:24px 26px; background:#fff;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .demo-megamenu .col h4 {
+    margin:0 0 10px; font-size:11px; text-transform:uppercase;
+    letter-spacing:1.2px; color:var(--accent); font-weight:700;
+  }
+  .demo-megamenu ul {
+    list-style:none; margin:0; padding:0; font-size:13px;
+  }
+  .demo-megamenu ul li {
+    margin-bottom:5px; cursor:pointer; color:var(--ink);
+  }
+  .demo-megamenu ul li:hover { color:var(--accent); }
+  .demo-megamenu ul li small { color:#9a8e76; }
+  .demo-megamenu .promo {
+    background:var(--accent-soft); border-radius:4px; padding:14px; font-size:12.5px;
+  }
+  .demo-megamenu .promo .promo-title {
+    font-weight:700; font-size:13px; margin-bottom:4px;
+  }
+
+  /* ===== MOBILE FRAME ===== */
+  .mobile-frame {
+    width:300px; margin:0 auto; background:#fff;
+    border:8px solid var(--charcoal); border-radius:24px; overflow:hidden;
+    box-shadow:0 8px 24px rgba(0,0,0,0.15);
+  }
+  .mobile-header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 14px; border-bottom:1px solid var(--line); font-size:12px;
+  }
+  .mobile-logo { font-family:Georgia,serif; font-weight:700; letter-spacing:0.5px; font-size:13px; }
+  .mobile-body {
+    padding:14px; min-height:380px; background:var(--bg); font-size:12px;
+  }
+  .mobile-search {
+    background:#fff; border:1px solid var(--line); padding:8px 12px;
+    border-radius:6px; color:#9a8e76; margin-bottom:12px;
+  }
+
+  /* ===== ARIA INVITE CARD (mobile homepage) ===== */
+  .aria-invite-card {
+    background:var(--charcoal); color:#F5EFE3;
+    padding:14px; border-radius:8px; margin-bottom:12px;
+    display:flex; gap:12px; align-items:center;
+  }
+  .aria-invite-card .aria-avatar { width:42px; height:42px; font-size:24px; }
+  .aria-invite-card .aria-online-dot { width:12px; height:12px; }
+  .aria-invite-card .invite-text { flex:1; line-height:1.35; }
+  .aria-invite-card .label {
+    font-size:9px; letter-spacing:1.5px; color:var(--accent);
+    font-weight:700; margin-bottom:2px;
+  }
+  .aria-invite-card .pitch {
+    font-size:12px; color:#F5EFE3;
+  }
+  .aria-invite-card .arrow { color:var(--accent); font-size:18px; }
+
+  /* ===== BOTTOM NAV ===== */
+  .mobile-bottom-nav {
+    display:flex; justify-content:space-around;
+    padding:8px 4px 10px; border-top:1px solid var(--line); background:#fff;
+    align-items:flex-end;
+  }
+  .mobile-bottom-nav .item {
+    text-align:center; font-size:9.5px; color:var(--ink-soft);
+    flex:1; padding:0 2px;
+  }
+  .mobile-bottom-nav .item.active { color:var(--accent); font-weight:700; }
+  .mobile-bottom-nav .item .icon {
+    font-size:18px; margin-bottom:2px; display:block;
+  }
+  .mobile-bottom-nav .item.center {
+    position:relative; top:-12px;
+  }
+  .mobile-bottom-nav .item.center .icon {
+    width:46px; height:46px; margin:0 auto 4px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#C9A36A,#8B6E3E);
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    font-family:Georgia,serif; font-size:22px; font-weight:700;
+    box-shadow:0 4px 14px rgba(201,163,106,0.4);
+  }
+  .mobile-bottom-nav .item.center .label {
+    color:var(--accent); font-weight:700; font-size:10px;
+  }
+
+  /* ===== CHAT OVERLAY ===== */
+  .chat-demo {
+    background:#fff; border:1px solid var(--line);
+    border-radius:12px 12px 0 0; overflow:hidden;
+    width:340px; box-shadow:0 -4px 24px rgba(0,0,0,0.12);
+    margin:14px auto 0;
+  }
+  .chat-header {
+    background:linear-gradient(135deg,#fff7e6,#f0e2c4);
+    padding:12px 14px; display:flex; gap:10px; align-items:center;
+    border-bottom:1px solid var(--line);
+  }
+  .chat-header .aria-avatar { width:36px; height:36px; font-size:20px; }
+  .chat-header .name { font-weight:700; font-size:14px; }
+  .chat-header .status { font-size:11px; color:#7A6E4C; }
+  .chat-header .close { margin-left:auto; color:#7A6E4C; font-size:18px; cursor:pointer; }
+  .chat-body { padding:14px; background:var(--bg); min-height:200px; font-size:13px; }
+  .chat-msg {
+    background:#fff; border:1px solid var(--line); padding:10px 12px;
+    border-radius:14px 14px 14px 4px; max-width:80%; margin-bottom:10px;
+    line-height:1.4;
+  }
+  .chat-input {
+    border-top:1px solid var(--line); padding:10px 14px;
+    background:#fff; display:flex; gap:8px;
+  }
+  .chat-input input {
+    flex:1; border:1px solid var(--line); border-radius:18px;
+    padding:8px 14px; font-size:13px; font-family:inherit;
+  }
+  .chat-input .send {
+    background:var(--accent); color:#fff; border:none;
+    padding:8px 14px; border-radius:18px; font-weight:600; cursor:pointer;
+  }
+
+  /* ===== FOOTER 4-CHANNEL ===== */
+  .footer-mockup {
+    background:var(--charcoal); color:#F5EFE3;
+    padding:20px 24px; border-radius:6px;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+    font-size:12px;
+  }
+  .footer-mockup .channel { padding:10px; }
+  .footer-mockup .channel .icon { font-size:22px; margin-bottom:6px; }
+  .footer-mockup .channel .title { font-weight:700; color:var(--accent); font-size:11px; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+  .footer-mockup .channel .desc { color:#C9C1AE; font-size:11px; line-height:1.4; }
+
+  .change-list {
+    background:#FFF8E8; border:1px dashed var(--accent);
+    padding:14px 22px; border-radius:6px; margin:14px 0;
+  }
+  .change-list h3 { margin-top:0; color:var(--warn); }
+  .change-list .was { color:var(--bad); text-decoration:line-through; }
+  .change-list .now { color:var(--good); font-weight:600; }
+
+  .question {
+    background:#FFF8E8; border:2px dashed var(--accent);
+    padding:18px 22px; border-radius:6px; margin-top:24px;
+  }
+  .question b { color:#7A5B00; }
+
+  .footer-note {
+    margin-top:30px; padding-top:14px; border-top:1px solid var(--line);
+    text-align:center; color:#9A8E76; font-size:11.5px; font-style:italic;
+  }
+
+  @media (max-width:720px) {
+    .demo-topbar { flex-wrap:wrap; gap:10px; }
+    .demo-search { width:100%; }
+    .demo-megamenu { grid-template-columns:1fr; }
+    .footer-mockup { grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>UX-редизайн каталога — v2 <span class="v2-tag">AI-FIRST</span></h1>
+<div class="sub">Превью v2 · Ария AI-менеджер · Home Project · 18.06.2026</div>
+
+<!-- ====== ЧТО ИЗМЕНИЛОСЬ ====== -->
+<div class="change-list">
+<h3>Что изменилось от v1</h3>
+<p>По итогам разговора с Алексеем — мы переходим на <b>AI-first концепцию</b>. Технологическая дифференциация от конкурентов через «живого AI-консьержа», а не через телефонный салон.</p>
+<ul>
+<li><span class="was">Телефон в шапке</span> → <span class="now">Ария-капсула «AI-консьерж · онлайн»</span></li>
+<li><span class="was">«Запросить КП» как центральная точка bottom-nav</span> → <span class="now">«Ария» в центре, золотой акцент</span></li>
+<li><span class="was">Телефон на главной</span> → <span class="now">charcoal-карточка приглашения от Арии</span></li>
+<li><span class="now">Новое: footer и /contacts</span> — 4 канала связи (Ария на сайте · WhatsApp с Арией · e-mail · «звонок по заказу — после запроса КП»)</li>
+</ul>
+<p><b>Почему так:</b> мы продаём не «купи у нас», а «AI подберёт за тебя и архитектора, и комплект, и КП». Телефон — это «старая школа». Ария = наш дифференциатор, его надо видеть на каждой странице.</p>
+</div>
+
+<!-- ====== ШАПКА ====== -->
+<section>
+<h2>1. Десктоп шапка — Ария вместо телефона</h2>
+
+<div class="mockup">
+<div class="caption">Десктоп · header (предлагается v2)</div>
+<div class="demo-header">
+<div class="demo-topbar">
+<div class="demo-logo">HOME · PROJECT</div>
+<div class="demo-nav">
+<div class="item">Каталог ▾</div>
+<div class="item">Бренды</div>
+<div class="item highlight">Архитекторам</div>
+<div class="item">Реализованные проекты</div>
+<div class="item">О компании</div>
+</div>
+<div class="demo-tools">
+<div class="demo-search">🔍 Поиск по сайту…</div>
+<div class="aria-capsule">
+<div class="aria-avatar">А<span class="aria-online-dot"></span></div>
+<div class="aria-text">
+<div class="name">Ария</div>
+<div class="role">AI-консьерж · онлайн</div>
+</div>
+</div>
+<div class="demo-cta">Запросить КП</div>
+</div>
+</div>
+</div>
+</div>
+
+<p><b>Капсула Арии:</b></p>
+<ul>
+<li>Золотой аватар 28×28 с буквой «А» (Georgia serif), белая буква</li>
+<li>Зелёный 8×8 индикатор «онлайн» снизу-справа</li>
+<li>Подпись справа: «Ария» (700) + «AI-консьерж · онлайн» (10px, тёплый серый)</li>
+<li>Фон: <code>linear-gradient(135deg,#fff7e6,#f0e2c4)</code>, рамка <code>#C9A36A</code>, скруглённая (border-radius 24px)</li>
+<li>Hover: лёгкое поднятие + золотая тень</li>
+<li>Клик → открывает чат-overlay справа снизу (см. ниже)</li>
+</ul>
+
+<p><b>Кнопка «Запросить КП»</b> — рядом с капсулой, для тех кто хочет сразу к делу, без чата.</p>
+<p><b>Телефон не показывается</b> ни в шапке, ни на главной, ни на карточках. Только в footer и на /contacts.</p>
+</section>
+
+<!-- ====== CHAT OVERLAY ====== -->
+<section>
+<h2>2. Чат с Арией (клик на капсулу)</h2>
+
+<div class="mockup">
+<div class="caption">Десктоп · открытый чат-overlay (правый нижний угол)</div>
+<div style="background:var(--bg); padding:30px;">
+<div class="chat-demo">
+<div class="chat-header">
+<div class="aria-avatar">А<span class="aria-online-dot"></span></div>
+<div>
+<div class="name">Ария</div>
+<div class="status">AI-консьерж · отвечает за 1-2 мин</div>
+</div>
+<div class="close">×</div>
+</div>
+<div class="chat-body">
+<div class="chat-msg">Здравствуйте! Я Ария, AI-консьерж Home Project. Помогу подобрать технику под вашу кухню и собрать КП за 5 минут. Что ищете?</div>
+<div class="chat-msg">Подскажите ваш сценарий — отдельная встраиваемая техника, кухня под ключ или замена одного прибора?</div>
+</div>
+<div class="chat-input">
+<input placeholder="Напишите Арии…" />
+<button class="send">→</button>
+</div>
+</div>
+</div>
+</div>
+
+<p><b>MVP содержимое чата (этот спринт):</b></p>
+<ul>
+<li>Приветственное сообщение от Арии (2 строки)</li>
+<li>Поле ввода + кнопка отправки</li>
+<li>Заглушка-ответ «Передам менеджеру, ответим в течение часа» с сохранением сообщения в /tasks как inbound</li>
+</ul>
+<p><b>Полноценный AI-чат</b> (LLM, retrieval по каталогу, генерация КП) — отдельный эпик AI-инструментов. Сейчас закладываем UI и канал захвата лидов.</p>
+</section>
+
+<!-- ====== МОБИЛЬНАЯ ====== -->
+<section>
+<h2>3. Мобильная навигация — Ария в центре bottom-nav</h2>
+
+<div style="display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin:20px 0;">
+
+<!-- Mobile homepage with Aria invite -->
+<div class="mobile-frame">
+<div class="mobile-header">
+<div class="mobile-logo">HOME · PROJECT</div>
+<div>☰</div>
+</div>
+<div class="mobile-body">
+<div class="mobile-search">🔍 Поиск по 2300+ товарам</div>
+<div class="aria-invite-card">
+<div class="aria-avatar">А<span class="aria-online-dot"></span></div>
+<div class="invite-text">
+<div class="label">АРИЯ · AI-КОНСЬЕРЖ</div>
+<div class="pitch">Помогу подобрать технику и собрать КП за 5 минут</div>
+</div>
+<div class="arrow">›</div>
+</div>
+<div style="background:#fff; border:1px solid var(--line); padding:10px; border-radius:6px; margin-bottom:6px;">Каталог ›</div>
+<div style="background:#fff; border:1px solid var(--line); padding:10px; border-radius:6px; margin-bottom:6px;">Бренды ›</div>
+<div style="background:#fff8e8; border:1px solid var(--accent); padding:10px; border-radius:6px; margin-bottom:6px; color:#7a5b00; font-weight:600;">Архитекторам ›</div>
+<div style="background:var(--ink); color:#fff; padding:12px; border-radius:6px; text-align:center; margin-top:12px; font-weight:600; font-size:13px;">Запросить КП</div>
+</div>
+<div class="mobile-bottom-nav">
+<div class="item"><span class="icon">📋</span>Каталог</div>
+<div class="item"><span class="icon">🔍</span>Поиск</div>
+<div class="item center"><span class="icon">А</span><span class="label">Ария</span></div>
+<div class="item"><span class="icon">⚖</span>Сравн.</div>
+<div class="item"><span class="icon">❤</span>Изб.</div>
+</div>
+</div>
+
+<!-- Mobile category with bottom-nav -->
+<div class="mobile-frame">
+<div class="mobile-header">
+<div>‹</div>
+<div style="font-weight:600;">Варочные панели</div>
+<div>🔍</div>
+</div>
+<div class="mobile-body">
+<div style="display:flex; gap:6px; overflow-x:auto; margin-bottom:10px;">
+<div style="background:var(--accent); color:#fff; padding:4px 10px; border-radius:14px; font-size:11px; white-space:nowrap;">Все 231</div>
+<div style="background:#fff; border:1px solid var(--line); padding:4px 10px; border-radius:14px; font-size:11px; white-space:nowrap;">Küppersbusch</div>
+<div style="background:#fff; border:1px solid var(--line); padding:4px 10px; border-radius:14px; font-size:11px; white-space:nowrap;">V-ZUG</div>
+<div style="background:#fff; border:1px solid var(--line); padding:4px 10px; border-radius:14px; font-size:11px; white-space:nowrap;">BORA</div>
+</div>
+<div style="background:#fff; padding:8px 10px; border-radius:6px; margin-bottom:8px; font-size:11px; display:flex; justify-content:space-between;">
+<span>🎚 Фильтры (3)</span>
+<span style="color:var(--accent); font-weight:600;">↕ Сортировка</span>
+</div>
+<div style="background:#fff; padding:10px; border-radius:6px; margin-bottom:6px;">
+<div style="background:#F0E9DA; height:80px; border-radius:3px; margin-bottom:6px;"></div>
+<div style="font-weight:600; font-size:11px;">KI 8800.0 ED</div>
+<div style="color:#9a8e76; font-size:10px;">Küppersbusch · 80 см</div>
+</div>
+</div>
+<div class="mobile-bottom-nav">
+<div class="item active"><span class="icon">📋</span>Каталог</div>
+<div class="item"><span class="icon">🔍</span>Поиск</div>
+<div class="item center"><span class="icon">А</span><span class="label">Ария</span></div>
+<div class="item"><span class="icon">⚖</span>Сравн.</div>
+<div class="item"><span class="icon">❤</span>Изб.</div>
+</div>
+</div>
+
+</div>
+
+<p><b>Mobile bottom-nav — 5 точек с Арией в центре:</b></p>
+<table>
+<tr><th>Позиция</th><th>Иконка</th><th>Подпись</th><th>Куда ведёт</th></tr>
+<tr><td>1</td><td>📋</td><td>Каталог</td><td><code>/ru/store</code></td></tr>
+<tr><td>2</td><td>🔍</td><td>Поиск</td><td>full-screen overlay поиска</td></tr>
+<tr><td><b>3 (центр)</b></td><td>А</td><td><b>Ария</b></td><td>chat-overlay снизу</td></tr>
+<tr><td>4</td><td>⚖</td><td>Сравн.</td><td><code>/compare</code></td></tr>
+<tr><td>5</td><td>❤</td><td>Изб.</td><td><code>/wishlist</code></td></tr>
+</table>
+
+<p>Центральная точка «Ария» — приподнята на 12px, золотой круглый фон с белой буквой «А» (Georgia serif), мягкая золотая тень. Визуально это «главное приглашение» — пользователь возвращается к Арии из любого экрана за один тап.</p>
+
+<p><b>Charcoal-карточка приглашения на главной мобильной:</b></p>
+<ul>
+<li>Фон <code>#2A2418</code>, светлый текст</li>
+<li>Большой аватар Арии 42×42 (тот же золотой градиент + зелёный «онлайн»)</li>
+<li>Микро-лейбл «АРИЯ · AI-КОНСЬЕРЖ» (золотой 9px)</li>
+<li>Питч: «Помогу подобрать технику и собрать КП за 5 минут»</li>
+<li>Стрелка › справа</li>
+<li>Клик → тот же chat-overlay что и с капсулы</li>
+</ul>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<section>
+<h2>4. Контактные каналы (footer + /contacts)</h2>
+
+<p>Концепция: в шапке только Ария-капсула + «Запросить КП». Все остальные каналы — в footer и на странице «Контакты». Это сохраняет премиум-стиль и не превращает шапку в «центр обслуживания клиентов».</p>
+
+<div class="mockup">
+<div class="caption">Footer · 4 канала связи</div>
+<div class="footer-mockup">
+<div class="channel">
+<div class="icon">💬</div>
+<div class="title">Ария на сайте</div>
+<div class="desc">AI-консьерж работает 24/7. Подбор техники и сборка КП за 5 минут.</div>
+</div>
+<div class="channel">
+<div class="icon">📱</div>
+<div class="title">WhatsApp с Арией</div>
+<div class="desc">Тот же AI-консьерж, если удобнее в мессенджере.</div>
+</div>
+<div class="channel">
+<div class="icon">✉</div>
+<div class="title">E-mail</div>
+<div class="desc">info@homeproject.online — для архитекторов и крупных проектов.</div>
+</div>
+<div class="channel">
+<div class="icon">📞</div>
+<div class="title">Звонок по заказу</div>
+<div class="desc">Менеджер свяжется после запроса КП. Звонки без КП — только на /contacts.</div>
+</div>
+</div>
+</div>
+
+<p><b>Логика «телефона по заказу»:</b> мы не «холодный салон, который ждёт звонка», а «AI-first дистрибьютор премиум-сегмента». Звонок — это финальный шаг сделки, не первый.</p>
+</section>
+
+<!-- ====== ОСТАЛЬНОЕ (без изменений от v1) ====== -->
+<section>
+<h2>5. Что остаётся как в v1 (без изменений)</h2>
+<ul>
+<li>✅ Поиск в шапке (instant, debounce 200ms, группировка Товары/Бренды/Категории)</li>
+<li>✅ Мегаменю «Каталог» — 4 колонки (Типы / Бренды / Коллекции / Промо)</li>
+<li>✅ Шапка: 5 пунктов (Каталог ▾ · Бренды · Архитекторам · Реализованные проекты · О компании)</li>
+<li>✅ Раздел «Архитекторам» — лендинг + форма проекта</li>
+<li>✅ Глубокие фильтры на категориях (бренд, цена, тип нагрева, ширина, цвет, серия)</li>
+<li>✅ CTA «Запросить КП по этой модели» на карточке товара</li>
+<li>✅ Heart-иконка в избранное</li>
+<li>✅ 6 лендингов коллекций</li>
+<li>✅ Виджет сравнения товаров (до 4 моделей)</li>
+</ul>
+</section>
+
+<!-- ====== БРИФ ИНЖЕНЕРУ ====== -->
+<section>
+<h2>6. Что обновил в брифе инженеру</h2>
+
+<p>Бриф уже отражает v2: <code>docs/strategy/audits/catalog-ux/ENGINEER-BRIEF-2026-06-18-VARIANT-B.md</code></p>
+
+<ul>
+<li>Эпик 2: переписан с «телефон + КП» на «Ария-капсула + КП» — детальные размеры, цвета, анимация</li>
+<li>Эпик 7: центральная точка bottom-nav — Ария (не «КП»)</li>
+<li>Добавлено: charcoal-карточка приглашения Арии на мобильной главной</li>
+<li>Добавлено: footer 4-канальный (Ария / WhatsApp / e-mail / звонок по заказу)</li>
+<li>Сроки и спринты — без изменений (4 недели, до 16.07.2026)</li>
+</ul>
+</section>
+
+<!-- ====== ВОПРОС ====== -->
+<div class="question">
+<b>Это v2 финальная — подтверждаете?</b>
+<ul>
+<li>✅ Ария-капсула в шапке (десктоп) вместо телефона</li>
+<li>✅ Charcoal-карточка приглашения Арии на главной мобильного</li>
+<li>✅ Bottom-nav 5 точек, центральная — Ария (золотая, приподнята)</li>
+<li>✅ Footer 4-канальный, телефон только «по заказу»</li>
+<li>✅ Chat-overlay с MVP-приветствием (полноценный AI — отдельный эпик)</li>
+</ul>
+<p>Скажете <b>«ок, делаем»</b> — финализирую контракты приёмки и отдаю tech-consultant в работу по спринтам 1→4.</p>
+<p>Если нужны правки — какой блок и что меняем.</p>
+</div>
+
+<div class="footer-note">
+Превью v2 · Ария AI-менеджер · Home Project · 18.06.2026<br>
+Источники: бенчмарк 11 сайтов + аудит current vs old · бриф: <code>docs/strategy/audits/catalog-ux/ENGINEER-BRIEF-2026-06-18-VARIANT-B.md</code>
+</div>
+
+</div>
+</body>
+</html>
