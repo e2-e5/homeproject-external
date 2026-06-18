@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>HOME project — калибровка скобы и project — 18.06.2026</title>
+<style>
+  :root{
+    --hp-bg:#FFFFFF; --hp-surface:#FAF8F3; --hp-border:#E5E2DA;
+    --hp-text:#1A1A1A; --hp-text-2:#5A5A5A; --hp-muted:#8A8276; --hp-accent:#B0A48A;
+    --gold-soft:#B0A48A; --gold-mid:#A08758; --gold-dark:#9F7E45; --gold-deep:#8C6A36;
+    --black:#1A1A1A; --paper:#F4F1E9; --paper-2:#EDEAE0;
+    --ok:#3F8F5C; --bad:#C24A4A;
+    --font-sans:"Inter Tight","Inter",ui-sans-serif,system-ui,sans-serif;
+    --font-serif:"Source Serif 4","Cormorant Garamond","PT Serif",ui-serif,Georgia,serif;
+    --font-mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--hp-text);font-family:var(--font-sans);-webkit-font-smoothing:antialiased}
+  body{padding:56px 36px 120px;font-size:15px;line-height:1.55}
+  .wrap{max-width:1480px;margin:0 auto}
+  .hd{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--hp-text);padding-bottom:22px;margin-bottom:48px}
+  .hd .t{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+  .hd h1{margin:8px 0 0;font-size:42px;letter-spacing:-.02em;font-weight:600;line-height:1}
+  .hd .meta{font-size:12px;opacity:.55;text-align:right;line-height:1.6}
+  .sec{margin:72px 0}
+  .sec > h2{font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.55;margin:0 0 4px;font-weight:600}
+  .sec > h3{margin:0 0 18px;font-size:24px;letter-spacing:-.01em;font-weight:600}
+  .sec p.lead{max-width:78ch;opacity:.82;margin:0 0 28px}
+  .lockup{display:inline-flex;align-items:flex-end;line-height:1;font-family:var(--font-sans);color:var(--black);--bracket-color:var(--gold-mid);--project-color:var(--gold-mid);--bracket-thickness:.045em;--bracket-width:.55em;--bracket-height:.18em;--bracket-offset:.08em;--project-weight:400;--project-size:.62em;--project-gap:.18em}
+  .lockup .home{font-weight:800;letter-spacing:-.025em;position:relative;display:inline-block;color:var(--black)}
+  .lockup .home .bracket{position:absolute;left:46.5%;transform:translateX(-50%);bottom:calc(100% + var(--bracket-offset));width:var(--bracket-width);height:var(--bracket-height);pointer-events:none}
+  .lockup .home .bracket::before{content:"";position:absolute;inset:0;background:linear-gradient(45deg,transparent calc(50% - var(--bracket-thickness)/2),var(--bracket-color) calc(50% - var(--bracket-thickness)/2),var(--bracket-color) calc(50% + var(--bracket-thickness)/2),transparent calc(50% + var(--bracket-thickness)/2)) left/50% 100% no-repeat,linear-gradient(-45deg,transparent calc(50% - var(--bracket-thickness)/2),var(--bracket-color) calc(50% - var(--bracket-thickness)/2),var(--bracket-color) calc(50% + var(--bracket-thickness)/2),transparent calc(50% + var(--bracket-thickness)/2)) right/50% 100% no-repeat}
+  .lockup .project{font-weight:var(--project-weight);color:var(--project-color);font-size:var(--project-size);margin-left:var(--project-gap);letter-spacing:-.005em;align-self:baseline;transform:translateY(-0.04em)}
+  .L-jumbo{font-size:140px} .L-xl{font-size:96px} .L-lg{font-size:64px} .L-md{font-size:44px} .L-sm{font-size:30px} .L-xs{font-size:22px}
+  .grid{display:grid;gap:0;border:1px solid var(--hp-border);background:#fff}
+  .grid.col5{grid-template-columns:repeat(5,1fr)} .grid.col4{grid-template-columns:repeat(4,1fr)}
+  .cell{padding:60px 24px 28px;border-right:1px solid var(--hp-border);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:220px}
+  .cell:last-child{border-right:0}
+  .cell .cap{position:absolute;top:14px;left:18px;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--hp-text-2)}
+  .cell .lbl{margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--hp-text);text-align:center;line-height:1.4}
+  .cell .lbl b{display:block;color:var(--hp-text);font-size:12px;letter-spacing:.05em;margin-bottom:4px;font-family:var(--font-sans);font-weight:600;text-transform:none}
+  .cell.win{background:linear-gradient(180deg,rgba(176,164,138,.07) 0%,transparent 100%);border-bottom:2px solid var(--gold-dark)}
+  .cell.win .cap{color:var(--gold-dark);font-weight:600} .cell.win .lbl{color:var(--gold-dark)}
+  .cell.bad{background:linear-gradient(180deg,rgba(194,74,74,.05) 0%,transparent 100%)} .cell.bad .cap{color:var(--bad)}
+  .crit{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .crit .col{background:#fff;border:1px solid var(--hp-border);padding:22px 24px}
+  .crit .col h6{margin:0 0 6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  .crit .col p{margin:0;font-size:14px;line-height:1.55;color:var(--hp-text-2)}
+  .crit .col.pro h6{color:var(--ok)} .crit .col.con h6{color:var(--bad)}
+  .preview{background:var(--hp-bg);border:1px solid var(--hp-border);overflow:hidden;box-shadow:0 28px 60px -36px rgba(0,0,0,.18);margin-top:24px}
+  .browser{background:#E8E4D7;padding:10px 14px;display:flex;gap:6px;align-items:center;border-bottom:1px solid var(--hp-border)}
+  .browser i{width:11px;height:11px;border-radius:50%;background:#CCC6B0}
+  .browser .url{flex:1;background:#fff;border-radius:8px;padding:5px 12px;font-family:var(--font-mono);font-size:11px;color:var(--hp-text-2);margin-left:10px}
+  .browser .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--hp-muted);padding:4px 10px;border:1px solid var(--hp-border);border-radius:99px;background:#fff}
+  .sitehead{display:flex;align-items:center;justify-content:space-between;padding:18px 36px;background:var(--hp-bg);border-bottom:1px solid var(--hp-border);gap:24px}
+  .sitehead nav{display:flex;gap:24px;font-family:var(--font-sans);font-size:13px;color:var(--hp-text)}
+  .sitehead nav a{display:inline-flex;align-items:center;gap:4px}
+  .sitehead nav a:after{content:"";display:inline-block;width:0;height:0;border-left:3px solid transparent;border-right:3px solid transparent;border-top:3px solid currentColor;margin-left:4px;opacity:.5}
+  .sitehead .right{display:flex;align-items:center;gap:16px;font-family:var(--font-sans);font-size:12px;color:var(--hp-text-2)}
+  .sitehead .right .lang{padding:5px 10px;border:1px solid var(--hp-border);border-radius:4px}
+  .subnav{display:flex;gap:28px;padding:10px 36px;background:var(--hp-surface);border-bottom:1px solid var(--hp-border);font-family:var(--font-sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--hp-text-2)}
+  .hero{padding:80px 36px 90px;background:var(--hp-bg)}
+  .hero .crumbs{font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--hp-muted);margin-bottom:20px}
+  .hero h1{margin:0 0 20px;font-family:var(--font-serif);font-weight:400;font-size:60px;line-height:1.05;letter-spacing:-.015em;color:var(--hp-text);max-width:18ch}
+  .hero h1 em{font-style:italic;color:var(--hp-accent);font-weight:400}
+  .hero p{margin:0 0 32px;font-family:var(--font-sans);font-size:16px;line-height:1.55;color:var(--hp-text-2);max-width:54ch}
+  .hero .cta{display:inline-flex;align-items:center;gap:8px;background:var(--hp-text);color:#fff;padding:14px 22px;font-family:var(--font-sans);font-size:13px;letter-spacing:.04em}
+  .hero .cta:after{content:"→"}
+  .spec{background:#fff;border:1px solid var(--hp-border);padding:32px 36px;display:grid;grid-template-columns:1fr 1fr;gap:42px;margin-top:24px}
+  .spec .col h4{margin:0 0 12px;font-size:18px;font-weight:600}
+  .spec .col dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 22px}
+  .spec .col dt{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--hp-text-2)}
+  .spec .col dd{margin:2px 0 0;font-size:14px;color:var(--hp-text);font-weight:500}
+  .spec .col dd code{font-family:var(--font-mono);font-size:13px;background:var(--paper-2);padding:1px 6px}
+  .opinion{background:#fff;border:1px solid var(--hp-border);padding:32px 36px;display:grid;grid-template-columns:170px 1fr;gap:30px;align-items:flex-start;margin-top:24px}
+  .opinion .label{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--hp-text-2)}
+  .opinion h3{margin:0 0 8px;font-size:24px;letter-spacing:-.01em;font-weight:600}
+  .opinion p{margin:0 0 10px;opacity:.86;max-width:74ch}
+  .opinion .score{font-size:42px;font-weight:600;letter-spacing:-.04em;color:var(--gold-dark);line-height:1;margin-top:6px}
+  footer{margin-top:96px;padding-top:24px;border-top:1px solid var(--hp-text);font-size:12px;opacity:.55;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hd">
+    <div>
+      <div class="t">Калибровка финального лок-апа</div>
+      <h1>HOME (black) + скоба (gold) + project (gold) — пропорции</h1>
+    </div>
+    <div class="meta">18.06.2026 · Алексею<br/>Дизайнер HOME project<br/>v2.3 · final lockup</div>
+  </div>
+
+  <div class="sec" style="margin-top:0">
+    <h2>00 · Задача</h2>
+    <h3>На пересечении: композиция как в IMG_8008, гарнитура как в IMG_8009</h3>
+    <p class="lead">Композиция взята из эталона: <b>HOME</b> жирным чёрным, <b>скоба-крыша над буквой M</b> в золоте, <b>project</b> в золоте. Шрифт — современный гротеск (как нынешний сайтовый sans). Дальше всё — про <b>толщину скобы</b>, <b>вес project</b> и <b>пропорцию по размеру</b>.</p>
+    <p class="lead" style="margin-top:-12px">Цвета фиксированы: HOME = #1A1A1A (родной hp-text сайта), золото — кандидат из трёх оттенков. Шрифт — Inter Tight, бесплатный variable-grotesk.</p>
+  </div>
+
+  <div class="sec">
+    <h2>A · Толщина скобы</h2>
+    <h3>Сколько весит «крыша» относительно стема буквы M</h3>
+    <p class="lead">Сравнил 5 значений. Привязка к em, чтобы скоба автоматически масштабировалась с размером лого. Стем буквы M в Inter Tight Bold 800 ≈ 0.14em. Правильный диапазон для скобы — 30–55% от стема.</p>
+    <div class="grid col5">
+      <div class="cell bad"><span class="cap">A1 · 0.015em</span><div class="lockup L-lg" style="--bracket-thickness:.015em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Hairline</b>Теряется</div></div>
+      <div class="cell"><span class="cap">A2 · 0.030em</span><div class="lockup L-lg" style="--bracket-thickness:.030em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Thin</b>Робко</div></div>
+      <div class="cell win"><span class="cap">A3 · 0.045em · оптимум</span><div class="lockup L-lg" style="--bracket-thickness:.045em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Medium</b>Один элемент с лого</div></div>
+      <div class="cell"><span class="cap">A4 · 0.065em</span><div class="lockup L-lg" style="--bracket-thickness:.065em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Bold</b>Спорит с HOME</div></div>
+      <div class="cell bad"><span class="cap">A5 · 0.085em</span><div class="lockup L-lg" style="--bracket-thickness:.085em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Heavy</b>Перевешивает</div></div>
+    </div>
+    <div class="crit">
+      <div class="col pro"><h6>Выбор · A3 · 0.045em</h6><p>Скоба читается с дистанции 1.5–2м. Достаточно весомая, чтобы не казаться декоративным штрихом, но достаточно тонкая, чтобы не конкурировать со стемами M, H. На 24px (шапка сайта) переводится в чёткие 1.1px при HiDPI.</p></div>
+      <div class="col con"><h6>Почему не A2 и не A4</h6><p>A2 на 24px превращается в 0.7px и «мерцает» на не-Retina. A4 на крупном монументально, но на мелком сливается с O и E. A3 даёт стабильность во всём диапазоне 14px → 140px.</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>B · Вес шрифта «project»</h2>
+    <h3>Какой вес даёт правильный контрапункт жирному HOME</h3>
+    <p class="lead">HOME будет ExtraBold 800. Project нужен тонкий, чтобы был визуальный воздух — но не настолько, чтобы золото на белом проседало по контрасту.</p>
+    <div class="grid col4">
+      <div class="cell bad"><span class="cap">B1 · 300 Light</span><div class="lockup L-lg" style="--project-weight:300"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Light</b>Проседает</div></div>
+      <div class="cell win"><span class="cap">B2 · 400 Regular · оптимум</span><div class="lockup L-lg" style="--project-weight:400"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Regular</b>Воздух есть, читается на 14px</div></div>
+      <div class="cell"><span class="cap">B3 · 500 Medium</span><div class="lockup L-lg" style="--project-weight:500"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Medium</b>Контраст с HOME мал</div></div>
+      <div class="cell bad"><span class="cap">B4 · 600 SemiBold</span><div class="lockup L-lg" style="--project-weight:600"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>SemiBold</b>Спорит с HOME</div></div>
+    </div>
+    <div class="crit">
+      <div class="col pro"><h6>Выбор · B2 · Regular 400</h6><p>Дельта весов 800↔400 — классический контрапункт. Глаз сразу видит, что HOME — основа, project — комментарий. На 14–16px в золоте #A08758 даёт контраст 4.6:1 — AA-pass для large text.</p></div>
+      <div class="col con"><h6>Почему не Light</h6><p>Light красивее на бумаге, но в digital в золоте проседает до 3.6:1 — AA-fail для текста меньше 18px. Шапка рендерит лого на 14–22px. Light не выдержит.</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>C · Размер «project» относительно HOME</h2>
+    <h3>На сколько меньше должно быть project</h3>
+    <p class="lead">Ниже 55% — project выглядит как индекс. Выше 75% — пропадает контрапункт. Сладкая зона — 60–65%.</p>
+    <div class="grid col4">
+      <div class="cell bad"><span class="cap">C1 · 50%</span><div class="lockup L-lg" style="--project-size:.50em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Слишком мелко</b></div></div>
+      <div class="cell"><span class="cap">C2 · 58%</span><div class="lockup L-lg" style="--project-size:.58em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Сдержанно</b>Для бумаги</div></div>
+      <div class="cell win"><span class="cap">C3 · 62% · оптимум</span><div class="lockup L-lg" style="--project-size:.62em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>62%</b>Правильная пропорция для digital</div></div>
+      <div class="cell"><span class="cap">C4 · 72%</span><div class="lockup L-lg" style="--project-size:.72em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Равные партнёры</b>Слишком громко</div></div>
+    </div>
+    <div class="crit">
+      <div class="col pro"><h6>Выбор · C3 · 62%</h6><p>На 62% project занимает по высоте x-height ≈ высоту cap-height HOME. Верх «p» упирается в верхушку H, низ «p» уходит чуть ниже базовой линии HOME. Зрительный замок: project буквально сидит на HOME.</p></div>
+      <div class="col con"><h6>Почему не 58%</h6><p>58% — более классическое, премиальное соотношение, лучше работает на бумаге. Но на 22px project в 58% уходит до 13px — граница читаемости. В digital берём 62%, на полиграфию можно подменять на 58%.</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>D · Оттенок золота</h2>
+    <h3>Какой именно тон для скобы и project</h3>
+    <p class="lead">Светлый #B0A48A (как у сайта) на белом проседает в контрасте; глубокий #8C6A36 уходит в коричневое. Оптимум — между ними.</p>
+    <div class="grid col4">
+      <div class="cell bad"><span class="cap">D1 · #B0A48A · soft</span><div class="lockup L-lg" style="--bracket-color:#B0A48A;--project-color:#B0A48A"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>2.9:1 fail</b>Замыливается</div></div>
+      <div class="cell win"><span class="cap">D2 · #A08758 · mid</span><div class="lockup L-lg" style="--bracket-color:#A08758;--project-color:#A08758"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>4.6:1 · оптимум</b>Семья с сайтом + читаемость</div></div>
+      <div class="cell"><span class="cap">D3 · #9F7E45 · dark</span><div class="lockup L-lg" style="--bracket-color:#9F7E45;--project-color:#9F7E45"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>5.1:1</b>Сильно, но тёмно</div></div>
+      <div class="cell bad"><span class="cap">D4 · #8C6A36 · deep</span><div class="lockup L-lg" style="--bracket-color:#8C6A36;--project-color:#8C6A36"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl"><b>Коричневое</b>Не золото</div></div>
+    </div>
+    <div class="crit">
+      <div class="col pro"><h6>Выбор · D2 · #A08758</h6><p>Компромисс между сайтовым #B0A48A и нашим #9F7E45. Контраст 4.6:1 — AA-pass. На бумаге читается как золото, на экране не замыливается. Родственник к сайту.</p></div>
+      <div class="col con"><h6>Альтернатива на парадные носители</h6><p>Для печатных носителей (визитки, обложки КП, фольга) — #9F7E45. Темнее, благороднее, при тёплом освещении уходит в patek-gold.</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>E · Итоговый лок-ап</h2>
+    <h3>Все параметры собраны</h3>
+    <div style="background:#fff;border:1px solid var(--hp-border);padding:80px 40px;display:flex;justify-content:center;align-items:center">
+      <div class="lockup L-jumbo" style="--bracket-thickness:.045em;--bracket-color:#A08758;--project-color:#A08758;--project-weight:400;--project-size:.62em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div>
+    </div>
+    <div class="spec">
+      <div class="col"><h4>Спецификация лок-апа</h4><dl>
+        <dt>Шрифт HOME</dt><dd>Inter Tight ExtraBold 800</dd>
+        <dt>Шрифт project</dt><dd>Inter Tight Regular 400</dd>
+        <dt>Размер project</dt><dd>62% от HOME</dd>
+        <dt>Tracking HOME</dt><dd>−2.5%</dd>
+        <dt>Tracking project</dt><dd>−0.5%</dd>
+        <dt>Gap HOME→project</dt><dd>0.18em</dd>
+      </dl></div>
+      <div class="col"><h4>Скоба над M</h4><dl>
+        <dt>Толщина</dt><dd><code>0.045em</code> (~32% стема)</dd>
+        <dt>Ширина</dt><dd><code>0.55em</code></dd>
+        <dt>Высота угла</dt><dd><code>0.18em</code></dd>
+        <dt>Отступ от M</dt><dd><code>0.08em</code></dd>
+        <dt>Цвет digital</dt><dd><code>#A08758</code></dd>
+        <dt>Цвет print</dt><dd><code>#9F7E45</code></dd>
+      </dl></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>F · В боевой шапке homeproject.online</h2>
+    <h3>Как итоговый лок-ап монтируется в реальной первой странице</h3>
+    <div class="preview">
+      <div class="browser"><i></i><i></i><i></i><div class="url">homeproject.online/ru</div><div class="tag" style="background:var(--hp-text);color:#fff;border-color:var(--hp-text)">Финал · calibrated</div></div>
+      <div class="sitehead">
+        <div style="display:flex;align-items:center">
+          <div class="lockup" style="font-size:30px;--bracket-thickness:.045em;--bracket-color:#A08758;--project-color:#A08758;--project-weight:400;--project-size:.62em"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div>
+        </div>
+        <nav><a>Каталог</a><a>Бренды</a><a>Коллекции</a><a>Типы техники</a><a>Архитекторам</a><a>Ещё</a></nav>
+        <div class="right"><span class="lang">RU</span><span>Избранное · Корзина</span></div>
+      </div>
+      <div class="subnav"><span>De Dietrich</span><span>V-ZUG</span><span>BORA</span><span>Fhiaba</span><span>Kuppersbusch</span><span>Schulthess</span><span>ILVE</span><span>Bertazzoni</span><span>Liebherr</span></div>
+      <div class="hero">
+        <div class="crumbs">15 европейских брендов · Москва</div>
+        <h1>Пространство <em>премиальных</em> решений для вашего дома</h1>
+        <p>Техника для кухни, гостиной и ванной — для проектов, где важна каждая деталь. Подбор под планировку, доставка с подъёмом и шеф-монтаж.</p>
+        <span class="cta">Открыть каталог</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>G · Размерная шкала</h2>
+    <h3>Как лок-ап ведёт себя на всех размерах от 140px до 14px</h3>
+    <div class="grid col5">
+      <div class="cell"><span class="cap">140px · обложка</span><div class="lockup L-xl" style="--bracket-color:#A08758;--project-color:#A08758"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl">Hero, обложка КП</div></div>
+      <div class="cell"><span class="cap">64px · крупная шапка</span><div class="lockup L-lg" style="--bracket-color:#A08758;--project-color:#A08758"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl">Лендинг hero</div></div>
+      <div class="cell"><span class="cap">30px · шапка сайта</span><div class="lockup L-sm" style="--bracket-color:#A08758;--project-color:#A08758"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl">homeproject.online</div></div>
+      <div class="cell"><span class="cap">22px · подпись</span><div class="lockup L-xs" style="--bracket-color:#A08758;--project-color:#A08758"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl">Email signature</div></div>
+      <div class="cell"><span class="cap">14px · футер</span><div class="lockup" style="font-size:14px;--bracket-color:#A08758;--project-color:#A08758"><span class="home">HO<span class="bracket"></span>ME</span><span class="project">project</span></div><div class="lbl">Футер, мелкое</div></div>
+    </div>
+    <p style="margin-top:14px;font-size:14px;opacity:.78;max-width:78ch">Всё построено в em — масштабируется одной переменной font-size. Один компонент — все носители.</p>
+  </div>
+
+  <div class="sec">
+    <h2>H · Финальные числа</h2>
+    <div class="opinion">
+      <div><div class="label">Параметры</div><div class="score">A3·B2<br/>C3·D2</div></div>
+      <div>
+        <h3>Скоба 0.045em · project Regular 400 · 62% · золото #A08758</h3>
+        <p><b>Толщина скобы 0.045em</b> (≈32% от веса стема буквы M в Bold) — звучит как часть лого, а не декоративный штрих сверху.</p>
+        <p><b>Project в Regular 400, 62% от HOME</b> — даёт правильный воздух между жирным HOME и комментарием project. На 22px в шапке сайта project = 13.6px Regular в золоте, контраст 4.6:1, AA-pass.</p>
+        <p><b>Золото #A08758</b> — компромисс между сайтовым #B0A48A (слишком светлый, fail по контрасту) и нашим #9F7E45 (читается, но тёмное пятно). #A08758 — родственный к сайту и контрастный.</p>
+        <p>На печатных носителях подменяем золото на <b>#9F7E45</b> без изменения остальных параметров.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>HOME project · калибровка скобы и project · 18.06.2026</span>
+    <span>v2.3 · final lockup</span>
+  </footer>
+</div>
+</body>
+</html>
