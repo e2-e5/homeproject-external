@@ -1,0 +1,222 @@
+<div style="max-width:780px;margin:0 auto;padding:24px 20px;font-family:-apple-system,Segoe UI,Roboto,sans-serif;color:#1a1a1a;line-height:1.55">
+
+<div style="text-align:center;margin-bottom:8px">
+<div style="display:inline-block;background:#FAF7F2;border:1px solid #C9A36A;border-radius:30px;padding:6px 18px;font-size:13px;color:#1a1a1a;letter-spacing:.3px">⚡ Готово за 5–8 минут на ваш email</div>
+</div>
+
+<h1 style="font-size:30px;margin:14px 0 6px;border-bottom:3px solid #C9A36A;padding-bottom:14px;text-align:center">Запросить коммерческое предложение</h1>
+<p style="color:#666;font-size:15px;text-align:center;margin:0 0 26px">Заполните бриф — пришлём КП от ИП Алексей Х. (Home Project): подбор техники из 14 брендов, цены, сроки, условия партнёрской программы.</p>
+
+<form id="kpForm" onsubmit="return sendKp(event)" style="background:#fff;border:1px solid #e5e0d6;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.04)">
+
+<h4 style="margin:0 0 8px;font-size:13px;color:#666;text-transform:uppercase;letter-spacing:.6px">⓵ Кто вы?</h4>
+<div style="display:flex;gap:10px;margin-bottom:18px" id="whoToggle">
+  <label class="kp-toggle active"><input type="radio" name="who" value="client" checked style="display:none"><b>👤 Частный клиент</b><span>для себя / своей семьи</span></label>
+  <label class="kp-toggle"><input type="radio" name="who" value="designer" style="display:none"><b>🎨 Архитектор / Дизайнер</b><span>проект для своего клиента</span></label>
+  <label class="kp-toggle"><input type="radio" name="who" value="partner" style="display:none"><b>🤝 Партнёр</b><span>студия / салон / монтаж</span></label>
+</div>
+
+<div id="designerBlock" style="display:none;background:#fff8e8;border:1px dashed #C9A36A;padding:14px;border-radius:8px;margin:0 0 14px">
+  <div class="kp-row">
+    <div><label>Бюро / студия</label><input name="d_studio" placeholder="Form Bureau"></div>
+    <div><label>Город</label><input name="d_city" placeholder="Москва"></div>
+  </div>
+  <div class="kp-row">
+    <div><label>Сайт / Instagram / соцсеть</label><input name="d_social" placeholder="formbureau.ru / @formbureau"></div>
+    <div><label>Проектов в год</label><select name="d_volume"><option>1–3</option><option>4–10</option><option>11–30</option><option>30+</option></select></div>
+  </div>
+</div>
+
+<div id="partnerBlock" style="display:none;background:#fff8e8;border:1px dashed #C9A36A;padding:14px;border-radius:8px;margin:0 0 14px">
+  <div class="kp-row">
+    <div><label>Тип партнёра</label>
+      <select name="p_type">
+        <option>Кухонная студия / салон</option>
+        <option>Магазин премиум-техники</option>
+        <option>Дизайн-бюро / архбюро</option>
+        <option>Монтажная компания</option>
+        <option>Девелопер / отделочник под ключ</option>
+        <option>Реселлер онлайн</option>
+        <option>Другое</option>
+      </select>
+    </div>
+    <div><label>Компания / ИП</label><input name="p_company" placeholder="ООО «Кухни Премиум»"></div>
+  </div>
+  <div class="kp-row">
+    <div><label>Должность / роль</label><input name="p_role" placeholder="Менеджер по закупкам"></div>
+    <div><label>Сайт</label><input name="p_site" placeholder="kuhni-premium.ru"></div>
+  </div>
+  <div class="kp-row">
+    <div><label>История работы с нами</label>
+      <select name="p_history"><option>Нет, новый контакт</option><option>Был контакт, но не работали</option><option>Действующий партнёр</option></select>
+    </div>
+    <div><label>Ориентир объёма в месяц</label>
+      <select name="p_monthly"><option>1–2 проекта</option><option>3–5</option><option>6–15</option><option>15+</option><option>Разовый запрос</option></select>
+    </div>
+  </div>
+</div>
+
+<h4 style="margin:18px 0 8px;font-size:13px;color:#666;text-transform:uppercase;letter-spacing:.6px">⓶ Тип КП</h4>
+<div style="display:flex;gap:10px;margin-bottom:18px" id="typeToggle">
+  <label class="kp-toggle active"><input type="radio" name="type" value="quick" checked style="display:none"><b>⚡ Быстрая подборка</b><span>3 мин · 1-2 стр</span></label>
+  <label class="kp-toggle"><input type="radio" name="type" value="full" style="display:none"><b>★ Полное КП</b><span>8 мин · 6-12 стр с УТП</span></label>
+</div>
+
+<h4 style="margin:18px 0 8px;font-size:13px;color:#666;text-transform:uppercase;letter-spacing:.6px">⓷ Контакты</h4>
+
+<label>Как к вам обращаться?</label>
+<input name="name" placeholder="Сергей Иванов" required>
+
+<label>Email *</label>
+<input type="email" name="email" placeholder="ivanov@studio.ru" required>
+
+<label>Удобный канал связи</label>
+<select name="channel">
+<option>✉️ Email</option>
+<option>💬 Telegram</option>
+<option>🟦 ВКонтакте</option>
+</select>
+<p style="color:#888;font-size:12px;margin:4px 0 0">Звонков нет — отвечаем в мессенджере или почтой</p>
+
+<label>Telegram / ВК (если выбрали мессенджер) — необязательно</label>
+<input name="messenger" placeholder="@username или vk.com/username">
+
+<h4 style="margin:22px 0 8px;font-size:13px;color:#666;text-transform:uppercase;letter-spacing:.6px">⓸ Проект</h4>
+
+<label>Что планируете оборудовать?</label>
+<select name="scope">
+<option>Кухня под ключ (БТ + сантехника)</option>
+<option>Бытовая техника</option>
+<option>Сантехника (Salini / Paulmark)</option>
+<option>Постирочная (стиральные / сушильные)</option>
+<option>Винный шкаф / отдельная техника</option>
+<option>Не уверен — нужна консультация</option>
+</select>
+
+<div class="kp-row">
+<div><label>Интересные бренды (если знаете)</label>
+<input name="brands" placeholder="V-ZUG, BORA, Liebherr, Küppersbusch …">
+</div>
+<div><label>Ориентир бюджета</label>
+<select name="budget">
+<option>До 1 млн ₽</option><option>1–3 млн ₽</option><option>3–5 млн ₽</option>
+<option>5–10 млн ₽</option><option>10+ млн ₽</option><option>Не определён</option>
+</select></div>
+</div>
+
+<label>Расскажите о проекте</label>
+<textarea name="brief" rows="3" placeholder="Например: квартира в новостройке, кухня 18 м², ремонт под ключ, минимализм, без видимой техники, заезд через 4 месяца"></textarea>
+
+<div style="background:#fafafa;border:1px solid #e5e0d6;padding:14px;border-radius:8px;margin:18px 0 0;font-size:13px;line-height:1.5">
+<label style="margin:0;display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+<input type="checkbox" name="agree_pdn" required style="width:auto;margin-top:3px">
+<span>Я согласен(-на) на <b>обработку персональных данных</b> ИП Алексей Х. (Home Project) для подготовки и направления коммерческого предложения. ФЗ-152.</span>
+</label>
+<label style="margin:10px 0 0;display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+<input type="checkbox" name="agree_ads" style="width:auto;margin-top:3px">
+<span>Согласен(-на) получать <b>информационные сообщения</b> (новинки, акции, мероприятия). Можно отписаться в любой момент.</span>
+</label>
+</div>
+
+<button type="submit" style="background:#C9A36A;color:#fff;border:none;padding:14px 32px;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer;margin-top:22px;width:100%">Отправить запрос →</button>
+
+<p style="color:#666;font-size:12px;margin-top:14px;text-align:center">⓵ Ответим в течение часа в рабочее время · ⓶ КП придёт на ваш email в формате PDF</p>
+
+</form>
+
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid #e5e0d6;text-align:center;color:#888;font-size:13px">
+Не хотите заполнять форму? Напишите нам — info@homeproject.online · Telegram <a href="https://t.me/HomeProjectMsk" style="color:#C9A36A">@homeproject_msk</a> · <a href="https://vk.com/club223468013" style="color:#C9A36A">ВКонтакте</a>
+</div>
+
+</div>
+
+<style>
+.kp-toggle{flex:1;padding:14px 16px;border:2px solid #e5e0d6;border-radius:10px;text-align:center;cursor:pointer;background:#fff;display:block}
+.kp-toggle.active{border-color:#C9A36A;background:#FAF7F2}
+.kp-toggle b{display:block;font-size:14px;margin-bottom:2px}
+.kp-toggle span{font-size:12px;color:#888}
+#kpForm label{display:block;font-size:13px;color:#666;margin:14px 0 4px;font-weight:500}
+#kpForm input[type=text],#kpForm input[type=email],#kpForm input:not([type]),#kpForm textarea,#kpForm select{width:100%;padding:10px 14px;border:1px solid #e5e0d6;border-radius:8px;font-family:inherit;font-size:14px;background:#fff;box-sizing:border-box}
+#kpForm input:focus,#kpForm textarea:focus,#kpForm select:focus{outline:none;border-color:#C9A36A}
+.kp-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.kp-row{grid-template-columns:1fr}#whoToggle,#typeToggle{flex-direction:column}}
+</style>
+
+<script>
+(function(){
+function setupToggle(containerId){
+  var box=document.getElementById(containerId);
+  if(!box)return;
+  box.addEventListener('click',function(e){
+    var label=e.target.closest('.kp-toggle');
+    if(!label)return;
+    box.querySelectorAll('.kp-toggle').forEach(function(el){el.classList.remove('active')});
+    label.classList.add('active');
+    var input=label.querySelector('input');
+    if(input)input.checked=true;
+    if(containerId==='whoToggle'){
+      var v=input.value;
+      document.getElementById('designerBlock').style.display=(v==='designer')?'block':'none';
+      document.getElementById('partnerBlock').style.display=(v==='partner')?'block':'none';
+    }
+  });
+}
+setupToggle('whoToggle');
+setupToggle('typeToggle');
+})();
+
+function sendKp(e){
+  e.preventDefault();
+  var f=document.getElementById('kpForm');
+  var d=new FormData(f);
+  var who=d.get('who')||'client';
+  var whoTxt={client:'Частный клиент',designer:'Архитектор/Дизайнер',partner:'Партнёр'}[who];
+  var type=d.get('type')||'quick';
+  var typeTxt={quick:'⚡ Быстрая подборка',full:'★ Полное КП'}[type];
+
+  var lines=[];
+  lines.push('Кто: '+whoTxt);
+  lines.push('Тип КП: '+typeTxt);
+  if(who==='designer'){
+    lines.push('Бюро: '+(d.get('d_studio')||''));
+    lines.push('Город: '+(d.get('d_city')||''));
+    lines.push('Соцсеть: '+(d.get('d_social')||''));
+    lines.push('Проектов в год: '+(d.get('d_volume')||''));
+  }
+  if(who==='partner'){
+    lines.push('Тип партнёра: '+(d.get('p_type')||''));
+    lines.push('Компания: '+(d.get('p_company')||''));
+    lines.push('Должность: '+(d.get('p_role')||''));
+    lines.push('Сайт: '+(d.get('p_site')||''));
+    lines.push('История: '+(d.get('p_history')||''));
+    lines.push('Объём в месяц: '+(d.get('p_monthly')||''));
+  }
+  lines.push('---');
+  lines.push('Имя: '+(d.get('name')||''));
+  lines.push('Email: '+(d.get('email')||''));
+  lines.push('Канал: '+(d.get('channel')||''));
+  lines.push('Messenger: '+(d.get('messenger')||''));
+  lines.push('---');
+  lines.push('Объём: '+(d.get('scope')||''));
+  lines.push('Бренды: '+(d.get('brands')||''));
+  lines.push('Бюджет: '+(d.get('budget')||''));
+  lines.push('---');
+  lines.push('Описание проекта:');
+  lines.push(d.get('brief')||'');
+
+  var qs=new URLSearchParams(location.search);
+  if(qs.get('utm_source')||qs.get('utm_medium')||qs.get('utm_campaign')){
+    lines.push('---');
+    lines.push('UTM: '+(qs.get('utm_source')||'')+'/'+(qs.get('utm_medium')||'')+'/'+(qs.get('utm_campaign')||''));
+  }
+
+  var subject='Запрос КП — '+whoTxt+' — '+typeTxt;
+  var body=lines.join('\n');
+  var mailto='mailto:info@homeproject.online?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  window.location.href=mailto;
+  setTimeout(function(){
+    alert('Открыли вашу почту с готовым письмом. Если не открылась — отправьте бриф вручную на info@homeproject.online. Ответим в течение часа.');
+  },300);
+  return false;
+}
+</script>
