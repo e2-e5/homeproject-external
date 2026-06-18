@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>Home Project · UX-редизайн каталога — превью и обоснование</title>
+<title>Home Project · UX-редизайн каталога — Вариант B v2 (AI-консьерж)</title>
 <style>
   :root {
     --bg:#FAF7F2; --ink:#1A1410; --ink-soft:#4A3F2C; --line:#E5DCC6;
@@ -20,303 +20,216 @@
   h2 { font-size:18px; margin:32px 0 10px; color:var(--accent); text-transform:uppercase; letter-spacing:1.2px; font-weight:600; }
   h3 { font-size:16px; margin:18px 0 8px; color:var(--ink); }
   .sub { color:var(--ink-soft); font-size:13px; margin-bottom:20px; }
-
-  section {
-    background:var(--card); border:1px solid var(--line);
-    border-radius:6px; padding:20px 26px; margin-bottom:18px;
-  }
-
-  .key-finding {
-    background:#FFF8E8; border-left:4px solid var(--accent);
-    padding:16px 22px; margin:20px 0; border-radius:4px;
-  }
-  .key-finding .label {
-    font-size:11px; letter-spacing:1.5px; text-transform:uppercase;
-    color:var(--warn); font-weight:700; margin-bottom:6px;
-  }
-
-  table { border-collapse:collapse; width:100%; margin:14px 0; font-size:13px; }
-  th, td { border:1px solid var(--line); padding:8px 12px; vertical-align:top; text-align:left; }
-  th { background:var(--accent-soft); color:var(--ink); font-weight:600; }
-  tr:nth-child(even) td { background:#FBF8F1; }
-  .good { color:var(--good); font-weight:600; }
-  .warn { color:var(--warn); font-weight:600; }
-  .bad { color:var(--bad); font-weight:600; }
-
+  section { background:var(--card); border:1px solid var(--line); border-radius:6px; padding:20px 26px; margin-bottom:18px; }
   ul { margin:8px 0; padding-left:22px; }
   ul li { margin-bottom:5px; }
 
-  .option-card {
-    border:2px solid var(--line); border-radius:8px;
-    padding:18px 22px 14px; margin-bottom:14px;
-    transition:border-color .2s;
+  .v2-banner {
+    background:linear-gradient(90deg,#2A2418,#3a3022); color:#F5EFE3;
+    padding:14px 22px; border-radius:6px; margin-bottom:18px;
+    font-size:13px; letter-spacing:0.3px;
   }
-  .option-card.recommended { border-color:var(--accent); background:#FFFCF5; }
-  .option-card .badge {
-    display:inline-block; background:var(--accent); color:#fff;
-    padding:3px 10px; border-radius:3px; font-size:10px;
-    letter-spacing:1.5px; text-transform:uppercase; font-weight:700;
-    margin-bottom:8px;
-  }
-  .option-card.recommended .badge { background:var(--good); }
-  .option-card h3 { margin-top:0; }
-  .option-card .stats {
-    display:flex; gap:18px; font-size:12px; color:var(--ink-soft); margin-top:8px;
-    flex-wrap:wrap;
-  }
-  .option-card .stats b { color:var(--ink); }
+  .v2-banner b { color:#C9A36A; }
 
-  /* Mockup */
-  .mockup {
-    background:#fff; border:1px solid var(--line); border-radius:6px;
-    padding:0; margin:14px 0; overflow:hidden;
-  }
-  .mockup .caption {
-    background:#F0E9DA; padding:6px 14px; font-size:11px;
-    color:var(--ink-soft); letter-spacing:1px; text-transform:uppercase;
-    border-bottom:1px solid var(--line);
-  }
+  .mockup { background:#fff; border:1px solid var(--line); border-radius:6px; padding:0; margin:14px 0; overflow:hidden; }
+  .mockup .caption { background:#F0E9DA; padding:6px 14px; font-size:11px; color:var(--ink-soft); letter-spacing:1px; text-transform:uppercase; border-bottom:1px solid var(--line); }
 
   /* Desktop header mockup */
-  .demo-header {
-    background:#fff; padding:0; border-bottom:1px solid var(--line);
-  }
-  .demo-topbar {
-    display:flex; align-items:center; gap:18px; padding:14px 22px;
-  }
-  .demo-logo {
-    font-family:Georgia,serif; font-size:18px; letter-spacing:1px;
-    font-weight:700; color:var(--ink); margin-right:12px;
-  }
-  .demo-nav {
-    display:flex; gap:22px; font-size:13.5px; font-weight:500;
-    color:var(--ink); flex:1;
-  }
+  .demo-header { background:#fff; padding:0; border-bottom:1px solid var(--line); }
+  .demo-topbar { display:flex; align-items:center; gap:18px; padding:14px 22px; }
+  .demo-logo { font-family:Georgia,serif; font-size:18px; letter-spacing:1px; font-weight:700; color:var(--ink); margin-right:12px; }
+  .demo-nav { display:flex; gap:22px; font-size:13.5px; font-weight:500; color:var(--ink); flex:1; }
   .demo-nav .item { cursor:pointer; padding:4px 0; border-bottom:2px solid transparent; }
   .demo-nav .item:hover { border-color:var(--accent); }
   .demo-nav .item.highlight { color:var(--accent); font-weight:700; }
-  .demo-tools {
-    display:flex; gap:14px; align-items:center; font-size:13px;
-  }
-  .demo-search {
-    width:220px; background:#F0E9DA; border:1px solid var(--line);
-    padding:6px 10px; border-radius:3px; font-size:12px; color:#7a6e57;
-  }
-  .demo-cta {
-    background:var(--ink); color:#fff; padding:7px 14px;
-    border-radius:3px; font-size:12px; font-weight:600;
-  }
-  .demo-phone { color:var(--ink); font-weight:600; font-size:13px; }
+  .demo-tools { display:flex; gap:14px; align-items:center; font-size:13px; }
+  .demo-search { width:220px; background:#F0E9DA; border:1px solid var(--line); padding:6px 10px; border-radius:3px; font-size:12px; color:#7a6e57; }
+  .demo-cta { background:var(--ink); color:#fff; padding:7px 14px; border-radius:3px; font-size:12px; font-weight:600; }
 
-  /* Megamenu mockup */
-  .demo-megamenu {
-    display:grid; grid-template-columns:1.4fr 1fr 1fr 1.4fr;
-    gap:24px; padding:24px 26px; background:#fff;
-    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  /* AI concierge pill */
+  .ai-concierge {
+    display:flex; align-items:center; gap:8px;
+    background:linear-gradient(135deg,#fff7e6,#f0e2c4);
+    border:1px solid var(--accent);
+    padding:5px 12px 5px 8px; border-radius:24px;
+    font-size:12px; font-weight:600; color:#4A3F2C;
+    cursor:pointer; transition:transform .15s ease, box-shadow .15s ease;
   }
-  .demo-megamenu .col h4 {
-    margin:0 0 10px; font-size:11px; text-transform:uppercase;
-    letter-spacing:1.2px; color:var(--accent); font-weight:700;
+  .ai-concierge:hover { transform:translateY(-1px); box-shadow:0 4px 14px rgba(201,163,106,0.25); }
+  .ai-avatar {
+    width:28px; height:28px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg,#C9A36A,#8B6E3E);
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:700; font-family:Georgia,serif;
+    position:relative;
   }
-  .demo-megamenu ul {
-    list-style:none; margin:0; padding:0; font-size:13px;
+  .ai-avatar::after {
+    content:''; position:absolute; bottom:-1px; right:-1px;
+    width:8px; height:8px; border-radius:50%;
+    background:#2c8a4a; border:2px solid #fff;
   }
-  .demo-megamenu ul li {
-    margin-bottom:5px; cursor:pointer; color:var(--ink);
+  .ai-concierge .label {
+    display:flex; flex-direction:column; line-height:1.15;
   }
-  .demo-megamenu ul li:hover { color:var(--accent); }
-  .demo-megamenu ul li small { color:#9a8e76; }
-  .demo-megamenu .promo {
-    background:#F0E2C4; border-radius:4px; padding:14px; font-size:12.5px;
+  .ai-concierge .label .name { font-weight:700; color:#2A2418; }
+  .ai-concierge .label .status { font-size:10px; color:#7A6E4C; font-weight:500; letter-spacing:0.2px; }
+
+  /* Comparison */
+  .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0; }
+  .compare-col {
+    border:1px solid var(--line); border-radius:6px; overflow:hidden;
   }
-  .demo-megamenu .promo .promo-title {
-    font-weight:700; font-size:13px; margin-bottom:4px;
+  .compare-col .head {
+    padding:10px 14px; font-size:11px; letter-spacing:1.3px; text-transform:uppercase; font-weight:700;
   }
+  .compare-col.before .head { background:#FBE9E9; color:#7a1f1f; }
+  .compare-col.after .head { background:#E9F5EE; color:#1f5c2f; }
+  .compare-col .body { padding:14px; font-size:13px; }
+  .compare-col .ai-concierge { margin-top:8px; }
+
+  /* Why-AI grid */
+  .why-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin:14px 0; }
+  .why-card {
+    background:#FAF7F2; border:1px solid var(--line); border-radius:6px;
+    padding:14px 16px;
+  }
+  .why-card .num {
+    font-family:Georgia,serif; font-size:24px; color:var(--accent); font-weight:700;
+    line-height:1; margin-bottom:6px;
+  }
+  .why-card .ttl { font-weight:700; font-size:13px; margin-bottom:4px; }
+  .why-card .body { font-size:12px; color:var(--ink-soft); }
 
   /* Mobile mockup */
-  .mobile-frame {
-    width:300px; margin:0 auto; background:#fff;
-    border:8px solid #1a1410; border-radius:24px; overflow:hidden;
-    box-shadow:0 8px 24px rgba(0,0,0,0.15);
+  .mobile-frame { width:300px; margin:0 auto; background:#fff; border:8px solid #1a1410; border-radius:24px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,0.15); }
+  .mobile-header { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-bottom:1px solid var(--line); font-size:12px; }
+  .mobile-logo { font-family:Georgia,serif; font-weight:700; letter-spacing:0.5px; font-size:13px; }
+  .mobile-body { padding:14px; min-height:340px; background:#FAF7F2; font-size:12px; }
+  .mobile-search { background:#fff; border:1px solid var(--line); padding:8px 12px; border-radius:6px; color:#9a8e76; margin-bottom:10px; font-size:11px; }
+  .mobile-aria-card {
+    background:linear-gradient(135deg,#2A2418,#3a3022); color:#F5EFE3;
+    border-radius:8px; padding:14px; margin-bottom:12px;
+    display:flex; align-items:center; gap:10px;
   }
-  .mobile-header {
-    display:flex; align-items:center; justify-content:space-between;
-    padding:10px 14px; border-bottom:1px solid var(--line); font-size:12px;
+  .mobile-aria-card .av {
+    width:36px; height:36px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg,#C9A36A,#8B6E3E);
+    display:flex; align-items:center; justify-content:center;
+    font-family:Georgia,serif; font-weight:700; color:#fff; font-size:15px;
+    position:relative;
   }
-  .mobile-logo { font-family:Georgia,serif; font-weight:700; letter-spacing:0.5px; }
-  .mobile-body {
-    padding:14px; min-height:380px; background:#FAF7F2; font-size:12px;
+  .mobile-aria-card .av::after {
+    content:''; position:absolute; bottom:-1px; right:-1px;
+    width:8px; height:8px; border-radius:50%; background:#2c8a4a; border:2px solid #2A2418;
   }
-  .mobile-search {
-    background:#fff; border:1px solid var(--line); padding:8px 12px;
-    border-radius:6px; color:#9a8e76; margin-bottom:12px;
-  }
-  .mobile-tile {
-    background:#fff; border:1px solid var(--line); border-radius:6px;
-    padding:10px; margin-bottom:6px; display:flex; justify-content:space-between;
-  }
-  .mobile-bottom-nav {
-    display:flex; justify-content:space-around;
-    padding:8px 4px 10px; border-top:1px solid var(--line); background:#fff;
-  }
-  .mobile-bottom-nav .item {
-    text-align:center; font-size:9.5px; color:#4A3F2C;
-  }
+  .mobile-aria-card .txt { flex:1; }
+  .mobile-aria-card .txt .nm { font-size:12px; font-weight:700; color:#C9A36A; letter-spacing:0.3px; }
+  .mobile-aria-card .txt .ln { font-size:10.5px; color:#E9DDC4; margin-top:1px; line-height:1.3; }
+  .mobile-aria-card .arr { color:#C9A36A; font-size:18px; }
+  .mobile-tile { background:#fff; border:1px solid var(--line); border-radius:6px; padding:10px; margin-bottom:6px; display:flex; justify-content:space-between; font-size:11.5px; }
+  .mobile-bottom-nav { display:flex; justify-content:space-around; padding:8px 4px 10px; border-top:1px solid var(--line); background:#fff; }
+  .mobile-bottom-nav .item { text-align:center; font-size:9.5px; color:#4A3F2C; }
   .mobile-bottom-nav .item.active { color:var(--accent); font-weight:700; }
-  .mobile-bottom-nav .item .icon {
-    font-size:18px; margin-bottom:2px; display:block;
-  }
+  .mobile-bottom-nav .item .icon { font-size:18px; margin-bottom:2px; display:block; }
 
-  /* Filter mockup */
-  .filter-mockup {
-    display:grid; grid-template-columns:240px 1fr; gap:16px; padding:16px;
+  /* Channels block */
+  .channels {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px;
   }
-  .filter-side {
-    background:#FAF7F2; border:1px solid var(--line); border-radius:4px;
-    padding:14px; font-size:12px;
+  .channel-card {
+    background:#FAF7F2; border:1px solid var(--line); border-radius:6px;
+    padding:12px 10px; text-align:center;
   }
-  .filter-group { margin-bottom:14px; }
-  .filter-group h5 {
-    margin:0 0 6px; font-size:11px; text-transform:uppercase;
-    letter-spacing:0.8px; color:var(--accent); font-weight:700;
-  }
-  .filter-chips {
-    display:flex; flex-wrap:wrap; gap:5px;
-  }
-  .filter-chip {
-    background:#fff; border:1px solid var(--line); padding:4px 10px;
-    border-radius:14px; font-size:11px; cursor:pointer;
-  }
-  .filter-chip.active {
-    background:var(--accent); color:#fff; border-color:var(--accent);
-  }
-  .filter-results {
-    background:#fff; border:1px solid var(--line); border-radius:4px;
-    padding:14px; font-size:12px;
-  }
-  .active-chips {
-    display:flex; flex-wrap:wrap; gap:6px; padding-bottom:10px;
-    border-bottom:1px solid var(--line); margin-bottom:10px;
-  }
-  .active-chip {
-    background:var(--accent-soft); padding:4px 10px; border-radius:14px;
-    font-size:11px; color:var(--ink);
-  }
-  .product-stub {
-    display:grid; grid-template-columns:60px 1fr; gap:10px;
-    padding:10px 0; border-bottom:1px solid #f0e9da;
-  }
-  .product-stub .img-stub {
-    background:#F0E9DA; height:60px; border-radius:3px;
-  }
-  .product-stub .name { font-weight:600; }
-  .product-stub .meta { color:#9a8e76; font-size:11px; }
-
-  /* Scenarios */
-  .scenarios {
-    display:grid; grid-template-columns:1fr 1fr; gap:14px;
-  }
-  .scenario {
-    background:#FAF7F2; border:1px solid var(--line);
-    border-radius:6px; padding:14px;
-  }
-  .scenario h4 {
-    margin:0 0 8px; font-size:13px; color:var(--ink);
-  }
-  .scenario .path {
-    font-size:11.5px; color:var(--ink-soft); font-family:JetBrains Mono,monospace;
-  }
-  .scenario .clicks {
-    margin-top:6px; font-size:11px;
-  }
-  .scenario .clicks.was { color:var(--bad); }
-  .scenario .clicks.will { color:var(--good); }
+  .channel-card .icon { font-size:22px; margin-bottom:4px; }
+  .channel-card .lbl { font-size:12px; font-weight:600; }
+  .channel-card .desc { font-size:10.5px; color:var(--ink-soft); margin-top:3px; }
 
   .question {
     background:#FFF8E8; border:2px dashed var(--accent);
     padding:18px 22px; border-radius:6px; margin-top:24px;
   }
   .question b { color:#7A5B00; }
-  .question ul { margin-top:8px; }
 
-  .footer {
-    margin-top:30px; padding-top:14px; border-top:1px solid var(--line);
-    text-align:center; color:#9A8E76; font-size:11.5px; font-style:italic;
-  }
+  .footer { margin-top:30px; padding-top:14px; border-top:1px solid var(--line); text-align:center; color:#9A8E76; font-size:11.5px; font-style:italic; }
 
   @media (max-width:720px) {
     .demo-topbar { flex-wrap:wrap; gap:10px; }
-    .demo-search { width:100%; }
-    .demo-megamenu { grid-template-columns:1fr; }
-    .filter-mockup { grid-template-columns:1fr; }
-    .scenarios { grid-template-columns:1fr; }
+    .compare-grid { grid-template-columns:1fr; }
+    .why-grid { grid-template-columns:1fr; }
+    .channels { grid-template-columns:1fr 1fr; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<h1>UX-редизайн каталога homeproject.online</h1>
-<div class="sub">Превью + обоснование · Ария AI-менеджер · Home Project · 18.06.2026</div>
-
-<!-- ====== KEY FINDING ====== -->
-<div class="key-finding">
-<div class="label">⚡ ключевое открытие после ресёрча</div>
-<b>Структура каталога у нас уже хорошая — лучше, чем была в старом InSales.</b> Меню «Каталог» сегодня даёт три оси входа: <b>Бренды</b> (14 шт) · <b>Коллекции</b> (Новинки / Хиты / OUTLET / Уценка) · <b>Типы техники</b> (12 категорий поперёк всех брендов). На странице бренда — аккордеон категорий со счётчиками + цена + сортировка + хлебные крошки.<br>
-<br>
-Старый InSales давал только одну ось (бренд → категория), без «поперечного» взгляда. Текущий сайт это уже исправил.<br>
-<br>
-<b>Реальная боль — не в структуре. Боль в трёх отсутствующих инструментах:</b>
-<ul>
-<li>🔍 <b>Нет поиска по сайту вообще</b> — ни в шапке, ни в каталоге. При 787 товарах на бренд и 33 страницах пагинации это блокер №1.</li>
-<li>🎚 <b>Нет глубоких фильтров.</b> «Все индукционные панели до 200 тыс.» построить нельзя. Нет ширины, цвета, серии, типа установки.</li>
-<li>📞 <b>Нет CTA конверсии в UI.</b> Ни кнопки «Запросить КП», ни телефона, ни WhatsApp. Сайт «выглядит как каталог», но не ведёт к сделке.</li>
-</ul>
+<div class="v2-banner">
+<b>Превью v2 · правка от Алексея:</b> в шапке <b>нет телефона</b> — заменили на премиальный вход к <b>Арии (AI-консьерж)</b>. Это превращает «AI-first» из служебной детали в дифференциатор.
 </div>
 
-<!-- ====== БЕНЧМАРК ====== -->
+<h1>UX-редизайн каталога — v2</h1>
+<div class="sub">Шапка без телефона, с AI-консьержем Арией · Home Project · 18.06.2026</div>
+
+<!-- ====== WHY ====== -->
 <section>
-<h2>1. Что показал бенчмарк рынка (11 сайтов)</h2>
+<h2>Почему не телефон</h2>
 
-<p>Проверил топ-игроков нашего сегмента: technika-vkusa, lavka.online (Loft), Кучен-Гезельшафт, Miele Gallery, Gaggenau.ru, Miele.ru, Bosch-home, Smeg.ru, Homeier, Hometek, Studio-X.</p>
+<p>Телефон в шапке = «звоните, мы как все». Это не наш ход.</p>
 
-<p><b>Сюрприз: полка освобождается.</b></p>
-<ul>
-<li><b class="bad">Studio-X.ru</b> — припаркованный домен, продаётся.</li>
-<li><b class="bad">Bosch-home.ru</b> — закрыл онлайн-магазин, редиректит на сервисный портал BSH.</li>
-<li>Главные RU-конкуренты в премиум-сегменте свернули e-com.</li>
-</ul>
+<div class="why-grid">
+<div class="why-card">
+<div class="num">1</div>
+<div class="ttl">У нас нет колл-центра</div>
+<div class="body">Мы стартап. Телефон, который никто не возьмёт за 15 секунд, — антиреклама. Хуже, чем его отсутствие.</div>
+</div>
 
-<p><b>Три рабочих паттерна в нашем сегменте:</b></p>
-<table>
-<tr><th>Паттерн</th><th>Кто использует</th><th>Подходит нам?</th></tr>
-<tr><td><b>Категория-first</b> с фильтром бренда внутри</td><td>technika-vkusa, Smeg, Miele</td><td class="good">Да — наш ось «Типы техники» уже это даёт</td></tr>
-<tr><td><b>Мегаменю</b> в header с подкатегориями по типу установки</td><td>Smeg, Miele, Gaggenau</td><td class="good">Да — масштабируем текущее меню</td></tr>
-<tr><td><b>Богатый сайдбар-фильтр</b> (бренд, цена, ширина, тип, цвет, серия)</td><td>technika-vkusa (9+ параметров)</td><td class="good">Это блокер №2 — наш слабое место</td></tr>
-</table>
+<div class="why-card">
+<div class="num">2</div>
+<div class="ttl">Ария отвечает 24/7</div>
+<div class="body">AI-агент уже умеет вести первичный диалог, собирать запрос на КП, отвечать о наличии. Это наше конкурентное преимущество — нужно его показывать, а не прятать.</div>
+</div>
 
-<p><b>Дифференциаторы, которые у конкурентов не заняты:</b></p>
-<ul>
-<li><b>Раздел «Архитекторам»</b> — есть только у Gaggenau, ни у одного RU-дистрибьютора. А 60–70% премиум-сделок идут именно через архитектора. Чистая ниша.</li>
-<li><b>Mobile bottom-nav на 5 точек</b> вместо hamburger — никто из конкурентов не делает. При 60–70% мобайла — критично.</li>
-<li><b>Двойной вход «по категории / по серии»</b> — Smeg «Эстетика», Gaggenau «Серия 200/400». Закрывает сценарий «хочу консистентный дизайн на всю кухню».</li>
-</ul>
+<div class="why-card">
+<div class="num">3</div>
+<div class="ttl">Премиум-клиенты ценят формат</div>
+<div class="body">Архитектор / частник с бюджетом 3-15 млн ₽ хочет инструмент, а не «висеть на линии». AI-консьерж — это премиальный язык, как у банков private.</div>
+</div>
+</div>
 </section>
 
-<!-- ====== АРХИТЕКТУРА ====== -->
+<!-- ====== HEADER MOCKUP ====== -->
 <section>
-<h2>2. Что меняем (новая шапка + мегаменю)</h2>
+<h2>Новый правый край шапки</h2>
 
-<div class="mockup">
-<div class="caption">Десктоп · header (текущий)</div>
-<div style="padding:24px; text-align:center; color:#9a8e76; font-style:italic; font-size:13px;">
-Каталог · Новинки · Хиты продаж · OUTLET · О компании<br>
-<small style="font-size:11px;">(без поиска, без телефона, без CTA — сайт выглядит как витрина без продавца)</small>
+<div class="compare-grid">
+
+<div class="compare-col before">
+<div class="head">v1 — было</div>
+<div class="body">
+🔍 Поиск · <b>+7 (495) 000-00-00</b> · [Запросить КП]
+<div style="margin-top:8px; color:#7a1f1f; font-size:12px;">Стандартная конструкция. Один из тысячи похожих сайтов.</div>
 </div>
 </div>
 
+<div class="compare-col after">
+<div class="head">v2 — стало</div>
+<div class="body" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+<span style="color:#9a8e76;">🔍 Поиск</span>
+<div class="ai-concierge">
+<div class="ai-avatar">А</div>
+<div class="label">
+<span class="name">Ария</span>
+<span class="status">AI-консьерж · онлайн</span>
+</div>
+</div>
+<div class="demo-cta">Запросить КП</div>
+</div>
+</div>
+
+</div>
+
 <div class="mockup">
-<div class="caption">Десктоп · header (предлагается)</div>
+<div class="caption">Десктоп · header (v2 — финальный)</div>
 <div class="demo-header">
 <div class="demo-topbar">
 <div class="demo-logo">HOME · PROJECT</div>
@@ -328,184 +241,35 @@
 <div class="item">О компании</div>
 </div>
 <div class="demo-tools">
-<div class="demo-search">🔍 Поиск по сайту…</div>
-<div class="demo-phone">+7 (495) 000-00-00</div>
+<div class="demo-search">🔍 Поиск по 2300+ моделям…</div>
+<div class="ai-concierge">
+<div class="ai-avatar">А</div>
+<div class="label">
+<span class="name">Ария</span>
+<span class="status">онлайн</span>
+</div>
+</div>
 <div class="demo-cta">Запросить КП</div>
 </div>
 </div>
 </div>
 </div>
 
-<p><b>Что нового в шапке:</b></p>
+<p><b>Анатомия Арии-консьержа:</b></p>
 <ul>
-<li><b>Поиск</b> — instant с группировкой результатов (Товары / Бренды / Категории / Статьи). Работает от 3 символов.</li>
-<li><b>Телефон</b> справа — премиум-сегмент звонит, не пишет.</li>
-<li><b>Кнопка «Запросить КП»</b> — постоянно видна на всех страницах. Ведёт на форму <code>/kp</code>.</li>
-<li><b>«Архитекторам»</b> отдельным пунктом — это наш бизнес-якорь, не подраздел «о компании».</li>
-<li><b>«Реализованные проекты»</b> — social proof, ведёт на лендинг готовых кейсов.</li>
-<li><b>Иконки сравнения и избранного</b> можно добавить после согласования базы.</li>
+<li><b>Золотой аватар</b> с буквой «А» (Georgia serif, как наш логотип) — премиум, не cheap-chatbot.</li>
+<li><b>Зелёный кружок</b> снизу-справа аватара = «онлайн». Универсальный язык доступности.</li>
+<li><b>Подпись «AI-консьерж · онлайн»</b> — честно говорим, что это AI. Не маскируем под человека.</li>
+<li><b>Мягкий золотой фон</b> с лёгкой тенью — премиум-капсула, как у мессенджеров банков private.</li>
+<li><b>Клик</b> → открывается чат с Арией прямо на сайте (overlay-окно справа снизу, как Intercom но в нашей стилистике).</li>
 </ul>
-
-<h3>Мегаменю на «Каталог»</h3>
-
-<div class="mockup">
-<div class="caption">Десктоп · мегаменю при наведении на «Каталог»</div>
-<div class="demo-megamenu">
-<div class="col">
-<h4>Типы техники</h4>
-<ul>
-<li>Духовые шкафы <small>(187)</small></li>
-<li>Варочные панели <small>(231)</small></li>
-<li>Вытяжки <small>(164)</small></li>
-<li>Холодильники <small>(98)</small></li>
-<li>Посудомоечные машины <small>(112)</small></li>
-<li>Стиральные / сушильные <small>(74)</small></li>
-<li>Кофемашины <small>(43)</small></li>
-<li>Винные шкафы <small>(31)</small></li>
-<li>Малая бытовая <small>(89)</small></li>
-<li>→ Все категории</li>
-</ul>
-</div>
-<div class="col">
-<h4>Бренды</h4>
-<ul>
-<li>Küppersbusch</li>
-<li>Schulthess</li>
-<li>V-ZUG</li>
-<li>BORA</li>
-<li>SKS</li>
-<li>Graude</li>
-<li>ILVE</li>
-<li>Bertazzoni</li>
-<li>→ Все 15 брендов</li>
-</ul>
-</div>
-<div class="col">
-<h4>Коллекции</h4>
-<ul>
-<li>🆕 Новинки</li>
-<li>🔥 Хиты продаж</li>
-<li>💎 Эксклюзив</li>
-<li>🏷 OUTLET</li>
-<li>📉 Уценка</li>
-<li>🎁 Сезонные предложения</li>
-</ul>
-</div>
-<div class="col promo">
-<div class="promo-title">Подбор по сценарию</div>
-Расскажите задачу — соберём комплект под кухню за 1 день.<br>
-<br>
-<b style="color:#7a5b00;">→ Запросить КП</b>
-</div>
-</div>
-</div>
-
-<p><b>Четыре колонки вместо текущих трёх:</b> добавили «промо-блок» с CTA. Меню не просто показывает что есть, оно ведёт пользователя в сделку.</p>
 </section>
 
-<!-- ====== ФИЛЬТРЫ ====== -->
+<!-- ====== MOBILE ====== -->
 <section>
-<h2>3. Фильтры на странице категории/бренда</h2>
+<h2>Мобайл</h2>
 
-<p>Сейчас на странице бренда — только аккордеон категорий и цена. Этого мало.</p>
-
-<div class="mockup">
-<div class="caption">Страница «Варочные панели» (или «Küppersbusch → варочные панели») с новыми фильтрами</div>
-<div class="filter-mockup">
-<div class="filter-side">
-<div class="filter-group">
-<h5>Бренд</h5>
-<div class="filter-chips">
-<div class="filter-chip active">Küppersbusch</div>
-<div class="filter-chip">V-ZUG</div>
-<div class="filter-chip">BORA</div>
-<div class="filter-chip">Graude</div>
-</div>
-</div>
-<div class="filter-group">
-<h5>Тип нагрева</h5>
-<div class="filter-chips">
-<div class="filter-chip active">Индукция</div>
-<div class="filter-chip">Газ</div>
-<div class="filter-chip">Электро</div>
-<div class="filter-chip">Hi-Light</div>
-</div>
-</div>
-<div class="filter-group">
-<h5>Ширина</h5>
-<div class="filter-chips">
-<div class="filter-chip">30 см</div>
-<div class="filter-chip">60 см</div>
-<div class="filter-chip active">80 см</div>
-<div class="filter-chip">90 см</div>
-</div>
-</div>
-<div class="filter-group">
-<h5>Серия</h5>
-<div class="filter-chips">
-<div class="filter-chip">K7</div>
-<div class="filter-chip active">K8</div>
-<div class="filter-chip">Premium</div>
-</div>
-</div>
-<div class="filter-group">
-<h5>Цена, ₽</h5>
-<div style="font-size:11px; color:#6e6452;">от 50 000 до 350 000</div>
-</div>
-</div>
-<div class="filter-results">
-<div class="active-chips">
-<div class="active-chip">Küppersbusch ×</div>
-<div class="active-chip">Индукция ×</div>
-<div class="active-chip">80 см ×</div>
-<div class="active-chip">K8 ×</div>
-<div class="active-chip" style="background:transparent; color:#9a8e76; cursor:pointer;">Сбросить всё</div>
-</div>
-<div style="font-size:11px; color:#9a8e76; margin-bottom:8px;">Найдено 7 моделей</div>
-<div class="product-stub">
-<div class="img-stub"></div>
-<div>
-<div class="name">KI 8800.0 ED</div>
-<div class="meta">Индукция · 80 см · серия K8</div>
-</div>
-</div>
-<div class="product-stub">
-<div class="img-stub"></div>
-<div>
-<div class="name">KI 8820.0 SR</div>
-<div class="meta">Индукция · 80 см · серия K8 · FlexZone</div>
-</div>
-</div>
-<div class="product-stub">
-<div class="img-stub"></div>
-<div>
-<div class="name">EKI 8851.0 ED</div>
-<div class="meta">Индукция · 80 см · серия K8</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<p><b>Фильтры на старте (по приоритету):</b></p>
-<table>
-<tr><th>Фильтр</th><th>Где обязателен</th><th>Зачем</th></tr>
-<tr><td>Бренд</td><td>Везде (если страница категории)</td><td>Базовый. Чипы вверху сразу видны.</td></tr>
-<tr><td>Цена</td><td>Везде</td><td>Самый частый отсев.</td></tr>
-<tr><td>Тип установки</td><td>Духовки, варочные, вытяжки</td><td>Встраивание / отдельностоящие.</td></tr>
-<tr><td>Тип нагрева</td><td>Варочные панели</td><td>Индукция / газ / электро.</td></tr>
-<tr><td>Ширина</td><td>Варочные, духовки, посудомойки, вытяжки</td><td>Под габариты кухни.</td></tr>
-<tr><td>Цвет / материал</td><td>Все категории</td><td>Дизайнерский выбор.</td></tr>
-<tr><td>Серия</td><td>Küppersbusch (K-серии), Gaggenau (200/400), V-ZUG</td><td>Консистентность кухни.</td></tr>
-</table>
-<p class="sub">Фильтры подтягиваются из характеристик товаров в Medusa. Если характеристик нет — добавляем как часть работы site-manager при доливке каталога.</p>
-</section>
-
-<!-- ====== МОБИЛЬНЫЙ ====== -->
-<section>
-<h2>4. Мобильная навигация — bottom-nav вместо hamburger</h2>
-
-<p>60–70% трафика — мобайл. Hamburger-меню убивает конверсию: пользователь должен достучаться до меню, открыть, проскроллить. Bottom-nav решает это в 1 тап.</p>
+<p>На мобильном Ария — это первое, что видит пользователь после поиска. Карточка-приглашение «Спросите Арию» открывает чат.</p>
 
 <div style="display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin:20px 0;">
 
@@ -515,203 +279,109 @@
 <div>☰</div>
 </div>
 <div class="mobile-body">
-<div class="mobile-search">🔍 Поиск по 2300+ товарам</div>
+<div class="mobile-search">🔍 Поиск по 2300+ моделям</div>
+<div class="mobile-aria-card">
+<div class="av">А</div>
+<div class="txt">
+<div class="nm">АРИЯ · AI-КОНСЬЕРЖ</div>
+<div class="ln">Помогу подобрать технику и собрать КП за 5 минут</div>
+</div>
+<div class="arr">›</div>
+</div>
 <div class="mobile-tile"><b>Каталог</b><span>›</span></div>
 <div class="mobile-tile">Бренды<span>›</span></div>
 <div class="mobile-tile" style="background:#FFF8E8; border-color:var(--accent);"><b style="color:#7a5b00;">Архитекторам</b><span>›</span></div>
 <div class="mobile-tile">Реализованные проекты<span>›</span></div>
 <div class="mobile-tile">О компании<span>›</span></div>
-<div style="background:var(--ink); color:#fff; padding:14px; border-radius:6px; text-align:center; margin-top:12px; font-weight:600; font-size:13px;">Запросить КП</div>
 </div>
 <div class="mobile-bottom-nav">
 <div class="item"><span class="icon">📋</span>Каталог</div>
 <div class="item"><span class="icon">🔍</span>Поиск</div>
-<div class="item"><span class="icon">⚖</span>Сравнить</div>
+<div class="item active" style="color:var(--accent);"><span class="icon">💬</span>Ария</div>
+<div class="item"><span class="icon">⚖</span>Сравн.</div>
 <div class="item"><span class="icon">❤</span>Изб.</div>
-<div class="item active"><span class="icon">💬</span>КП</div>
-</div>
-</div>
-
-<div class="mobile-frame">
-<div class="mobile-header">
-<div>‹</div>
-<div style="font-weight:600;">Варочные панели</div>
-<div>🔍</div>
-</div>
-<div class="mobile-body">
-<div style="display:flex; gap:6px; overflow-x:auto; margin-bottom:10px;">
-<div class="filter-chip active">Все 231</div>
-<div class="filter-chip">Küppersbusch</div>
-<div class="filter-chip">V-ZUG</div>
-<div class="filter-chip">BORA</div>
-</div>
-<div style="background:#fff; padding:8px 10px; border-radius:6px; margin-bottom:8px; font-size:11px; display:flex; justify-content:space-between;">
-<span>🎚 Фильтры (3)</span>
-<span style="color:var(--accent); font-weight:600;">↕ Сортировка</span>
-</div>
-<div style="background:#fff; padding:10px; border-radius:6px; margin-bottom:6px;">
-<div style="background:#F0E9DA; height:80px; border-radius:3px; margin-bottom:6px;"></div>
-<div style="font-weight:600; font-size:11px;">KI 8800.0 ED</div>
-<div style="color:#9a8e76; font-size:10px;">Küppersbusch · 80 см</div>
-</div>
-<div style="background:#fff; padding:10px; border-radius:6px;">
-<div style="background:#F0E9DA; height:80px; border-radius:3px; margin-bottom:6px;"></div>
-<div style="font-weight:600; font-size:11px;">CI845EBB</div>
-<div style="color:#9a8e76; font-size:10px;">V-ZUG · 80 см</div>
-</div>
-</div>
-<div class="mobile-bottom-nav">
-<div class="item active"><span class="icon">📋</span>Каталог</div>
-<div class="item"><span class="icon">🔍</span>Поиск</div>
-<div class="item"><span class="icon">⚖</span>Сравнить</div>
-<div class="item"><span class="icon">❤</span>Изб.</div>
-<div class="item"><span class="icon">💬</span>КП</div>
 </div>
 </div>
 
 </div>
 
-<p><b>5 точек bottom-nav:</b> Каталог · Поиск · Сравнение · Избранное · Запросить КП. Всегда видны, всегда в 1 тап.</p>
+<p><b>Изменения от v1:</b></p>
+<ul>
+<li><b>Центральная точка bottom-nav</b> — теперь не «КП», а <b>«Ария»</b>. Она ведёт в чат с AI, оттуда — в КП.</li>
+<li><b>Карточка-приглашение</b> в шапке мобайла — премиальная, тёмная (charcoal), с золотым аватаром.</li>
+<li>«Запросить КП» теперь — это <b>результат разговора с Арией</b>, а не отдельный CTA. Логичный путь.</li>
+</ul>
 </section>
 
-<!-- ====== СЦЕНАРИИ ====== -->
+<!-- ====== CHANNELS ====== -->
 <section>
-<h2>5. Сценарии в кликах: было → станет</h2>
-<p class="sub">Считаем шаги от главной до целевого действия.</p>
+<h2>А куда же делись «реальные» каналы?</h2>
 
-<div class="scenarios">
+<p>Их видно в одном месте — на странице «Контакты» и в footer. Не в шапке. Шапка работает на конверсию через Арию.</p>
 
-<div class="scenario">
-<h4>📌 Найти духовой шкаф V-ZUG</h4>
-<div class="path">Главная → Каталог → V-ZUG → Духовые шкафы → карточка</div>
-<div class="clicks was">Сейчас: 4 клика, без поиска</div>
-<div class="clicks will">Станет: 1 клик через поиск «V-ZUG духовой» или 3 клика через меню</div>
+<div class="channels">
+<div class="channel-card">
+<div class="icon">💬</div>
+<div class="lbl">Ария на сайте</div>
+<div class="desc">24/7, любой запрос</div>
+</div>
+<div class="channel-card">
+<div class="icon">📱</div>
+<div class="lbl">WhatsApp</div>
+<div class="desc">с Арией · 24/7</div>
+</div>
+<div class="channel-card">
+<div class="icon">✉️</div>
+<div class="lbl">E-mail</div>
+<div class="desc">info@homeproject.online</div>
+</div>
+<div class="channel-card">
+<div class="icon">📞</div>
+<div class="lbl">Звонок по заказу</div>
+<div class="desc">после запроса КП</div>
+</div>
 </div>
 
-<div class="scenario">
-<h4>📌 Сравнить все индукционные панели до 200 ₸</h4>
-<div class="path">Каталог → Варочные → фильтры «Индукция» + цена + ширина → 3 модели в сравнение</div>
-<div class="clicks was">Сейчас: <b>невозможно</b> (нет фильтра)</div>
-<div class="clicks will">Станет: 4 клика, кнопка «Сравнить» в bottom-nav</div>
-</div>
-
-<div class="scenario">
-<h4>📌 Запросить КП по конкретному товару</h4>
-<div class="path">Карточка товара → «Запросить КП» → форма</div>
-<div class="clicks was">Сейчас: <b>нет CTA</b>, нужно найти контакты в «О компании»</div>
-<div class="clicks will">Станет: 1 клик с карточки или 1 тап в bottom-nav</div>
-</div>
-
-<div class="scenario">
-<h4>📌 Архитектор: подобрать комплект на проект</h4>
-<div class="path">«Архитекторам» → форма проекта → менеджер</div>
-<div class="clicks was">Сейчас: <b>раздела нет</b></div>
-<div class="clicks will">Станет: 1 клик в header или 1 тап в шапке мобайл</div>
-</div>
-
-<div class="scenario">
-<h4>📌 Открыть Outlet (уценённые товары)</h4>
-<div class="path">Каталог → Коллекции → OUTLET</div>
-<div class="clicks was">Сейчас: 3 клика, скрыто в подменю</div>
-<div class="clicks will">Станет: 2 клика, видно в мегаменю и в коллекциях</div>
-</div>
-
-<div class="scenario">
-<h4>📌 Найти конкретный SKU «Spirit 540»</h4>
-<div class="path">Поиск → ввод SKU → клик в результат</div>
-<div class="clicks was">Сейчас: <b>невозможно без поиска</b>. Нужно знать что это Schulthess, открыть бренд, долистать до 33 страницы.</div>
-<div class="clicks will">Станет: 1 клик</div>
-</div>
-
-</div>
+<p style="margin-top:14px;"><b>Логика:</b> первый контакт — всегда через Арию (на сайте или в WhatsApp). Звонок — только когда мы знаем кому и зачем звоним (после сбора задачи). Это премиальный сервис, а не call-центр.</p>
 </section>
 
-<!-- ====== ВАРИАНТЫ ====== -->
+<!-- ====== TONE ====== -->
 <section>
-<h2>6. Три варианта на ваш выбор</h2>
+<h2>Тональность Арии в чате</h2>
+<p>Чтобы при клике на капсулу не было разочарования, чат должен звучать в одном жанре с визуалом.</p>
 
-<div class="option-card">
-<div class="badge">Вариант A</div>
-<h3>Минимум — закрыть три боли</h3>
-<p>Только то, что блокирует конверсию прямо сейчас. Структура не трогается.</p>
-<ul>
-<li>✅ Глобальный поиск в шапке (instant)</li>
-<li>✅ Кнопка «Запросить КП» + телефон в шапке</li>
-<li>✅ Фильтры на странице категории (бренд, цена, ширина, тип нагрева, серия)</li>
-<li>✅ Поднять Gaggenau и Liebherr из «по запросу» в основной список</li>
-<li>✅ CTA «Добавить в КП» на карточке товара</li>
-</ul>
-<div class="stats">
-<span>Срок: <b>~2 недели</b></span>
-<span>Сложность: <b>низкая</b></span>
-<span>Влияние на конверсию: <b>+50–80%</b></span>
+<div style="background:#2A2418; color:#F5EFE3; padding:18px 20px; border-radius:8px; font-size:13px; line-height:1.6;">
+<div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+<div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#C9A36A,#8B6E3E); display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-weight:700; color:#fff;">А</div>
+<div>
+<div style="font-weight:700; color:#C9A36A;">Ария</div>
+<div style="font-size:10.5px; color:#9a8e76;">AI-консьерж Home Project</div>
 </div>
+</div>
+<div style="background:#3a3022; padding:10px 14px; border-radius:8px 8px 8px 2px; margin-bottom:8px;">
+Добрый вечер. Я Ария — AI-консьерж Home Project. Помогаю архитекторам, дизайнерам и частным клиентам подобрать премиальную бытовую технику и собрать коммерческое предложение за 5 минут.<br><br>
+Какую задачу решаем? Можно описать своими словами — например, «нужен индукционный варочный 80 см на проект» или «комплект встройки на загородный дом».
+</div>
+<div style="font-size:10.5px; color:#7a6e57; font-style:italic;">— возможные действия: загрузить фото / прислать ТЗ / выбрать категорию</div>
 </div>
 
-<div class="option-card recommended">
-<div class="badge">✓ Рекомендую — Вариант B</div>
-<h3>Полная навигация + дифференциаторы</h3>
-<p>Всё из A + новая шапка с мегаменю + раздел «Архитекторам» + mobile bottom-nav.</p>
-<ul>
-<li>✅ Всё из Варианта A</li>
-<li>✅ Перестроить header (Каталог · Бренды · Архитекторам · Реализованные проекты · О компании)</li>
-<li>✅ Мегаменю с 4 колонками (Типы / Бренды / Коллекции / Промо-блок)</li>
-<li>✅ Раздел <b>«Архитекторам»</b> — лендинг с формой проекта (CAD/BIM, регистрация в AI-агенте)</li>
-<li>✅ Mobile bottom-nav (Каталог · Поиск · Сравнить · Изб · КП)</li>
-<li>✅ Лендинги «Новинки», «Хиты», «Эксклюзив», «Outlet» с историей коллекции</li>
-<li>✅ Виджет «Сравнение товаров» (до 4 моделей)</li>
-</ul>
-<div class="stats">
-<span>Срок: <b>~4 недели</b></span>
-<span>Сложность: <b>средняя</b></span>
-<span>Влияние на конверсию: <b>+100–150%</b></span>
-<span>Дифференциация: <b>высокая</b> (Архитекторам + bottom-nav никто из RU не делает)</span>
-</div>
-</div>
-
-<div class="option-card">
-<div class="badge">Вариант C</div>
-<h3>Премиум — полный UX-апгрейд</h3>
-<p>Всё из B + продвинутые инструменты для архитекторов и эстетики.</p>
-<ul>
-<li>✅ Всё из Варианта B</li>
-<li>✅ <b>Двойной вход</b>: «по категории» + «по серии/стилю» (например, Küppersbusch K8 как отдельный лендинг)</li>
-<li>✅ <b>3D-визуализатор</b> кухни с расстановкой техники</li>
-<li>✅ <b>Личный кабинет архитектора</b> с проектами, скачиванием CAD/BIM/dwg</li>
-<li>✅ <b>Сравнение с highlighting разницы</b> (не два столбца спецификаций, а подсветка отличий)</li>
-<li>✅ Подбор по сценарию («Кухня под ключ / Только встройка / Под мебель»)</li>
-<li>✅ Список избранного → конвертация в КП одним кликом</li>
-</ul>
-<div class="stats">
-<span>Срок: <b>~8 недель</b></span>
-<span>Сложность: <b>высокая</b></span>
-<span>Влияние на конверсию: <b>+150–250%</b></span>
-<span>Подходит когда: <b>есть стабильный трафик 1000+/день</b></span>
-</div>
-</div>
+<p style="margin-top:14px;">Это тот же тон, что в наших КП и в нашем брендбуке: вы / уважительно / без «привет»-фамильярности / честно про AI.</p>
 </section>
 
-<!-- ====== ВОПРОС ====== -->
+<!-- ====== QUESTION ====== -->
 <div class="question">
-<b>Какой вариант идём?</b>
-<ul>
-<li><b>A</b> — быстро закрываем три блокера за 2 недели, остальное потом</li>
-<li><b>B</b> — рекомендую — за 4 недели получаем полный UX + 2 дифференциатора (Архитекторы + bottom-nav)</li>
-<li><b>C</b> — премиум-история, рост 3–8 недель, имеет смысл когда выйдем на стабильный трафик</li>
-</ul>
+<b>Что ещё подсветить или уточнить перед стартом работ инженера?</b>
 <br>
-<b>Мой совет:</b> идём по <b>B</b>, но в два этапа.
-<ul>
-<li><b>Спринт 1 (неделя 1–2):</b> поиск + CTA в шапке + фильтры + поднятие Gaggenau/Liebherr → запускаем конверсию.</li>
-<li><b>Спринт 2 (неделя 3–4):</b> мегаменю + Архитекторам + bottom-nav + лендинги коллекций → строим дифференциацию.</li>
-</ul>
 <br>
-Скажете <b>«A»</b>, <b>«B одним этапом»</b>, <b>«B в два этапа»</b> или <b>«C»</b> — соберу финальный план и отдам инженеру.
+Дефолт: иду с шапкой v2 (Ария-капсула вместо телефона), мобильным bottom-nav с центральной кнопкой «Ария», карточкой-приглашением на главной мобайла. Чат-окно — отдельная задача (часть Спринта 1, в одной связке с CTA в шапке).
+<br>
+<br>
+Если ОК — пишите «делай v2» и инженер стартует в работу прямо сейчас. Если есть правки (аватар не «А», другая надпись, другой цвет капсулы) — скажите, поправлю и пойду.
 </div>
 
 <div class="footer">
-Превью v1 · Ария AI-менеджер · Home Project · 18.06.2026<br>
-Источники: бенчмарк 11 сайтов + аудит current vs old · полные отчёты в <code>/opt/aifirst/docs/strategy/audits/catalog-ux/</code>
+Превью v2 · Ария AI-менеджер · Home Project · 18.06.2026<br>
+Замена телефона на AI-консьержа · детальный brief в <code>docs/strategy/audits/catalog-ux/ENGINEER-BRIEF-2026-06-18-VARIANT-B.md</code>
 </div>
 
 </div>
