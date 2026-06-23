@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200, initial-scale=1">
+<title>Классическая команда vs AI-агенты — операционная экономика Home Project</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0f1115;--card:#181a22;--ink:#f3f4f6;--mute:#9ca3af;--brass:#b08d57;--accent:#5b9bd5;--ok:#10b981;--warn:#f59e0b;--line:#2a2d38;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Inter','Helvetica Neue',sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+.wrap{max-width:1200px;margin:0 auto;padding:36px 32px}
+.h1{font-size:30px;font-weight:700;letter-spacing:-0.5px;margin:0 0 6px}
+.h1 .brass{color:var(--brass)}
+.sub{color:var(--mute);font-size:15px;margin-bottom:6px}
+.brand{color:var(--mute);font-size:12px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:18px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0 28px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.kpi-label{font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;font-weight:600}
+.kpi-value{font-size:34px;font-weight:700;letter-spacing:-1px;color:var(--ok)}
+.kpi-sub{font-size:13px;color:var(--mute);margin-top:4px}
+.kpi.brass .kpi-value{color:var(--brass)}
+.kpi.accent .kpi-value{color:var(--accent)}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0 0 28px;font-size:14px}
+th{text-align:left;padding:14px 16px;background:#1f222b;color:var(--mute);font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.5px;border-bottom:1px solid var(--line)}
+td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.op{font-weight:600;color:var(--ink)}
+.op-mini{font-size:12px;color:var(--mute);margin-top:3px;font-weight:400}
+.classic{color:#e5e7eb}
+.classic-mini{font-size:11px;color:var(--mute);margin-top:2px}
+.ai{color:var(--ok);font-weight:600}
+.ai-mini{font-size:11px;color:var(--mute);margin-top:2px}
+.delta{display:inline-block;padding:5px 11px;background:rgba(176,141,87,.15);color:var(--brass);border-radius:20px;font-weight:700;font-size:13px;border:1px solid rgba(176,141,87,.4)}
+.chart-block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px 18px;margin-bottom:24px}
+.chart-title{font-size:15px;font-weight:600;margin:0 0 4px}
+.chart-sub{font-size:13px;color:var(--mute);margin-bottom:14px}
+.chart-wrap{height:360px}
+.budget{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+.budget .col{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.budget h3{margin:0 0 14px;font-size:14px;text-transform:uppercase;letter-spacing:.6px;color:var(--mute);font-weight:600}
+.budget .num{font-size:30px;font-weight:700;margin:0}
+.budget .num.classic-c{color:#e5e7eb}
+.budget .num.ai-c{color:var(--ok)}
+.budget .breakdown{margin-top:12px;font-size:13px;color:var(--mute);line-height:1.7}
+.budget .breakdown b{color:#cbd5e1;font-weight:600}
+.note{background:rgba(245,158,11,.08);border-left:3px solid var(--warn);padding:12px 16px;border-radius:6px;font-size:13px;color:#fde68a;margin-top:8px}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);color:var(--mute);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.foot b{color:#cbd5e1}
+</style>
+</head><body>
+<div class="wrap">
+<div class="brand">HOME PROJECT · Operational Benchmark · Jun 2026</div>
+<div class="h1">Классическая команда <span class="brass">vs</span> AI-агенты</div>
+<div class="sub">Экономика операционного слоя дистрибутора премиальной техники. 6 типовых операций · реальные данные первых 5 месяцев работы Home Project (фев — июн 2026).</div>
+<div class="kpis">
+<div class="kpi"><div class="kpi-label">Среднее ускорение</div><div class="kpi-value">×18</div><div class="kpi-sub">по 6 операциям ниже</div></div>
+<div class="kpi accent"><div class="kpi-label">Бюджет операц. слоя</div><div class="kpi-value">−95%</div><div class="kpi-sub">к классической команде</div></div>
+<div class="kpi brass"><div class="kpi-label">Команда</div><div class="kpi-value">20</div><div class="kpi-sub">ролей AI-агентов 24/7</div></div>
+</div>
+<table>
+<thead><tr><th style="width:30%">Операция</th><th style="width:24%">Классическая схема</th><th style="width:24%">AI-агенты</th><th style="width:22%">Эффект</th></tr></thead>
+<tbody>
+<tr><td><div class="op">Миграция каталога</div><div class="op-mini">2 367 SKU с фото, описаниями, ценами, характеристиками</div></td><td><div class="classic">3–4 месяца</div><div class="classic-mini">команда 2–3 контент-менеджера, ~480 чел-ч</div></td><td><div class="ai">7 дней</div><div class="ai-mini">+ доработка настроек, под надзором одного человека</div></td><td><span class="delta">×12 быстрее</span></td></tr>
+<tr><td><div class="op">Массовое обновление карточек</div><div class="op-mini">типовая команда «обнови описание модели Y»</div></td><td><div class="classic">2–3 рабочих дня</div><div class="classic-mini">контент-менеджер на 47 карточек</div></td><td><div class="ai">4 часа (один вечер)</div><div class="ai-mini">реальный кейс прошлой недели — 47 карточек</div></td><td><span class="delta">×5 быстрее</span></td></tr>
+<tr><td><div class="op">Создание контентной страницы</div><div class="op-mini">бренд / категория / промо</div></td><td><div class="classic">1–2 дня</div><div class="classic-mini">контент + дизайнер + согласование</div></td><td><div class="ai">30 минут</div><div class="ai-mini">от запроса до live</div></td><td><span class="delta">×32 быстрее</span></td></tr>
+<tr><td><div class="op">Сегментированная рассылка</div><div class="op-mini">14 001 контакт по сегментам</div></td><td><div class="classic">1–2 дня</div><div class="classic-mini">маркетолог + дизайнер + копирайтер</div></td><td><div class="ai">1 час</div><div class="ai-mini">включая сегментацию и верстку</div></td><td><span class="delta">×16 быстрее</span></td></tr>
+<tr><td><div class="op">Подготовка КП клиенту</div><div class="op-mini">подбор оборудования под объект</div></td><td><div class="classic">4–6 часов</div><div class="classic-mini">менеджер + ценообразование</div></td><td><div class="ai">15 минут</div><div class="ai-mini">авто-генерация по брифу</div></td><td><span class="delta">×20 быстрее</span></td></tr>
+<tr><td><div class="op">Аналитика остатков</div><div class="op-mini">9 брендов · оборачиваемость · застывшие SKU</div></td><td><div class="classic">1 рабочий день</div><div class="classic-mini">аналитик в Excel</div></td><td><div class="ai">10 минут</div><div class="ai-mini">дашборд с графиками</div></td><td><span class="delta">×48 быстрее</span></td></tr>
+</tbody>
+</table>
+<div class="chart-block">
+<div class="chart-title">⏱ Ускорение операционного цикла, во сколько раз быстрее</div>
+<div class="chart-sub">Чем длиннее столбец — тем больше разрыв между классической схемой и работой агентов</div>
+<div class="chart-wrap"><canvas id="speedChart"></canvas></div>
+</div>
+<div class="budget">
+<div class="col">
+<h3>🏢 Классическая команда — бюджет/мес</h3>
+<p class="num classic-c">~900 000 ₽</p>
+<div class="breakdown"><b>Маркетолог</b> · 180 000 ₽<br><b>Контент-менеджер</b> · 120 000 ₽<br><b>Дизайнер</b> · 150 000 ₽<br><b>Аналитик / sales-ops</b> · 180 000 ₽<br><b>Соц. отчисления и накладные</b> · ~270 000 ₽<br><span style="color:#9ca3af">≈ 10,8 млн ₽ / год</span></div>
+</div>
+<div class="col">
+<h3>🤖 AI-агенты — бюджет/мес</h3>
+<p class="num ai-c">~45 000 ₽</p>
+<div class="breakdown"><b>Anthropic API</b> (Claude Sonnet, 20 ролей) · ~30 000 ₽<br><b>VPS + инфраструктура</b> · ~6 000 ₽<br><b>Сервисы интеграций</b> (Unisender, telegram, vk) · ~9 000 ₽<br><span style="color:#9ca3af">≈ 540 000 ₽ / год</span><div style="margin-top:10px;padding:8px 10px;background:rgba(16,185,129,.12);border-radius:6px;color:#6ee7b7;font-weight:600">Экономия ≈ 10,3 млн ₽ / год</div></div>
+</div>
+</div>
+<div class="note">ⓘ Цифры классической схемы — оценка по рыночным ставкам московского рынка дистрибуции (июнь 2026), полностью заменимый FTE-перечень для эквивалентного объёма операций. Цифры AI-стороны — фактический run-rate Home Project за май–июнь 2026.</div>
+<div class="foot"><div><b>Home Project</b> · homeproject.online · дистрибуция премиальной встраиваемой техники, 14 брендов</div><div>5 месяцев · 1 человек на решениях · 20 агентов на исполнении</div></div>
+</div>
+<script>
+const ctx = document.getElementById('speedChart').getContext('2d');
+new Chart(ctx,{type:'bar',data:{labels:['Аналитика остатков','Контентная страница','Подготовка КП','Сегмент. рассылка','Миграция каталога','Обновление карточек'],datasets:[{label:'Во сколько раз быстрее AI-агенты',data:[48,32,20,16,12,5],backgroundColor:'rgba(176,141,87,0.85)',borderColor:'#b08d57',borderWidth:1,borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>`×${c.parsed.x} быстрее`}}},scales:{x:{ticks:{color:'#9ca3af',callback:(v)=>'×'+v},grid:{color:'#2a2d38'},title:{display:true,text:'Ускорение, во сколько раз',color:'#9ca3af'}},y:{ticks:{color:'#e5e7eb',font:{size:13,weight:'600'}},grid:{display:false}}}}});
+</script>
+</body></html>
