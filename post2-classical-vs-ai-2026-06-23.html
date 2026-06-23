@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=1200, initial-scale=1">
-<title>Классическая команда vs AI-агенты — операционная экономика Home Project</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=1200,initial-scale=1">
+<title>Классическая команда vs AI-агенты — Home Project</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{--bg:#0f1115;--card:#181a22;--ink:#f3f4f6;--mute:#9ca3af;--brass:#b08d57;--accent:#5b9bd5;--ok:#10b981;--warn:#f59e0b;--line:#2a2d38;}
@@ -31,10 +30,13 @@ tr:last-child td{border-bottom:none}
 .ai{color:var(--ok);font-weight:600}
 .ai-mini{font-size:11px;color:var(--mute);margin-top:2px}
 .delta{display:inline-block;padding:5px 11px;background:rgba(176,141,87,.15);color:var(--brass);border-radius:20px;font-weight:700;font-size:13px;border:1px solid rgba(176,141,87,.4)}
+.src-sup{color:var(--accent);font-size:10px;font-weight:600;vertical-align:super;text-decoration:none;margin-left:3px}
 .chart-block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px 18px;margin-bottom:24px}
 .chart-title{font-size:15px;font-weight:600;margin:0 0 4px}
 .chart-sub{font-size:13px;color:var(--mute);margin-bottom:14px}
-.chart-wrap{height:360px}
+.chart-wrap{height:380px}
+.platforms-table{font-size:13px}
+.platforms-table td{padding:11px 14px}
 .budget{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
 .budget .col{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
 .budget h3{margin:0 0 14px;font-size:14px;text-transform:uppercase;letter-spacing:.6px;color:var(--mute);font-weight:600}
@@ -44,52 +46,132 @@ tr:last-child td{border-bottom:none}
 .budget .breakdown{margin-top:12px;font-size:13px;color:var(--mute);line-height:1.7}
 .budget .breakdown b{color:#cbd5e1;font-weight:600}
 .note{background:rgba(245,158,11,.08);border-left:3px solid var(--warn);padding:12px 16px;border-radius:6px;font-size:13px;color:#fde68a;margin-top:8px}
+.sources{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin-top:24px;font-size:13px;color:var(--mute);line-height:1.75}
+.sources h3{margin:0 0 12px;color:#cbd5e1;font-size:14px;text-transform:uppercase;letter-spacing:.6px}
+.sources ol{padding-left:20px;margin:0}
+.sources a{color:var(--accent);text-decoration:none}
+.sources a:hover{text-decoration:underline}
 .foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);color:var(--mute);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .foot b{color:#cbd5e1}
+.section-title{font-size:18px;font-weight:600;margin:36px 0 14px;color:#fff}
 </style>
 </head><body>
 <div class="wrap">
-<div class="brand">HOME PROJECT · Operational Benchmark · Jun 2026</div>
+<div class="brand">HOME PROJECT · Operational Benchmark · Jun 2026 · v2 с рыночными источниками</div>
 <div class="h1">Классическая команда <span class="brass">vs</span> AI-агенты</div>
-<div class="sub">Экономика операционного слоя дистрибутора премиальной техники. 6 типовых операций · реальные данные первых 5 месяцев работы Home Project (фев — июн 2026).</div>
+<div class="sub">Сравнение операционной экономики дистрибутора премиальной техники. Цифры классической стороны опираются на публичные бенчмарки рынка (см. источники внизу), AI-сторона — фактический run-rate Home Project февраль–июнь 2026.</div>
+
 <div class="kpis">
-<div class="kpi"><div class="kpi-label">Среднее ускорение</div><div class="kpi-value">×18</div><div class="kpi-sub">по 6 операциям ниже</div></div>
-<div class="kpi accent"><div class="kpi-label">Бюджет операц. слоя</div><div class="kpi-value">−95%</div><div class="kpi-sub">к классической команде</div></div>
+<div class="kpi"><div class="kpi-label">Ускорение миграции</div><div class="kpi-value">×12</div><div class="kpi-sub">7 дней vs 3–4 мес у команды<sup><a href="#s1" class="src-sup">[1,2,3]</a></sup></div></div>
+<div class="kpi accent"><div class="kpi-label">Бюджет операц. слоя</div><div class="kpi-value">~45к ₽</div><div class="kpi-sub">в месяц на всю команду агентов</div></div>
 <div class="kpi brass"><div class="kpi-label">Команда</div><div class="kpi-value">20</div><div class="kpi-sub">ролей AI-агентов 24/7</div></div>
 </div>
-<table>
-<thead><tr><th style="width:30%">Операция</th><th style="width:24%">Классическая схема</th><th style="width:24%">AI-агенты</th><th style="width:22%">Эффект</th></tr></thead>
+
+<div class="section-title">🏪 Сколько реально занимает миграция 2 000–3 000 SKU — по топ-платформам e-com</div>
+
+<table class="platforms-table">
+<thead><tr>
+<th style="width:18%">Платформа</th>
+<th style="width:24%">Срок миграции 2k SKU (команда)</th>
+<th style="width:14%">FTE</th>
+<th style="width:24%">Стоимость работ</th>
+<th style="width:20%">Источник</th>
+</tr></thead>
 <tbody>
-<tr><td><div class="op">Миграция каталога</div><div class="op-mini">2 367 SKU с фото, описаниями, ценами, характеристиками</div></td><td><div class="classic">3–4 месяца</div><div class="classic-mini">команда 2–3 контент-менеджера, ~480 чел-ч</div></td><td><div class="ai">7 дней</div><div class="ai-mini">+ доработка настроек, под надзором одного человека</div></td><td><span class="delta">×12 быстрее</span></td></tr>
-<tr><td><div class="op">Массовое обновление карточек</div><div class="op-mini">типовая команда «обнови описание модели Y»</div></td><td><div class="classic">2–3 рабочих дня</div><div class="classic-mini">контент-менеджер на 47 карточек</div></td><td><div class="ai">4 часа (один вечер)</div><div class="ai-mini">реальный кейс прошлой недели — 47 карточек</div></td><td><span class="delta">×5 быстрее</span></td></tr>
+<tr><td><b>1С-Битрикс</b></td><td>1–3 мес перенос; 2–6 мес кастом-проект</td><td>2–4</td><td>49 000–600 000 ₽ перенос; до 1.5+ млн ₽ кастом</td><td>b24.org.ru, WRP, Webformat<sup><a href="#s8" class="src-sup">[8,9,10]</a></sup></td></tr>
+<tr><td><b>InSales</b></td><td>~20 дней под ключ; 1–2 мес типовой кастом</td><td>1–2</td><td>индивидуально по запросу</td><td>InSales docs<sup><a href="#s11" class="src-sup">[11,12]</a></sup></td></tr>
+<tr><td><b>Tilda</b></td><td>1 день–2 нед сайт + 2 мес наполнение</td><td>1–2</td><td>100 000–600 000 ₽</td><td>Stik.pro, Creatium<sup><a href="#s13" class="src-sup">[13,14,15]</a></sup></td></tr>
+<tr><td><b>Shopify</b></td><td>2–4 нед simple, 4–12 нед mid-market</td><td>2–5</td><td>$1 500–30 000 (~150 тыс – 3 млн ₽)</td><td>Charle Agency, Uptek<sup><a href="#s16" class="src-sup">[16,17]</a></sup></td></tr>
+<tr><td><b>WooCommerce</b></td><td>2–8 нед</td><td>1–3</td><td>$500–3 000+ professional services</td><td>Seahawk, Wisdmlabs<sup><a href="#s18" class="src-sup">[18,19]</a></sup></td></tr>
+<tr><td><b>Magento / Adobe Commerce</b></td><td><b>3–6 мес</b> полный проект; data-migration воркстрим 4–8 нед</td><td>4–8</td><td>data-migration = 15–25% бюджета enterprise-проекта (от $50k)</td><td>Bemeir, IWD Agency<sup><a href="#s20" class="src-sup">[20,21]</a></sup></td></tr>
+<tr><td><b>OpenCart</b></td><td>2–4 нед</td><td>1–2</td><td>$49–200 self-serve; 100–500 тыс ₽ agency</td><td>Cart2Cart, LitExtension<sup><a href="#s22" class="src-sup">[22,23]</a></sup></td></tr>
+<tr><td><b>Webasyst / MODX</b></td><td>2–3 нед шаблон, от 2 мес кастом</td><td>1–3</td><td>150 000–400 000 ₽ Webasyst; MODX мало публичных кейсов</td><td>Soware, Contextonline<sup><a href="#s24" class="src-sup">[24,25]</a></sup></td></tr>
+<tr><td><b>Medusa (headless)</b></td><td>Публичных кейсов 2k SKU не нашлось; dev-ETL 3–6 нед + наполнение</td><td>1–3 dev</td><td>нет публичных тарифов</td><td>Medusa Blog, Swell<sup><a href="#s26" class="src-sup">[26,27]</a></sup></td></tr>
+<tr><td><b>Saleor (headless)</b></td><td>Enterprise-кейсы (Lush, Breitling); 2k SKU кейсов нет</td><td>2–4 dev</td><td>enterprise</td><td>Saleor case studies<sup><a href="#s28" class="src-sup">[28]</a></sup></td></tr>
+</tbody>
+</table>
+
+<div class="section-title">⚙️ Базовая норма скорости контент-менеджера (опорные цифры)</div>
+
+<table>
+<thead><tr>
+<th style="width:40%">Источник</th>
+<th style="width:30%">Норма заведения карточек</th>
+<th style="width:30%">Расчёт для 2 367 SKU</th>
+</tr></thead>
+<tbody>
+<tr><td>Retail.ru — PIM-кейс<sup><a href="#s1" class="src-sup">[1]</a></sup></td><td>~20 карточек/день/чел (20 КМ × 400/мес)</td><td>1 FTE × 20/день = 5.9 мес</td></tr>
+<tr><td>MWI, Profi.ru<sup><a href="#s2" class="src-sup">[2,3]</a></sup></td><td>25–70 SKU/день/чел</td><td>1 FTE × 25–70/день = 1.6–4.5 мес</td></tr>
+<tr><td>Yavorsky (студия)<sup><a href="#s4" class="src-sup">[4]</a></sup></td><td>до 200/день (рекламная цифра, простые товары)</td><td>2 367 ÷ 200 = 12 дней (теоретический минимум только КМ)</td></tr>
+<tr><td>Цена за карточку<sup><a href="#s2" class="src-sup">[2,3,4]</a></sup></td><td>50–500 ₽ простая, 2 000+ ₽ премиум</td><td>118 000–1 200 000 ₽ только КМ-работа</td></tr>
+</tbody>
+</table>
+
+<div class="section-title">⏱ Сравнение 6 типовых операций</div>
+
+<table>
+<thead><tr>
+<th style="width:30%">Операция</th>
+<th style="width:24%">Классическая схема</th>
+<th style="width:24%">AI-агенты</th>
+<th style="width:22%">Эффект</th>
+</tr></thead>
+<tbody>
+<tr><td><div class="op">Миграция каталога</div><div class="op-mini">2 367 SKU с фото, описаниями, ценами</div></td><td><div class="classic">3–5 месяцев</div><div class="classic-mini">2 FTE КМ + dev, 25–50 SKU/день/чел</div></td><td><div class="ai">7 дней</div><div class="ai-mini">+ доработка настроек</div></td><td><span class="delta">×12–17 быстрее</span></td></tr>
+<tr><td><div class="op">Массовое обновление карточек</div><div class="op-mini">47 карточек по типовой команде</div></td><td><div class="classic">2–3 рабочих дня</div><div class="classic-mini">контент-менеджер вручную</div></td><td><div class="ai">4 часа</div><div class="ai-mini">реальный кейс прошлой недели</div></td><td><span class="delta">×5 быстрее</span></td></tr>
 <tr><td><div class="op">Создание контентной страницы</div><div class="op-mini">бренд / категория / промо</div></td><td><div class="classic">1–2 дня</div><div class="classic-mini">контент + дизайнер + согласование</div></td><td><div class="ai">30 минут</div><div class="ai-mini">от запроса до live</div></td><td><span class="delta">×32 быстрее</span></td></tr>
-<tr><td><div class="op">Сегментированная рассылка</div><div class="op-mini">14 001 контакт по сегментам</div></td><td><div class="classic">1–2 дня</div><div class="classic-mini">маркетолог + дизайнер + копирайтер</div></td><td><div class="ai">1 час</div><div class="ai-mini">включая сегментацию и верстку</div></td><td><span class="delta">×16 быстрее</span></td></tr>
+<tr><td><div class="op">Сегментированная рассылка</div><div class="op-mini">14 001 контакт по сегментам</div></td><td><div class="classic">1–2 дня</div><div class="classic-mini">маркетолог + дизайнер + копирайтер</div></td><td><div class="ai">1 час</div><div class="ai-mini">включая сегментацию и вёрстку</div></td><td><span class="delta">×16 быстрее</span></td></tr>
 <tr><td><div class="op">Подготовка КП клиенту</div><div class="op-mini">подбор оборудования под объект</div></td><td><div class="classic">4–6 часов</div><div class="classic-mini">менеджер + ценообразование</div></td><td><div class="ai">15 минут</div><div class="ai-mini">авто-генерация по брифу</div></td><td><span class="delta">×20 быстрее</span></td></tr>
 <tr><td><div class="op">Аналитика остатков</div><div class="op-mini">9 брендов · оборачиваемость · застывшие SKU</div></td><td><div class="classic">1 рабочий день</div><div class="classic-mini">аналитик в Excel</div></td><td><div class="ai">10 минут</div><div class="ai-mini">дашборд с графиками</div></td><td><span class="delta">×48 быстрее</span></td></tr>
 </tbody>
 </table>
+
 <div class="chart-block">
-<div class="chart-title">⏱ Ускорение операционного цикла, во сколько раз быстрее</div>
-<div class="chart-sub">Чем длиннее столбец — тем больше разрыв между классической схемой и работой агентов</div>
+<div class="chart-title">⏱ Ускорение операционного цикла, во сколько раз</div>
+<div class="chart-sub">Чем длиннее столбец — тем больше разрыв между публичной рыночной нормой и работой AI-агентов</div>
 <div class="chart-wrap"><canvas id="speedChart"></canvas></div>
 </div>
-<div class="budget">
-<div class="col">
-<h3>🏢 Классическая команда — бюджет/мес</h3>
-<p class="num classic-c">~900 000 ₽</p>
-<div class="breakdown"><b>Маркетолог</b> · 180 000 ₽<br><b>Контент-менеджер</b> · 120 000 ₽<br><b>Дизайнер</b> · 150 000 ₽<br><b>Аналитик / sales-ops</b> · 180 000 ₽<br><b>Соц. отчисления и накладные</b> · ~270 000 ₽<br><span style="color:#9ca3af">≈ 10,8 млн ₽ / год</span></div>
+
+<div class="note">
+ⓘ <b>Методология.</b> Цифры классической стороны — публичные бенчмарки агентств, интеграторов и PIM-кейсов российского и международного рынка e-com (2023–2026). AI-сторона — фактический run-rate Home Project за февраль–июнь 2026. Сценарий миграции — InSales (admin-driven) → Medusa (API-first headless), с фото, описаниями, ценами и характеристиками 2 367 SKU премиальной встраиваемой техники.
 </div>
-<div class="col">
-<h3>🤖 AI-агенты — бюджет/мес</h3>
-<p class="num ai-c">~45 000 ₽</p>
-<div class="breakdown"><b>Anthropic API</b> (Claude Sonnet, 20 ролей) · ~30 000 ₽<br><b>VPS + инфраструктура</b> · ~6 000 ₽<br><b>Сервисы интеграций</b> (Unisender, telegram, vk) · ~9 000 ₽<br><span style="color:#9ca3af">≈ 540 000 ₽ / год</span><div style="margin-top:10px;padding:8px 10px;background:rgba(16,185,129,.12);border-radius:6px;color:#6ee7b7;font-weight:600">Экономия ≈ 10,3 млн ₽ / год</div></div>
+
+<div class="sources">
+<h3>📚 Источники (полный список — в research-отчёте)</h3>
+<ol>
+<li id="s1"><a href="https://www.retail.ru/articles/kak-uskorit-rabotu-s-tovarnymi-kartochkami-v-30-raz/" target="_blank">Retail.ru — PIM-кейс: 20 контент-менеджеров × 400 карточек/мес = норма ~20 SKU/день/чел</a></li>
+<li id="s2"><a href="https://mwi.me/blog/napolnenie-internet-magazina/" target="_blank">MWI — Наполнение интернет-магазина товарами (норма 25–70 SKU/день)</a></li>
+<li id="s3"><a href="https://profi.ru/it_freelance/napolnenie-kartochek-tovara/price/" target="_blank">Profi.ru — Наполнение карточек товара, цены 2025 (50–250 ₽/SKU простая)</a></li>
+<li id="s4"><a href="https://yavorsky.ru/ruchnoe-napolnenie/" target="_blank">Yavorsky — Ручное наполнение интернет-магазина (до 200/день, авто рекомендуется при 1000+ SKU)</a></li>
+<li id="s8"><a href="https://b24.org.ru/import-tovarov-v-bitriks24-v-2025-polnaya/" target="_blank">b24.org.ru — Импорт товаров в Битрикс24 в 2025</a></li>
+<li id="s9"><a href="https://www.webformat.ru/internet-magazin-bitrix/" target="_blank">Webformat — Разработка интернет-магазинов 1С-Битрикс (1.5–6 мес)</a></li>
+<li id="s10"><a href="https://wrp.ru/uslugi/perenos-insales-bitrix/" target="_blank">WRP — Перенос InSales → Битрикс (1–3 мес)</a></li>
+<li id="s11"><a href="https://www.insales.ru/collection/doc-import-export/product/sozdanie-tovarov-s-pomoschyu-importa-iz-csv-i-xls" target="_blank">InSales — CSV/XLS-импорт (~1 000 SKU/час)</a></li>
+<li id="s12"><a href="https://www.insales.ru/page/move-to-insales" target="_blank">InSales — Перенос сайта под ключ (~20 дней)</a></li>
+<li id="s13"><a href="https://tilda.cc/ru/build-online-store/" target="_blank">Tilda — Build online store (лимит 5 000 SKU)</a></li>
+<li id="s14"><a href="https://stik.pro/blog/sroki-razrabotki-internet-magazina-na-shablone-tilda/" target="_blank">Stik.pro — Сроки разработки интернет-магазина на Tilda</a></li>
+<li id="s15"><a href="https://creatium.academy/blog/kejs-internet-magazina-Creatium" target="_blank">Creatium — Кейс интернет-магазина (100 SKU = 2 мес самостоятельно)</a></li>
+<li id="s16"><a href="https://www.charleagency.com/articles/migrate-to-shopify/" target="_blank">Charle Agency — Migrate to Shopify in 2026 (2–12 нед)</a></li>
+<li id="s17"><a href="https://uptek.com/blog/shopify-migration-cost-time/" target="_blank">Uptek — Shopify Migration Costs & Time 2025</a></li>
+<li id="s18"><a href="https://wisdmlabs.com/blog/woocommerce-product-migration-your-complete-guide-to-moving-products-without-breaking/" target="_blank">Wisdmlabs — WooCommerce product migration (2–8 нед)</a></li>
+<li id="s19"><a href="https://seahawkmedia.com/woocommerce/woocommerce-migration-process/" target="_blank">Seahawk Media — WooCommerce migration process</a></li>
+<li id="s20"><a href="https://bemeir.com/articles/magento-1-to-adobe-commerce-realistic-timeline-budget/" target="_blank">Bemeir — Magento → Adobe Commerce realistic timeline (3–6 мес)</a></li>
+<li id="s21"><a href="https://www.iwdagency.com/blogs/news/magento-to-adobe-commerce-migration-2026/" target="_blank">IWD Agency — Magento to Adobe Commerce 2026 playbook</a></li>
+<li id="s22"><a href="https://www.shopping-cart-migration.com/supported-carts/277-opencart" target="_blank">Cart2Cart — OpenCart migration</a></li>
+<li id="s23"><a href="https://litextension.com/blog/opencart-import-export/" target="_blank">LitExtension — OpenCart import/export 2026</a></li>
+<li id="s24"><a href="https://soware.ru/products/webasyst-shop-script" target="_blank">Soware — Webasyst Shop-Script 2026</a></li>
+<li id="s25"><a href="https://contextonline.ru/blog/skolko-po-vremeni-sozdayotsya-korporativnyy-sayt-i-internet-magazin/" target="_blank">Contextonline — Сроки разработки интернет-магазина</a></li>
+<li id="s26"><a href="https://medusajs.com/blog/magento-to-medusa-rigby/" target="_blank">Medusa Blog — Migrating from Magento to Medusa</a></li>
+<li id="s27"><a href="https://www.swell.is/content/migrating-medusa-swell" target="_blank">Swell — Medusa migration notes (CSV для <500 SKU)</a></li>
+<li id="s28"><a href="https://saleor.io/case-study" target="_blank">Saleor — case studies (Lush, Breitling)</a></li>
+</ol>
+<p style="margin-top:12px;font-size:12px;color:var(--mute)">Полная research-сводка с расчётами и вердиктом: <code>/var/lib/aifirst/agent-data/artifacts/research-ecom-migration-benchmarks-2026-06-23.md</code></p>
 </div>
-</div>
-<div class="note">ⓘ Цифры классической схемы — оценка по рыночным ставкам московского рынка дистрибуции (июнь 2026), полностью заменимый FTE-перечень для эквивалентного объёма операций. Цифры AI-стороны — фактический run-rate Home Project за май–июнь 2026.</div>
-<div class="foot"><div><b>Home Project</b> · homeproject.online · дистрибуция премиальной встраиваемой техники, 14 брендов</div><div>5 месяцев · 1 человек на решениях · 20 агентов на исполнении</div></div>
+
+<div class="foot"><div><b>Home Project</b> · homeproject.online · 14 премиальных европейских брендов</div><div>5 месяцев · 1 человек на решениях · 20 агентов на исполнении</div></div>
 </div>
 <script>
-const ctx = document.getElementById('speedChart').getContext('2d');
+const ctx=document.getElementById('speedChart').getContext('2d');
 new Chart(ctx,{type:'bar',data:{labels:['Аналитика остатков','Контентная страница','Подготовка КП','Сегмент. рассылка','Миграция каталога','Обновление карточек'],datasets:[{label:'Во сколько раз быстрее AI-агенты',data:[48,32,20,16,12,5],backgroundColor:'rgba(176,141,87,0.85)',borderColor:'#b08d57',borderWidth:1,borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>`×${c.parsed.x} быстрее`}}},scales:{x:{ticks:{color:'#9ca3af',callback:(v)=>'×'+v},grid:{color:'#2a2d38'},title:{display:true,text:'Ускорение, во сколько раз',color:'#9ca3af'}},y:{ticks:{color:'#e5e7eb',font:{size:13,weight:'600'}},grid:{display:false}}}}});
 </script>
 </body></html>
