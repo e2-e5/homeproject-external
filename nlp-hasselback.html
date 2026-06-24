@@ -1,1 +1,771 @@
-PLACEHOLDER_REPLACE
+<!doctype html><html lang="ru"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Модель приготовления картофеля Хассельбек — НЛП</title>
+<style>
+:root{
+  --cream:#FBF7EC; --beige:#F5EDD8; --olive:#6B7A3B; --yellow:#E8B042;
+  --dark:#2E2A26; --grey:#7A726B; --white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#1a1a1a;color:var(--dark);
+  font-family:'Montserrat','Inter','Roboto','Segoe UI',sans-serif;
+  -webkit-text-size-adjust:100%;}
+.deck{display:flex;flex-direction:column;align-items:center;gap:24px;
+  padding:24px 12px 80px;}
+.slide{
+  position:relative;width:min(1200px,96vw);aspect-ratio:16/9;
+  background:var(--cream);border-radius:14px;overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.45);
+  display:flex;flex-direction:column;
+}
+.accent-strip{height:14px;background:var(--yellow);flex-shrink:0}
+.head{padding:22px 38px 14px 38px}
+.kicker{font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--olive);
+  text-transform:uppercase}
+.title{font-size:30px;font-weight:800;color:var(--dark);margin-top:6px;
+  line-height:1.15}
+.underline{width:60px;height:3px;background:var(--yellow);margin-top:10px}
+.body{flex:1;padding:18px 38px 14px 38px;display:flex;flex-direction:column;
+  min-height:0}
+.footer{display:flex;justify-content:space-between;align-items:center;
+  padding:10px 38px 14px 38px;font-size:10px;color:var(--grey);flex-shrink:0}
+
+/* slide 1 */
+.title-slide{display:grid;grid-template-columns:38% 62%;padding:0}
+.title-slide .left{background:var(--olive);position:relative;overflow:hidden}
+.title-slide .left::before{content:"";position:absolute;width:420px;height:420px;
+  border-radius:50%;background:var(--yellow);top:-160px;left:-160px}
+.title-slide .left::after{content:"";position:absolute;width:280px;height:280px;
+  border-radius:50%;background:var(--beige);bottom:-100px;left:-80px}
+.title-slide .right{padding:60px 50px;display:flex;flex-direction:column;
+  justify-content:center}
+.title-slide .right .small{font-size:11px;letter-spacing:.14em;color:var(--olive);
+  font-weight:700;text-transform:uppercase}
+.title-slide .right h2{font-size:22px;color:var(--grey);font-weight:400;
+  margin-top:18px}
+.title-slide .right h1{font-size:56px;font-weight:800;color:var(--dark);
+  margin-top:8px;line-height:1.05}
+.title-slide .right .sub{font-size:14px;color:var(--olive);margin-top:24px}
+.title-slide .right .div{width:70px;height:3px;background:var(--yellow);
+  margin:28px 0 14px}
+.title-slide .right .authors-label{font-size:10px;color:var(--grey);
+  letter-spacing:.14em;font-weight:700}
+.title-slide .right .authors{font-size:14px;color:var(--dark);margin-top:8px}
+.title-slide .right .city{font-size:12px;color:var(--grey);margin-top:18px}
+
+/* common pieces */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border-radius:8px;padding:22px 22px 22px 30px;
+  position:relative;overflow:hidden}
+.card .bar{position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--olive)}
+.card .k{font-size:11px;font-weight:700;letter-spacing:.1em;margin-bottom:14px}
+.card .t{font-size:15px;color:var(--dark);line-height:1.45}
+.belief{margin-top:18px;background:var(--olive);color:#fff;border-radius:8px;
+  padding:18px 26px}
+.belief .lab{font-size:10px;letter-spacing:.14em;color:var(--yellow);font-weight:700}
+.belief .text{font-size:22px;font-weight:700;margin-top:8px}
+
+/* table */
+table.cmp{border-collapse:separate;border-spacing:0;width:100%;
+  font-size:13px;color:var(--dark)}
+table.cmp th{background:var(--olive);color:#fff;text-align:left;
+  padding:14px 16px;font-weight:700}
+table.cmp td{padding:12px 16px;background:#fff}
+table.cmp tr:nth-child(odd) td{background:var(--beige)}
+.note{margin-top:14px;color:var(--olive);font-weight:700;font-size:13px}
+
+/* trigger */
+.trigger{display:grid;grid-template-columns:25% 75%;gap:24px;flex:1}
+.badge{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.badge .circle{width:170px;height:170px;border-radius:50%;background:var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  font-size:62px;font-weight:800;color:var(--dark)}
+.badge .lab{margin-top:14px;font-size:11px;font-weight:700;color:var(--olive);
+  letter-spacing:.14em}
+.tblocks{display:flex;flex-direction:column;gap:14px}
+.tblock{background:#fff;border-radius:8px;padding:14px 22px;position:relative;
+  overflow:hidden}
+.tblock .bar{position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--olive)}
+.tblock .k{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--olive);
+  margin-bottom:6px}
+.tblock .t{font-size:15px;color:var(--dark);line-height:1.4}
+
+/* cycle slides */
+.cycle{display:grid;grid-template-columns:48% 52%;gap:22px;flex:1}
+.cycle .op{background:var(--olive);color:#fff;font-weight:700;font-size:13px;
+  padding:10px 18px;border-radius:6px}
+.cycle h4{font-size:10px;letter-spacing:.14em;color:var(--olive);font-weight:700;
+  margin:14px 0 10px}
+.cycle ul{list-style:none;padding:0;margin:0}
+.cycle li{position:relative;padding:8px 0 8px 22px;font-size:14px;color:var(--dark);
+  line-height:1.45}
+.cycle li::before{content:"";position:absolute;left:0;top:14px;width:10px;height:10px;
+  border-radius:50%;background:var(--yellow)}
+.branches{display:flex;flex-direction:column;gap:14px}
+.branch{background:#fff;border-radius:8px;padding:16px 22px;position:relative;
+  overflow:hidden;flex:1}
+.branch .bar{position:absolute;left:0;top:0;bottom:0;width:6px}
+.branch.yes .bar{background:var(--olive)}
+.branch.no  .bar{background:var(--yellow)}
+.branch .k{font-size:11px;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
+.branch.yes .k{color:var(--olive)}
+.branch.no  .k{color:var(--yellow)}
+.branch .t{font-size:14px;color:var(--dark);line-height:1.45;
+  white-space:pre-line}
+
+/* dilts */
+.dilts{display:grid;grid-template-columns:38% 62%;gap:24px;flex:1}
+.pyramid{display:flex;flex-direction:column;gap:4px;align-items:center;
+  justify-content:center}
+.lev{padding:12px 0;color:#fff;font-weight:700;font-size:13px;text-align:center;
+  border-radius:6px}
+.dcards{display:flex;flex-direction:column;gap:10px}
+.dcard{background:#fff;border-radius:8px;padding:10px 16px;position:relative;
+  overflow:hidden;display:flex;align-items:center;gap:14px}
+.dcard .bar{position:absolute;left:0;top:0;bottom:0;width:6px}
+.dcard .k{font-size:10px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;width:130px;flex-shrink:0}
+.dcard .t{font-size:12px;color:var(--dark)}
+
+/* values */
+.vals-wrap{display:grid;grid-template-columns:48% 52%;gap:22px;flex:1}
+.iconcept{background:var(--olive);color:#fff;border-radius:10px;padding:26px 30px;
+  display:flex;flex-direction:column;justify-content:space-between}
+.iconcept .lab{font-size:11px;letter-spacing:.14em;color:var(--yellow);
+  font-weight:700}
+.iconcept .big{font-size:30px;font-weight:800;line-height:1.15;margin-top:14px}
+.iconcept .note2{font-size:12px;color:var(--beige);margin-top:18px}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.vcell{background:#fff;border-radius:8px;overflow:hidden}
+.vcell .top{background:var(--yellow);height:8px}
+.vcell .k{font-size:12px;font-weight:700;letter-spacing:.08em;padding:14px 16px 6px;
+  color:var(--dark)}
+.vcell .t{font-size:13px;color:var(--dark);padding:0 16px 16px;line-height:1.4;
+  white-space:pre-line}
+
+/* tote */
+.tote-row{display:flex;align-items:center;justify-content:center;gap:14px;
+  margin-top:14px}
+.tnode{padding:18px 0;width:160px;border-radius:8px;color:#fff;font-weight:700;
+  font-size:16px;text-align:center}
+.tnode.test{background:var(--dark)}
+.tnode.op{background:var(--olive)}
+.tnode.exit{background:var(--yellow);color:var(--dark)}
+.tarrow{font-size:24px;color:var(--olive);font-weight:700}
+.tote-note{text-align:center;color:var(--grey);font-size:12px;margin-top:14px}
+.behav-title{font-size:11px;letter-spacing:.14em;color:var(--olive);font-weight:700;
+  margin-top:22px}
+.chain{display:flex;align-items:center;justify-content:space-between;
+  margin-top:14px;gap:10px}
+.cstep{background:#fff;border-radius:8px;flex:1;text-align:center;overflow:hidden}
+.cstep .top{background:var(--yellow);height:6px}
+.cstep .lab{padding:18px 0;font-size:15px;font-weight:700;color:var(--dark)}
+.carrow{font-size:18px;color:var(--olive)}
+
+/* metaprograms */
+.mp{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
+.mp th{background:var(--olive);color:#fff;text-align:left;padding:10px 14px;
+  font-weight:700}
+.mp td{padding:10px 14px;background:#fff;color:var(--dark)}
+.mp tr:nth-child(odd) td{background:var(--beige)}
+
+/* focuses */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;
+  align-content:start}
+.fcard{background:#fff;border-radius:8px;padding:14px 16px 14px 22px;
+  position:relative;overflow:hidden}
+.fcard .bar{position:absolute;left:0;top:0;bottom:0;width:5px}
+.fcard.olive .bar{background:var(--olive)}
+.fcard.yellow .bar{background:var(--yellow)}
+.fcard .k{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.fcard.olive .k{color:var(--olive)}
+.fcard .t{font-size:12px;color:var(--dark);line-height:1.4;white-space:pre-line}
+
+/* tote infographic */
+.tote-info{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  flex:1;gap:26px}
+.circles{display:flex;align-items:center;justify-content:center;gap:14px;
+  flex-wrap:wrap}
+.cnode{width:130px;height:130px;border-radius:50%;display:flex;
+  flex-direction:column;align-items:center;justify-content:center;color:#fff;
+  text-align:center;padding:0 6px}
+.cnode .big{font-size:18px;font-weight:800}
+.cnode .sub{font-size:11px;margin-top:4px;opacity:.95}
+.cnode .cap{font-size:9px;letter-spacing:.1em;margin-top:4px;opacity:.85}
+.cnode.t0{background:var(--yellow);color:var(--dark)}
+.cnode.cy{background:var(--olive)}
+.cnode.ex{background:var(--dark)}
+.carrow2{font-size:22px;color:var(--dark);font-weight:700}
+.loop-note{color:var(--olive);font-weight:700;font-size:12px;text-align:center}
+.legend2{color:var(--dark);font-size:13px;text-align:center}
+
+/* mindmap */
+.mind-wrap{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:14px}
+.mind-wrap img{max-width:100%;max-height:78%;height:auto;border-radius:6px;
+  box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.mind-cap{color:var(--grey);font-size:12px;text-align:center}
+
+/* final */
+.final{display:grid;grid-template-columns:62% 38%;padding:0;background:var(--olive)}
+.final .l{padding:60px 50px;color:#fff;display:flex;flex-direction:column;
+  justify-content:space-between}
+.final .l .top{font-size:11px;letter-spacing:.14em;font-weight:700;
+  color:var(--yellow)}
+.final .l .thanks{font-size:50px;font-weight:800;margin-top:14px}
+.final .l .sub2{font-size:26px;color:var(--beige);margin-top:8px}
+.final .l .div2{width:70px;height:3px;background:var(--yellow);margin:28px 0 12px}
+.final .l .flab{font-size:10px;letter-spacing:.14em;color:var(--yellow);
+  font-weight:700}
+.final .l .fbig{font-size:28px;font-weight:800;line-height:1.25;margin-top:8px}
+.final .l .alab{font-size:10px;letter-spacing:.14em;color:var(--yellow);
+  font-weight:700;margin-top:14px}
+.final .l .aval{font-size:12px;margin-top:6px}
+.final .r{background:var(--cream);position:relative;padding:60px 40px;
+  overflow:hidden}
+.final .r::after{content:"";position:absolute;width:260px;height:260px;
+  border-radius:50%;background:var(--yellow);bottom:-90px;right:-90px}
+.final .r .label{font-size:10px;letter-spacing:.14em;color:var(--olive);
+  font-weight:700;margin-top:14px;position:relative;z-index:1}
+.final .r .val{font-size:18px;font-weight:700;color:var(--dark);margin-top:4px;
+  position:relative;z-index:1}
+.final .r .val.small{font-size:14px;color:var(--grey);font-weight:400}
+
+/* phone */
+@media (max-width:680px){
+  .slide{width:100vw;border-radius:0}
+  .head{padding:14px 18px 6px}
+  .title{font-size:20px}
+  .body{padding:8px 18px}
+  .footer{padding:6px 18px 10px;font-size:9px}
+  .cards3{grid-template-columns:1fr;gap:10px}
+  .cycle, .dilts, .vals-wrap, .trigger, .title-slide, .final{
+    grid-template-columns:1fr;gap:14px}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .cnode{width:90px;height:90px}
+  .cnode .big{font-size:14px}
+  .cnode .sub{font-size:9px}
+  .cnode .cap{font-size:8px}
+  .tnode{width:90px;font-size:13px}
+  .iconcept .big{font-size:22px}
+}
+
+.toolbar{position:fixed;top:10px;right:10px;background:rgba(0,0,0,.55);
+  color:#fff;padding:8px 14px;border-radius:8px;font-size:12px;z-index:10}
+.toolbar a{color:var(--yellow);text-decoration:none;margin-left:10px}
+</style>
+</head>
+<body>
+<div class="deck">
+<section class="slide title-slide">
+  <div class="left"></div>
+  <div class="right">
+    <div class="small">Институт современного НЛП  ·  Превосходство 3.0</div>
+    <h2>Модель приготовления</h2>
+    <h1>картофеля<br>Хассельбек</h1>
+    <div class="sub">Hasselback Potatoes  ·  НЛП-моделирование</div>
+    <div class="div"></div>
+    <div class="authors-label">АВТОРЫ</div>
+    <div class="authors">Аверьянов Александр  ·  Гвоздева Снежана  ·  Федотова Галина</div>
+    <div class="city">Москва  ·  2026</div>
+  </div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 02  ·  Контекст</div>
+  <div class="title">Личный опыт как основа модели</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="cards3">
+      <div class="card"><div class="bar" style="background:var(--yellow)"></div>
+        <div class="k" style="color:var(--yellow)">ДЕТСТВО</div>
+        <div class="t">Первые наблюдения<br>за кухней семьи</div></div>
+      <div class="card"><div class="bar" style="background:var(--olive)"></div>
+        <div class="k" style="color:var(--olive)">САМОСТОЯТЕЛЬНАЯ ЖИЗНЬ</div>
+        <div class="t">Эксперименты,<br>собственные приёмы</div></div>
+      <div class="card"><div class="bar" style="background:var(--dark)"></div>
+        <div class="k" style="color:var(--dark)">РАБОТА В КУЛИНАРНЫХ СТУДИЯХ</div>
+        <div class="t">Структурирование,<br>передача опыта</div></div>
+    </div>
+    <div class="belief">
+      <div class="lab">КЛЮЧЕВОЕ УБЕЖДЕНИЕ</div>
+      <div class="text">«Нет ошибок, есть только обратная связь»</div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>2 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 03  ·  Рамка</div>
+  <div class="title">Рецепт vs НЛП-модель</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <table class="cmp">
+      <tr><th style="width:24%">Критерий</th><th style="width:36%">Рецепт</th><th>НЛП-модель</th></tr>
+      <tr><td>Цель</td><td>Воспроизвести блюдо</td><td>Передать паттерн мышления</td></tr>
+      <tr><td>Содержание</td><td>Ингредиенты и шаги</td><td>Стратегии, ценности, сенсорика</td></tr>
+      <tr><td>Контроль</td><td>Время и температура</td><td>TOTE: тест → операция → тест → выход</td></tr>
+      <tr><td>Результат</td><td>Готовое блюдо</td><td>Воспроизводимое мастерство</td></tr>
+      <tr><td>Передача опыта</td><td>Текстом, по шагам</td><td>Сенсорный + смысловой образ</td></tr>
+    </table>
+    <div class="note">Модель передаёт паттерн мышления и сенсорный опыт — не только последовательность шагов.</div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>3 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 04  ·  Т0</div>
+  <div class="title">Триггер — запуск процесса</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="trigger">
+      <div class="badge">
+        <div class="circle">Т0</div>
+        <div class="lab">ТРИГГЕР</div>
+      </div>
+      <div class="tblocks">
+        <div class="tblock"><div class="bar"></div>
+          <div class="k">СИТУАЦИЯ</div>
+          <div class="t">Графики семьи редко совпадают — сегодня день, когда можно собраться вместе.</div></div>
+        <div class="tblock"><div class="bar"></div>
+          <div class="k">ЖЕЛАНИЕ</div>
+          <div class="t">Порадовать семью красивым, праздничным блюдом.</div></div>
+        <div class="tblock"><div class="bar"></div>
+          <div class="k">СЕНСОРНЫЙ ОБРАЗ</div>
+          <div class="t">Золотистый веер картофеля, зелень, соль-флёр на тёплой керамике.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>4 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 05  ·  Цикл 0</div>
+  <div class="title">Цикл 0 — Выбор картофеля</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="cycle">
+      <div>
+        <div class="op">О0  ·  Отбор сырья по сенсорным критериям</div>
+        <h4>КРИТЕРИИ / ШАГИ</h4>
+        <ul><li>Назначение: универсальный / для запекания</li>
+<li>Форма: ровная, без впадин</li>
+<li>Размер: примерно одинаковый (≈ ладонь)</li>
+<li>Кожица: гладкая, целая, без зелени</li></ul>
+      </div>
+      <div class="branches">
+        <div class="branch yes"><div class="bar"></div>
+          <div class="k">ЕСЛИ ДА  →</div>
+          <div class="t">Переход к Циклу 1: подготовка и нарезка.</div></div>
+        <div class="branch no"><div class="bar"></div>
+          <div class="k">ЕСЛИ НЕТ  ✕</div>
+          <div class="t">Замена клубней / партии → возврат к Тесту 0.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>5 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 06  ·  Цикл 1</div>
+  <div class="title">Цикл 1 — Подготовка (О1.1)</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="cycle">
+      <div>
+        <div class="op">О1.1  ·  Чесночное масло + подготовка картофеля</div>
+        <h4>КРИТЕРИИ / ШАГИ</h4>
+        <ul><li>Чеснок: измельчить мелким кубиком</li>
+<li>Смешать с оливковым маслом, слегка прогреть</li>
+<li>Картофель вымыть, тщательно высушить</li>
+<li>Не чистить — кожица даёт корочку и форму</li></ul>
+      </div>
+      <div class="branches">
+        <div class="branch yes"><div class="bar"></div>
+          <div class="k">ЕСЛИ ДА  →</div>
+          <div class="t">Масло ароматное, картофель сухой → Цикл 1.2: нарезка.</div></div>
+        <div class="branch no"><div class="bar"></div>
+          <div class="k">ЕСЛИ НЕТ  ✕</div>
+          <div class="t">Если масло горчит / клубни влажные — повторить подготовку.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>6 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 07  ·  Цикл 1</div>
+  <div class="title">Цикл 1 — Нарезка (О1.2)</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="cycle">
+      <div>
+        <div class="op">О1.2  ·  Веерная нарезка с палочками для суши</div>
+        <h4>КРИТЕРИИ / ШАГИ</h4>
+        <ul><li>Тест ножа: проверить остроту (волокно томата)</li>
+<li>Уложить клубень между двух палочек для суши</li>
+<li>Нарезать с шагом ≈ 3 мм, не доходя до низа</li>
+<li>Аккуратно срезать «хвостики» для устойчивости</li></ul>
+      </div>
+      <div class="branches">
+        <div class="branch yes"><div class="bar"></div>
+          <div class="k">ЕСЛИ ДА  →</div>
+          <div class="t">Тест 1.2: клубень держит форму, лепестки одинаковой толщины → Цикл 2.</div></div>
+        <div class="branch no"><div class="bar"></div>
+          <div class="k">ЕСЛИ НЕТ  ✕</div>
+          <div class="t">Слишком тонко / прорезано до низа — взять следующий клубень, скорректировать руку.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>7 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 08  ·  Цикл 2</div>
+  <div class="title">Цикл 2 — Запекание (О2.1)</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="cycle">
+      <div>
+        <div class="op">О2.1  ·  Духовка: 200 °C, верх + низ, 45 минут</div>
+        <h4>КРИТЕРИИ / ШАГИ</h4>
+        <ul><li>Противень с пергаментом, веером вверх</li>
+<li>Режим: верх + низ (без конвекции)</li>
+<li>Тест 2.1: веер раскрыт, корочка RGB ≈ (240, 200, 80)</li>
+<li>Если бледно — продлить; если темнеет — фольга</li></ul>
+      </div>
+      <div class="branches">
+        <div class="branch yes"><div class="bar"></div>
+          <div class="k">ЕСЛИ ДА  →</div>
+          <div class="t">Веер раскрыт, цвет золотистый → переход к О2.2 (финал).</div></div>
+        <div class="branch no"><div class="bar"></div>
+          <div class="k">ЕСЛИ НЕТ  ✕</div>
+          <div class="t">Накрыть фольгой и допекать 5–10 минут, повторить Тест 2.1.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>8 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 09  ·  Цикл 2</div>
+  <div class="title">Цикл 2 — Финал с грилем (О2.2)</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="cycle">
+      <div>
+        <div class="op">О2.2  ·  Соль, масло, розмарин → гриль 5 минут / 200 °C</div>
+        <h4>КРИТЕРИИ / ШАГИ</h4>
+        <ul><li>Посолить между срезами и сверху</li>
+<li>Полить чесночным маслом, оно затечёт в надрезы</li>
+<li>Розмарин разложить веточками на противень</li>
+<li>Включить режим «гриль» — 5 минут при 200 °C</li></ul>
+      </div>
+      <div class="branches">
+        <div class="branch yes"><div class="bar"></div>
+          <div class="k">ЕСЛИ ДА  →</div>
+          <div class="t">Кромка лепестков хрустит, аромат розмарина — переход к Циклу 3 (подача).</div></div>
+        <div class="branch no"><div class="bar"></div>
+          <div class="k">ЕСЛИ НЕТ  ✕</div>
+          <div class="t">Если мало корки — добавить 2 минуты гриля, контролировать визуально.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>9 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 10  ·  Цикл 3</div>
+  <div class="title">Цикл 3 — Подача (О3)</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="cycle">
+      <div>
+        <div class="op">О3  ·  Финиш: зелень, соль-флёр, тёплая тарелка</div>
+        <h4>КРИТЕРИИ / ШАГИ</h4>
+        <ul><li>Петрушка + укроп, мелко (шаг ≈ 5 мм)</li>
+<li>Посыпать веер сверху, не закрывая корку</li>
+<li>Соль-флёр — крупными хлопьями, точечно</li>
+<li>Тест 3: визуальный «золотистый веер + зелень»</li></ul>
+      </div>
+      <div class="branches">
+        <div class="branch yes"><div class="bar"></div>
+          <div class="k">ЕСЛИ ДА  →</div>
+          <div class="t">Семья реагирует «вау» → EXIT, цикл завершён.</div></div>
+        <div class="branch no"><div class="bar"></div>
+          <div class="k">ЕСЛИ НЕТ  ✕</div>
+          <div class="t">Подача выглядит тускло — добавить зелень / соль, перепроверить ракурс блюда.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>10 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 11  ·  Структура модели</div>
+  <div class="title">Пирамида Дилтса</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="dilts">
+      <div class="pyramid">
+        <div class="lev" style="background:var(--dark);width:30%">Я-концепция</div>
+        <div class="lev" style="background:var(--olive);width:45%">Ценности</div>
+        <div class="lev" style="background:var(--yellow);color:var(--dark);width:60%">Стратегии</div>
+        <div class="lev" style="background:var(--grey);width:78%">Поведение</div>
+        <div class="lev" style="background:var(--beige);color:var(--dark);width:95%">Окружение</div>
+      </div>
+      <div class="dcards">
+        <div class="dcard"><div class="bar" style="background:var(--dark)"></div>
+          <div class="k" style="color:var(--dark)">Я-концепция</div>
+          <div class="t">«Кто я в этом процессе»</div></div>
+        <div class="dcard"><div class="bar" style="background:var(--olive)"></div>
+          <div class="k" style="color:var(--olive)">Ценности</div>
+          <div class="t">Что важно: забота, любовь</div></div>
+        <div class="dcard"><div class="bar" style="background:var(--yellow)"></div>
+          <div class="k" style="color:var(--dark)">Стратегии</div>
+          <div class="t">Как: TOTE-цикл, сенсорные тесты</div></div>
+        <div class="dcard"><div class="bar" style="background:var(--grey)"></div>
+          <div class="k" style="color:var(--grey)">Поведение</div>
+          <div class="t">Что делаю: операции О1–О3</div></div>
+        <div class="dcard"><div class="bar" style="background:var(--beige)"></div>
+          <div class="k" style="color:var(--dark)">Окружение</div>
+          <div class="t">Кухня, продукты, семья</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>11 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 12  ·  Уровни модели</div>
+  <div class="title">Я-концепция и ценности</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="vals-wrap">
+      <div class="iconcept">
+        <div>
+          <div class="lab">Я-КОНЦЕПЦИЯ</div>
+          <div class="big">«Я — творческий<br>и заботливый<br>повар»</div>
+        </div>
+        <div class="note2">Внутренняя роль, из которой запускается весь процесс приготовления.</div>
+      </div>
+      <div class="vgrid">
+        <div class="vcell"><div class="top"></div><div class="k">ЗАБОТА</div>
+          <div class="t">О близких, о вкусе,<br>о красоте подачи</div></div>
+        <div class="vcell"><div class="top"></div><div class="k">ЛЮБОВЬ</div>
+          <div class="t">Эмоциональный<br>резонанс блюда</div></div>
+        <div class="vcell"><div class="top"></div><div class="k">СВОБОДА</div>
+          <div class="t">Право<br>на импровизацию</div></div>
+        <div class="vcell"><div class="top"></div><div class="k">САМОРЕАЛИЗАЦИЯ</div>
+          <div class="t">Через ремесло<br>и мастерство</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>12 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 13  ·  Стратегии и поведение</div>
+  <div class="title">TOTE: тест — операция — тест — выход</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="tote-row">
+      <div class="tnode test">ТЕСТ</div><div class="tarrow">→</div>
+      <div class="tnode op">ОПЕРАЦИЯ</div><div class="tarrow">→</div>
+      <div class="tnode test">ТЕСТ</div><div class="tarrow">→</div>
+      <div class="tnode exit">ВЫХОД</div>
+    </div>
+    <div class="tote-note">Сенсорный тест → корректирующая операция → повторный тест → выход к следующему циклу.</div>
+    <div class="behav-title">ПОВЕДЕНИЕ — ЦЕПОЧКА ОТ ВЫБОРА ДО ПОДАЧИ</div>
+    <div class="chain">
+      <div class="cstep"><div class="top"></div><div class="lab">Выбор</div></div>
+      <div class="carrow">→</div>
+      <div class="cstep"><div class="top"></div><div class="lab">Нарезка</div></div>
+      <div class="carrow">→</div>
+      <div class="cstep"><div class="top"></div><div class="lab">Запекание</div></div>
+      <div class="carrow">→</div>
+      <div class="cstep"><div class="top"></div><div class="lab">Гриль</div></div>
+      <div class="carrow">→</div>
+      <div class="cstep"><div class="top"></div><div class="lab">Подача</div></div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>13 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 14  ·  Уровень мышления</div>
+  <div class="title">Метапрограммы</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <table class="mp">
+      <tr><th style="width:28%">Метапрограмма</th><th style="width:36%">Паттерн</th><th>Проявление в модели</th></tr>
+      <tr><td>Сортировка по результату</td><td>Фокус на конечном образе блюда</td><td>«Золотистый веер + зелень»</td></tr>
+      <tr><td>Внутренняя референция</td><td>Сенсорная самопроверка</td><td>Глаз, нос, рука важнее таймера</td></tr>
+      <tr><td>Процедура + опции</td><td>Каркас цикла + свобода внутри</td><td>Точные шаги, выбор сорта/масла</td></tr>
+      <tr><td>Сходство</td><td>Каждый раз тот же узнаваемый образ</td><td>Веер, корочка, тёплая палитра</td></tr>
+      <tr><td>Активный</td><td>Я инициирую процесс</td><td>Сам выбираю день и собираю семью</td></tr>
+      <tr><td>Приближение к</td><td>Движение к красоте и удовольствию</td><td>Не «избежать неудачи», а порадовать</td></tr>
+    </table>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>14 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 15  ·  Фокусы языка</div>
+  <div class="title">Часть 1 — Ключевые фокусы</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="fgrid"><div class="fcard olive"><div class="bar"></div><div class="k">Разделение</div><div class="t">От «картошка в духовке» до тонкой операции «нарезка веером»</div></div>
+<div class="fcard olive"><div class="bar"></div><div class="k">Иерархия критериев</div><div class="t">Красота подачи > точность таймера</div></div>
+<div class="fcard olive"><div class="bar"></div><div class="k">Модель мира</div><div class="t">Кулинария = язык заботы и сборки семьи</div></div>
+<div class="fcard olive"><div class="bar"></div><div class="k">Аналогия</div><div class="t">Веер картофеля как метафора раскрытия и щедрости</div></div>
+<div class="fcard olive"><div class="bar"></div><div class="k">Намерение</div><div class="t">Не накормить, а порадовать</div></div>
+<div class="fcard olive"><div class="bar"></div><div class="k">Стратегия реальности</div><div class="t">Сенсорные тесты вместо слепого следования рецепту</div></div>
+<div class="fcard olive"><div class="bar"></div><div class="k">Переопределение</div><div class="t">Не «ошибка», а «обратная связь от блюда»</div></div></div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>15 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 16  ·  Фокусы языка</div>
+  <div class="title">Часть 2 — Дополнительные фокусы</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="fgrid"><div class="fcard yellow"><div class="bar"></div><div class="k">Другой результат</div><div class="t">Не идеальная корочка, а атмосфера за столом</div></div>
+<div class="fcard yellow"><div class="bar"></div><div class="k">Противоположный пример</div><div class="t">Случаи, когда «по рецепту» — невкусно</div></div>
+<div class="fcard yellow"><div class="bar"></div><div class="k">Обобщение</div><div class="t">Любое блюдо требует сенсорной обратной связи</div></div>
+<div class="fcard yellow"><div class="bar"></div><div class="k">Метафрейм</div><div class="t">Готовка как практика присутствия и заботы</div></div>
+<div class="fcard yellow"><div class="bar"></div><div class="k">Применение к себе</div><div class="t">Я сам слежу за тем, как я готовлю себе</div></div>
+<div class="fcard yellow"><div class="bar"></div><div class="k">Изменение размера фрейма</div><div class="t">От «один ужин» до «семейный ритуал года»</div></div></div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>16 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 17  ·  Визуальная инфографика</div>
+  <div class="title">Схема TOTE: Т0 → Циклы → EXIT</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="tote-info">
+      <div class="circles">
+        <div class="cnode t0"><div class="big">Т0</div><div class="sub">Триггер</div><div class="cap">вход</div></div><div class="carrow2">→</div>
+        <div class="cnode cy"><div class="big">Цикл 0</div><div class="sub">Выбор</div><div class="cap">О0</div></div><div class="carrow2">→</div>
+        <div class="cnode cy"><div class="big">Цикл 1</div><div class="sub">Нарезка</div><div class="cap">О1.1 / О1.2</div></div><div class="carrow2">→</div>
+        <div class="cnode cy"><div class="big">Цикл 2</div><div class="sub">Запекание</div><div class="cap">О2.1 / О2.2</div></div><div class="carrow2">→</div>
+        <div class="cnode cy"><div class="big">Цикл 3</div><div class="sub">Подача</div><div class="cap">О3</div></div><div class="carrow2">→</div>
+        <div class="cnode ex"><div class="big">EXIT</div><div class="sub">Семья «вау»</div><div class="cap">выход</div></div>
+      </div>
+      <div class="loop-note">↺ обратная связь · повтор теста · корректирующая операция</div>
+      <div class="legend2">Каждый цикл = микро-TOTE: тест → операция → повторный тест → выход.</div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>17 / 19</span>
+</div>
+</section><section class="slide">
+  <div class="accent-strip"></div>
+<div class="head">
+  <div class="kicker">Слайд 18  ·  Майнд-карта</div>
+  <div class="title">Структура модели (TOTE)</div>
+  <div class="underline"></div>
+</div>
+  <div class="body">
+    <div class="mind-wrap">
+      <img src="https://e2-e5.github.io/homeproject-external/mindmap-hasselback.jpg" alt="Майнд-карта Хассельбек TOTE">
+      <div class="mind-cap">Майнд-карта модели приготовления картофеля Хассельбек (TOTE)</div>
+    </div>
+  </div>
+  <div class="footer">
+  <span>Институт современного НЛП  ·  Превосходство 3.0  ·  Москва 2026</span>
+  <span>18 / 19</span>
+</div>
+</section><section class="slide final">
+  <div class="l">
+    <div>
+      <div class="top">EXIT  ·  ФИНАЛ</div>
+      <div class="thanks">Спасибо</div>
+      <div class="sub2">за внимание</div>
+      <div class="div2"></div>
+      <div class="flab">ФИНАЛЬНАЯ МЫСЛЬ</div>
+      <div class="fbig">«Нет ошибок,<br>есть только<br>обратная связь»</div>
+    </div>
+    <div>
+      <div class="alab">АВТОРЫ</div>
+      <div class="aval">Аверьянов Александр  ·  Гвоздева Снежана  ·  Федотова Галина</div>
+    </div>
+  </div>
+  <div class="r">
+    <div class="label">КУРС</div>
+    <div class="val">Превосходство 3.0</div>
+    <div class="val small">Институт современного НЛП</div>
+    <div class="label">ТЕМА</div>
+    <div class="val">Модель приготовления<br>картофеля Хассельбек</div>
+    <div class="label">ГОД  ·  МЕСТО</div>
+    <div class="val">Москва, 2026</div>
+  </div>
+</section>
+</div>
+</body></html>
