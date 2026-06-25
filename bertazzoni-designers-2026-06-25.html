@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Bertazzoni × Home Project — слайды для дизайнеров</title>
+<meta name="viewport" content="width=1280">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E0E0E;
+    --ink-2:#2A2A2A;
+    --muted:#6B6B6B;
+    --paper:#F4EFE6;
+    --paper-2:#ECE6D9;
+    --bertazzoni:#B61E22;
+    --bertazzoni-deep:#7E1416;
+    --gold:#A98344;
+    --hair:rgba(14,14,14,.12);
+    --hair-strong:rgba(14,14,14,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#1a1a1a;color:#fff;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
+  body{padding:48px 24px 96px}
+  .page-head{max-width:1240px;margin:0 auto 40px;display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .page-head h1{font-family:'Cormorant',serif;font-weight:500;font-size:32px;letter-spacing:-.01em}
+  .page-head p{color:#9a9a9a;font-size:14px;max-width:560px}
+  .nav{display:flex;gap:8px;flex-wrap:wrap}
+  .nav a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.15);padding:8px 14px;border-radius:999px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;transition:.2s}
+  .nav a:hover{background:#fff;color:#0E0E0E}
+  .slide-wrap{max-width:1240px;margin:0 auto 80px}
+  .slide-meta{display:flex;justify-content:space-between;align-items:flex-end;margin:0 0 14px;gap:24px}
+  .slide-meta .tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9a9a9a}
+  .slide-meta .ttl{font-family:'Cormorant',serif;font-size:22px;font-weight:500;color:#fff}
+  .slide{aspect-ratio:16/9;background:var(--paper);color:var(--ink);border-radius:6px;overflow:hidden;position:relative;box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+  .grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.5;background:radial-gradient(circle at 20% 30%, rgba(0,0,0,.04) 0, transparent 40%),radial-gradient(circle at 80% 70%, rgba(0,0,0,.05) 0, transparent 45%),radial-gradient(circle at 50% 50%, rgba(166,131,68,.03) 0, transparent 60%)}
+  .strip{position:absolute;top:0;left:0;right:0;padding:28px 56px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--hair);z-index:2}
+  .strip .left{display:flex;align-items:center;gap:18px}
+  .b-mark{font-family:'Cormorant',serif;font-style:italic;font-weight:500;font-size:30px;letter-spacing:.01em;color:var(--bertazzoni);line-height:1}
+  .b-mark sup{font-size:11px;font-style:normal;color:var(--muted);margin-left:6px;vertical-align:super;letter-spacing:.1em}
+  .since{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .strip .right{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .footer-strip{position:absolute;left:0;right:0;bottom:0;padding:18px 56px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--hair);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);z-index:2}
+  .hp-mini{display:flex;align-items:baseline;gap:6px;font-family:'Cormorant',serif;font-weight:600;font-size:16px;color:var(--ink);letter-spacing:0;text-transform:none}
+  .hp-mini .gold{color:var(--gold);font-style:italic;font-weight:500}
+  .hp-mini .roof{display:inline-block;color:var(--gold);transform:translateY(-2px)}
+  .s-a1{padding:120px 56px 76px}
+  .a1-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;gap:40px}
+  .a1-eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--bertazzoni);font-weight:600}
+  .a1-title{font-family:'Cormorant',serif;font-weight:500;font-size:64px;line-height:.95;letter-spacing:-.02em;margin-top:14px;max-width:760px}
+  .a1-title em{font-style:italic;color:var(--bertazzoni)}
+  .a1-lede{max-width:300px;font-size:13px;line-height:1.55;color:var(--ink-2)}
+  .a1-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--hair-strong)}
+  .a1-cell{padding:28px 28px 28px 28px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);position:relative;display:flex;flex-direction:column;gap:10px}
+  .a1-cell:nth-child(3n){border-right:none;padding-right:0}
+  .a1-cell:nth-child(3n+1){padding-left:0}
+  .a1-cell:nth-child(n+4):nth-child(-n+6){border-bottom:none}
+  .a1-num{font-family:'Cormorant',serif;font-style:italic;font-weight:500;color:var(--bertazzoni);font-size:42px;line-height:1}
+  .a1-cell h3{font-family:'Cormorant',serif;font-weight:600;font-size:24px;line-height:1.15;color:var(--ink);letter-spacing:-.005em}
+  .a1-cell p{font-size:12.5px;line-height:1.55;color:var(--ink-2);max-width:280px}
+  .s-a2{padding:120px 56px 80px;background:#fff}
+  .s-a2 .strip{background:#fff}
+  .a2-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px}
+  .a2-head h2{font-family:'Cormorant',serif;font-weight:500;font-size:54px;line-height:.95;letter-spacing:-.02em;max-width:680px}
+  .a2-head h2 em{font-style:italic;color:var(--bertazzoni)}
+  .a2-head .meta{text-align:right}
+  .a2-head .meta .kicker{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--bertazzoni);font-weight:600;margin-bottom:6px}
+  .a2-head .meta .sub{font-family:'Cormorant',serif;font-size:18px;color:var(--ink-2);max-width:280px;line-height:1.3}
+  .a2-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .a2-card{background:var(--paper);padding:22px 18px 20px;border-radius:4px;display:flex;flex-direction:column;gap:10px;min-height:240px;position:relative;border:1px solid rgba(14,14,14,.06)}
+  .a2-icon{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bertazzoni);color:#fff;font-family:'Cormorant',serif;font-style:italic;font-weight:600;font-size:20px;line-height:1}
+  .a2-card h4{font-family:'Cormorant',serif;font-weight:600;font-size:19px;line-height:1.15;color:var(--ink);margin-top:6px}
+  .a2-card p{font-size:11.5px;line-height:1.5;color:var(--ink-2);margin-top:auto}
+  .s-a3{padding:0;background:linear-gradient(180deg,var(--paper) 0%, var(--paper-2) 100%)}
+  .a3-layout{display:grid;grid-template-columns:1fr 1.25fr;height:100%}
+  .a3-left{background:var(--bertazzoni);color:#fff;padding:120px 56px 76px;position:relative;display:flex;flex-direction:column;justify-content:space-between}
+  .a3-left .b-mark{color:#fff}
+  .a3-left .since{color:rgba(255,255,255,.7)}
+  .a3-left .strip{border-bottom:1px solid rgba(255,255,255,.2)}
+  .a3-left .strip .right{color:rgba(255,255,255,.7)}
+  .a3-eyebrow-w{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:24px}
+  .a3-h1{font-family:'Cormorant',serif;font-weight:400;font-size:74px;line-height:.92;letter-spacing:-.02em}
+  .a3-h1 em{font-style:italic;font-weight:500}
+  .a3-quote{font-family:'Cormorant',serif;font-style:italic;font-size:18px;line-height:1.4;color:rgba(255,255,255,.85);margin-top:32px;max-width:380px;border-left:1px solid rgba(255,255,255,.4);padding-left:16px}
+  .a3-right{padding:120px 56px 76px;display:flex;flex-direction:column;justify-content:center}
+  .a3-list{display:flex;flex-direction:column;gap:0}
+  .a3-item{display:grid;grid-template-columns:48px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--hair)}
+  .a3-item:last-child{border-bottom:none}
+  .a3-item .n{font-family:'Cormorant',serif;font-style:italic;font-size:32px;color:var(--bertazzoni);line-height:1;font-weight:500}
+  .a3-item .body h4{font-family:'Cormorant',serif;font-weight:600;font-size:21px;line-height:1.1;color:var(--ink);margin-bottom:4px}
+  .a3-item .body p{font-size:12px;line-height:1.5;color:var(--ink-2);max-width:480px}
+  .s-b1{padding:0;background:var(--paper)}
+  .b1-grid{display:grid;grid-template-columns:1.1fr 1fr;height:100%}
+  .b1-left{padding:120px 56px 76px;display:flex;flex-direction:column;justify-content:space-between;position:relative;border-right:1px solid var(--hair-strong)}
+  .b1-right{padding:120px 56px 76px;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;position:relative}
+  .b1-right .strip{border-bottom:1px solid rgba(244,239,230,.15)}
+  .b1-right .strip .right{color:rgba(244,239,230,.6)}
+  .b1-right .b-mark{color:#fff}
+  .b1-right .since{color:rgba(244,239,230,.6)}
+  .b1-kicker{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--bertazzoni);font-weight:600;margin-bottom:18px}
+  .b1-h{font-family:'Cormorant',serif;font-weight:500;font-size:58px;line-height:.95;letter-spacing:-.02em;color:var(--ink);max-width:540px}
+  .b1-h em{font-style:italic;color:var(--bertazzoni)}
+  .b1-lede{font-size:13px;line-height:1.6;color:var(--ink-2);max-width:440px;margin-top:24px}
+  .b1-stamp{margin-top:32px;display:inline-flex;align-items:center;gap:14px;padding:14px 20px;background:#fff;border:1px solid var(--hair-strong);border-radius:4px;align-self:flex-start}
+  .b1-stamp .seal{width:42px;height:42px;border-radius:50%;background:var(--bertazzoni);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-style:italic;font-size:22px}
+  .b1-stamp .t{display:flex;flex-direction:column;line-height:1.15}
+  .b1-stamp .t .row1{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .b1-stamp .t .row2{font-family:'Cormorant',serif;font-size:18px;font-weight:600;color:var(--ink)}
+  .b1-hpwordmark{font-family:'Cormorant',serif;font-weight:600;font-size:54px;letter-spacing:-.01em;color:#fff;line-height:1;display:flex;align-items:baseline;gap:10px;position:relative}
+  .b1-hpwordmark .gold{color:var(--gold);font-style:italic;font-weight:500}
+  .b1-hpwordmark .roof{position:absolute;top:-22px;left:84px;color:var(--gold);font-size:34px;font-weight:300;line-height:1}
+  .b1-r-list{display:flex;flex-direction:column;gap:0;margin-top:36px}
+  .b1-r-item{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:18px 0;border-bottom:1px solid rgba(244,239,230,.12)}
+  .b1-r-item:last-child{border-bottom:none}
+  .b1-r-item .ic{width:34px;height:34px;border-radius:50%;border:1px solid rgba(244,239,230,.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-style:italic;color:var(--gold);font-size:16px}
+  .b1-r-item h5{font-family:'Cormorant',serif;font-weight:600;font-size:18px;color:#fff;line-height:1.1;margin-bottom:3px}
+  .b1-r-item p{font-size:12px;line-height:1.5;color:rgba(244,239,230,.7);max-width:380px}
+  .b1-contact{padding-top:24px;border-top:1px solid rgba(244,239,230,.15);display:flex;justify-content:space-between;gap:24px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,239,230,.6)}
+  .b1-contact strong{color:#fff;font-weight:600;letter-spacing:.04em;text-transform:none;font-size:14px;display:block;margin-top:4px;font-family:'Inter',sans-serif}
+  .s-b2{padding:120px 56px 80px;background:var(--paper);text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px}
+  .b2-frame{border:1px double var(--hair-strong);padding:48px 64px 56px;max-width:880px;width:100%;background:#fff;position:relative}
+  .b2-frame::before,.b2-frame::after{content:'';position:absolute;width:48px;height:48px;border:1px solid var(--bertazzoni)}
+  .b2-frame::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
+  .b2-frame::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
+  .b2-eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--bertazzoni);font-weight:600}
+  .b2-h{font-family:'Cormorant',serif;font-weight:500;font-size:56px;line-height:1;letter-spacing:-.02em;margin-top:14px}
+  .b2-h em{font-style:italic;color:var(--bertazzoni)}
+  .b2-divider{display:flex;align-items:center;gap:14px;justify-content:center;margin:22px 0}
+  .b2-divider .line{width:80px;height:1px;background:var(--hair-strong)}
+  .b2-divider .dot{width:6px;height:6px;border-radius:50%;background:var(--bertazzoni)}
+  .b2-body{font-family:'Cormorant',serif;font-size:21px;line-height:1.45;color:var(--ink-2);max-width:680px;margin:0 auto}
+  .b2-body strong{color:var(--ink);font-weight:600;font-style:italic}
+  .b2-stamps{display:flex;justify-content:center;gap:48px;margin-top:36px;padding-top:28px;border-top:1px solid var(--hair)}
+  .b2-stamp{text-align:center}
+  .b2-stamp .icon{width:54px;height:54px;border-radius:50%;background:var(--bertazzoni);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-style:italic;font-size:26px;margin-bottom:10px}
+  .b2-stamp .lbl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .b2-stamp .val{font-family:'Cormorant',serif;font-weight:600;font-size:17px;color:var(--ink);margin-top:2px}
+  @media print{body{background:#fff;padding:0}.page-head,.slide-meta,.nav{display:none}.slide-wrap{margin:0;page-break-after:always}.slide{aspect-ratio:auto;height:100vh;border-radius:0;box-shadow:none}}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div>
+    <h1>Bertazzoni × Home Project</h1>
+    <p>Слайд для дизайнеров и архитекторов: 6 фактов о бренде + позиционирование Home Project как официального поставщика в России. Три варианта верстки слайда «О Bertazzoni» и два варианта слайда «Home Project».</p>
+  </div>
+  <nav class="nav">
+    <a href="#a1">A1 · сетка</a>
+    <a href="#a2">A2 · 6 карт</a>
+    <a href="#a3">A3 · editorial</a>
+    <a href="#b1">B1 · диптих</a>
+    <a href="#b2">B2 · сертификат</a>
+  </nav>
+</header>
+
+<section class="slide-wrap" id="a1">
+  <div class="slide-meta"><span class="tag">Вариант A1 · «Сетка» — рациональная, типографическая</span><span class="ttl">О Bertazzoni · для дизайнеров</span></div>
+  <div class="slide s-a1">
+    <div class="strip"><div class="left"><span class="b-mark">Bertazzoni<sup>®</sup></span><span class="since">Guastalla · Italia · since 1882</span></div><span class="right">Slide 01 / для специалистов</span></div>
+    <div class="a1-head">
+      <div><div class="a1-eyebrow">Что важно знать о бренде</div><h2 class="a1-title">Шесть фактов <em>о&nbsp;Bertazzoni</em>,<br>которые работают в&nbsp;проекте</h2></div>
+      <p class="a1-lede">Краткая справка для дизайнеров, архитекторов и кухонных студий. Без маркетинговых клише — только то, что влияет на спецификацию и обязательства перед клиентом.</p>
+    </div>
+    <div class="a1-grid">
+      <div class="a1-cell"><span class="a1-num">01</span><h3>Официально в&nbsp;России</h3><p>Эксклюзивный дистрибьютор и официальный гарант — ООО «КРЕДО М». Не параллельный импорт: каждый артикул заходит в страну прозрачно, с полным пакетом документов и сертификации ЕАЭС.</p></div>
+      <div class="a1-cell"><span class="a1-num">02</span><h3>Семейная компания с&nbsp;1882&nbsp;года</h3><p>144 года в Гуасталле, Эмилия-Романья. Шестое поколение семьи Bertazzoni в управлении — не корпорация, не портфельный актив фонда.</p></div>
+      <div class="a1-cell"><span class="a1-num">03</span><h3>Стабильное ценообразование</h3><p>Единый РРЦ от дистрибьютора, без качелей серого рынка. Цена, которую вы сегодня закладываете в смету, будет актуальна и в момент сдачи проекта.</p></div>
+      <div class="a1-cell"><span class="a1-num">04</span><h3>Склад в&nbsp;России</h3><p>Топовые позиции — на московском складе. Срок от заказа до отгрузки в проект — дни, а не «ждём контейнер 8–10 недель», как у параллельных поставок.</p></div>
+      <div class="a1-cell"><span class="a1-num">05</span><h3>Стабильные поставки и&nbsp;гарантия</h3><p>Два года официальной гарантии производителя. Авторизованный сервис в 40+ городах России и СНГ, единый сервисный телефон. По актуальным позициям — регулярные подвозы.</p></div>
+      <div class="a1-cell"><span class="a1-num">06</span><h3>Премиальный итальянский производитель</h3><p>Собственное производство в Италии, 4 линейки — Professional, Master, Modern, Heritage. Варочные центры до 120&nbsp;см, индукция EGO, 7 фирменных цветов глянца — характер, которого нет у безликой немецкой встройки.</p></div>
+    </div>
+    <div class="grain"></div>
+  </div>
+</section>
+
+<section class="slide-wrap" id="a2">
+  <div class="slide-meta"><span class="tag">Вариант A2 · «Шесть карточек» — быстрый скан, чистая сетка</span><span class="ttl">О Bertazzoni · альтернатива</span></div>
+  <div class="slide s-a2">
+    <div class="strip"><div class="left"><span class="b-mark">Bertazzoni<sup>®</sup></span><span class="since">Guastalla · Italia · since 1882</span></div><span class="right">для дизайнеров и архитекторов</span></div>
+    <div class="a2-head">
+      <h2>Bertazzoni <em>в&nbsp;шести&nbsp;тезисах</em><br>— коротко и&nbsp;по&nbsp;делу</h2>
+      <div class="meta"><div class="kicker">Карточка бренда</div><div class="sub">Что отличает официальный канал от&nbsp;параллельного импорта</div></div>
+    </div>
+    <div class="a2-grid">
+      <div class="a2-card"><div class="a2-icon">i</div><h4>Официально в&nbsp;России</h4><p>Эксклюзивный дистрибьютор ООО «КРЕДО М». Не параллельный импорт, не серая поставка.</p></div>
+      <div class="a2-card"><div class="a2-icon">ii</div><h4>С&nbsp;1882&nbsp;года</h4><p>144 года в Италии. Семейный бизнес, шестое поколение Bertazzoni в управлении.</p></div>
+      <div class="a2-card"><div class="a2-icon">iii</div><h4>Стабильная цена</h4><p>Единый РРЦ от дистрибьютора. Бюджет в смете не «поплывёт» к сдаче проекта.</p></div>
+      <div class="a2-card"><div class="a2-icon">iv</div><h4>Склад в&nbsp;России</h4><p>Топ-позиции — в Москве. Отгрузка в проект днями, а не неделями ожидания контейнера.</p></div>
+      <div class="a2-card"><div class="a2-icon">v</div><h4>Гарантия 2&nbsp;года</h4><p>Официальная гарантия производителя. Авторизованный сервис в 40+ городах РФ и СНГ.</p></div>
+      <div class="a2-card"><div class="a2-icon">vi</div><h4>Премиум-производство</h4><p>Италия, собственная фабрика. 4 серии: Professional, Master, Modern, Heritage. Варочные центры до 120&nbsp;см.</p></div>
+    </div>
+    <div class="footer-strip"><span>www.bertazzoni.com · Guastalla, Italia</span><div class="hp-mini">официальный поставщик · <span>HOME</span><span class="roof">⌃</span><span class="gold">project</span></div></div>
+  </div>
+</section>
+
+<section class="slide-wrap" id="a3">
+  <div class="slide-meta"><span class="tag">Вариант A3 · «Editorial» — два поля, фирменный красный слева</span><span class="ttl">О Bertazzoni · редакторская подача</span></div>
+  <div class="slide s-a3">
+    <div class="a3-layout">
+      <div class="a3-left">
+        <div class="strip"><div class="left"><span class="b-mark">Bertazzoni<sup style="color:rgba(255,255,255,.6)">®</sup></span><span class="since">Italia · 1882</span></div><span class="right">для специалистов</span></div>
+        <div>
+          <div class="a3-eyebrow-w">Карточка бренда · 2026</div>
+          <h2 class="a3-h1">Bertazzoni<br><em>в&nbsp;шести фактах</em></h2>
+          <p class="a3-quote">«Рациональность и эмоции. Функции и стиль» — фирменная формула шестого поколения семьи Бертацони из Гуасталлы.</p>
+        </div>
+        <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6)">Эмилия-Романья · Италия</div>
+      </div>
+      <div class="a3-right">
+        <div class="a3-list">
+          <div class="a3-item"><span class="n">01</span><div class="body"><h4>Официально в&nbsp;России</h4><p>Эксклюзивный дистрибьютор ООО «КРЕДО М» — не параллельный импорт, полный пакет документов и сертификации ЕАЭС.</p></div></div>
+          <div class="a3-item"><span class="n">02</span><div class="body"><h4>Компания с&nbsp;1882&nbsp;года</h4><p>144 года истории, шестое поколение семьи Bertazzoni в управлении. Семейный бизнес, не публичная корпорация.</p></div></div>
+          <div class="a3-item"><span class="n">03</span><div class="body"><h4>Стабильное ценообразование</h4><p>Единый РРЦ от дистрибьютора. Цена, заложенная в смету, остаётся актуальной к сдаче проекта.</p></div></div>
+          <div class="a3-item"><span class="n">04</span><div class="body"><h4>Склад в&nbsp;России</h4><p>Топовые позиции — на московском складе. Отгрузка в проект днями, а не неделями.</p></div></div>
+          <div class="a3-item"><span class="n">05</span><div class="body"><h4>Стабильные поставки и&nbsp;гарантия</h4><p>2 года официальной гарантии производителя. Авторизованный сервис в 40+ городах России и СНГ.</p></div></div>
+          <div class="a3-item"><span class="n">06</span><div class="body"><h4>Премиальный производитель</h4><p>Собственная фабрика в Италии. 4 линейки — Professional, Master, Modern, Heritage. Варочные центры до 120&nbsp;см.</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="grain"></div>
+  </div>
+</section>
+
+<section class="slide-wrap" id="b1">
+  <div class="slide-meta"><span class="tag">Вариант B1 · «Диптих» — Bertazzoni слева, Home Project справа</span><span class="ttl">Home Project — официальный поставщик Bertazzoni</span></div>
+  <div class="slide s-b1">
+    <div class="b1-grid">
+      <div class="b1-left">
+        <div class="strip"><div class="left"><span class="b-mark">Bertazzoni<sup>®</sup></span><span class="since">Italia · 1882</span></div><span class="right">Slide 02</span></div>
+        <div>
+          <div class="b1-kicker">Партнёрский статус</div>
+          <h2 class="b1-h">Home Project — <em>официальный поставщик</em> Bertazzoni в&nbsp;России</h2>
+          <p class="b1-lede">Мы работаем с дизайнерами, архитекторами и кухонными студиями как прямое продолжение официального канала: ассортимент и гарантия — от&nbsp;дистрибьютора, проектная скорость, спецификация и&nbsp;сопровождение — от&nbsp;Home Project.</p>
+          <div class="b1-stamp"><div class="seal">B</div><div class="t"><span class="row1">Authorized partner · 2026</span><span class="row2">Bertazzoni × Home Project</span></div></div>
+        </div>
+        <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)">Гарантия производителя · Сервис 40+ городов · Склад в Москве</div>
+      </div>
+      <div class="b1-right">
+        <div class="strip"><div class="left"><span class="b1-hpwordmark"><span>HOME</span><span class="roof">⌃</span><span class="gold">project</span></span></div><span class="right">для дизайнеров</span></div>
+        <div style="margin-top:36px"><div style="font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px">Что мы делаем за вас</div><h3 style="font-family:'Cormorant',serif;font-weight:500;font-size:36px;line-height:1.05;letter-spacing:-.01em;color:#fff;max-width:420px">Один партнёр на&nbsp;весь&nbsp;комплект кухни</h3></div>
+        <div class="b1-r-list">
+          <div class="b1-r-item"><div class="ic">i</div><div><h5>Подбор и&nbsp;спецификация</h5><p>Поможем подобрать модели Bertazzoni под проект, проверим совместимость и подготовим спецификацию для&nbsp;сметы.</p></div></div>
+          <div class="b1-r-item"><div class="ic">ii</div><div><h5>Цена и&nbsp;резерв со&nbsp;склада</h5><p>Зафиксируем цену под проект, проверим наличие на московском складе, при необходимости — бронь.</p></div></div>
+          <div class="b1-r-item"><div class="ic">iii</div><div><h5>Поставка и&nbsp;гарантия</h5><p>Доставка в проект и официальная двухлетняя гарантия производителя через авторизованный сервис.</p></div></div>
+          <div class="b1-r-item"><div class="ic">iv</div><div><h5>Девять брендов в&nbsp;одной точке</h5><p>Bertazzoni, V-ZUG, BORA, Fhiaba, Küppersbusch, ILVE и др. — один менеджер на весь&nbsp;комплект встройки.</p></div></div>
+        </div>
+        <div class="b1-contact"><div>homeproject.online</div><div>partners@homeproject.online</div></div>
+      </div>
+    </div>
+    <div class="grain"></div>
+  </div>
+</section>
+
+<section class="slide-wrap" id="b2">
+  <div class="slide-meta"><span class="tag">Вариант B2 · «Сертификат» — статус как декларация, одно поле</span><span class="ttl">Home Project — официальный поставщик · альтернатива</span></div>
+  <div class="slide s-b2">
+    <div class="strip"><div class="left"><span class="b-mark">Bertazzoni<sup>®</sup></span><span class="since">Guastalla · Italia · since 1882</span></div><span class="right">официальный канал в России</span></div>
+    <div class="b2-frame">
+      <div class="b2-eyebrow">Authorized partner · 2026</div>
+      <h2 class="b2-h">Home&nbsp;Project — <em>официальный поставщик</em><br>Bertazzoni в&nbsp;России</h2>
+      <div class="b2-divider"><span class="line"></span><span class="dot"></span><span class="line"></span></div>
+      <p class="b2-body">Мы работаем как прямое продолжение официального канала Bertazzoni&nbsp;РФ. Ассортимент, цена и&nbsp;двухлетняя гарантия — <strong>от дистрибьютора</strong>. Подбор, спецификация, резерв со&nbsp;склада в&nbsp;Москве и&nbsp;сопровождение проекта&nbsp;— <strong>от Home Project</strong>.</p>
+      <div class="b2-stamps">
+        <div class="b2-stamp"><div class="icon">★</div><div class="lbl">Канал</div><div class="val">Официальный</div></div>
+        <div class="b2-stamp"><div class="icon">⏱</div><div class="lbl">Склад</div><div class="val">Москва</div></div>
+        <div class="b2-stamp"><div class="icon">⛨</div><div class="lbl">Гарантия</div><div class="val">2 года</div></div>
+        <div class="b2-stamp"><div class="icon">⌂</div><div class="lbl">Сервис</div><div class="val">40+ городов</div></div>
+      </div>
+    </div>
+    <div style="margin-top:14px" class="hp-mini">— <span>HOME</span><span class="roof" style="color:var(--gold)">⌃</span><span class="gold">project</span> · homeproject.online</div>
+    <div class="grain"></div>
+  </div>
+</section>
+
+</body>
+</html>
