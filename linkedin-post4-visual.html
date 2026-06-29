@@ -2,232 +2,205 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>День 4 · Дневник Home Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;}
-body{width:1200px;height:628px;overflow:hidden;background:#111318;font-family:'Inter',sans-serif;color:#e2e8f0;}
-
-/* ── TOP BAR ── */
-.topbar{
-  height:44px;border-bottom:1px solid #1c1f2b;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 44px;
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#07080d;
+  display:flex; flex-direction:column; align-items:center;
+  padding:40px 20px; gap:24px; font-family:'Inter',system-ui,sans-serif;
 }
-.topbar-left{display:flex;align-items:center;gap:10px;}
-.t-day{font-size:12px;font-weight:700;color:#818cf8;letter-spacing:0.08em;}
-.t-dot{color:#2d3748;}
-.t-brand{font-size:12px;font-weight:600;color:#c9a96e;letter-spacing:0.1em;}
-.t-sub{font-size:12px;color:#374151;letter-spacing:0.06em;}
-.topbar-right{font-size:12px;color:#2d3748;font-family:'JetBrains Mono',monospace;}
+#visual {
+  width:1200px; height:628px; overflow:hidden;
+  background:#111318; position:relative; flex-shrink:0;
+  display:flex;
+}
 
-/* ── MAIN ── */
-.main{display:flex;height:584px;}
-
-/* ── LEFT: нарратив ── */
-.narr{
-  flex:0 0 480px;
-  padding:36px 32px 28px 44px;
-  display:flex;flex-direction:column;justify-content:space-between;
+/* ── LEFT ── */
+.left {
+  width:540px; flex-shrink:0;
+  padding:44px 40px 36px 48px;
+  display:flex; flex-direction:column; justify-content:space-between;
   border-right:1px solid #1c1f2b;
 }
-
-.narr-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(129,140,248,0.1);border:1px solid rgba(129,140,248,0.25);
-  border-radius:6px;padding:4px 12px;width:fit-content;margin-bottom:22px;
+.tag {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(129,140,248,0.1); border:1px solid rgba(129,140,248,0.28);
+  border-radius:6px; padding:5px 14px; width:fit-content; margin-bottom:28px;
 }
-.narr-tag-dot{width:6px;height:6px;background:#818cf8;border-radius:50%;}
-.narr-tag-text{font-size:12px;font-weight:600;color:#818cf8;letter-spacing:0.08em;}
+.tag-dot { width:6px; height:6px; background:#818cf8; border-radius:50%; }
+.tag-text { font-size:12px; font-weight:700; color:#818cf8; letter-spacing:0.1em; }
 
-.narr-headline{
-  font-size:28px;font-weight:800;color:#f1f5f9;
-  line-height:1.25;letter-spacing:-0.02em;margin-bottom:20px;
+.hl { font-size:52px; font-weight:900; color:#f1f5f9; line-height:1.15; letter-spacing:-0.025em; }
+.hl span { color:#818cf8; }
+
+.sub {
+  margin-top:20px;
+  font-size:20px; font-weight:400; color:#6b7280; line-height:1.55;
 }
-.narr-headline em{font-style:normal;color:#818cf8;}
+.sub strong { color:#9ca3af; font-weight:500; }
 
-.narr-body{
-  font-size:17px;color:#9ca3af;line-height:1.65;margin-bottom:24px;
+.agent-box {
+  background:#0a0c11; border:1px solid rgba(129,140,248,0.22);
+  border-radius:12px; padding:18px 20px;
+  display:flex; align-items:center; gap:16px;
+}
+.agent-icon { font-size:28px; flex-shrink:0; }
+.agent-body {}
+.agent-name { font-size:13px; font-weight:700; color:#818cf8; margin-bottom:4px; }
+.agent-time {
+  font-size:36px; font-weight:800; color:#f1f5f9;
+  font-family:'Courier New',monospace; letter-spacing:-0.02em; line-height:1;
+}
+.agent-time span { font-size:16px; font-weight:400; color:#4b5563; margin-left:8px; font-family:'Inter',sans-serif; }
+
+/* ── RIGHT ── */
+.right {
   flex:1;
+  background:#0a0c11;
+  padding:36px 40px 32px 36px;
+  display:flex; flex-direction:column; justify-content:space-between;
 }
-.narr-body strong{color:#d1d5db;font-weight:500;}
-
-/* таймер агента */
-.agent-timer{
-  display:flex;align-items:center;gap:12px;
-  background:#0d0f16;border:1px solid #1c1f2b;
-  border-radius:10px;padding:14px 18px;
-}
-.agent-icon{font-size:22px;}
-.agent-info{}
-.agent-name{font-size:13px;font-weight:700;color:#818cf8;margin-bottom:2px;}
-.agent-stat{font-size:22px;font-weight:800;color:#f1f5f9;font-family:'JetBrains Mono',monospace;letter-spacing:-0.02em;}
-.agent-stat span{font-size:13px;font-weight:400;color:#4b5563;margin-left:6px;}
-
-/* ── RIGHT: вывод агента ── */
-.output{
-  flex:1;
-  padding:28px 40px 24px 32px;
-  display:flex;flex-direction:column;
+.right-head {
+  font-size:11px; font-weight:600; color:#374151;
+  letter-spacing:0.16em; text-transform:uppercase; margin-bottom:24px;
 }
 
-.output-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:22px;
-}
-.output-title{font-size:13px;color:#4b5563;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;}
-.output-status{
-  display:flex;align-items:center;gap:6px;
-  background:#0d1a12;border:1px solid rgba(74,222,128,0.2);
-  border-radius:20px;padding:3px 12px;
-}
-.status-dot{width:6px;height:6px;background:#4ade80;border-radius:50%;}
-.status-text{font-size:11px;color:#4ade80;font-weight:600;letter-spacing:0.06em;}
+.data-row { padding-bottom:22px; border-bottom:1px solid #161820; }
+.data-row:last-child { border-bottom:none; padding-bottom:0; }
 
-/* терминал */
-.terminal{
-  background:#0a0c11;border:1px solid #1c1f2b;border-radius:12px;
-  padding:22px 24px;flex:1;display:flex;flex-direction:column;gap:0;
-  font-family:'JetBrains Mono',monospace;
+.dr-label {
+  font-size:12px; font-weight:600; color:#374151;
+  letter-spacing:0.12em; text-transform:uppercase; margin-bottom:6px;
 }
-.term-prompt{
-  font-size:13px;color:#374151;margin-bottom:16px;line-height:1.5;
-}
-.term-prompt .cmd{color:#818cf8;}
+.dr-value { font-size:48px; font-weight:900; line-height:1.1; letter-spacing:-0.025em; }
+.dr-value.gold { color:#c9a96e; }
+.dr-value.red  { color:#f87171; }
+.dr-value.purp { color:#818cf8; }
+.dr-desc { font-size:16px; color:#6b7280; margin-top:6px; line-height:1.4; }
+.dr-desc strong { color:#9ca3af; font-weight:500; }
 
-.term-output{display:flex;flex-direction:column;gap:0;flex:1;}
-
-.term-line{
-  display:flex;align-items:flex-start;gap:14px;
-  padding:9px 0;border-bottom:1px solid #13161f;
+.right-footer {
+  font-size:14px; font-style:italic; color:#2d3748;
+  border-top:1px solid #161820; padding-top:16px; line-height:1.55;
 }
-.term-line:last-child{border-bottom:none;}
+.right-footer strong { font-style:normal; color:#374151; }
 
-.term-key{
-  font-size:11px;color:#374151;letter-spacing:0.08em;
-  min-width:160px;flex-shrink:0;padding-top:3px;
-  text-transform:uppercase;
+/* ── BRAND BAR ── */
+.brand-bar {
+  position:absolute; bottom:0; left:0; right:0; height:32px;
+  background:#0a0c11; border-top:1px solid #1c1f2b;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 48px;
 }
-.term-val{font-size:18px;font-weight:600;color:#e2e8f0;line-height:1.3;}
-.term-val .accent{color:#c9a96e;}
-.term-val .red{color:#f87171;}
-.term-val .green{color:#4ade80;}
-.term-val .purple{color:#818cf8;}
-.term-note{font-size:13px;color:#4b5563;margin-top:2px;font-family:'Inter',sans-serif;font-weight:400;}
+.brand-name { font-size:11px; font-weight:700; color:#c9a96e; letter-spacing:0.1em; }
+.brand-url  { font-size:11px; color:#2d3748; }
 
-/* bottom */
-.output-footer{
-  margin-top:16px;padding-top:14px;border-top:1px solid #1c1f2b;
-  font-size:14px;color:#374151;font-style:italic;line-height:1.5;
-  font-family:'Inter',sans-serif;
+/* ── DOWNLOAD BUTTON ── */
+.dl-wrap { display:flex; flex-direction:column; align-items:center; gap:10px; }
+.dl-btn {
+  background:#c9a96e; color:#111318; border:none; border-radius:10px;
+  padding:14px 40px; font-size:17px; font-weight:700;
+  cursor:pointer; font-family:'Inter',sans-serif; letter-spacing:0.02em;
+  transition:background .15s;
 }
-.output-footer strong{color:#4b5563;font-style:normal;}
+.dl-btn:hover { background:#e8c98a; }
+.dl-hint { font-size:13px; color:#374151; text-align:center; }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-left">
-    <span class="t-day">День 4</span>
-    <span class="t-dot">·</span>
-    <span class="t-brand">Home Project</span>
-    <span class="t-dot">·</span>
-    <span class="t-sub">Дневник эксперимента</span>
-  </div>
-  <span class="topbar-right">29.06.2026</span>
-</div>
+<!-- VISUAL -->
+<div id="visual">
 
-<div class="main">
-
-  <!-- ЛЕВАЯ: живой рассказ -->
-  <div class="narr">
+  <!-- LEFT: нарратив -->
+  <div class="left">
     <div>
-      <div class="narr-tag">
-        <div class="narr-tag-dot"></div>
-        <span class="narr-tag-text">Агент-исследователь</span>
-      </div>
-
-      <div class="narr-headline">
-        Мы не ищем данные<br>
-        вручную. <em>Это делает<br>агент.</em>
-      </div>
-
-      <div class="narr-body">
-        Дали задачу: <strong>«проанализируй рынок премиальной техники в России после 2022».</strong>
-        Через несколько минут — полный срез с цифрами и выводами.
-        <br><br>
-        Аналитик потратил бы на это полдня. <strong>Мы получили ориентиры до утреннего кофе.</strong>
+      <div class="tag"><div class="tag-dot"></div><span class="tag-text">ДНЕВНИК · ДЕНЬ 4</span></div>
+      <div class="hl">Попросили<br>агента.<br><span>Он ответил<br>за 3 минуты.</span></div>
+      <div class="sub">
+        Аналитик потратил бы <strong>полдня.</strong><br>
+        Агент-исследователь —<br>мониторит рынок 24/7.
       </div>
     </div>
-
-    <div class="agent-timer">
+    <div class="agent-box">
       <div class="agent-icon">🔍</div>
-      <div class="agent-info">
+      <div class="agent-body">
         <div class="agent-name">Researcher Agent · задача выполнена</div>
-        <div class="agent-stat">~3 мин<span>вместо ~4 часов</span></div>
+        <div class="agent-time">3 мин<span>вместо ~4 ч аналитика</span></div>
       </div>
     </div>
   </div>
 
-  <!-- ПРАВАЯ: вывод агента -->
-  <div class="output">
+  <!-- RIGHT: данные -->
+  <div class="right">
+    <div class="right-head">Что нашёл агент · рынок РФ</div>
 
-    <div class="output-header">
-      <span class="output-title">Отчёт агента</span>
-      <div class="output-status">
-        <div class="status-dot"></div>
-        <span class="status-text">COMPLETED</span>
-      </div>
+    <div class="data-row">
+      <div class="dr-label">Объём рынка техники</div>
+      <div class="dr-value gold">$4,75B → $7,25B</div>
+      <div class="dr-desc">рост <strong>+4,8% в год</strong> к 2033 · несмотря на уход Miele, AEG</div>
     </div>
 
-    <div class="terminal">
-      <div class="term-prompt">
-        <span class="cmd">researcher</span> → задача: рынок премиальной кухонной техники РФ, 2022–2033
-      </div>
-
-      <div class="term-output">
-
-        <div class="term-line">
-          <div class="term-key">Объём рынка</div>
-          <div>
-            <div class="term-val"><span class="accent">$4,75B</span> в 2024 → <span class="accent">$7,25B</span> к 2033</div>
-            <div class="term-note">рост +4,8% в год — несмотря на уход западных брендов</div>
-          </div>
-        </div>
-
-        <div class="term-line">
-          <div class="term-key">Дистрибуция</div>
-          <div>
-            <div class="term-val">инфраструктура <span class="red">−50%</span> с 2022</div>
-            <div class="term-note">Miele, AEG, официальные структуры ушли. Спрос — остался.</div>
-          </div>
-        </div>
-
-        <div class="term-line">
-          <div class="term-key">Ключевой канал</div>
-          <div>
-            <div class="term-val"><span class="purple">дизайнеры и архитекторы</span></div>
-            <div class="term-note">B2B через проектировщиков — основной путь к покупателю премиума</div>
-          </div>
-        </div>
-
-        <div class="term-line">
-          <div class="term-key">Вывод агента</div>
-          <div>
-            <div class="term-val">вакуум <span class="green">= возможность</span></div>
-            <div class="term-note">спрос есть · кто поставляет официально и быстро — тот выигрывает</div>
-          </div>
-        </div>
-
-      </div>
+    <div class="data-row">
+      <div class="dr-label">Инфраструктура дистрибуции с 2022</div>
+      <div class="dr-value red">−50%</div>
+      <div class="dr-desc">официальные структуры ушли · <strong>спрос — остался</strong></div>
     </div>
 
-    <div class="output-footer">
-      Это не значит, что агент всегда прав. Но он даёт нам <strong>точку отсчёта за минуты, а не дни.</strong> Это меняет скорость решений.
+    <div class="data-row">
+      <div class="dr-label">Вывод</div>
+      <div class="dr-value purp">Вакуум = рынок</div>
+      <div class="dr-desc">архитекторы и девелоперы ждут <strong>быстрой, официальной поставки</strong></div>
     </div>
 
+    <div class="right-footer">
+      Агент не всегда прав — данные бывают устаревшими.<br>
+      Но <strong>точка отсчёта за 3 минуты</strong> меняет скорость решений.
+    </div>
+  </div>
+
+  <!-- BRAND BAR -->
+  <div class="brand-bar">
+    <span class="brand-name">HOME PROJECT</span>
+    <span class="brand-url">homeproject.online · Москва</span>
   </div>
 
 </div>
+
+<!-- DOWNLOAD -->
+<div class="dl-wrap">
+  <button class="dl-btn" onclick="downloadJPEG()">⬇ Скачать JPEG для LinkedIn</button>
+  <div class="dl-hint">Нажми кнопку → файл сохранится автоматически<br>Или сделай скриншот самого изображения выше</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+function downloadJPEG() {
+  const el = document.getElementById('visual');
+  html2canvas(el, {
+    scale: 1,
+    useCORS: true,
+    allowTaint: true,
+    backgroundColor: '#111318',
+    logging: false,
+    width: 1200,
+    height: 628
+  }).then(function(canvas) {
+    canvas.toBlob(function(blob) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'HomeProject-LinkedIn-Den4.jpg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 'image/jpeg', 0.95);
+  });
+}
+</script>
+
 </body>
 </html>
