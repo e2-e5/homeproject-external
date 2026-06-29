@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Прогноз · Home Project AI · 2026–2028</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;overflow:hidden;height:100vh}
+.deck{width:100vw;height:100vh;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;padding:40px 60px 56px;background:#0f172a}
+.slide.active{display:flex}
+.slide-lead{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 100%)}
+
+/* Logo */
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;flex-shrink:0}
+.logo-div{width:1px;height:26px;background:#334155}
+.logo-text{font-size:13px;font-weight:700;color:#fff;letter-spacing:.1em;text-transform:uppercase;line-height:1}
+.logo-sub{font-size:9px;color:#6366f1;letter-spacing:.15em;text-transform:uppercase;margin-top:3px}
+
+/* Typography */
+.slide-title{font-size:26px;font-weight:700;color:#a5b4fc;border-bottom:2px solid #6366f1;padding-bottom:10px;margin-bottom:24px;flex-shrink:0}
+.slide-body{flex:1;display:flex;flex-direction:column;gap:14px;min-height:0;overflow:hidden}
+
+/* Lead */
+.lead-title{font-size:46px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px}
+.lead-sub{font-size:20px;color:#a5b4fc;margin-bottom:8px}
+.lead-meta{font-size:13px;color:#64748b;letter-spacing:.04em}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:#6366f1;color:#fff;padding:8px 12px;font-weight:700;text-align:left;font-size:13px}
+td{padding:8px 12px;border-bottom:1px solid #334155;background:#1e293b;font-size:14px}
+tr:last-child td{border-bottom:none}
+.tn{text-align:right;font-variant-numeric:tabular-nums}
+.ta{color:#a5b4fc;font-weight:600}
+.tg{color:#4ade80;font-weight:600}
+.ty{color:#fbbf24;font-weight:600}
+.tr{color:#f87171;font-weight:600}
+
+/* Cards */
+.cards{display:flex;gap:12px;flex-shrink:0}
+.card{flex:1;background:#1e293b;border:1px solid #334155;border-radius:10px;padding:14px 16px}
+.card.ac{border-color:#6366f1}
+.card-lbl{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.card-val{font-size:22px;font-weight:800;color:#fff}
+.card-sub{font-size:11px;color:#64748b;margin-top:3px}
+.cv-r{color:#4ade80}
+.cv-p{color:#f87171}
+.cv-o{color:#60a5fa}
+
+/* Chart wrap */
+.chart-wrap{flex:1;position:relative;min-height:0}
+
+/* Two col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:1;min-height:0}
+.col{display:flex;flex-direction:column;gap:10px;min-height:0;overflow:hidden}
+
+/* Timeline */
+.tl{display:flex;flex-direction:column;gap:14px}
+.tl-item{display:flex;gap:14px}
+.dot{width:11px;height:11px;border-radius:50%;background:#6366f1;flex-shrink:0;margin-top:4px}
+.dot.y{background:#fbbf24}.dot.g{background:#4ade80}.dot.b{background:#60a5fa}
+.tl-lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.07em}
+.tl-title{font-size:15px;font-weight:600;color:#e2e8f0;margin:1px 0}
+.tl-desc{font-size:13px;color:#94a3b8}
+
+/* Pill */
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:600}
+
+/* Summary grid */
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1}
+.sc{background:#1e293b;border-radius:10px;padding:16px;border-top:3px solid}
+.sc.p{border-color:#f87171}.sc.r{border-color:#4ade80}.sc.o{border-color:#60a5fa}
+.sc-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;margin-bottom:10px}
+.sc.p .sc-lbl{color:#f87171}.sc.r .sc-lbl{color:#4ade80}.sc.o .sc-lbl{color:#60a5fa}
+.sc-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.sc-per{font-size:11px;color:#64748b}
+.sc-val{font-size:20px;font-weight:800;color:#fff}
+.sc-sub{font-size:11px;color:#94a3b8;margin-bottom:8px}
+.sc-note{font-size:11px;border-radius:5px;padding:8px;margin-top:8px}
+.sc.p .sc-note{background:#2a1a1a;color:#f87171}
+.sc.r .sc-note{background:#1a2a1a;color:#4ade80}
+.sc.o .sc-note{background:#1a1f2a;color:#60a5fa}
+
+/* Nav */
+.nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;background:rgba(30,41,59,.92);border:1px solid #334155;border-radius:999px;padding:7px 18px;z-index:100;backdrop-filter:blur(8px)}
+.nb{background:none;border:none;color:#94a3b8;cursor:pointer;font-size:16px;padding:3px 8px;border-radius:5px;transition:color .15s}
+.nb:hover{color:#fff}
+.nc{font-size:12px;color:#64748b;min-width:38px;text-align:center;font-variant-numeric:tabular-nums}
+
+blockquote{border-left:2px solid #6366f1;padding-left:12px;color:#94a3b8;font-size:13px;font-style:italic;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- S1 TITLE -->
+<div class="slide slide-lead active" id="s1">
+  <div class="logo">
+    <svg width="30" height="29" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg>
+    <div class="logo-div"></div>
+    <div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div class="lead-title">Экономический<br>прогноз 2026–2028</div>
+    <div class="lead-sub">3 сценария · Рынок РФ · Стратегия выхода</div>
+    <div class="lead-meta">AI-платформа для дистрибьюторов и дилеров ТНП · Июнь 2026</div>
+    <div style="margin-top:28px;display:flex;gap:16px">
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:14px 20px">
+        <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.1em">Целевой рынок (SAM)</div>
+        <div style="font-size:26px;font-weight:800;color:#a5b4fc;margin-top:3px">5–8 млрд ₽/год</div>
+        <div style="font-size:11px;color:#64748b;margin-top:2px">~55 000 потенциальных клиентов</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:14px 20px">
+        <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.1em">SOM к дек 2027 (реалист.)</div>
+        <div style="font-size:26px;font-weight:800;color:#4ade80;margin-top:3px" id="t1-som">74 млн ₽ ARR</div>
+        <div style="font-size:11px;color:#64748b;margin-top:2px" id="t1-clients">~235 клиентов</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:14px 20px">
+        <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.1em">ROI для клиента</div>
+        <div style="font-size:26px;font-weight:800;color:#fbbf24;margin-top:3px">10–15×</div>
+        <div style="font-size:11px;color:#64748b;margin-top:2px">Окупаемость 2–4 недели</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S2 REVENUE MODEL -->
+<div class="slide" id="s2">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">Модель доходов</div>
+  <div class="slide-body">
+    <div class="two-col">
+      <div class="col">
+        <table>
+          <thead><tr><th>Тариф</th><th>Подписка/мес</th><th>Внедрение</th></tr></thead>
+          <tbody>
+            <tr><td>Старт</td><td class="tn">14 900 ₽</td><td class="tn">79 000 ₽</td></tr>
+            <tr><td>Бизнес</td><td class="tn">34 900 ₽</td><td class="tn">149 000 ₽</td></tr>
+            <tr><td>Про</td><td class="tn">69 900 ₽</td><td class="tn">299 000 ₽</td></tr>
+            <tr><td>Корпорат</td><td class="tn">от 129 900 ₽</td><td class="tn">от 500 000 ₽</td></tr>
+          </tbody>
+        </table>
+        <div style="background:#1e293b;border-radius:8px;padding:12px 14px;margin-top:4px">
+          <div style="font-size:11px;color:#64748b;margin-bottom:8px">Расчётный микс: 60% Старт / 30% Бизнес / 10% Про</div>
+          <div style="display:flex;gap:20px">
+            <div><div style="font-size:10px;color:#64748b">ARPU подписка</div><div style="font-size:20px;font-weight:800;color:#a5b4fc">26 400 ₽/мес</div></div>
+            <div><div style="font-size:10px;color:#64748b">Среднее внедрение</div><div style="font-size:20px;font-weight:800;color:#fbbf24">122 000 ₽</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <table>
+          <thead><tr><th>Параметр модели</th><th>Значение</th></tr></thead>
+          <tbody>
+            <tr><td>Пилот</td><td class="ta">45 дней бесплатно</td></tr>
+            <tr><td>Цикл сделки</td><td>30–45 дней</td></tr>
+            <tr><td>Удержание (реалист.)</td><td class="tg">98%/мес</td></tr>
+            <tr><td>Удержание (пессимист.)</td><td class="ty">97%/мес</td></tr>
+            <tr><td>LTV реалист. (24 мес)</td><td class="ta">765 000 ₽</td></tr>
+            <tr><td>Gross margin подписка</td><td class="tg">~68%</td></tr>
+            <tr><td>Gross margin внедрение</td><td>~40%</td></tr>
+            <tr><td>CAC цель</td><td>≤ 100 000 ₽</td></tr>
+          </tbody>
+        </table>
+        <blockquote>LTV/CAC цель ≥ 7.6× · Break-even при 76 клиентах на подписке</blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S3 FEDERAL DISTRICTS -->
+<div class="slide" id="s3">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">Потенциал по федеральным округам</div>
+  <div class="slide-body">
+    <table>
+      <thead><tr><th>Федеральный округ</th><th>МСБ-компаний</th><th>Целевых (~2%)</th><th>ARR потенциал</th><th>Очерёдность</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ЦФО</strong> <span style="font-size:11px;color:#64748b">(Москва, МО, Воронеж…)</span></td><td class="tn">1 200 000</td><td class="tn ta">24 000</td><td class="tn tg">7.6 млрд ₽</td><td><span class="pill" style="background:#312e81;color:#a5b4fc">★ Старт</span></td></tr>
+        <tr><td><strong>СЗФО</strong> <span style="font-size:11px;color:#64748b">(СПб, Лен. обл., Карелия…)</span></td><td class="tn">400 000</td><td class="tn ta">8 000</td><td class="tn tg">2.5 млрд ₽</td><td><span class="pill" style="background:#312e81;color:#a5b4fc">2 волна</span></td></tr>
+        <tr><td><strong>ПФО</strong> <span style="font-size:11px;color:#64748b">(Казань, Нижний, Самара…)</span></td><td class="tn">600 000</td><td class="tn">9 000</td><td class="tn">2.9 млрд ₽</td><td><span class="pill" style="background:#1e3a5f;color:#93c5fd">3 волна</span></td></tr>
+        <tr><td><strong>УФО</strong> <span style="font-size:11px;color:#64748b">(Екатеринбург, Тюмень…)</span></td><td class="tn">250 000</td><td class="tn">3 750</td><td class="tn">1.2 млрд ₽</td><td><span class="pill" style="background:#1e3a5f;color:#93c5fd">3 волна</span></td></tr>
+        <tr><td><strong>ЮФО/СКФО</strong> <span style="font-size:11px;color:#64748b">(Краснодар, Ростов…)</span></td><td class="tn">300 000</td><td class="tn">4 500</td><td class="tn">1.4 млрд ₽</td><td><span class="pill" style="background:#1a2e1a;color:#86efac">4 волна</span></td></tr>
+        <tr><td><strong>СФО</strong> <span style="font-size:11px;color:#64748b">(Новосибирск, Красноярск…)</span></td><td class="tn">350 000</td><td class="tn">5 250</td><td class="tn">1.7 млрд ₽</td><td><span class="pill" style="background:#1a2e1a;color:#86efac">4 волна</span></td></tr>
+        <tr><td><strong>ДФО</strong> <span style="font-size:11px;color:#64748b">(Владивосток, Хабаровск…)</span></td><td class="tn">100 000</td><td class="tn">750</td><td class="tn">0.2 млрд ₽</td><td><span class="pill" style="background:#2a2a1a;color:#fde68a">5 волна</span></td></tr>
+        <tr><td><strong>Итого РФ</strong></td><td class="tn"><strong>3 200 000</strong></td><td class="tn ta"><strong>55 250</strong></td><td class="tn tg"><strong>17.5 млрд ₽</strong></td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px;color:#475569;margin-top:2px">* ~2% от МСБ = дистрибьюторы/дилеры ТНП, стройматериалы, мебель, оборудование с отделами продаж 10+ чел.</div>
+  </div>
+</div>
+
+<!-- S4 VERTICALS -->
+<div class="slide" id="s4">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">Целевые отрасли — приоритеты выхода</div>
+  <div class="slide-body">
+    <table>
+      <thead><tr><th>#</th><th>Отрасль</th><th>МСБ в РФ</th><th>Ключевая боль</th><th>Потенциал</th><th>Старт</th></tr></thead>
+      <tbody>
+        <tr><td class="ta">1</td><td><strong>ТНП дистрибьюторы</strong> <span style="font-size:11px;color:#64748b">(наш сектор)</span></td><td class="tn">2 500</td><td>Прайсы, КП, остатки</td><td class="tn tg">500</td><td><span class="pill" style="background:#312e81;color:#a5b4fc">Июл 2026</span></td></tr>
+        <tr><td class="ta">2</td><td><strong>Стройматериалы</strong></td><td class="tn">8 000</td><td>Сложный каталог</td><td class="tn">1 600</td><td><span class="pill" style="background:#1e3a5f;color:#93c5fd">Q4 2026</span></td></tr>
+        <tr><td class="ta">3</td><td><strong>Мебель и интерьер</strong></td><td class="tn">5 000</td><td>КП по конфигурации</td><td class="tn">1 000</td><td><span class="pill" style="background:#1e3a5f;color:#93c5fd">Q4 2026</span></td></tr>
+        <tr><td class="ta">4</td><td><strong>Промышленное оборудование</strong></td><td class="tn">4 000</td><td>Технические КП</td><td class="tn">800</td><td><span class="pill" style="background:#1a2e1a;color:#86efac">Q1 2027</span></td></tr>
+        <tr><td class="ta">5</td><td><strong>Автозапчасти, сервис</strong></td><td class="tn">6 000</td><td>База клиентов, CRM</td><td class="tn">1 200</td><td><span class="pill" style="background:#1a2e1a;color:#86efac">Q2 2027</span></td></tr>
+        <tr><td class="ta">6</td><td><strong>Косметика / фарма</strong></td><td class="tn">3 000</td><td>Рассылки, удержание</td><td class="tn">600</td><td><span class="pill" style="background:#2a2a1a;color:#fde68a">2027 H2</span></td></tr>
+        <tr><td class="ta">7</td><td><strong>Оптовая торговля (прочее)</strong></td><td class="tn">10 000</td><td>Документооборот</td><td class="tn">2 000</td><td><span class="pill" style="background:#2a2a1a;color:#fde68a">2028</span></td></tr>
+        <tr><td colspan="2"><strong>Итого 1 волна (ТНП + Строй + Мебель)</strong></td><td class="tn">15 500</td><td>—</td><td class="tn ta"><strong>3 100</strong></td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- S5 GTM -->
+<div class="slide" id="s5">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">GTM — стратегия выхода на рынок</div>
+  <div class="slide-body">
+    <div class="tl">
+      <div class="tl-item"><div class="dot"></div><div><div class="tl-lbl">Фаза 1 · Июл–Сен 2026</div><div class="tl-title">Пилот — ТНП Москва (5–15 клиентов)</div><div class="tl-desc">Прямые переговоры + email по базе 2 333 B2B-контактов. 45 дней бесплатно. Цель: 3 кейса с реальными ROI-цифрами.</div></div></div>
+      <div class="tl-item"><div class="dot y"></div><div><div class="tl-lbl">Фаза 2 · Окт 2026 – Мар 2027</div><div class="tl-title">Масштаб — ЦФО + СЗФО + Строй + Мебель (50–150 клиентов)</div><div class="tl-desc">Email-кампания, LinkedIn/Telegram-контент, подключение Стройматериалов и Мебели. Партнёрства с отраслевыми ассоциациями.</div></div></div>
+      <div class="tl-item"><div class="dot b"></div><div><div class="tl-lbl">Фаза 3 · Апр–Дек 2027</div><div class="tl-title">Региональная экспансия + Партнёры (250–600 клиентов)</div><div class="tl-desc">ПФО, УФО, ЮФО через реселлеров (15% от MRR за реферал). Авто, косметика. Отраслевые конференции.</div></div></div>
+      <div class="tl-item"><div class="dot g"></div><div><div class="tl-lbl">Фаза 4 · 2028</div><div class="tl-title">Тиражирование — PLG + Marketplace (700–1 600 клиентов)</div><div class="tl-desc">Product-led growth: freemium-инструмент. Листинг в экосистемах AmoCRM/Битрикс24. СФО + ДФО дилерская сеть.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S6 CLIENTS H2 2026 -->
+<div class="slide" id="s6">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">Число клиентов — Июл–Дек 2026</div>
+  <div class="slide-body">
+    <div class="cards">
+      <div class="card"><div class="card-lbl">Пессимист. (дек 2026)</div><div class="card-val cv-p" id="c6p">—</div><div class="card-sub">активных клиентов</div></div>
+      <div class="card ac"><div class="card-lbl">Реалист. (дек 2026)</div><div class="card-val cv-r" id="c6r">—</div><div class="card-sub">активных клиентов</div></div>
+      <div class="card"><div class="card-lbl">Оптимист. (дек 2026)</div><div class="card-val cv-o" id="c6o">—</div><div class="card-sub">активных клиентов</div></div>
+    </div>
+    <div class="chart-wrap"><canvas id="ch6"></canvas></div>
+  </div>
+</div>
+
+<!-- S7 CLIENTS 2027 -->
+<div class="slide" id="s7">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">Число клиентов — 2027 (по кварталам)</div>
+  <div class="slide-body">
+    <div class="cards">
+      <div class="card"><div class="card-lbl">Пессимист. (дек 2027)</div><div class="card-val cv-p" id="c7p">—</div><div class="card-sub">активных клиентов</div></div>
+      <div class="card ac"><div class="card-lbl">Реалист. (дек 2027)</div><div class="card-val cv-r" id="c7r">—</div><div class="card-sub">активных клиентов</div></div>
+      <div class="card"><div class="card-lbl">Оптимист. (дек 2027)</div><div class="card-val cv-o" id="c7o">—</div><div class="card-sub">активных клиентов</div></div>
+    </div>
+    <div class="chart-wrap"><canvas id="ch7"></canvas></div>
+  </div>
+</div>
+
+<!-- S8 CLIENTS 2028 -->
+<div class="slide" id="s8">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">Число клиентов — 2028 (по кварталам)</div>
+  <div class="slide-body">
+    <div class="cards">
+      <div class="card"><div class="card-lbl">Пессимист. (дек 2028)</div><div class="card-val cv-p" id="c8p">—</div><div class="card-sub">активных клиентов</div></div>
+      <div class="card ac"><div class="card-lbl">Реалист. (дек 2028)</div><div class="card-val cv-r" id="c8r">—</div><div class="card-sub">активных клиентов</div></div>
+      <div class="card"><div class="card-lbl">Оптимист. (дек 2028)</div><div class="card-val cv-o" id="c8o">—</div><div class="card-sub">активных клиентов</div></div>
+    </div>
+    <div class="chart-wrap"><canvas id="ch8"></canvas></div>
+  </div>
+</div>
+
+<!-- S9 REVENUE CHART -->
+<div class="slide" id="s9">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">Ежемесячная выручка — Июл 2026 – Дек 2028</div>
+  <div class="slide-body">
+    <div class="chart-wrap" style="flex:1"><canvas id="ch9"></canvas></div>
+    <div class="cards" style="margin-top:8px">
+      <div class="card"><div class="card-lbl">MRR дек 2026 (реалист.)</div><div class="card-val cv-r" id="mrr26">—</div></div>
+      <div class="card ac"><div class="card-lbl">MRR дек 2027 (реалист.)</div><div class="card-val cv-r" id="mrr27">—</div></div>
+      <div class="card"><div class="card-lbl">MRR дек 2028 (реалист.)</div><div class="card-val cv-r" id="mrr28">—</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S10 ANNUAL SUMMARY -->
+<div class="slide" id="s10">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">Годовые итоги — 3 сценария</div>
+  <div class="slide-body">
+    <table>
+      <thead><tr><th>Период</th><th>Клиентов (конец)</th><th>Новых за период</th><th>Выручка за период</th><th>ARR (конец)</th></tr></thead>
+      <tbody id="tbl10"></tbody>
+    </table>
+    <div style="font-size:11px;color:#475569;margin-top:4px">* ARR = активные клиенты × 26 400 × 12. Выручка = подписка + внедрения за период.</div>
+  </div>
+</div>
+
+<!-- S11 P&L -->
+<div class="slide" id="s11">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">P&amp;L структура — расходы и доходность</div>
+  <div class="slide-body">
+    <div class="two-col">
+      <div class="col">
+        <table>
+          <thead><tr><th>Статья расходов</th><th>2026</th><th>2027</th><th>2028</th></tr></thead>
+          <tbody>
+            <tr><td>COGS (AI API, инфра)</td><td class="tn">32%</td><td class="tn">28%</td><td class="tn">22%</td></tr>
+            <tr><td>Sales &amp; Marketing</td><td class="tn">45%</td><td class="tn">30%</td><td class="tn">20%</td></tr>
+            <tr><td>R&amp;D (разработка)</td><td class="tn">25%</td><td class="tn">20%</td><td class="tn">15%</td></tr>
+            <tr><td>G&amp;A (операции)</td><td class="tn">15%</td><td class="tn">10%</td><td class="tn">8%</td></tr>
+            <tr><td><strong>Итого расходы</strong></td><td class="tn tr"><strong>117%</strong></td><td class="tn ty"><strong>88%</strong></td><td class="tn tg"><strong>65%</strong></td></tr>
+            <tr><td><strong>EBITDA</strong></td><td class="tn tr"><strong>−17%</strong></td><td class="tn ty"><strong>+12%</strong></td><td class="tn tg"><strong>+35%</strong></td></tr>
+          </tbody>
+        </table>
+        <blockquote>При 500+ клиентах — enterprise rate Anthropic API −40% к COGS → EBITDA 2028 потенциально +45%</blockquote>
+      </div>
+      <div class="col">
+        <div style="font-size:13px;color:#64748b;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Точка безубыточности</div>
+        <div style="background:#1e293b;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px">
+          <div><div style="font-size:11px;color:#64748b">Постоянные расходы/мес</div><div style="font-size:20px;font-weight:800;color:#fff">2 000 000 ₽</div><div style="font-size:11px;color:#64748b">AI API + разработка + маркетинг</div></div>
+          <div style="height:1px;background:#334155"></div>
+          <div><div style="font-size:11px;color:#64748b">Нужно клиентов (покрытие ARPU)</div><div style="font-size:20px;font-weight:800;color:#fbbf24">≈ 76 клиентов</div><div style="font-size:11px;color:#64748b">2 000 000 ÷ 26 400 = 75.8</div></div>
+          <div style="height:1px;background:#334155"></div>
+          <div><div style="font-size:11px;color:#64748b">Дата безубыточности (реалист.)</div><div style="font-size:20px;font-weight:800;color:#4ade80">Q1 2027</div><div style="font-size:11px;color:#64748b">~февраль 2027 при 76+ клиентах</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S12 SCENARIO CARDS -->
+<div class="slide" id="s12">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">Сравнение сценариев — итог</div>
+  <div class="slide-body">
+    <div class="sg" id="sg12"></div>
+  </div>
+</div>
+
+<!-- S13 RISKS -->
+<div class="slide" id="s13">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div class="slide-title">Ключевые риски и митигации</div>
+  <div class="slide-body">
+    <table>
+      <thead><tr><th>Риск</th><th>Вер.</th><th>Влияние</th><th>Митигация</th></tr></thead>
+      <tbody>
+        <tr><td>Anthropic поднимет цену API</td><td><span class="pill" style="background:#713f12;color:#fbbf24">Средняя</span></td><td>COGS +10-20%</td><td>Мульти-провайдер (Yandex GPT, GigaChat fallback)</td></tr>
+        <tr><td>Bitrix24 выпустит AI-агентов</td><td><span class="pill" style="background:#713f12;color:#fbbf24">Средняя</span></td><td>Давление на цену</td><td>Отраслевая специализация ТНП — они не строят это</td></tr>
+        <tr><td>Медленный старт (&lt;15 клиентов к дек 2026)</td><td><span class="pill" style="background:#713f12;color:#fbbf24">Средняя</span></td><td>BE сдвигается на Q3 2027</td><td>2 333 B2B-контакта в CRM для outreach уже есть</td></tr>
+        <tr><td>Высокий отток (&gt;5%/мес)</td><td><span class="pill" style="background:#14532d;color:#4ade80">Низкая</span></td><td>ARR плато</td><td>Customer Success в тарифе Бизнес+, онбординг</td></tr>
+        <tr><td>Регуляторные ограничения AI</td><td><span class="pill" style="background:#14532d;color:#4ade80">Низкая</span></td><td>Задержка</td><td>On-prem вариант для чувствительных данных</td></tr>
+        <tr><td>Bottle-neck: один founder</td><td><span class="pill" style="background:#713f12;color:#fbbf24">Средняя</span></td><td>Торможение роста</td><td>Найм Sales при 30+ клиентах, партнёрская сеть</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- S14 CTA -->
+<div class="slide slide-lead" id="s14">
+  <div class="logo"><svg width="26" height="25" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg><div class="logo-div"></div><div><div class="logo-text">Home Project</div><div class="logo-sub">AI Platform</div></div></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px">
+    <div class="lead-title" style="font-size:40px">Следующий шаг</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:760px">
+      <div style="background:#1e293b;border-radius:10px;padding:16px;border-left:3px solid #6366f1"><div style="font-size:11px;color:#6366f1;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">1. Июл 2026</div><div style="font-size:16px;font-weight:600;color:#e2e8f0">Запустить пилот</div><div style="font-size:13px;color:#64748b;margin-top:3px">5 клиентов ТНП-сектора, 45 дней бесплатно</div></div>
+      <div style="background:#1e293b;border-radius:10px;padding:16px;border-left:3px solid #fbbf24"><div style="font-size:11px;color:#fbbf24;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">2. Авг–Сен 2026</div><div style="font-size:16px;font-weight:600;color:#e2e8f0">3 публичных кейса</div><div style="font-size:13px;color:#64748b;margin-top:3px">Цифры экономии → контент → доверие</div></div>
+      <div style="background:#1e293b;border-radius:10px;padding:16px;border-left:3px solid #4ade80"><div style="font-size:11px;color:#4ade80;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">3. Окт 2026</div><div style="font-size:16px;font-weight:600;color:#e2e8f0">B2B outreach</div><div style="font-size:13px;color:#64748b;margin-top:3px">2 333 контакта уже в CRM. Email-кампания.</div></div>
+      <div style="background:#1e293b;border-radius:10px;padding:16px;border-left:3px solid #60a5fa"><div style="font-size:11px;color:#60a5fa;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">4. Q1 2027</div><div style="font-size:16px;font-weight:600;color:#e2e8f0">Партнёрская сеть</div><div style="font-size:13px;color:#64748b;margin-top:3px">Реселлеры в регионах. 15% от MRR реферала.</div></div>
+    </div>
+    <div style="font-size:14px;color:#64748b">📧 info@homeproject.online &nbsp;·&nbsp; 🌐 homeproject.online &nbsp;·&nbsp; Москва · 2026</div>
+  </div>
+</div>
+
+</div>
+
+<div class="nav">
+  <button class="nb" onclick="go(-1)">&#8592;</button>
+  <span class="nc" id="nc">1 / 14</span>
+  <button class="nb" onclick="go(1)">&#8594;</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+const ARPU=26400,IMPL=122000;
+const np={
+  p:[0,1,2,3,4,4, 5,5,6,6,6,7, 7,7,8,8,8,9, 9,9,10,10,10,10, 11,11,11,12,12,12],
+  r:[1,3,5,8,10,12, 14,16,18,20,22,24, 26,28,30,33,36,40, 44,48,52,56,60,65, 70,75,80,85,90,95],
+  o:[5,12,20,35,50,60, 75,85,95,105,115,125, 140,150,160,170,180,195, 210,225,240,255,270,285, 300,315,330,345,360,375]
+};
+const cr={p:.03,r:.02,o:.01};
+function calc(k){
+  const a=[],rv=[];let ac=0;
+  np[k].forEach(n=>{ac=Math.round(ac*(1-cr[k]))+n;a.push(ac);rv.push(ac*ARPU+n*IMPL);});
+  return{a,rv};
+}
+const M={p:calc('p'),r:calc('r'),o:calc('o')};
+function fmt(n){return n>=1e6?(n/1e6).toFixed(1)+' млн ₽':Math.round(n/1e3)+'K ₽';}
+function fmtarr(n){return n>=1e6?(n/1e6).toFixed(0)+' млн ₽/год':Math.round(n/1e3)+'K ₽/год';}
+
+// Fill card values
+document.getElementById('c6p').textContent=M.p.a[5];
+document.getElementById('c6r').textContent=M.r.a[5];
+document.getElementById('c6o').textContent=M.o.a[5];
+document.getElementById('c7p').textContent=M.p.a[17];
+document.getElementById('c7r').textContent=M.r.a[17];
+document.getElementById('c7o').textContent=M.o.a[17];
+document.getElementById('c8p').textContent=M.p.a[29];
+document.getElementById('c8r').textContent=M.r.a[29];
+document.getElementById('c8o').textContent=M.o.a[29];
+document.getElementById('mrr26').textContent=fmt(M.r.rv[5]);
+document.getElementById('mrr27').textContent=fmt(M.r.rv[17]);
+document.getElementById('mrr28').textContent=fmt(M.r.rv[29]);
+
+// Annual summary table
+function sumPeriod(rv,s,e){let t=0;for(let i=s;i<=e;i++)t+=rv[i];return t;}
+function newPeriod(nc,s,e){let t=0;for(let i=s;i<=e;i++)t+=nc[i];return t;}
+const T10=document.getElementById('tbl10');
+const rows=[
+  {label:'🔴 Пессимистичный',cls:'tr',bg:'#1a1a2e'},
+  ['Июл–Дек 2026','p',0,5],['2027','p',6,17],['2028','p',18,29],
+  {label:'🟢 Реалистичный',cls:'tg',bg:'#1a2a1a'},
+  ['Июл–Дек 2026','r',0,5],['2027','r',6,17],['2028','r',18,29],
+  {label:'🔵 Оптимистичный',cls:'ta',bg:'#1a1f2a'},
+  ['Июл–Дек 2026','o',0,5],['2027','o',6,17],['2028','o',18,29]
+];
+rows.forEach(r=>{
+  const tr=document.createElement('tr');
+  if(r.label){
+    tr.innerHTML=`<td colspan="5" style="background:${r.bg};color:${r.cls==='tr'?'#f87171':r.cls==='tg'?'#4ade80':'#60a5fa'};font-weight:700;font-size:12px;letter-spacing:.04em">${r.label}</td>`;
+  } else {
+    const [per,k,s,e]=r;
+    const ac=M[k].a[e];
+    const nc=newPeriod(np[k],s,e);
+    const rev=sumPeriod(M[k].rv,s,e);
+    const arr=ac*ARPU*12;
+    tr.innerHTML=`<td>${per}</td><td class="tn">${ac}</td><td class="tn">${nc}</td><td class="tn ${k==='p'?'tr':k==='r'?'tg':'ta'}">${fmt(rev)}</td><td class="tn">${fmtarr(arr)}</td>`;
+  }
+  T10.appendChild(tr);
+});
+
+// Scenario cards s12
+const sg=document.getElementById('sg12');
+[['p','🔴 Пессимистичный','#f87171','sc p','Медленный старт, отток 3%/мес, долгий цикл'],
+ ['r','🟢 Реалистичный','#4ade80','sc r','Стабильный рост, отток 2%/мес, кейсы работают'],
+ ['o','🔵 Оптимистичный','#60a5fa','sc o','Быстрый рост, партнёры, PLG, отток 1%/мес']
+].forEach(([k,lbl,,cls,note])=>{
+  const div=document.createElement('div');
+  div.className=cls;
+  const periods=[['Дек 2026',5],['Дек 2027',17],['Дек 2028',29]];
+  let html=`<div class="sc-lbl">${lbl}</div>`;
+  periods.forEach(([per,idx])=>{
+    const ac=M[k].a[idx];
+    const arr=(ac*ARPU*12/1e6).toFixed(1);
+    html+=`<div class="sc-row"><span class="sc-per">${per}</span><span class="sc-val">${ac}</span></div><div class="sc-sub">клиентов · ARR ${arr} млн ₽</div>`;
+    if(idx<29)html+=`<div style="height:1px;background:#334155;margin:6px 0"></div>`;
+  });
+  html+=`<div class="sc-note">${note}</div>`;
+  div.innerHTML=html;
+  sg.appendChild(div);
+});
+
+// Navigation
+let cur=1;const tot=14;
+function go(d){const n=cur+d;if(n>=1&&n<=tot){document.getElementById('s'+cur).classList.remove('active');cur=n;document.getElementById('s'+n).classList.add('active');document.getElementById('nc').textContent=n+' / '+tot;renderChart(n);}}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
+
+// Charts
+const charts={};
+const co={plugins:{legend:{labels:{color:'#94a3b8',font:{size:12}}}},scales:{x:{ticks:{color:'#64748b'},grid:{color:'#1e293b'}},y:{ticks:{color:'#64748b'},grid:{color:'#1e293b'}}},responsive:true,maintainAspectRatio:false};
+const ds=(label,data,color)=>({label,data,backgroundColor:color.replace(')',',0.7)').replace('rgb','rgba'),borderColor:color,borderWidth:1});
+const dsl=(label,data,color)=>({label,data,borderColor:color,backgroundColor:color.replace(')',',0.1)').replace('rgb','rgba'),fill:true,tension:0.35,pointRadius:0,borderWidth:2});
+
+function renderChart(n){
+  if(n===6&&!charts[6]){
+    charts[6]=new Chart(document.getElementById('ch6').getContext('2d'),{type:'bar',data:{labels:['Июл','Авг','Сен','Окт','Ноя','Дек'],datasets:[ds('Пессимист.',M.p.a.slice(0,6),'rgb(248,113,113)'),ds('Реалист.',M.r.a.slice(0,6),'rgb(74,222,128)'),ds('Оптимист.',M.o.a.slice(0,6),'rgb(96,165,250)')]},options:co});
+  }
+  if(n===7&&!charts[7]){
+    const qi=[8,11,14,17];
+    charts[7]=new Chart(document.getElementById('ch7').getContext('2d'),{type:'bar',data:{labels:["Q1 '27","Q2 '27","Q3 '27","Q4 '27"],datasets:[ds('Пессимист.',qi.map(i=>M.p.a[i]),'rgb(248,113,113)'),ds('Реалист.',qi.map(i=>M.r.a[i]),'rgb(74,222,128)'),ds('Оптимист.',qi.map(i=>M.o.a[i]),'rgb(96,165,250)')]},options:co});
+  }
+  if(n===8&&!charts[8]){
+    const qi=[20,23,26,29];
+    charts[8]=new Chart(document.getElementById('ch8').getContext('2d'),{type:'bar',data:{labels:["Q1 '28","Q2 '28","Q3 '28","Q4 '28"],datasets:[ds('Пессимист.',qi.map(i=>M.p.a[i]),'rgb(248,113,113)'),ds('Реалист.',qi.map(i=>M.r.a[i]),'rgb(74,222,128)'),ds('Оптимист.',qi.map(i=>M.o.a[i]),'rgb(96,165,250)')]},options:co});
+  }
+  if(n===9&&!charts[9]){
+    const lbs=['Jul\'26','Aug','Sep','Oct','Nov','Dec\'26','Jan\'27','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec\'27','Jan\'28','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec\'28'];
+    const toM=v=>Math.round(v/1e5)/10;
+    charts[9]=new Chart(document.getElementById('ch9').getContext('2d'),{type:'line',data:{labels:lbs,datasets:[dsl('Пессимист.',M.p.rv.map(toM),'rgb(248,113,113)'),dsl('Реалист.',M.r.rv.map(toM),'rgb(74,222,128)'),dsl('Оптимист.',M.o.rv.map(toM),'rgb(96,165,250)')]},options:{...co,scales:{x:{ticks:{color:'#64748b',maxRotation:45,font:{size:10}},grid:{color:'#1e293b'}},y:{ticks:{color:'#64748b',callback:v=>v+' млн'},grid:{color:'#1e293b'}}}}});
+  }
+}
+</script>
+</body>
+</html>
