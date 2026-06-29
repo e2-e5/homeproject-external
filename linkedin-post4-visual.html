@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn Post 4 — Visual</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 628px;
+    overflow: hidden;
+    background: #0f0f0f;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .canvas {
+    width: 1200px;
+    height: 628px;
+    background: #0f0f0f;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .canvas::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,169,110,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,169,110,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .glow {
+    position: absolute;
+    left: -120px;
+    top: -80px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(201,169,110,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .left {
+    position: absolute;
+    left: 72px;
+    top: 0;
+    bottom: 0;
+    width: 520px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .day-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,169,110,0.12);
+    border: 1px solid rgba(201,169,110,0.35);
+    border-radius: 100px;
+    padding: 6px 16px;
+    width: fit-content;
+    margin-bottom: 24px;
+  }
+  .day-badge-dot { width: 7px; height: 7px; background: #c9a96e; border-radius: 50%; }
+  .day-badge-text { font-size: 12px; font-weight: 600; color: #c9a96e; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .headline { font-size: 42px; font-weight: 800; color: #ffffff; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 20px; }
+  .headline em { font-style: normal; color: #c9a96e; }
+
+  .subline { font-size: 16px; color: #7a7a8a; line-height: 1.6; max-width: 440px; margin-bottom: 32px; }
+
+  .brand-line { display: flex; align-items: center; gap: 12px; }
+  .brand-name { font-size: 13px; font-weight: 700; color: #ffffff; letter-spacing: 0.1em; text-transform: uppercase; }
+  .brand-sep { color: #3a3a4a; font-size: 13px; }
+  .brand-tag { font-size: 12px; color: #5a5a6a; letter-spacing: 0.05em; }
+
+  .divider {
+    position: absolute;
+    left: 640px;
+    top: 60px;
+    bottom: 60px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.2) 30%, rgba(201,169,110,0.2) 70%, transparent);
+  }
+
+  .right {
+    position: absolute;
+    left: 680px;
+    right: 60px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .right-label { font-size: 11px; font-weight: 600; color: #c9a96e; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 28px; }
+
+  .stat-track { margin-bottom: 28px; }
+  .stat-year { font-size: 11px; color: #5a5a6a; letter-spacing: 0.08em; margin-bottom: 6px; font-weight: 500; }
+  .stat-bar-wrap { display: flex; align-items: center; gap: 14px; }
+  .stat-bar-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+  .stat-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #c9a96e, #e8c98a); }
+  .stat-val { font-size: 22px; font-weight: 800; color: #ffffff; white-space: nowrap; min-width: 100px; text-align: right; letter-spacing: -0.01em; }
+  .stat-val.future { color: #c9a96e; }
+
+  .growth-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(46,125,50,0.18);
+    border: 1px solid rgba(129,199,132,0.3);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+  .growth-arrow { font-size: 16px; }
+  .growth-text { font-size: 13px; font-weight: 700; color: #81c784; }
+  .growth-sub { font-size: 11px; color: rgba(129,199,132,0.7); margin-left: 4px; }
+
+  .insights { display: flex; flex-direction: column; gap: 10px; }
+  .insight-row { display: flex; align-items: flex-start; gap: 10px; }
+  .insight-dot { width: 5px; height: 5px; background: #c9a96e; border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+  .insight-text { font-size: 13px; color: #9a9aaa; line-height: 1.55; }
+  .insight-text strong { color: #d8d8e8; font-weight: 600; }
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #c9a96e 0%, rgba(201,169,110,0.3) 60%, transparent 100%);
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="glow"></div>
+
+  <div class="left">
+    <div class="day-badge">
+      <div class="day-badge-dot"></div>
+      <span class="day-badge-text">Дневник проекта · День 4</span>
+    </div>
+    <div class="headline">
+      Рынок растёт.<br>
+      Инфраструктура<br>
+      <em>сократилась вдвое.</em>
+    </div>
+    <div class="subline">
+      После 2022 спрос на премиальную технику в России никуда не делся. Вакуум заняли те, кто успел.
+    </div>
+    <div class="brand-line">
+      <span class="brand-name">Home Project</span>
+      <span class="brand-sep">·</span>
+      <span class="brand-tag">14 европейских брендов · Москва</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="right">
+    <div class="right-label">Рынок кухонной техники РФ</div>
+
+    <div class="stat-track">
+      <div class="stat-year">2024</div>
+      <div class="stat-bar-wrap">
+        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:65%"></div></div>
+        <div class="stat-val">$4,75 млрд</div>
+      </div>
+    </div>
+
+    <div class="stat-track">
+      <div class="stat-year">2033 · прогноз</div>
+      <div class="stat-bar-wrap">
+        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:100%; background: linear-gradient(90deg, #c9a96e88, #c9a96e)"></div></div>
+        <div class="stat-val future">$7,25 млрд</div>
+      </div>
+    </div>
+
+    <div class="growth-badge">
+      <span class="growth-arrow">↑</span>
+      <span class="growth-text">+4,8% ежегодно</span>
+      <span class="growth-sub">CAGR 2024–2033</span>
+    </div>
+
+    <div class="insights">
+      <div class="insight-row">
+        <div class="insight-dot"></div>
+        <div class="insight-text"><strong>Miele, AEG, официальные структуры</strong> — ушли. Спрос — нет.</div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-dot"></div>
+        <div class="insight-text">Встраиваемая техника в <strong>новостройках и ремонтах</strong> — один из самых активных сегментов.</div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-dot"></div>
+        <div class="insight-text">Архитектор с объектом на <strong>₽50М не ждёт</strong> обратного звонка.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+</div>
+</body>
+</html>
