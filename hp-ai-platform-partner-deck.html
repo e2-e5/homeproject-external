@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Home Project AI Platform — для партнёров</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0f1e; font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; color: #e2e8f0; }
+
+  .deck { width: 100%; }
+  .slide {
+    width: 100%; min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 64px 10%; position: relative;
+    border-bottom: 1px solid #1e293b;
+  }
+  .slide:nth-child(odd) { background: #0f172a; }
+  .slide:nth-child(even) { background: #111827; }
+  .slide.lead { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); text-align: center; align-items: center; }
+
+  .slide-num {
+    position: absolute; top: 24px; right: 32px;
+    font-size: 12px; color: #334155; font-weight: 600; letter-spacing: 1px;
+  }
+
+  h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 20px; }
+  h1 .accent { color: #6366f1; }
+  h2 {
+    font-size: clamp(22px, 3vw, 36px); font-weight: 700; color: #a5b4fc;
+    padding-bottom: 14px; border-bottom: 3px solid #6366f1;
+    margin-bottom: 36px; display: inline-block; width: 100%;
+  }
+  h3 { font-size: 20px; font-weight: 600; color: #818cf8; margin: 28px 0 10px; }
+  h3:first-of-type { margin-top: 0; }
+
+  .subtitle { font-size: clamp(16px, 2vw, 22px); color: #94a3b8; margin-bottom: 12px; }
+  .lead-meta { font-size: 15px; color: #475569; margin-top: 28px; }
+
+  ul { list-style: none; padding: 0; }
+  ul li { padding: 10px 0 10px 32px; position: relative; font-size: clamp(15px, 1.5vw, 19px); color: #cbd5e1; line-height: 1.5; border-bottom: 1px solid #1e293b; }
+  ul li:last-child { border-bottom: none; }
+  ul li::before { content: '→'; position: absolute; left: 0; color: #6366f1; font-weight: 700; }
+
+  strong { color: #fff; font-weight: 700; }
+  em { color: #a5b4fc; font-style: normal; }
+
+  blockquote {
+    background: #1e293b; border-left: 4px solid #6366f1;
+    padding: 16px 20px; border-radius: 0 8px 8px 0;
+    margin-top: 24px; font-size: 17px; color: #94a3b8; line-height: 1.6;
+  }
+  blockquote strong { color: #a5b4fc; }
+
+  table { width: 100%; border-collapse: collapse; font-size: clamp(13px, 1.3vw, 17px); margin-top: 16px; }
+  thead tr { background: #6366f1; }
+  th { padding: 12px 16px; font-weight: 700; text-align: left; color: #fff; }
+  td { padding: 11px 16px; background: #1e293b; border-bottom: 1px solid #0f172a; color: #cbd5e1; }
+  tr:nth-child(even) td { background: #162032; }
+  .check-yes { color: #10b981; font-weight: 700; }
+  .check-no { color: #ef4444; }
+  .check-maybe { color: #f59e0b; }
+
+  .big-num { font-size: clamp(40px, 6vw, 72px); font-weight: 800; color: #6366f1; line-height: 1; }
+  .big-num.green { color: #10b981; }
+  .num-label { font-size: 15px; color: #64748b; margin-top: 4px; margin-bottom: 20px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 8px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 16px; }
+
+  .card {
+    background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+    padding: 24px; display: flex; flex-direction: column;
+  }
+  .card-icon { font-size: 32px; margin-bottom: 12px; }
+  .card-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .card-text { font-size: 14px; color: #94a3b8; line-height: 1.5; }
+
+  .tag {
+    display: inline-block; background: #6366f1; color: #fff;
+    font-size: 12px; font-weight: 700; padding: 3px 12px; border-radius: 100px;
+    margin-right: 8px; margin-bottom: 8px;
+  }
+  .tag.green { background: #059669; }
+
+  .cta-box {
+    background: linear-gradient(135deg, #312e81, #1e1b4b);
+    border: 1px solid #6366f1; border-radius: 16px;
+    padding: 32px 40px; margin-top: 32px; text-align: center;
+  }
+  .cta-email { font-size: 24px; font-weight: 700; color: #a5b4fc; margin: 12px 0; }
+  .cta-site { font-size: 18px; color: #64748b; }
+
+  .steps { counter-reset: step; }
+  .step { display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid #1e293b; }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0; width: 40px; height: 40px; background: #6366f1;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 18px; color: #fff;
+  }
+  .step-content h4 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .step-content p { font-size: 15px; color: #94a3b8; line-height: 1.5; }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, #6366f1, #818cf8);
+    transition: width 0.3s; z-index: 100;
+  }
+
+  @media (max-width: 768px) {
+    .slide { padding: 48px 6%; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .cta-box { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<div class="deck">
+
+<!-- SLIDE 1: TITLE -->
+<section class="slide lead">
+  <div class="slide-num">1 / 15</div>
+  <div style="max-width:720px;">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:#1e293b;border:1px solid #334155;border-radius:100px;padding:6px 16px;margin-bottom:24px;">
+      <span style="width:8px;height:8px;background:#10b981;border-radius:50%;display:inline-block;"></span>
+      <span style="font-size:13px;color:#94a3b8;font-weight:600;">Для дилеров и дистрибьюторов ТНП</span>
+    </div>
+    <h1>Ваш бизнес<br><span class="accent">× AI-агенты</span></h1>
+    <p class="subtitle" style="margin-top:16px;">Home Project Platform</p>
+    <p class="subtitle">Автоматизация полного цикла:<br>каталог → КП → CRM → аналитика</p>
+    <p class="lead-meta">Москва · 2026 · homeproject.online</p>
+  </div>
+</section>
+
+<!-- SLIDE 2: PAIN POINTS -->
+<section class="slide">
+  <div class="slide-num">2 / 15</div>
+  <h2>Узнаёте себя?</h2>
+  <ul>
+    <li>📋 <strong>КП для клиента</strong> — 3–4 часа в Excel вручную</li>
+    <li>📊 <strong>Прайсы поставщиков</strong> — обновление занимает 2–3 рабочих дня</li>
+    <li>👤 <strong>Клиент не купил сегодня</strong> — забыли, не перезвонили, потеряли</li>
+    <li>📉 <strong>Аналитика продаж</strong> — «примерно понимаем» по ощущениям</li>
+    <li>🔄 <strong>Сайт не обновляли</strong> — нет времени, нет людей, нет бюджета</li>
+  </ul>
+  <blockquote>Средний дилер ТНП теряет <strong>до 40% рабочего времени</strong> на рутину,<br>которую может выполнять AI.</blockquote>
+</section>
+
+<!-- SLIDE 3: MARKET -->
+<section class="slide">
+  <div class="slide-num">3 / 15</div>
+  <h2>Момент для входа</h2>
+  <div class="grid-2">
+    <div>
+      <h3>Рынок разогрет</h3>
+      <ul>
+        <li>AI для МСБ в РФ: <strong>13 → 58 млрд руб.</strong> за 1 год (×5)</li>
+        <li>Только <strong>14% МСБ</strong> используют CRM — большинство в Excel</li>
+        <li>Salesforce, HubSpot, Zendesk <strong>ушли с рынка РФ</strong></li>
+        <li>Bitrix24 (66% рынка) <strong>не решает</strong> специфику ТНП-дистрибьюторов</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Незакрытая ниша</h3>
+      <div style="background:#1e293b;border:1px solid #6366f1;border-radius:12px;padding:20px;margin-top:8px;">
+        <p style="font-size:15px;color:#94a3b8;margin-bottom:12px;">Никто не автоматизирует <strong>полный цикл дистрибьютора:</strong></p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="tag">Каталог</span>
+          <span style="color:#475569;padding-top:3px;">→</span>
+          <span class="tag">КП</span>
+          <span style="color:#475569;padding-top:3px;">→</span>
+          <span class="tag">CRM</span>
+          <span style="color:#475569;padding-top:3px;">→</span>
+          <span class="tag">Рассылки</span>
+          <span style="color:#475569;padding-top:3px;">→</span>
+          <span class="tag">Аналитика</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: SOLUTION -->
+<section class="slide">
+  <div class="slide-num">4 / 15</div>
+  <h2>Решение: 5 AI-агентов 24/7</h2>
+  <div class="grid-3" style="grid-template-columns:repeat(5,1fr);gap:16px;">
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <div class="card-title">CEO-агент</div>
+      <div class="card-text">Координирует задачи, контролирует дедлайны, отчёты</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📣</div>
+      <div class="card-title">Маркетолог</div>
+      <div class="card-text">Email-рассылки, лиды, контент, соцсети</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📁</div>
+      <div class="card-title">Секретарь</div>
+      <div class="card-text">Прайсы, каталог, расписание, рутинные задачи</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💰</div>
+      <div class="card-title">Бухгалтер</div>
+      <div class="card-text">Финансы, счета, сверка, аналитика затрат</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎨</div>
+      <div class="card-title">Дизайнер</div>
+      <div class="card-text">КП, презентации, визуальные материалы</div>
+    </div>
+  </div>
+  <blockquote style="margin-top:24px;">Агенты работают <strong>параллельно, круглосуточно</strong>, без выходных и больничных.</blockquote>
+</section>
+
+<!-- SLIDE 5: CATALOG -->
+<section class="slide">
+  <div class="slide-num">5 / 15</div>
+  <h2>Модуль 1 — Каталог</h2>
+  <div class="grid-2">
+    <ul>
+      <li>📥 Загрузка прайсов поставщиков (Excel, PDF, XML)</li>
+      <li>🔄 Автообновление цен при изменении прайса</li>
+      <li>🌐 Публикация на сайт одним действием</li>
+      <li>🔍 Поиск аналогов при отсутствии позиции</li>
+      <li>📦 Синхронизация остатков со складами</li>
+    </ul>
+    <div>
+      <div style="background:#1e293b;border-radius:12px;padding:24px;">
+        <div style="margin-bottom:20px;">
+          <div style="font-size:13px;color:#64748b;margin-bottom:4px;">БЫЛО</div>
+          <div style="font-size:28px;font-weight:800;color:#ef4444;">2–3 дня</div>
+          <div style="font-size:14px;color:#94a3b8;">обновление прайса</div>
+        </div>
+        <div style="width:100%;height:2px;background:#334155;margin:16px 0;"></div>
+        <div>
+          <div style="font-size:13px;color:#64748b;margin-bottom:4px;">СТАЛО</div>
+          <div style="font-size:28px;font-weight:800;color:#10b981;">15 минут</div>
+          <div style="font-size:14px;color:#94a3b8;">автоматически</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: KP -->
+<section class="slide">
+  <div class="slide-num">6 / 15</div>
+  <h2>Модуль 2 — КП за 2 минуты</h2>
+  <div class="steps" style="margin-bottom:24px;">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Описание задачи</h4><p>Клиент описывает запрос текстом — бюджет, стиль, параметры</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>AI подбирает позиции</h4><p>Агент выбирает из каталога, сравнивает, учитывает наличие на складе</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Готовое КП клиенту</h4><p>Оформленный PDF с ценами, фото и описаниями — на почту автоматически</p></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+    <div style="background:#1e293b;border-radius:8px;padding:16px;text-align:center;"><div style="font-size:28px;font-weight:800;color:#ef4444;">3–4 ч</div><div style="font-size:13px;color:#64748b;">БЫЛО</div></div>
+    <div style="background:#1e293b;border-radius:8px;padding:16px;text-align:center;"><div style="font-size:28px;font-weight:800;color:#10b981;">2 мин</div><div style="font-size:13px;color:#64748b;">СТАЛО</div></div>
+    <div style="background:#1e293b;border-radius:8px;padding:16px;text-align:center;"><div style="font-size:28px;font-weight:800;color:#6366f1;">+25–40%</div><div style="font-size:13px;color:#64748b;">КОНВЕРСИЯ</div></div>
+  </div>
+</section>
+
+<!-- SLIDE 7: CRM -->
+<section class="slide">
+  <div class="slide-num">7 / 15</div>
+  <h2>Модуль 3 — CRM + Рассылки</h2>
+  <div class="grid-2">
+    <ul>
+      <li>👥 Автоматическая сегментация клиентов по типу и активности</li>
+      <li>📧 Персонализированные email-рассылки по сегментам</li>
+      <li>🔔 Follow-up: «не купил → напомнить через 7 дней»</li>
+      <li>📊 Воронка продаж с прогнозом закрытия сделок</li>
+      <li>💬 Полная история контактов и переговоров</li>
+    </ul>
+    <div style="background:#1e293b;border-radius:12px;padding:24px;">
+      <div style="font-size:13px;color:#6366f1;font-weight:700;letter-spacing:1px;margin-bottom:12px;">НАШИ ПОКАЗАТЕЛИ</div>
+      <div style="margin-bottom:12px;"><span style="font-size:28px;font-weight:800;color:#fff;">7 700</span><br><span style="font-size:14px;color:#64748b;">дизайнеров в CRM</span></div>
+      <div style="margin-bottom:12px;"><span style="font-size:28px;font-weight:800;color:#fff;">50</span><br><span style="font-size:14px;color:#64748b;">писем/день автоматически</span></div>
+      <div><span style="font-size:28px;font-weight:800;color:#10b981;">0</span><br><span style="font-size:14px;color:#64748b;">сотрудников для этого</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: ANALYTICS -->
+<section class="slide">
+  <div class="slide-num">8 / 15</div>
+  <h2>Модуль 4 — Аналитика</h2>
+  <div class="grid-3">
+    <div class="card"><div class="card-icon">📊</div><div class="card-title">Дашборды</div><div class="card-text">Выручка, маржа, pipeline в реальном времени</div></div>
+    <div class="card"><div class="card-icon">🔮</div><div class="card-title">Прогнозы</div><div class="card-text">AI-прогноз продаж на основе истории и сезонности</div></div>
+    <div class="card"><div class="card-icon">🏷️</div><div class="card-title">По брендам</div><div class="card-text">Анализ эффективности каждой категории и поставщика</div></div>
+    <div class="card"><div class="card-icon">👤</div><div class="card-title">Рейтинг клиентов</div><div class="card-text">По объёму, частоте и маржинальности покупок</div></div>
+    <div class="card"><div class="card-icon">📉</div><div class="card-title">Алерты</div><div class="card-text">Уведомления при падении ключевых показателей</div></div>
+    <div class="card"><div class="card-icon">📋</div><div class="card-title">Отчёты</div><div class="card-text">Еженедельные и ежемесячные сводки автоматически</div></div>
+  </div>
+</section>
+
+<!-- SLIDE 9: CASE STUDY -->
+<section class="slide">
+  <div class="slide-num">9 / 15</div>
+  <h2>Кейс: Home Project</h2>
+  <h3 style="margin-top:0;">Мы построили это для своего бизнеса</h3>
+  <table>
+    <thead><tr><th>Параметр</th><th>Значение</th></tr></thead>
+    <tbody>
+      <tr><td>Брендов в каталоге</td><td><strong>14 европейских брендов</strong></td></tr>
+      <tr><td>Товаров на сайте</td><td><strong>2 367 SKU</strong></td></tr>
+      <tr><td>Контактов в CRM</td><td><strong>14 000+</strong></td></tr>
+      <tr><td>Размер команды</td><td><strong>1 человек + AI-агенты</strong></td></tr>
+      <tr><td>Email-рассылки</td><td><strong>50 писем/день автоматически</strong></td></tr>
+      <tr><td>Время на КП</td><td><strong>2 минуты</strong></td></tr>
+    </tbody>
+  </table>
+  <blockquote style="margin-top:20px;">Полноценный дистрибьюторский бизнес — <strong>без раздутого штата</strong>.</blockquote>
+</section>
+
+<!-- SLIDE 10: COMPETITION -->
+<section class="slide">
+  <div class="slide-num">10 / 15</div>
+  <h2>Почему не Bitrix24?</h2>
+  <table>
+    <thead><tr><th>Функция</th><th>Bitrix24</th><th>Home Project AI</th></tr></thead>
+    <tbody>
+      <tr><td>CRM и задачи</td><td class="check-yes">✅</td><td class="check-yes">✅</td></tr>
+      <tr><td>Каталог ТНП с прайсами поставщиков</td><td class="check-no">❌</td><td class="check-yes">✅</td></tr>
+      <tr><td>Автогенерация КП</td><td class="check-no">❌</td><td class="check-yes">✅</td></tr>
+      <tr><td>Синхронизация остатков</td><td class="check-no">❌</td><td class="check-yes">✅</td></tr>
+      <tr><td>AI-агенты для ТНП-ретейла</td><td class="check-maybe">⚠️ Базово</td><td class="check-yes">✅ Специализировано</td></tr>
+      <tr><td>Настройка под ваш бизнес</td><td class="check-maybe">🔧 Долго/дорого</td><td class="check-yes">✅ Готово к работе</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SLIDE 11: ROI -->
+<section class="slide">
+  <div class="slide-num">11 / 15</div>
+  <h2>ROI: посчитаем вместе</h2>
+  <h3 style="margin-top:0;">Замена 1–2 менеджеров по прайсам и КП</h3>
+  <div class="grid-2">
+    <div>
+      <div class="big-num">1 800 000 ₽</div>
+      <div class="num-label">Экономия в год<br>(2 менеджера × 75 000 руб./мес × 12)</div>
+      <div class="big-num green">118 800 ₽</div>
+      <div class="num-label">Стоимость тарифа «Про» в год<br>(9 900 × 12 месяцев)</div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;">
+      <div style="background:linear-gradient(135deg,#312e81,#1e1b4b);border:2px solid #6366f1;border-radius:16px;padding:32px;text-align:center;">
+        <div style="font-size:16px;color:#94a3b8;margin-bottom:8px;">ВОЗВРАТ ИНВЕСТИЦИЙ</div>
+        <div style="font-size:72px;font-weight:800;color:#6366f1;line-height:1;">15x</div>
+        <div style="font-size:16px;color:#94a3b8;margin-top:8px;">Окупаемость за <strong style="color:#fff;">3 недели</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 12: PRICING -->
+<section class="slide">
+  <div class="slide-num">12 / 15</div>
+  <h2>Тарифы</h2>
+  <table>
+    <thead><tr><th></th><th>Старт</th><th>Бизнес</th><th>Про</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Цена</strong></td><td><strong style="color:#a5b4fc;">2 900 ₽/мес</strong></td><td><strong style="color:#a5b4fc;">5 900 ₽/мес</strong></td><td><strong style="color:#a5b4fc;">9 900 ₽/мес</strong></td></tr>
+      <tr><td>Каталог (SKU)</td><td>до 1 000</td><td>Без лимита</td><td>Без лимита</td></tr>
+      <tr><td>AI-агенты</td><td>1</td><td>3</td><td>10</td></tr>
+      <tr><td>Email-рассылки</td><td class="check-no">—</td><td class="check-yes">✅</td><td class="check-yes">✅</td></tr>
+      <tr><td>Аналитика</td><td>Базовая</td><td>Расширенная</td><td>Полная</td></tr>
+      <tr><td>Поддержка</td><td>Email</td><td>Приоритет</td><td>Личный менеджер</td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:20px;padding:14px 20px;background:#1e293b;border-radius:8px;display:flex;align-items:center;gap:12px;">
+    <span class="tag green">🎁 ПИЛОТ</span>
+    <span style="font-size:17px;color:#e2e8f0;"><strong>14 дней бесплатно</strong> — без карты, без обязательств, без риска</span>
+  </div>
+</section>
+
+<!-- SLIDE 13: HOW TO START -->
+<section class="slide">
+  <div class="slide-num">13 / 15</div>
+  <h2>Как начать — 3 шага за 3 дня</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Демо (30 минут)</h4>
+        <p>Покажем платформу на вашем примере — загрузим один ваш прайс, создадим тестовое КП. Увидите результат вживую.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Пилот — 14 дней бесплатно</h4>
+        <p>Загружаем ваши прайсы, подключаем вашу базу клиентов. Агенты начинают работу. Вы видите реальные результаты.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Запуск</h4>
+        <p>Переходите на выбранный тариф. Агенты работают — вы контролируете результат и масштабируете.</p>
+      </div>
+    </div>
+  </div>
+  <blockquote>Среднее время до первого готового КП: <strong>24 часа</strong></blockquote>
+</section>
+
+<!-- SLIDE 14: ABOUT -->
+<section class="slide">
+  <div class="slide-num">14 / 15</div>
+  <h2>О нас</h2>
+  <h3 style="margin-top:0;">Home Project — мы прошли это сами</h3>
+  <ul>
+    <li>🏢 Основан в <strong>2024 году</strong>, Москва</li>
+    <li>🛒 Официальный поставщик <strong>14 европейских брендов</strong> бытовой техники и сантехники</li>
+    <li>🤖 Построили AI-платформу <strong>для собственного бизнеса</strong> — она работает каждый день</li>
+    <li>📈 Один человек управляет полноценным дистрибьюторским бизнесом с помощью AI-агентов</li>
+    <li>💡 Теперь предлагаем эту платформу <strong>другим дилерам и дистрибьюторам</strong></li>
+  </ul>
+  <blockquote>Мы не продаём теорию. <strong>Мы продаём то, что используем сами каждый день.</strong></blockquote>
+</section>
+
+<!-- SLIDE 15: CTA -->
+<section class="slide lead">
+  <div class="slide-num">15 / 15</div>
+  <div style="max-width:640px;">
+    <h1>Запишитесь<br>на <span class="accent">демо</span></h1>
+    <p class="subtitle" style="margin-top:16px;">Покажем на вашем примере за 30 минут</p>
+    <div class="cta-box">
+      <div class="cta-email">📧 info@homeproject.online</div>
+      <div class="cta-site">🌐 homeproject.online</div>
+    </div>
+    <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <span class="tag green">✅ 14 дней бесплатно</span>
+      <span class="tag">⚡ Запуск за 3 дня</span>
+      <span class="tag">🔒 Без карты</span>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+  window.addEventListener('scroll', function() {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    document.getElementById('progress').style.width = pct + '%';
+  });
+</script>
+</body>
+</html>
