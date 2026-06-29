@@ -2,211 +2,208 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>День 4 · Дневник Home Project</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
-* { margin:0; padding:0; box-sizing:border-box; }
-body { width:1200px; height:628px; overflow:hidden; background:#13151B; font-family:'Inter',sans-serif; color:#e2e8f0; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:628px;overflow:hidden;background:#0d0f14;font-family:'Inter',sans-serif;color:#e2e8f0;}
 
 /* TOP BAR */
-.topbar {
-  height:38px; border-bottom:1px solid #1e2130;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 40px;
-}
-.topbar-left { display:flex; align-items:center; gap:16px; }
-.topbar-label { font-size:11px; font-weight:500; color:#4a5568; letter-spacing:0.12em; text-transform:uppercase; }
-.topbar-dot { width:4px; height:4px; background:#2d3748; border-radius:50%; }
-.topbar-day { font-size:11px; font-weight:600; color:#c9a96e; letter-spacing:0.08em; }
-.topbar-date { font-size:11px; color:#374151; font-family:'JetBrains Mono',monospace; }
+.topbar{height:36px;border-bottom:1px solid #1a1d27;display:flex;align-items:center;justify-content:space-between;padding:0 36px;}
+.tl{display:flex;align-items:center;gap:14px;}
+.tl-brand{font-size:11px;font-weight:700;color:#c9a96e;letter-spacing:0.12em;text-transform:uppercase;}
+.tl-sep{color:#2d3748;font-size:11px;}
+.tl-label{font-size:11px;color:#4b5563;letter-spacing:0.08em;}
+.tl-day{font-size:11px;font-weight:600;color:#818cf8;letter-spacing:0.06em;}
+.tr{font-size:11px;color:#374151;font-family:'JetBrains Mono',monospace;}
 
-/* MAIN LAYOUT */
-.main { display:flex; height:590px; }
+/* MAIN */
+.main{display:flex;height:592px;}
 
-/* LEFT: CHART */
-.chart-col { flex:0 0 720px; padding:24px 20px 20px 36px; display:flex; flex-direction:column; }
-.chart-title { font-size:13px; font-weight:500; color:#6b7280; margin-bottom:16px; letter-spacing:0.02em; }
-.chart-title strong { color:#9ca3af; font-weight:600; }
-.chart-wrap { flex:1; position:relative; }
+/* LEFT: проблема */
+.left{flex:0 0 340px;padding:28px 24px 24px 36px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid #1a1d27;}
 
-svg { width:100%; height:100%; }
+.problem-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:4px;padding:3px 10px;width:fit-content;margin-bottom:16px;}
+.problem-tag span{font-size:10px;font-weight:600;color:#f87171;letter-spacing:0.1em;text-transform:uppercase;}
 
-/* RIGHT: DATA PANEL */
-.data-col {
-  flex:1;
-  border-left:1px solid #1e2130;
-  padding:28px 32px 24px 28px;
-  display:flex; flex-direction:column; gap:0;
-}
-.data-col-title { font-size:10px; font-weight:600; color:#374151; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:24px; }
+.problem-title{font-size:17px;font-weight:700;color:#e2e8f0;line-height:1.4;margin-bottom:20px;}
+.problem-title em{font-style:normal;color:#f87171;}
 
-.obs-block { margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid #1a1d27; }
-.obs-block:last-child { border-bottom:none; margin-bottom:0; }
+.gap-visual{display:flex;flex-direction:column;gap:14px;margin-bottom:20px;}
+.gap-row{display:flex;flex-direction:column;gap:5px;}
+.gap-row-label{display:flex;justify-content:space-between;align-items:center;}
+.gap-row-name{font-size:11px;color:#6b7280;font-weight:500;}
+.gap-row-val{font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.gap-row-val.up{color:#c9a96e;}
+.gap-row-val.down{color:#f87171;}
+.gap-bar-bg{height:5px;background:#1e2130;border-radius:3px;overflow:hidden;}
+.gap-bar-fill{height:100%;border-radius:3px;}
+.gap-bar-fill.demand{background:linear-gradient(90deg,#c9a96e,#e8c98a);}
+.gap-bar-fill.supply{background:#374151;}
 
-.obs-label { font-size:10px; color:#4b5563; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px; font-weight:500; }
-.obs-value { font-size:32px; font-weight:800; color:#e2e8f0; letter-spacing:-0.02em; line-height:1; margin-bottom:6px; font-family:'JetBrains Mono',monospace; }
-.obs-value .unit { font-size:16px; font-weight:400; color:#6b7280; margin-left:4px; }
-.obs-value .highlight { color:#c9a96e; }
-.obs-desc { font-size:12px; color:#6b7280; line-height:1.5; }
-.obs-desc strong { color:#9ca3af; font-weight:500; }
+.problem-note{font-size:12px;color:#4b5563;line-height:1.55;border-top:1px solid #1a1d27;padding-top:14px;}
+.problem-note strong{color:#6b7280;}
 
-/* тег */
-.obs-tag {
-  display:inline-block;
-  font-size:10px; font-weight:600;
-  padding:2px 8px; border-radius:4px;
-  margin-bottom:6px;
-  letter-spacing:0.06em;
-}
-.tag-ai { background:rgba(99,102,241,0.15); color:#818cf8; border:1px solid rgba(99,102,241,0.25); }
-.tag-market { background:rgba(201,169,110,0.1); color:#c9a96e; border:1px solid rgba(201,169,110,0.2); }
+/* CENTER: стрелка-мост */
+.bridge{flex:0 0 52px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;}
+.bridge-arrow{font-size:22px;color:#374151;}
+.bridge-label{font-size:9px;color:#2d3748;letter-spacing:0.1em;text-transform:uppercase;writing-mode:vertical-lr;transform:rotate(180deg);}
 
-/* footer */
-.footer-note {
-  margin-top:auto;
-  font-size:10px; color:#2d3748;
-  padding-top:12px; border-top:1px solid #1a1d27;
-  line-height:1.5;
-}
+/* RIGHT: AI агенты */
+.right{flex:1;padding:24px 32px 20px 20px;display:flex;flex-direction:column;}
+
+.ai-header{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+.ai-badge{background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:8px;padding:6px 14px;display:flex;align-items:center;gap:8px;}
+.ai-badge-icon{font-size:16px;}
+.ai-badge-text{font-size:13px;font-weight:700;color:#fff;letter-spacing:0.04em;}
+.ai-header-sub{font-size:12px;color:#4b5563;}
+.ai-header-sub strong{color:#6b7280;}
+
+/* метрики 2×2 */
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.metric-card{background:#131620;border:1px solid #1e2130;border-radius:10px;padding:14px 16px;}
+.metric-card.accent{border-color:rgba(99,102,241,0.3);background:rgba(99,102,241,0.05);}
+.mc-label{font-size:10px;color:#4b5563;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;font-weight:500;}
+.mc-value{font-size:28px;font-weight:800;color:#e2e8f0;letter-spacing:-0.02em;line-height:1;font-family:'JetBrains Mono',monospace;}
+.mc-value .unit{font-size:14px;font-weight:400;color:#4b5563;margin-left:3px;}
+.mc-value .accent-col{color:#818cf8;}
+.mc-desc{font-size:11px;color:#6b7280;margin-top:5px;line-height:1.45;}
+.mc-desc strong{color:#9ca3af;}
+
+/* агент-роли */
+.roles-section{margin-bottom:14px;}
+.roles-label{font-size:10px;color:#4b5563;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;font-weight:500;}
+.roles-chips{display:flex;flex-wrap:wrap;gap:5px;}
+.role-chip{font-size:10px;color:#6b7280;background:#131620;border:1px solid #1e2130;border-radius:4px;padding:3px 8px;font-weight:500;}
+.role-chip.active{color:#818cf8;border-color:rgba(99,102,241,0.3);background:rgba(99,102,241,0.06);}
+
+/* bottom row */
+.bottom-row{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #1a1d27;padding-top:12px;margin-top:auto;}
+.cost-block{display:flex;align-items:baseline;gap:8px;}
+.cost-val{font-size:22px;font-weight:800;color:#c9a96e;font-family:'JetBrains Mono',monospace;letter-spacing:-0.02em;}
+.cost-label{font-size:11px;color:#4b5563;line-height:1.4;}
+.cost-label strong{color:#6b7280;}
+.vs-block{font-size:11px;color:#374151;text-align:right;line-height:1.5;}
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">
-  <div class="topbar-left">
-    <span class="topbar-label">Home Project</span>
-    <div class="topbar-dot"></div>
-    <span class="topbar-day">День 4</span>
-    <div class="topbar-dot"></div>
-    <span class="topbar-label">Дневник проекта</span>
+  <div class="tl">
+    <span class="tl-brand">Home Project</span>
+    <span class="tl-sep">·</span>
+    <span class="tl-day">День 4</span>
+    <span class="tl-sep">·</span>
+    <span class="tl-label">Дневник проекта</span>
   </div>
-  <span class="topbar-date">29.06.2026</span>
+  <span class="tr">29.06.2026</span>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- CHART -->
-  <div class="chart-col">
-    <div class="chart-title">Рынок кухонной техники РФ — <strong>спрос vs инфраструктура</strong> (2021–2033)</div>
-    <div class="chart-wrap">
-      <svg viewBox="0 0 680 460" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="demandGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#c9a96e" stop-opacity="0.18"/>
-            <stop offset="100%" stop-color="#c9a96e" stop-opacity="0.02"/>
-          </linearGradient>
-          <linearGradient id="supplyGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#374151" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#374151" stop-opacity="0.05"/>
-          </linearGradient>
-        </defs>
+  <!-- ЛЕВАЯ ЧАСТЬ: проблема рынка -->
+  <div class="left">
+    <div>
+      <div class="problem-tag"><span>Контекст</span></div>
+      <div class="problem-title">Рынок РФ растёт.<br><em>Поставщиков стало вдвое меньше.</em></div>
 
-        <!-- grid lines -->
-        <line x1="70" y1="50"  x2="660" y2="50"  stroke="#1e2130" stroke-width="1"/>
-        <line x1="70" y1="150" x2="660" y2="150" stroke="#1e2130" stroke-width="1"/>
-        <line x1="70" y1="250" x2="660" y2="250" stroke="#1e2130" stroke-width="1"/>
-        <line x1="70" y1="350" x2="660" y2="350" stroke="#1e2130" stroke-width="1"/>
-        <line x1="70" y1="420" x2="660" y2="420" stroke="#1e2130" stroke-width="1"/>
+      <div class="gap-visual">
+        <div class="gap-row">
+          <div class="gap-row-label">
+            <span class="gap-row-name">Спрос (рынок)</span>
+            <span class="gap-row-val up">$4,75B → $7,25B</span>
+          </div>
+          <div class="gap-bar-bg"><div class="gap-bar-fill demand" style="width:76%"></div></div>
+        </div>
+        <div class="gap-row">
+          <div class="gap-row-label">
+            <span class="gap-row-name">Инфраструктура</span>
+            <span class="gap-row-val down">−50% после 2022</span>
+          </div>
+          <div class="gap-bar-bg"><div class="gap-bar-fill supply" style="width:38%"></div></div>
+        </div>
+      </div>
+    </div>
 
-        <!-- y-axis labels -->
-        <text x="55" y="54"  text-anchor="end" font-size="10" fill="#374151" font-family="JetBrains Mono">160%</text>
-        <text x="55" y="154" text-anchor="end" font-size="10" fill="#374151" font-family="JetBrains Mono">120%</text>
-        <text x="55" y="254" text-anchor="end" font-size="10" fill="#374151" font-family="JetBrains Mono"> 80%</text>
-        <text x="55" y="354" text-anchor="end" font-size="10" fill="#374151" font-family="JetBrains Mono"> 40%</text>
-
-        <!-- baseline 100% -->
-        <line x1="70" y1="212" x2="660" y2="212" stroke="#2d3748" stroke-width="1" stroke-dasharray="3,4"/>
-        <text x="55" y="216" text-anchor="end" font-size="10" fill="#4b5563" font-family="JetBrains Mono">100%</text>
-
-        <!-- 2022 event line -->
-        <line x1="230" y1="50" x2="230" y2="420" stroke="#ef4444" stroke-width="1" stroke-dasharray="2,4" opacity="0.4"/>
-        <text x="233" y="70" font-size="10" fill="#ef4444" fill-opacity="0.7" font-family="Inter">↓ Уход западных брендов</text>
-
-        <!-- projection separator 2024 -->
-        <line x1="420" y1="50" x2="420" y2="420" stroke="#374151" stroke-width="1" stroke-dasharray="4,4"/>
-        <text x="423" y="440" font-size="10" fill="#4b5563" font-family="Inter">прогноз →</text>
-
-        <!-- DEMAND area fill -->
-        <path d="M80,212 C140,227 170,243 230,240 C280,237 305,218 340,214 C370,210 395,198 420,193 C500,163 590,90 650,53 L650,420 L80,420 Z"
-              fill="url(#demandGrad)"/>
-
-        <!-- SUPPLY area fill -->
-        <path d="M80,212 C95,260 160,348 230,362 C280,373 305,374 340,375 C370,376 395,379 420,381 C500,386 590,390 650,392 L650,420 L80,420 Z"
-              fill="url(#supplyGrad)"/>
-
-        <!-- GAP highlight zone -->
-        <path d="M230,240 C280,237 305,218 340,214 C370,210 395,198 420,193 C500,163 590,90 650,53 L650,392 C590,390 500,386 420,381 C395,379 370,376 340,375 C305,374 280,373 230,362 Z"
-              fill="rgba(201,169,110,0.04)" stroke="none"/>
-
-        <!-- DEMAND LINE -->
-        <path d="M80,212 C140,227 170,243 230,240 C280,237 305,218 340,214 C370,210 395,198 420,193 C500,163 590,90 650,53"
-              fill="none" stroke="#c9a96e" stroke-width="2.5" stroke-linecap="round"/>
-
-        <!-- DEMAND dotted extension hint -->
-        <circle cx="420" cy="193" r="4" fill="#c9a96e" opacity="0.9"/>
-        <circle cx="650" cy="53" r="4" fill="#c9a96e"/>
-
-        <!-- SUPPLY LINE -->
-        <path d="M80,212 C95,260 160,348 230,362 C280,373 305,374 340,375 C370,376 395,379 420,381 C500,386 590,390 650,392"
-              fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="420" cy="381" r="3.5" fill="#4b5563" opacity="0.9"/>
-        <circle cx="650" cy="392" r="3.5" fill="#4b5563"/>
-
-        <!-- ANNOTATIONS: demand values -->
-        <text x="424" y="185" font-size="11" fill="#c9a96e" font-family="JetBrains Mono" font-weight="500">$4,75 млрд</text>
-        <text x="655" y="50" font-size="11" fill="#c9a96e" font-family="JetBrains Mono" font-weight="600">$7,25 млрд</text>
-        <text x="655" y="62" font-size="10" fill="#c9a96e" fill-opacity="0.6" font-family="Inter">2033</text>
-
-        <!-- ANNOTATION: supply gap -->
-        <text x="424" y="373" font-size="11" fill="#6b7280" font-family="JetBrains Mono">≈ −50%</text>
-        <text x="424" y="385" font-size="10" fill="#4b5563" font-family="Inter">инфраструктура</text>
-
-        <!-- x-axis labels -->
-        <text x="80"  y="440" text-anchor="middle" font-size="11" fill="#374151" font-family="JetBrains Mono">2021</text>
-        <text x="230" y="440" text-anchor="middle" font-size="11" fill="#ef4444" fill-opacity="0.6" font-family="JetBrains Mono">2022</text>
-        <text x="420" y="440" text-anchor="middle" font-size="11" fill="#4b5563" font-family="JetBrains Mono">2024</text>
-        <text x="650" y="440" text-anchor="middle" font-size="11" fill="#4b5563" font-family="JetBrains Mono">2033</text>
-
-        <!-- legend -->
-        <line x1="70" y1="458" x2="95" y2="458" stroke="#c9a96e" stroke-width="2.5"/>
-        <text x="100" y="462" font-size="10" fill="#9ca3af" font-family="Inter">Спрос (индекс, 2021=100%)</text>
-        <line x1="310" y1="458" x2="335" y2="458" stroke="#4b5563" stroke-width="2"/>
-        <text x="340" y="462" font-size="10" fill="#6b7280" font-family="Inter">Инфраструктура дистрибуции</text>
-      </svg>
+    <div class="problem-note">
+      Miele, AEG, официальные структуры ушли.<br>
+      <strong>Спрос архитекторов и девелоперов — нет.</strong><br>
+      Вакуум заняли те, кто перестроился быстрее.
     </div>
   </div>
 
-  <!-- DATA PANEL -->
-  <div class="data-col">
-    <div class="data-col-title">Наблюдения</div>
-
-    <div class="obs-block">
-      <div class="obs-tag tag-market">рынок</div>
-      <div class="obs-value"><span class="highlight">×1,5</span><span class="unit">к 2033</span></div>
-      <div class="obs-desc">Рынок растёт на <strong>4,8% в год</strong> — несмотря на уход Miele, AEG, официальных структур в 2022.</div>
-    </div>
-
-    <div class="obs-block">
-      <div class="obs-tag tag-ai">AI</div>
-      <div class="obs-value"><span class="highlight">20</span><span class="unit">сек</span></div>
-      <div class="obs-desc">Время ответа AI-консультанта в <strong>23:47</strong> на вопрос о V-ZUG за ₽815к. Без менеджера.</div>
-    </div>
-
-    <div class="obs-block">
-      <div class="obs-tag tag-ai">AI</div>
-      <div class="obs-value"><span class="highlight">×8–18</span></div>
-      <div class="obs-desc">Ускорение типовых операций. <strong>3 965 SKU</strong> мигрировали за 11 дней вместо 3–5 месяцев.</div>
-    </div>
-
-    <div class="footer-note">
-      Источники: Verified Market Research (рынок РФ), IMARC Group (встраиваемая техника),<br>
-      внутренние данные Home Project (операции AI-команды)
-    </div>
+  <!-- СТРЕЛКА -->
+  <div class="bridge">
+    <div class="bridge-arrow">→</div>
+    <div class="bridge-label">закрывает</div>
   </div>
 
+  <!-- ПРАВАЯ ЧАСТЬ: AI агенты -->
+  <div class="right">
+
+    <div class="ai-header">
+      <div class="ai-badge">
+        <span class="ai-badge-icon">🤖</span>
+        <span class="ai-badge-text">AI-агенты 24/7</span>
+      </div>
+      <div class="ai-header-sub">
+        Команда из <strong>20 ролей</strong> — вместо классического офиса
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card accent">
+        <div class="mc-label">Ответ консультанта</div>
+        <div class="mc-value"><span class="accent-col">20</span><span class="unit">сек</span></div>
+        <div class="mc-desc">Запрос в <strong>23:47</strong>. V-ZUG за ₽815к.<br>Без менеджера. Без ожидания.</div>
+      </div>
+      <div class="metric-card accent">
+        <div class="mc-label">КП под запрос</div>
+        <div class="mc-value"><span class="accent-col">2</span><span class="unit">мин</span></div>
+        <div class="mc-desc">Конкуренты: <strong>30 мин — 2 дня.</strong><br>Таблица без наличия и сроков.</div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">Ускорение операций</div>
+        <div class="mc-value">×<span class="accent-col">8–18</span></div>
+        <div class="mc-desc"><strong>3 965 SKU</strong> мигрировано<br>за 11 дней вместо 3–5 мес.</div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">Стоимость команды</div>
+        <div class="mc-value"><span class="accent-col">₽45к</span><span class="unit">/мес</span></div>
+        <div class="mc-desc">Маркетинг + аналитика + ops.<br><strong>= 1 фрилансер.</strong> 20 ролей.</div>
+      </div>
+    </div>
+
+    <div class="roles-section">
+      <div class="roles-label">Роли в команде</div>
+      <div class="roles-chips">
+        <span class="role-chip active">CEO</span>
+        <span class="role-chip active">Маркетолог</span>
+        <span class="role-chip active">Аналитик</span>
+        <span class="role-chip active">Консультант</span>
+        <span class="role-chip active">Proposal Writer</span>
+        <span class="role-chip active">Catalog Sync</span>
+        <span class="role-chip">Бухгалтер</span>
+        <span class="role-chip">Юрист</span>
+        <span class="role-chip">Секретарь</span>
+        <span class="role-chip">Логист</span>
+        <span class="role-chip">+ ещё 10 ролей</span>
+      </div>
+    </div>
+
+    <div class="bottom-row">
+      <div class="cost-block">
+        <span class="cost-val">₽0</span>
+        <div class="cost-label">переработок, больничных<br>и совещаний «ни о чём»</div>
+      </div>
+      <div class="vs-block">
+        Классический офис тех же функций:<br>
+        <strong style="color:#6b7280">₽400–800к/мес · 6–12 месяцев найма</strong>
+      </div>
+    </div>
+
+  </div>
 </div>
+
 </body>
 </html>
