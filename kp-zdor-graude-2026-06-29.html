@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>КП-0002 · Денис Здор · Home Project</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --dark:#181A20; --gold:#c9a96e; --gold-lt:rgba(201,169,110,0.12);
+  --bg:#f5f4f0; --text:#1a1a1a; --muted:#7a8099; --border:#e5e3db; --brand:#2B4A72;
+}
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); font-size:14px; line-height:1.6; }
+.header { background:var(--dark); padding:28px 48px 24px; display:flex; justify-content:space-between; align-items:flex-end; }
+.logo-title { font-size:20px; font-weight:700; color:#fff; letter-spacing:.08em; text-transform:uppercase; }
+.logo-sub { font-size:10px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-top:3px; }
+.kp-label { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; text-align:right; }
+.kp-meta { font-size:22px; font-weight:700; color:#fff; margin-top:2px; text-align:right; }
+.kp-date { font-size:11px; color:var(--gold); margin-top:4px; text-align:right; }
+.brand-bar { background:var(--brand); padding:9px 48px; display:flex; align-items:center; gap:12px; }
+.brand-bar-name { font-size:13px; font-weight:700; color:#fff; letter-spacing:.08em; }
+.brand-bar-sep { color:rgba(255,255,255,.4); }
+.brand-bar-tagline { font-size:11px; color:rgba(255,255,255,.72); }
+.badge-stock-bar { display:inline-block; background:rgba(46,125,50,0.25); color:#81c784; border:1px solid rgba(129,199,132,0.4); border-radius:20px; padding:2px 10px; font-size:10px; font-weight:700; letter-spacing:.06em; }
+.addressee { background:#fff; padding:14px 48px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:32px; flex-wrap:wrap; }
+.addr-block { display:flex; flex-direction:column; }
+.addr-lbl { font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:2px; }
+.addr-val { font-size:14px; font-weight:600; }
+.addr-divider { width:1px; height:32px; background:var(--border); flex-shrink:0; }
+.container { max-width:960px; margin:0 auto; background:#fff; box-shadow:0 0 40px rgba(0,0,0,.07); }
+.section-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:var(--gold); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.pad { padding:36px 48px 48px; }
+.brief-block { background:var(--dark); border-radius:14px; padding:28px 32px; margin-bottom:24px; }
+.brief-block-title { font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--gold); font-weight:700; margin-bottom:10px; }
+.brief-quote-text { font-size:15px; color:#d0d4e0; line-height:1.75; font-style:italic; }
+.brief-quote-cite { display:block; margin-top:12px; font-style:normal; font-size:11px; color:var(--muted); letter-spacing:.06em; }
+.brief-chips { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:20px; }
+.brief-chip { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:10px; padding:14px 16px; }
+.brief-chip-label { font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:4px; }
+.brief-chip-val { font-size:14px; font-weight:700; color:#fff; }
+.brief-chip-sub { font-size:11px; color:#888; margin-top:2px; }
+.kp-table { width:100%; border-collapse:collapse; margin-bottom:20px; }
+.kp-table th { background:var(--dark); color:#fff; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; padding:11px 14px; text-align:left; }
+.kp-table th:last-child { text-align:right; }
+.kp-table td { padding:14px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+.kp-table tr:last-child td { border-bottom:none; }
+.kp-table tr:hover td { background:#fafaf8; }
+.item-num { font-size:13px; font-weight:700; color:var(--gold); width:28px; text-align:center; }
+.item-brand { font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:2px; }
+.item-model { font-size:15px; font-weight:700; }
+.item-name { font-size:12px; color:#555; margin-top:3px; line-height:1.55; }
+.item-note { font-size:11px; color:#888; margin-top:5px; line-height:1.5; font-style:italic; }
+.item-warn { font-size:11px; color:#c06a1a; font-weight:600; margin-top:5px; }
+.item-specs { font-size:12px; color:#666; line-height:1.7; }
+.item-price { text-align:right; font-weight:700; white-space:nowrap; font-size:15px; }
+.badge-stock { display:inline-block; background:#e8f5e9; color:#2e7d32; border-radius:20px; padding:2px 9px; font-size:10px; font-weight:600; }
+.kp-total { background:var(--dark); border-radius:12px; padding:22px 28px; display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; }
+.kp-total-label { font-size:11px; color:#aaa; text-transform:uppercase; letter-spacing:.1em; margin-bottom:4px; }
+.kp-total-count { font-size:13px; color:var(--gold); font-weight:600; margin-top:3px; }
+.kp-total-note { font-size:11px; color:var(--muted); margin-top:4px; }
+.kp-total-sum { font-size:34px; font-weight:800; color:#fff; white-space:nowrap; }
+.kp-total-sum span { font-size:18px; color:var(--gold); font-weight:500; margin-left:6px; }
+.conditions-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:28px; }
+.cond-card { border:1px solid var(--border); border-radius:12px; padding:18px 20px; background:#fff; }
+.cond-icon { font-size:22px; margin-bottom:8px; }
+.cond-title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; }
+.cond-val { font-size:13px; color:#555; line-height:1.5; }
+.mont-section { background:#fafaf8; border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:28px; }
+.mont-head { background:var(--dark); padding:14px 22px; display:flex; align-items:center; justify-content:space-between; }
+.mont-head-title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:#fff; }
+.mont-head-sub { font-size:11px; color:var(--muted); }
+.mont-table { width:100%; border-collapse:collapse; }
+.mont-table th { background:#f0efe9; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); padding:10px 16px; text-align:left; border-bottom:1px solid var(--border); }
+.mont-table td { padding:12px 16px; border-bottom:1px solid var(--border); font-size:12px; vertical-align:top; }
+.mont-table tr:last-child td { border-bottom:none; }
+.mont-model { font-weight:700; font-size:13px; }
+.mont-warn { color:#c06a1a; font-weight:600; }
+.footer { background:var(--dark); padding:32px 48px; }
+.footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-bottom:20px; }
+.footer-col-title { font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:10px; }
+.footer-contact { display:flex; flex-direction:column; gap:6px; }
+.footer-contact a { color:#9aa0b8; font-size:13px; text-decoration:none; }
+.footer-contact a:hover { color:var(--gold); }
+.footer-contact span { color:#9aa0b8; font-size:13px; }
+.footer-legal { font-size:11px; color:#555; border-top:1px solid #2a2d38; padding-top:16px; line-height:1.65; }
+.footer-brand { font-size:15px; font-weight:700; color:#fff; letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.footer-tagline { font-size:11px; color:var(--muted); }
+.print-bar { background:#fff; padding:12px 48px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:flex-end; gap:12px; }
+.btn-print { background:var(--dark); color:#fff; border:none; border-radius:8px; padding:8px 18px; font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; letter-spacing:.04em; }
+.kp-num { font-size:12px; color:var(--muted); }
+@media(max-width:720px){
+  .header{padding:20px; flex-direction:column; gap:12px;}
+  .kp-meta,.kp-label,.kp-date{text-align:left;}
+  .brand-bar,.addressee,.pad,.footer,.print-bar{padding-left:20px;padding-right:20px;}
+  .brief-chips,.conditions-grid{grid-template-columns:1fr;}
+  .kp-total{flex-direction:column;align-items:flex-start;gap:12px;}
+  .footer-grid{grid-template-columns:1fr;}
+  .kp-table th:nth-child(3),.kp-table td:nth-child(3){display:none;}
+}
+@media print{.print-bar{display:none;} body{background:#fff;} .container{box-shadow:none;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div>
+    <div class="logo-title">Home Project</div>
+    <div class="logo-sub">Премиальная встраиваемая техника · Москва</div>
+  </div>
+  <div>
+    <div class="kp-label">Коммерческое предложение</div>
+    <div class="kp-meta">КП-0002 · 29.06.2026</div>
+    <div class="kp-date">действует до 13 июля 2026</div>
+  </div>
+</div>
+
+<div class="brand-bar">
+  <span class="brand-bar-name">Graude</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-tagline">Встраиваемая техника · средний класс</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="badge-stock-bar">всё на складе</span>
+</div>
+
+<div class="addressee">
+  <div class="addr-block"><div class="addr-lbl">Адресат</div><div class="addr-val">Денис Здор</div></div>
+  <div class="addr-divider"></div>
+  <div class="addr-block"><div class="addr-lbl">Email</div><div class="addr-val">d.zdor@graude.ru</div></div>
+  <div class="addr-divider"></div>
+  <div class="addr-block"><div class="addr-lbl">Менеджер</div><div class="addr-val">Ария · Home Project</div></div>
+  <div class="addr-divider"></div>
+  <div class="addr-block"><div class="addr-lbl">Состав</div><div class="addr-val">5 позиций · Graude</div></div>
+</div>
+
+<div class="print-bar">
+  <span class="kp-num">КП-0002 · Денис Здор · 29.06.2026</span>
+  <button class="btn-print" onclick="window.print()">🖨 Распечатать</button>
+</div>
+
+<div class="pad">
+
+  <div class="section-title">Запрос клиента</div>
+  <div class="brief-block">
+    <div class="brief-block-title">Запрос от 25.06.2026</div>
+    <div class="brief-quote-text">«Нужна подборка техники среднего класса. Всё чёрного цвета: духовой шкаф с сенсорным управлением, индукция 60 см, вытяжка встраиваемая в шкаф 60 см, ПММ 60 см (самую простую), встраиваемый холодильник высотой 200 см.»</div>
+    <cite class="brief-quote-cite">— Денис Здор · d.zdor@graude.ru · 25 июня 2026</cite>
+    <div class="brief-chips">
+      <div class="brief-chip"><div class="brief-chip-label">Категории</div><div class="brief-chip-val">5 позиций</div><div class="brief-chip-sub">духовка · варочная · вытяжка · ПММ · холодильник</div></div>
+      <div class="brief-chip"><div class="brief-chip-label">Финиш</div><div class="brief-chip-val">Чёрный</div><div class="brief-chip-sub">чёрное стекло по всем позициям</div></div>
+      <div class="brief-chip"><div class="brief-chip-label">КП действует</div><div class="brief-chip-val">до 13 июля 2026</div><div class="brief-chip-sub">14 дней с даты выставления</div></div>
+    </div>
+  </div>
+
+  <div class="section-title">Состав предложения · Graude</div>
+  <table class="kp-table">
+    <thead>
+      <tr>
+        <th style="width:32px">#</th>
+        <th>Позиция</th>
+        <th>Ключевые характеристики</th>
+        <th style="width:80px;text-align:center">Наличие</th>
+        <th style="width:110px;text-align:right">Цена РРЦ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="item-num">1</td>
+        <td>
+          <div class="item-brand">Graude</div>
+          <div class="item-model">BE 60.2 E</div>
+          <div class="item-name">Духовой шкаф · 60 см · чёрное стекло + нержавейка</div>
+          <div class="item-note">Classic Control. Сенсорное управление — модель BMP 60.4 S (цена по запросу).</div>
+        </td>
+        <td class="item-specs">5 режимов · конвекция<br>Размеры: 594×594×566 мм<br>Ниша: В 595 × Ш 560 мм<br>220В / 16А</td>
+        <td style="text-align:center"><span class="badge-stock">в наличии</span></td>
+        <td class="item-price">37 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">2</td>
+        <td>
+          <div class="item-brand">Graude</div>
+          <div class="item-model">IK 60.0</div>
+          <div class="item-name">Варочная панель индукционная · 60 см · чёрное стекло Schott Ceran · сенсор · 4 зоны</div>
+          <div class="item-warn">⚡ Электрику: требуется выделенная линия 32А (7 400 Вт суммарно)</div>
+        </td>
+        <td class="item-specs">4 зоны · TouchControl · таймер<br>Размеры: 590×62×520 мм<br>Вырез в столешнице: 556×486 мм<br>220В / 32А выделенная линия</td>
+        <td style="text-align:center"><span class="badge-stock">в наличии</span></td>
+        <td class="item-price">25 490 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">3</td>
+        <td>
+          <div class="item-brand">Graude</div>
+          <div class="item-model">DHF 60.0 S</div>
+          <div class="item-name">Вытяжка встраиваемая в шкаф · выдвижной экран · 60 см · чёрное стекло</div>
+        </td>
+        <td class="item-specs">550 м³/ч · 64 дБ<br>Алюминиевые фильтры<br>Размеры: 600×176×280 мм<br>220В / стандарт</td>
+        <td style="text-align:center"><span class="badge-stock">в наличии</span></td>
+        <td class="item-price">12 490 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">4</td>
+        <td>
+          <div class="item-brand">Graude</div>
+          <div class="item-model">VGE 60.0</div>
+          <div class="item-name">Посудомоечная машина встраиваемая · 60 см · AquaStop</div>
+        </td>
+        <td class="item-specs">12 комплектов · 49 дБ · A+<br>4 программы · полувзагрузка<br>Размеры: 598×815×550 мм<br>220В / вода + слив</td>
+        <td style="text-align:center"><span class="badge-stock">в наличии</span></td>
+        <td class="item-price">50 990 ₽</td>
+      </tr>
+      <tr>
+        <td class="item-num">5</td>
+        <td>
+          <div class="item-brand">Graude</div>
+          <div class="item-model">IKG 200.3 ИНТ</div>
+          <div class="item-name">Холодильник встраиваемый · No-Frost · 300 л · два отделения</div>
+          <div class="item-note">Высота прибора 1977 мм · ниша ~200 см · морозилка нижняя 87 л</div>
+        </td>
+        <td class="item-specs">300 л (213 х/к + 87 м/к) · No-Frost<br>Класс А · LED · стекл. полки<br>Размеры: 540×1977×555 мм<br>220В / стандарт</td>
+        <td style="text-align:center"><span class="badge-stock">в наличии</span></td>
+        <td class="item-price">110 990 ₽</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="kp-total">
+    <div>
+      <div class="kp-total-label">Итого по предложению</div>
+      <div class="kp-total-count">5 позиций · все Graude · всё на складе в Москве</div>
+      <div class="kp-total-note">РРЦ · включая НДС · без монтажа</div>
+    </div>
+    <div class="kp-total-sum">237 950 <span>₽</span></div>
+  </div>
+
+  <div class="section-title">Условия</div>
+  <div class="conditions-grid">
+    <div class="cond-card"><div class="cond-icon">🚚</div><div class="cond-title">Доставка</div><div class="cond-val">Москва и МО — 5–7 рабочих дней. Все 5 позиций на складе, без ожидания под заказ.</div></div>
+    <div class="cond-card"><div class="cond-icon">🛡</div><div class="cond-title">Гарантия</div><div class="cond-val"><strong>5 лет</strong> официальной гарантии Graude. Авторизованный дистрибьютор — прямые поставки.</div></div>
+    <div class="cond-card"><div class="cond-icon">💳</div><div class="cond-title">Оплата</div><div class="cond-val">100% предоплата по счёту. ИП Кривов С.С. Безналичный расчёт, НДС включён в РРЦ.</div></div>
+    <div class="cond-card"><div class="cond-icon">🔧</div><div class="cond-title">Монтаж</div><div class="cond-val">Не включён в стоимость. Можем порекомендовать проверенных специалистов по Москве.</div></div>
+  </div>
+
+  <div class="section-title">Монтажная справка — передайте дизайнеру / строителям</div>
+  <div class="mont-section">
+    <div class="mont-head">
+      <span class="mont-head-title">📐 Размеры ниш и подключения</span>
+      <span class="mont-head-sub">все размеры в мм</span>
+    </div>
+    <table class="mont-table">
+      <thead>
+        <tr>
+          <th>Модель</th>
+          <th>Тип</th>
+          <th>Ниша / вырез (В × Ш × Г)</th>
+          <th>Подключение</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><div class="mont-model">BE 60.2 E</div></td><td>Духовой шкаф</td><td>В 595 × Ш 560 мм (глубина 566 мм)</td><td>220В / 16А</td></tr>
+        <tr><td><div class="mont-model">IK 60.0</div></td><td>Варочная панель</td><td>Вырез 556 × 486 мм (h 62 мм)</td><td class="mont-warn">⚡ 220В / 32А выделенная линия!</td></tr>
+        <tr><td><div class="mont-model">DHF 60.0 S</div></td><td>Вытяжка в шкаф</td><td>600 × 176 × 280 мм (под шкаф)</td><td>220В / стандарт</td></tr>
+        <tr><td><div class="mont-model">VGE 60.0</div></td><td>Посудомоечная машина</td><td>Ниша 820 × 600 мм (глубина 550 мм)</td><td>220В / вода + слив</td></tr>
+        <tr><td><div class="mont-model">IKG 200.3 ИНТ</div></td><td>Холодильник встраиваемый</td><td>~2 000 × 540 мм (прибор 1977 × 555 мм)</td><td>220В / стандарт</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Home Project</div>
+      <div class="footer-tagline">Дистрибуция премиальной встраиваемой техники · Москва</div>
+      <div style="margin-top:16px">
+        <div class="footer-col-title">Контакты</div>
+        <div class="footer-contact">
+          <a href="mailto:info@homeproject.online">info@homeproject.online</a>
+          <a href="https://t.me/homeproject_ai_bot">Telegram: @homeproject_ai_bot</a>
+          <a href="https://homeproject.online">homeproject.online</a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Реквизиты</div>
+      <div class="footer-contact">
+        <span>ИП Кривов Сергей Сергеевич</span>
+        <span>ИНН 772171614801</span>
+      </div>
+      <div style="margin-top:16px">
+        <div class="footer-col-title">Срок действия КП</div>
+        <div class="footer-contact">
+          <span>29.06.2026 — 13.07.2026</span>
+          <span>Цены РРЦ, включая НДС</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-legal">Настоящее предложение носит информационный характер и не является публичной офертой. Цены указаны в рублях РФ, включают НДС, соответствуют рекомендованным розничным ценам производителя. Наличие товара на складе подтверждено на дату выставления КП.</div>
+</div>
+
+</div>
+</body>
+</html>
