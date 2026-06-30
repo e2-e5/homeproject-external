@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Калькулятор экономии · Home Project AI</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{font-family:'Inter',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+body{background:radial-gradient(circle at 20% 0%,#1e1b4b 0%,#0f172a 50%);padding-bottom:80px}
+
+/* Header */
+.hdr{position:sticky;top:0;background:rgba(15,23,42,.92);backdrop-filter:blur(8px);border-bottom:1px solid #1e293b;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;z-index:50}
+.logo{display:flex;align-items:center;gap:10px}
+.lg-div{width:1px;height:26px;background:#334155}
+.lg-text{font-size:13px;font-weight:700;color:#fff;letter-spacing:.1em;text-transform:uppercase;line-height:1}
+.lg-sub{font-size:9px;color:#6366f1;letter-spacing:.15em;text-transform:uppercase;margin-top:3px}
+.hdr-meta{font-size:12px;color:#64748b}
+.hdr-meta a{color:#a5b4fc;text-decoration:none}
+
+/* Container */
+.wrap{max-width:880px;margin:0 auto;padding:24px 20px}
+
+/* Progress */
+.prog{display:flex;align-items:center;gap:8px;margin-bottom:32px;padding:0 4px}
+.pstep{flex:1;height:4px;background:#1e293b;border-radius:2px;position:relative;overflow:hidden}
+.pstep.done{background:#4ade80}
+.pstep.active{background:linear-gradient(90deg,#4ade80 0%,#6366f1 100%)}
+.plbl{display:flex;justify-content:space-between;margin-bottom:10px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.07em}
+.plbl span.act{color:#a5b4fc;font-weight:600}
+
+/* Card */
+.card{background:linear-gradient(180deg,#1e293b 0%,#172033 100%);border:1px solid #334155;border-radius:16px;padding:36px 38px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.step{display:none}
+.step.act{display:block}
+
+/* Typography */
+h1{font-size:32px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px}
+h2{font-size:24px;font-weight:700;color:#fff;margin-bottom:6px}
+.sub{font-size:15px;color:#94a3b8;margin-bottom:28px;line-height:1.5}
+
+/* Industry cards */
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ind{background:#0f172a;border:2px solid #334155;border-radius:12px;padding:24px 18px;cursor:pointer;transition:all .15s;text-align:center}
+.ind:hover{border-color:#6366f1;transform:translateY(-2px);background:#1a1f3a}
+.ind.sel{border-color:#6366f1;background:#1e1b4b;box-shadow:0 0 0 3px rgba(99,102,241,.2)}
+.ind-icon{font-size:36px;margin-bottom:8px}
+.ind-name{font-size:15px;font-weight:600;color:#fff;margin-bottom:4px}
+.ind-desc{font-size:12px;color:#64748b}
+.ind.tnp{background:linear-gradient(135deg,#1e1b4b 0%,#0f172a 100%);border-color:#6366f1;position:relative}
+.ind.tnp::after{content:'★ Наша экспертиза';position:absolute;top:6px;right:6px;background:#6366f1;color:#fff;font-size:9px;padding:2px 6px;border-radius:6px;letter-spacing:.05em;font-weight:600}
+
+/* Form fields */
+.fgroup{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.flbl{font-size:13px;color:#94a3b8;font-weight:500}
+.fhint{font-size:11px;color:#64748b;margin-top:2px}
+.finp,.fsel{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:11px 14px;color:#e2e8f0;font-size:15px;font-family:inherit;width:100%;transition:border-color .15s}
+.finp:focus,.fsel:focus{outline:none;border-color:#6366f1;background:#0a0f1f}
+.finp::placeholder{color:#475569}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+/* Team table */
+.team{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.team-sec{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 6px}
+.team-row{display:grid;grid-template-columns:1fr 100px 110px 90px;gap:10px;align-items:center;background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:8px 12px}
+.tr-role{font-size:13px;color:#e2e8f0}
+.tr-sal{font-size:12px;color:#64748b;text-align:right}
+.tr-num{display:flex;align-items:center;gap:4px}
+.tr-num button{background:#1e293b;border:none;color:#94a3b8;width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .12s}
+.tr-num button:hover{background:#334155;color:#fff}
+.tr-num input{background:#0a0f1f;border:1px solid #334155;color:#fff;text-align:center;font-size:14px;width:42px;padding:5px;border-radius:5px}
+.tr-cost{font-size:13px;color:#a5b4fc;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+
+/* Pain cards */
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.pain{background:#0f172a;border:2px solid #334155;border-radius:10px;padding:18px;cursor:pointer;transition:all .15s;display:flex;gap:12px;align-items:flex-start}
+.pain:hover{border-color:#6366f1;background:#1a1f3a}
+.pain.sel{border-color:#6366f1;background:#1e1b4b}
+.pain-ico{font-size:24px;flex-shrink:0}
+.pain-t{font-size:14px;font-weight:600;color:#fff;margin-bottom:3px}
+.pain-d{font-size:12px;color:#94a3b8;line-height:1.4}
+
+/* Nav */
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:30px;gap:12px}
+.btn{padding:12px 24px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-prim{background:#6366f1;color:#fff}
+.btn-prim:hover{background:#7c7ff3}
+.btn-prim:disabled{background:#1e293b;color:#475569;cursor:not-allowed}
+.btn-sec{background:transparent;color:#94a3b8;border:1px solid #334155}
+.btn-sec:hover{background:#1e293b;color:#fff}
+.btn-big{padding:14px 32px;font-size:16px}
+
+/* Result */
+.hero{background:linear-gradient(135deg,#1e1b4b 0%,#0f172a 100%);border:1px solid #6366f1;border-radius:14px;padding:28px;margin-bottom:20px;text-align:center}
+.hero-lbl{font-size:13px;color:#a5b4fc;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px}
+.hero-val{font-size:54px;font-weight:800;color:#4ade80;line-height:1;margin-bottom:6px}
+.hero-sub{font-size:14px;color:#94a3b8}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.kpi{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:18px}
+.kpi-lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.09em;margin-bottom:4px}
+.kpi-val{font-size:24px;font-weight:800;color:#fff;line-height:1.1}
+.kpi-sub{font-size:11px;color:#64748b;margin-top:3px}
+
+/* Tier recommend */
+.tier{background:#0f172a;border:1px solid #6366f1;border-radius:10px;padding:18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.tier-l{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em}
+.tier-n{font-size:22px;font-weight:800;color:#a5b4fc;margin:2px 0}
+.tier-p{font-size:13px;color:#64748b}
+.tier-r{text-align:right}
+.tier-pr{font-size:18px;font-weight:700;color:#fff}
+.tier-pi{font-size:12px;color:#fbbf24}
+
+/* Locked detail */
+.lock-banner{background:#1a2a1a;border:1px solid #4ade80;border-radius:10px;padding:18px;text-align:center;margin-bottom:20px}
+.lock-banner h3{font-size:17px;color:#4ade80;margin-bottom:6px}
+.lock-banner p{font-size:13px;color:#94a3b8;line-height:1.5}
+
+.email-form{background:#0f172a;border:1px solid #334155;border-radius:12px;padding:24px;margin-top:18px}
+.ef-title{font-size:16px;color:#fff;font-weight:600;margin-bottom:4px}
+.ef-desc{font-size:13px;color:#94a3b8;margin-bottom:18px}
+.ef-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.ef-row.single{grid-template-columns:1fr}
+
+/* Disclaimer */
+.disc{font-size:11px;color:#475569;background:#0f172a;border-left:2px solid #6366f1;padding:10px 14px;border-radius:0 6px 6px 0;margin-top:16px;line-height:1.5}
+
+/* Detail report */
+.det-section{margin-bottom:24px}
+.det-title{font-size:14px;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #334155}
+table.det{width:100%;border-collapse:collapse;font-size:13px}
+table.det th{background:#1e293b;color:#94a3b8;text-align:left;padding:8px 12px;font-weight:600;font-size:12px}
+table.det td{padding:8px 12px;border-bottom:1px solid #1e293b;background:#0f172a}
+.tn{text-align:right;font-variant-numeric:tabular-nums}
+.tg{color:#4ade80;font-weight:600}.ta{color:#a5b4fc;font-weight:600}.ty{color:#fbbf24;font-weight:600}.tr{color:#f87171;font-weight:600}
+
+/* Stages */
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.stage{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:16px;border-top:3px solid #6366f1}
+.stage.green{border-top-color:#4ade80}
+.stage.yellow{border-top-color:#fbbf24}
+.stage-n{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.stage-t{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
+.stage-d{font-size:12px;color:#94a3b8;line-height:1.4}
+
+.need-list{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:18px}
+.need-list ul{list-style:none;padding:0;margin:8px 0 0}
+.need-list li{font-size:13px;color:#94a3b8;padding:6px 0 6px 18px;position:relative}
+.need-list li::before{content:'•';color:#6366f1;position:absolute;left:6px;font-weight:700}
+
+@media(max-width:720px){
+  .ind-grid{grid-template-columns:repeat(2,1fr)}
+  .pain-grid{grid-template-columns:1fr}
+  .row2,.row3{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:1fr}
+  .stages{grid-template-columns:1fr}
+  .team-row{grid-template-columns:1fr 90px}
+  .tr-sal,.tr-cost{display:none}
+  .card{padding:22px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="logo">
+    <svg width="30" height="29" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg>
+    <div class="lg-div"></div>
+    <div><div class="lg-text">Home Project</div><div class="lg-sub">AI Platform</div></div>
+  </div>
+  <div class="hdr-meta">Калькулятор экономии &nbsp;·&nbsp; <a href="mailto:info@homeproject.online">info@homeproject.online</a></div>
+</div>
+
+<div class="wrap">
+
+<div class="plbl">
+  <span id="pl0" class="act">Отрасль</span>
+  <span id="pl1">Компания</span>
+  <span id="pl2">Команда</span>
+  <span id="pl3">Расходы</span>
+  <span id="pl4">Каталог</span>
+  <span id="pl5">Боль</span>
+  <span id="pl6">Результат</span>
+</div>
+<div class="prog">
+  <div class="pstep active" id="ps0"></div>
+  <div class="pstep" id="ps1"></div>
+  <div class="pstep" id="ps2"></div>
+  <div class="pstep" id="ps3"></div>
+  <div class="pstep" id="ps4"></div>
+  <div class="pstep" id="ps5"></div>
+  <div class="pstep" id="ps6"></div>
+</div>
+
+<div class="card">
+
+<!-- STEP 0: INDUSTRY -->
+<div class="step act" id="step0">
+  <h1>Сколько вы экономите на ФОТ с AI-агентами?</h1>
+  <p class="sub">Заполните за 3–5 минут — получите расчётный прогноз экономии и окупаемости платформы под ваш бизнес. Начнём с отрасли:</p>
+  <div class="ind-grid">
+    <div class="ind tnp" data-i="tnp"><div class="ind-icon">🏠</div><div class="ind-name">ТНП дистрибьюция</div><div class="ind-desc">Техника, мебель, премиум</div></div>
+    <div class="ind" data-i="stroy"><div class="ind-icon">🏗️</div><div class="ind-name">Стройматериалы</div><div class="ind-desc">Опт, розница, B2B</div></div>
+    <div class="ind" data-i="mebel"><div class="ind-icon">🪑</div><div class="ind-name">Мебель и интерьер</div><div class="ind-desc">Салоны, фабрики</div></div>
+    <div class="ind" data-i="oborud"><div class="ind-icon">⚙️</div><div class="ind-name">Промоборудование</div><div class="ind-desc">B2B, инжиниринг</div></div>
+    <div class="ind" data-i="auto"><div class="ind-icon">🚗</div><div class="ind-name">Авто / запчасти</div><div class="ind-desc">Сервис, опт, розница</div></div>
+    <div class="ind" data-i="other"><div class="ind-icon">📦</div><div class="ind-name">Другое</div><div class="ind-desc">Опт, торговля, услуги</div></div>
+  </div>
+</div>
+
+<!-- STEP 1: COMPANY -->
+<div class="step" id="step1">
+  <h2>О вашей компании</h2>
+  <p class="sub">Базовые параметры. Если точных цифр не знаете — поставьте примерные.</p>
+  <div class="fgroup"><label class="flbl">Название компании <span style="color:#64748b">(необязательно)</span></label><input class="finp" id="fName" placeholder="Например: ООО Ромашка"></div>
+  <div class="row2">
+    <div class="fgroup"><label class="flbl">Город / регион</label><input class="finp" id="fCity" placeholder="Москва" value="Москва"></div>
+    <div class="fgroup"><label class="flbl">Численность сотрудников</label><input class="finp" id="fEmp" type="number" min="3" max="500" value="20"><div class="fhint">Все включая офис и склад</div></div>
+  </div>
+  <div class="row2">
+    <div class="fgroup"><label class="flbl">Годовой оборот (млн ₽)</label><input class="finp" id="fRev" type="number" min="0" value="150"><div class="fhint">Примерно — для рекомендации тарифа</div></div>
+    <div class="fgroup"><label class="flbl">Валовая прибыль, %</label><input class="finp" id="fGm" type="number" min="0" max="100" value="25"><div class="fhint">Маржа после себестоимости</div></div>
+  </div>
+</div>
+
+<!-- STEP 2: TEAM -->
+<div class="step" id="step2">
+  <h2>Структура команды</h2>
+  <p class="sub">Мы предзаполнили типовую структуру под вашу отрасль и размер. Откорректируйте по факту — это влияет на расчёт.</p>
+  <div class="team-sec">🎯 Руководство</div>
+  <div class="team" id="teamMgmt"></div>
+  <div class="team-sec">💼 Отдел продаж</div>
+  <div class="team" id="teamSales"></div>
+  <div class="team-sec">📣 Маркетинг и контент</div>
+  <div class="team" id="teamMkt"></div>
+  <div class="team-sec">💰 Бэк-офис и поддержка</div>
+  <div class="team" id="teamBack"></div>
+  <div class="team-sec">📦 Операции</div>
+  <div class="team" id="teamOps"></div>
+  <div class="disc" style="margin-top:18px"><strong style="color:#a5b4fc">ФОТ итого:</strong> <span id="totFot" style="color:#fff;font-weight:600">—</span> · С налогами и нагрузкой (×1.3): <span id="totFotL" style="color:#fbbf24;font-weight:600">—</span></div>
+</div>
+
+<!-- STEP 3: COSTS -->
+<div class="step" id="step3">
+  <h2>Прочие операционные расходы</h2>
+  <p class="sub">Дополнительные затраты, не входящие в ФОТ. Помогают оценить долю ФОТ в общих расходах.</p>
+  <div class="row2">
+    <div class="fgroup"><label class="flbl">Маркетинг / реклама в мес</label><input class="finp" id="cMkt" type="number" min="0" value="150000"><div class="fhint">Реклама, агентства, продакшен</div></div>
+    <div class="fgroup"><label class="flbl">Сервис / поддержка клиентов</label><input class="finp" id="cSvc" type="number" min="0" value="80000"><div class="fhint">Подрядчики, аутсорсинг сервиса</div></div>
+  </div>
+  <div class="row2">
+    <div class="fgroup"><label class="flbl">Логистика / склад</label><input class="finp" id="cLog" type="number" min="0" value="200000"><div class="fhint">Если на аутсорсе</div></div>
+    <div class="fgroup"><label class="flbl">ИТ / подписки / сервисы</label><input class="finp" id="cIt" type="number" min="0" value="50000"><div class="fhint">CRM, 1С, хостинг, лицензии</div></div>
+  </div>
+</div>
+
+<!-- STEP 4: CATALOG -->
+<div class="step" id="step4">
+  <h2>Сайт и каталог</h2>
+  <p class="sub">Каталог — главный объект автоматизации. От его размера и качества зависит экономия на КП и контенте.</p>
+  <div class="row2">
+    <div class="fgroup"><label class="flbl">Есть ли сайт?</label><select class="fsel" id="kSite"><option value="1">Да, основной канал</option><option value="2">Есть, но устарел</option><option value="3">Только лендинг</option><option value="0">Нет</option></select></div>
+    <div class="fgroup"><label class="flbl">SKU в каталоге</label><input class="finp" id="kSku" type="number" min="0" value="1500"><div class="fhint">Сколько позиций товаров</div></div>
+  </div>
+  <div class="row2">
+    <div class="fgroup"><label class="flbl">Кто обновляет каталог</label><select class="fsel" id="kWho"><option value="inhouse">Внутренний сотрудник</option><option value="outsource">На аутсорсе</option><option value="founder">Сам собственник</option><option value="none">Никто (не обновляется)</option></select></div>
+    <div class="fgroup"><label class="flbl">Как часто меняются прайсы</label><select class="fsel" id="kFreq"><option value="weekly">Раз в неделю</option><option value="monthly">Раз в месяц</option><option value="quarter">Раз в квартал</option><option value="rare">Реже / по факту</option></select></div>
+  </div>
+  <div class="row2" id="tnpExtra" style="display:none">
+    <div class="fgroup"><label class="flbl">Сколько брендов / поставщиков</label><input class="finp" id="kBrands" type="number" min="1" value="5"></div>
+    <div class="fgroup"><label class="flbl">КП в месяц (примерно)</label><input class="finp" id="kKp" type="number" min="0" value="60"><div class="fhint">Среднее количество предложений клиентам</div></div>
+  </div>
+</div>
+
+<!-- STEP 5: PAIN -->
+<div class="step" id="step5">
+  <h2>Главная боль вашего бизнеса</h2>
+  <p class="sub">Выберите 1–2 пункта. Поможем расставить приоритеты в внедрении.</p>
+  <div class="pain-grid">
+    <div class="pain" data-p="kp"><div class="pain-ico">📋</div><div><div class="pain-t">Долго делаем КП</div><div class="pain-d">3–4 часа на одно предложение, конверсия страдает</div></div></div>
+    <div class="pain" data-p="catalog"><div class="pain-ico">📊</div><div><div class="pain-t">Прайсы и каталог не успеваем</div><div class="pain-d">Обновления занимают дни, продаём по старым ценам</div></div></div>
+    <div class="pain" data-p="leads"><div class="pain-ico">👤</div><div><div class="pain-t">Теряем клиентов</div><div class="pain-d">Не перезваниваем, не делаем follow-up</div></div></div>
+    <div class="pain" data-p="content"><div class="pain-ico">📣</div><div><div class="pain-t">Нет рук на маркетинг</div><div class="pain-d">Соцсети, рассылки, контент — некому делать</div></div></div>
+    <div class="pain" data-p="analytics"><div class="pain-ico">📉</div><div><div class="pain-t">Не видим цифр</div><div class="pain-d">Аналитика «на глаз», непонятно где деньги</div></div></div>
+    <div class="pain" data-p="fot"><div class="pain-ico">💸</div><div><div class="pain-t">Дорогой штат</div><div class="pain-d">Хочется сократить ФОТ без потери качества</div></div></div>
+  </div>
+</div>
+
+<!-- STEP 6: RESULT -->
+<div class="step" id="step6">
+  <h2>Ваш расчётный прогноз</h2>
+  <p class="sub">Расчёт сделан на основе ваших данных и наших отраслевых коэффициентов. Это <strong style="color:#fbbf24">оценочный прогноз</strong>, для точного расчёта нужна короткая консультация.</p>
+
+  <div class="hero">
+    <div class="hero-lbl">Потенциальная экономия в месяц</div>
+    <div class="hero-val" id="rSavMo">—</div>
+    <div class="hero-sub">= <span id="rSavYr">—</span> в год</div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-lbl">Доля ФОТ в оптимизации</div><div class="kpi-val ta" id="rPct">—</div><div class="kpi-sub">от вашего текущего ФОТ</div></div>
+    <div class="kpi"><div class="kpi-lbl">Окупаемость</div><div class="kpi-val ta" id="rPay">—</div><div class="kpi-sub">внедрения и подписки</div></div>
+    <div class="kpi"><div class="kpi-lbl">ROI за год</div><div class="kpi-val tg" id="rRoi">—</div><div class="kpi-sub">экономия ÷ затраты</div></div>
+  </div>
+
+  <div class="tier">
+    <div>
+      <div class="tier-l">Рекомендованный тариф</div>
+      <div class="tier-n" id="rTier">—</div>
+      <div class="tier-p" id="rTierDesc">—</div>
+    </div>
+    <div class="tier-r">
+      <div class="tier-pr" id="rTierPr">—</div>
+      <div class="tier-pi" id="rTierPi">—</div>
+    </div>
+  </div>
+
+  <div class="lock-banner">
+    <h3>🔓 Получите детальный отчёт</h3>
+    <p>Разбивка экономии по отделам · карта AI-покрытия по ролям · этапы внедрения · список данных для старта проекта</p>
+  </div>
+
+  <div class="email-form" id="leadForm">
+    <div class="ef-title">Куда отправить детальный отчёт</div>
+    <div class="ef-desc">Также получите письмо со списком данных, которые помогут уточнить расчёт под ваш бизнес.</div>
+    <div class="ef-row">
+      <div class="fgroup" style="margin:0"><label class="flbl">Ваше имя</label><input class="finp" id="lName" placeholder="Иван"></div>
+      <div class="fgroup" style="margin:0"><label class="flbl">Должность</label><input class="finp" id="lRole" placeholder="Собственник / CEO"></div>
+    </div>
+    <div class="ef-row">
+      <div class="fgroup" style="margin:0"><label class="flbl">Email *</label><input class="finp" id="lEmail" type="email" placeholder="ivan@company.ru" required></div>
+      <div class="fgroup" style="margin:0"><label class="flbl">Телефон <span style="color:#64748b">(необязательно)</span></label><input class="finp" id="lPhone" placeholder="+7 ___ ___ __ __"></div>
+    </div>
+    <div class="ef-row single">
+      <div class="fgroup" style="margin:0"><label class="flbl">Комментарий <span style="color:#64748b">(необязательно)</span></label><input class="finp" id="lNote" placeholder="Что хотите обсудить в первую очередь?"></div>
+    </div>
+    <button class="btn btn-prim btn-big" style="width:100%;justify-content:center;margin-top:16px" onclick="submitLead()">Получить детальный отчёт →</button>
+    <div class="disc">Нажимая «Получить», вы соглашаетесь на обработку контактных данных для подготовки персонального предложения. Спам не шлём — слово.</div>
+  </div>
+
+  <!-- DETAILED VIEW (hidden until email submitted) -->
+  <div id="detailView" style="display:none;margin-top:20px">
+
+    <div class="det-section">
+      <div class="det-title">📊 Разбивка экономии по отделам</div>
+      <table class="det" id="detByDept"></table>
+    </div>
+
+    <div class="det-section">
+      <div class="det-title">🤖 Карта AI-покрытия по ролям</div>
+      <table class="det" id="detByRole"></table>
+    </div>
+
+    <div class="det-section">
+      <div class="det-title">🚀 Этапы внедрения</div>
+      <div class="stages">
+        <div class="stage green"><div class="stage-n">1. Пилот · 45 дней</div><div class="stage-t">Бесплатно</div><div class="stage-d">Загружаем ваши прайсы, подключаем базу. Первое КП за 2 минуты. Без карты и обязательств.</div></div>
+        <div class="stage"><div class="stage-n">2. Внедрение · 2–4 недели</div><div class="stage-t" id="implPrice">от 79 000 ₽</div><div class="stage-d">Настройка под ваш бизнес, интеграция с данными, обучение команды.</div></div>
+        <div class="stage yellow"><div class="stage-n">3. Подписка · ежемесячно</div><div class="stage-t" id="subPrice">от 14 900 ₽/мес</div><div class="stage-d">AI-агенты работают 24/7, обновления, поддержка, аналитика.</div></div>
+      </div>
+    </div>
+
+    <div class="det-section">
+      <div class="det-title">📋 Что нужно от вас для точного расчёта и старта</div>
+      <div class="need-list">
+        <ul>
+          <li>Текущий прайс хотя бы по 1 основному поставщику (Excel / PDF)</li>
+          <li>Доступ к сайту (read-only) или выгрузка каталога с SKU</li>
+          <li>База клиентов или CRM (Excel, выгрузка из 1С, AmoCRM и т.п.)</li>
+          <li>Пример 1–2 КП, которое вы делаете для клиента (чтобы видеть формат)</li>
+          <li>30-минутный созвон с вами или РОПом для уточнения процессов</li>
+          <li>Доступ к корпоративной почте для подключения email-рассылок</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="disc" style="margin-top:20px;background:#1a2a1a;border-color:#4ade80;color:#94a3b8">
+      <strong style="color:#4ade80">📌 Дисклеймер:</strong> Расчёт оценочный, основан на типовых данных по отрасли и средним ФОТ Москвы. Реальная экономия зависит от готовности команды, качества данных и плотности внедрения. Точные цифры — после короткой консультации (30 мин) и аудита процессов.
+    </div>
+
+    <div style="text-align:center;margin-top:24px;padding:20px;background:#0f172a;border:1px solid #6366f1;border-radius:12px">
+      <div style="font-size:13px;color:#94a3b8;margin-bottom:8px">📞 Готовы начать пилот?</div>
+      <a href="mailto:info@homeproject.online?subject=AI%20Platform%20-%20Запуск%20пилота&body=Здравствуйте%21%20Прошёл%20калькулятор%2C%20готов%20обсудить%20пилот." class="btn btn-prim btn-big" style="text-decoration:none">Запустить пилот → info@homeproject.online</a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV BUTTONS -->
+<div class="nav-btns" id="navBtns">
+  <button class="btn btn-sec" id="btnBack" onclick="prev()">← Назад</button>
+  <button class="btn btn-prim" id="btnNext" onclick="next()">Далее →</button>
+</div>
+
+</div><!-- /card -->
+</div><!-- /wrap -->
+
+<script>
+// ───────── MODEL ─────────
+const SAL={ceo:150000,rop:120000,manager:70000,kp:80000,back:65000,smm:60000,copy:70000,design:80000,acc:80000,sec:65000,analyst:120000,lawyer:110000,hr:100000,it:100000,log:60000,other:80000};
+const NAME={ceo:'CEO / директор',rop:'РОП',manager:'Менеджер продаж',kp:'Автор КП',back:'Бэк-офис продаж',smm:'SMM-менеджер',copy:'Копирайтер',design:'Дизайнер',acc:'Бухгалтер',sec:'Секретарь / офис',analyst:'Аналитик',lawyer:'Юрист',hr:'HR-менеджер',it:'ИТ-специалист',log:'Логист / склад',other:'Прочие'};
+// AI realized coverage (% реальной экономии от ставки)
+const COV={ceo:.25,rop:.30,manager:.45,kp:.85,back:.75,smm:.70,copy:.80,design:.65,acc:.55,sec:.65,analyst:.80,lawyer:.45,hr:.55,it:.45,log:.35,other:.30};
+// Industry coverage multipliers
+const IND_MULT={tnp:{kp:1.05,back:1.05,smm:1.0,design:1.0},stroy:{kp:1.0,back:1.0},mebel:{kp:1.0,design:1.10,copy:1.05},oborud:{kp:1.05,back:1.0,analyst:1.05},auto:{back:1.05,acc:1.05,sec:1.0},other:{}};
+// Default team templates by industry & size
+function defaultTeam(ind,emp){
+  const small=emp<=20,med=emp<=45;
+  if(ind==='tnp'){
+    if(small)return{ceo:1,rop:1,manager:3,kp:2,back:1,smm:1,copy:1,design:0,acc:1,sec:1,analyst:0,lawyer:0,hr:0,it:0,log:2,other:Math.max(0,emp-14)};
+    if(med)return{ceo:2,rop:1,manager:6,kp:3,back:2,smm:1,copy:1,design:1,acc:2,sec:1,analyst:1,lawyer:0,hr:1,it:1,log:3,other:Math.max(0,emp-26)};
+    return{ceo:2,rop:2,manager:10,kp:5,back:4,smm:2,copy:2,design:1,acc:2,sec:2,analyst:1,lawyer:1,hr:1,it:2,log:5,other:Math.max(0,emp-42)};
+  }
+  if(ind==='mebel'){
+    if(small)return{ceo:1,rop:1,manager:3,kp:2,back:1,smm:1,copy:1,design:1,acc:1,sec:1,analyst:0,lawyer:0,hr:0,it:0,log:1,other:Math.max(0,emp-13)};
+    return{ceo:2,rop:1,manager:6,kp:3,back:2,smm:2,copy:1,design:2,acc:2,sec:1,analyst:1,lawyer:0,hr:1,it:1,log:3,other:Math.max(0,emp-28)};
+  }
+  if(ind==='stroy'){
+    if(small)return{ceo:1,rop:1,manager:4,kp:2,back:2,smm:1,copy:0,design:0,acc:1,sec:1,analyst:0,lawyer:0,hr:0,it:0,log:3,other:Math.max(0,emp-15)};
+    return{ceo:2,rop:1,manager:8,kp:3,back:3,smm:1,copy:1,design:0,acc:2,sec:1,analyst:1,lawyer:1,hr:1,it:1,log:5,other:Math.max(0,emp-30)};
+  }
+  if(ind==='auto'){
+    if(small)return{ceo:1,rop:1,manager:4,kp:1,back:2,smm:1,copy:0,design:0,acc:1,sec:1,analyst:0,lawyer:0,hr:0,it:0,log:2,other:Math.max(0,emp-13)};
+    return{ceo:2,rop:1,manager:7,kp:2,back:3,smm:1,copy:1,design:0,acc:2,sec:1,analyst:1,lawyer:0,hr:1,it:1,log:4,other:Math.max(0,emp-26)};
+  }
+  if(ind==='oborud'){
+    if(small)return{ceo:1,rop:1,manager:2,kp:3,back:2,smm:0,copy:1,design:0,acc:1,sec:1,analyst:1,lawyer:0,hr:0,it:0,log:1,other:Math.max(0,emp-13)};
+    return{ceo:2,rop:1,manager:5,kp:5,back:3,smm:1,copy:1,design:1,acc:2,sec:1,analyst:2,lawyer:1,hr:1,it:1,log:3,other:Math.max(0,emp-29)};
+  }
+  // other
+  if(small)return{ceo:1,rop:1,manager:3,kp:1,back:2,smm:1,copy:1,design:0,acc:1,sec:1,analyst:0,lawyer:0,hr:0,it:0,log:2,other:Math.max(0,emp-13)};
+  return{ceo:2,rop:1,manager:6,kp:2,back:3,smm:1,copy:1,design:1,acc:2,sec:1,analyst:1,lawyer:0,hr:1,it:1,log:4,other:Math.max(0,emp-26)};
+}
+
+// Tier recommendation
+function recommendTier(emp,sku){
+  if(emp<=12&&sku<800)return{key:'start',name:'Старт',price:14900,impl:79000,desc:'до 1 000 SKU · 1 агент · email-поддержка'};
+  if(emp<=25&&sku<5000)return{key:'business',name:'Бизнес',price:34900,impl:149000,desc:'до 5 000 SKU · 3 агента · email-рассылки · приоритет'};
+  if(emp<=55)return{key:'pro',name:'Про',price:69900,impl:299000,desc:'без лимита SKU · 10 агентов · полная аналитика · менеджер'};
+  return{key:'corp',name:'Корпорат',price:129900,impl:500000,desc:'без лимита · выделенная команда · кастом-агенты'};
+}
+
+const FMT=n=>n.toLocaleString('ru-RU')+' ₽';
+const FMTm=n=>n>=1e6?(n/1e6).toFixed(2)+' млн ₽':n>=1e3?Math.round(n/1e3)+' тыс ₽':n+' ₽';
+
+// ───────── STATE ─────────
+const ST={ind:'tnp',team:{},data:{}};
+let curStep=0;
+const dept={
+  mgmt:['ceo'],sales:['rop','manager','kp','back'],
+  mkt:['smm','copy','design'],
+  back:['acc','sec','hr','lawyer'],
+  ops:['analyst','it','log','other']
+};
+
+// ───────── RENDER TEAM ─────────
+function buildTeamSec(secId,roles){
+  const c=document.getElementById(secId);
+  c.innerHTML='';
+  roles.forEach(r=>{
+    const row=document.createElement('div');
+    row.className='team-row';
+    row.innerHTML=`
+      <div class="tr-role">${NAME[r]}</div>
+      <div class="tr-sal">${FMT(SAL[r])}/мес</div>
+      <div class="tr-num">
+        <button onclick="adjust('${r}',-1)">−</button>
+        <input id="t_${r}" type="number" min="0" value="${ST.team[r]||0}" onchange="setTeam('${r}',this.value)">
+        <button onclick="adjust('${r}',1)">+</button>
+      </div>
+      <div class="tr-cost" id="tc_${r}">${FMTm((ST.team[r]||0)*SAL[r])}</div>
+    `;
+    c.appendChild(row);
+  });
+}
+function buildTeam(){
+  buildTeamSec('teamMgmt',dept.mgmt);
+  buildTeamSec('teamSales',dept.sales);
+  buildTeamSec('teamMkt',dept.mkt);
+  buildTeamSec('teamBack',dept.back);
+  buildTeamSec('teamOps',dept.ops);
+  updTotal();
+}
+window.adjust=(r,d)=>{const v=Math.max(0,(ST.team[r]||0)+d);ST.team[r]=v;document.getElementById('t_'+r).value=v;document.getElementById('tc_'+r).textContent=FMTm(v*SAL[r]);updTotal();};
+window.setTeam=(r,v)=>{const x=Math.max(0,parseInt(v)||0);ST.team[r]=x;document.getElementById('tc_'+r).textContent=FMTm(x*SAL[r]);updTotal();};
+function totalFot(){let s=0;for(const r in ST.team)s+=(ST.team[r]||0)*SAL[r];return s;}
+function updTotal(){const t=totalFot();document.getElementById('totFot').textContent=FMTm(t);document.getElementById('totFotL').textContent=FMTm(Math.round(t*1.3));}
+
+// ───────── STEPS ─────────
+function show(n){
+  for(let i=0;i<=6;i++){
+    document.getElementById('step'+i).classList.toggle('act',i===n);
+    document.getElementById('ps'+i).classList.toggle('active',i===n);
+    document.getElementById('ps'+i).classList.toggle('done',i<n);
+    document.getElementById('pl'+i).classList.toggle('act',i===n);
+  }
+  curStep=n;
+  document.getElementById('btnBack').style.visibility=n===0?'hidden':'visible';
+  document.getElementById('btnNext').style.display=n===6?'none':'inline-flex';
+  document.getElementById('btnNext').textContent=n===5?'Показать результат →':'Далее →';
+  document.getElementById('navBtns').style.display=n===0?'none':'flex';
+  window.scrollTo(0,0);
+  if(n===6)computeResult();
+}
+window.next=()=>{
+  if(curStep===1){
+    ST.data.name=document.getElementById('fName').value;
+    ST.data.city=document.getElementById('fCity').value;
+    ST.data.emp=+document.getElementById('fEmp').value||20;
+    ST.data.rev=+document.getElementById('fRev').value||0;
+    ST.data.gm=+document.getElementById('fGm').value||0;
+    ST.team=defaultTeam(ST.ind,ST.data.emp);
+    buildTeam();
+  }
+  if(curStep===3){
+    ST.data.cMkt=+document.getElementById('cMkt').value||0;
+    ST.data.cSvc=+document.getElementById('cSvc').value||0;
+    ST.data.cLog=+document.getElementById('cLog').value||0;
+    ST.data.cIt=+document.getElementById('cIt').value||0;
+  }
+  if(curStep===4){
+    ST.data.site=document.getElementById('kSite').value;
+    ST.data.sku=+document.getElementById('kSku').value||0;
+    ST.data.who=document.getElementById('kWho').value;
+    ST.data.freq=document.getElementById('kFreq').value;
+    if(ST.ind==='tnp'){
+      ST.data.brands=+document.getElementById('kBrands').value||0;
+      ST.data.kp=+document.getElementById('kKp').value||0;
+    }
+  }
+  show(Math.min(6,curStep+1));
+};
+window.prev=()=>show(Math.max(0,curStep-1));
+
+// Industry click
+document.querySelectorAll('.ind').forEach(el=>{
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.ind').forEach(x=>x.classList.remove('sel'));
+    el.classList.add('sel');
+    ST.ind=el.dataset.i;
+    if(ST.ind==='tnp')document.getElementById('tnpExtra').style.display='grid';
+    setTimeout(()=>show(1),200);
+  });
+});
+// Pain click (multi-select up to 2)
+ST.pains=[];
+document.querySelectorAll('.pain').forEach(el=>{
+  el.addEventListener('click',()=>{
+    const p=el.dataset.p;
+    const i=ST.pains.indexOf(p);
+    if(i>=0){ST.pains.splice(i,1);el.classList.remove('sel');}
+    else{if(ST.pains.length>=2){const f=ST.pains.shift();document.querySelector(`.pain[data-p="${f}"]`).classList.remove('sel');}ST.pains.push(p);el.classList.add('sel');}
+  });
+});
+
+// ───────── COMPUTE RESULT ─────────
+function computeResult(){
+  const fot=totalFot();
+  const fotLoaded=fot*1.3;
+  const mult=IND_MULT[ST.ind]||{};
+  let savings=0;
+  const byRole=[];
+  for(const r in ST.team){
+    const n=ST.team[r]||0;
+    if(n===0)continue;
+    const baseCost=n*SAL[r]*1.3;
+    let cov=COV[r]*(mult[r]||1);
+    if(cov>0.9)cov=0.9;
+    const sv=Math.round(baseCost*cov);
+    savings+=sv;
+    byRole.push({role:r,name:NAME[r],n,cost:baseCost,cov:Math.round(cov*100),sav:sv});
+  }
+  // Catalog/КП boost — extra savings from automation
+  const skuBoost=Math.min(50000,Math.round((ST.data.sku||0)*15));
+  const kpBoost=ST.ind==='tnp'?Math.round((ST.data.kp||0)*1200):0;
+  const extra=skuBoost+kpBoost;
+  savings+=extra;
+
+  const tier=recommendTier(ST.data.emp,ST.data.sku||0);
+  const monthlyCost=tier.price;
+  const netSav=savings-monthlyCost;
+  const payback=tier.impl/Math.max(1,netSav);
+  const roi=((netSav*12)/(tier.impl+monthlyCost*12)).toFixed(1);
+
+  document.getElementById('rSavMo').textContent=FMTm(netSav);
+  document.getElementById('rSavYr').textContent=FMTm(netSav*12);
+  document.getElementById('rPct').textContent=Math.round(savings/Math.max(1,fotLoaded)*100)+'%';
+  document.getElementById('rPay').textContent=payback<1?'< 1 мес':payback.toFixed(1)+' мес';
+  document.getElementById('rRoi').textContent=roi+'×';
+  document.getElementById('rTier').textContent=tier.name;
+  document.getElementById('rTierDesc').textContent=tier.desc;
+  document.getElementById('rTierPr').textContent=FMT(tier.price)+'/мес';
+  document.getElementById('rTierPi').textContent='+ '+FMT(tier.impl)+' внедрение';
+  document.getElementById('subPrice').textContent='от '+FMT(tier.price)+'/мес';
+  document.getElementById('implPrice').textContent='от '+FMT(tier.impl);
+
+  // Build detail tables (hidden initially)
+  buildDetail(byRole,savings,extra,tier);
+}
+
+function buildDetail(byRole,totSav,extra,tier){
+  // By department
+  const deptMap={
+    'Руководство':dept.mgmt,'Отдел продаж':dept.sales,'Маркетинг':dept.mkt,'Бэк-офис':dept.back,'Операции':dept.ops
+  };
+  let html='<thead><tr><th>Отдел</th><th class="tn">Сейчас ФОТ/мес</th><th class="tn">AI экономит</th><th class="tn">Доля</th></tr></thead><tbody>';
+  for(const d in deptMap){
+    let dCost=0,dSav=0;
+    deptMap[d].forEach(r=>{
+      const row=byRole.find(x=>x.role===r);
+      if(row){dCost+=row.cost;dSav+=row.sav;}
+    });
+    if(dCost===0)continue;
+    const pct=Math.round(dSav/dCost*100);
+    html+=`<tr><td>${d}</td><td class="tn">${FMTm(dCost)}</td><td class="tn tg">${FMTm(dSav)}</td><td class="tn ta">${pct}%</td></tr>`;
+  }
+  if(extra>0)html+=`<tr><td>Автоматизация каталога/КП</td><td class="tn">—</td><td class="tn tg">${FMTm(extra)}</td><td class="tn ta">—</td></tr>`;
+  html+='</tbody>';
+  document.getElementById('detByDept').innerHTML=html;
+
+  // By role
+  let h2='<thead><tr><th>Роль</th><th class="tn">Чел.</th><th class="tn">ФОТ/мес</th><th class="tn">AI покрытие</th><th class="tn">Экономия/мес</th></tr></thead><tbody>';
+  byRole.sort((a,b)=>b.sav-a.sav).forEach(r=>{
+    const cls=r.cov>=70?'tg':r.cov>=50?'ty':'';
+    h2+=`<tr><td>${r.name}</td><td class="tn">${r.n}</td><td class="tn">${FMTm(r.cost)}</td><td class="tn ${cls}">${r.cov}%</td><td class="tn tg">${FMTm(r.sav)}</td></tr>`;
+  });
+  h2+='</tbody>';
+  document.getElementById('detByRole').innerHTML=h2;
+}
+
+// ───────── LEAD SUBMISSION ─────────
+window.submitLead=()=>{
+  const email=document.getElementById('lEmail').value.trim();
+  if(!email||!email.includes('@')){alert('Введите корректный email');return;}
+  const lead={
+    industry:ST.ind,
+    company:ST.data.name||'',
+    city:ST.data.city,
+    employees:ST.data.emp,
+    revenue:ST.data.rev,
+    sku:ST.data.sku,
+    pains:ST.pains,
+    name:document.getElementById('lName').value,
+    role:document.getElementById('lRole').value,
+    email,phone:document.getElementById('lPhone').value,note:document.getElementById('lNote').value,
+    ts:new Date().toISOString()
+  };
+  // Store in localStorage for now (engineer can wire to backend later)
+  const leads=JSON.parse(localStorage.getItem('hp_leads')||'[]');
+  leads.push(lead);
+  localStorage.setItem('hp_leads',JSON.stringify(leads));
+
+  // Open mailto as fallback to actually send the lead
+  const subj=encodeURIComponent('AI Calculator Lead: '+(lead.company||lead.name||lead.email));
+  const body=encodeURIComponent(`Новый лид с калькулятора:
+
+Компания: ${lead.company}
+Город: ${lead.city}
+Имя: ${lead.name} (${lead.role})
+Email: ${lead.email}
+Телефон: ${lead.phone}
+
+Отрасль: ${lead.industry}
+Сотрудников: ${lead.employees}
+Оборот: ${lead.revenue} млн ₽
+SKU: ${lead.sku}
+Боли: ${lead.pains.join(', ')}
+
+Комментарий:
+${lead.note}
+`);
+  // Reveal detailed view
+  document.getElementById('leadForm').style.display='none';
+  document.getElementById('detailView').style.display='block';
+  // Trigger mailto in new tab (CC to homeproject)
+  setTimeout(()=>{window.location.href='mailto:info@homeproject.online?subject='+subj+'&body='+body;},400);
+  window.scrollTo({top:document.getElementById('detailView').offsetTop-80,behavior:'smooth'});
+};
+
+// Init
+show(0);
+</script>
+</body>
+</html>
