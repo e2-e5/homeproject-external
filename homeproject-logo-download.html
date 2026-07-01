@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Home Project — Логотип</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0f1117;
+    color: #e8e8e8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+  }
+  h1 {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 48px;
+  }
+  .section {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 48px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 16px;
+  }
+  .logo-card {
+    border-radius: 12px;
+    padding: 48px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .logo-card.light { background: #ffffff; }
+  .logo-card.dark  { background: #181A20; border: 1px solid #2a2d38; }
+  .logo-card.transparent-light { background: repeating-conic-gradient(#ddd 0% 25%, #fff 0% 50%) 0 0 / 20px 20px; }
+  .logo-card.transparent-dark  { background: repeating-conic-gradient(#222 0% 25%, #181A20 0% 50%) 0 0 / 20px 20px; border: 1px solid #2a2d38; }
+
+  /* LOGO RENDER */
+  .logo-render {
+    display: inline-block;
+    line-height: 1;
+    user-select: none;
+  }
+  .logo-render .home {
+    font-family: 'Inter Tight', 'Inter', Arial, sans-serif;
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -3px;
+  }
+  .logo-render .proj {
+    font-family: 'Inter Tight', 'Inter', Arial, sans-serif;
+    font-size: 56px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: #C9A36A;
+    margin-left: 8px;
+  }
+  .logo-render.on-light .home { color: #0E0F12; }
+  .logo-render.on-dark  .home { color: #F5EFE3; }
+
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s;
+  }
+  .btn:hover { opacity: 0.82; }
+  .btn-png  { background: #7c5cbf; color: #fff; }
+  .btn-svg  { background: #1e2330; color: #aaa; border: 1px solid #333; }
+
+  .divider {
+    width: 100%;
+    max-width: 700px;
+    height: 1px;
+    background: #1f222b;
+    margin: 0 0 48px 0;
+  }
+  .note {
+    font-size: 12px;
+    color: #444;
+    max-width: 700px;
+    line-height: 1.6;
+  }
+
+  /* hidden high-res canvases */
+  #canvas-light, #canvas-dark { display: none; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<h1>Home Project — Фирменный логотип</h1>
+
+<!-- LIGHT -->
+<div class="section">
+  <div class="section-label">Светлый вариант (на белом фоне)</div>
+  <div class="logo-card light" id="logo-light-preview">
+    <div class="logo-render on-light">
+      <span class="home">HOME</span><span class="proj">project</span>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-png" onclick="downloadPNG('logo-light-preview','homeproject-logo-light',false)">⬇ PNG (прозрачный фон)</button>
+    <button class="btn btn-png" onclick="downloadPNG('logo-light-preview','homeproject-logo-light-bg',true,'#ffffff')">⬇ PNG (белый фон)</button>
+    <button class="btn btn-svg" onclick="downloadSVG('light')">⬇ SVG</button>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- DARK -->
+<div class="section">
+  <div class="section-label">Тёмный вариант (на тёмном фоне)</div>
+  <div class="logo-card dark" id="logo-dark-preview">
+    <div class="logo-render on-dark">
+      <span class="home">HOME</span><span class="proj">project</span>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-png" onclick="downloadPNG('logo-dark-preview','homeproject-logo-dark',false)">⬇ PNG (прозрачный фон)</button>
+    <button class="btn btn-png" onclick="downloadPNG('logo-dark-preview','homeproject-logo-dark-bg',true,'#181A20')">⬇ PNG (тёмный фон)</button>
+    <button class="btn btn-svg" onclick="downloadSVG('dark')">⬇ SVG</button>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<p class="note">
+  SVG — векторный формат, подходит для любого разрешения (сертификаты, печать, баннеры).<br>
+  PNG — растровый, 2× разрешение (840×144 px), подходит для цифрового использования.<br>
+  По вопросам: <a href="mailto:info@homeproject.online" style="color:#C9A36A;">info@homeproject.online</a>
+</p>
+
+<script>
+function downloadPNG(sourceId, filename, withBg, bgColor) {
+  const el = document.getElementById(sourceId);
+  const opts = {
+    scale: 4,
+    useCORS: true,
+    backgroundColor: withBg ? bgColor : null,
+    logging: false
+  };
+  html2canvas(el, opts).then(canvas => {
+    const a = document.createElement('a');
+    a.download = filename + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  });
+}
+
+const svgLight = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 72" width="420" height="72">
+  <rect width="420" height="72" fill="#FFFFFF" rx="4"/>
+  <text y="50" x="22" font-family="Arial, sans-serif">
+    <tspan font-size="42" font-weight="800" letter-spacing="-2" fill="#0E0F12">HOME</tspan><tspan font-size="42" font-weight="400" letter-spacing="-1" fill="#C9A36A" dx="7">project</tspan>
+  </text>
+</svg>`;
+
+const svgDark = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 72" width="420" height="72">
+  <rect width="420" height="72" fill="#181A20" rx="4"/>
+  <text y="50" x="22" font-family="Arial, sans-serif">
+    <tspan font-size="42" font-weight="800" letter-spacing="-2" fill="#F5EFE3">HOME</tspan><tspan font-size="42" font-weight="400" letter-spacing="-1" fill="#C9A36A" dx="7">project</tspan>
+  </text>
+</svg>`;
+
+function downloadSVG(variant) {
+  const content = variant === 'light' ? svgLight : svgDark;
+  const blob = new Blob([content], { type: 'image/svg+xml' });
+  const a = document.createElement('a');
+  a.download = 'homeproject-logo-' + variant + '.svg';
+  a.href = URL.createObjectURL(blob);
+  a.click();
+}
+</script>
+</body>
+</html>
