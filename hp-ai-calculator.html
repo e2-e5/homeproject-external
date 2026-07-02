@@ -1,825 +1,481 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="robots" content="noindex,nofollow">
-  <title>Калькулятор AI-экономии · Home Project</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <title>HP AI Platform — Калькулятор ROI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0F1117;--card:#1A1D27;--card2:#12141C;
+      --accent:#6366F1;--accent-h:#4F52D3;--accent-l:rgba(99,102,241,.15);
+      --text:#F0F0F5;--muted:#8B8FA8;--border:#2A2D3E;
+      --success:#22C55E;--r:12px
+    }
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
 
-    :root {
-      --bg:      #0f172a;
-      --card:    #1e293b;
-      --card2:   #243044;
-      --border:  #334155;
-      --accent:  #6366f1;
-      --accent2: #818cf8;
-      --green:   #10b981;
-      --yellow:  #f59e0b;
-      --text:    #f1f5f9;
-      --muted:   #94a3b8;
-      --danger:  #ef4444;
-    }
+    /* ── HEADER ── */
+    .hdr{text-align:center;padding:40px 20px 28px}
+    .logo{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
+    .logo-ic{width:38px;height:38px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px}
+    .logo-tx{font-size:17px;font-weight:700;letter-spacing:-.2px}
+    .hdr h1{font-size:clamp(22px,5vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:10px;background:linear-gradient(135deg,#fff 0%,#a5b4fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .hdr p{color:var(--muted);font-size:15px;max-width:520px;margin:0 auto}
+    .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.3);border-radius:99px;padding:4px 14px;font-size:12px;font-weight:600;color:var(--accent);margin-bottom:14px}
 
-    html, body {
-      min-height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 16px;
-      line-height: 1.5;
-    }
+    /* ── LAYOUT ── */
+    .wrap{max-width:820px;margin:0 auto;padding:0 16px 64px}
 
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 16px 48px;
-    }
+    /* ── PROGRESS ── */
+    .prog-wrap{margin-bottom:28px}
+    .prog-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px}
+    .prog-bar{height:4px;background:var(--border);border-radius:99px;overflow:hidden}
+    .prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),#818CF8);border-radius:99px;transition:width .4s ease}
+    .dots{display:flex;justify-content:center;gap:10px;margin-top:14px}
+    .dot{width:30px;height:30px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);transition:all .3s;background:transparent}
+    .dot.active{border-color:var(--accent);background:var(--accent-l);color:var(--accent)}
+    .dot.done{border-color:var(--success);background:rgba(34,197,94,.1);color:var(--success);font-size:14px}
 
-    .header {
-      width: 100%;
-      max-width: 640px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 0 16px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 32px;
-    }
-    .logo {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--accent2);
-      text-transform: uppercase;
-    }
-    .timer-badge {
-      background: rgba(99,102,241,0.15);
-      border: 1px solid rgba(99,102,241,0.4);
-      color: var(--accent2);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 999px;
-    }
+    /* ── QUESTION CARD ── */
+    .qcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px 24px;animation:fadeUp .3s ease}
+    .qlabel{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .qtitle{font-size:clamp(18px,4vw,23px);font-weight:800;margin-bottom:24px;letter-spacing:-.3px}
 
-    #app { width: 100%; max-width: 640px; }
+    /* ── ANSWER BUTTONS ── */
+    .ans{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    @media(max-width:440px){.ans{grid-template-columns:1fr 1fr}}
+    .abtn{background:transparent;border:1px solid var(--border);border-radius:10px;padding:16px 10px;color:var(--text);cursor:pointer;text-align:center;transition:all .2s;font-family:inherit;font-size:14px;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:7px}
+    .abtn:hover{border-color:var(--accent);background:var(--accent-l);transform:translateY(-1px)}
+    .abtn.sel{border-color:var(--accent);background:var(--accent-l);color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+    .abtn .em{font-size:26px}
+    .abtn .lb{font-weight:600;line-height:1.2}
+    .abtn .sb{font-size:11px;color:var(--muted);font-weight:400}
+    .abtn.sel .sb{color:rgba(99,102,241,.75)}
 
-    .progress-wrap { margin-bottom: 28px; }
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    .progress-bar {
-      width: 100%;
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      border-radius: 2px;
-      transition: width 0.4s ease;
-    }
+    /* ── NAV ── */
+    .nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
+    .btn{padding:12px 24px;border-radius:10px;border:none;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s}
+    .btn-p{background:var(--accent);color:#fff;flex:1;max-width:200px}
+    .btn-p:hover{background:var(--accent-h);transform:translateY(-1px);box-shadow:0 6px 20px rgba(99,102,241,.4)}
+    .btn-p:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+    .btn-g{background:transparent;color:var(--muted);border:1px solid var(--border)}
+    .btn-g:hover{color:var(--text);background:var(--card)}
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      margin-bottom: 16px;
-    }
-    @media (min-width: 480px) { .card { padding: 36px 32px; } }
+    /* ── RESULTS ── */
+    .results{display:none;animation:fadeIn .5s ease}
+    .results.show{display:block}
+    .res-hdr{text-align:center;padding:20px 16px 24px}
+    .res-hdr h2{font-size:clamp(22px,5vw,28px);font-weight:800;margin-bottom:6px;letter-spacing:-.4px}
+    .res-hdr p{color:var(--muted);font-size:14px}
 
-    .q-number {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 8px;
-    }
-    .q-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 24px;
-      line-height: 1.35;
-    }
-    @media (min-width: 480px) { .q-title { font-size: 22px; } }
+    .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+    @media(max-width:440px){.mgrid{grid-template-columns:1fr 1fr}}
+    .mcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 16px;text-align:center}
+    .mcard .ml{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:500}
+    .mcard .mv{font-size:clamp(20px,4vw,26px);font-weight:800;letter-spacing:-.5px;color:var(--accent)}
+    .mcard .mu{font-size:11px;color:var(--muted);margin-top:3px}
+    .mcard.hl{border-color:var(--accent);background:var(--accent-l)}
+    .mcard.hl .mv{color:var(--text)}
 
-    .options { display: grid; gap: 10px; }
-    .options.grid-2 { grid-template-columns: 1fr 1fr; }
+    .tcard{background:var(--card);border:2px solid var(--accent);border-radius:var(--r);padding:24px;margin-bottom:14px;position:relative;overflow:hidden}
+    .tcard::before{content:'';position:absolute;top:0;right:0;width:180px;height:180px;background:radial-gradient(circle,rgba(99,102,241,.12),transparent 70%);pointer-events:none}
+    .tbadge{display:inline-block;background:var(--accent);color:#fff;padding:3px 12px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px}
+    .tname{font-size:clamp(20px,4vw,26px);font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
+    .tprice{font-size:15px;color:var(--muted);margin-bottom:18px}
+    .tprice strong{color:var(--text);font-size:19px}
+    .tfeat{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    @media(max-width:440px){.tfeat{grid-template-columns:1fr}}
+    .tfi{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+    .tfi .td{width:5px;height:5px;background:var(--accent);border-radius:50%;flex-shrink:0}
 
-    .opt {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      background: var(--card2);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: border-color 0.18s, background 0.18s, transform 0.12s;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      min-height: 52px;
-    }
-    .opt:hover { border-color: var(--accent2); background: #2a3a58; }
-    .opt:active { transform: scale(0.98); }
-    .opt.selected { border-color: var(--accent); background: rgba(99,102,241,0.12); }
-    .opt-radio {
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      border: 2px solid var(--border);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color 0.18s;
-    }
-    .opt.selected .opt-radio { border-color: var(--accent); }
-    .opt-radio-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0; transform: scale(0);
-      transition: opacity 0.18s, transform 0.18s;
-    }
-    .opt.selected .opt-radio-dot { opacity: 1; transform: scale(1); }
-    .opt-label { font-size: 15px; font-weight: 500; color: var(--text); }
+    .disc{text-align:center;font-size:12px;color:var(--muted);margin-bottom:20px;padding:12px 16px;border:1px dashed var(--border);border-radius:8px;line-height:1.6}
 
-    .select-wrap { position: relative; }
-    .select-wrap::after {
-      content: '▾';
-      position: absolute; right: 16px; top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted); pointer-events: none; font-size: 14px;
-    }
-    select {
-      width: 100%;
-      padding: 14px 42px 14px 16px;
-      background: var(--card2);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 15px; font-family: inherit; font-weight: 500;
-      appearance: none; cursor: pointer; outline: none;
-      transition: border-color 0.18s;
-    }
-    select:focus { border-color: var(--accent); }
-    select option { background: #1e293b; color: var(--text); }
+    .cta{display:block;width:100%;padding:18px;background:linear-gradient(135deg,var(--accent),#818CF8);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;letter-spacing:-.2px}
+    .cta:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(99,102,241,.45)}
+    .cta-sub{font-size:12px;opacity:.8;display:block;margin-top:4px;font-weight:400}
+    .rstrt{display:block;width:100%;padding:11px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;cursor:pointer;margin-top:10px;transition:all .2s}
+    .rstrt:hover{color:var(--text);border-color:var(--muted)}
 
-    .btn-row { display: flex; gap: 12px; margin-top: 28px; }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 8px; padding: 14px 24px; border-radius: 12px;
-      font-size: 15px; font-weight: 700; font-family: inherit;
-      cursor: pointer; border: none;
-      transition: opacity 0.18s, transform 0.12s, background 0.18s;
-      min-height: 52px;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .btn:active { transform: scale(0.97); }
-    .btn-primary { background: var(--accent); color: #fff; flex: 1; }
-    .btn-primary:hover { background: #5558e8; }
-    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-    .btn-ghost {
-      background: transparent; color: var(--muted);
-      border: 1px solid var(--border); padding: 14px 20px;
-    }
-    .btn-ghost:hover { border-color: var(--accent2); color: var(--text); }
-    .btn-cta {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: #fff; width: 100%; font-size: 16px;
-      padding: 18px 24px; border-radius: 14px; margin-top: 24px;
-    }
-    .btn-cta:hover { background: linear-gradient(135deg, #059669, #047857); }
+    /* ── MODAL ── */
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;padding:16px}
+    .overlay.show{display:flex}
+    .modal{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;width:100%;max-width:420px;animation:fadeUp .3s ease;position:relative}
+    .modal h3{font-size:21px;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
+    .modal .msub{color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6}
+    .mclose{position:absolute;top:14px;right:16px;background:transparent;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:4px;transition:color .2s}
+    .mclose:hover{color:var(--text)}
+    .field{margin-bottom:16px}
+    .field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
+    .field input{width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:15px;transition:border-color .2s;outline:none}
+    .field input:focus{border-color:var(--accent)}
+    .field input::placeholder{color:var(--muted)}
+    .sbtn{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:4px}
+    .sbtn:hover{background:var(--accent-h)}
+    .sbtn:disabled{opacity:.5;cursor:not-allowed}
+    .ok{display:none;text-align:center;padding:8px 0}
+    .ok.show{display:block}
+    .ok .oi{font-size:52px;margin-bottom:14px}
+    .ok h4{font-size:19px;font-weight:800;margin-bottom:8px}
+    .ok p{color:var(--muted);font-size:14px;line-height:1.6}
 
-    .field { margin-bottom: 16px; }
-    label.field-label {
-      display: block; font-size: 13px; font-weight: 600;
-      color: var(--muted); margin-bottom: 6px; letter-spacing: 0.03em;
-    }
-    input[type="text"], input[type="email"] {
-      width: 100%; padding: 14px 16px;
-      background: var(--card2); border: 2px solid var(--border);
-      border-radius: 12px; color: var(--text);
-      font-size: 16px; font-family: inherit; outline: none;
-      transition: border-color 0.18s;
-    }
-    input[type="text"]:focus, input[type="email"]:focus { border-color: var(--accent); }
-    input[type="text"].error, input[type="email"].error { border-color: var(--danger); }
-    .field-error { font-size: 12px; color: var(--danger); margin-top: 4px; display: none; }
-    .field-error.visible { display: block; }
+    /* ── FOOTER ── */
+    .ft{text-align:center;padding:20px;color:var(--muted);font-size:12px;border-top:1px solid var(--border)}
+    .ft a{color:var(--accent);text-decoration:none}
 
-    .checkbox-row {
-      display: flex; align-items: flex-start;
-      gap: 10px; margin-top: 16px; cursor: pointer;
-    }
-    .checkbox-row input[type="checkbox"] {
-      width: 18px; height: 18px; flex-shrink: 0;
-      accent-color: var(--accent); cursor: pointer; margin-top: 1px;
-    }
-    .checkbox-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
-    .checkbox-text a { color: var(--accent2); text-decoration: none; }
-    .checkbox-error { font-size: 12px; color: var(--danger); margin-top: 6px; display: none; }
-    .checkbox-error.visible { display: block; }
-
-    .results-header { text-align: center; margin-bottom: 28px; }
-    .results-header h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-    .results-header .sub { font-size: 13px; color: var(--muted); }
-
-    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
-    .metric {
-      background: var(--card2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px; text-align: center;
-    }
-    .metric.highlight { border-color: rgba(99,102,241,0.5); background: rgba(99,102,241,0.08); }
-    .metric.green-card { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.07); }
-    .metric-icon { font-size: 22px; margin-bottom: 6px; }
-    .metric-value { font-size: 24px; font-weight: 800; color: var(--text); line-height: 1.1; margin-bottom: 4px; }
-    .metric-value.green { color: var(--green); }
-    .metric-value.accent { color: var(--accent2); }
-    .metric-label { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.4; }
-
-    .tariff-box {
-      background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(99,102,241,0.05));
-      border: 1px solid rgba(99,102,241,0.4);
-      border-radius: 14px; padding: 20px; margin-bottom: 20px;
-    }
-    .tariff-name { font-size: 13px; font-weight: 700; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
-    .tariff-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 12px; }
-    .tariff-price { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; }
-    .tariff-price .amount { font-size: 28px; font-weight: 800; color: var(--text); }
-    .tariff-price .period { font-size: 13px; color: var(--muted); }
-    .tariff-impl { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
-    .tariff-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .tag { background: rgba(99,102,241,0.15); color: var(--accent2); font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; }
-
-    .pilot-banner {
-      background: rgba(245,158,11,0.08);
-      border: 1px solid rgba(245,158,11,0.3);
-      border-radius: 12px; padding: 14px 16px;
-      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
-    }
-    .pilot-icon { font-size: 20px; }
-    .pilot-text { font-size: 13px; color: var(--yellow); font-weight: 600; }
-    .pilot-sub { font-size: 12px; color: var(--muted); font-weight: 400; }
-
-    .disclaimer {
-      font-size: 12px; color: var(--muted); text-align: center;
-      line-height: 1.6; margin-bottom: 20px; padding: 12px 16px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 10px; border: 1px solid var(--border);
-    }
-
-    .level1-cta { border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
-    .level1-cta .cta-eyebrow { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
-    .level1-cta h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
-    .level1-cta p { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
-
-    .welcome-hero { text-align: center; padding: 20px 0 36px; }
-    .welcome-hero .badge {
-      display: inline-block;
-      background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3);
-      color: var(--accent2); font-size: 12px; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 6px 14px; border-radius: 999px; margin-bottom: 20px;
-    }
-    .welcome-hero h1 { font-size: 28px; font-weight: 800; color: var(--text); line-height: 1.25; margin-bottom: 14px; }
-    @media (min-width: 480px) { .welcome-hero h1 { font-size: 36px; } }
-    .welcome-hero .sub { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 32px; }
-    .welcome-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
-    .chip {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 999px; padding: 6px 14px;
-      font-size: 13px; font-weight: 500; color: var(--muted);
-    }
-    .chip span { color: var(--text); font-weight: 700; }
-
-    .spinner-wrap { text-align: center; padding: 40px 0; }
-    .spinner {
-      width: 36px; height: 36px;
-      border: 3px solid var(--border); border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    /* ── ANIM ── */
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="logo">Home Project AI</div>
-    <div class="timer-badge">⏱ ~60 секунд</div>
-  </div>
 
-  <div id="app">
-    <div class="spinner-wrap">
-      <div class="spinner"></div>
-      <div style="color:var(--muted);font-size:13px">Загрузка…</div>
+<div class="hdr">
+  <div class="logo">
+    <div class="logo-ic">⚡</div>
+    <span class="logo-tx">HP AI Platform</span>
+  </div>
+  <div class="badge">⏱ ~60 секунд · Уровень 0</div>
+  <h1>Калькулятор ROI</h1>
+  <p>Узнайте, сколько заработает ваш бизнес с AI‑агентами прямо сейчас</p>
+</div>
+
+<div class="wrap">
+
+  <!-- WIZARD -->
+  <div id="wizard">
+    <div class="prog-wrap">
+      <div class="prog-top">
+        <span id="stepLbl">Шаг 1 из 5</span>
+        <span id="stepPct">20%</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" id="pFill" style="width:20%"></div></div>
+      <div class="dots">
+        <div class="dot active" id="d1">1</div>
+        <div class="dot" id="d2">2</div>
+        <div class="dot" id="d3">3</div>
+        <div class="dot" id="d4">4</div>
+        <div class="dot" id="d5">5</div>
+      </div>
+    </div>
+
+    <div class="qcard" id="qcard">
+      <div class="qlabel" id="qlbl"></div>
+      <div class="qtitle" id="qtit"></div>
+      <div class="ans" id="ans"></div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-g" id="bBack" onclick="back()">← Назад</button>
+      <button class="btn btn-p" id="bNext" onclick="next()" disabled>Далее →</button>
     </div>
   </div>
+
+  <!-- RESULTS -->
+  <div class="results" id="results">
+    <div class="res-hdr">
+      <h2>🚀 Ваш потенциал с AI</h2>
+      <p>Расчёт на основе средних показателей ТНП-рынка России</p>
+    </div>
+
+    <div class="mgrid">
+      <div class="mcard">
+        <div class="ml">Экономия ФОТ</div>
+        <div class="mv" id="rSav"></div>
+        <div class="mu">₽ / мес</div>
+      </div>
+      <div class="mcard">
+        <div class="ml">Прирост выручки</div>
+        <div class="mv" id="rRev"></div>
+        <div class="mu">₽ / мес</div>
+      </div>
+      <div class="mcard hl">
+        <div class="ml">Чистая выгода</div>
+        <div class="mv" id="rNet"></div>
+        <div class="mu">₽ / мес</div>
+      </div>
+      <div class="mcard">
+        <div class="ml">Окупаемость</div>
+        <div class="mv" id="rRoi"></div>
+        <div class="mu">дней</div>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="tbadge">Рекомендованный тариф</div>
+      <div class="tname" id="rTn"></div>
+      <div class="tprice" id="rTp"></div>
+      <div class="tfeat" id="rTf"></div>
+    </div>
+
+    <div class="disc">
+      📊 Оценка по средним показателям рынка ТНП, точность ±30%.<br/>
+      Индивидуальный расчёт с точностью ±15% — в детальном анализе.
+    </div>
+
+    <button class="cta" onclick="openModal()">
+      Получить детальный анализ →
+      <span class="cta-sub">Персональный отчёт на почту в течение 24 часов</span>
+    </button>
+    <button class="rstrt" onclick="restart()">↺ Пройти заново</button>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- EMAIL MODAL -->
+<div class="overlay" id="ov" onclick="overlayClick(event)">
+  <div class="modal">
+    <button class="mclose" onclick="closeModal()">✕</button>
+    <div id="mform">
+      <h3>Детальный анализ</h3>
+      <p class="msub">Пришлём персональный отчёт с точностью ±15%: бенчмарки вашей ниши, топ-5 точек AI-внедрения, roadmap на 3 фазы.</p>
+      <div class="field">
+        <label>Email *</label>
+        <input type="email" id="eml" placeholder="you@company.ru"/>
+      </div>
+      <div class="field">
+        <label>Имя <span style="font-weight:400;color:var(--muted)">(необязательно)</span></label>
+        <input type="text" id="nm" placeholder="Иван Петров"/>
+      </div>
+      <button class="sbtn" id="sbtn" onclick="sendLead()">Отправить</button>
+    </div>
+    <div class="ok" id="ok">
+      <div class="oi">✅</div>
+      <h4>Спасибо!</h4>
+      <p>Детальный анализ придёт на вашу почту<br/>в течение 24 часов.</p>
+    </div>
+  </div>
+</div>
+
+<div class="ft">
+  © 2026 HP AI Platform &nbsp;·&nbsp; <a href="mailto:info@homeproject.online">info@homeproject.online</a>
+</div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-// КОЭФФИЦИЕНТЫ — из config/calc-coefficients.json
-// Калькулятор загружает актуальный конфиг с ./calc-coefficients.html
-// (тот же GitHub Pages origin). При недоступности — встроенный fallback.
-// Для обновления без релиза: переопубликуй calc-coefficients.html.
-// ═══════════════════════════════════════════════════════════════
-const BUILT_IN_CONFIG = {
-  avgSalaryRub: 120000,
-  reactivateCoef: 0.025,
-  niche: {
-    appliances: { label: "Бытовая техника",  autoCoef: 0.40 },
-    plumbing:   { label: "Сантехника",        autoCoef: 0.38 },
-    lighting:   { label: "Свет / освещение",  autoCoef: 0.36 },
-    tiles:      { label: "Плитка",            autoCoef: 0.33 },
-    furniture:  { label: "Мебель",            autoCoef: 0.42 },
-    wallpaper:  { label: "Обои",              autoCoef: 0.35 },
-    other:      { label: "Другое ТНП",        autoCoef: 0.37 }
-  },
-  revenue: {
-    lt3:       { label: "до 3 млн \u20bd/мес",      valueMln: 2   },
-    "3to10":   { label: "3\u201310 млн \u20bd/мес",     valueMln: 6   },
-    "10to30":  { label: "10\u201330 млн \u20bd/мес",    valueMln: 20  },
-    "30to100": { label: "30\u2013100 млн \u20bd/мес",   valueMln: 65  },
-    gt100:     { label: "более 100 млн \u20bd/мес", valueMln: 150 }
-  },
-  team: {
-    "1to2":  { label: "1\u20132 чел.",  avgSize: 1.5 },
-    "3to5":  { label: "3\u20135 чел.",  avgSize: 4   },
-    "6to15": { label: "6\u201315 чел.", avgSize: 10  },
-    gt16:    { label: "16+ чел.",       avgSize: 20  }
-  },
-  kpMonth: {
-    lt20:       { label: "менее 20 КП",   kpCoef: 0.03 },
-    "20to100":  { label: "20\u2013100 КП",    kpCoef: 0.05 },
-    "100to500": { label: "100\u2013500 КП",   kpCoef: 0.07 },
-    gt500:      { label: "более 500 КП",  kpCoef: 0.09 }
-  },
-  competitors: {
-    manual:    { label: "Да, вручную (Excel/таблицы)", gapCoef: 0.02 },
-    automated: { label: "Да, используем инструменты",  gapCoef: 0.01 },
-    none:      { label: "Нет, не отслеживаем",         gapCoef: 0.03 }
-  },
-  tariffs: [
-    { id:"start",     name:"Старт",    star:false, monthly:14900,  implementation:79000,
-      skuLimit:1000,  agents:1,    condition:{ maxTeamAvg:2,  maxRevenueMln:10  } },
-    { id:"business",  name:"Бизнес",   star:false, monthly:34900,  implementation:149000,
-      skuLimit:5000,  agents:3,    condition:{ maxTeamAvg:5,  maxRevenueMln:30  } },
-    { id:"pro",       name:"Про \u2605", star:true, monthly:69900, implementation:299000,
-      skuLimit:null,  agents:10,   condition:{ maxTeamAvg:15, maxRevenueMln:100 } },
-    { id:"corporate", name:"Корпорат", star:false, monthly:129900, implementation:500000,
-      skuLimit:null,  agents:null, condition:{ maxTeamAvg:null, maxRevenueMln:null } }
-  ]
+/* ── CONFIG ── */
+const C = {
+  auto: {1:.30,2:.40,3:.50,4:.60},
+  rev:  {1:.08,2:.10,3:.12,4:.15},
+  comp: {0:0,  1:.03, 2:.07},
+  sal:  120000
+};
+const revMap  = {1:1.5,  2:6.5, 3:20,  4:65,  5:150};
+const teamMap = {1:1.5,  2:4,   3:10,  4:20};
+const kpMap   = {1:10,   2:60,  3:300, 4:700};
+
+const TARIFFS = {
+  start:   {n:'Старт',    p:14900,  s:79000,   sku:'до 1 000 SKU',   ag:'1 агент'},
+  biz:     {n:'Бизнес',   p:34900,  s:149000,  sku:'до 5 000 SKU',   ag:'3 агента'},
+  pro:     {n:'Про ★',    p:69900,  s:299000,  sku:'без лимита',      ag:'10 агентов'},
+  corp:    {n:'Корпорат', p:129900, s:500000,  sku:'без лимита',      ag:'без лимита'},
 };
 
-let CFG = BUILT_IN_CONFIG;
+/* ── QUESTIONS ── */
+const QS = [
+  {
+    id:'niche', lbl:'Шаг 1 / 5 — Ниша', tit:'Какая у вас ниша?',
+    opts:[
+      {k:'tech',  e:'🔌', l:'Техника'},
+      {k:'plumb', e:'🚿', l:'Сантехника'},
+      {k:'light', e:'💡', l:'Свет'},
+      {k:'tile',  e:'🪵', l:'Плитка'},
+      {k:'furn',  e:'🛋️', l:'Мебель'},
+      {k:'wall',  e:'🖼️', l:'Обои'},
+      {k:'other', e:'📦', l:'Другое ТНП'},
+    ]
+  },
+  {
+    id:'rev', lbl:'Шаг 2 / 5 — Оборот', tit:'Оборот компании в месяц',
+    opts:[
+      {k:1,e:'💼',l:'до 3 млн ₽'},
+      {k:2,e:'📈',l:'3 – 10 млн ₽'},
+      {k:3,e:'🚀',l:'10 – 30 млн ₽'},
+      {k:4,e:'🏢',l:'30 – 100 млн ₽'},
+      {k:5,e:'🌐',l:'> 100 млн ₽'},
+    ]
+  },
+  {
+    id:'team', lbl:'Шаг 3 / 5 — Команда', tit:'Сколько человек в продажах + контенте?',
+    opts:[
+      {k:1,e:'👤',l:'1 – 2 чел'},
+      {k:2,e:'👥',l:'3 – 5 чел'},
+      {k:3,e:'🏗️',l:'6 – 15 чел'},
+      {k:4,e:'🏭',l:'16+ чел'},
+    ]
+  },
+  {
+    id:'kp', lbl:'Шаг 4 / 5 — КП', tit:'Сколько КП вы готовите в месяц?',
+    opts:[
+      {k:1,e:'📄',l:'менее 20'},
+      {k:2,e:'📋',l:'20 – 100'},
+      {k:3,e:'📁',l:'100 – 500'},
+      {k:4,e:'🗂️',l:'более 500'},
+    ]
+  },
+  {
+    id:'comp', lbl:'Шаг 5 / 5 — Конкуренты', tit:'Как сейчас анализируете конкурентов?',
+    opts:[
+      {k:0,e:'🙈',l:'Не делаем'},
+      {k:1,e:'👁️',l:'Вручную'},
+      {k:2,e:'🤖',l:'Хотим автоматизировать'},
+    ]
+  },
+];
 
-let state = {
-  step: 'welcome',
-  answers: { niche:'', revenue:'', team:'', kpMonth:'', competitors:'' },
-  email: { name:'', email:'', gdpr: false },
-  results: null,
-  sent: false
-};
+/* ── STATE ── */
+let step = 0, ans = {}, calc = null;
 
-// ─── HELPERS ────────────────────────────────────────────────
-const fmt = n => n >= 1000000
-  ? (n/1000000).toFixed(1).replace(/\.0$/,'') + ' млн'
-  : n >= 1000 ? Math.round(n/1000) + ' тыс' : String(Math.round(n));
+/* ── RENDER ── */
+function render() {
+  const q = QS[step];
+  document.getElementById('qlbl').textContent = q.lbl;
+  document.getElementById('qtit').textContent = q.tit;
 
-const fmtFull = n => new Intl.NumberFormat('ru-RU').format(Math.round(n)) + ' \u20bd';
+  const pct = Math.round((step+1)/QS.length*100);
+  document.getElementById('pFill').style.width = pct+'%';
+  document.getElementById('stepLbl').textContent = 'Шаг '+(step+1)+' из '+QS.length;
+  document.getElementById('stepPct').textContent = pct+'%';
 
-function selectTariff(tariffs, teamAvg, revenueMln) {
-  for (const t of tariffs) {
-    if (t.condition.maxTeamAvg === null) return t;
-    if (teamAvg <= t.condition.maxTeamAvg && revenueMln < t.condition.maxRevenueMln) return t;
+  for(let i=0;i<QS.length;i++){
+    const d=document.getElementById('d'+(i+1));
+    d.className='dot';
+    if(i<step){d.classList.add('done');d.textContent='✓';}
+    else if(i===step){d.classList.add('active');d.textContent=i+1;}
+    else d.textContent=i+1;
   }
-  return tariffs[tariffs.length - 1];
-}
 
-function calculate() {
-  const { niche, revenue, team, kpMonth, competitors } = state.answers;
-  const nd = CFG.niche[niche] ?? CFG.niche.other;
-  const rv = CFG.revenue[revenue];
-  const tm = CFG.team[team];
-  const kp = CFG.kpMonth[kpMonth];
-  const cp = CFG.competitors[competitors];
-
-  if (!rv || !tm || !kp || !cp) return { error: true };
-
-  const teamSize   = tm.avgSize;
-  const revenueMln = rv.valueMln;
-
-  const econFOT      = teamSize * CFG.avgSalaryRub * nd.autoCoef;
-  const revenueCoef  = kp.kpCoef + CFG.reactivateCoef + cp.gapCoef;
-  const revenueBoost = revenueMln * 1000000 * revenueCoef;
-
-  if (!isFinite(econFOT) || econFOT < 0)       return { error: true };
-  if (!isFinite(revenueBoost) || revenueBoost < 0) return { error: true };
-  if (econFOT + revenueBoost > 10000000000)     return { error: true };
-
-  const tariff     = selectTariff(CFG.tariffs, teamSize, revenueMln);
-  const netMonthly = econFOT + revenueBoost - tariff.monthly;
-  const ocupDays   = econFOT > 0 ? Math.round(tariff.implementation * 30 / econFOT) : null;
-
-  return { econFOT, revenueBoost, netMonthly, tariff, ocupDays };
-}
-
-// ─── WEBHOOK ────────────────────────────────────────────────
-const LEAD_ENDPOINT = 'https://80.91.86.53.nip.io/api/calc-lead';
-
-function sendLead(name, email) {
-  const r = state.results;
-  const answers = JSON.stringify({
-    ...state.answers,
-    calcResults: r && !r.error ? {
-      econFOT: Math.round(r.econFOT),
-      revenueBoost: Math.round(r.revenueBoost),
-      tariffId: r.tariff && r.tariff.id
-    } : {}
+  const box=document.getElementById('ans');
+  box.innerHTML='';
+  const cur=ans[q.id];
+  q.opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='abtn'+(cur===o.k?' sel':'');
+    b.innerHTML='<span class="em">'+o.e+'</span><span class="lb">'+o.l+'</span>';
+    b.onclick=()=>pick(q.id,o.k);
+    box.appendChild(b);
   });
 
-  // Попытка 1: JSON POST с CORS
-  fetch(LEAD_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, source: 'calc-l0', answers })
-  }).catch(() => {
-    // Попытка 2: form-encoded no-cors (simple request — приходит в любом случае)
-    const fd = new URLSearchParams();
-    fd.append('name', name); fd.append('email', email);
-    fd.append('source', 'calc-l0'); fd.append('answers', answers);
-    fetch(LEAD_ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: fd.toString()
-    }).catch(() => {});
+  document.getElementById('bBack').style.visibility=step===0?'hidden':'visible';
+  const nb=document.getElementById('bNext');
+  nb.disabled=cur===undefined;
+  nb.textContent=step===QS.length-1?'Рассчитать →':'Далее →';
+}
+
+function pick(id,k){
+  ans[id]=k;
+  document.querySelectorAll('.abtn').forEach((b,i)=>{
+    b.className='abtn'+(QS[step].opts[i].k===k?' sel':'');
   });
+  document.getElementById('bNext').disabled=false;
 }
 
-// ─── RENDER ─────────────────────────────────────────────────
-const $el = id => document.getElementById(id);
-const appEl = document.getElementById('app');
+function next(){
+  if(ans[QS[step].id]===undefined)return;
+  if(step<QS.length-1){step++;render();}
+  else calculate();
+}
+function back(){if(step>0){step--;render();}}
 
-function renderProgress(step) {
-  const qi = ['q1','q2','q3','q4','q5','email'];
-  const idx = qi.indexOf(step);
-  if (idx < 0) return '';
-  const pct = Math.round(((idx+1)/7)*100);
-  return `<div class="progress-wrap">
-    <div class="progress-label">
-      <span>${idx < 5 ? 'Вопрос '+(idx+1)+' из 5' : 'Почти готово'}</span>
-      <span>${pct}%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-  </div>`;
+/* ── CALCULATE ── */
+function calculate(){
+  const rev=ans.rev, team=ans.team, kp=ans.kp, comp=ans.comp;
+  const savings = teamMap[team]*C.sal*C.auto[team];
+  const revGain = revMap[rev]*1e6*(C.rev[kp]+C.comp[comp]);
+  const net = savings+revGain;
+
+  let tk;
+  if(rev<=1&&team<=1)           tk='start';
+  else if(rev<=2||team<=2)      tk='biz';
+  else if(rev<=3||team<=3)      tk='pro';
+  else                          tk='corp';
+
+  const t=TARIFFS[tk];
+  const roi=Math.ceil((t.s/net)*30);
+  calc={savings,revGain,net,t,tk,roi};
+  showResults();
 }
 
-function renderWelcome() {
-  return `<div class="welcome-hero">
-    <div class="badge">&#9889; Займёт ~60 секунд</div>
-    <h1>Сколько стоит рутина вашей команды?</h1>
-    <p class="sub">5 вопросов — и вы увидите, сколько AI-автоматизация<br>
-      сэкономит в месяц именно для вашего бизнеса.<br>
-      Без регистрации. Точность ±30%.</p>
-    <div class="welcome-chips">
-      <div class="chip">&#127962; <span>Ниша ТНП</span></div>
-      <div class="chip">&#128176; <span>Оборот</span></div>
-      <div class="chip">&#128101; <span>Команда</span></div>
-      <div class="chip">&#128203; <span>КП в месяц</span></div>
-      <div class="chip">&#128269; <span>Конкуренты</span></div>
-    </div>
-    <button class="btn btn-primary" style="width:100%;font-size:17px;padding:18px" onclick="go('q1')">
-      Начать расчёт &#8594;
-    </button>
-  </div>`;
+function fmt(n){return Math.round(n).toLocaleString('ru-RU');}
+
+function showResults(){
+  document.getElementById('wizard').style.display='none';
+  const r=document.getElementById('results');
+  r.classList.add('show');
+
+  document.getElementById('rSav').textContent=fmt(calc.savings);
+  document.getElementById('rRev').textContent=fmt(calc.revGain);
+  document.getElementById('rNet').textContent=fmt(calc.net);
+  document.getElementById('rRoi').textContent=calc.roi;
+
+  const t=calc.t;
+  document.getElementById('rTn').textContent=t.n;
+  document.getElementById('rTp').innerHTML='<strong>'+fmt(t.p)+' ₽/мес</strong> &nbsp;·&nbsp; внедрение '+fmt(t.s)+' ₽';
+  document.getElementById('rTf').innerHTML=[
+    {e:'📦',tx:t.sku},
+    {e:'🤖',tx:t.ag},
+    {e:'🎁',tx:'Пилот 45 дней бесплатно'},
+    {e:'⚡',tx:'Окупаемость ~'+calc.roi+' дней'},
+  ].map(f=>'<div class="tfi"><span class="td"></span><span>'+f.e+' '+f.tx+'</span></div>').join('');
 }
 
-function renderQ1() {
-  const niches = Object.entries(CFG.niche);
-  const cur = state.answers.niche;
-  return `${renderProgress('q1')}
-  <div class="card">
-    <div class="q-number">Вопрос 1 из 5</div>
-    <div class="q-title">Какая у вас ниша?</div>
-    <div class="select-wrap">
-      <select id="sel-niche" onchange="state.answers.niche=this.value;renderStep()">
-        <option value="">&#8212; Выберите нишу &#8212;</option>
-        ${niches.map(([k,v])=>`<option value="${k}"${cur===k?' selected':''}>${v.label}</option>`).join('')}
-      </select>
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="go('welcome')">&#8592; Назад</button>
-      <button class="btn btn-primary" onclick="advance('q1','q2')"${cur?'':' disabled'}>Далее &#8594;</button>
-    </div>
-  </div>`;
+function restart(){
+  step=0;ans={};calc=null;
+  document.getElementById('wizard').style.display='block';
+  document.getElementById('results').classList.remove('show');
+  render();
 }
 
-function renderQ2() {
-  const opts = Object.entries(CFG.revenue);
-  const cur = state.answers.revenue;
-  return `${renderProgress('q2')}
-  <div class="card">
-    <div class="q-number">Вопрос 2 из 5</div>
-    <div class="q-title">Оборот компании в месяц</div>
-    <div class="options">
-      ${opts.map(([k,v])=>`<div class="opt${cur===k?' selected':''}" onclick="pick('revenue','${k}')">
-        <div class="opt-radio"><div class="opt-radio-dot"></div></div>
-        <div class="opt-label">${v.label}</div></div>`).join('')}
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="go('q1')">&#8592; Назад</button>
-      <button class="btn btn-primary" onclick="advance('q2','q3')"${cur?'':' disabled'}>Далее &#8594;</button>
-    </div>
-  </div>`;
-}
+/* ── MODAL ── */
+function openModal(){document.getElementById('ov').classList.add('show');setTimeout(()=>document.getElementById('eml').focus(),100);}
+function closeModal(){document.getElementById('ov').classList.remove('show');}
+function overlayClick(e){if(e.target===document.getElementById('ov'))closeModal();}
 
-function renderQ3() {
-  const opts = Object.entries(CFG.team);
-  const cur = state.answers.team;
-  return `${renderProgress('q3')}
-  <div class="card">
-    <div class="q-number">Вопрос 3 из 5</div>
-    <div class="q-title">Сколько человек в продажах и контенте?</div>
-    <div class="options grid-2">
-      ${opts.map(([k,v])=>`<div class="opt${cur===k?' selected':''}" onclick="pick('team','${k}')">
-        <div class="opt-radio"><div class="opt-radio-dot"></div></div>
-        <div class="opt-label">${v.label}</div></div>`).join('')}
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="go('q2')">&#8592; Назад</button>
-      <button class="btn btn-primary" onclick="advance('q3','q4')"${cur?'':' disabled'}>Далее &#8594;</button>
-    </div>
-  </div>`;
-}
+async function sendLead(){
+  const email=document.getElementById('eml').value.trim();
+  if(!email||!email.includes('@')){document.getElementById('eml').focus();document.getElementById('eml').style.borderColor='#ef4444';return;}
+  document.getElementById('eml').style.borderColor='';
+  const btn=document.getElementById('sbtn');
+  btn.disabled=true;btn.textContent='Отправляю…';
 
-function renderQ4() {
-  const opts = Object.entries(CFG.kpMonth);
-  const cur = state.answers.kpMonth;
-  return `${renderProgress('q4')}
-  <div class="card">
-    <div class="q-number">Вопрос 4 из 5</div>
-    <div class="q-title">Сколько коммерческих предложений в месяц?</div>
-    <div class="options grid-2">
-      ${opts.map(([k,v])=>`<div class="opt${cur===k?' selected':''}" onclick="pick('kpMonth','${k}')">
-        <div class="opt-radio"><div class="opt-radio-dot"></div></div>
-        <div class="opt-label">${v.label}</div></div>`).join('')}
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="go('q3')">&#8592; Назад</button>
-      <button class="btn btn-primary" onclick="advance('q4','q5')"${cur?'':' disabled'}>Далее &#8594;</button>
-    </div>
-  </div>`;
-}
+  const name=document.getElementById('nm').value.trim();
+  const c=calc;
+  const payload={
+    email,name,
+    ниша:ans.niche,
+    оборот:ans.rev,
+    команда:ans.team,
+    кп:ans.kp,
+    конкуренты:ans.comp,
+    тариф:c.t.n,
+    roi_days:c.roi,
+    net_benefit:Math.round(c.net)
+  };
 
-function renderQ5() {
-  const opts = Object.entries(CFG.competitors);
-  const cur = state.answers.competitors;
-  return `${renderProgress('q5')}
-  <div class="card">
-    <div class="q-number">Вопрос 5 из 5</div>
-    <div class="q-title">Анализируете ли конкурентов (цены, ассортимент)?</div>
-    <div class="options">
-      ${opts.map(([k,v])=>`<div class="opt${cur===k?' selected':''}" onclick="pick('competitors','${k}')">
-        <div class="opt-radio"><div class="opt-radio-dot"></div></div>
-        <div class="opt-label">${v.label}</div></div>`).join('')}
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="go('q4')">&#8592; Назад</button>
-      <button class="btn btn-primary" onclick="advance('q5','email')"${cur?'':' disabled'}>Получить расчёт &#8594;</button>
-    </div>
-  </div>`;
-}
+  let ok=false;
+  try{
+    const r=await fetch('https://80.91.86.53.nip.io/api/leads',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload),
+      signal:AbortSignal.timeout(8000)
+    });
+    if(r.ok)ok=true;
+  }catch(e){}
 
-function renderEmail() {
-  return `${renderProgress('email')}
-  <div class="card">
-    <div class="q-number">Почти готово</div>
-    <div class="q-title">Куда отправить результаты?</div>
-    <p style="font-size:14px;color:var(--muted);margin-bottom:20px">
-      Введите email — и увидите полный расчёт прямо здесь на экране.
-    </p>
-
-    <div class="field">
-      <label class="field-label" for="inp-name">Ваше имя (необязательно)</label>
-      <input type="text" id="inp-name" placeholder="Алексей" maxlength="80"
-        value="${state.email.name}" oninput="state.email.name=this.value">
-    </div>
-
-    <div class="field">
-      <label class="field-label" for="inp-email">Email <span style="color:var(--danger)">*</span></label>
-      <input type="email" id="inp-email" placeholder="alex@company.ru" maxlength="120"
-        value="${state.email.email}"
-        oninput="state.email.email=this.value;$el('email-err').classList.remove('visible');this.classList.remove('error')">
-      <div id="email-err" class="field-error">Введите корректный email</div>
-    </div>
-
-    <label class="checkbox-row" for="gdpr-cb">
-      <input type="checkbox" id="gdpr-cb" ${state.email.gdpr?'checked':''}
-        onchange="state.email.gdpr=this.checked;$el('gdpr-err').classList.remove('visible')">
-      <span class="checkbox-text">
-        Согласен(на) на обработку персональных данных в соответствии
-        с&nbsp;<a href="https://homeproject.online/page/privacy" target="_blank">политикой конфиденциальности</a>
-        (152-ФЗ)
-      </span>
-    </label>
-    <div id="gdpr-err" class="checkbox-error">Необходимо ваше согласие для продолжения</div>
-
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="go('q5')">&#8592; Назад</button>
-      <button class="btn btn-primary" onclick="submitEmail()">Показать результат &#8594;</button>
-    </div>
-  </div>
-  <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:12px">
-    &#128274; Данные защищены · Не передаются третьим лицам · 152-ФЗ
-  </div>`;
-}
-
-function renderResults() {
-  const r = state.results;
-  if (!r || r.error) {
-    return `<div class="card" style="text-align:center">
-      <div style="font-size:40px;margin-bottom:16px">&#129300;</div>
-      <h2 style="margin-bottom:8px">Недостаточно данных</h2>
-      <p style="color:var(--muted);margin-bottom:24px">Пожалуйста, проверьте ответы и попробуйте ещё раз.</p>
-      <button class="btn btn-primary" onclick="go('q1')">&#8592; Начать заново</button>
-    </div>`;
+  if(!ok){
+    const body=Object.entries(payload).map(([k,v])=>k+': '+v).join('\n');
+    const ml='mailto:info@homeproject.online?subject='+encodeURIComponent('Калькулятор HP AI — '+payload.тариф)+'&body='+encodeURIComponent(body);
+    window.open(ml,'_blank');
   }
 
-  const t = r.tariff;
-  const skuLabel  = t.skuLimit ? 'до '+new Intl.NumberFormat('ru-RU').format(t.skuLimit)+' SKU' : 'без лимита';
-  const agLbl     = t.agents   ? t.agents+' агент'+(t.agents>1?'а':'')                        : 'без лимита';
-
-  return `<div class="results-header">
-    <h2>&#128202; Ваш расчёт готов</h2>
-    <div class="sub">Оценка по средним рынка ТНП · точность ±30%</div>
-  </div>
-
-  <div class="metrics-grid">
-    <div class="metric">
-      <div class="metric-icon">&#128184;</div>
-      <div class="metric-value green">${fmt(r.econFOT)} &#8381;</div>
-      <div class="metric-label">Экономия ФОТ<br>в месяц</div>
-    </div>
-    <div class="metric">
-      <div class="metric-icon">&#128200;</div>
-      <div class="metric-value accent">${fmt(r.revenueBoost)} &#8381;</div>
-      <div class="metric-label">Прирост выручки<br>в месяц</div>
-    </div>
-    <div class="metric green-card">
-      <div class="metric-icon">&#127919;</div>
-      <div class="metric-value green">${fmtFull(Math.max(0, r.netMonthly))}</div>
-      <div class="metric-label">Чистая выгода в месяц<br>(за вычетом подписки)</div>
-    </div>
-    <div class="metric highlight">
-      <div class="metric-icon">&#9889;</div>
-      <div class="metric-value accent">${r.ocupDays ? r.ocupDays+' дней' : '&lt; 1 мес'}</div>
-      <div class="metric-label">Окупаемость<br>внедрения</div>
-    </div>
-  </div>
-
-  <div class="tariff-box">
-    <div class="tariff-name">Рекомендованный тариф</div>
-    <div class="tariff-title">${t.name}</div>
-    <div class="tariff-price">
-      <span class="amount">${new Intl.NumberFormat('ru-RU').format(t.monthly)} &#8381;</span>
-      <span class="period">/мес</span>
-    </div>
-    <div class="tariff-impl">Разовое внедрение: ${new Intl.NumberFormat('ru-RU').format(t.implementation)} &#8381;</div>
-    <div class="tariff-tags">
-      <span class="tag">${skuLabel}</span>
-      <span class="tag">${agLbl}</span>
-      ${t.star ? '<span class="tag">Популярный</span>' : ''}
-    </div>
-  </div>
-
-  <div class="pilot-banner">
-    <div class="pilot-icon">&#127873;</div>
-    <div>
-      <div class="pilot-text">45 дней бесплатного пилота</div>
-      <div class="pilot-sub">Без карты · Без обязательств · Запуск за 3 дня</div>
-    </div>
-  </div>
-
-  <div class="disclaimer">
-    &#9888;&#65039; Оценка по средним рынка ТНП (техника, сантехника, мебель, свет, плитка, обои), точность ±30%.<br>
-    Реальные цифры зависят от ниши, структуры бизнеса и зрелости процессов.
-  </div>
-
-  <div class="level1-cta">
-    <div class="cta-eyebrow">&#8599; Следующий шаг</div>
-    <h3>Получите точный анализ (±15%)</h3>
-    <p>Уровень 1 — опрос 10–15 мин: URL сайта, P&amp;L, клиентская база.
-      Вы получите PDF-отчёт с топ-5 точками внедрения AI и roadmap на 3 фазы.</p>
-    <button class="btn btn-cta" onclick="alert('Уровень 1 в разработке \u2014 мы уведомим вас, как только будет готов!')">
-      Перейти к детальному анализу &#8594;
-    </button>
-  </div>
-
-  <div style="text-align:center;margin-top:24px">
-    <button onclick="state.step='welcome';state.answers={niche:'',revenue:'',team:'',kpMonth:'',competitors:''};state.results=null;state.sent=false;renderStep()"
-      style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;text-decoration:underline">
-      &#8617; Пересчитать
-    </button>
-  </div>`;
+  document.getElementById('mform').style.display='none';
+  document.getElementById('ok').classList.add('show');
 }
 
-// ─── NAVIGATION ─────────────────────────────────────────────
-function renderStep() {
-  const s = state.step;
-  let html = '';
-  if      (s==='welcome') html = renderWelcome();
-  else if (s==='q1')      html = renderQ1();
-  else if (s==='q2')      html = renderQ2();
-  else if (s==='q3')      html = renderQ3();
-  else if (s==='q4')      html = renderQ4();
-  else if (s==='q5')      html = renderQ5();
-  else if (s==='email')   html = renderEmail();
-  else if (s==='results') html = renderResults();
-  appEl.innerHTML = html;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function go(step)    { state.step = step; renderStep(); }
-function pick(f, v)  { state.answers[f] = v; renderStep(); }
-
-function advance(from, to) {
-  const FM = { q1:'niche', q2:'revenue', q3:'team', q4:'kpMonth', q5:'competitors' };
-  if (FM[from] && !state.answers[FM[from]]) return;
-  go(to);
-}
-
-function submitEmail() {
-  const emailEl  = $el('inp-email');
-  const gdprEl   = $el('gdpr-cb');
-  const emailErr = $el('email-err');
-  const gdprErr  = $el('gdpr-err');
-  let ok = true;
-
-  state.email.name  = $el('inp-name').value.trim();
-  state.email.email = emailEl.value.trim();
-  state.email.gdpr  = gdprEl.checked;
-
-  if (!state.email.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email.email)) {
-    emailEl.classList.add('error');
-    emailErr.classList.add('visible');
-    ok = false;
-  }
-  if (!state.email.gdpr) {
-    gdprErr.classList.add('visible');
-    ok = false;
-  }
-  if (!ok) return;
-
-  state.results = calculate();
-
-  if (!state.sent) {
-    sendLead(state.email.name, state.email.email);
-    state.sent = true;
-  }
-
-  go('results');
-}
-
-// ─── INIT ───────────────────────────────────────────────────
-(async () => {
-  try {
-    // Загружаем конфиг с того же GitHub Pages origin — без CORS
-    const res = await fetch('./calc-coefficients.html', { cache: 'no-cache' });
-    if (res.ok) {
-      const text = await res.text();
-      const parsed = JSON.parse(text);
-      if (parsed && parsed.tariffs && Array.isArray(parsed.tariffs) && parsed.tariffs.length > 0) {
-        CFG = parsed;
-      }
-    }
-  } catch (_) {
-    // Используем встроенный fallback — нормальная ситуация
-  }
-
-  if (!CFG || !CFG.niche || !CFG.tariffs) {
-    appEl.innerHTML = '<div class="card" style="text-align:center"><div style="font-size:32px;margin-bottom:16px">&#9888;&#65039;</div><h2>Ошибка конфигурации</h2><p style="color:var(--muted);margin-top:8px">Не удалось загрузить настройки калькулятора. Попробуйте обновить страницу.</p></div>';
-    return;
-  }
-
-  renderStep();
-})();
+/* ── INIT ── */
+render();
 </script>
 </body>
 </html>
