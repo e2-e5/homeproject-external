@@ -1,686 +1,825 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Калькулятор экономии · Home Project AI</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{font-family:'Inter',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
-body{background:radial-gradient(circle at 20% 0%,#1e1b4b 0%,#0f172a 50%);padding-bottom:80px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Калькулятор AI-экономии · Home Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Header */
-.hdr{position:sticky;top:0;background:rgba(15,23,42,.92);backdrop-filter:blur(8px);border-bottom:1px solid #1e293b;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;z-index:50}
-.logo{display:flex;align-items:center;gap:10px}
-.lg-div{width:1px;height:26px;background:#334155}
-.lg-text{font-size:13px;font-weight:700;color:#fff;letter-spacing:.1em;text-transform:uppercase;line-height:1}
-.lg-sub{font-size:9px;color:#6366f1;letter-spacing:.15em;text-transform:uppercase;margin-top:3px}
-.hdr-meta{font-size:12px;color:#64748b}
-.hdr-meta a{color:#a5b4fc;text-decoration:none}
+    :root {
+      --bg:      #0f172a;
+      --card:    #1e293b;
+      --card2:   #243044;
+      --border:  #334155;
+      --accent:  #6366f1;
+      --accent2: #818cf8;
+      --green:   #10b981;
+      --yellow:  #f59e0b;
+      --text:    #f1f5f9;
+      --muted:   #94a3b8;
+      --danger:  #ef4444;
+    }
 
-/* Container */
-.wrap{max-width:880px;margin:0 auto;padding:24px 20px}
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
 
-/* Progress */
-.prog{display:flex;align-items:center;gap:8px;margin-bottom:32px;padding:0 4px}
-.pstep{flex:1;height:4px;background:#1e293b;border-radius:2px;position:relative;overflow:hidden}
-.pstep.done{background:#4ade80}
-.pstep.active{background:linear-gradient(90deg,#4ade80 0%,#6366f1 100%)}
-.plbl{display:flex;justify-content:space-between;margin-bottom:10px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.07em}
-.plbl span.act{color:#a5b4fc;font-weight:600}
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px 48px;
+    }
 
-/* Card */
-.card{background:linear-gradient(180deg,#1e293b 0%,#172033 100%);border:1px solid #334155;border-radius:16px;padding:36px 38px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
-.step{display:none}
-.step.act{display:block}
+    .header {
+      width: 100%;
+      max-width: 640px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .logo {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--accent2);
+      text-transform: uppercase;
+    }
+    .timer-badge {
+      background: rgba(99,102,241,0.15);
+      border: 1px solid rgba(99,102,241,0.4);
+      color: var(--accent2);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
 
-/* Typography */
-h1{font-size:32px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px}
-h2{font-size:24px;font-weight:700;color:#fff;margin-bottom:6px}
-.sub{font-size:15px;color:#94a3b8;margin-bottom:28px;line-height:1.5}
+    #app { width: 100%; max-width: 640px; }
 
-/* Industry cards */
-.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.ind{background:#0f172a;border:2px solid #334155;border-radius:12px;padding:24px 18px;cursor:pointer;transition:all .15s;text-align:center}
-.ind:hover{border-color:#6366f1;transform:translateY(-2px);background:#1a1f3a}
-.ind.sel{border-color:#6366f1;background:#1e1b4b;box-shadow:0 0 0 3px rgba(99,102,241,.2)}
-.ind-icon{font-size:36px;margin-bottom:8px}
-.ind-name{font-size:15px;font-weight:600;color:#fff;margin-bottom:4px}
-.ind-desc{font-size:12px;color:#64748b}
-.ind.tnp{background:linear-gradient(135deg,#1e1b4b 0%,#0f172a 100%);border-color:#6366f1;position:relative}
-.ind.tnp::after{content:'★ Наша экспертиза';position:absolute;top:6px;right:6px;background:#6366f1;color:#fff;font-size:9px;padding:2px 6px;border-radius:6px;letter-spacing:.05em;font-weight:600}
+    .progress-wrap { margin-bottom: 28px; }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
 
-/* Form fields */
-.fgroup{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
-.flbl{font-size:13px;color:#94a3b8;font-weight:500}
-.fhint{font-size:11px;color:#64748b;margin-top:2px}
-.finp,.fsel{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:11px 14px;color:#e2e8f0;font-size:15px;font-family:inherit;width:100%;transition:border-color .15s}
-.finp:focus,.fsel:focus{outline:none;border-color:#6366f1;background:#0a0f1f}
-.finp::placeholder{color:#475569}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 480px) { .card { padding: 36px 32px; } }
 
-/* Team table */
-.team{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
-.team-sec{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 6px}
-.team-row{display:grid;grid-template-columns:1fr 100px 110px 90px;gap:10px;align-items:center;background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:8px 12px}
-.tr-role{font-size:13px;color:#e2e8f0}
-.tr-sal{font-size:12px;color:#64748b;text-align:right}
-.tr-num{display:flex;align-items:center;gap:4px}
-.tr-num button{background:#1e293b;border:none;color:#94a3b8;width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .12s}
-.tr-num button:hover{background:#334155;color:#fff}
-.tr-num input{background:#0a0f1f;border:1px solid #334155;color:#fff;text-align:center;font-size:14px;width:42px;padding:5px;border-radius:5px}
-.tr-cost{font-size:13px;color:#a5b4fc;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+    .q-number {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 8px;
+    }
+    .q-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 24px;
+      line-height: 1.35;
+    }
+    @media (min-width: 480px) { .q-title { font-size: 22px; } }
 
-/* Pain cards */
-.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.pain{background:#0f172a;border:2px solid #334155;border-radius:10px;padding:18px;cursor:pointer;transition:all .15s;display:flex;gap:12px;align-items:flex-start}
-.pain:hover{border-color:#6366f1;background:#1a1f3a}
-.pain.sel{border-color:#6366f1;background:#1e1b4b}
-.pain-ico{font-size:24px;flex-shrink:0}
-.pain-t{font-size:14px;font-weight:600;color:#fff;margin-bottom:3px}
-.pain-d{font-size:12px;color:#94a3b8;line-height:1.4}
+    .options { display: grid; gap: 10px; }
+    .options.grid-2 { grid-template-columns: 1fr 1fr; }
 
-/* Nav */
-.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:30px;gap:12px}
-.btn{padding:12px 24px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
-.btn-prim{background:#6366f1;color:#fff}
-.btn-prim:hover{background:#7c7ff3}
-.btn-prim:disabled{background:#1e293b;color:#475569;cursor:not-allowed}
-.btn-sec{background:transparent;color:#94a3b8;border:1px solid #334155}
-.btn-sec:hover{background:#1e293b;color:#fff}
-.btn-big{padding:14px 32px;font-size:16px}
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--card2);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s, transform 0.12s;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 52px;
+    }
+    .opt:hover { border-color: var(--accent2); background: #2a3a58; }
+    .opt:active { transform: scale(0.98); }
+    .opt.selected { border-color: var(--accent); background: rgba(99,102,241,0.12); }
+    .opt-radio {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.18s;
+    }
+    .opt.selected .opt-radio { border-color: var(--accent); }
+    .opt-radio-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0; transform: scale(0);
+      transition: opacity 0.18s, transform 0.18s;
+    }
+    .opt.selected .opt-radio-dot { opacity: 1; transform: scale(1); }
+    .opt-label { font-size: 15px; font-weight: 500; color: var(--text); }
 
-/* Result */
-.hero{background:linear-gradient(135deg,#1e1b4b 0%,#0f172a 100%);border:1px solid #6366f1;border-radius:14px;padding:28px;margin-bottom:20px;text-align:center}
-.hero-lbl{font-size:13px;color:#a5b4fc;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px}
-.hero-val{font-size:54px;font-weight:800;color:#4ade80;line-height:1;margin-bottom:6px}
-.hero-sub{font-size:14px;color:#94a3b8}
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '▾';
+      position: absolute; right: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted); pointer-events: none; font-size: 14px;
+    }
+    select {
+      width: 100%;
+      padding: 14px 42px 14px 16px;
+      background: var(--card2);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 15px; font-family: inherit; font-weight: 500;
+      appearance: none; cursor: pointer; outline: none;
+      transition: border-color 0.18s;
+    }
+    select:focus { border-color: var(--accent); }
+    select option { background: #1e293b; color: var(--text); }
 
-.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-.kpi{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:18px}
-.kpi-lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.09em;margin-bottom:4px}
-.kpi-val{font-size:24px;font-weight:800;color:#fff;line-height:1.1}
-.kpi-sub{font-size:11px;color:#64748b;margin-top:3px}
+    .btn-row { display: flex; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 14px 24px; border-radius: 12px;
+      font-size: 15px; font-weight: 700; font-family: inherit;
+      cursor: pointer; border: none;
+      transition: opacity 0.18s, transform 0.12s, background 0.18s;
+      min-height: 52px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--accent); color: #fff; flex: 1; }
+    .btn-primary:hover { background: #5558e8; }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    .btn-ghost {
+      background: transparent; color: var(--muted);
+      border: 1px solid var(--border); padding: 14px 20px;
+    }
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--text); }
+    .btn-cta {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff; width: 100%; font-size: 16px;
+      padding: 18px 24px; border-radius: 14px; margin-top: 24px;
+    }
+    .btn-cta:hover { background: linear-gradient(135deg, #059669, #047857); }
 
-/* Tier recommend */
-.tier{background:#0f172a;border:1px solid #6366f1;border-radius:10px;padding:18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.tier-l{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em}
-.tier-n{font-size:22px;font-weight:800;color:#a5b4fc;margin:2px 0}
-.tier-p{font-size:13px;color:#64748b}
-.tier-r{text-align:right}
-.tier-pr{font-size:18px;font-weight:700;color:#fff}
-.tier-pi{font-size:12px;color:#fbbf24}
+    .field { margin-bottom: 16px; }
+    label.field-label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: var(--muted); margin-bottom: 6px; letter-spacing: 0.03em;
+    }
+    input[type="text"], input[type="email"] {
+      width: 100%; padding: 14px 16px;
+      background: var(--card2); border: 2px solid var(--border);
+      border-radius: 12px; color: var(--text);
+      font-size: 16px; font-family: inherit; outline: none;
+      transition: border-color 0.18s;
+    }
+    input[type="text"]:focus, input[type="email"]:focus { border-color: var(--accent); }
+    input[type="text"].error, input[type="email"].error { border-color: var(--danger); }
+    .field-error { font-size: 12px; color: var(--danger); margin-top: 4px; display: none; }
+    .field-error.visible { display: block; }
 
-/* Locked detail */
-.lock-banner{background:#1a2a1a;border:1px solid #4ade80;border-radius:10px;padding:18px;text-align:center;margin-bottom:20px}
-.lock-banner h3{font-size:17px;color:#4ade80;margin-bottom:6px}
-.lock-banner p{font-size:13px;color:#94a3b8;line-height:1.5}
+    .checkbox-row {
+      display: flex; align-items: flex-start;
+      gap: 10px; margin-top: 16px; cursor: pointer;
+    }
+    .checkbox-row input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0;
+      accent-color: var(--accent); cursor: pointer; margin-top: 1px;
+    }
+    .checkbox-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .checkbox-text a { color: var(--accent2); text-decoration: none; }
+    .checkbox-error { font-size: 12px; color: var(--danger); margin-top: 6px; display: none; }
+    .checkbox-error.visible { display: block; }
 
-.email-form{background:#0f172a;border:1px solid #334155;border-radius:12px;padding:24px;margin-top:18px}
-.ef-title{font-size:16px;color:#fff;font-weight:600;margin-bottom:4px}
-.ef-desc{font-size:13px;color:#94a3b8;margin-bottom:18px}
-.ef-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.ef-row.single{grid-template-columns:1fr}
+    .results-header { text-align: center; margin-bottom: 28px; }
+    .results-header h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .results-header .sub { font-size: 13px; color: var(--muted); }
 
-/* Disclaimer */
-.disc{font-size:11px;color:#475569;background:#0f172a;border-left:2px solid #6366f1;padding:10px 14px;border-radius:0 6px 6px 0;margin-top:16px;line-height:1.5}
+    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .metric {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px; text-align: center;
+    }
+    .metric.highlight { border-color: rgba(99,102,241,0.5); background: rgba(99,102,241,0.08); }
+    .metric.green-card { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.07); }
+    .metric-icon { font-size: 22px; margin-bottom: 6px; }
+    .metric-value { font-size: 24px; font-weight: 800; color: var(--text); line-height: 1.1; margin-bottom: 4px; }
+    .metric-value.green { color: var(--green); }
+    .metric-value.accent { color: var(--accent2); }
+    .metric-label { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.4; }
 
-/* Detail report */
-.det-section{margin-bottom:24px}
-.det-title{font-size:14px;color:#a5b4fc;text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #334155}
-table.det{width:100%;border-collapse:collapse;font-size:13px}
-table.det th{background:#1e293b;color:#94a3b8;text-align:left;padding:8px 12px;font-weight:600;font-size:12px}
-table.det td{padding:8px 12px;border-bottom:1px solid #1e293b;background:#0f172a}
-.tn{text-align:right;font-variant-numeric:tabular-nums}
-.tg{color:#4ade80;font-weight:600}.ta{color:#a5b4fc;font-weight:600}.ty{color:#fbbf24;font-weight:600}.tr{color:#f87171;font-weight:600}
+    .tariff-box {
+      background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(99,102,241,0.05));
+      border: 1px solid rgba(99,102,241,0.4);
+      border-radius: 14px; padding: 20px; margin-bottom: 20px;
+    }
+    .tariff-name { font-size: 13px; font-weight: 700; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+    .tariff-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+    .tariff-price { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; }
+    .tariff-price .amount { font-size: 28px; font-weight: 800; color: var(--text); }
+    .tariff-price .period { font-size: 13px; color: var(--muted); }
+    .tariff-impl { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+    .tariff-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { background: rgba(99,102,241,0.15); color: var(--accent2); font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; }
 
-/* Stages */
-.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
-.stage{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:16px;border-top:3px solid #6366f1}
-.stage.green{border-top-color:#4ade80}
-.stage.yellow{border-top-color:#fbbf24}
-.stage-n{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.stage-t{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
-.stage-d{font-size:12px;color:#94a3b8;line-height:1.4}
+    .pilot-banner {
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 12px; padding: 14px 16px;
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .pilot-icon { font-size: 20px; }
+    .pilot-text { font-size: 13px; color: var(--yellow); font-weight: 600; }
+    .pilot-sub { font-size: 12px; color: var(--muted); font-weight: 400; }
 
-.need-list{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:18px}
-.need-list ul{list-style:none;padding:0;margin:8px 0 0}
-.need-list li{font-size:13px;color:#94a3b8;padding:6px 0 6px 18px;position:relative}
-.need-list li::before{content:'•';color:#6366f1;position:absolute;left:6px;font-weight:700}
+    .disclaimer {
+      font-size: 12px; color: var(--muted); text-align: center;
+      line-height: 1.6; margin-bottom: 20px; padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px; border: 1px solid var(--border);
+    }
 
-@media(max-width:720px){
-  .ind-grid{grid-template-columns:repeat(2,1fr)}
-  .pain-grid{grid-template-columns:1fr}
-  .row2,.row3{grid-template-columns:1fr}
-  .kpi-grid{grid-template-columns:1fr}
-  .stages{grid-template-columns:1fr}
-  .team-row{grid-template-columns:1fr 90px}
-  .tr-sal,.tr-cost{display:none}
-  .card{padding:22px 18px}
-}
-</style>
+    .level1-cta { border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+    .level1-cta .cta-eyebrow { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .level1-cta h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .level1-cta p { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+
+    .welcome-hero { text-align: center; padding: 20px 0 36px; }
+    .welcome-hero .badge {
+      display: inline-block;
+      background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3);
+      color: var(--accent2); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 20px;
+    }
+    .welcome-hero h1 { font-size: 28px; font-weight: 800; color: var(--text); line-height: 1.25; margin-bottom: 14px; }
+    @media (min-width: 480px) { .welcome-hero h1 { font-size: 36px; } }
+    .welcome-hero .sub { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 32px; }
+    .welcome-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
+    .chip {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 999px; padding: 6px 14px;
+      font-size: 13px; font-weight: 500; color: var(--muted);
+    }
+    .chip span { color: var(--text); font-weight: 700; }
+
+    .spinner-wrap { text-align: center; padding: 40px 0; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border); border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
 </head>
 <body>
-
-<div class="hdr">
-  <div class="logo">
-    <svg width="30" height="29" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg>
-    <div class="lg-div"></div>
-    <div><div class="lg-text">Home Project</div><div class="lg-sub">AI Platform</div></div>
-  </div>
-  <div class="hdr-meta">Калькулятор экономии &nbsp;·&nbsp; <a href="mailto:info@homeproject.online">info@homeproject.online</a></div>
-</div>
-
-<div class="wrap">
-
-<div class="plbl">
-  <span id="pl0" class="act">Отрасль</span>
-  <span id="pl1">Компания</span>
-  <span id="pl2">Команда</span>
-  <span id="pl3">Расходы</span>
-  <span id="pl4">Каталог</span>
-  <span id="pl5">Боль</span>
-  <span id="pl6">Результат</span>
-</div>
-<div class="prog">
-  <div class="pstep active" id="ps0"></div>
-  <div class="pstep" id="ps1"></div>
-  <div class="pstep" id="ps2"></div>
-  <div class="pstep" id="ps3"></div>
-  <div class="pstep" id="ps4"></div>
-  <div class="pstep" id="ps5"></div>
-  <div class="pstep" id="ps6"></div>
-</div>
-
-<div class="card">
-
-<!-- STEP 0: INDUSTRY -->
-<div class="step act" id="step0">
-  <h1>Сколько вы экономите на ФОТ с AI-агентами?</h1>
-  <p class="sub">Заполните за 3–5 минут — получите расчётный прогноз экономии и окупаемости платформы под ваш бизнес. Начнём с отрасли:</p>
-  <div class="ind-grid">
-    <div class="ind tnp" data-i="tnp"><div class="ind-icon">🏠</div><div class="ind-name">ТНП дистрибьюция</div><div class="ind-desc">Техника, мебель, премиум</div></div>
-    <div class="ind" data-i="stroy"><div class="ind-icon">🏗️</div><div class="ind-name">Стройматериалы</div><div class="ind-desc">Опт, розница, B2B</div></div>
-    <div class="ind" data-i="mebel"><div class="ind-icon">🪑</div><div class="ind-name">Мебель и интерьер</div><div class="ind-desc">Салоны, фабрики</div></div>
-    <div class="ind" data-i="oborud"><div class="ind-icon">⚙️</div><div class="ind-name">Промоборудование</div><div class="ind-desc">B2B, инжиниринг</div></div>
-    <div class="ind" data-i="auto"><div class="ind-icon">🚗</div><div class="ind-name">Авто / запчасти</div><div class="ind-desc">Сервис, опт, розница</div></div>
-    <div class="ind" data-i="other"><div class="ind-icon">📦</div><div class="ind-name">Другое</div><div class="ind-desc">Опт, торговля, услуги</div></div>
-  </div>
-</div>
-
-<!-- STEP 1: COMPANY -->
-<div class="step" id="step1">
-  <h2>О вашей компании</h2>
-  <p class="sub">Базовые параметры. Если точных цифр не знаете — поставьте примерные.</p>
-  <div class="fgroup"><label class="flbl">Название компании <span style="color:#64748b">(необязательно)</span></label><input class="finp" id="fName" placeholder="Например: ООО Ромашка"></div>
-  <div class="row2">
-    <div class="fgroup"><label class="flbl">Город / регион</label><input class="finp" id="fCity" placeholder="Москва" value="Москва"></div>
-    <div class="fgroup"><label class="flbl">Численность сотрудников</label><input class="finp" id="fEmp" type="number" min="3" max="500" value="20"><div class="fhint">Все включая офис и склад</div></div>
-  </div>
-  <div class="row2">
-    <div class="fgroup"><label class="flbl">Годовой оборот (млн ₽)</label><input class="finp" id="fRev" type="number" min="0" value="150"><div class="fhint">Примерно — для рекомендации тарифа</div></div>
-    <div class="fgroup"><label class="flbl">Валовая прибыль, %</label><input class="finp" id="fGm" type="number" min="0" max="100" value="25"><div class="fhint">Маржа после себестоимости</div></div>
-  </div>
-</div>
-
-<!-- STEP 2: TEAM -->
-<div class="step" id="step2">
-  <h2>Структура команды</h2>
-  <p class="sub">Мы предзаполнили типовую структуру под вашу отрасль и размер. Откорректируйте по факту — это влияет на расчёт.</p>
-  <div class="team-sec">🎯 Руководство</div>
-  <div class="team" id="teamMgmt"></div>
-  <div class="team-sec">💼 Отдел продаж</div>
-  <div class="team" id="teamSales"></div>
-  <div class="team-sec">📣 Маркетинг и контент</div>
-  <div class="team" id="teamMkt"></div>
-  <div class="team-sec">💰 Бэк-офис и поддержка</div>
-  <div class="team" id="teamBack"></div>
-  <div class="team-sec">📦 Операции</div>
-  <div class="team" id="teamOps"></div>
-  <div class="disc" style="margin-top:18px"><strong style="color:#a5b4fc">ФОТ итого:</strong> <span id="totFot" style="color:#fff;font-weight:600">—</span> · С налогами и нагрузкой (×1.3): <span id="totFotL" style="color:#fbbf24;font-weight:600">—</span></div>
-</div>
-
-<!-- STEP 3: COSTS -->
-<div class="step" id="step3">
-  <h2>Прочие операционные расходы</h2>
-  <p class="sub">Дополнительные затраты, не входящие в ФОТ. Помогают оценить долю ФОТ в общих расходах.</p>
-  <div class="row2">
-    <div class="fgroup"><label class="flbl">Маркетинг / реклама в мес</label><input class="finp" id="cMkt" type="number" min="0" value="150000"><div class="fhint">Реклама, агентства, продакшен</div></div>
-    <div class="fgroup"><label class="flbl">Сервис / поддержка клиентов</label><input class="finp" id="cSvc" type="number" min="0" value="80000"><div class="fhint">Подрядчики, аутсорсинг сервиса</div></div>
-  </div>
-  <div class="row2">
-    <div class="fgroup"><label class="flbl">Логистика / склад</label><input class="finp" id="cLog" type="number" min="0" value="200000"><div class="fhint">Если на аутсорсе</div></div>
-    <div class="fgroup"><label class="flbl">ИТ / подписки / сервисы</label><input class="finp" id="cIt" type="number" min="0" value="50000"><div class="fhint">CRM, 1С, хостинг, лицензии</div></div>
-  </div>
-</div>
-
-<!-- STEP 4: CATALOG -->
-<div class="step" id="step4">
-  <h2>Сайт и каталог</h2>
-  <p class="sub">Каталог — главный объект автоматизации. От его размера и качества зависит экономия на КП и контенте.</p>
-  <div class="row2">
-    <div class="fgroup"><label class="flbl">Есть ли сайт?</label><select class="fsel" id="kSite"><option value="1">Да, основной канал</option><option value="2">Есть, но устарел</option><option value="3">Только лендинг</option><option value="0">Нет</option></select></div>
-    <div class="fgroup"><label class="flbl">SKU в каталоге</label><input class="finp" id="kSku" type="number" min="0" value="1500"><div class="fhint">Сколько позиций товаров</div></div>
-  </div>
-  <div class="row2">
-    <div class="fgroup"><label class="flbl">Кто обновляет каталог</label><select class="fsel" id="kWho"><option value="inhouse">Внутренний сотрудник</option><option value="outsource">На аутсорсе</option><option value="founder">Сам собственник</option><option value="none">Никто (не обновляется)</option></select></div>
-    <div class="fgroup"><label class="flbl">Как часто меняются прайсы</label><select class="fsel" id="kFreq"><option value="weekly">Раз в неделю</option><option value="monthly">Раз в месяц</option><option value="quarter">Раз в квартал</option><option value="rare">Реже / по факту</option></select></div>
-  </div>
-  <div class="row2" id="tnpExtra" style="display:none">
-    <div class="fgroup"><label class="flbl">Сколько брендов / поставщиков</label><input class="finp" id="kBrands" type="number" min="1" value="5"></div>
-    <div class="fgroup"><label class="flbl">КП в месяц (примерно)</label><input class="finp" id="kKp" type="number" min="0" value="60"><div class="fhint">Среднее количество предложений клиентам</div></div>
-  </div>
-</div>
-
-<!-- STEP 5: PAIN -->
-<div class="step" id="step5">
-  <h2>Главная боль вашего бизнеса</h2>
-  <p class="sub">Выберите 1–2 пункта. Поможем расставить приоритеты в внедрении.</p>
-  <div class="pain-grid">
-    <div class="pain" data-p="kp"><div class="pain-ico">📋</div><div><div class="pain-t">Долго делаем КП</div><div class="pain-d">3–4 часа на одно предложение, конверсия страдает</div></div></div>
-    <div class="pain" data-p="catalog"><div class="pain-ico">📊</div><div><div class="pain-t">Прайсы и каталог не успеваем</div><div class="pain-d">Обновления занимают дни, продаём по старым ценам</div></div></div>
-    <div class="pain" data-p="leads"><div class="pain-ico">👤</div><div><div class="pain-t">Теряем клиентов</div><div class="pain-d">Не перезваниваем, не делаем follow-up</div></div></div>
-    <div class="pain" data-p="content"><div class="pain-ico">📣</div><div><div class="pain-t">Нет рук на маркетинг</div><div class="pain-d">Соцсети, рассылки, контент — некому делать</div></div></div>
-    <div class="pain" data-p="analytics"><div class="pain-ico">📉</div><div><div class="pain-t">Не видим цифр</div><div class="pain-d">Аналитика «на глаз», непонятно где деньги</div></div></div>
-    <div class="pain" data-p="fot"><div class="pain-ico">💸</div><div><div class="pain-t">Дорогой штат</div><div class="pain-d">Хочется сократить ФОТ без потери качества</div></div></div>
-  </div>
-</div>
-
-<!-- STEP 6: RESULT -->
-<div class="step" id="step6">
-  <h2>Ваш расчётный прогноз</h2>
-  <p class="sub">Расчёт сделан на основе ваших данных и наших отраслевых коэффициентов. Это <strong style="color:#fbbf24">оценочный прогноз</strong>, для точного расчёта нужна короткая консультация.</p>
-
-  <div class="hero">
-    <div class="hero-lbl">Потенциальная экономия в месяц</div>
-    <div class="hero-val" id="rSavMo">—</div>
-    <div class="hero-sub">= <span id="rSavYr">—</span> в год</div>
+  <div class="header">
+    <div class="logo">Home Project AI</div>
+    <div class="timer-badge">⏱ ~60 секунд</div>
   </div>
 
-  <div class="kpi-grid">
-    <div class="kpi"><div class="kpi-lbl">Доля ФОТ в оптимизации</div><div class="kpi-val ta" id="rPct">—</div><div class="kpi-sub">от вашего текущего ФОТ</div></div>
-    <div class="kpi"><div class="kpi-lbl">Окупаемость</div><div class="kpi-val ta" id="rPay">—</div><div class="kpi-sub">внедрения и подписки</div></div>
-    <div class="kpi"><div class="kpi-lbl">ROI за год</div><div class="kpi-val tg" id="rRoi">—</div><div class="kpi-sub">экономия ÷ затраты</div></div>
-  </div>
-
-  <div class="tier">
-    <div>
-      <div class="tier-l">Рекомендованный тариф</div>
-      <div class="tier-n" id="rTier">—</div>
-      <div class="tier-p" id="rTierDesc">—</div>
-    </div>
-    <div class="tier-r">
-      <div class="tier-pr" id="rTierPr">—</div>
-      <div class="tier-pi" id="rTierPi">—</div>
+  <div id="app">
+    <div class="spinner-wrap">
+      <div class="spinner"></div>
+      <div style="color:var(--muted);font-size:13px">Загрузка…</div>
     </div>
   </div>
-
-  <div class="lock-banner">
-    <h3>🔓 Получите детальный отчёт</h3>
-    <p>Разбивка экономии по отделам · карта AI-покрытия по ролям · этапы внедрения · список данных для старта проекта</p>
-  </div>
-
-  <div class="email-form" id="leadForm">
-    <div class="ef-title">Куда отправить детальный отчёт</div>
-    <div class="ef-desc">Также получите письмо со списком данных, которые помогут уточнить расчёт под ваш бизнес.</div>
-    <div class="ef-row">
-      <div class="fgroup" style="margin:0"><label class="flbl">Ваше имя</label><input class="finp" id="lName" placeholder="Иван"></div>
-      <div class="fgroup" style="margin:0"><label class="flbl">Должность</label><input class="finp" id="lRole" placeholder="Собственник / CEO"></div>
-    </div>
-    <div class="ef-row">
-      <div class="fgroup" style="margin:0"><label class="flbl">Email *</label><input class="finp" id="lEmail" type="email" placeholder="ivan@company.ru" required></div>
-      <div class="fgroup" style="margin:0"><label class="flbl">Телефон <span style="color:#64748b">(необязательно)</span></label><input class="finp" id="lPhone" placeholder="+7 ___ ___ __ __"></div>
-    </div>
-    <div class="ef-row single">
-      <div class="fgroup" style="margin:0"><label class="flbl">Комментарий <span style="color:#64748b">(необязательно)</span></label><input class="finp" id="lNote" placeholder="Что хотите обсудить в первую очередь?"></div>
-    </div>
-    <button class="btn btn-prim btn-big" style="width:100%;justify-content:center;margin-top:16px" onclick="submitLead()">Получить детальный отчёт →</button>
-    <div class="disc">Нажимая «Получить», вы соглашаетесь на обработку контактных данных для подготовки персонального предложения. Спам не шлём — слово.</div>
-  </div>
-
-  <!-- DETAILED VIEW (hidden until email submitted) -->
-  <div id="detailView" style="display:none;margin-top:20px">
-
-    <div class="det-section">
-      <div class="det-title">📊 Разбивка экономии по отделам</div>
-      <table class="det" id="detByDept"></table>
-    </div>
-
-    <div class="det-section">
-      <div class="det-title">🤖 Карта AI-покрытия по ролям</div>
-      <table class="det" id="detByRole"></table>
-    </div>
-
-    <div class="det-section">
-      <div class="det-title">🚀 Этапы внедрения</div>
-      <div class="stages">
-        <div class="stage green"><div class="stage-n">1. Пилот · 45 дней</div><div class="stage-t">Бесплатно</div><div class="stage-d">Загружаем ваши прайсы, подключаем базу. Первое КП за 2 минуты. Без карты и обязательств.</div></div>
-        <div class="stage"><div class="stage-n">2. Внедрение · 2–4 недели</div><div class="stage-t" id="implPrice">от 79 000 ₽</div><div class="stage-d">Настройка под ваш бизнес, интеграция с данными, обучение команды.</div></div>
-        <div class="stage yellow"><div class="stage-n">3. Подписка · ежемесячно</div><div class="stage-t" id="subPrice">от 14 900 ₽/мес</div><div class="stage-d">AI-агенты работают 24/7, обновления, поддержка, аналитика.</div></div>
-      </div>
-    </div>
-
-    <div class="det-section">
-      <div class="det-title">📋 Что нужно от вас для точного расчёта и старта</div>
-      <div class="need-list">
-        <ul>
-          <li>Текущий прайс хотя бы по 1 основному поставщику (Excel / PDF)</li>
-          <li>Доступ к сайту (read-only) или выгрузка каталога с SKU</li>
-          <li>База клиентов или CRM (Excel, выгрузка из 1С, AmoCRM и т.п.)</li>
-          <li>Пример 1–2 КП, которое вы делаете для клиента (чтобы видеть формат)</li>
-          <li>30-минутный созвон с вами или РОПом для уточнения процессов</li>
-          <li>Доступ к корпоративной почте для подключения email-рассылок</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="disc" style="margin-top:20px;background:#1a2a1a;border-color:#4ade80;color:#94a3b8">
-      <strong style="color:#4ade80">📌 Дисклеймер:</strong> Расчёт оценочный, основан на типовых данных по отрасли и средним ФОТ Москвы. Реальная экономия зависит от готовности команды, качества данных и плотности внедрения. Точные цифры — после короткой консультации (30 мин) и аудита процессов.
-    </div>
-
-    <div style="text-align:center;margin-top:24px;padding:20px;background:#0f172a;border:1px solid #6366f1;border-radius:12px">
-      <div style="font-size:13px;color:#94a3b8;margin-bottom:8px">📞 Готовы начать пилот?</div>
-      <a href="mailto:info@homeproject.online?subject=AI%20Platform%20-%20Запуск%20пилота&body=Здравствуйте%21%20Прошёл%20калькулятор%2C%20готов%20обсудить%20пилот." class="btn btn-prim btn-big" style="text-decoration:none">Запустить пилот → info@homeproject.online</a>
-    </div>
-  </div>
-</div>
-
-<!-- NAV BUTTONS -->
-<div class="nav-btns" id="navBtns">
-  <button class="btn btn-sec" id="btnBack" onclick="prev()">← Назад</button>
-  <button class="btn btn-prim" id="btnNext" onclick="next()">Далее →</button>
-</div>
-
-</div><!-- /card -->
-</div><!-- /wrap -->
 
 <script>
-// ───────── MODEL ─────────
-const SAL={ceo:150000,rop:120000,manager:70000,kp:80000,back:65000,smm:60000,copy:70000,design:80000,acc:80000,sec:65000,analyst:120000,lawyer:110000,hr:100000,it:100000,log:60000,other:80000};
-const NAME={ceo:'CEO / директор',rop:'РОП',manager:'Менеджер продаж',kp:'Автор КП',back:'Бэк-офис продаж',smm:'SMM-менеджер',copy:'Копирайтер',design:'Дизайнер',acc:'Бухгалтер',sec:'Секретарь / офис',analyst:'Аналитик',lawyer:'Юрист',hr:'HR-менеджер',it:'ИТ-специалист',log:'Логист / склад',other:'Прочие'};
-// AI realized coverage (% реальной экономии от ставки)
-const COV={ceo:.25,rop:.30,manager:.45,kp:.85,back:.75,smm:.70,copy:.80,design:.65,acc:.55,sec:.65,analyst:.80,lawyer:.45,hr:.55,it:.45,log:.35,other:.30};
-// Industry coverage multipliers
-const IND_MULT={tnp:{kp:1.05,back:1.05,smm:1.0,design:1.0},stroy:{kp:1.0,back:1.0},mebel:{kp:1.0,design:1.10,copy:1.05},oborud:{kp:1.05,back:1.0,analyst:1.05},auto:{back:1.05,acc:1.05,sec:1.0},other:{}};
-// Default team templates by industry & size
-function defaultTeam(ind,emp){
-  const small=emp<=20,med=emp<=45;
-  if(ind==='tnp'){
-    if(small)return{ceo:1,rop:1,manager:3,kp:2,back:1,smm:1,copy:1,design:0,acc:1,sec:1,analyst:0,lawyer:0,hr:0,it:0,log:2,other:Math.max(0,emp-14)};
-    if(med)return{ceo:2,rop:1,manager:6,kp:3,back:2,smm:1,copy:1,design:1,acc:2,sec:1,analyst:1,lawyer:0,hr:1,it:1,log:3,other:Math.max(0,emp-26)};
-    return{ceo:2,rop:2,manager:10,kp:5,back:4,smm:2,copy:2,design:1,acc:2,sec:2,analyst:1,lawyer:1,hr:1,it:2,log:5,other:Math.max(0,emp-42)};
-  }
-  if(ind==='mebel'){
-    if(small)return{ceo:1,rop:1,manager:3,kp:2,back:1,smm:1,copy:1,design:1,acc:1,sec:1,analyst:0,lawyer:0,hr:0,it:0,log:1,other:Math.max(0,emp-13)};
-    return{ceo:2,rop:1,manager:6,kp:3,back:2,smm:2,copy:1,design:2,acc:2,sec:1,analyst:1,lawyer:0,hr:1,it:1,log:3,other:Math.max(0,emp-28)};
-  }
-  if(ind==='stroy'){
-    if(small)return{ceo:1,rop:1,manager:4,kp:2,back:2,smm:1,copy:0,design:0,acc:1,sec:1,analyst:0,lawyer:0,hr:0,it:0,log:3,other:Math.max(0,emp-15)};
-    return{ceo:2,rop:1,manager:8,kp:3,back:3,smm:1,copy:1,design:0,acc:2,sec:1,analyst:1,lawyer:1,hr:1,it:1,log:5,other:Math.max(0,emp-30)};
-  }
-  if(ind==='auto'){
-    if(small)return{ceo:1,rop:1,manager:4,kp:1,back:2,smm:1,copy:0,design:0,acc:1,sec:1,analyst:0,lawyer:0,hr:0,it:0,log:2,other:Math.max(0,emp-13)};
-    return{ceo:2,rop:1,manager:7,kp:2,back:3,smm:1,copy:1,design:0,acc:2,sec:1,analyst:1,lawyer:0,hr:1,it:1,log:4,other:Math.max(0,emp-26)};
-  }
-  if(ind==='oborud'){
-    if(small)return{ceo:1,rop:1,manager:2,kp:3,back:2,smm:0,copy:1,design:0,acc:1,sec:1,analyst:1,lawyer:0,hr:0,it:0,log:1,other:Math.max(0,emp-13)};
-    return{ceo:2,rop:1,manager:5,kp:5,back:3,smm:1,copy:1,design:1,acc:2,sec:1,analyst:2,lawyer:1,hr:1,it:1,log:3,other:Math.max(0,emp-29)};
-  }
-  // other
-  if(small)return{ceo:1,rop:1,manager:3,kp:1,back:2,smm:1,copy:1,design:0,acc:1,sec:1,analyst:0,lawyer:0,hr:0,it:0,log:2,other:Math.max(0,emp-13)};
-  return{ceo:2,rop:1,manager:6,kp:2,back:3,smm:1,copy:1,design:1,acc:2,sec:1,analyst:1,lawyer:0,hr:1,it:1,log:4,other:Math.max(0,emp-26)};
-}
-
-// Tier recommendation
-function recommendTier(emp,sku){
-  if(emp<=12&&sku<800)return{key:'start',name:'Старт',price:14900,impl:79000,desc:'до 1 000 SKU · 1 агент · email-поддержка'};
-  if(emp<=25&&sku<5000)return{key:'business',name:'Бизнес',price:34900,impl:149000,desc:'до 5 000 SKU · 3 агента · email-рассылки · приоритет'};
-  if(emp<=55)return{key:'pro',name:'Про',price:69900,impl:299000,desc:'без лимита SKU · 10 агентов · полная аналитика · менеджер'};
-  return{key:'corp',name:'Корпорат',price:129900,impl:500000,desc:'без лимита · выделенная команда · кастом-агенты'};
-}
-
-const FMT=n=>n.toLocaleString('ru-RU')+' ₽';
-const FMTm=n=>n>=1e6?(n/1e6).toFixed(2)+' млн ₽':n>=1e3?Math.round(n/1e3)+' тыс ₽':n+' ₽';
-
-// ───────── STATE ─────────
-const ST={ind:'tnp',team:{},data:{}};
-let curStep=0;
-const dept={
-  mgmt:['ceo'],sales:['rop','manager','kp','back'],
-  mkt:['smm','copy','design'],
-  back:['acc','sec','hr','lawyer'],
-  ops:['analyst','it','log','other']
+// ═══════════════════════════════════════════════════════════════
+// КОЭФФИЦИЕНТЫ — из config/calc-coefficients.json
+// Калькулятор загружает актуальный конфиг с ./calc-coefficients.html
+// (тот же GitHub Pages origin). При недоступности — встроенный fallback.
+// Для обновления без релиза: переопубликуй calc-coefficients.html.
+// ═══════════════════════════════════════════════════════════════
+const BUILT_IN_CONFIG = {
+  avgSalaryRub: 120000,
+  reactivateCoef: 0.025,
+  niche: {
+    appliances: { label: "Бытовая техника",  autoCoef: 0.40 },
+    plumbing:   { label: "Сантехника",        autoCoef: 0.38 },
+    lighting:   { label: "Свет / освещение",  autoCoef: 0.36 },
+    tiles:      { label: "Плитка",            autoCoef: 0.33 },
+    furniture:  { label: "Мебель",            autoCoef: 0.42 },
+    wallpaper:  { label: "Обои",              autoCoef: 0.35 },
+    other:      { label: "Другое ТНП",        autoCoef: 0.37 }
+  },
+  revenue: {
+    lt3:       { label: "до 3 млн \u20bd/мес",      valueMln: 2   },
+    "3to10":   { label: "3\u201310 млн \u20bd/мес",     valueMln: 6   },
+    "10to30":  { label: "10\u201330 млн \u20bd/мес",    valueMln: 20  },
+    "30to100": { label: "30\u2013100 млн \u20bd/мес",   valueMln: 65  },
+    gt100:     { label: "более 100 млн \u20bd/мес", valueMln: 150 }
+  },
+  team: {
+    "1to2":  { label: "1\u20132 чел.",  avgSize: 1.5 },
+    "3to5":  { label: "3\u20135 чел.",  avgSize: 4   },
+    "6to15": { label: "6\u201315 чел.", avgSize: 10  },
+    gt16:    { label: "16+ чел.",       avgSize: 20  }
+  },
+  kpMonth: {
+    lt20:       { label: "менее 20 КП",   kpCoef: 0.03 },
+    "20to100":  { label: "20\u2013100 КП",    kpCoef: 0.05 },
+    "100to500": { label: "100\u2013500 КП",   kpCoef: 0.07 },
+    gt500:      { label: "более 500 КП",  kpCoef: 0.09 }
+  },
+  competitors: {
+    manual:    { label: "Да, вручную (Excel/таблицы)", gapCoef: 0.02 },
+    automated: { label: "Да, используем инструменты",  gapCoef: 0.01 },
+    none:      { label: "Нет, не отслеживаем",         gapCoef: 0.03 }
+  },
+  tariffs: [
+    { id:"start",     name:"Старт",    star:false, monthly:14900,  implementation:79000,
+      skuLimit:1000,  agents:1,    condition:{ maxTeamAvg:2,  maxRevenueMln:10  } },
+    { id:"business",  name:"Бизнес",   star:false, monthly:34900,  implementation:149000,
+      skuLimit:5000,  agents:3,    condition:{ maxTeamAvg:5,  maxRevenueMln:30  } },
+    { id:"pro",       name:"Про \u2605", star:true, monthly:69900, implementation:299000,
+      skuLimit:null,  agents:10,   condition:{ maxTeamAvg:15, maxRevenueMln:100 } },
+    { id:"corporate", name:"Корпорат", star:false, monthly:129900, implementation:500000,
+      skuLimit:null,  agents:null, condition:{ maxTeamAvg:null, maxRevenueMln:null } }
+  ]
 };
 
-// ───────── RENDER TEAM ─────────
-function buildTeamSec(secId,roles){
-  const c=document.getElementById(secId);
-  c.innerHTML='';
-  roles.forEach(r=>{
-    const row=document.createElement('div');
-    row.className='team-row';
-    row.innerHTML=`
-      <div class="tr-role">${NAME[r]}</div>
-      <div class="tr-sal">${FMT(SAL[r])}/мес</div>
-      <div class="tr-num">
-        <button onclick="adjust('${r}',-1)">−</button>
-        <input id="t_${r}" type="number" min="0" value="${ST.team[r]||0}" onchange="setTeam('${r}',this.value)">
-        <button onclick="adjust('${r}',1)">+</button>
-      </div>
-      <div class="tr-cost" id="tc_${r}">${FMTm((ST.team[r]||0)*SAL[r])}</div>
-    `;
-    c.appendChild(row);
+let CFG = BUILT_IN_CONFIG;
+
+let state = {
+  step: 'welcome',
+  answers: { niche:'', revenue:'', team:'', kpMonth:'', competitors:'' },
+  email: { name:'', email:'', gdpr: false },
+  results: null,
+  sent: false
+};
+
+// ─── HELPERS ────────────────────────────────────────────────
+const fmt = n => n >= 1000000
+  ? (n/1000000).toFixed(1).replace(/\.0$/,'') + ' млн'
+  : n >= 1000 ? Math.round(n/1000) + ' тыс' : String(Math.round(n));
+
+const fmtFull = n => new Intl.NumberFormat('ru-RU').format(Math.round(n)) + ' \u20bd';
+
+function selectTariff(tariffs, teamAvg, revenueMln) {
+  for (const t of tariffs) {
+    if (t.condition.maxTeamAvg === null) return t;
+    if (teamAvg <= t.condition.maxTeamAvg && revenueMln < t.condition.maxRevenueMln) return t;
+  }
+  return tariffs[tariffs.length - 1];
+}
+
+function calculate() {
+  const { niche, revenue, team, kpMonth, competitors } = state.answers;
+  const nd = CFG.niche[niche] ?? CFG.niche.other;
+  const rv = CFG.revenue[revenue];
+  const tm = CFG.team[team];
+  const kp = CFG.kpMonth[kpMonth];
+  const cp = CFG.competitors[competitors];
+
+  if (!rv || !tm || !kp || !cp) return { error: true };
+
+  const teamSize   = tm.avgSize;
+  const revenueMln = rv.valueMln;
+
+  const econFOT      = teamSize * CFG.avgSalaryRub * nd.autoCoef;
+  const revenueCoef  = kp.kpCoef + CFG.reactivateCoef + cp.gapCoef;
+  const revenueBoost = revenueMln * 1000000 * revenueCoef;
+
+  if (!isFinite(econFOT) || econFOT < 0)       return { error: true };
+  if (!isFinite(revenueBoost) || revenueBoost < 0) return { error: true };
+  if (econFOT + revenueBoost > 10000000000)     return { error: true };
+
+  const tariff     = selectTariff(CFG.tariffs, teamSize, revenueMln);
+  const netMonthly = econFOT + revenueBoost - tariff.monthly;
+  const ocupDays   = econFOT > 0 ? Math.round(tariff.implementation * 30 / econFOT) : null;
+
+  return { econFOT, revenueBoost, netMonthly, tariff, ocupDays };
+}
+
+// ─── WEBHOOK ────────────────────────────────────────────────
+const LEAD_ENDPOINT = 'https://80.91.86.53.nip.io/api/calc-lead';
+
+function sendLead(name, email) {
+  const r = state.results;
+  const answers = JSON.stringify({
+    ...state.answers,
+    calcResults: r && !r.error ? {
+      econFOT: Math.round(r.econFOT),
+      revenueBoost: Math.round(r.revenueBoost),
+      tariffId: r.tariff && r.tariff.id
+    } : {}
+  });
+
+  // Попытка 1: JSON POST с CORS
+  fetch(LEAD_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, source: 'calc-l0', answers })
+  }).catch(() => {
+    // Попытка 2: form-encoded no-cors (simple request — приходит в любом случае)
+    const fd = new URLSearchParams();
+    fd.append('name', name); fd.append('email', email);
+    fd.append('source', 'calc-l0'); fd.append('answers', answers);
+    fetch(LEAD_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: fd.toString()
+    }).catch(() => {});
   });
 }
-function buildTeam(){
-  buildTeamSec('teamMgmt',dept.mgmt);
-  buildTeamSec('teamSales',dept.sales);
-  buildTeamSec('teamMkt',dept.mkt);
-  buildTeamSec('teamBack',dept.back);
-  buildTeamSec('teamOps',dept.ops);
-  updTotal();
-}
-window.adjust=(r,d)=>{const v=Math.max(0,(ST.team[r]||0)+d);ST.team[r]=v;document.getElementById('t_'+r).value=v;document.getElementById('tc_'+r).textContent=FMTm(v*SAL[r]);updTotal();};
-window.setTeam=(r,v)=>{const x=Math.max(0,parseInt(v)||0);ST.team[r]=x;document.getElementById('tc_'+r).textContent=FMTm(x*SAL[r]);updTotal();};
-function totalFot(){let s=0;for(const r in ST.team)s+=(ST.team[r]||0)*SAL[r];return s;}
-function updTotal(){const t=totalFot();document.getElementById('totFot').textContent=FMTm(t);document.getElementById('totFotL').textContent=FMTm(Math.round(t*1.3));}
 
-// ───────── STEPS ─────────
-function show(n){
-  for(let i=0;i<=6;i++){
-    document.getElementById('step'+i).classList.toggle('act',i===n);
-    document.getElementById('ps'+i).classList.toggle('active',i===n);
-    document.getElementById('ps'+i).classList.toggle('done',i<n);
-    document.getElementById('pl'+i).classList.toggle('act',i===n);
-  }
-  curStep=n;
-  document.getElementById('btnBack').style.visibility=n===0?'hidden':'visible';
-  document.getElementById('btnNext').style.display=n===6?'none':'inline-flex';
-  document.getElementById('btnNext').textContent=n===5?'Показать результат →':'Далее →';
-  document.getElementById('navBtns').style.display=n===0?'none':'flex';
-  window.scrollTo(0,0);
-  if(n===6)computeResult();
+// ─── RENDER ─────────────────────────────────────────────────
+const $el = id => document.getElementById(id);
+const appEl = document.getElementById('app');
+
+function renderProgress(step) {
+  const qi = ['q1','q2','q3','q4','q5','email'];
+  const idx = qi.indexOf(step);
+  if (idx < 0) return '';
+  const pct = Math.round(((idx+1)/7)*100);
+  return `<div class="progress-wrap">
+    <div class="progress-label">
+      <span>${idx < 5 ? 'Вопрос '+(idx+1)+' из 5' : 'Почти готово'}</span>
+      <span>${pct}%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+  </div>`;
 }
-window.next=()=>{
-  if(curStep===1){
-    ST.data.name=document.getElementById('fName').value;
-    ST.data.city=document.getElementById('fCity').value;
-    ST.data.emp=+document.getElementById('fEmp').value||20;
-    ST.data.rev=+document.getElementById('fRev').value||0;
-    ST.data.gm=+document.getElementById('fGm').value||0;
-    ST.team=defaultTeam(ST.ind,ST.data.emp);
-    buildTeam();
+
+function renderWelcome() {
+  return `<div class="welcome-hero">
+    <div class="badge">&#9889; Займёт ~60 секунд</div>
+    <h1>Сколько стоит рутина вашей команды?</h1>
+    <p class="sub">5 вопросов — и вы увидите, сколько AI-автоматизация<br>
+      сэкономит в месяц именно для вашего бизнеса.<br>
+      Без регистрации. Точность ±30%.</p>
+    <div class="welcome-chips">
+      <div class="chip">&#127962; <span>Ниша ТНП</span></div>
+      <div class="chip">&#128176; <span>Оборот</span></div>
+      <div class="chip">&#128101; <span>Команда</span></div>
+      <div class="chip">&#128203; <span>КП в месяц</span></div>
+      <div class="chip">&#128269; <span>Конкуренты</span></div>
+    </div>
+    <button class="btn btn-primary" style="width:100%;font-size:17px;padding:18px" onclick="go('q1')">
+      Начать расчёт &#8594;
+    </button>
+  </div>`;
+}
+
+function renderQ1() {
+  const niches = Object.entries(CFG.niche);
+  const cur = state.answers.niche;
+  return `${renderProgress('q1')}
+  <div class="card">
+    <div class="q-number">Вопрос 1 из 5</div>
+    <div class="q-title">Какая у вас ниша?</div>
+    <div class="select-wrap">
+      <select id="sel-niche" onchange="state.answers.niche=this.value;renderStep()">
+        <option value="">&#8212; Выберите нишу &#8212;</option>
+        ${niches.map(([k,v])=>`<option value="${k}"${cur===k?' selected':''}>${v.label}</option>`).join('')}
+      </select>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="go('welcome')">&#8592; Назад</button>
+      <button class="btn btn-primary" onclick="advance('q1','q2')"${cur?'':' disabled'}>Далее &#8594;</button>
+    </div>
+  </div>`;
+}
+
+function renderQ2() {
+  const opts = Object.entries(CFG.revenue);
+  const cur = state.answers.revenue;
+  return `${renderProgress('q2')}
+  <div class="card">
+    <div class="q-number">Вопрос 2 из 5</div>
+    <div class="q-title">Оборот компании в месяц</div>
+    <div class="options">
+      ${opts.map(([k,v])=>`<div class="opt${cur===k?' selected':''}" onclick="pick('revenue','${k}')">
+        <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+        <div class="opt-label">${v.label}</div></div>`).join('')}
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="go('q1')">&#8592; Назад</button>
+      <button class="btn btn-primary" onclick="advance('q2','q3')"${cur?'':' disabled'}>Далее &#8594;</button>
+    </div>
+  </div>`;
+}
+
+function renderQ3() {
+  const opts = Object.entries(CFG.team);
+  const cur = state.answers.team;
+  return `${renderProgress('q3')}
+  <div class="card">
+    <div class="q-number">Вопрос 3 из 5</div>
+    <div class="q-title">Сколько человек в продажах и контенте?</div>
+    <div class="options grid-2">
+      ${opts.map(([k,v])=>`<div class="opt${cur===k?' selected':''}" onclick="pick('team','${k}')">
+        <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+        <div class="opt-label">${v.label}</div></div>`).join('')}
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="go('q2')">&#8592; Назад</button>
+      <button class="btn btn-primary" onclick="advance('q3','q4')"${cur?'':' disabled'}>Далее &#8594;</button>
+    </div>
+  </div>`;
+}
+
+function renderQ4() {
+  const opts = Object.entries(CFG.kpMonth);
+  const cur = state.answers.kpMonth;
+  return `${renderProgress('q4')}
+  <div class="card">
+    <div class="q-number">Вопрос 4 из 5</div>
+    <div class="q-title">Сколько коммерческих предложений в месяц?</div>
+    <div class="options grid-2">
+      ${opts.map(([k,v])=>`<div class="opt${cur===k?' selected':''}" onclick="pick('kpMonth','${k}')">
+        <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+        <div class="opt-label">${v.label}</div></div>`).join('')}
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="go('q3')">&#8592; Назад</button>
+      <button class="btn btn-primary" onclick="advance('q4','q5')"${cur?'':' disabled'}>Далее &#8594;</button>
+    </div>
+  </div>`;
+}
+
+function renderQ5() {
+  const opts = Object.entries(CFG.competitors);
+  const cur = state.answers.competitors;
+  return `${renderProgress('q5')}
+  <div class="card">
+    <div class="q-number">Вопрос 5 из 5</div>
+    <div class="q-title">Анализируете ли конкурентов (цены, ассортимент)?</div>
+    <div class="options">
+      ${opts.map(([k,v])=>`<div class="opt${cur===k?' selected':''}" onclick="pick('competitors','${k}')">
+        <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+        <div class="opt-label">${v.label}</div></div>`).join('')}
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="go('q4')">&#8592; Назад</button>
+      <button class="btn btn-primary" onclick="advance('q5','email')"${cur?'':' disabled'}>Получить расчёт &#8594;</button>
+    </div>
+  </div>`;
+}
+
+function renderEmail() {
+  return `${renderProgress('email')}
+  <div class="card">
+    <div class="q-number">Почти готово</div>
+    <div class="q-title">Куда отправить результаты?</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:20px">
+      Введите email — и увидите полный расчёт прямо здесь на экране.
+    </p>
+
+    <div class="field">
+      <label class="field-label" for="inp-name">Ваше имя (необязательно)</label>
+      <input type="text" id="inp-name" placeholder="Алексей" maxlength="80"
+        value="${state.email.name}" oninput="state.email.name=this.value">
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="inp-email">Email <span style="color:var(--danger)">*</span></label>
+      <input type="email" id="inp-email" placeholder="alex@company.ru" maxlength="120"
+        value="${state.email.email}"
+        oninput="state.email.email=this.value;$el('email-err').classList.remove('visible');this.classList.remove('error')">
+      <div id="email-err" class="field-error">Введите корректный email</div>
+    </div>
+
+    <label class="checkbox-row" for="gdpr-cb">
+      <input type="checkbox" id="gdpr-cb" ${state.email.gdpr?'checked':''}
+        onchange="state.email.gdpr=this.checked;$el('gdpr-err').classList.remove('visible')">
+      <span class="checkbox-text">
+        Согласен(на) на обработку персональных данных в соответствии
+        с&nbsp;<a href="https://homeproject.online/page/privacy" target="_blank">политикой конфиденциальности</a>
+        (152-ФЗ)
+      </span>
+    </label>
+    <div id="gdpr-err" class="checkbox-error">Необходимо ваше согласие для продолжения</div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="go('q5')">&#8592; Назад</button>
+      <button class="btn btn-primary" onclick="submitEmail()">Показать результат &#8594;</button>
+    </div>
+  </div>
+  <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:12px">
+    &#128274; Данные защищены · Не передаются третьим лицам · 152-ФЗ
+  </div>`;
+}
+
+function renderResults() {
+  const r = state.results;
+  if (!r || r.error) {
+    return `<div class="card" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:16px">&#129300;</div>
+      <h2 style="margin-bottom:8px">Недостаточно данных</h2>
+      <p style="color:var(--muted);margin-bottom:24px">Пожалуйста, проверьте ответы и попробуйте ещё раз.</p>
+      <button class="btn btn-primary" onclick="go('q1')">&#8592; Начать заново</button>
+    </div>`;
   }
-  if(curStep===3){
-    ST.data.cMkt=+document.getElementById('cMkt').value||0;
-    ST.data.cSvc=+document.getElementById('cSvc').value||0;
-    ST.data.cLog=+document.getElementById('cLog').value||0;
-    ST.data.cIt=+document.getElementById('cIt').value||0;
+
+  const t = r.tariff;
+  const skuLabel  = t.skuLimit ? 'до '+new Intl.NumberFormat('ru-RU').format(t.skuLimit)+' SKU' : 'без лимита';
+  const agLbl     = t.agents   ? t.agents+' агент'+(t.agents>1?'а':'')                        : 'без лимита';
+
+  return `<div class="results-header">
+    <h2>&#128202; Ваш расчёт готов</h2>
+    <div class="sub">Оценка по средним рынка ТНП · точность ±30%</div>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric">
+      <div class="metric-icon">&#128184;</div>
+      <div class="metric-value green">${fmt(r.econFOT)} &#8381;</div>
+      <div class="metric-label">Экономия ФОТ<br>в месяц</div>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">&#128200;</div>
+      <div class="metric-value accent">${fmt(r.revenueBoost)} &#8381;</div>
+      <div class="metric-label">Прирост выручки<br>в месяц</div>
+    </div>
+    <div class="metric green-card">
+      <div class="metric-icon">&#127919;</div>
+      <div class="metric-value green">${fmtFull(Math.max(0, r.netMonthly))}</div>
+      <div class="metric-label">Чистая выгода в месяц<br>(за вычетом подписки)</div>
+    </div>
+    <div class="metric highlight">
+      <div class="metric-icon">&#9889;</div>
+      <div class="metric-value accent">${r.ocupDays ? r.ocupDays+' дней' : '&lt; 1 мес'}</div>
+      <div class="metric-label">Окупаемость<br>внедрения</div>
+    </div>
+  </div>
+
+  <div class="tariff-box">
+    <div class="tariff-name">Рекомендованный тариф</div>
+    <div class="tariff-title">${t.name}</div>
+    <div class="tariff-price">
+      <span class="amount">${new Intl.NumberFormat('ru-RU').format(t.monthly)} &#8381;</span>
+      <span class="period">/мес</span>
+    </div>
+    <div class="tariff-impl">Разовое внедрение: ${new Intl.NumberFormat('ru-RU').format(t.implementation)} &#8381;</div>
+    <div class="tariff-tags">
+      <span class="tag">${skuLabel}</span>
+      <span class="tag">${agLbl}</span>
+      ${t.star ? '<span class="tag">Популярный</span>' : ''}
+    </div>
+  </div>
+
+  <div class="pilot-banner">
+    <div class="pilot-icon">&#127873;</div>
+    <div>
+      <div class="pilot-text">45 дней бесплатного пилота</div>
+      <div class="pilot-sub">Без карты · Без обязательств · Запуск за 3 дня</div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    &#9888;&#65039; Оценка по средним рынка ТНП (техника, сантехника, мебель, свет, плитка, обои), точность ±30%.<br>
+    Реальные цифры зависят от ниши, структуры бизнеса и зрелости процессов.
+  </div>
+
+  <div class="level1-cta">
+    <div class="cta-eyebrow">&#8599; Следующий шаг</div>
+    <h3>Получите точный анализ (±15%)</h3>
+    <p>Уровень 1 — опрос 10–15 мин: URL сайта, P&amp;L, клиентская база.
+      Вы получите PDF-отчёт с топ-5 точками внедрения AI и roadmap на 3 фазы.</p>
+    <button class="btn btn-cta" onclick="alert('Уровень 1 в разработке \u2014 мы уведомим вас, как только будет готов!')">
+      Перейти к детальному анализу &#8594;
+    </button>
+  </div>
+
+  <div style="text-align:center;margin-top:24px">
+    <button onclick="state.step='welcome';state.answers={niche:'',revenue:'',team:'',kpMonth:'',competitors:''};state.results=null;state.sent=false;renderStep()"
+      style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;text-decoration:underline">
+      &#8617; Пересчитать
+    </button>
+  </div>`;
+}
+
+// ─── NAVIGATION ─────────────────────────────────────────────
+function renderStep() {
+  const s = state.step;
+  let html = '';
+  if      (s==='welcome') html = renderWelcome();
+  else if (s==='q1')      html = renderQ1();
+  else if (s==='q2')      html = renderQ2();
+  else if (s==='q3')      html = renderQ3();
+  else if (s==='q4')      html = renderQ4();
+  else if (s==='q5')      html = renderQ5();
+  else if (s==='email')   html = renderEmail();
+  else if (s==='results') html = renderResults();
+  appEl.innerHTML = html;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function go(step)    { state.step = step; renderStep(); }
+function pick(f, v)  { state.answers[f] = v; renderStep(); }
+
+function advance(from, to) {
+  const FM = { q1:'niche', q2:'revenue', q3:'team', q4:'kpMonth', q5:'competitors' };
+  if (FM[from] && !state.answers[FM[from]]) return;
+  go(to);
+}
+
+function submitEmail() {
+  const emailEl  = $el('inp-email');
+  const gdprEl   = $el('gdpr-cb');
+  const emailErr = $el('email-err');
+  const gdprErr  = $el('gdpr-err');
+  let ok = true;
+
+  state.email.name  = $el('inp-name').value.trim();
+  state.email.email = emailEl.value.trim();
+  state.email.gdpr  = gdprEl.checked;
+
+  if (!state.email.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email.email)) {
+    emailEl.classList.add('error');
+    emailErr.classList.add('visible');
+    ok = false;
   }
-  if(curStep===4){
-    ST.data.site=document.getElementById('kSite').value;
-    ST.data.sku=+document.getElementById('kSku').value||0;
-    ST.data.who=document.getElementById('kWho').value;
-    ST.data.freq=document.getElementById('kFreq').value;
-    if(ST.ind==='tnp'){
-      ST.data.brands=+document.getElementById('kBrands').value||0;
-      ST.data.kp=+document.getElementById('kKp').value||0;
+  if (!state.email.gdpr) {
+    gdprErr.classList.add('visible');
+    ok = false;
+  }
+  if (!ok) return;
+
+  state.results = calculate();
+
+  if (!state.sent) {
+    sendLead(state.email.name, state.email.email);
+    state.sent = true;
+  }
+
+  go('results');
+}
+
+// ─── INIT ───────────────────────────────────────────────────
+(async () => {
+  try {
+    // Загружаем конфиг с того же GitHub Pages origin — без CORS
+    const res = await fetch('./calc-coefficients.html', { cache: 'no-cache' });
+    if (res.ok) {
+      const text = await res.text();
+      const parsed = JSON.parse(text);
+      if (parsed && parsed.tariffs && Array.isArray(parsed.tariffs) && parsed.tariffs.length > 0) {
+        CFG = parsed;
+      }
     }
+  } catch (_) {
+    // Используем встроенный fallback — нормальная ситуация
   }
-  show(Math.min(6,curStep+1));
-};
-window.prev=()=>show(Math.max(0,curStep-1));
 
-// Industry click
-document.querySelectorAll('.ind').forEach(el=>{
-  el.addEventListener('click',()=>{
-    document.querySelectorAll('.ind').forEach(x=>x.classList.remove('sel'));
-    el.classList.add('sel');
-    ST.ind=el.dataset.i;
-    if(ST.ind==='tnp')document.getElementById('tnpExtra').style.display='grid';
-    setTimeout(()=>show(1),200);
-  });
-});
-// Pain click (multi-select up to 2)
-ST.pains=[];
-document.querySelectorAll('.pain').forEach(el=>{
-  el.addEventListener('click',()=>{
-    const p=el.dataset.p;
-    const i=ST.pains.indexOf(p);
-    if(i>=0){ST.pains.splice(i,1);el.classList.remove('sel');}
-    else{if(ST.pains.length>=2){const f=ST.pains.shift();document.querySelector(`.pain[data-p="${f}"]`).classList.remove('sel');}ST.pains.push(p);el.classList.add('sel');}
-  });
-});
-
-// ───────── COMPUTE RESULT ─────────
-function computeResult(){
-  const fot=totalFot();
-  const fotLoaded=fot*1.3;
-  const mult=IND_MULT[ST.ind]||{};
-  let savings=0;
-  const byRole=[];
-  for(const r in ST.team){
-    const n=ST.team[r]||0;
-    if(n===0)continue;
-    const baseCost=n*SAL[r]*1.3;
-    let cov=COV[r]*(mult[r]||1);
-    if(cov>0.9)cov=0.9;
-    const sv=Math.round(baseCost*cov);
-    savings+=sv;
-    byRole.push({role:r,name:NAME[r],n,cost:baseCost,cov:Math.round(cov*100),sav:sv});
+  if (!CFG || !CFG.niche || !CFG.tariffs) {
+    appEl.innerHTML = '<div class="card" style="text-align:center"><div style="font-size:32px;margin-bottom:16px">&#9888;&#65039;</div><h2>Ошибка конфигурации</h2><p style="color:var(--muted);margin-top:8px">Не удалось загрузить настройки калькулятора. Попробуйте обновить страницу.</p></div>';
+    return;
   }
-  // Catalog/КП boost — extra savings from automation
-  const skuBoost=Math.min(50000,Math.round((ST.data.sku||0)*15));
-  const kpBoost=ST.ind==='tnp'?Math.round((ST.data.kp||0)*1200):0;
-  const extra=skuBoost+kpBoost;
-  savings+=extra;
 
-  const tier=recommendTier(ST.data.emp,ST.data.sku||0);
-  const monthlyCost=tier.price;
-  const netSav=savings-monthlyCost;
-  const payback=tier.impl/Math.max(1,netSav);
-  const roi=((netSav*12)/(tier.impl+monthlyCost*12)).toFixed(1);
-
-  document.getElementById('rSavMo').textContent=FMTm(netSav);
-  document.getElementById('rSavYr').textContent=FMTm(netSav*12);
-  document.getElementById('rPct').textContent=Math.round(savings/Math.max(1,fotLoaded)*100)+'%';
-  document.getElementById('rPay').textContent=payback<1?'< 1 мес':payback.toFixed(1)+' мес';
-  document.getElementById('rRoi').textContent=roi+'×';
-  document.getElementById('rTier').textContent=tier.name;
-  document.getElementById('rTierDesc').textContent=tier.desc;
-  document.getElementById('rTierPr').textContent=FMT(tier.price)+'/мес';
-  document.getElementById('rTierPi').textContent='+ '+FMT(tier.impl)+' внедрение';
-  document.getElementById('subPrice').textContent='от '+FMT(tier.price)+'/мес';
-  document.getElementById('implPrice').textContent='от '+FMT(tier.impl);
-
-  // Build detail tables (hidden initially)
-  buildDetail(byRole,savings,extra,tier);
-}
-
-function buildDetail(byRole,totSav,extra,tier){
-  // By department
-  const deptMap={
-    'Руководство':dept.mgmt,'Отдел продаж':dept.sales,'Маркетинг':dept.mkt,'Бэк-офис':dept.back,'Операции':dept.ops
-  };
-  let html='<thead><tr><th>Отдел</th><th class="tn">Сейчас ФОТ/мес</th><th class="tn">AI экономит</th><th class="tn">Доля</th></tr></thead><tbody>';
-  for(const d in deptMap){
-    let dCost=0,dSav=0;
-    deptMap[d].forEach(r=>{
-      const row=byRole.find(x=>x.role===r);
-      if(row){dCost+=row.cost;dSav+=row.sav;}
-    });
-    if(dCost===0)continue;
-    const pct=Math.round(dSav/dCost*100);
-    html+=`<tr><td>${d}</td><td class="tn">${FMTm(dCost)}</td><td class="tn tg">${FMTm(dSav)}</td><td class="tn ta">${pct}%</td></tr>`;
-  }
-  if(extra>0)html+=`<tr><td>Автоматизация каталога/КП</td><td class="tn">—</td><td class="tn tg">${FMTm(extra)}</td><td class="tn ta">—</td></tr>`;
-  html+='</tbody>';
-  document.getElementById('detByDept').innerHTML=html;
-
-  // By role
-  let h2='<thead><tr><th>Роль</th><th class="tn">Чел.</th><th class="tn">ФОТ/мес</th><th class="tn">AI покрытие</th><th class="tn">Экономия/мес</th></tr></thead><tbody>';
-  byRole.sort((a,b)=>b.sav-a.sav).forEach(r=>{
-    const cls=r.cov>=70?'tg':r.cov>=50?'ty':'';
-    h2+=`<tr><td>${r.name}</td><td class="tn">${r.n}</td><td class="tn">${FMTm(r.cost)}</td><td class="tn ${cls}">${r.cov}%</td><td class="tn tg">${FMTm(r.sav)}</td></tr>`;
-  });
-  h2+='</tbody>';
-  document.getElementById('detByRole').innerHTML=h2;
-}
-
-// ───────── LEAD SUBMISSION ─────────
-window.submitLead=()=>{
-  const email=document.getElementById('lEmail').value.trim();
-  if(!email||!email.includes('@')){alert('Введите корректный email');return;}
-  const lead={
-    industry:ST.ind,
-    company:ST.data.name||'',
-    city:ST.data.city,
-    employees:ST.data.emp,
-    revenue:ST.data.rev,
-    sku:ST.data.sku,
-    pains:ST.pains,
-    name:document.getElementById('lName').value,
-    role:document.getElementById('lRole').value,
-    email,phone:document.getElementById('lPhone').value,note:document.getElementById('lNote').value,
-    ts:new Date().toISOString()
-  };
-  // Store in localStorage for now (engineer can wire to backend later)
-  const leads=JSON.parse(localStorage.getItem('hp_leads')||'[]');
-  leads.push(lead);
-  localStorage.setItem('hp_leads',JSON.stringify(leads));
-
-  // Open mailto as fallback to actually send the lead
-  const subj=encodeURIComponent('AI Calculator Lead: '+(lead.company||lead.name||lead.email));
-  const body=encodeURIComponent(`Новый лид с калькулятора:
-
-Компания: ${lead.company}
-Город: ${lead.city}
-Имя: ${lead.name} (${lead.role})
-Email: ${lead.email}
-Телефон: ${lead.phone}
-
-Отрасль: ${lead.industry}
-Сотрудников: ${lead.employees}
-Оборот: ${lead.revenue} млн ₽
-SKU: ${lead.sku}
-Боли: ${lead.pains.join(', ')}
-
-Комментарий:
-${lead.note}
-`);
-  // Reveal detailed view
-  document.getElementById('leadForm').style.display='none';
-  document.getElementById('detailView').style.display='block';
-  // Trigger mailto in new tab (CC to homeproject)
-  setTimeout(()=>{window.location.href='mailto:info@homeproject.online?subject='+subj+'&body='+body;},400);
-  window.scrollTo({top:document.getElementById('detailView').offsetTop-80,behavior:'smooth'});
-};
-
-// Init
-show(0);
+  renderStep();
+})();
 </script>
 </body>
 </html>
