@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>LinkedIn Пост 6 — Агент ошибся. Я не удивился.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d0f14;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 24px 48px;
+      min-height: 100vh;
+    }
+
+    .page-title {
+      color: #8b8fa8;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: #c9a96e;
+      color: #111318;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 24px;
+      transition: opacity 0.2s;
+    }
+    .download-btn:hover { opacity: 0.85; }
+    .download-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── VISUAL 1200×628 ── */
+    #visual {
+      width: 1200px;
+      height: 628px;
+      background: #111318;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    }
+
+    /* TOP BAR */
+    .topbar {
+      height: 40px;
+      background: #0a0c11;
+      border-bottom: 1px solid #1e2130;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .topbar span {
+      color: #8b8fa8;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .topbar .dot {
+      color: #1e2130;
+      margin: 0 10px;
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* LEFT */
+    .left {
+      width: 45%;
+      padding: 36px 40px 32px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid #1e2130;
+      position: relative;
+    }
+    .left::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 20% 30%, rgba(129,140,248,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .left-top {}
+
+    .tag-agent {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(129,140,248,0.15);
+      border: 1px solid rgba(129,140,248,0.35);
+      border-radius: 100px;
+      padding: 5px 14px;
+      color: #818cf8;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .tag-icon { font-size: 13px; }
+
+    .headline {
+      color: #f0f0f5;
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .headline em {
+      font-style: normal;
+      color: #c9a96e;
+    }
+
+    .sub {
+      color: #8b8fa8;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* AGENT BOX */
+    .agent-box {
+      background: #0a0c11;
+      border: 1px solid #1e2130;
+      border-left: 3px solid #818cf8;
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .agent-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .agent-info {}
+    .agent-name {
+      color: #818cf8;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .agent-stat {
+      color: #f0f0f5;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .agent-stat span {
+      color: #c9a96e;
+    }
+
+    /* RIGHT */
+    .right {
+      width: 55%;
+      background: #0a0c11;
+      padding: 30px 44px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .metrics-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 1;
+    }
+
+    .metric-row {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 18px 0;
+      border-bottom: 1px solid #1e2130;
+    }
+    .metric-row:last-child {
+      border-bottom: none;
+    }
+
+    .metric-label {
+      color: #8b8fa8;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+    .metric-value.gold { color: #c9a96e; font-size: 64px; }
+    .metric-value.red  { color: #f87171; font-size: 64px; }
+    .metric-value.green { color: #4ade80; font-size: 48px; }
+
+    .metric-note {
+      color: #8b8fa8;
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    .right-footer {
+      padding-top: 18px;
+      border-top: 1px solid #1e2130;
+    }
+    .right-footer p {
+      color: #8b8fa8;
+      font-size: 13px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.55;
+    }
+    .right-footer strong {
+      color: #c9a96e;
+      font-style: normal;
+    }
+
+    /* BRAND BAR */
+    .brandbar {
+      height: 38px;
+      background: #0a0c11;
+      border-top: 1px solid #1e2130;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-shrink: 0;
+    }
+    .brandbar span {
+      color: #8b8fa8;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+    }
+    .brandbar .bdot {
+      color: #c9a96e;
+      margin: 0 14px;
+      font-size: 8px;
+    }
+    .brandbar .highlight {
+      color: #c9a96e;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="page-title">LinkedIn · Пост №6 · 04.07.2026</p>
+
+  <button class="download-btn" id="dlBtn" onclick="downloadJpeg()">
+    ⬇ Скачать JPEG для LinkedIn
+  </button>
+
+  <div id="visual">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <span>ДЕНЬ 6</span>
+      <span class="dot">◆</span>
+      <span>Home Project</span>
+      <span class="dot">◆</span>
+      <span>Дневник эксперимента</span>
+      <span class="dot">◆</span>
+      <span>04.07.2026</span>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <!-- LEFT -->
+      <div class="left">
+        <div class="left-top">
+          <div class="tag-agent">
+            <span class="tag-icon">🤖</span>
+            Proposal Writer
+          </div>
+
+          <div class="headline">
+            Агент<br>ошибся.<br><em>Я не</em><br>удивился.
+          </div>
+
+          <div class="sub">
+            Первая системная<br>ошибка
+          </div>
+        </div>
+
+        <div class="agent-box">
+          <div class="agent-icon">🤖</div>
+          <div class="agent-info">
+            <div class="agent-name">Proposal Writer</div>
+            <div class="agent-stat">КП · <span>3 мин</span> · Ошибка #1</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right">
+        <div class="metrics-grid">
+
+          <div class="metric-row">
+            <div class="metric-label">КП готово</div>
+            <div class="metric-value gold">3 мин</div>
+            <div class="metric-note">вместо 40–60 мин</div>
+          </div>
+
+          <div class="metric-row">
+            <div class="metric-label">Ошибок</div>
+            <div class="metric-value red">1</div>
+            <div class="metric-note">ссылка за авторизацией</div>
+          </div>
+
+          <div class="metric-row">
+            <div class="metric-label">Протокол</div>
+            <div class="metric-value green">+1 правило</div>
+            <div class="metric-note">проверить ссылки за 2 мин</div>
+          </div>
+
+        </div>
+
+        <div class="right-footer">
+          <p>
+            AI-ошибка <strong>предсказуема</strong> —<br>
+            и это главное преимущество.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BRAND BAR -->
+    <div class="brandbar">
+      <span class="highlight">HOME PROJECT</span>
+      <span class="bdot">◆</span>
+      <span>homeproject.online</span>
+      <span class="bdot">◆</span>
+      <span>Москва</span>
+    </div>
+
+  </div>
+
+  <script>
+    async function downloadJpeg() {
+      const btn = document.getElementById('dlBtn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Генерация...';
+      try {
+        const canvas = await html2canvas(document.getElementById('visual'), {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#111318',
+          width: 1200,
+          height: 628,
+          logging: false
+        });
+        const link = document.createElement('a');
+        link.download = 'linkedin-post6-agent-error.jpg';
+        link.href = canvas.toDataURL('image/jpeg', 0.95);
+        link.click();
+        btn.textContent = '✅ Скачано!';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = '⬇ Скачать JPEG для LinkedIn';
+        }, 2500);
+      } catch (e) {
+        console.error(e);
+        btn.disabled = false;
+        btn.textContent = '⚠ Ошибка — попробуй снова';
+      }
+    }
+  </script>
+</body>
+</html>
