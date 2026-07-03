@@ -121,6 +121,15 @@
     .ok h4{font-size:19px;font-weight:800;margin-bottom:8px}
     .ok p{color:var(--muted);font-size:14px;line-height:1.6}
 
+    /* ── CONFIDENCE ── */
+    .mc-conf{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.4;opacity:.85}
+    .mc-conf b{color:var(--accent);opacity:.9}
+
+    /* ── L2 BUTTON ── */
+    .cta-l2{display:block;width:100%;padding:16px;background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:12px;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;margin-top:10px;transition:all .2s;text-align:center;letter-spacing:-.2px}
+    .cta-l2:hover{background:var(--accent-l);transform:translateY(-1px)}
+    .cta-l2 .cta-sub{font-size:12px;opacity:.7;display:block;margin-top:3px;font-weight:400}
+
     /* ── FOOTER ── */
     .ft{text-align:center;padding:20px;color:var(--muted);font-size:12px;border-top:1px solid var(--border)}
     .ft a{color:var(--accent);text-decoration:none}
@@ -211,14 +220,20 @@
     </div>
 
     <div class="disc">
-      📊 Оценка по средним показателям рынка ТНП, точность ±30%.<br/>
-      Индивидуальный расчёт с точностью ±15% — в детальном анализе.
+      📊 Диапазоны — интервал уверенности 70%, точность ±30%.<br/>
+      Точный расчёт ±15% с дорожной картой AI-агентов — в Уровне 2.
     </div>
 
     <button class="cta" onclick="openModal()">
       Получить детальный анализ →
       <span class="cta-sub">Персональный отчёт на почту в течение 24 часов</span>
     </button>
+
+    <button class="cta-l2" onclick="window.open('hp-ai-calculator-l2.html','_blank')">
+      Детальный расчёт — точность ±15% →
+      <span class="cta-sub">7 минут · Диапазоны ROI · Дорожная карта · КП на email</span>
+    </button>
+
     <button class="rstrt" onclick="restart()">↺ Пройти заново</button>
   </div>
 
@@ -404,10 +419,15 @@ function showResults(){
   const r=document.getElementById('results');
   r.classList.add('show');
 
-  document.getElementById('rSav').textContent=fmt(calc.savings);
-  document.getElementById('rRev').textContent=fmt(calc.revGain);
-  document.getElementById('rNet').textContent=fmt(calc.net);
-  document.getElementById('rRoi').textContent=calc.roi;
+  // Диапазоны уверенности ±30%, L1 точность 70%
+  const CONF=70;
+  function rng(v){return fmt(Math.round(v*.7))+'\u2013'+fmt(Math.round(v*1.3));}
+  function confHtml(v,unit){return '<div class="mc-conf">'+rng(v)+' '+(unit||'')+'<br><b>'+CONF+'%</b> уверенность</div>';}
+
+  document.getElementById('rSav').innerHTML=fmt(calc.savings)+confHtml(calc.savings,'₽/мес');
+  document.getElementById('rRev').innerHTML=fmt(calc.revGain)+confHtml(calc.revGain,'₽/мес');
+  document.getElementById('rNet').innerHTML=fmt(calc.net)+'<div class="mc-conf"><b>'+CONF+'%</b> уверенность · ±30%</div>';
+  document.getElementById('rRoi').innerHTML=calc.roi+'<div class="mc-conf">диапазон '+(Math.round(calc.roi*.7)+'\u2013'+Math.round(calc.roi*1.3))+' дней</div>';
 
   const t=calc.t;
   document.getElementById('rTn').textContent=t.n;
