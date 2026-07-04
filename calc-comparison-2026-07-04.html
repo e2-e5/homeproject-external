@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOME PROJECT AI · Сравнение калькуляторов L1 vs L2 · Внутренний анализ</title>
+<style>
+:root {
+  --bg: #181A20;
+  --card: #1F2129;
+  --card-2: #262933;
+  --border: #2A2D38;
+  --text: #E8EAED;
+  --text-dim: #9AA0A6;
+  --text-mute: #6B7280;
+  --accent: #D4A574;
+  --accent-dim: #B8895A;
+  --accent-glow: rgba(212,165,116,0.12);
+  --success: #7FB77E;
+  --success-glow: rgba(127,183,126,0.12);
+  --warn: #E8B863;
+  --warn-glow: rgba(232,184,99,0.12);
+  --danger: #D97757;
+  --danger-glow: rgba(217,119,87,0.12);
+  --info: #6BA3D6;
+  --info-glow: rgba(107,163,214,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  font-size: 15px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 80px;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+/* HEADER */
+.top-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
+.logo { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+.logo span { color: var(--accent); }
+.doc-meta { font-size: 12px; color: var(--text-mute); text-align: right; line-height: 1.8; }
+.doc-badge { display: inline-block; background: var(--danger-glow); border: 1px solid var(--danger); color: var(--danger); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+
+.page-title { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+.page-sub { color: var(--text-dim); font-size: 15px; max-width: 680px; }
+
+/* VERDICT BOX */
+.verdict { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 32px; margin: 32px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media(max-width:700px){.verdict{grid-template-columns:1fr}}
+.verdict-col { }
+.v-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-mute); margin-bottom: 10px; }
+.v-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.v-url { font-size: 12px; color: var(--accent); margin-bottom: 14px; font-family: monospace; }
+.v-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+.tag-ok { background: var(--success-glow); color: var(--success); border: 1px solid rgba(127,183,126,0.3); }
+.tag-warn { background: var(--warn-glow); color: var(--warn); border: 1px solid rgba(232,184,99,0.3); }
+.tag-bad { background: var(--danger-glow); color: var(--danger); border: 1px solid rgba(217,119,87,0.3); }
+.tag-info { background: var(--info-glow); color: var(--info); border: 1px solid rgba(107,163,214,0.3); }
+.tag-neutral { background: var(--card-2); color: var(--text-dim); border: 1px solid var(--border); }
+
+/* SECTION */
+.section { margin: 40px 0; }
+.sec-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.sec-num { font-size: 11px; font-weight: 800; color: var(--accent); background: var(--accent-glow); border: 1px solid var(--accent-dim); border-radius: 4px; padding: 3px 8px; text-transform: uppercase; letter-spacing: 0.1em; flex-shrink: 0; }
+.sec-title { font-size: 20px; font-weight: 700; }
+
+/* COMPARE TABLE */
+.ctable { width: 100%; border-collapse: collapse; }
+.ctable th { text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-mute); border-bottom: 2px solid var(--border); background: var(--card); }
+.ctable th:first-child { width: 26%; }
+.ctable th.col-l1 { color: var(--info); border-bottom-color: var(--info); }
+.ctable th.col-l2 { color: var(--accent); border-bottom-color: var(--accent); }
+.ctable td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 14px; }
+.ctable tr:last-child td { border-bottom: none; }
+.ctable tr:nth-child(even) td { background: var(--card-2); }
+.ctable .param { font-weight: 600; color: var(--text-dim); font-size: 13px; }
+.ctable .cell-good { color: var(--success); }
+.ctable .cell-warn { color: var(--warn); }
+.ctable .cell-bad { color: var(--danger); }
+.ctable .cell-neutral { color: var(--text-dim); }
+.pill { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-right: 4px; }
+.pill-g { background: var(--success-glow); color: var(--success); }
+.pill-w { background: var(--warn-glow); color: var(--warn); }
+.pill-r { background: var(--danger-glow); color: var(--danger); }
+.pill-b { background: var(--info-glow); color: var(--info); }
+.pill-n { background: var(--card-2); color: var(--text-dim); border: 1px solid var(--border); }
+
+/* CARD GRID */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
+.card-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.card-body { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+.card-eta { margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--warn); }
+.card-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--bg); font-size: 12px; font-weight: 800; margin-right: 8px; flex-shrink: 0; }
+.card-head { display: flex; align-items: center; margin-bottom: 8px; }
+
+/* FUNNEL */
+.funnel { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border-radius: 12px; overflow: hidden; margin-top: 4px; }
+@media(max-width:700px){.funnel{grid-template-columns:1fr}}
+.funnel-col { background: var(--card); padding: 20px; }
+.f-stage { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-mute); margin-bottom: 8px; }
+.f-tool { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.f-desc { font-size: 13px; color: var(--text-dim); }
+.f-badge { display: inline-block; margin-top: 8px; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+
+/* GAP CARDS */
+.gap-list { display: flex; flex-direction: column; gap: 12px; }
+.gap-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; }
+.gap-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.gap-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.gap-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+.gap-fix { margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--success); }
+
+/* RECO */
+.reco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:700px){.reco-grid{grid-template-columns:1fr}}
+.reco-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
+.reco-n { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 8px; }
+.reco-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.reco-body { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+.reco-impact { margin-top: 10px; font-size: 12px; font-weight: 600; }
+.reco-impact.high { color: var(--success); }
+.reco-impact.med { color: var(--warn); }
+
+/* VERDICT ROW */
+.verdict-row { background: linear-gradient(135deg, var(--accent-glow), transparent); border: 1px solid var(--accent-dim); border-radius: 14px; padding: 28px 32px; margin-top: 40px; }
+.vr-title { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+.vr-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.vr-list li { font-size: 14px; color: var(--text-dim); padding-left: 20px; position: relative; }
+.vr-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.vr-list li b { color: var(--text); }
+
+footer { text-align: center; padding: 40px 0 0; color: var(--text-mute); font-size: 12px; border-top: 1px solid var(--border); margin-top: 60px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="top-bar">
+  <div class="logo">HOME PROJECT <span>AI</span></div>
+  <div class="doc-meta">
+    <div class="doc-badge">🔒 Внутренний документ CEO</div><br>
+    Дата: 4 июля 2026 · Алексей<br>
+    Актуально до следующей версии калькулятора
+  </div>
+</div>
+
+<div class="page-title">Сравнение инструментов привлечения партнёров</div>
+<div class="page-sub">Честный разбор: что умеют L1 и L2, где дыры, что делать дальше. Цель — убедиться что мы идём на переговоры с рабочим инструментом.</div>
+
+<!-- QUICK SUMMARY -->
+<div class="verdict">
+  <div class="verdict-col">
+    <div class="v-label">Уровень 1 — Быстрая оценка</div>
+    <div class="v-title">Экспресс-калькулятор</div>
+    <div class="v-url">hp-ai-calculator.html</div>
+    <div class="v-tags">
+      <span class="tag tag-ok">60 сек</span>
+      <span class="tag tag-ok">5 вопросов</span>
+      <span class="tag tag-ok">Без email-гейта</span>
+      <span class="tag tag-warn">Точность ±50%</span>
+      <span class="tag tag-bad">Нет персонализации</span>
+    </div>
+  </div>
+  <div class="verdict-col">
+    <div class="v-label">Уровень 2 — Детальный расчёт</div>
+    <div class="v-title">Полный ROI-калькулятор</div>
+    <div class="v-url">hp-ai-calculator-l2.html</div>
+    <div class="v-tags">
+      <span class="tag tag-warn">7 минут</span>
+      <span class="tag tag-ok">10+ вопросов</span>
+      <span class="tag tag-ok">PDF-КП на выходе</span>
+      <span class="tag tag-ok">Точность ±25–35%</span>
+      <span class="tag tag-bad">Цена раньше убеждения</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: FULL COMPARE -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">01</div>
+    <div class="sec-title">Полное сравнение по параметрам</div>
+  </div>
+  <table class="ctable">
+    <thead>
+      <tr>
+        <th>Параметр</th>
+        <th class="col-l1">L1 — Экспресс</th>
+        <th class="col-l2">L2 — Детальный</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">Время заполнения</td>
+        <td><span class="pill pill-g">60 сек</span> Очень низкий барьер входа</td>
+        <td><span class="pill pill-w">~7 минут</span> Высокий барьер — нужно знать свои цифры</td>
+      </tr>
+      <tr>
+        <td class="param">Количество вопросов</td>
+        <td>5 вопросов:<br>сотрудники, SKU, часы на прайс, лиды в мес, роль в компании</td>
+        <td>10 вопросов (обязательных) + 3 опциональных:<br>+ оборот, время КП, конверсия, средний чек, CRM, каналы продаж, боли</td>
+      </tr>
+      <tr>
+        <td class="param">Что предоставляет партнёр</td>
+        <td>Минимум — общий размер бизнеса.<br>Конкретных финансовых данных не нужно.</td>
+        <td>Профиль бизнеса + операционные данные.<br>Нужно знать конверсию и средний чек — многие не знают точно.</td>
+      </tr>
+      <tr>
+        <td class="param">Глубина оценки</td>
+        <td>Только экономия времени на прайсах и рутине.<br>Один показатель — часы/нед × ставка.</td>
+        <td>5 метрик: часы, время КП, лиды, конверсия, средний чек.<br>Считает: экономия ФОТ + рост выручки − подписка = годовой ROI.</td>
+      </tr>
+      <tr>
+        <td class="param">Точность результата</td>
+        <td><span class="pill pill-r">±50%</span> Грубая оценка.<br>Ставка менеджера фиксирована, нет профиля бизнеса.</td>
+        <td><span class="pill pill-w">±25–35%</span> Диапазон уверенности 55–65%.<br>Снижается если конверсия не указана (берётся 20% по рынку).</td>
+      </tr>
+      <tr>
+        <td class="param">Что бесплатно партнёру</td>
+        <td>Всё. Результат виден сразу без email.</td>
+        <td>Сравнение «Сейчас vs С AI» и дорожная карта — сразу.<br>Точная цифра ROI и PDF-КП — после ввода email.</td>
+      </tr>
+      <tr>
+        <td class="param">Email-гейт</td>
+        <td class="cell-good">Нет. Результат открыт всем.</td>
+        <td class="cell-warn">Да. ROI заблюрен до ввода email + имени.<br>⚠ Цена тарифа показывается ДО того как партнёр ввёл email — риск отпугнуть.</td>
+      </tr>
+      <tr>
+        <td class="param">Что партнёр видит в конце</td>
+        <td>Примерная экономия в ₽/год.<br>Кнопка «Записаться на демо».</td>
+        <td>Таблица Сейчас vs С AI (5 метрик) + дорожная карта 3–5 агентов с ETA + рекомендованный тариф + ROI-диапазон + персональное PDF-КП на 2 страницы A4.</td>
+      </tr>
+      <tr>
+        <td class="param">PDF / КП</td>
+        <td class="cell-bad">Нет.</td>
+        <td class="cell-good">Да. PDF генерируется прямо в браузере — с именем партнёра, профилем, агентами, ROI, тарифом. Открывается в новой вкладке → «Сохранить как PDF».</td>
+      </tr>
+      <tr>
+        <td class="param">Предложение агентов</td>
+        <td class="cell-bad">Не детализируется. Нет списка что именно мы делаем.</td>
+        <td class="cell-good">Персональная дорожная карта: 3–5 агентов подбираются под профиль (малый / средний / крупный дилер) и выбранные боли. Каждый агент — с описанием и ETA запуска.</td>
+      </tr>
+      <tr>
+        <td class="param">Тарифы</td>
+        <td class="cell-neutral">Не показываются. Только CTA «записаться».</td>
+        <td class="cell-warn">4 тарифа: Старт 14 900, Бизнес 34 900, Про 69 900, Корп 129 900 ₽/мес.<br>⚠ Показываются на финале — до того как партнёр по-настоящему убеждён. Риск «дорого».</td>
+      </tr>
+      <tr>
+        <td class="param">Специфика отрасли</td>
+        <td class="cell-bad">Нет. Универсальный вопрос «какая у вас роль».</td>
+        <td class="cell-bad">Нет. Форма не знает что партнёр — дистрибьютор премиальной техники, работает с V-ZUG / BORA / Fhiaba. Расчёт выглядит шаблонным.</td>
+      </tr>
+      <tr>
+        <td class="param">Социальное доказательство</td>
+        <td class="cell-bad">Нет кейсов, нет цифр «как у похожих компаний».</td>
+        <td class="cell-bad">Нет. Партнёр не видит что кто-то уже попробовал и получил результат.</td>
+      </tr>
+      <tr>
+        <td class="param">Следующий шаг</td>
+        <td class="cell-warn">«Записаться на встречу» — кнопка без обещания что будет на встрече.</td>
+        <td class="cell-bad">«Наш менеджер свяжется в течение рабочего дня» — расплывчато. Партнёр не знает кто, когда и зачем тратить ещё час.</td>
+      </tr>
+      <tr>
+        <td class="param">Мобильная версия</td>
+        <td class="cell-good">Адаптивная. Проходится за 60 сек в том числе с телефона.</td>
+        <td class="cell-warn">Адаптивная, но 7 минут с числами на телефоне — высокий риск брошенной формы.</td>
+      </tr>
+      <tr>
+        <td class="param">Когда применять</td>
+        <td>🔵 Первый контакт. После холодного письма / звонка. Выставки. QR-код на материалах.</td>
+        <td>🟡 Второй шаг. Когда партнёр уже тёплый — был на встрече / ответил на письмо / сам запросил расчёт.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION 2: AGENTS -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">02</div>
+    <div class="sec-title">Что мы предлагаем партнёру — 9 AI-агентов</div>
+  </div>
+  <p style="color:var(--text-dim);font-size:13px;margin-bottom:20px;">Полный каталог. В L2 партнёр видит 3–5 из них, подобранных под его профиль. Остальные — на демо-встрече.</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-head"><span class="card-num">1</span><div class="card-title">Аудитор цен</div></div>
+      <div class="card-body">Сверяет цены на сайте vs прайсы поставщиков vs конкуренты. Присылает алерты о расхождениях каждое утро. Актуален для всех у кого ≥1 поставщика.</div>
+      <div class="card-eta">⚡ Запуск за 3 дня</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-num">2</span><div class="card-title">Аналитик рынка</div></div>
+      <div class="card-body">Мониторит цены, промо и ассортимент конкурентов. Еженедельный отчёт: где вы выигрываете, где проигрываете и почему. Наш конёк — давим здесь в первую очередь.</div>
+      <div class="card-eta">⚡ Запуск за 5 дней</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-num">3</span><div class="card-title">Генератор КП</div></div>
+      <div class="card-body">Готовит персональное коммерческое предложение за 2–5 минут по параметрам клиента. Форматирование в брендинге партнёра. Подходит для дилеров с частыми запросами.</div>
+      <div class="card-eta">⚡ Запуск за 4 дня</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-num">4</span><div class="card-title">Клиентский коммуникатор</div></div>
+      <div class="card-body">Отвечает на входящие email и чаты по типовым вопросам: наличие, цены, сроки. Эскалация менеджеру только по сложным кейсам. Разгружает команду.</div>
+      <div class="card-eta">🕐 Запуск за 7 дней</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-num">5</span><div class="card-title">Каталог-менеджер</div></div>
+      <div class="card-body">Автозаливка новых товаров на сайт из прайса поставщика, обновление наличия и цен. Синхронизация ежедневно. Особенно полезен при ассортименте 500+ SKU.</div>
+      <div class="card-eta">⚡ Запуск за 5 дней</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-num">6</span><div class="card-title">Лид-квалификатор</div></div>
+      <div class="card-body">Ранжирует входящие заявки по вероятности сделки. Менеджер тратит время только на горячих. Снижает потери при высоком входящем потоке.</div>
+      <div class="card-eta">⚡ Запуск за 4 дня</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-num">7</span><div class="card-title">Прогноз спроса</div></div>
+      <div class="card-body">Анализирует историю продаж и сезонность. Рекомендует что и в каком объёме закупать на 1–3 месяца вперёд. Снижает излишки и дефицит.</div>
+      <div class="card-eta">🕐 Запуск за 10 дней</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-num">8</span><div class="card-title">Контент-менеджер</div></div>
+      <div class="card-body">Пишет описания товаров, посты для соцсетей, email-рассылки в едином тоне бренда. Полезен тем, кто ведёт соцсети и сайт без выделенного копирайтера.</div>
+      <div class="card-eta">⚡ Запуск за 3 дня</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-num">9</span><div class="card-title">Ассистент директора</div></div>
+      <div class="card-body">Ежедневная сводка: что произошло, что требует внимания, дашборд по KPI команды. Нужен руководителю у которого нет времени самому смотреть в отчёты.</div>
+      <div class="card-eta">⚡ Запуск за 5 дней</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: FUNNEL -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">03</div>
+    <div class="sec-title">На каком этапе воронки — какой инструмент</div>
+  </div>
+  <div class="funnel">
+    <div class="funnel-col">
+      <div class="f-stage">Этап 1 — Холодный контакт</div>
+      <div class="f-tool">L1 · Экспресс-калькулятор</div>
+      <div class="f-desc">После холодного письма, звонка или встречи на выставке. QR-код в презентации. Ссылка в подписи email. 60 секунд — результат сразу, без барьеров.</div>
+      <span class="f-badge tag tag-ok">✓ Есть, работает</span>
+    </div>
+    <div class="funnel-col">
+      <div class="f-stage">Этап 2 — Тёплый партнёр</div>
+      <div class="f-tool">L2 · Детальный ROI</div>
+      <div class="f-desc">После первого контакта, когда партнёр проявил интерес. Даём ссылку с просьбой «заполни за 7 минут — пришлём точный расчёт + дорожную карту». Результат — PDF-КП.</div>
+      <span class="f-badge tag tag-warn">⚠ Есть, но есть пробелы</span>
+    </div>
+    <div class="funnel-col">
+      <div class="f-stage">Этап 3 — Демо-встреча</div>
+      <div class="f-tool">Живой показ + КП</div>
+      <div class="f-desc">PDF из L2 как основа разговора. Показываем демо работы агентов. Обсуждаем кастомный план под конкретный бизнес партнёра. Закрываем в пилот.</div>
+      <span class="f-badge tag tag-bad">✗ Нет материала для демо</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: GAPS -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">04</div>
+    <div class="sec-title">Честные пробелы — что не работает сейчас</div>
+  </div>
+  <div class="gap-list">
+    <div class="gap-item">
+      <div class="gap-icon">💰</div>
+      <div>
+        <div class="gap-title">Цена появляется раньше убеждения (L2)</div>
+        <div class="gap-desc">Партнёр проходит форму, попадает на финал — и видит тариф 14 900–129 900 ₽/мес ДО того как по-настоящему поверил в цифры ROI. ROI заблюрен до email, а цена — нет. В B2B это стоп-сигнал: «дорого» срабатывает раньше «выгодно».</div>
+        <div class="gap-fix">→ Исправить: убрать тарифы с финального экрана L2. Цены — только в PDF-КП и на встрече.</div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-icon">🤷</div>
+      <div>
+        <div class="gap-title">Партнёр не понимает что именно он покупает</div>
+        <div class="gap-desc">«3 AI-агента» — звучит как абстракция. Что изменится в понедельник? Кто будет делать работу — бот или человек? Нужна ли интеграция с 1С? Сколько времени займёт настройка? Ни L1 ни L2 не дают ответа на эти вопросы.</div>
+        <div class="gap-fix">→ Добавить: 1 экран-мост между L1 и L2 — «Вот как это работает у похожего дилера» с конкретным примером.</div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-icon">📍</div>
+      <div>
+        <div class="gap-title">Слабый следующий шаг (оба уровня)</div>
+        <div class="gap-desc">«Менеджер свяжется в течение рабочего дня» — партнёр не знает кто свяжется, что будет на встрече, сколько занимает встреча. Для B2B нужна конкретика: имя менеджера, формат (звонок / Zoom), длительность, повестка.</div>
+        <div class="gap-fix">→ Исправить: «Алексей из Home Project лично назначит 30-минутную демо-встречу в течение 24 часов. Покажем агентов в работе на вашем примере.»</div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-icon">🏷️</div>
+      <div>
+        <div class="gap-title">Нет специфики отрасли</div>
+        <div class="gap-desc">Оба калькулятора — универсальные. Партнёр-дистрибьютор премиальной техники не видит что мы понимаем его мир: прайс от Homeier на 965 позиций, синхронизация SKU Küppersbusch, специфику работы с архитекторами и дизайнерами. Форма ощущается как шаблон.</div>
+        <div class="gap-fix">→ Добавить: 1 строку на финале — «Опыт с дистрибьюторами V-ZUG, BORA, De Dietrich». Без деталей, только сигнал «мы знаем вашу нишу».</div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-icon">🎯</div>
+      <div>
+        <div class="gap-title">Нет социального доказательства</div>
+        <div class="gap-desc">Ни одного реального кейса, ни одной цитаты, ни одной цифры «такие же дистрибьюторы сэкономили X». Партнёр должен верить нашим расчётам — но у нас нет доказательств кроме самих расчётов. Это замкнутый круг.</div>
+        <div class="gap-fix">→ После первых результатов: добавить блок «Кейс» на финальный экран L2 и на страницу после успешного submit.</div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-icon">📵</div>
+      <div>
+        <div class="gap-title">L2 сложен для мобильного (7 минут + цифры)</div>
+        <div class="gap-desc">Если партнёр открывает ссылку после переговоров — вечером, с телефона — 7 минут с числами (конверсия, чек, лиды в мес) это высокий риск. Многие не знают своих метрик наизусть. Вероятно бросит форму на шаге 2.</div>
+        <div class="gap-fix">→ L1 для мобильного первого касания. L2 — для тех кто специально сел за ноутбук с цифрами перед собой.</div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-icon">📂</div>
+      <div>
+        <div class="gap-title">Нет демо-материала для встречи (этап 3)</div>
+        <div class="gap-desc">Воронка обрывается после L2: PDF-КП отдали, встреча назначена — а показывать нечего. Нет видео, нет скриншотов «агент в работе», нет живой демо-версии. На встрече придётся всё объяснять словами.</div>
+        <div class="gap-fix">→ Отдельная задача: подготовить демо-материал для встречи (пример PDF-КП от агента, скриншот дашборда, сценарий 30-мин Zoom).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: RECOMMENDATIONS -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">05</div>
+    <div class="sec-title">Что сделать — приоритет по влиянию</div>
+  </div>
+  <div class="reco-grid">
+    <div class="reco-card">
+      <div class="reco-n">Приоритет 1 — Быстро, высокое влияние</div>
+      <div class="reco-title">Убрать тариф с финала L2</div>
+      <div class="reco-body">Перенести блок с ценами за email-гейт — показывать тариф только в PDF-КП. На финальном экране оставить только ROI + дорожная карта + кнопка «Получить КП».</div>
+      <div class="reco-impact high">↑ Высокое влияние · ~2 часа работы</div>
+    </div>
+    <div class="reco-card">
+      <div class="reco-n">Приоритет 2 — Быстро, высокое влияние</div>
+      <div class="reco-title">Конкретизировать следующий шаг</div>
+      <div class="reco-body">На финале L1 и L2 заменить «менеджер свяжется» на «Алексей назначит 30-мин демо в течение 24 часов. Покажем агентов на вашем примере.» + фото или имя.</div>
+      <div class="reco-impact high">↑ Высокое влияние · ~1 час работы</div>
+    </div>
+    <div class="reco-card">
+      <div class="reco-n">Приоритет 3 — Средний срок</div>
+      <div class="reco-title">Добавить 1 строку про отрасль</div>
+      <div class="reco-body">На финале L2 добавить: «Опыт внедрения у дистрибьюторов премиальной встраиваемой техники». Без деталей — только сигнал «мы знаем вашу нишу».</div>
+      <div class="reco-impact med">↑ Среднее влияние · ~30 мин работы</div>
+    </div>
+    <div class="reco-card">
+      <div class="reco-n">Приоритет 4 — Средний срок</div>
+      <div class="reco-title">Экран-мост «Как это работает»</div>
+      <div class="reco-body">Отдельная страница или блок на финале L1: краткий пример — «за неделю агент обновил 800 позиций, вместо 3 дней ручной работы». Конкретика снимает абстракцию.</div>
+      <div class="reco-impact med">↑ Среднее влияние · ~4 часа работы</div>
+    </div>
+    <div class="reco-card">
+      <div class="reco-n">Приоритет 5 — После первых результатов</div>
+      <div class="reco-title">Добавить кейс / социальное доказательство</div>
+      <div class="reco-body">Как только будет первый партнёр с результатами — добавить блок «Кейс» на финал L2 и в PDF-КП. Это самый мощный инструмент доверия, но он требует реального опыта.</div>
+      <div class="reco-impact med">↑ Очень высокое влияние · Требует первых клиентов</div>
+    </div>
+    <div class="reco-card">
+      <div class="reco-n">Приоритет 6 — Отдельная задача</div>
+      <div class="reco-title">Демо-материал для встречи (этап 3)</div>
+      <div class="reco-body">Подготовить: сценарий 30-мин Zoom, пример PDF-КП сгенерированного агентом, скриншоты / видео «агент в работе». Без этого встреча держится только на словах.</div>
+      <div class="reco-impact med">↑ Высокое влияние · ~1 день работы</div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL VERDICT -->
+<div class="verdict-row">
+  <div class="vr-title">📋 Итоговый вывод для Алексея</div>
+  <ul class="vr-list">
+    <li><b>L1 работает</b> как инструмент первого касания — низкий барьер, быстрый результат, без давления ценой. Можно давать на холодных переговорах уже сегодня.</li>
+    <li><b>L2 не готов</b> для первого касания — цена раньше убеждения, слабый следующий шаг, нет специфики отрасли. Как второй шаг для тёплого партнёра — работает.</li>
+    <li><b>Главное что исправить перед серьёзными переговорами:</b> убрать тарифы с финального экрана L2, конкретизировать следующий шаг. Это 3 часа работы — максимально высокий ROI.</li>
+    <li><b>Чего не хватает системно:</b> материала для демо-встречи (этап 3) — без него воронка обрывается. Это следующая задача после исправления L2.</li>
+    <li><b>Калькуляторы в целом — правильный инструмент.</b> Партнёр видит выгоду в своих цифрах, а не в наших словах. Надо доточить а не переделывать.</li>
+  </ul>
+</div>
+
+<footer>HOME PROJECT · Внутренний документ · Алексей · 4 июля 2026</footer>
+
+</div>
+</body>
+</html>
