@@ -496,12 +496,7 @@ html, body {
       <div class="roi-payback">Срок окупаемости: <b id="roi-payback" data-locked="true">—&nbsp;—</b></div>
     </div>
 
-    <!-- Тариф скрыт с финального экрана — только в PDF-КП -->
-    <div style="display:none">
-      <div id="plan-name"></div>
-      <div id="plan-price"></div>
-      <div id="plan-includes"></div>
-    </div>
+    <!-- Тариф убран с финального экрана — данные хранятся в state, используются только в PDF-КП -->
 
     <div class="cta-block" id="cta-block">
       <div class="cta-title">Получить точный расчёт и записаться на демо</div>
@@ -912,10 +907,8 @@ function showFinal() {
     </div>
   `).join('');
 
-  // Plan
-  document.getElementById('plan-name').textContent = 'Тариф «' + r.plan.name + '»';
-  document.getElementById('plan-price').innerHTML = r.plan.price.toLocaleString('ru-RU') + ' <span>₽/мес</span>';
-  document.getElementById('plan-includes').textContent = 'Включено: ' + r.plan.includes;
+  // Plan — тариф сохраняем в state для PDF, но не выводим на экран
+  window._planData = r.plan;
 
   // ROI — locked initially
   window._finalResult = r;
