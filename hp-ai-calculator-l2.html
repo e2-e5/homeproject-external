@@ -49,35 +49,100 @@ html, body {
 .layout { display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; }
 @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .summary-panel { position: static !important; margin-top: 24px; } }
 
-.form-panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 32px; }
-.step-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
-.step-hint { color: var(--text-dim); font-size: 14px; margin-bottom: 24px; }
+/* Шаг = «блок-глава». Фон приглушённый, чтобы карточки-вопросы выделялись. */
+.form-panel {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.step-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.step-badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-dim);
+  border-radius: 6px;
+  padding: 5px 10px;
+  flex-shrink: 0;
+}
+.step-title { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
+.step-hint { color: var(--text-dim); font-size: 14px; margin: 14px 0 28px; }
 
 .step { counter-reset: question; }
+/* Каждый вопрос = самостоятельная карточка. Сильный контраст с фоном страницы. */
 .field {
   counter-increment: question;
-  background: var(--card-2);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  padding: 20px 22px;
-  margin-bottom: 12px;
-  transition: border-color 0.2s;
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 26px 28px 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25), 0 4px 12px rgba(0,0,0,0.15);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
 }
-.field:focus-within { border-color: var(--accent-dim); }
-.field.has-error { border-color: var(--danger) !important; }
+.field:hover { border-color: #3A3D4A; }
+.field:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow), 0 4px 14px rgba(0,0,0,0.2);
+}
+.field.has-error { border-color: var(--danger) !important; box-shadow: 0 0 0 3px rgba(217,119,87,0.15) !important; }
+.field.answered { border-color: rgba(127,183,126,0.35); }
+.field.answered::before {
+  content: '✓';
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--success);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* Плашка «ВОПРОС N» — крупная, читаемая, с кружком-номером */
 .field-num {
   font-size: 11px;
   color: var(--accent);
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 6px;
+  letter-spacing: 0.14em;
+  margin-bottom: 14px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
 }
-.field-num::before { content: counter(question); background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent); width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
-.field-label { display: block; font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+.field-num::before {
+  content: counter(question);
+  background: var(--accent);
+  color: var(--bg);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.field-label { display: block; font-size: 16px; font-weight: 700; margin-bottom: 14px; line-height: 1.4; color: var(--text); }
 .field-label .opt { color: var(--text-mute); font-weight: 400; font-size: 12px; margin-left: 6px; }
 .field-hint { font-size: 12px; color: var(--text-mute); margin-top: 8px; }
 .field-error-inline { color: var(--danger); font-size: 12px; margin-top: 8px; font-weight: 500; display: none; }
@@ -222,7 +287,10 @@ html, body {
       <div>
         <!-- STEP 1: PROFILE -->
         <div class="form-panel step" data-step="1">
-          <div class="step-title">Расскажите о вашем бизнесе</div>
+          <div class="step-header">
+            <div class="step-badge">Шаг 1 из 4</div>
+            <div class="step-title">Расскажите о вашем бизнесе</div>
+          </div>
           <div class="step-hint">Три коротких вопроса, чтобы подобрать релевантные агенты и точность расчёта.</div>
 
           <div class="field" id="field-staff">
@@ -260,7 +328,10 @@ html, body {
 
         <!-- STEP 2: PAIN METRICS -->
         <div class="form-panel step hidden" data-step="2">
-          <div class="step-title">Как устроена ваша ежедневная работа</div>
+          <div class="step-header">
+            <div class="step-badge">Шаг 2 из 4</div>
+            <div class="step-title">Как устроена ваша ежедневная работа</div>
+          </div>
           <div class="step-hint">Эти цифры покажут разницу «Сейчас vs С AI» на финальном экране.</div>
 
           <div class="field" id="field-hours">
@@ -317,10 +388,14 @@ html, body {
 
         <!-- STEP 3: INFRASTRUCTURE (conditional) -->
         <div class="form-panel step hidden" data-step="3">
-          <div class="step-title">Ваша инфраструктура</div>
+          <div class="step-header">
+            <div class="step-badge">Шаг 3 из 4</div>
+            <div class="step-title">Ваша инфраструктура</div>
+          </div>
           <div class="step-hint">Эти вопросы помогут точнее рекомендовать порядок подключения агентов.</div>
 
-          <div class="field">
+          <div class="field" id="field-crm">
+            <div class="field-num">Вопрос</div>
             <label class="field-label">Есть ли у вас CRM или учётная система?<span class="opt">(опционально)</span></label>
             <div class="opt-grid" data-field="f-crm">
               <button class="opt-btn" data-value="none" data-label="нет">Нет</button>
@@ -332,6 +407,7 @@ html, body {
           </div>
 
           <div class="field">
+            <div class="field-num">Вопрос</div>
             <label class="field-label">Каналы продаж<span class="opt">(опционально, можно несколько)</span></label>
             <div class="multi-grid" data-multi="f-channels">
               <button class="multi-btn" data-value="site"><span class="multi-check"></span>Свой сайт</button>
@@ -345,10 +421,15 @@ html, body {
 
         <!-- STEP 4: PRIORITY -->
         <div class="form-panel step hidden" data-step="4">
-          <div class="step-title">Что для вас сейчас больнее всего?</div>
+          <div class="step-header">
+            <div class="step-badge">Шаг 4 из 4</div>
+            <div class="step-title">Что для вас сейчас больнее всего?</div>
+          </div>
           <div class="step-hint">Отметьте одно или несколько направлений — они попадут в дорожную карту первыми.</div>
 
           <div class="field">
+            <div class="field-num">Вопрос</div>
+            <label class="field-label">Отметьте всё, что применимо к вашему бизнесу</label>
             <div class="multi-grid" data-multi="f-pain">
               <button class="multi-btn" data-value="pricing"><span class="multi-check"></span>Аудит цен и конкурентов</button>
               <button class="multi-btn" data-value="cp"><span class="multi-check"></span>Скорость подготовки КП</button>
@@ -1058,24 +1139,37 @@ function clearFieldError(fieldId, errId) {
   const e = document.getElementById(errId); if (e) e.classList.remove('visible');
 }
 
+// Отметить .field как «answered» (для галочки и подсветки)
+function markAnswered(fieldId, on) {
+  const el = document.getElementById(fieldId);
+  if (!el) return;
+  if (on) el.classList.add('answered');
+  else el.classList.remove('answered');
+}
+
 document.getElementById('f-staff').addEventListener('input', (e) => {
   state.f.staff = parseInt(e.target.value) || null;
   if (state.f.staff) clearFieldError('field-staff', 'err-staff');
+  markAnswered('field-staff', !!state.f.staff);
   renderSummary();
 });
 document.getElementById('f-hours').addEventListener('input', (e) => {
   state.f.hours = parseInt(e.target.value) >= 0 ? parseInt(e.target.value) : null;
   if (state.f.hours !== null) clearFieldError('field-hours', 'err-hours');
+  markAnswered('field-hours', state.f.hours !== null);
   renderSummary();
 });
 document.getElementById('f-leads').addEventListener('input', (e) => {
   state.f.leads = parseInt(e.target.value) || null;
   if (state.f.leads) clearFieldError('field-leads', 'err-leads');
+  markAnswered('field-leads', !!state.f.leads);
   renderSummary();
 });
 
 // Single-choice option buttons
 const fieldErrMap = { 'f-sku': ['field-sku','err-sku'], 'f-revenue': ['field-revenue','err-revenue'], 'f-cptime': ['field-cptime','err-cptime'], 'f-check': ['field-check','err-check'] };
+// Соответствие: data-field → id .field-wrapper (для answered-подсветки)
+const fieldWrapperMap = { 'f-sku':'field-sku', 'f-revenue':'field-revenue', 'f-cptime':'field-cptime', 'f-conv':'field-conv', 'f-check':'field-check', 'f-crm':'field-crm' };
 document.querySelectorAll('[data-field]').forEach(group => {
   const field = group.getAttribute('data-field');
   group.querySelectorAll('.opt-btn').forEach(btn => {
@@ -1090,6 +1184,8 @@ document.querySelectorAll('[data-field]').forEach(group => {
       else state.f[stateKey] = val;
       // Clear error on selection
       if (fieldErrMap[field]) clearFieldError(...fieldErrMap[field]);
+      // Mark answered
+      if (fieldWrapperMap[field]) markAnswered(fieldWrapperMap[field], true);
       renderSummary();
     });
   });
