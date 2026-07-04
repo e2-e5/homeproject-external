@@ -496,16 +496,16 @@ html, body {
       <div class="roi-payback">Срок окупаемости: <b id="roi-payback" data-locked="true">—&nbsp;—</b></div>
     </div>
 
-    <div class="plan-card">
-      <span class="plan-badge">Рекомендуем вам</span>
-      <div class="plan-name" id="plan-name">—</div>
-      <div class="plan-price" id="plan-price">— <span>₽/мес</span></div>
-      <div class="plan-includes" id="plan-includes">—</div>
+    <!-- Тариф скрыт с финального экрана — только в PDF-КП -->
+    <div style="display:none">
+      <div id="plan-name"></div>
+      <div id="plan-price"></div>
+      <div id="plan-includes"></div>
     </div>
 
     <div class="cta-block" id="cta-block">
-      <div class="cta-title">Получить персональное КП на email</div>
-      <div class="cta-sub">Введите имя и email — раскроем точные цифры выгоды, срок окупаемости, и пришлём PDF с подробным расчётом и дорожной картой.</div>
+      <div class="cta-title">Получить точный расчёт и записаться на демо</div>
+      <div class="cta-sub">Введите имя и email — раскроем точные цифры ROI и пришлём PDF с дорожной картой. Алексей из Home Project свяжется в течение 24 часов и назначит 30-минутное демо: покажем агентов в работе на вашем примере.</div>
       <div class="email-row">
         <input type="text" class="input-text" id="cap-name" placeholder="Ваше имя">
         <input type="email" class="input-email" id="cap-email" placeholder="Email для КП">
@@ -515,10 +515,13 @@ html, body {
         <input type="text" class="input-text" id="cap-company" placeholder="Компания (опционально)">
       </div>
       <div class="email-error" id="cap-error"></div>
-      <button class="btn btn-primary" id="btn-submit" style="margin-top: 12px;">Получить точные цифры и КП</button>
-      <div class="gate-info">После ввода email — персональное КП откроется в новой вкладке для сохранения в PDF. Никаких рассылок.</div>
+      <button class="btn btn-primary" id="btn-submit" style="margin-top: 12px;">Открыть точные цифры и КП →</button>
+      <div class="gate-info">После ввода — персональное КП откроется сразу в новой вкладке. Никаких рассылок без вашего согласия.</div>
     </div>
 
+    <div style="background:var(--accent-glow);border:1px solid var(--accent-dim);border-radius:10px;padding:16px 20px;margin-bottom:16px;font-size:13px;color:var(--text-dim);line-height:1.6;">
+      <span style="color:var(--accent);font-weight:700;">Home Project</span> специализируется на дистрибуции премиальной встраиваемой техники — опыт внедрения AI-агентов у дилеров и дистрибьюторов брендов V-ZUG, BORA, Fhiaba, Küppersbusch, De Dietrich.
+    </div>
     <div class="disclaimer">
       Диапазоны — это интервал уверенности расчёта. Точная цифра под ваш бизнес считается на встрече с учётом сезонности, специфики поставщиков и текущих договорённостей. Ставка часа менеджера B2B премиум-техники — 1 200 ₽ (расчёт по рынку Москвы 2026). Итоговая выгода = экономия ФОТ + дополнительная выручка от роста заявок и конверсии, минус стоимость подписки.
     </div>
@@ -937,11 +940,21 @@ function renderROI(unlocked) {
 
     // Hide CTA email form, show thanks + КП button
     document.getElementById('cta-block').innerHTML = `
-      <div class="cta-title">✓ Расчёт открыт — формируем ваше КП</div>
-      <div class="cta-sub">Персональное КП откроется в новой вкладке. Нажмите «Сохранить как PDF» в диалоге печати.<br>Наш менеджер свяжется в течение рабочего дня.</div>
+      <div class="cta-title">✓ Расчёт открыт</div>
+      <div class="cta-sub">Персональное КП откроется в новой вкладке — нажмите «Сохранить как PDF».</div>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
         <button class="btn btn-primary" id="btn-kp-open">📄 Открыть КП / Сохранить PDF</button>
         <button class="btn btn-ghost" onclick="window.print()">Распечатать этот экран</button>
+      </div>
+      <div style="margin-top:28px;padding:20px 24px;background:var(--card-2);border:1px solid var(--border);border-radius:12px;text-align:left;max-width:520px;margin-left:auto;margin-right:auto;">
+        <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:10px;">Что дальше</div>
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:28px;flex-shrink:0;">📞</div>
+          <div>
+            <div style="font-weight:700;font-size:15px;margin-bottom:4px;">Алексей из Home Project свяжется в течение 24 часов</div>
+            <div style="font-size:13px;color:var(--text-dim);line-height:1.6;">Назначим 30-минутную демо-встречу — покажем агентов в работе на вашем примере. Без давления и обязательств.</div>
+          </div>
+        </div>
       </div>
     `;
     setTimeout(() => {
