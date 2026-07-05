@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Project AI — День 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 1200px;
+    height: 627px;
+    overflow: hidden;
+    background: #181A20;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  .container {
+    width: 1200px;
+    height: 627px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle noise texture overlay */
+  .container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 50%, rgba(212, 165, 116, 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 20%, rgba(212, 165, 116, 0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .main-row {
+    display: flex;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* LEFT PANEL — 55% */
+  .left {
+    width: 55%;
+    padding: 52px 52px 40px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .left-top {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .day-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212, 165, 116, 0.12);
+    border: 1px solid rgba(212, 165, 116, 0.25);
+    border-radius: 6px;
+    padding: 6px 14px;
+    width: fit-content;
+  }
+
+  .day-badge span {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #D4A574;
+  }
+
+  .day-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #D4A574;
+    opacity: 0.6;
+  }
+
+  .headline {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #F2F0EB;
+    letter-spacing: -0.02em;
+  }
+
+  .headline em {
+    font-style: normal;
+    color: #D4A574;
+  }
+
+  .subheadline {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(242, 240, 235, 0.45);
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    max-width: 380px;
+  }
+
+  .brand-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #D4A574;
+    opacity: 0.8;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 1px;
+    margin: 32px 0 24px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(212, 165, 116, 0.4) 20%,
+      rgba(212, 165, 116, 0.4) 80%,
+      transparent 100%
+    );
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  /* RIGHT PANEL — 45% */
+  .right {
+    flex: 1;
+    padding: 52px 52px 40px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+
+  .right-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(212, 165, 116, 0.55);
+    margin-bottom: 22px;
+  }
+
+  .metric-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .metric-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: none;
+  }
+
+  .metric-icon {
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+  }
+
+  .metric-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .metric-main {
+    font-size: 16px;
+    font-weight: 700;
+    color: #F2F0EB;
+    letter-spacing: -0.01em;
+  }
+
+  .metric-sub {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(242, 240, 235, 0.4);
+    letter-spacing: 0.01em;
+  }
+
+  .bonus-block {
+    margin-top: 10px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: rgba(212, 165, 116, 0.07);
+    border: 1px solid rgba(212, 165, 116, 0.15);
+  }
+
+  .bonus-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(212, 165, 116, 0.85);
+    line-height: 1.45;
+  }
+
+  /* FOOTER */
+  .footer {
+    width: 100%;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.025);
+    border-top: 1px solid rgba(212, 165, 116, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  .footer-url {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: rgba(212, 165, 116, 0.55);
+    text-transform: lowercase;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="main-row">
+
+    <!-- LEFT PANEL -->
+    <div class="left">
+      <div class="left-top">
+        <div class="day-badge">
+          <span>День 7</span>
+          <div class="day-dot"></div>
+          <span>Воскресенье</span>
+        </div>
+
+        <div class="headline">
+          Система работает.<br>
+          Пока ты <em>живёшь.</em>
+        </div>
+
+        <div class="subheadline">
+          AI-агенты берут рутину на себя —<br>
+          владелец занимается стратегией, семьёй и собой.
+        </div>
+      </div>
+
+      <div class="brand-label">Home Project AI</div>
+    </div>
+
+    <!-- VERTICAL DIVIDER -->
+    <div class="divider"></div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right">
+      <div class="right-top">
+        <div class="section-label">Сегодня</div>
+
+        <div class="metric-list">
+          <div class="metric-item">
+            <div class="metric-icon">🏊</div>
+            <div class="metric-text">
+              <div class="metric-main">3 км</div>
+              <div class="metric-sub">открытая вода · утром</div>
+            </div>
+          </div>
+
+          <div class="metric-item">
+            <div class="metric-icon">💪</div>
+            <div class="metric-text">
+              <div class="metric-main">300 отжиманий</div>
+              <div class="metric-sub">челлендж 300×300 · каждый день</div>
+            </div>
+          </div>
+
+          <div class="metric-item">
+            <div class="metric-icon">🏓</div>
+            <div class="metric-text">
+              <div class="metric-main">1 час тенниса</div>
+              <div class="metric-sub">с сыном · настольный</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bonus-block">
+          <div class="bonus-text">
+            + презентация платформы · 2 варианта<br>
+            + опросник для партнёров · 2 версии
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-url">homeproject.online</div>
+  </div>
+</div>
+</body>
+</html>
