@@ -212,109 +212,113 @@
     line-height: 1.45;
   }
 
-  /* ═══ SPORTS STRIP — photo backgrounds ═══ */
+  /* ═══ SPORTS STRIP ═══ */
   .sports-strip {
-    display: flex;
     width: 100%;
-    height: 172px;
-    flex-shrink: 0;
+    height: 158px;
     position: relative;
     z-index: 1;
+    flex-shrink: 0;
+    background: #111318;
+    border-top: 1px solid rgba(255, 255, 255, 0.055);
     overflow: hidden;
-    border-top: none;
   }
 
-  /* Top separator line */
+  /* Water/energy background */
   .sports-strip::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1.5px;
-    background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(212,165,116,0.5) 15%,
-      rgba(80,140,220,0.6) 50%,
-      rgba(212,165,116,0.5) 85%,
-      transparent 100%);
-    z-index: 3;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 18% 90%, rgba(56, 130, 210, 0.12) 0%, transparent 48%),
+      radial-gradient(ellipse at 50% 50%, rgba(56, 130, 210, 0.04) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 80%, rgba(56, 130, 210, 0.08) 0%, transparent 40%);
+    pointer-events: none;
   }
 
-  /* Bottom shimmer line */
+  /* Bottom gradient stripe — water shimmer */
   .sports-strip::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 0; right: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     height: 2px;
-    background: linear-gradient(90deg,
+    background: linear-gradient(
+      90deg,
       transparent 0%,
-      rgba(80,140,220,0.65) 25%,
-      rgba(212,165,116,0.5) 50%,
-      rgba(80,140,220,0.65) 75%,
-      transparent 100%);
-    z-index: 3;
+      rgba(56, 130, 210, 0.5) 15%,
+      rgba(212, 165, 116, 0.55) 50%,
+      rgba(56, 130, 210, 0.5) 85%,
+      transparent 100%
+    );
   }
 
-  .sport-col {
-    flex: 1;
-    position: relative;
-    background-size: cover;
-    background-position: center;
+  .sports-inner {
     display: flex;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .sport-col-swim   { background-image: url('sport-swim.jpg'); }
-  .sport-col-pushup { background-image: url('sport-pushup.jpg'); }
-  .sport-col-tennis { background-image: url('sport-tennis.jpg'); }
-
-  /* Dark overlay for text readability */
-  .sport-col::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(6, 16, 34, 0.62);
-    z-index: 1;
-  }
-
-  /* Bottom gradient for extra contrast */
-  .sport-col::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 55%;
-    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.45));
-    z-index: 1;
-  }
-
-  /* Vertical separator */
-  .sport-col + .sport-col {
-    border-left: 1px solid rgba(255,255,255,0.12);
-  }
-
-  .sport-col-inner {
+    justify-content: space-around;
+    height: 100%;
+    padding: 0 60px;
     position: relative;
-    z-index: 2;
+    z-index: 1;
+  }
+
+  .sport-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
+    flex: 1;
+    position: relative;
+  }
+
+  /* Separators between cards */
+  .sport-card:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 12%;
+    height: 76%;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.06) 30%,
+      rgba(255, 255, 255, 0.06) 70%,
+      transparent
+    );
+  }
+
+  .sport-emoji {
+    font-size: 30px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 8px rgba(56, 130, 210, 0.25));
+  }
+
+  /* Swim card: extra blue glow */
+  .sport-card.swim .sport-emoji {
+    filter: drop-shadow(0 2px 14px rgba(56, 130, 210, 0.55));
+  }
+
+  /* Pushup card: amber glow */
+  .sport-card.pushup .sport-emoji {
+    filter: drop-shadow(0 2px 10px rgba(212, 165, 116, 0.4));
   }
 
   .sport-value {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: #F2F0EB;
     letter-spacing: -0.025em;
     line-height: 1;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
   }
 
   .sport-label {
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 400;
-    color: rgba(255,255,255,0.65);
+    color: rgba(242, 240, 235, 0.38);
+    letter-spacing: 0.01em;
     text-align: center;
   }
 
@@ -419,35 +423,33 @@
 
   </div>
 
-  <!-- ═══ SPORTS STRIP — photo backgrounds ═══ -->
+  <!-- ═══ SPORTS STRIP ═══ -->
   <div class="sports-strip">
+    <div class="sports-inner">
 
-    <div class="sport-col sport-col-swim">
-      <div class="sport-col-inner">
+      <div class="sport-card swim">
+        <div class="sport-emoji">🏊</div>
         <div class="sport-value">3 км</div>
         <div class="sport-label">открытая вода</div>
-        <div class="sport-tag" style="color:rgba(100,175,255,0.95)">УТРОМ</div>
+        <div class="sport-tag">утром</div>
       </div>
-    </div>
 
-    <div class="sport-col sport-col-pushup">
-      <div class="sport-col-inner">
+      <div class="sport-card pushup">
+        <div class="sport-emoji">💪</div>
         <div class="sport-value">300</div>
         <div class="sport-label">отжиманий</div>
-        <div class="sport-tag" style="color:rgba(212,165,116,0.95)">ЧЕЛЛЕНДЖ 300×300</div>
+        <div class="sport-tag">челлендж 300×300</div>
       </div>
-    </div>
 
-    <div class="sport-col sport-col-tennis">
-      <div class="sport-col-inner">
+      <div class="sport-card tennis">
+        <div class="sport-emoji">🏓</div>
         <div class="sport-value">1 час</div>
         <div class="sport-label">настольный теннис</div>
-        <div class="sport-tag" style="color:rgba(80,210,100,0.95)">С СЫНОМ</div>
+        <div class="sport-tag">с сыном</div>
       </div>
+
     </div>
-
   </div>
-
 
   <!-- FOOTER -->
   <div class="footer">
