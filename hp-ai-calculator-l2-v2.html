@@ -278,6 +278,7 @@ html, body {
 
 <!-- ОНБОРДИНГ: зачем это тестирование, для кого, что получит -->
 <div id="onboarding-block" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:28px;">
+  <div id="onboarding-body">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
     <div style="flex:1;min-width:280px;">
       <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:10px;">Оценка потенциала AI для вашего бизнеса</div>
@@ -303,9 +304,15 @@ html, body {
       </div>
     </div>
   </div>
+  </div><!-- /onboarding-body -->
   <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
     <div style="font-size:12px;color:var(--text-mute);">Для кого: владельцы и руководители компаний-дистрибьюторов, дилеров, оптовых и розничных продавцов B2B-сегмента</div>
-    <button onclick="document.getElementById('onboarding-block').style.display='none'" style="font-size:11px;color:var(--text-mute);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:4px;text-decoration:underline;">Скрыть это пояснение ↑</button>
+    <button id="onboarding-toggle-btn" onclick="
+      var body = document.getElementById('onboarding-body');
+      var btn = document.getElementById('onboarding-toggle-btn');
+      if(body.style.display==='none'){body.style.display='';btn.textContent='Скрыть пояснение ↑';}
+      else{body.style.display='none';btn.textContent='Показать пояснение ↓';}
+    " style="font-size:11px;color:var(--text-mute);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:4px;text-decoration:underline;white-space:nowrap;">Скрыть пояснение ↑</button>
   </div>
 </div>
 
@@ -1011,11 +1018,11 @@ function renderROI(unlocked) {
           </a>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <a href="https://homeproject.online/designers" target="_blank" rel="noopener" style="display:block;background:var(--card-2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-decoration:none;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--accent-dim)'" onmouseout="this.style.borderColor='var(--border)'">
+          <a href="https://homeproject.online/ru/page/designers" target="_blank" rel="noopener" style="display:block;background:var(--card-2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-decoration:none;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--accent-dim)'" onmouseout="this.style.borderColor='var(--border)'">
             <div style="font-size:18px;margin-bottom:6px;">🏛️</div>
-            <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Раздел для дизайнеров</div>
-            <div style="font-size:11px;color:var(--text-mute);line-height:1.5;">Контент и навигация управляются AI-агентами — пример из реального продакшна</div>
-            <div style="font-size:11px;color:var(--accent);margin-top:6px;font-weight:600;">Открыть →</div>
+            <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Архитекторам и дизайнерам</div>
+            <div style="font-size:11px;color:var(--text-mute);line-height:1.5;">Раздел на сайте — контент и навигация управляются AI-агентами в реальном времени</div>
+            <div style="font-size:11px;color:var(--accent);margin-top:6px;font-weight:600;">Открыть раздел →</div>
           </a>
           <a href="https://e2-e5.github.io/homeproject-external/hp-ai-platform-partner-deck.html" target="_blank" rel="noopener" style="display:block;background:var(--card-2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-decoration:none;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--accent-dim)'" onmouseout="this.style.borderColor='var(--border)'">
             <div style="font-size:18px;margin-bottom:6px;">📊</div>
