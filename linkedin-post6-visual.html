@@ -8,11 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     width: 1200px;
@@ -31,29 +27,32 @@
     overflow: hidden;
   }
 
-  /* Subtle noise texture overlay */
+  /* Ambient glow */
   .container::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at 10% 50%, rgba(212, 165, 116, 0.06) 0%, transparent 60%),
-      radial-gradient(ellipse at 90% 20%, rgba(212, 165, 116, 0.04) 0%, transparent 50%);
+      radial-gradient(ellipse at 12% 38%, rgba(212, 165, 116, 0.07) 0%, transparent 52%),
+      radial-gradient(ellipse at 88% 18%, rgba(212, 165, 116, 0.04) 0%, transparent 42%),
+      radial-gradient(ellipse at 50% 100%, rgba(56, 130, 200, 0.08) 0%, transparent 48%);
     pointer-events: none;
     z-index: 0;
   }
 
+  /* ═══ TOP CONTENT ROW ═══ */
   .main-row {
     display: flex;
     flex: 1;
     position: relative;
     z-index: 1;
+    min-height: 0;
   }
 
-  /* LEFT PANEL — 55% */
+  /* LEFT PANEL — 57% */
   .left {
-    width: 55%;
-    padding: 52px 52px 40px 56px;
+    width: 57%;
+    padding: 46px 44px 36px 56px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -69,8 +68,8 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(212, 165, 116, 0.12);
-    border: 1px solid rgba(212, 165, 116, 0.25);
+    background: rgba(212, 165, 116, 0.11);
+    border: 1px solid rgba(212, 165, 116, 0.24);
     border-radius: 6px;
     padding: 6px 14px;
     width: fit-content;
@@ -89,15 +88,15 @@
     height: 5px;
     border-radius: 50%;
     background: #D4A574;
-    opacity: 0.6;
+    opacity: 0.55;
   }
 
   .headline {
-    font-size: 42px;
+    font-size: 44px;
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.12;
     color: #F2F0EB;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 
   .headline em {
@@ -108,30 +107,29 @@
   .subheadline {
     font-size: 15px;
     font-weight: 400;
-    color: rgba(242, 240, 235, 0.45);
-    letter-spacing: 0.01em;
-    line-height: 1.5;
-    max-width: 380px;
+    color: rgba(242, 240, 235, 0.4);
+    line-height: 1.55;
+    max-width: 360px;
   }
 
   .brand-label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #D4A574;
-    opacity: 0.8;
+    opacity: 0.72;
   }
 
   /* DIVIDER */
   .divider {
     width: 1px;
-    margin: 32px 0 24px;
+    margin: 24px 0 20px;
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      rgba(212, 165, 116, 0.4) 20%,
-      rgba(212, 165, 116, 0.4) 80%,
+      rgba(212, 165, 116, 0.3) 20%,
+      rgba(212, 165, 116, 0.3) 80%,
       transparent 100%
     );
     position: relative;
@@ -139,21 +137,16 @@
     flex-shrink: 0;
   }
 
-  /* RIGHT PANEL — 45% */
+  /* RIGHT PANEL — 43% */
   .right {
     flex: 1;
-    padding: 52px 52px 40px 44px;
+    padding: 46px 52px 36px 40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     position: relative;
     z-index: 1;
-  }
-
-  .right-top {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    gap: 16px;
   }
 
   .section-label {
@@ -161,76 +154,197 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(212, 165, 116, 0.55);
-    margin-bottom: 22px;
+    color: rgba(212, 165, 116, 0.5);
+    margin-bottom: 4px;
   }
 
-  .metric-list {
+  .biz-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 9px;
   }
 
-  .metric-item {
+  .biz-item {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 14px 18px;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 13px 17px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: none;
+    background: rgba(255, 255, 255, 0.028);
+    border: 1px solid rgba(255, 255, 255, 0.055);
   }
 
-  .metric-icon {
-    font-size: 22px;
-    line-height: 1;
+  .biz-icon {
+    font-size: 18px;
     flex-shrink: 0;
-    width: 32px;
+    width: 26px;
     text-align: center;
+    margin-top: 2px;
   }
 
-  .metric-text {
+  .biz-text {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
   }
 
-  .metric-main {
-    font-size: 16px;
-    font-weight: 700;
+  .biz-main {
+    font-size: 14px;
+    font-weight: 600;
     color: #F2F0EB;
     letter-spacing: -0.01em;
   }
 
-  .metric-sub {
-    font-size: 12px;
-    font-weight: 400;
-    color: rgba(242, 240, 235, 0.4);
-    letter-spacing: 0.01em;
+  .biz-sub {
+    font-size: 11.5px;
+    color: rgba(242, 240, 235, 0.35);
+    line-height: 1.4;
   }
 
-  .bonus-block {
-    margin-top: 10px;
-    padding: 12px 18px;
-    border-radius: 10px;
+  .equation-chip {
+    padding: 11px 17px;
+    border-radius: 9px;
     background: rgba(212, 165, 116, 0.07);
-    border: 1px solid rgba(212, 165, 116, 0.15);
-  }
-
-  .bonus-text {
+    border: 1px solid rgba(212, 165, 116, 0.16);
     font-size: 13px;
     font-weight: 500;
-    color: rgba(212, 165, 116, 0.85);
+    color: rgba(212, 165, 116, 0.78);
     line-height: 1.45;
   }
 
-  /* FOOTER */
+  /* ═══ SPORTS STRIP ═══ */
+  .sports-strip {
+    width: 100%;
+    height: 158px;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    background: #111318;
+    border-top: 1px solid rgba(255, 255, 255, 0.055);
+    overflow: hidden;
+  }
+
+  /* Water/energy background */
+  .sports-strip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 18% 90%, rgba(56, 130, 210, 0.12) 0%, transparent 48%),
+      radial-gradient(ellipse at 50% 50%, rgba(56, 130, 210, 0.04) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 80%, rgba(56, 130, 210, 0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  /* Bottom gradient stripe — water shimmer */
+  .sports-strip::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(56, 130, 210, 0.5) 15%,
+      rgba(212, 165, 116, 0.55) 50%,
+      rgba(56, 130, 210, 0.5) 85%,
+      transparent 100%
+    );
+  }
+
+  .sports-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    padding: 0 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .sport-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+    position: relative;
+  }
+
+  /* Separators between cards */
+  .sport-card:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 12%;
+    height: 76%;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.06) 30%,
+      rgba(255, 255, 255, 0.06) 70%,
+      transparent
+    );
+  }
+
+  .sport-emoji {
+    font-size: 30px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 8px rgba(56, 130, 210, 0.25));
+  }
+
+  /* Swim card: extra blue glow */
+  .sport-card.swim .sport-emoji {
+    filter: drop-shadow(0 2px 14px rgba(56, 130, 210, 0.55));
+  }
+
+  /* Pushup card: amber glow */
+  .sport-card.pushup .sport-emoji {
+    filter: drop-shadow(0 2px 10px rgba(212, 165, 116, 0.4));
+  }
+
+  .sport-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: #F2F0EB;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+
+  .sport-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(242, 240, 235, 0.38);
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+
+  .sport-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: rgba(56, 130, 210, 0.65);
+    margin-top: 1px;
+  }
+
+  .sport-card.pushup .sport-tag {
+    color: rgba(212, 165, 116, 0.65);
+  }
+
+  .sport-card.tennis .sport-tag {
+    color: rgba(120, 200, 120, 0.65);
+  }
+
+  /* ═══ FOOTER ═══ */
   .footer {
     width: 100%;
     height: 44px;
-    background: rgba(255, 255, 255, 0.025);
-    border-top: 1px solid rgba(212, 165, 116, 0.12);
+    background: rgba(0, 0, 0, 0.35);
+    border-top: 1px solid rgba(212, 165, 116, 0.09);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -243,16 +357,18 @@
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.1em;
-    color: rgba(212, 165, 116, 0.55);
+    color: rgba(212, 165, 116, 0.48);
     text-transform: lowercase;
   }
 </style>
 </head>
 <body>
 <div class="container">
+
+  <!-- TOP CONTENT -->
   <div class="main-row">
 
-    <!-- LEFT PANEL -->
+    <!-- LEFT: headline -->
     <div class="left">
       <div class="left-top">
         <div class="day-badge">
@@ -278,52 +394,68 @@
     <!-- VERTICAL DIVIDER -->
     <div class="divider"></div>
 
-    <!-- RIGHT PANEL -->
+    <!-- RIGHT: business outcomes -->
     <div class="right">
-      <div class="right-top">
-        <div class="section-label">Сегодня</div>
-
-        <div class="metric-list">
-          <div class="metric-item">
-            <div class="metric-icon">🏊</div>
-            <div class="metric-text">
-              <div class="metric-main">3 км</div>
-              <div class="metric-sub">открытая вода · утром</div>
+      <div>
+        <div class="section-label">За выходные</div>
+        <div class="biz-list">
+          <div class="biz-item">
+            <div class="biz-icon">📊</div>
+            <div class="biz-text">
+              <div class="biz-main">Презентация платформы</div>
+              <div class="biz-sub">несколько вариантов → выбран оптимальный</div>
             </div>
           </div>
-
-          <div class="metric-item">
-            <div class="metric-icon">💪</div>
-            <div class="metric-text">
-              <div class="metric-main">300 отжиманий</div>
-              <div class="metric-sub">челлендж 300×300 · каждый день</div>
+          <div class="biz-item">
+            <div class="biz-icon">📋</div>
+            <div class="biz-text">
+              <div class="biz-main">Опросник для партнёров</div>
+              <div class="biz-sub">2 версии для тестирования с партнёрами</div>
             </div>
-          </div>
-
-          <div class="metric-item">
-            <div class="metric-icon">🏓</div>
-            <div class="metric-text">
-              <div class="metric-main">1 час тенниса</div>
-              <div class="metric-sub">с сыном · настольный</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bonus-block">
-          <div class="bonus-text">
-            + презентация платформы · 2 варианта<br>
-            + опросник для партнёров · 2 версии
           </div>
         </div>
       </div>
+
+      <div class="equation-chip">
+        Это не тайм-менеджмент —<br>это другое уравнение.
+      </div>
     </div>
 
+  </div>
+
+  <!-- ═══ SPORTS STRIP ═══ -->
+  <div class="sports-strip">
+    <div class="sports-inner">
+
+      <div class="sport-card swim">
+        <div class="sport-emoji">🏊</div>
+        <div class="sport-value">3 км</div>
+        <div class="sport-label">открытая вода</div>
+        <div class="sport-tag">утром</div>
+      </div>
+
+      <div class="sport-card pushup">
+        <div class="sport-emoji">💪</div>
+        <div class="sport-value">300</div>
+        <div class="sport-label">отжиманий</div>
+        <div class="sport-tag">челлендж 300×300</div>
+      </div>
+
+      <div class="sport-card tennis">
+        <div class="sport-emoji">🏓</div>
+        <div class="sport-value">1 час</div>
+        <div class="sport-label">настольный теннис</div>
+        <div class="sport-tag">с сыном</div>
+      </div>
+
+    </div>
   </div>
 
   <!-- FOOTER -->
   <div class="footer">
     <div class="footer-url">homeproject.online</div>
   </div>
+
 </div>
 </body>
 </html>
