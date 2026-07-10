@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Аналитика сайта — консультант, КП, дизайнеры | Home Project</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0f1117; color: #e7e9f0; font-family: -apple-system,'Segoe UI',Inter,sans-serif; padding: 28px 32px; }
+.header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:28px; }
+.header h1 { font-size:22px; font-weight:700; color:#fff; }
+.header .sub { font-size:12px; color:#64748b; margin-top:4px; }
+.logo { font-size:15px; font-weight:800; color:#fff; letter-spacing:.06em; text-align:right; }
+.logo-url { font-size:11px; color:#475569; margin-top:2px; }
+
+.alert { display:flex; align-items:flex-start; gap:12px; background:#1c0a0a; border:1px solid #7f1d1d; border-left:4px solid #ef4444; border-radius:10px; padding:16px 20px; margin-bottom:20px; }
+.alert-icon { font-size:22px; flex-shrink:0; }
+.alert-title { font-size:13px; font-weight:700; color:#f87171; margin-bottom:4px; }
+.alert-body { font-size:12px; color:#94a3b8; line-height:1.6; }
+
+.kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:20px; }
+.kpi { background:#1a1d27; border:1px solid #2a2d38; border-radius:12px; padding:16px 14px; }
+.kpi-label { font-size:10px; color:#64748b; text-transform:uppercase; letter-spacing:.6px; font-weight:600; }
+.kpi-val { font-size:28px; font-weight:800; margin:6px 0 3px; }
+.kpi-sub { font-size:11px; color:#94a3b8; }
+.kpi-badge { display:inline-block; margin-top:6px; padding:2px 8px; border-radius:5px; font-size:10px; font-weight:700; }
+.ok { background:#14532d33; color:#4ade80; border:1px solid #14532d; }
+.warn { background:#42200633; color:#fbbf24; border:1px solid #78350f; }
+.err { background:#450a0a33; color:#f87171; border:1px solid #7f1d1d; }
+.info { background:#17255433; color:#93c5fd; border:1px solid #1e3a5f; }
+
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:16px; }
+.card { background:#1a1d27; border:1px solid #2a2d38; border-radius:12px; padding:18px 20px; }
+.card-title { font-size:12px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:.8px; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.card-title .ct-badge { font-size:10px; padding:2px 7px; border-radius:4px; background:#2a2d38; color:#94a3b8; font-weight:600; text-transform:none; letter-spacing:0; }
+
+table { width:100%; border-collapse:collapse; font-size:12px; }
+th { padding:6px 10px; text-align:left; font-size:10px; color:#475569; text-transform:uppercase; letter-spacing:.5px; border-bottom:1px solid #2a2d38; }
+td { padding:7px 10px; border-bottom:1px solid #13151b; }
+td.r { text-align:right; color:#94a3b8; font-variant-numeric:tabular-nums; }
+td.bold { font-weight:700; color:#fff; }
+tr:last-child td { border-bottom:none; }
+
+.funnel { display:flex; align-items:center; gap:0; margin-bottom:8px; }
+.fstep { flex:1; text-align:center; }
+.fbox { background:#13151b; border:1px solid #2a2d38; border-radius:10px; padding:12px 6px; margin:0 3px; }
+.fnum { font-size:22px; font-weight:800; }
+.fname { font-size:10px; color:#64748b; margin-top:3px; font-weight:600; }
+.fpct { font-size:10px; color:#94a3b8; margin-top:2px; }
+.farrow { color:#2a2d38; font-size:20px; flex-shrink:0; }
+
+.note { background:#13151b; border-left:3px solid #f59e0b; border-radius:6px; padding:10px 14px; font-size:11px; color:#94a3b8; margin-top:12px; line-height:1.5; }
+.note.green { border-left-color:#22c55e; }
+.note.red { border-left-color:#ef4444; }
+.note.blue { border-left-color:#3b82f6; }
+
+.todo-row { display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid #13151b; }
+.todo-row:last-child { border-bottom:none; }
+.todo-num { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; flex-shrink:0; margin-top:1px; }
+.todo-num.p1 { background:#ef444420; color:#ef4444; border:1px solid #ef4444; }
+.todo-num.p2 { background:#f59e0b20; color:#f59e0b; border:1px solid #f59e0b; }
+.todo-num.p3 { background:#6366f120; color:#6366f1; border:1px solid #6366f1; }
+.todo-title { font-size:12px; font-weight:700; color:#fff; margin-bottom:3px; }
+.todo-desc { font-size:11px; color:#64748b; line-height:1.5; }
+
+canvas { max-height:150px !important; }
+.footer { margin-top:28px; text-align:center; font-size:11px; color:#334155; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>🔍 Аналитика сайта — консультант, КП, дизайнеры</h1>
+    <div class="sub">30 дней (11.06 – 10.07.2026) · Яндекс.Метрика 110362997 · Данные получены: 10.07.2026</div>
+  </div>
+  <div>
+    <div class="logo">HOME PROJECT</div>
+    <div class="logo-url">homeproject.online</div>
+  </div>
+</div>
+
+<!-- КРИТИЧНЫЙ АЛЕРТ -->
+<div class="alert">
+  <div class="alert-icon">⚠️</div>
+  <div>
+    <div class="alert-title">Критичный пробел: AI-консультант не отслеживается</div>
+    <div class="alert-body">
+      В Метрике <strong>ноль JS-событий</strong> по консультанту Арии — мы не видим сколько раз открывали чат, сколько сообщений отправили, сколько людей оставили email внутри диалога. Это главная точка контакта на сайте, и она полностью "слепая". Необходимо добавить 4 события: <code>consultant_opened</code>, <code>consultant_message_sent</code>, <code>consultant_email_captured</code>, <code>consultant_kp_requested</code>.
+    </div>
+  </div>
+</div>
+
+<!-- KPI -->
+<div class="kpi-grid">
+  <div class="kpi">
+    <div class="kpi-label">Заявки на КП (сайт)</div>
+    <div class="kpi-val" style="color:#a855f7">3</div>
+    <div class="kpi-sub">за 30 дней</div>
+    <span class="kpi-badge ok">Цель: kp_lead</span>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Контакты оставлены</div>
+    <div class="kpi-val" style="color:#22c55e">4</div>
+    <div class="kpi-sub">автоцель Метрики</div>
+    <span class="kpi-badge ok">Provided contact</span>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Форм отправлено</div>
+    <div class="kpi-val" style="color:#6366f1">3</div>
+    <div class="kpi-sub">Form submission</div>
+    <span class="kpi-badge ok">Автоцель</span>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Консультант (чат)</div>
+    <div class="kpi-val" style="color:#ef4444">—</div>
+    <div class="kpi-sub">Не отслеживается</div>
+    <span class="kpi-badge err">Нет событий</span>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Клики по телефону</div>
+    <div class="kpi-val" style="color:#475569">0</div>
+    <div class="kpi-sub">Телефон не публикуем</div>
+    <span class="kpi-badge ok">В норме</span>
+  </div>
+</div>
+
+<!-- ВОРОНКА КП -->
+<div class="card" style="margin-bottom:16px">
+  <div class="card-title">Воронка КП — от визита до заявки <span class="ct-badge">30 дней</span></div>
+  <div class="funnel">
+    <div class="fstep">
+      <div class="fbox" style="border-color:#6366f1">
+        <div class="fnum" style="color:#6366f1">122</div>
+        <div class="fname">Визиты на сайт</div>
+        <div class="fpct">100%</div>
+      </div>
+    </div>
+    <div class="farrow">›</div>
+    <div class="fstep">
+      <div class="fbox" style="border-color:#f59e0b">
+        <div class="fnum" style="color:#f59e0b">~67</div>
+        <div class="fname">Не отказали</div>
+        <div class="fpct">55% (отказы 55.7%)</div>
+      </div>
+    </div>
+    <div class="farrow">›</div>
+    <div class="fstep">
+      <div class="fbox" style="border-color:#06b6d4">
+        <div class="fnum" style="color:#06b6d4">16</div>
+        <div class="fname">Страница дизайнеров</div>
+        <div class="fpct">13% от визитов</div>
+      </div>
+    </div>
+    <div class="farrow">›</div>
+    <div class="fstep">
+      <div class="fbox" style="border-color:#a855f7">
+        <div class="fnum" style="color:#a855f7">?</div>
+        <div class="fname">Открыли консультант</div>
+        <div class="fpct">Не отслеживается</div>
+      </div>
+    </div>
+    <div class="farrow">›</div>
+    <div class="fstep">
+      <div class="fbox" style="border-color:#22c55e">
+        <div class="fnum" style="color:#22c55e">3</div>
+        <div class="fname">Заявка на КП</div>
+        <div class="fpct">2.5% от визитов</div>
+      </div>
+    </div>
+  </div>
+  <div class="note red">Между «открыл консультант» и «подал заявку на КП» — чёрная дыра. Без событий консультанта невозможно понять где теряются люди.</div>
+</div>
+
+<div class="grid2">
+  <!-- СТРАНИЦА ДИЗАЙНЕРОВ -->
+  <div class="card">
+    <div class="card-title">Страница дизайнеров — откуда приходят <span class="ct-badge">30 дней</span></div>
+    <table>
+      <thead><tr><th>Источник</th><th class="r">Визиты</th><th class="r">%</th></tr></thead>
+      <tbody>
+        <tr><td>📧 Email (рассылки)</td><td class="r bold" style="color:#22c55e">7</td><td class="r">44%</td></tr>
+        <tr><td>🔗 Прямой трафик</td><td class="r">5</td><td class="r">31%</td></tr>
+        <tr><td>🔍 Прочее</td><td class="r">4</td><td class="r">25%</td></tr>
+      </tbody>
+    </table>
+    <div class="note green">
+      44% трафика на страницу дизайнеров — с наших email-рассылок. Рассылка designer-bt работает как заточенная — людей приводит именно туда куда надо.
+    </div>
+
+    <div style="margin-top:16px">
+      <div class="card-title" style="margin-bottom:10px">Навигация на /page/designers</div>
+      <table>
+        <thead><tr><th>Страница</th><th class="r">Просмотры</th><th class="r">Уники</th></tr></thead>
+        <tbody>
+          <tr><td>/ru/page/designers</td><td class="r bold">16</td><td class="r">12</td></tr>
+          <tr><td>/ru/architects</td><td class="r">4</td><td class="r">1</td></tr>
+          <tr><td>/ru/designers (старый URL)</td><td class="r">1</td><td class="r">1</td></tr>
+        </tbody>
+      </table>
+      <div class="note">
+        /ru/architects — 4 визита, но всего 1 уникальный пользователь. Один человек вернулся 4 раза — высокий интерес, не конвертировался. Нужен ретаргетинг или follow-up.
+      </div>
+    </div>
+  </div>
+
+  <!-- ЦЕЛИ И КОНВЕРСИИ -->
+  <div class="card">
+    <div class="card-title">Все цели Метрики <span class="ct-badge">30 дней</span></div>
+    <table>
+      <thead><tr><th>Цель</th><th>Тип</th><th class="r">Достиж.</th><th>Статус</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="bold">Заявка на КП (сайт)</td>
+          <td style="color:#64748b;font-size:11px">kp_lead событие</td>
+          <td class="r bold" style="color:#a855f7">3</td>
+          <td><span class="kpi-badge ok" style="font-size:9px">Работает</span></td>
+        </tr>
+        <tr>
+          <td>Provided contact info</td>
+          <td style="color:#64748b;font-size:11px">Автоцель</td>
+          <td class="r bold" style="color:#22c55e">4</td>
+          <td><span class="kpi-badge ok" style="font-size:9px">Работает</span></td>
+        </tr>
+        <tr>
+          <td>Form submission</td>
+          <td style="color:#64748b;font-size:11px">Автоцель</td>
+          <td class="r bold" style="color:#6366f1">3</td>
+          <td><span class="kpi-badge ok" style="font-size:9px">Работает</span></td>
+        </tr>
+        <tr>
+          <td>Click on phone</td>
+          <td style="color:#64748b;font-size:11px">Автоцель</td>
+          <td class="r">0</td>
+          <td><span class="kpi-badge ok" style="font-size:9px">ОК (нет тел.)</span></td>
+        </tr>
+        <tr>
+          <td>Sent contact details</td>
+          <td style="color:#64748b;font-size:11px">Автоцель</td>
+          <td class="r">0</td>
+          <td><span class="kpi-badge warn" style="font-size:9px">Не работает?</span></td>
+        </tr>
+        <tr style="background:#0a0e1a">
+          <td style="color:#ef4444">Консультант открыт</td>
+          <td style="color:#475569;font-size:11px">Нет события</td>
+          <td class="r" style="color:#ef4444">—</td>
+          <td><span class="kpi-badge err" style="font-size:9px">❌ Не создана</span></td>
+        </tr>
+        <tr style="background:#0a0e1a">
+          <td style="color:#ef4444">Сообщение в чат</td>
+          <td style="color:#475569;font-size:11px">Нет события</td>
+          <td class="r" style="color:#ef4444">—</td>
+          <td><span class="kpi-badge err" style="font-size:9px">❌ Не создана</span></td>
+        </tr>
+        <tr style="background:#0a0e1a">
+          <td style="color:#ef4444">Email в чате оставлен</td>
+          <td style="color:#475569;font-size:11px">Нет события</td>
+          <td class="r" style="color:#ef4444">—</td>
+          <td><span class="kpi-badge err" style="font-size:9px">❌ Не создана</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note red">
+      3 из 5 ключевых событий не отслеживаются. Реальная конверсия сайта выше 2.5% — но мы её не видим.
+    </div>
+  </div>
+</div>
+
+<!-- ЧТО ДЕЛАТЬ -->
+<div class="card" style="margin-bottom:16px">
+  <div class="card-title">План действий — приоритизировано</div>
+
+  <div class="todo-row">
+    <div class="todo-num p1">1</div>
+    <div>
+      <div class="todo-title">🔴 Добавить JS-события для AI-консультанта (Арии)</div>
+      <div class="todo-desc">
+        Внедрить 4 события через Metrika JS API: <code>ym(110362997,'reachGoal','consultant_opened')</code>, <code>consultant_message_sent</code>, <code>consultant_email_captured</code>, <code>consultant_kp_requested</code>. Создать соответствующие цели в кабинете Метрики. После — видим реальную воронку консультанта.
+        <br><strong>Исполнитель:</strong> инженер (правка компонента чата на сайте).
+      </div>
+    </div>
+  </div>
+
+  <div class="todo-row">
+    <div class="todo-num p1">2</div>
+    <div>
+      <div class="todo-title">🔴 Дожать единственного посетителя /ru/architects (4 возврата, 0 конверсий)</div>
+      <div class="todo-desc">
+        Один человек вернулся на страницу архитекторов 4 раза — явный горячий интерес. В CRM его нет (email не оставил). Нужен ретаргетинг: добавить на эту страницу более сильный CTA с конкретным предложением («пришлю подборку под ваш объект — укажите email»).
+        <br><strong>Исполнитель:</strong> marketer — обновить CTA на /ru/architects.
+      </div>
+    </div>
+  </div>
+
+  <div class="todo-row">
+    <div class="todo-num p2">3</div>
+    <div>
+      <div class="todo-title">🟡 Снизить отказы с 55.7% до ≤45%</div>
+      <div class="todo-desc">
+        Больше половины визитеров уходят с первого экрана. Причина: люди из email попадают на главную, а не на целевую страницу. Решение: в рассылках designer-bt менять ссылку с homeproject.online на /ru/page/designers напрямую. Для b2b-dealer → на /ru/store. Дать каждому сегменту свою посадочную.
+        <br><strong>Исполнитель:</strong> marketer — обновить UTM-ссылки в шаблонах.
+      </div>
+    </div>
+  </div>
+
+  <div class="todo-row">
+    <div class="todo-num p2">4</div>
+    <div>
+      <div class="todo-title">🟡 Добавить utm_content по блокам письма (hero / cta / footer)</div>
+      <div class="todo-desc">
+        Сейчас все 41 визит с email идут без разбивки — неизвестно из какого блока письма кликают. После внедрения utm_content поймём какой блок работает лучше и сможем оптимизировать шаблоны.
+        <br><strong>Исполнитель:</strong> marketer — обновить шаблоны в следующей волне.
+      </div>
+    </div>
+  </div>
+
+  <div class="todo-row">
+    <div class="todo-num p3">5</div>
+    <div>
+      <div class="todo-title">🔵 Настроить 3 новые цели в Метрике</div>
+      <div class="todo-desc">
+        Создать цели в кабинете Метрики: <strong>designer_portal_visit</strong> (посещение /ru/page/designers), <strong>store_visit</strong> (посещение /ru/store), <strong>brand_page_visit</strong> (посещение любого /ru/page/brand-*). Это даст baseline для отслеживания воронки по каждому сегменту.
+        <br><strong>Исполнитель:</strong> CEO — создать цели через Метрика API.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ТЕКУЩЕЕ СОСТОЯНИЕ СВОДКА -->
+<div class="grid3">
+  <div class="card">
+    <div class="card-title">Что работает ✅</div>
+    <div class="todo-row" style="padding:6px 0">
+      <div style="font-size:11px; color:#94a3b8; line-height:1.6">
+        ✅ Цель "Заявка на КП" — настроена и срабатывает (3 раза)<br>
+        ✅ Email → /page/designers: 44% трафика страницы<br>
+        ✅ Каталог /store: 29 просмотров, 22 уника<br>
+        ✅ BORA и Küppersbusch — интерес подтверждён<br>
+        ✅ 3 заявки за 30 дней при 122 визитах = 2.5%<br>
+        ✅ Телефон не кликают — и не нужно
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Что не видим ❌</div>
+    <div class="todo-row" style="padding:6px 0">
+      <div style="font-size:11px; color:#94a3b8; line-height:1.6">
+        ❌ Сколько раз открывали консультант Арию<br>
+        ❌ Сколько сообщений написали в чат<br>
+        ❌ Сколько email оставили внутри диалога<br>
+        ❌ Где в письме кликают (hero/cta/footer)<br>
+        ❌ Что смотрят внутри страницы дизайнеров<br>
+        ❌ Кто был тот 1 пользователь на /architects (4 возврата)
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Гипотезы для теста</div>
+    <div class="todo-row" style="padding:6px 0">
+      <div style="font-size:11px; color:#94a3b8; line-height:1.6">
+        🧪 Deep link в письмах → снизит отказы до 40%<br>
+        🧪 CTA «КП за 10 минут» → повысит kp_lead до 5+/мес<br>
+        🧪 Персонализация по бренду (BORA → письмо про BORA)<br>
+        🧪 Отдельный лендинг для архитекторов с формой<br>
+        🧪 Follow-up цепочка для повторных визитеров<br>
+        🧪 Кнопка «Запросить КП» прямо в карточке товара
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Home Project · Аналитика сайта 11.06–10.07.2026 · Яндекс.Метрика 110362997 · Счётчик активен с 29.06.2026
+</div>
+
+</body>
+</html>
