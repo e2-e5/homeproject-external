@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Email-аналитика — Home Project | 06–10.07.2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0f1117; color: #e7e9f0; font-family: -apple-system, 'Segoe UI', Inter, sans-serif; padding: 28px 32px; min-width: 900px; }
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+.header-left h1 { font-size: 22px; font-weight: 700; color: #fff; }
+.header-left .sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+.header-right { text-align: right; }
+.logo { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: .06em; }
+.logo-url { font-size: 11px; color: #475569; margin-top: 2px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 20px; }
+.kpi { background: #1a1d27; border: 1px solid #2a2d38; border-radius: 12px; padding: 16px 14px; }
+.kpi-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: .6px; font-weight: 600; }
+.kpi-val { font-size: 28px; font-weight: 800; margin: 6px 0 3px; }
+.kpi-sub { font-size: 11px; color: #94a3b8; }
+.funnel-wrap { background: #1a1d27; border: 1px solid #2a2d38; border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; }
+.funnel-title { font-size: 13px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 18px; }
+.funnel { display: flex; align-items: center; }
+.funnel-step { flex: 1; text-align: center; }
+.funnel-box { background: #13151b; border: 1px solid #2a2d38; border-radius: 10px; padding: 14px 8px; margin: 0 4px; }
+.funnel-icon { font-size: 20px; margin-bottom: 6px; }
+.funnel-num { font-size: 26px; font-weight: 800; }
+.funnel-name { font-size: 11px; color: #64748b; margin-top: 3px; font-weight: 600; }
+.funnel-pct { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+.funnel-arrow { color: #2a2d38; font-size: 24px; flex-shrink: 0; padding: 0 4px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.card { background: #1a1d27; border: 1px solid #2a2d38; border-radius: 12px; padding: 18px 20px; }
+.card-title { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { padding: 6px 10px; text-align: left; font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid #2a2d38; }
+td { padding: 7px 10px; border-bottom: 1px solid #13151b; }
+td.r { text-align: right; color: #94a3b8; font-variant-numeric: tabular-nums; }
+td.bold { font-weight: 700; color: #fff; }
+tr:last-child td { border-bottom: none; }
+tr.total { background: #13151b; }
+tr.total td { color: #fff; border-top: 1px solid #2a2d38; font-weight: 700; }
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 5px; font-size: 10px; font-weight: 700; }
+.bg-green { background: #14532d33; color: #4ade80; border: 1px solid #14532d; }
+.bg-red { background: #450a0a33; color: #f87171; border: 1px solid #7f1d1d; }
+.bg-yellow { background: #42200633; color: #fbbf24; border: 1px solid #78350f; }
+.bg-blue { background: #17255433; color: #93c5fd; border: 1px solid #1e3a5f; }
+canvas { max-height: 160px !important; }
+.note { background: #13151b; border-left: 3px solid #f59e0b; border-radius: 6px; padding: 10px 14px; font-size: 11px; color: #94a3b8; margin-top: 12px; line-height: 1.5; }
+.note.green { border-left-color: #22c55e; }
+.note.red { border-left-color: #ef4444; }
+.footer { margin-top: 28px; text-align: center; font-size: 11px; color: #334155; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>📧 Дашборд email-рассылок</h1>
+    <div class="sub">Период: 06.07 – 10.07.2026 &nbsp;·&nbsp; Источники: Unisender Classic + Go, Яндекс.Метрика (счётчик 110362997)</div>
+  </div>
+  <div class="header-right">
+    <div class="logo">HOME PROJECT</div>
+    <div class="logo-url">homeproject.online</div>
+  </div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi">
+    <div class="kpi-label">Отправлено</div>
+    <div class="kpi-val" style="color:#6366f1">794</div>
+    <div class="kpi-sub">5 кампаний + Go-батч</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Доставлено</div>
+    <div class="kpi-val" style="color:#22c55e">675</div>
+    <div class="kpi-sub">85% delivery rate</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Открыто</div>
+    <div class="kpi-val" style="color:#f59e0b">~150</div>
+    <div class="kpi-sub">22% open rate</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Визиты (Метрика)</div>
+    <div class="kpi-val" style="color:#06b6d4">41</div>
+    <div class="kpi-sub">34% всего трафика сайта</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Цели достигнуты</div>
+    <div class="kpi-val" style="color:#a855f7">3</div>
+    <div class="kpi-sub">конверсия 2.5%</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">FBL-жалобы</div>
+    <div class="kpi-val" style="color:#ef4444">1</div>
+    <div class="kpi-sub">Kitchen Studio → ПАУЗА</div>
+  </div>
+</div>
+
+<div class="funnel-wrap">
+  <div class="funnel-title">Полная воронка — от отправки до достижения цели</div>
+  <div class="funnel">
+    <div class="funnel-step">
+      <div class="funnel-box" style="border-color:#6366f1;">
+        <div class="funnel-icon">📤</div>
+        <div class="funnel-num" style="color:#6366f1">794</div>
+        <div class="funnel-name">Отправлено</div>
+        <div class="funnel-pct" style="color:#6366f1">100%</div>
+      </div>
+    </div>
+    <div class="funnel-arrow">›</div>
+    <div class="funnel-step">
+      <div class="funnel-box" style="border-color:#22c55e;">
+        <div class="funnel-icon">✅</div>
+        <div class="funnel-num" style="color:#22c55e">675</div>
+        <div class="funnel-name">Доставлено</div>
+        <div class="funnel-pct">85% от отпр.</div>
+      </div>
+    </div>
+    <div class="funnel-arrow">›</div>
+    <div class="funnel-step">
+      <div class="funnel-box" style="border-color:#f59e0b;">
+        <div class="funnel-icon">👁</div>
+        <div class="funnel-num" style="color:#f59e0b">~150</div>
+        <div class="funnel-name">Открыто</div>
+        <div class="funnel-pct">22% от доставл.</div>
+      </div>
+    </div>
+    <div class="funnel-arrow">›</div>
+    <div class="funnel-step">
+      <div class="funnel-box" style="border-color:#06b6d4;">
+        <div class="funnel-icon">🌐</div>
+        <div class="funnel-num" style="color:#06b6d4">41</div>
+        <div class="funnel-name">Визит на сайт</div>
+        <div class="funnel-pct">27% от открывших</div>
+      </div>
+    </div>
+    <div class="funnel-arrow">›</div>
+    <div class="funnel-step">
+      <div class="funnel-box" style="border-color:#a855f7;">
+        <div class="funnel-icon">🎯</div>
+        <div class="funnel-num" style="color:#a855f7">3</div>
+        <div class="funnel-name">Цель достигнута</div>
+        <div class="funnel-pct">2.5% от визитов</div>
+      </div>
+    </div>
+  </div>
+  <div class="note green" style="margin-top:16px">
+    💡 Конверсия отправлено → цель: <strong>0.4%</strong>. Для первых welcome-рассылок на холодную базу — в норме. Будет расти по мере прогрева базы и улучшения CTA.
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <div class="card-title">Кампании — детали (Unisender)</div>
+    <table>
+      <thead>
+        <tr><th>Сегмент</th><th class="r">Отпр.</th><th class="r">Дост.</th><th class="r">Open</th><th class="r">Клики</th><th class="r">Bounce</th><th>Статус</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Santech тест <span style="color:#475569;font-size:10px">06.07</span></td><td class="r">51</td><td class="r">47</td><td class="r">29.8%</td><td class="r">0</td><td class="r">8.5%</td><td><span class="badge bg-green">✓ OK</span></td></tr>
+        <tr><td>Designer BT <span style="color:#475569;font-size:10px">09.07</span></td><td class="r">100</td><td class="r">81</td><td class="r">29.6%</td><td class="r">1</td><td class="r">0%</td><td><span class="badge bg-green">✓ OK</span></td></tr>
+        <tr><td>Santech <span style="color:#475569;font-size:10px">10.07</span></td><td class="r">197</td><td class="r">174</td><td class="r">20.1%</td><td class="r">0</td><td class="r">0%</td><td><span class="badge bg-green">✓ OK</span></td></tr>
+        <tr><td>Kitchen Studio <span style="color:#475569;font-size:10px">10.07</span></td><td class="r">199</td><td class="r">157</td><td class="r">16.6%</td><td class="r">2</td><td class="r">1.9%</td><td><span class="badge bg-red">⏸ ПАУЗА</span></td></tr>
+        <tr><td>B2B Dealer <span style="color:#475569;font-size:10px">10.07</span></td><td class="r">197</td><td class="r">166</td><td class="r">24.1%</td><td class="r">1</td><td class="r">2.4%</td><td><span class="badge bg-green">✓ OK</span></td></tr>
+        <tr><td>Designer Premium Go <span style="color:#475569;font-size:10px">10.07</span></td><td class="r">50</td><td class="r">50</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td><span class="badge bg-blue">⏳ Ждём</span></td></tr>
+        <tr class="total"><td class="bold">ИТОГО</td><td class="r bold">794</td><td class="r bold">675</td><td class="r bold">~22%</td><td class="r bold">4</td><td class="r bold">~2%</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">UTM-переходы на сайт (Яндекс.Метрика)</div>
+    <table>
+      <thead><tr><th>Источник / Кампания</th><th class="r">Визиты</th><th class="r">%</th></tr></thead>
+      <tbody>
+        <tr><td>unisender / welcome-santech (10.07)</td><td class="r bold">13</td><td class="r">32%</td></tr>
+        <tr><td>unisender_classic / welcome_santech (06.07)</td><td class="r bold">11</td><td class="r">27%</td></tr>
+        <tr><td>unisender / welcome-b2b-dealer</td><td class="r bold">7</td><td class="r">17%</td></tr>
+        <tr><td>unisender / welcome-kitchen-studio</td><td class="r bold">6</td><td class="r">15%</td></tr>
+        <tr><td>unisender / welcome-designer-bt</td><td class="r bold">3</td><td class="r">7%</td></tr>
+        <tr><td>linkedin / day8_email_rules</td><td class="r">1</td><td class="r">2%</td></tr>
+        <tr class="total"><td class="bold">ИТОГО с email</td><td class="r bold">41</td><td class="r bold">100%</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Santech суммарно — 24 визита (58% email-трафика). Расхождение Unisender CTR (4 клика) vs Метрика (41 визит) — часть переходов идёт без клик-трекера (preview, forward).</div>
+  </div>
+</div>
+
+<div class="grid3">
+  <div class="card">
+    <div class="card-title">Поведение на сайте (7д)</div>
+    <table>
+      <thead><tr><th>Метрика</th><th class="r">Факт</th><th class="r">Норма</th></tr></thead>
+      <tbody>
+        <tr><td>Всего визитов</td><td class="r bold" style="color:#6366f1">122</td><td class="r">—</td></tr>
+        <tr><td>из них с email</td><td class="r bold" style="color:#22c55e">41 (34%)</td><td class="r">—</td></tr>
+        <tr><td>Уникальных</td><td class="r">95</td><td class="r">—</td></tr>
+        <tr><td>Просмотры страниц</td><td class="r">165</td><td class="r">—</td></tr>
+        <tr><td>Глубина (стр/визит)</td><td class="r" style="color:#fbbf24">1.4</td><td class="r">≥ 2.0</td></tr>
+        <tr><td>Отказы</td><td class="r" style="color:#fbbf24">55.7%</td><td class="r">≤ 50%</td></tr>
+        <tr><td>Среднее время</td><td class="r">1м 50с</td><td class="r">≥ 2м</td></tr>
+        <tr><td>Достижений цели</td><td class="r bold" style="color:#a855f7">3 (2.5%)</td><td class="r">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Топ страниц после перехода</div>
+    <table>
+      <thead><tr><th>Страница</th><th class="r">Просм.</th></tr></thead>
+      <tbody>
+        <tr><td>/ Главная</td><td class="r">54</td></tr>
+        <tr><td>/ru/store (Каталог)</td><td class="r bold">29</td></tr>
+        <tr><td>/ru/page/designers</td><td class="r">16</td></tr>
+        <tr><td>/ru/page/brand-liebherr</td><td class="r">9</td></tr>
+        <tr><td>/ru/page/vzug (V-ZUG)</td><td class="r">7</td></tr>
+        <tr><td>/ru/page/bora (BORA)</td><td class="r">6</td></tr>
+        <tr><td>/ru/page/about-us</td><td class="r">5</td></tr>
+        <tr><td>Küppersbusch (товарная)</td><td class="r">5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Источники трафика (7д)</div>
+    <canvas id="c-sources"></canvas>
+    <table style="margin-top:10px">
+      <tbody>
+        <tr><td>🟣 Прямой</td><td class="r">60 (49%)</td></tr>
+        <tr><td>🟢 Email</td><td class="r bold">41 (34%)</td></tr>
+        <tr><td>🟡 Ссылки</td><td class="r">10 (8%)</td></tr>
+        <tr><td>⚫ Поиск + проч.</td><td class="r">11 (9%)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="grid3">
+  <div class="card">
+    <div class="card-title">География (7д)</div>
+    <canvas id="c-geo"></canvas>
+    <table style="margin-top:10px">
+      <tbody>
+        <tr><td>🇷🇺 Москва</td><td class="r bold">53 (43%)</td></tr>
+        <tr><td>🇹🇷 Анталья</td><td class="r">8 (7%)</td></tr>
+        <tr><td>🇸🇬 Сингапур</td><td class="r">5 (4%)</td></tr>
+        <tr><td>🇷🇺 Красногорск</td><td class="r">3 (2%)</td></tr>
+        <tr><td>Другие</td><td class="r">53 (44%)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Бренды — интерес (просмотры)</div>
+    <canvas id="c-brands"></canvas>
+    <table style="margin-top:10px">
+      <tbody>
+        <tr><td>BORA</td><td class="r">6 просм.</td></tr>
+        <tr><td>Küppersbusch</td><td class="r">5 просм.</td></tr>
+        <tr><td>Fhiaba</td><td class="r">3 просм.</td></tr>
+        <tr><td>SKS</td><td class="r">1 просм.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚠️ Флаги и действия</div>
+    <table>
+      <tbody>
+        <tr><td style="padding:8px 10px; border-bottom:1px solid #13151b;">
+          <span class="badge bg-red">🚨 СТОП</span>
+          <div style="font-size:11px; margin-top:4px; color:#94a3b8">Kitchen Studio — FBL 0.64% (порог 0.1%). Пересмотреть шаблон и сегмент.</div>
+        </td></tr>
+        <tr><td style="padding:8px 10px; border-bottom:1px solid #13151b;">
+          <span class="badge bg-yellow">⚠️ НИЗКО</span>
+          <div style="font-size:11px; margin-top:4px; color:#94a3b8">Отказы 55.7% — усилить CTA на посадочной странице.</div>
+        </td></tr>
+        <tr><td style="padding:8px 10px; border-bottom:1px solid #13151b;">
+          <span class="badge bg-yellow">⚠️ НИЗКО</span>
+          <div style="font-size:11px; margin-top:4px; color:#94a3b8">Глубина 1.4 → добавить внутренние ссылки в письма (конкретный бренд / товар).</div>
+        </td></tr>
+        <tr><td style="padding:8px 10px;">
+          <span class="badge bg-blue">📋 ПЛАН</span>
+          <div style="font-size:11px; margin-top:4px; color:#94a3b8">Внедрить utm_content (hero/cta/footer) в след. волнах.</div>
+        </td></tr>
+      </tbody>
+    </table>
+    <div class="note green">✅ Open rate 22% — выше нормы b2b (15–25%). Email уже 34% трафика сайта за неделю.</div>
+  </div>
+</div>
+
+<div class="footer">
+  Home Project · Email-отчёт 06–10.07.2026 · Unisender API + Яндекс.Метрика 110362997
+</div>
+
+<script>
+Chart.defaults.color = '#64748b';
+new Chart(document.getElementById('c-sources'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Прямой (60)','Email (41)','Ссылки (10)','Поиск+проч (11)'],
+    datasets: [{ data: [60,41,10,11], backgroundColor: ['#6366f1','#22c55e','#f59e0b','#475569'], borderWidth: 0 }]
+  },
+  options: { cutout:'60%', plugins:{ legend:{ position:'bottom', labels:{ font:{size:10}, padding:6 } } }, responsive:true, maintainAspectRatio:false }
+});
+new Chart(document.getElementById('c-geo'), {
+  type: 'bar',
+  data: {
+    labels: ['Москва','Анталья','Сингапур','Красногорск'],
+    datasets: [{ data:[53,8,5,3], backgroundColor:['#6366f1','#22c55e','#f59e0b','#06b6d4'], borderRadius:5, borderWidth:0 }]
+  },
+  options: { plugins:{legend:{display:false}}, scales:{ x:{ticks:{font:{size:10}},grid:{display:false}}, y:{ticks:{font:{size:10}},grid:{color:'#1f2937'}} }, responsive:true, maintainAspectRatio:false }
+});
+new Chart(document.getElementById('c-brands'), {
+  type: 'bar',
+  data: {
+    labels: ['BORA','Küppersbusch','Fhiaba','SKS'],
+    datasets: [{ data:[6,5,3,1], backgroundColor:['#22c55e','#6366f1','#f59e0b','#06b6d4'], borderRadius:5, borderWidth:0 }]
+  },
+  options: { indexAxis:'y', plugins:{legend:{display:false}}, scales:{ x:{ticks:{font:{size:10}},grid:{color:'#1f2937'}}, y:{ticks:{font:{size:10}},grid:{display:false}} }, responsive:true, maintainAspectRatio:false }
+});
+</script>
+</body>
+</html>
