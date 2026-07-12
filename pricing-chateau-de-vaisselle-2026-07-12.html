@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>КП — Chateau de Vaisselle × HOMEPROJECT AI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d1117;--card:#1a1d27;--card2:#13151b;--border:#2a2d38;--text:#e2e8f0;--muted:#94a3b8;--dim:#475569;--accent:#6366f1;--al:#a5b4fc;--green:#22c55e;--gl:#4ade80;--yellow:#f59e0b;--yl:#fbbf24;--red:#ef4444;--rl:#f87171;--gold:#d97706}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'Inter','Helvetica Neue',sans-serif;font-size:15px;line-height:1.7}
+.nav{background:var(--card2);border-bottom:1px solid var(--border);padding:14px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-brand{font-size:13px;font-weight:800;color:#fff}
+.nav-sub{font-size:11px;color:var(--dim);margin-top:1px}
+.conf{background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px}
+.page{max-width:960px;margin:0 auto;padding:48px 32px 100px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a1d27,#13151b);border:1px solid var(--border);border-radius:16px;padding:44px 52px;margin-bottom:48px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:350px;height:350px;border-radius:50%;border:1px solid rgba(99,102,241,.08);right:-80px;top:-80px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.hero h1{font-size:30px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px}
+.hero h1 em{font-style:normal;color:var(--al)}
+.hero-date{font-size:13px;color:var(--dim);margin-bottom:32px}
+.hero-note{background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--al);line-height:1.6}
+
+/* SECTION */
+.section{margin-bottom:52px}
+.s-head{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.s-num{width:28px;height:28px;border-radius:50%;background:var(--card2);border:1px solid var(--accent);color:var(--al);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.s-title{font-size:18px;font-weight:800;color:#fff}
+.s-sub{font-size:13px;color:var(--dim);margin-left:4px;font-weight:400}
+
+/* LOGIC BLOCK */
+.logic{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px}
+.logic-title{font-size:13px;font-weight:700;color:var(--al);margin-bottom:12px}
+.logic-row{display:flex;gap:12px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;align-items:flex-start}
+.logic-row:last-child{border:none}
+.logic-key{color:var(--dim);min-width:200px;flex-shrink:0}
+.logic-val{color:var(--text)}
+.logic-val.accent{color:var(--al);font-weight:700}
+.logic-val.green{color:var(--gl);font-weight:700}
+.logic-val.yellow{color:var(--yl)}
+
+/* PACKAGES */
+.pkg-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:24px}
+.pkg{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;display:flex;flex-direction:column;position:relative}
+.pkg.featured{border-color:rgba(99,102,241,.5);background:#1e1f35}
+.pkg.featured::before{content:'★ РЕКОМЕНДУЕМ';position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:#6366f1;color:#fff;font-size:9px;font-weight:800;letter-spacing:.08em;padding:3px 14px;border-radius:0 0 8px 8px}
+.pkg-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:10px;margin-top:8px}
+.pkg-name{font-size:18px;font-weight:800;color:#fff;margin-bottom:6px}
+.pkg-desc{font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.pkg-price-block{margin-bottom:20px}
+.pkg-setup{font-size:12px;color:var(--dim);margin-bottom:4px}
+.pkg-price{font-size:28px;font-weight:900;color:#fff;line-height:1}
+.pkg-price span{font-size:14px;font-weight:500;color:var(--dim)}
+.pkg-pilot{font-size:11px;color:var(--gl);margin-top:5px}
+.pkg-divider{width:100%;height:1px;background:var(--border);margin:16px 0}
+.pkg-features{list-style:none;display:flex;flex-direction:column;gap:8px;flex:1}
+.pkg-features li{font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.pkg-features li::before{content:'✓';color:var(--gl);font-weight:700;flex-shrink:0;margin-top:1px}
+.pkg-features li.no::before{content:'—';color:var(--dim)}
+.pkg-cta{margin-top:20px;padding:10px;border-radius:8px;font-size:12px;font-weight:700;text-align:center;border:1px solid var(--border);color:var(--muted);cursor:default}
+.pkg.featured .pkg-cta{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ROI CALC */
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.roi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
+.roi-card.right{border-color:rgba(99,102,241,.3);background:#1e1f35}
+.roi-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:16px}
+.roi-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px}
+.roi-row:last-child{border:none;padding-top:14px;margin-top:8px;border-top:1px solid var(--border)}
+.roi-key{color:var(--muted)}
+.roi-val{font-weight:700;color:#fff}
+.roi-val.up{color:var(--gl)}
+.roi-val.big{font-size:22px;color:var(--al)}
+
+/* TABLE */
+.tw{overflow-x:auto;border-radius:10px;border:1px solid var(--border);margin-bottom:16px}
+table{width:100%;border-collapse:collapse}
+th{background:var(--card2);color:var(--muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+td{padding:10px 14px;border-bottom:1px solid var(--card2);font-size:13px;color:#cbd5e1;vertical-align:top}
+tr:last-child td{border:none}
+tr:hover td{background:#1f2333}
+.tb{font-weight:700;color:var(--text)}
+.tg{color:var(--gl);font-weight:700}
+.tr{color:var(--rl)}
+.ty{color:var(--yl)}
+.tp{color:var(--al);font-weight:700}
+
+/* BADGES */
+.b{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700}
+.bg{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.25)}
+.br{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.25)}
+.by{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.25)}
+.bb{background:rgba(99,102,241,.15);color:#a5b4fc;border:1px solid rgba(99,102,241,.25)}
+
+/* ALERT */
+.alert{border-radius:10px;padding:16px 20px;margin-bottom:12px;display:flex;gap:14px}
+.alert.blue{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2)}
+.alert.green{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2)}
+.alert.yellow{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2)}
+.alert-icon{font-size:18px;flex-shrink:0}
+.alert-title{font-size:13px;font-weight:800;margin-bottom:4px}
+.alert.blue .alert-title{color:var(--al)}
+.alert.green .alert-title{color:var(--gl)}
+.alert.yellow .alert-title{color:var(--yl)}
+.alert-text{font-size:13px;color:var(--muted)}
+
+/* SUPPLY DEAL */
+.supply{background:linear-gradient(135deg,#1a1d27,#0f1f15);border:1px solid rgba(34,197,94,.2);border-radius:14px;padding:28px;margin-bottom:20px}
+.supply-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:6px}
+.supply-sub{font-size:12px;color:var(--dim);margin-bottom:20px}
+.supply-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.supply-item{background:rgba(0,0,0,.2);border-radius:10px;padding:16px}
+.supply-brand{font-size:13px;font-weight:800;color:#fff;margin-bottom:4px}
+.supply-status{font-size:11px;color:var(--dim);margin-bottom:10px}
+.supply-check{font-size:12px;color:var(--gl);margin-top:4px}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:20px;padding-bottom:24px;position:relative}
+.tl-item:last-child{padding-bottom:0}
+.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:40px}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--al);flex-shrink:0;margin-top:5px}
+.tl-line{flex:1;width:2px;background:var(--border);margin-top:4px}
+.tl-item:last-child .tl-line{display:none}
+.tl-content{}
+.tl-week{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:4px}
+.tl-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.tl-desc{font-size:12px;color:var(--muted)}
+
+/* FOOTER */
+.footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end}
+.footer-logo{font-size:14px;font-weight:800;color:#fff;letter-spacing:.1em}
+.footer-meta{font-size:11px;color:var(--dim);text-align:right;line-height:1.6}
+
+@media(max-width:720px){
+  .pkg-grid{grid-template-columns:1fr}
+  .roi-grid{grid-template-columns:1fr}
+  .supply-grid{grid-template-columns:1fr}
+  .page{padding:24px 16px 60px}
+  .hero{padding:28px 20px}
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div>
+    <div class="nav-brand">HOMEPROJECT AI Platform — Ценовое предложение</div>
+    <div class="nav-sub">Для внутреннего использования · Подготовка к встрече 13.07.2026</div>
+  </div>
+  <div class="conf">ВНУТРЕННИЙ ДОКУМЕНТ</div>
+</div>
+
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Коммерческое предложение</div>
+  <h1>Chateau de Vaisselle<br>× <em>HOMEPROJECT AI</em></h1>
+  <div class="hero-date">Подготовлено 12.07.2026 · Для встречи 13.07.2026</div>
+  <div class="hero-note">
+    <strong>Стратегический контекст:</strong> Шато де Вэссель — потенциальный пилотный клиент Фазы 0. Цель: получить reference case в premium retail. Поэтому ценообразование предполагает <strong>скидку первого клиента</strong> и гибкость в структуре. Стандартные тарифы (2 900 / 5 900 / 9 900 ₽) — для МСБ. Шато — это Enterprise: 4 салона, 100+ брендов, 4 200+ SKU. Цена соответствующая.
+  </div>
+</div>
+
+<!-- 1. ЛОГИКА ЦЕНООБРАЗОВАНИЯ -->
+<div class="section">
+  <div class="s-head">
+    <div class="s-num">1</div>
+    <div class="s-title">Логика ценообразования <span class="s-sub">— почему не стандартные тарифы</span></div>
+  </div>
+
+  <div class="logic">
+    <div class="logic-title">Факторы, влияющие на цену для Шато</div>
+    <div class="logic-row"><span class="logic-key">Масштаб каталога</span><span class="logic-val yellow">6 000+ SKU всего / 2 500 техника — в 2.5× больше стандартного тарифа «Про»</span></div>
+    <div class="logic-row"><span class="logic-key">Количество брендов</span><span class="logic-val yellow">100+ брендов → сложность синхронизации прайсов и контента</span></div>
+    <div class="logic-row"><span class="logic-key">Физические точки</span><span class="logic-val yellow">4 салона → нужна интеграция онлайн ↔ офлайн (наличие, остатки)</span></div>
+    <div class="logic-row"><span class="logic-key">Целевой клиент партнёра</span><span class="logic-val accent">Premium B2B (архитекторы, дизайнеры) → выше LTV → оправдывает инвестицию</span></div>
+    <div class="logic-row"><span class="logic-key">Наш стратегический интерес</span><span class="logic-val green">Reference case → снижаем цену, компенсируем кейсом + рекомендацией</span></div>
+    <div class="logic-row"><span class="logic-key">Фаза 0 (пилот)</span><span class="logic-val green">Мы сами в фазе запуска → дополнительная скидка обоснована стратегически</span></div>
+    <div class="logic-row"><span class="logic-key">Аналог на рынке</span><span class="logic-val">NIKTA AI: от 50 000 ₽/мес. Bitrix24 Enterprise: 25 000–80 000 ₽/мес. Мы ниже при большей специализации.</span></div>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Компонент</th><th>Тип</th><th>Почему включаем</th></tr></thead>
+      <tbody>
+        <tr><td class="tb">Внедрение (setup fee)</td><td><span class="b by">Разовый</span></td><td>Миграция каталога, настройка AI, интеграции — 2–4 недели работы</td></tr>
+        <tr><td class="tb">Абонентская плата (SaaS)</td><td><span class="b bb">Ежемесячно</span></td><td>Платформа, агенты, поддержка, обновления — бессрочно</td></tr>
+        <tr><td class="tb">Поставка BORA / ILVE / Fhiaba</td><td><span class="b bg">Отдельно</span></td><td>Дистрибуция — мы поставщик, они продают. Не включается в IT-сделку.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 2. ПАКЕТЫ -->
+<div class="section">
+  <div class="s-head">
+    <div class="s-num">2</div>
+    <div class="s-title">Три варианта входа <span class="s-sub">— от пилота до трансформации</span></div>
+  </div>
+
+  <div class="pkg-grid">
+
+    <!-- ПАКЕТ А -->
+    <div class="pkg">
+      <div class="pkg-label">Пакет А · Быстрый старт</div>
+      <div class="pkg-name">AI-консультант</div>
+      <div class="pkg-desc">Минимальный риск. Их сайт не трогаем. Встраиваем AI-чат — клиент видит результат за 2 недели.</div>
+      <div class="pkg-price-block">
+        <div class="pkg-setup">Внедрение: <strong style="color:#fff">0 ₽</strong> (бесплатно)</div>
+        <div class="pkg-price">25 000 ₽<span>/мес</span></div>
+        <div class="pkg-pilot">▸ 30 дней бесплатного пилота</div>
+      </div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>AI-консультант на сайт (embed)</li>
+        <li>Подбор техники по параметрам 24/7</li>
+        <li>Ответы на технические вопросы</li>
+        <li>Передача лида менеджеру</li>
+        <li>Аналитика: сколько диалогов, топ-запросы</li>
+        <li class="no">Миграция каталога</li>
+        <li class="no">Автоматические КП</li>
+        <li class="no">Email-маркетинг</li>
+        <li class="no">SEO-оптимизация</li>
+      </ul>
+      <div class="pkg-cta">Начать пилот →</div>
+    </div>
+
+    <!-- ПАКЕТ Б (рекомендуем) -->
+    <div class="pkg featured">
+      <div class="pkg-label">Пакет Б · Платформа</div>
+      <div class="pkg-name">Полный стек</div>
+      <div class="pkg-desc">Оптимальный баланс: AI + автоматизация каталога + КП + email. Сайт OpenCart не меняем.</div>
+      <div class="pkg-price-block">
+        <div class="pkg-setup">Внедрение: <strong style="color:#fff">150 000 ₽</strong></div>
+        <div class="pkg-price">40 000 ₽<span>/мес</span></div>
+        <div class="pkg-pilot">▸ Первый месяц в подарок при оплате 6 мес.</div>
+      </div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>AI-консультант на сайте</li>
+        <li>Автоматические КП за 20 мин</li>
+        <li>Синхронизация каталога с поставщиками</li>
+        <li>Email-маркетинг для дизайнеров (Unisender)</li>
+        <li>Готовые шаблоны писем (welcome, бренд-спотлайты)</li>
+        <li>SEO: sitemap, мета-теги, schema.org</li>
+        <li>KPI-дашборд в реальном времени</li>
+        <li>CRM интеграция с базой дизайнеров</li>
+        <li>Исправление Gaggenau (цены «1 ₽»)</li>
+        <li>Поддержка: личный менеджер</li>
+      </ul>
+      <div class="pkg-cta">Рекомендуемый выбор</div>
+    </div>
+
+    <!-- ПАКЕТ В -->
+    <div class="pkg">
+      <div class="pkg-label">Пакет В · Трансформация</div>
+      <div class="pkg-name">Новый сайт + платформа</div>
+      <div class="pkg-desc">Максимальный результат. Новый сайт на Medusa + SEO с нуля + все инструменты. Их домен сохраняется.</div>
+      <div class="pkg-price-block">
+        <div class="pkg-setup">Внедрение: <strong style="color:#fff">от 350 000 ₽</strong></div>
+        <div class="pkg-price">55 000 ₽<span>/мес</span></div>
+        <div class="pkg-pilot">▸ Timeline: 6–10 недель до запуска</div>
+      </div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>Всё из пакета Б</li>
+        <li>Новый сайт на Medusa (homeproject.online стек)</li>
+        <li>Полная миграция каталога (6 000+ SKU)</li>
+        <li>301-редиректы для сохранения SEO</li>
+        <li>Sitemap / schema.org из коробки</li>
+        <li>Карточки товара: фото + PDF + видео</li>
+        <li>Интеграция кулинарной школы → ретаргетинг</li>
+        <li>B2B-кабинет для дизайнеров</li>
+        <li>White-label опция</li>
+      </ul>
+      <div class="pkg-cta">Обсудить отдельно →</div>
+    </div>
+
+  </div>
+
+  <div class="alert blue">
+    <div class="alert-icon">💡</div>
+    <div>
+      <div class="alert-title">Рекомендуемая тактика на встрече</div>
+      <div class="alert-text">Начать с Пакета А (пилот 30 дней бесплатно) — минимальный порог принятия решения. Параллельно вынести на стол Пакет Б как «что будет через 2 месяца». Пакет В — для следующей встречи после того, как AI-консультант покажет первые результаты. Дистрибуция BORA — на этой же встрече, независимо от IT-сделки.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. ЧТО ВХОДИТ В ВНЕДРЕНИЕ -->
+<div class="section">
+  <div class="s-head">
+    <div class="s-num">3</div>
+    <div class="s-title">Из чего складывается стоимость внедрения <span class="s-sub">— расшифровка</span></div>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Работа</th><th>Пакет А</th><th>Пакет Б</th><th>Пакет В</th><th>Оценка часов</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="tb">AI-консультант: настройка, обучение на каталоге, embed</td>
+          <td class="tg">✓</td><td class="tg">✓</td><td class="tg">✓</td>
+          <td>20–30 ч</td>
+        </tr>
+        <tr>
+          <td class="tb">SEO: sitemap, мета-теги, schema.org, 301-редиректы</td>
+          <td class="tr">—</td><td class="tg">✓</td><td class="tg">✓</td>
+          <td>10–15 ч</td>
+        </tr>
+        <tr>
+          <td class="tb">Email-маркетинг: настройка Unisender, 5 шаблонов писем</td>
+          <td class="tr">—</td><td class="tg">✓</td><td class="tg">✓</td>
+          <td>15–20 ч</td>
+        </tr>
+        <tr>
+          <td class="tb">Proposal-writer: интеграция с каталогом Шато</td>
+          <td class="tr">—</td><td class="tg">✓</td><td class="tg">✓</td>
+          <td>10–15 ч</td>
+        </tr>
+        <tr>
+          <td class="tb">Исправление цен Gaggenau (352 SKU)</td>
+          <td class="tr">—</td><td class="tg">✓</td><td class="tg">✓</td>
+          <td>3–5 ч</td>
+        </tr>
+        <tr>
+          <td class="tb">Аналитика: KPI-дашборд, интеграция Яндекс.Метрики</td>
+          <td class="tr">—</td><td class="tg">✓</td><td class="tg">✓</td>
+          <td>8–12 ч</td>
+        </tr>
+        <tr>
+          <td class="tb">Миграция каталога на Medusa (6 000+ SKU, 100+ брендов)</td>
+          <td class="tr">—</td><td class="tr">—</td><td class="tg">✓</td>
+          <td>80–120 ч</td>
+        </tr>
+        <tr>
+          <td class="tb">Дизайн и вёрстка нового сайта</td>
+          <td class="tr">—</td><td class="tr">—</td><td class="tg">✓</td>
+          <td>60–80 ч</td>
+        </tr>
+        <tr>
+          <td class="tb">Обучение команды Шато (2–3 сессии)</td>
+          <td class="tr">—</td><td class="tg">✓</td><td class="tg">✓</td>
+          <td>5–8 ч</td>
+        </tr>
+        <tr>
+          <td class="tb"><strong>Итого внедрение</strong></td>
+          <td><strong class="tg">0 ₽</strong></td>
+          <td><strong class="tg">150 000 ₽</strong></td>
+          <td><strong class="tg">350 000–500 000 ₽</strong></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert yellow">
+    <div class="alert-icon">⚠️</div>
+    <div>
+      <div class="alert-title">Обоснование скидки на внедрение</div>
+      <div class="alert-text">Рыночная ставка разработки: 3 000–5 000 ₽/час. Пакет Б (70–90 ч) по рынку стоит 210 000–450 000 ₽. Мы предлагаем 150 000 ₽ — скидка ~40% как пилотному клиенту. Взамен: право использовать Шато как публичный кейс + рекомендация в их партнёрской сети (архитекторы/дизайнеры — наша целевая аудитория).</div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. ROI ДЛЯ ШАТО -->
+<div class="section">
+  <div class="s-head">
+    <div class="s-num">4</div>
+    <div class="s-title">Расчёт ROI для Шато де Вэссель <span class="s-sub">— аргументы для встречи</span></div>
+  </div>
+
+  <div class="roi-grid">
+    <div class="roi-card">
+      <div class="roi-label">Базовые допущения (консервативно)</div>
+      <div class="roi-row"><span class="roi-key">Трафик сайта (оценка)</span><span class="roi-val">15 000–25 000 визитов/мес</span></div>
+      <div class="roi-row"><span class="roi-key">Текущая конверсия онлайн</span><span class="roi-val">~0.5–1% (OpenCart, нет чата)</span></div>
+      <div class="roi-row"><span class="roi-key">Средний чек техники</span><span class="roi-val">150 000–300 000 ₽</span></div>
+      <div class="roi-row"><span class="roi-key">SEO потенциал</span><span class="roi-val">+20 000–40 000 визитов/мес</span></div>
+      <div class="roi-row"><span class="roi-key">Стоимость Пакета Б (год)</span><span class="roi-val">150 000 + 40 000×12 = 630 000 ₽</span></div>
+    </div>
+
+    <div class="roi-card right">
+      <div class="roi-label">Эффект от внедрения (консервативно)</div>
+      <div class="roi-row"><span class="roi-key">AI-консультант: +0.5% конверсии</span><span class="roi-val up">+100 лидов/мес</span></div>
+      <div class="roi-row"><span class="roi-key">КП за 20 мин: закрываемость +10%</span><span class="roi-val up">+10 сделок/мес</span></div>
+      <div class="roi-row"><span class="roi-key">Email-маркетинг дизайнерам</span><span class="roi-val up">+3–5 сделок/мес</span></div>
+      <div class="roi-row"><span class="roi-key">SEO-рост через 3–6 мес.</span><span class="roi-val up">+20–40% органики</span></div>
+      <div class="roi-row">
+        <span class="roi-key"><strong>Доп. выручка (консерв.)</strong></span>
+        <span class="roi-val big">+1.5–3 млн ₽/мес</span>
+      </div>
+      <div class="roi-row"><span class="roi-key">Стоимость платформы за год</span><span class="roi-val">630 000 ₽</span></div>
+      <div class="roi-row"><span class="roi-key"><strong>ROI</strong></span><span class="roi-val up" style="font-size:18px">28–57×</span></div>
+    </div>
+  </div>
+
+  <div class="alert green">
+    <div class="alert-icon">✅</div>
+    <div>
+      <div class="alert-title">Ключевой тезис для встречи: «Менеджер по продажам стоит 100–150К ₽/мес. AI-консультант — 25–40К ₽/мес и работает 24/7»</div>
+      <div class="alert-text">Шато платит зарплату продавцам в салоне. Онлайн-канал без AI теряет клиентов ночью, в выходные, в ожидании ответа. AI-консультант — это продавец на сайте за 25–40К ₽/мес без выходных и болезней.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. ДИСТРИБУЦИЯ BORA/ILVE/FHIABA -->
+<div class="section">
+  <div class="s-head">
+    <div class="s-num">5</div>
+    <div class="s-title">Параллельная сделка: поставка брендов <span class="s-sub">— независимо от IT</span></div>
+  </div>
+
+  <div class="supply">
+    <div class="supply-title">BORA · ILVE · Fhiaba — 3 бренда из нашего портфеля, которых у них нет</div>
+    <div class="supply-sub">Это отдельный разговор от IT-платформы. Поставка через нашу дистрибуторскую сеть. Они продают — мы поставляем.</div>
+    <div class="supply-grid">
+      <div class="supply-item">
+        <div class="supply-brand">BORA</div>
+        <div class="supply-status">Статус у Шато: ❌ отсутствует полностью</div>
+        <div style="font-size:12px;color:var(--muted)">Встроенные вытяжки в варочную поверхность. Средний чек: 250 000–600 000 ₽. Конкурент Hausdorf уже продаёт.</div>
+        <div class="supply-check">✓ Мы — официальный дистрибутор BORA</div>
+      </div>
+      <div class="supply-item">
+        <div class="supply-brand">ILVE</div>
+        <div class="supply-status">Статус у Шато: ⚠️ страница без товаров</div>
+        <div style="font-size:12px;color:var(--muted)">Итальянские плиты ручной работы. Средний чек: 400 000–2 000 000 ₽. Идеально для их премиум-аудитории.</div>
+        <div class="supply-check">✓ Есть в нашем портфеле</div>
+      </div>
+      <div class="supply-item">
+        <div class="supply-brand">Fhiaba</div>
+        <div class="supply-status">Статус у Шато: ⚠️ страница без товаров</div>
+        <div style="font-size:12px;color:var(--muted)">Скандинавские встраиваемые холодильники. Средний чек: 500 000–3 000 000 ₽. Идеальный сегмент для Крокус Сити.</div>
+        <div class="supply-check">✓ Есть в нашем портфеле</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Параметр поставки</th><th>Условия</th></tr></thead>
+      <tbody>
+        <tr><td class="tb">Модель</td><td>Дистрибуция / агентская схема — обсуждается индивидуально</td></tr>
+        <tr><td class="tb">Логистика</td><td>Поставка под заказ (нет складской нагрузки для Шато)</td></tr>
+        <tr><td class="tb">Технические материалы</td><td>Передаём вместе с товарами: PDF, фото, видео, спецификации</td></tr>
+        <tr><td class="tb">Обучение продавцов</td><td>Проводим (входит в условия партнёрства)</td></tr>
+        <tr><td class="tb">Позиции на сайте</td><td>Можем помочь с наполнением карточек — особенно при Пакете Б/В</td></tr>
+        <tr><td class="tb">Синергия с IT-сделкой</td><td>При Пакете Б/В — подключаем бренды к AI-консультанту автоматически</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 6. TIMELINE -->
+<div class="section">
+  <div class="s-head">
+    <div class="s-num">6</div>
+    <div class="s-title">Дорожная карта <span class="s-sub">— если договоримся на встрече 13.07</span></div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-week">Неделя 1–2 (июль)</div>
+        <div class="tl-title">Быстрый старт: AI-консультант на сайте</div>
+        <div class="tl-desc">Встраиваем чат на chateaudevaisselle.com. Обучаем на их каталоге техники. Первые диалоги с клиентами — через 3–5 дней после решения. Бесплатный пилот — 30 дней.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-week">Неделя 2–3 (июль)</div>
+        <div class="tl-title">SEO: sitemap + исправление Gaggenau</div>
+        <div class="tl-desc">Настраиваем sitemap.xml, мета-теги, schema.org для товаров. Исправляем баг с ценами Gaggenau (1 ₽). Первые страницы начнут индексироваться.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-week">Неделя 3–4 (июль)</div>
+        <div class="tl-title">Email-маркетинг + BORA в каталог</div>
+        <div class="tl-desc">Настраиваем рассылки для дизайнеров. Первая кампания «BORA теперь доступна в Шато» — анонс нового бренда по базе их клиентов. BORA начинает продаваться.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-week">Неделя 4–6 (август)</div>
+        <div class="tl-title">КП за 20 минут + дашборд</div>
+        <div class="tl-desc">Proposal-writer агент интегрирован с их каталогом. KPI-дашборд показывает трафик, конверсию, диалоги AI, отправленные КП — в реальном времени.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot" style="background:var(--gl);border-color:var(--gl)"></div></div>
+      <div class="tl-content">
+        <div class="tl-week">Месяц 2–3 (август–сентябрь)</div>
+        <div class="tl-title">Итоги пилота → решение по Пакету В</div>
+        <div class="tl-desc">Показываем цифры: сколько диалогов, сколько КП, динамика SEO, результаты рассылок. На основе данных — предлагаем миграцию на Medusa или продолжение на OpenCart.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. ИТОГ -->
+<div class="section">
+  <div class="s-head">
+    <div class="s-num">7</div>
+    <div class="s-title">Итоговая таблица предложений</div>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead>
+        <tr>
+          <th>Параметр</th>
+          <th>А — AI-консультант</th>
+          <th style="background:rgba(99,102,241,.1)">Б — Платформа ⭐</th>
+          <th>В — Трансформация</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="tb">Внедрение (разово)</td><td class="tg">0 ₽</td><td class="tp" style="background:rgba(99,102,241,.05)">150 000 ₽</td><td>350 000–500 000 ₽</td></tr>
+        <tr><td class="tb">Абонплата</td><td>25 000 ₽/мес</td><td class="tp" style="background:rgba(99,102,241,.05)">40 000 ₽/мес</td><td>55 000 ₽/мес</td></tr>
+        <tr><td class="tb">Стоимость за год</td><td>300 000 ₽</td><td class="tp" style="background:rgba(99,102,241,.05)">630 000 ₽</td><td>~1 010 000 ₽</td></tr>
+        <tr><td class="tb">Срок запуска</td><td class="tg">1–2 недели</td><td style="background:rgba(99,102,241,.05)">3–4 недели</td><td>6–10 недель</td></tr>
+        <tr><td class="tb">Риск для клиента</td><td class="tg">Минимальный</td><td style="background:rgba(99,102,241,.05)">Низкий</td><td>Средний</td></tr>
+        <tr><td class="tb">AI-консультант 24/7</td><td class="tg">✓</td><td class="tg" style="background:rgba(99,102,241,.05)">✓</td><td class="tg">✓</td></tr>
+        <tr><td class="tb">SEO-оптимизация</td><td class="tr">—</td><td class="tg" style="background:rgba(99,102,241,.05)">✓ (текущий сайт)</td><td class="tg">✓ (с нуля)</td></tr>
+        <tr><td class="tb">Email-маркетинг</td><td class="tr">—</td><td class="tg" style="background:rgba(99,102,241,.05)">✓</td><td class="tg">✓</td></tr>
+        <tr><td class="tb">Автоматические КП</td><td class="tr">—</td><td class="tg" style="background:rgba(99,102,241,.05)">✓</td><td class="tg">✓</td></tr>
+        <tr><td class="tb">Новый сайт</td><td class="tr">—</td><td class="tr" style="background:rgba(99,102,241,.05)">—</td><td class="tg">✓ Medusa</td></tr>
+        <tr><td class="tb">Поставка BORA/ILVE/Fhiaba</td><td class="tp">Отдельно</td><td class="tp" style="background:rgba(99,102,241,.05)">Отдельно</td><td class="tp">Отдельно</td></tr>
+        <tr><td class="tb">Рекомендация</td><td><span class="b by">Пилот →</span></td><td style="background:rgba(99,102,241,.05)"><span class="b bb">⭐ Целевой</span></td><td><span class="b" style="background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border)">После пилота</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-logo">HOME PROJECT</div>
+    <div class="footer-meta" style="margin-top:3px;color:var(--dim);font-size:11px">homeproject.online · info@homeproject.online</div>
+  </div>
+  <div class="footer-meta">
+    Внутренний документ · Подготовлен AI-агентом HOMEPROJECT · 12.07.2026<br>
+    Цены — стартовая позиция для переговоров. Финальные условия согласовываются индивидуально.<br>
+    ROI — расчёт на основе отраслевых бенчмарков, требует уточнения данных Метрики клиента.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
