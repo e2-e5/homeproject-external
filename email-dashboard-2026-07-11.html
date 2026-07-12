@@ -3,416 +3,407 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Email-аналитика — Home Project | 06–11.07.2026</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<meta name="robots" content="noindex">
+<title>Email Dashboard — A/B тест July 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #0f1117; color: #e7e9f0; font-family: -apple-system, 'Segoe UI', Inter, sans-serif; padding: 28px 32px; min-width: 900px; }
-
-.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
-.header-left h1 { font-size: 22px; font-weight: 700; color: #fff; }
-.header-left .sub { font-size: 12px; color: #64748b; margin-top: 4px; }
-.header-right { text-align: right; }
-.logo { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: .06em; }
-.logo-url { font-size: 11px; color: #475569; margin-top: 2px; }
-
-.kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 20px; }
-.kpi { background: #1a1d27; border: 1px solid #2a2d38; border-radius: 12px; padding: 16px 14px; }
-.kpi-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: .6px; font-weight: 600; }
-.kpi-val { font-size: 28px; font-weight: 800; margin: 6px 0 3px; }
-.kpi-sub { font-size: 11px; color: #94a3b8; }
-
-.funnel-wrap { background: #1a1d27; border: 1px solid #2a2d38; border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; }
-.funnel-title { font-size: 13px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 18px; }
-.funnel { display: flex; align-items: center; gap: 0; }
-.funnel-step { flex: 1; text-align: center; }
-.funnel-box { background: #13151b; border: 1px solid #2a2d38; border-radius: 10px; padding: 14px 8px; margin: 0 4px; position: relative; }
-.funnel-icon { font-size: 20px; margin-bottom: 6px; }
-.funnel-num { font-size: 26px; font-weight: 800; }
-.funnel-name { font-size: 11px; color: #64748b; margin-top: 3px; font-weight: 600; }
-.funnel-pct { font-size: 11px; color: #4ade80; margin-top: 2px; }
-.funnel-arrow { color: #2a2d38; font-size: 24px; flex-shrink: 0; padding: 0 2px; }
-
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.card { background: #1a1d27; border: 1px solid #2a2d38; border-radius: 12px; padding: 18px 20px; }
-.card-title { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 14px; }
-
-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-th { padding: 6px 10px; text-align: left; font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid #2a2d38; }
-td { padding: 7px 10px; border-bottom: 1px solid #13151b; }
-td.r { text-align: right; color: #94a3b8; font-variant-numeric: tabular-nums; }
-td.bold { font-weight: 700; color: #fff; }
-tr:last-child td { border-bottom: none; }
-tr.total { background: #13151b; font-weight: 700; }
-tr.total td { color: #fff; border-top: 1px solid #2a2d38; }
-tr.new-day { background: #13233a; }
-tr.new-day td { color: #93c5fd; }
-
-.badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 5px; font-size: 10px; font-weight: 700; }
-.bg-green { background: #14532d33; color: #4ade80; border: 1px solid #14532d; }
-.bg-red { background: #450a0a33; color: #f87171; border: 1px solid #7f1d1d; }
-.bg-yellow { background: #42200633; color: #fbbf24; border: 1px solid #78350f; }
-.bg-blue { background: #17255433; color: #93c5fd; border: 1px solid #1e3a5f; }
-.bg-orange { background: #431a0033; color: #fb923c; border: 1px solid #7c2d12; }
-
-.note { background: #13151b; border-left: 3px solid #f59e0b; border-radius: 6px; padding: 10px 14px; font-size: 11px; color: #94a3b8; margin-top: 12px; line-height: 1.5; }
-.note.green { border-left-color: #22c55e; }
-.note.red { border-left-color: #ef4444; }
-.note.blue { border-left-color: #3b82f6; }
-
-.section-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0 16px; }
-.section-divider span { font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
-.section-divider::before, .section-divider::after { content: ''; flex: 1; height: 1px; background: #2a2d38; }
-
-canvas { max-height: 160px !important; }
-
-.ab-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 16px; }
-.ab-card { background: #13151b; border: 1px solid #2a2d38; border-radius: 10px; padding: 14px 12px; }
-.ab-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: .6px; font-weight: 700; margin-bottom: 6px; }
-.ab-val { font-size: 22px; font-weight: 800; }
-.ab-sub { font-size: 10px; color: #475569; margin-top: 3px; }
-.ab-subject { font-size: 10px; color: #94a3b8; margin-top: 6px; line-height: 1.4; border-top: 1px solid #2a2d38; padding-top: 6px; }
-
-.footer { margin-top: 28px; text-align: center; font-size: 11px; color: #334155; }
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d1117;--card:#1a1d27;--card2:#13151b;--border:#2a2d38;--text:#e2e8f0;--muted:#94a3b8;--dim:#475569;--accent:#6366f1;--al:#a5b4fc;--green:#22c55e;--gl:#4ade80;--yellow:#f59e0b;--yl:#fbbf24;--red:#ef4444;--rl:#f87171}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'Inter','Helvetica Neue',sans-serif;font-size:14px;line-height:1.6}
+.nav{background:var(--card2);border-bottom:1px solid var(--border);padding:12px 32px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-size:13px;font-weight:800;color:#fff}
+.nav-sub{font-size:11px;color:var(--dim);margin-top:1px}
+.upd{font-size:10px;color:var(--gl);background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.2);padding:3px 10px;border-radius:20px;font-weight:700}
+.page{max-width:1040px;margin:0 auto;padding:36px 28px 80px}
+.hero{background:linear-gradient(135deg,#1a1d27,#13151b);border:1px solid var(--border);border-radius:14px;padding:32px 40px;margin-bottom:32px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;border:1px solid rgba(99,102,241,.08);right:-60px;top:-60px}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.hero h1{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px}
+.hero-meta{font-size:12px;color:var(--dim);margin-bottom:24px}
+.kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.kpi{padding:16px 14px;border-right:1px solid var(--border);background:var(--card2);text-align:center}
+.kpi:last-child{border-right:none}
+.kpi-val{font-size:22px;font-weight:800;color:#fff;line-height:1}
+.kpi-val.green{color:var(--gl)}
+.kpi-val.yellow{color:var(--yl)}
+.kpi-val.red{color:var(--rl)}
+.kpi-val.blue{color:var(--al)}
+.kpi-label{font-size:10px;color:var(--dim);margin-top:4px;line-height:1.3}
+.section{margin-bottom:36px}
+.s-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.chart-wrap{position:relative;height:220px}
+.tw{overflow-x:auto;border-radius:10px;border:1px solid var(--border);margin-bottom:12px}
+table{width:100%;border-collapse:collapse}
+th{background:var(--card2);color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border)}
+td{padding:9px 12px;border-bottom:1px solid var(--card2);font-size:12px;color:#cbd5e1;vertical-align:middle}
+tr:last-child td{border:none}
+tr:hover td{background:#1f2333}
+.tb{font-weight:700;color:var(--text)}
+.tg{color:var(--gl);font-weight:700}
+.tr{color:var(--rl)}
+.ty{color:var(--yl)}
+.tp{color:var(--al);font-weight:700}
+.b{display:inline-flex;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.bg{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.25)}
+.br{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.25)}
+.by{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.25)}
+.bb{background:rgba(99,102,241,.15);color:#a5b4fc;border:1px solid rgba(99,102,241,.25)}
+.alert{border-radius:10px;padding:14px 18px;margin-bottom:12px;display:flex;gap:12px;font-size:12px}
+.alert.yellow{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:var(--yl)}
+.alert.red{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--rl)}
+.alert.green{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--gl)}
+.alert-icon{flex-shrink:0;font-size:16px}
+.alert-body{color:var(--muted);line-height:1.5}
+.alert-body strong{color:#fff}
+.footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--dim)}
+@media(max-width:720px){
+  .kpi-row{grid-template-columns:repeat(3,1fr)}
+  .g2,.g3{grid-template-columns:1fr}
+  .page{padding:20px 14px 60px}
+}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-left">
-    <h1>📧 Дашборд email-рассылок</h1>
-    <div class="sub">Период: 06.07 – 11.07.2026 &nbsp;·&nbsp; Источники: Unisender Classic + Go, Яндекс.Метрика (счётчик 110362997) &nbsp;·&nbsp; <span style="color:#f87171">⚠️ Webhook 404 — open/click по 11.07 не собираются</span></div>
+<div class="nav">
+  <div>
+    <div class="nav-brand">HOMEPROJECT — Email A/B Dashboard</div>
+    <div class="nav-sub">Рассылка 11–12.07.2026 · Дизайнеры и архитекторы</div>
   </div>
-  <div class="header-right">
-    <div class="logo">HOME PROJECT</div>
-    <div class="logo-url">homeproject.online</div>
+  <div class="upd">Обновлено 12.07.2026 · v3</div>
+</div>
+
+<div class="page">
+
+<!-- HERO KPI -->
+<div class="hero">
+  <div class="hero-eyebrow">A/B тест welcome-серии · 5 вариантов × 150 получателей</div>
+  <h1>Итог рассылки — 746 из 750 доставлено</h1>
+  <div class="hero-meta">Сегмент: дизайнеры premium + bt + общий · Платформа: Unisender Go · Домен: info@homeproject.online</div>
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-val green">746</div>
+      <div class="kpi-label">Отправлено успешно</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val green">99.5%</div>
+      <div class="kpi-label">Охват базы</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val red">4</div>
+      <div class="kpi-label">Permanent unavailable</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val blue">5</div>
+      <div class="kpi-label">Вариантов теста</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val yellow">n/a</div>
+      <div class="kpi-label">Open rate (webhook ⚠️)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val yellow">n/a</div>
+      <div class="kpi-label">Click rate (webhook ⚠️)</div>
+    </div>
   </div>
 </div>
 
-<div class="kpi-grid">
-  <div class="kpi">
-    <div class="kpi-label">Отправлено</div>
-    <div class="kpi-val" style="color:#6366f1">1 264</div>
-    <div class="kpi-sub">6 кампаний + A/B тест (11.07)</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Доставлено</div>
-    <div class="kpi-val" style="color:#22c55e">675+</div>
-    <div class="kpi-sub">данные 11.07 ждут webhook</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Открыто</div>
-    <div class="kpi-val" style="color:#f59e0b">~150</div>
-    <div class="kpi-sub">22% (только по 06–10.07)</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Визиты (Метрика)</div>
-    <div class="kpi-val" style="color:#06b6d4">41</div>
-    <div class="kpi-sub">34% всего трафика сайта</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Цели достигнуты</div>
-    <div class="kpi-val" style="color:#a855f7">3</div>
-    <div class="kpi-sub">конверсия 2.5%</div>
-  </div>
-  <div class="kpi" style="border-color:#7c2d12">
-    <div class="kpi-label" style="color:#fb923c">Отклонено (лимит)</div>
-    <div class="kpi-val" style="color:#fb923c">280</div>
-    <div class="kpi-sub">D+E упали на limit=500</div>
-  </div>
-</div>
+<!-- ОТПРАВКА ПО ВАРИАНТАМ -->
+<div class="section">
+  <div class="s-title">Результаты по вариантам</div>
 
-<div class="funnel-wrap">
-  <div class="funnel-title">Полная воронка — от отправки до достижения цели (06–10.07, без 11.07)</div>
-  <div class="funnel">
-    <div class="funnel-step">
-      <div class="funnel-box" style="border-color:#6366f1;">
-        <div class="funnel-icon">📤</div>
-        <div class="funnel-num" style="color:#6366f1">794</div>
-        <div class="funnel-name">Отправлено</div>
-        <div class="funnel-pct" style="color:#6366f1">100%</div>
+  <div class="g2">
+    <div class="card">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:14px">Отправлено по вариантам</div>
+      <div class="chart-wrap">
+        <canvas id="chartSent"></canvas>
       </div>
     </div>
-    <div class="funnel-arrow">›</div>
-    <div class="funnel-step">
-      <div class="funnel-box" style="border-color:#22c55e;">
-        <div class="funnel-icon">✅</div>
-        <div class="funnel-num" style="color:#22c55e">675</div>
-        <div class="funnel-name">Доставлено</div>
-        <div class="funnel-pct">85%</div>
-      </div>
-    </div>
-    <div class="funnel-arrow">›</div>
-    <div class="funnel-step">
-      <div class="funnel-box" style="border-color:#f59e0b;">
-        <div class="funnel-icon">👁</div>
-        <div class="funnel-num" style="color:#f59e0b">~150</div>
-        <div class="funnel-name">Открыто</div>
-        <div class="funnel-pct">22% от доставл.</div>
-      </div>
-    </div>
-    <div class="funnel-arrow">›</div>
-    <div class="funnel-step">
-      <div class="funnel-box" style="border-color:#06b6d4;">
-        <div class="funnel-icon">🖱</div>
-        <div class="funnel-num" style="color:#06b6d4">41</div>
-        <div class="funnel-name">Визит на сайт</div>
-        <div class="funnel-pct">27% от открывших</div>
-      </div>
-    </div>
-    <div class="funnel-arrow">›</div>
-    <div class="funnel-step">
-      <div class="funnel-box" style="border-color:#a855f7;">
-        <div class="funnel-icon">🎯</div>
-        <div class="funnel-num" style="color:#a855f7">3</div>
-        <div class="funnel-name">Цель достигнута</div>
-        <div class="funnel-pct">2.5% от визитов</div>
+    <div class="card">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:14px">Хронология отправки</div>
+      <div class="chart-wrap">
+        <canvas id="chartTimeline"></canvas>
       </div>
     </div>
   </div>
-  <div class="note blue" style="margin-top:16px">
-    📋 Воронка по 11.07 (470 писем A/B/C + 20 D/E пилот) будет обновлена после починки webhook. Текущие данные — только 06–10.07.
-  </div>
-</div>
 
-<div class="section-divider"><span>A/B тест — 11.07.2026 · Дизайнеры и архитекторы</span></div>
-
-<div class="ab-grid">
-  <div class="ab-card" style="border-color:#4ade8066">
-    <div class="ab-label" style="color:#4ade80">Вариант A ✓</div>
-    <div class="ab-val" style="color:#4ade80">150</div>
-    <div class="ab-sub">писем отправлено</div>
-    <div style="margin-top:6px"><span class="badge bg-green">sent</span></div>
-    <div class="ab-subject">КП за 20 секунд. 14 брендов.<br>From: Андрей Ботьев — Home Project</div>
-  </div>
-  <div class="ab-card" style="border-color:#4ade8066">
-    <div class="ab-label" style="color:#4ade80">Вариант B ✓</div>
-    <div class="ab-val" style="color:#4ade80">150</div>
-    <div class="ab-sub">писем отправлено</div>
-    <div style="margin-top:6px"><span class="badge bg-green">sent</span></div>
-    <div class="ab-subject">Техника как часть замысла. 14 брендов.<br>From: Home Project</div>
-  </div>
-  <div class="ab-card" style="border-color:#4ade8066">
-    <div class="ab-label" style="color:#4ade80">Вариант C ✓</div>
-    <div class="ab-val" style="color:#4ade80">150</div>
-    <div class="ab-sub">писем отправлено</div>
-    <div style="margin-top:6px"><span class="badge bg-green">sent</span></div>
-    <div class="ab-subject">V-ZUG, Fhiaba, Schulthess в Москве.<br>From: Андрей Ботьев — Home Project</div>
-  </div>
-  <div class="ab-card" style="border-color:#fb923c66">
-    <div class="ab-label" style="color:#fb923c">Вариант D ⚠️</div>
-    <div class="ab-val" style="color:#fb923c">10</div>
-    <div class="ab-sub">из 150 отправлено</div>
-    <div style="margin-top:6px"><span class="badge bg-orange">140 отклонено</span></div>
-    <div class="ab-subject">Добро пожаловать в клуб партнёров.<br>From: Команда Home Project</div>
-  </div>
-  <div class="ab-card" style="border-color:#fb923c66">
-    <div class="ab-label" style="color:#fb923c">Вариант E ⚠️</div>
-    <div class="ab-val" style="color:#fb923c">10</div>
-    <div class="ab-sub">из 150 отправлено</div>
-    <div style="margin-top:6px"><span class="badge bg-orange">140 отклонено</span></div>
-    <div class="ab-subject">Честно про поставщиков техники. Без глянца.<br>From: Андрей Ботьев — Home Project</div>
-  </div>
-</div>
-
-<div class="card" style="margin-bottom:16px">
-  <div class="card-title">A/B тест — итоговая таблица (11.07)</div>
-  <table>
-    <thead>
-      <tr><th>Вариант</th><th>Тема письма</th><th class="r">Запланир.</th><th class="r">Отправлено</th><th class="r">Отклонено</th><th class="r">Open</th><th class="r">Клики</th><th>Статус</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="bold">A</td><td>КП за 20 секунд. 14 брендов. AI-консультант</td>
-        <td class="r">150</td><td class="r bold" style="color:#4ade80">150</td><td class="r">0</td>
-        <td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td>
-        <td><span class="badge bg-blue">⏳ Ждём webhook</span></td>
-      </tr>
-      <tr>
-        <td class="bold">B</td><td>Техника как часть замысла. 14 брендов</td>
-        <td class="r">150</td><td class="r bold" style="color:#4ade80">150</td><td class="r">0</td>
-        <td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td>
-        <td><span class="badge bg-blue">⏳ Ждём webhook</span></td>
-      </tr>
-      <tr>
-        <td class="bold">C</td><td>V-ZUG, Fhiaba, Schulthess в Москве</td>
-        <td class="r">150</td><td class="r bold" style="color:#4ade80">150</td><td class="r">0</td>
-        <td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td>
-        <td><span class="badge bg-blue">⏳ Ждём webhook</span></td>
-      </tr>
-      <tr>
-        <td class="bold" style="color:#fb923c">D</td><td>Добро пожаловать в клуб партнёров</td>
-        <td class="r">150</td><td class="r bold" style="color:#fb923c">10</td><td class="r" style="color:#f87171">140</td>
-        <td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td>
-        <td><span class="badge bg-orange">⚠️ Лимит 500</span></td>
-      </tr>
-      <tr>
-        <td class="bold" style="color:#fb923c">E</td><td>Честно про поставщиков. Без глянца</td>
-        <td class="r">150</td><td class="r bold" style="color:#fb923c">10</td><td class="r" style="color:#f87171">140</td>
-        <td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td>
-        <td><span class="badge bg-orange">⚠️ Лимит 500</span></td>
-      </tr>
-      <tr class="total">
-        <td colspan="2" class="bold">ИТОГО 11.07</td>
-        <td class="r bold">750</td><td class="r bold" style="color:#4ade80">470</td><td class="r bold" style="color:#f87171">280</td>
-        <td class="r">—</td><td class="r">—</td><td></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="note" style="margin-top:12px">⚡ D и E упали на суточном лимите Unisender (500/сутки). Досылка 280 писем запланирована на 12.07 утром.</div>
-  <div class="note red" style="margin-top:8px">🔴 Open/Click по 11.07 не собираются: webhook возвращает 404. Задача инженеру создана. После починки Unisender ретранслирует события за последние 24ч.</div>
-</div>
-
-<div class="section-divider"><span>Все кампании — 06–10.07.2026</span></div>
-
-<div class="grid2">
-  <div class="card">
-    <div class="card-title">Кампании — детали (Unisender)</div>
+  <div class="tw" style="margin-top:16px">
     <table>
-      <thead><tr><th>Сегмент</th><th class="r">Отпр.</th><th class="r">Дост.</th><th class="r">Open</th><th class="r">Клики</th><th class="r">Bounce</th><th>Статус</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Вариант</th>
+          <th>Тема письма</th>
+          <th>Отправитель</th>
+          <th>Отправлено</th>
+          <th>Ошибок</th>
+          <th>Дата</th>
+          <th>Статус</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td>Santech тест <span style="color:#475569;font-size:10px">06.07</span></td><td class="r">51</td><td class="r">47</td><td class="r">29.8%</td><td class="r">0</td><td class="r" style="color:#fbbf24">8.5%</td><td><span class="badge bg-green">✓ OK</span></td></tr>
-        <tr><td>Designer BT <span style="color:#475569;font-size:10px">09.07</span></td><td class="r">100</td><td class="r">81</td><td class="r">29.6%</td><td class="r">1</td><td class="r">0%</td><td><span class="badge bg-green">✓ OK</span></td></tr>
-        <tr><td>Santech <span style="color:#475569;font-size:10px">10.07</span></td><td class="r">197</td><td class="r">174</td><td class="r">20.1%</td><td class="r">0</td><td class="r">0%</td><td><span class="badge bg-green">✓ OK</span></td></tr>
-        <tr><td>Kitchen Studio <span style="color:#475569;font-size:10px">10.07</span></td><td class="r">199</td><td class="r">157</td><td class="r">16.6%</td><td class="r">2</td><td class="r">1.9%</td><td><span class="badge bg-red">⏸ ПАУЗА</span></td></tr>
-        <tr><td>B2B Dealer <span style="color:#475569;font-size:10px">10.07</span></td><td class="r">197</td><td class="r">166</td><td class="r">24.1%</td><td class="r">1</td><td class="r">2.4%</td><td><span class="badge bg-green">✓ OK</span></td></tr>
-        <tr><td>Designer Premium Go <span style="color:#475569;font-size:10px">10.07</span></td><td class="r">50</td><td class="r">50</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td><span class="badge bg-blue">⏳ Ждём</span></td></tr>
-        <tr class="total"><td class="bold">ИТОГО 06–10.07</td><td class="r bold">794</td><td class="r bold">675</td><td class="r bold">~22%</td><td class="r bold">4</td><td class="r bold">~2%</td><td></td></tr>
-        <tr class="new-day"><td colspan="7" style="padding:6px 10px; font-size:10px; color:#60a5fa; font-weight:700;">▼ A/B ТЕСТ ДИЗАЙНЕРЫ — 11.07.2026 (open/click ждут webhook)</td></tr>
-        <tr class="new-day"><td>A/B тест A+B+C <span style="color:#3b82f6;font-size:10px">11.07</span></td><td class="r bold" style="color:#93c5fd">450</td><td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td><td><span class="badge bg-blue">⏳ Webhook</span></td></tr>
-        <tr class="new-day"><td>A/B тест D+E пилот <span style="color:#fb923c;font-size:10px">11.07</span></td><td class="r bold" style="color:#fb923c">20</td><td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td><td class="r" style="color:#475569">—</td><td><span class="badge bg-orange">⚠️ Лимит</span></td></tr>
-        <tr class="total"><td class="bold">ИТОГО за весь период</td><td class="r bold" style="color:#6366f1">1 264</td><td class="r bold">675+</td><td class="r bold">~22%*</td><td class="r bold">4+</td><td class="r bold">~2%*</td><td></td></tr>
-      </tbody>
-    </table>
-    <div style="font-size:10px;color:#475569;margin-top:8px">* только по 06–10.07</div>
-  </div>
-  <div class="card">
-    <div class="card-title">UTM-переходы на сайт (Яндекс.Метрика)</div>
-    <table>
-      <thead><tr><th>Источник / Кампания</th><th class="r">Визиты</th><th class="r">%</th></tr></thead>
-      <tbody>
-        <tr><td>unisender / welcome-santech (10.07)</td><td class="r bold">13</td><td class="r">32%</td></tr>
-        <tr><td>unisender_classic / welcome_santech (06.07)</td><td class="r bold">11</td><td class="r">27%</td></tr>
-        <tr><td>unisender / welcome-b2b-dealer</td><td class="r bold">7</td><td class="r">17%</td></tr>
-        <tr><td>unisender / welcome-kitchen-studio</td><td class="r bold">6</td><td class="r">15%</td></tr>
-        <tr><td>unisender / welcome-designer-bt</td><td class="r bold">3</td><td class="r">7%</td></tr>
-        <tr><td>linkedin / day8_email_rules</td><td class="r">1</td><td class="r">2%</td></tr>
-        <tr class="total"><td class="bold">ИТОГО с email</td><td class="r bold">41</td><td class="r bold">100%</td></tr>
-      </tbody>
-    </table>
-    <div class="note" style="margin-top:12px">Santech суммарно — 24 визита (58% email-трафика). A/B тест 11.07 появится в Метрике после первых кликов — ожидаем через 24–48ч.</div>
-  </div>
-</div>
-
-<div class="grid3">
-  <div class="card">
-    <div class="card-title">Поведение на сайте (7д)</div>
-    <table>
-      <thead><tr><th>Метрика</th><th class="r">Факт</th><th class="r">Норма</th></tr></thead>
-      <tbody>
-        <tr><td>Всего визитов</td><td class="r bold" style="color:#6366f1">122</td><td class="r">—</td></tr>
-        <tr><td>из них с email</td><td class="r bold" style="color:#22c55e">41 (34%)</td><td class="r">—</td></tr>
-        <tr><td>Уникальных</td><td class="r">95</td><td class="r">—</td></tr>
-        <tr><td>Просмотры страниц</td><td class="r">165</td><td class="r">—</td></tr>
-        <tr><td>Глубина (стр/визит)</td><td class="r" style="color:#fbbf24">1.4</td><td class="r">≥ 2.0</td></tr>
-        <tr><td>Отказы</td><td class="r" style="color:#fbbf24">55.7%</td><td class="r">≤ 50%</td></tr>
-        <tr><td>Среднее время</td><td class="r">1м 50с</td><td class="r">≥ 2м</td></tr>
-        <tr><td>Достижений цели</td><td class="r bold" style="color:#a855f7">3 (2.5%)</td><td class="r">—</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="card">
-    <div class="card-title">Топ страниц после перехода</div>
-    <table>
-      <thead><tr><th>Страница</th><th class="r">Просм.</th></tr></thead>
-      <tbody>
-        <tr><td>/ Главная</td><td class="r">54</td></tr>
-        <tr><td>/ru/store (Каталог)</td><td class="r bold">29</td></tr>
-        <tr><td>/ru/page/designers</td><td class="r">16</td></tr>
-        <tr><td>/ru/page/brand-liebherr</td><td class="r">9</td></tr>
-        <tr><td>/ru/page/vzug (V-ZUG)</td><td class="r">7</td></tr>
-        <tr><td>/ru/page/bora (BORA)</td><td class="r">6</td></tr>
-        <tr><td>/ru/page/about-us</td><td class="r">5</td></tr>
-        <tr><td>Küppersbusch (товарная)</td><td class="r">5</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="card">
-    <div class="card-title">Источники трафика (7д)</div>
-    <canvas id="c-sources"></canvas>
-    <table style="margin-top:12px">
-      <tbody>
-        <tr><td>🟣 Прямой</td><td class="r">60 (49%)</td></tr>
-        <tr><td>🟢 Email</td><td class="r bold">41 (34%)</td></tr>
-        <tr><td>🟡 Ссылки</td><td class="r">10 (8%)</td></tr>
-        <tr><td>⚫ Поиск + проч.</td><td class="r">11 (9%)</td></tr>
+        <tr>
+          <td class="tb">A</td>
+          <td>КП за 20 секунд. 14 брендов. AI-консультант</td>
+          <td>Андрей Ботьев — Home Project</td>
+          <td class="tg">150</td>
+          <td class="tg">0</td>
+          <td>11.07 06:47–06:52</td>
+          <td><span class="b bg">✓ Завершён</span></td>
+        </tr>
+        <tr>
+          <td class="tb">B</td>
+          <td>Техника как часть замысла. 14 брендов</td>
+          <td>Home Project</td>
+          <td class="tg">150</td>
+          <td class="tg">0</td>
+          <td>11.07 06:47–06:52</td>
+          <td><span class="b bg">✓ Завершён</span></td>
+        </tr>
+        <tr>
+          <td class="tb">C</td>
+          <td>V-ZUG, Fhiaba, Schulthess в Москве — официальный поставщик</td>
+          <td>Андрей Ботьев — Home Project</td>
+          <td class="tg">150</td>
+          <td class="tg">0</td>
+          <td>11.07 06:47–06:52</td>
+          <td><span class="b bg">✓ Завершён</span></td>
+        </tr>
+        <tr>
+          <td class="tb">D</td>
+          <td>Добро пожаловать в клуб партнёров Home Project</td>
+          <td>Команда Home Project</td>
+          <td class="tg">149</td>
+          <td class="ty">1</td>
+          <td>11.07 06:47 + 12.07 17:27–17:41</td>
+          <td><span class="b bg">✓ Завершён</span></td>
+        </tr>
+        <tr>
+          <td class="tb">E</td>
+          <td>Честно про поставщиков техники. Без глянца.</td>
+          <td>Андрей Ботьев — Home Project</td>
+          <td class="tg">147</td>
+          <td class="ty">3</td>
+          <td>11.07 06:47 + 12.07 17:27–17:41</td>
+          <td><span class="b bg">✓ Завершён</span></td>
+        </tr>
+        <tr style="background:rgba(99,102,241,.05)">
+          <td class="tb">ИТОГО</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="tg" style="font-size:15px">746</td>
+          <td class="ty">4</td>
+          <td>11–12.07.2026</td>
+          <td><span class="b bg">✓ 99.5% охват</span></td>
+        </tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<div class="grid3">
-  <div class="card">
-    <div class="card-title">География (7д)</div>
-    <canvas id="c-geo"></canvas>
-    <table style="margin-top:12px">
-      <tbody>
-        <tr><td>🇷🇺 Москва</td><td class="r bold">53 (43%)</td></tr>
-        <tr><td>🇹🇷 Анталья</td><td class="r">8 (7%)</td></tr>
-        <tr><td>🇸🇬 Сингапур</td><td class="r">5 (4%)</td></tr>
-        <tr><td>🇷🇺 Красногорск</td><td class="r">3 (2%)</td></tr>
-        <tr><td>Другие</td><td class="r">53 (44%)</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="card">
-    <div class="card-title">Бренды — интерес (просмотры)</div>
-    <canvas id="c-brands"></canvas>
-    <table style="margin-top:12px">
-      <tbody>
-        <tr><td>BORA</td><td class="r">6 просм.</td></tr>
-        <tr><td>Küppersbusch</td><td class="r">5 просм.</td></tr>
-        <tr><td>Fhiaba</td><td class="r">3 просм.</td></tr>
-        <tr><td>SKS</td><td class="r">1 просм.</td></tr>
-        <tr><td>Остальные 5</td><td class="r">0</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="card">
-    <div class="card-title">⚠️ Флаги и действия</div>
+<!-- ОШИБКИ -->
+<div class="section">
+  <div class="s-title">Permanent unavailable — 4 адреса (исключить из базы)</div>
+
+  <div class="tw">
     <table>
+      <thead><tr><th>Email</th><th>Вариант</th><th>Код Unisender</th><th>Действие</th></tr></thead>
       <tbody>
-        <tr><td style="padding:8px 10px; border-bottom:1px solid #13151b;"><span class="badge bg-red">🔴 КРИТИЧНО</span><div style="font-size:11px; margin-top:4px; color:#94a3b8">Webhook endpoint 404 — open/click по 11.07 не пишутся. Задача инженеру создана (высокий приоритет).</div></td></tr>
-        <tr><td style="padding:8px 10px; border-bottom:1px solid #13151b;"><span class="badge bg-orange">⚠️ ДОСЫЛКА</span><div style="font-size:11px; margin-top:4px; color:#94a3b8">280 писем D+E не ушли — лимит 500/сутки. Досылка 12.07 утром. A/B тест валиден только после этого.</div></td></tr>
-        <tr><td style="padding:8px 10px; border-bottom:1px solid #13151b;"><span class="badge bg-red">🚨 СТОП</span><div style="font-size:11px; margin-top:4px; color:#94a3b8">Kitchen Studio — FBL 0.64% (порог 0.1%). Пересмотреть шаблон и сегмент.</div></td></tr>
-        <tr><td style="padding:8px 10px; border-bottom:1px solid #13151b;"><span class="badge bg-yellow">⚠️ НИЗКО</span><div style="font-size:11px; margin-top:4px; color:#94a3b8">Отказы 55.7% (норма ≤50%). Глубина 1.4 (норма ≥2). Добавить CTA и внутренние ссылки в письма.</div></td></tr>
-        <tr><td style="padding:8px 10px;"><span class="badge bg-blue">📋 ПЛАН</span><div style="font-size:11px; margin-top:4px; color:#94a3b8">Запрос лимита Unisender — после 22.07, с 2-недельной статистикой. Цель: 2 000–2 500/сутки.</div></td></tr>
+        <tr><td class="tb">info@berloga.pw</td><td>D</td><td>204 — permanent_unavailable</td><td><span class="b br">Исключить из CRM</span></td></tr>
+        <tr><td class="tb">info@crystal.archi</td><td>E</td><td>204 — permanent_unavailable</td><td><span class="b br">Исключить из CRM</span></td></tr>
+        <tr><td class="tb">art@decoart.pro</td><td>E</td><td>204 — permanent_unavailable</td><td><span class="b br">Исключить из CRM</span></td></tr>
+        <tr><td class="tb">design@ana-novikova.ru</td><td>E</td><td>204 — permanent_unavailable</td><td><span class="b br">Исключить из CRM</span></td></tr>
       </tbody>
     </table>
-    <div class="note green" style="margin-top:12px">✅ Open rate 22–29% — выше нормы b2b. Email уже 34% трафика сайта. 1 264 писем за 6 дней — хороший старт.</div>
   </div>
 </div>
 
-<div class="footer">Home Project · Отчёт за 06–11.07.2026 · Данные: Unisender API + CRM DB + Яндекс.Метрика 110362997 · Обновлено: 11.07.2026</div>
+<!-- СТАТИСТИКА ОТКРЫТИЙ -->
+<div class="section">
+  <div class="s-title">Open rate / Click rate — статус сбора данных</div>
+
+  <div class="alert yellow">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <strong>Webhook не совпадает с нашим endpoint</strong><br>
+      Unisender настроен слать события на <code>homeproject.online/api/email-webhook</code>, но наш реальный endpoint — <code>/api/webhook/unisender</code>. Из-за этого открытия и клики не попадают в базу. В PostgreSQL только 2 тестовых события + 1 тест-открытие от Андрея Ботьева (12.07). Реальная статистика хранится в Unisender, но к нам не приходит.<br><br>
+      <strong>Задача инженеру:</strong> настроить /api/email-webhook → переадресацию на /api/webhook/unisender (или создать новый handler). Это разблокирует аналитику для всех будущих рассылок.
+    </div>
+  </div>
+
+  <div class="g3">
+    <div class="card">
+      <div style="font-size:11px;color:var(--dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:700">Open Rate (оценочно)</div>
+      <div style="font-size:28px;font-weight:800;color:var(--yl)">~25–35%</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:6px">Ориентир по отрасли для cold welcome.<br>Фактические данные — в Unisender Go кабинете.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:700">Click Rate (оценочно)</div>
+      <div style="font-size:28px;font-weight:800;color:var(--yl)">~3–8%</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:6px">Ориентир по отрасли для B2B welcome.<br>Фактические данные — в Unisender Go кабинете.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:700">Webhook events в нашей БД</div>
+      <div style="font-size:28px;font-weight:800;color:var(--rl)">3</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:6px">2 test-события + 1 opened (Botyev тест).<br>Real events не приходят из-за URL-ошибки.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ПЛАН СЛЕДУЮЩИХ ШАГОВ -->
+<div class="section">
+  <div class="s-title">Следующие шаги</div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>#</th><th>Задача</th><th>Кто</th><th>Срок</th><th>Приоритет</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="tb">1</td>
+          <td>Получить статистику из кабинета Unisender Go — open rate, click rate, unsubscribes по каждому варианту A–E</td>
+          <td>Маркетолог</td>
+          <td>Сегодня</td>
+          <td><span class="b br">Высокий</span></td>
+        </tr>
+        <tr>
+          <td class="tb">2</td>
+          <td>Исправить webhook URL: /api/email-webhook → /api/webhook/unisender (или новый handler). Разблокирует аналитику для всех рассылок.</td>
+          <td>Инженер</td>
+          <td>До 15.07</td>
+          <td><span class="b br">Высокий</span></td>
+        </tr>
+        <tr>
+          <td class="tb">3</td>
+          <td>Пометить 4 адреса permanent_unavailable в CRM и исключить из сегмента дизайнеров</td>
+          <td>Маркетолог</td>
+          <td>Сегодня</td>
+          <td><span class="b by">Средний</span></td>
+        </tr>
+        <tr>
+          <td class="tb">4</td>
+          <td>По результатам A/B теста (open rate из Unisender): выбрать победителя и подготовить второй волны рассылку по оставшейся базе (~13 000 контактов)</td>
+          <td>Маркетолог</td>
+          <td>22.07 (после увеличения лимита)</td>
+          <td><span class="b by">Средний</span></td>
+        </tr>
+        <tr>
+          <td class="tb">5</td>
+          <td>Запрос в Unisender на увеличение лимита с 500 до 2 000+ писем в сутки (письмо готово, отправить 22.07)</td>
+          <td>CEO</td>
+          <td>22.07</td>
+          <td><span class="b bb">Запланировано</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ИСТОРИЯ РАССЫЛОК -->
+<div class="section">
+  <div class="s-title">Хронология A/B теста</div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Дата / Время</th><th>Событие</th><th>Писем</th></tr></thead>
+      <tbody>
+        <tr><td>11.07 06:46–06:47</td><td>Пилот: по 10 писем на каждый вариант A/B/C/D/E</td><td class="tg">50</td></tr>
+        <tr><td>11.07 06:52</td><td>Полная волна A/B/C: по 150 на каждый (лимит 500/сут. исчерпан)</td><td class="tg">450</td></tr>
+        <tr><td>11.07 — D/E срезано</td><td>Суточный лимит 500 исчерпан. D и E (по 140 оставшихся) упали.</td><td class="tr">−280</td></tr>
+        <tr><td>12.07 17:27–17:41</td><td>Досылка D+E: 139 + 137 = 276 успешно (4 permanent_unavailable)</td><td class="tg">276</td></tr>
+        <tr style="background:rgba(99,102,241,.05)"><td><strong>ИТОГО за 2 дня</strong></td><td><strong>A/B тест завершён</strong></td><td class="tg" style="font-size:14px"><strong>746 / 750</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  <div>HOMEPROJECT · homeproject.online · info@homeproject.online</div>
+  <div>Обновлено 12.07.2026 · v3 · Данные: CRM SQLite + PostgreSQL + Unisender Go</div>
+</div>
+
+</div>
 
 <script>
-Chart.defaults.color = '#64748b';
-Chart.defaults.font.family = '-apple-system, Segoe UI, Inter, sans-serif';
-new Chart(document.getElementById('c-sources'), {
-  type: 'doughnut',
-  data: { labels: ['Прямой (60)', 'Email (41)', 'Ссылки (10)', 'Поиск+проч (11)'], datasets: [{ data: [60, 41, 10, 11], backgroundColor: ['#6366f1','#22c55e','#f59e0b','#475569'], borderWidth: 0 }] },
-  options: { cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8 } } }, responsive: true, maintainAspectRatio: false }
-});
-new Chart(document.getElementById('c-geo'), {
+// CHART 1 — Bar chart отправки по вариантам
+const ctx1 = document.getElementById('chartSent').getContext('2d');
+new Chart(ctx1, {
   type: 'bar',
-  data: { labels: ['Москва','Анталья','Сингапур','Красногорск','Другие'], datasets: [{ data: [53, 8, 5, 3, 53], backgroundColor: ['#6366f1','#22c55e','#f59e0b','#06b6d4','#475569'], borderRadius: 5, borderWidth: 0 }] },
-  options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 10 } }, grid: { display: false } }, y: { ticks: { font: { size: 10 } }, grid: { color: '#1f2937' } } }, responsive: true, maintainAspectRatio: false }
+  data: {
+    labels: ['A', 'B', 'C', 'D', 'E'],
+    datasets: [
+      {
+        label: 'Отправлено',
+        data: [150, 150, 150, 149, 147],
+        backgroundColor: 'rgba(99,102,241,.7)',
+        borderColor: '#6366f1',
+        borderWidth: 1,
+        borderRadius: 6,
+      },
+      {
+        label: 'Ошибки',
+        data: [0, 0, 0, 1, 3],
+        backgroundColor: 'rgba(239,68,68,.5)',
+        borderColor: '#ef4444',
+        borderWidth: 1,
+        borderRadius: 6,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
+    },
+    scales: {
+      x: { ticks: { color: '#94a3b8' }, grid: { color: '#2a2d38' } },
+      y: { ticks: { color: '#94a3b8' }, grid: { color: '#2a2d38' }, min: 0, max: 160,
+           title: { display: true, text: 'Писем', color: '#475569', font: { size: 10 } } }
+    }
+  }
 });
-new Chart(document.getElementById('c-brands'), {
-  type: 'bar',
-  data: { labels: ['BORA','Küppers\u00adbush','Fhiaba','SKS'], datasets: [{ data: [6, 5, 3, 1], backgroundColor: ['#22c55e','#6366f1','#f59e0b','#06b6d4'], borderRadius: 5, borderWidth: 0 }] },
-  options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 10 } }, grid: { color: '#1f2937' } }, y: { ticks: { font: { size: 10 } }, grid: { display: false } } }, responsive: true, maintainAspectRatio: false }
+
+// CHART 2 — Timeline
+const ctx2 = document.getElementById('chartTimeline').getContext('2d');
+new Chart(ctx2, {
+  type: 'line',
+  data: {
+    labels: ['11.07\n06:46', '11.07\n06:47', '11.07\n06:52', '12.07\n17:27', '12.07\n17:41'],
+    datasets: [
+      {
+        label: 'Накопительно отправлено',
+        data: [0, 50, 470, 470, 746],
+        borderColor: '#4ade80',
+        backgroundColor: 'rgba(74,222,128,.1)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: '#4ade80',
+      },
+      {
+        label: 'Лимит в сутки (500)',
+        data: [500, 500, 500, 500, 500],
+        borderColor: 'rgba(239,68,68,.5)',
+        borderDash: [6, 4],
+        fill: false,
+        tension: 0,
+        pointRadius: 0,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
+    },
+    scales: {
+      x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#2a2d38' } },
+      y: { ticks: { color: '#94a3b8' }, grid: { color: '#2a2d38' }, min: 0, max: 800,
+           title: { display: true, text: 'Писем', color: '#475569', font: { size: 10 } } }
+    }
+  }
 });
 </script>
 </body>
