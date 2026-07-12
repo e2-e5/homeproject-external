@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>КП · Андрей Ботьев · Home Project</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --dark:#181A20; --gold:#c9a96e; --gold-lt:rgba(201,169,110,0.12);
+  --bg:#f5f4f0; --text:#1a1a1a; --muted:#7a8099; --border:#e5e3db;
+  --brand:#1a3352;
+}
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); font-size:14px; line-height:1.6; }
+
+/* ── ШАПКА ── */
+.header { background:var(--dark); padding:28px 48px 24px; display:flex; justify-content:space-between; align-items:flex-end; }
+.logo-title { font-size:20px; font-weight:700; color:#fff; letter-spacing:.08em; text-transform:uppercase; }
+.logo-sub { font-size:10px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-top:3px; }
+.kp-label { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; }
+.kp-meta { font-size:22px; font-weight:700; color:#fff; margin-top:2px; }
+.kp-date { font-size:11px; color:var(--muted); margin-top:3px; }
+
+/* ── БРЕНД-ПОЛОСА ── */
+.brand-bar { background:var(--brand); padding:9px 48px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.brand-bar-name { font-size:13px; font-weight:700; color:#fff; letter-spacing:.08em; }
+.brand-bar-sep { color:rgba(255,255,255,.4); }
+.brand-bar-tagline { font-size:11px; color:rgba(255,255,255,.72); }
+
+/* ── АДРЕСАТ ── */
+.addressee { background:#fff; padding:16px 48px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:36px; flex-wrap:wrap; }
+.addr-lbl { font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:2px; }
+.addr-val { font-size:14px; font-weight:600; }
+
+/* ── НАВИГАЦИЯ ── */
+.kp-guide { background:#fff; border-bottom:1px solid var(--border); padding:10px 48px; }
+.kp-guide-title { font-size:10px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:7px; }
+.kp-guide-tabs { display:flex; gap:6px; flex-wrap:wrap; }
+.kp-guide-tab { display:flex; align-items:center; justify-content:center; gap:4px; flex:1; background:var(--bg); border-radius:20px; padding:6px 8px; font-size:11px; font-weight:500; color:#555; cursor:pointer; transition:all .15s; border:1px solid transparent; text-align:center; white-space:nowrap; }
+.kp-guide-tab:hover { border-color:var(--gold); color:var(--text); background:#fdf5e8; }
+.kp-guide-tab.active { border-color:var(--gold); color:var(--text); background:#fdf5e8; font-weight:600; }
+.kp-guide-tab .gt-icon { font-size:12px; flex-shrink:0; }
+
+/* ── КОНТЕЙНЕР ── */
+.container { max-width:960px; margin:0 auto; background:#fff; }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* ── ОБЩИЕ ── */
+.section-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:var(--gold); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.pad { padding:40px 48px 56px; }
+
+/* ── БРИФ ── */
+.brief-intro { background:var(--dark); border-radius:14px; padding:28px 32px; margin-bottom:24px; }
+.brief-intro-title { font-size:20px; font-weight:700; color:#fff; margin-bottom:8px; }
+.brief-intro-text { font-size:13px; color:#aaa; line-height:1.7; }
+.brief-intro-accent { color:var(--gold); font-weight:600; }
+
+.brief-quote { background:#fff; border:1px solid var(--border); border-left:4px solid var(--gold); border-radius:0 12px 12px 0; padding:20px 24px; margin-bottom:24px; font-size:15px; color:#333; font-style:italic; line-height:1.7; }
+.brief-quote cite { display:block; margin-top:10px; font-style:normal; font-size:12px; color:var(--muted); letter-spacing:.06em; }
+
+.reality-card { background:var(--gold-lt); border:1px solid rgba(201,169,110,.3); border-radius:12px; padding:24px 28px; margin-bottom:32px; }
+.reality-card h3 { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:var(--gold); margin-bottom:10px; }
+.reality-card p { font-size:14px; color:#444; line-height:1.75; }
+.reality-card p + p { margin-top:10px; }
+
+.brief-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:32px; }
+.brief-chip { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+.brief-chip-icon { font-size:24px; margin-bottom:8px; }
+.brief-chip-label { font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:3px; }
+.brief-chip-val { font-size:14px; font-weight:700; }
+.brief-chip-sub { font-size:12px; color:#888; margin-top:2px; }
+
+/* ── КП ТАБЛИЦА ── */
+.kp-table { width:100%; border-collapse:collapse; margin-bottom:20px; }
+.kp-table th { background:var(--dark); color:#fff; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; padding:11px 14px; text-align:left; }
+.kp-table td { padding:14px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+.kp-table tr:last-child td { border-bottom:none; }
+.kp-table tr:hover td { background:#fafaf8; }
+.item-num { font-size:11px; font-weight:700; color:var(--gold); width:28px; }
+.item-brand { font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:2px; }
+.item-model { font-size:14px; font-weight:700; }
+.item-name { font-size:12px; color:#666; margin-top:2px; line-height:1.5; }
+.item-sku { font-size:10px; color:#aaa; margin-top:3px; font-family:'SF Mono',monospace; }
+.item-price { text-align:right; font-weight:700; white-space:nowrap; font-size:15px; }
+.badge-stock { display:inline-block; background:#e8f5e9; color:#2e7d32; border-radius:20px; padding:2px 9px; font-size:10px; font-weight:600; }
+
+.kp-total { background:var(--dark); border-radius:12px; padding:22px 28px; display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; }
+.kp-total-label { font-size:12px; color:#aaa; text-transform:uppercase; letter-spacing:.1em; margin-bottom:4px; }
+.kp-total-note { font-size:11px; color:var(--muted); margin-top:3px; }
+.kp-total-sum { font-size:32px; font-weight:800; color:#fff; }
+.kp-total-sum span { font-size:18px; color:var(--gold); font-weight:500; margin-left:6px; }
+
+.conditions-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:28px; }
+.cond-card { border:1px solid var(--border); border-radius:12px; padding:18px 20px; background:#fff; }
+.cond-icon { font-size:22px; margin-bottom:8px; }
+.cond-title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; }
+.cond-val { font-size:13px; color:#555; line-height:1.5; }
+
+.kp-note { background:var(--gold-lt); border-left:3px solid var(--gold); border-radius:0 10px 10px 0; padding:14px 18px; font-size:13px; color:#555; line-height:1.65; }
+
+/* ── ВАРИАНТ-ШАПКА ── */
+.variant-hero { background:var(--dark); border-radius:14px; padding:28px 32px; margin-bottom:28px; display:flex; justify-content:space-between; align-items:center; gap:24px; }
+.variant-badge { font-size:10px; text-transform:uppercase; letter-spacing:.16em; color:var(--gold); font-weight:700; margin-bottom:6px; }
+.variant-title-big { font-size:22px; font-weight:700; color:#fff; margin-bottom:6px; }
+.variant-desc { font-size:13px; color:#9aa0b8; line-height:1.6; max-width:440px; }
+.variant-price-block { text-align:right; flex-shrink:0; }
+.variant-price-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-bottom:4px; }
+.variant-price { font-size:36px; font-weight:800; color:#fff; white-space:nowrap; }
+.variant-price-sub { font-size:12px; color:var(--muted); margin-top:3px; }
+
+/* ── ВИЗУАЛЫ ── */
+.vis-grid { display:flex; flex-direction:column; gap:8px; margin-bottom:28px; }
+.vis-card { background:#fff; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+.vis-img-wrap { position:relative; height:400px; overflow:hidden; background:#f8f8f6; display:flex; align-items:center; justify-content:center; }
+.vis-img-wrap img { max-width:88%; max-height:90%; width:auto; height:auto; object-fit:contain; }
+.vis-img-badge { position:absolute; top:20px; left:24px; background:rgba(24,26,32,0.88); border:1px solid var(--gold); border-radius:6px; padding:7px 16px; }
+.vis-img-badge-num { font-size:10px; color:var(--gold); font-weight:700; text-transform:uppercase; letter-spacing:.14em; }
+.vis-img-badge-model { font-size:16px; font-weight:800; color:#fff; margin-top:2px; }
+.vis-img-overlay { position:absolute; bottom:0; left:0; right:0; height:100px; background:linear-gradient(to top,rgba(24,26,32,0.75) 0%,transparent 100%); }
+.vis-body { padding:24px 32px 28px; }
+.vis-cat { font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--gold); font-weight:600; margin-bottom:6px; }
+.vis-model { font-size:24px; font-weight:800; margin-bottom:4px; }
+.vis-name-sub { font-size:13px; color:var(--muted); margin-bottom:14px; }
+.vis-desc { font-size:14px; color:#444; line-height:1.75; margin-bottom:14px; max-width:760px; }
+.vis-pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+.vis-pill { background:#f5f4f0; color:#333; border-radius:24px; padding:5px 14px; font-size:13px; font-weight:500; }
+.vis-pill-gold { background:#fdf5e8; color:#8a6518; font-weight:600; }
+.vis-pill-green { background:#edf7f0; color:#256838; font-weight:600; }
+.vis-pill-blue { background:#f0f5fd; color:#1a3a6a; font-weight:600; }
+.vis-pill-dark { background:#2a2d38; color:#ccc; font-weight:600; }
+.vis-badge-ab { display:inline-flex; align-items:center; gap:5px; background:#fdf5e8; border:1px solid rgba(201,169,110,.4); border-radius:20px; padding:4px 12px; font-size:11px; font-weight:700; color:#8a6518; }
+
+/* ── КАК РАБОТАЕМ ── */
+.steps-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-bottom:32px; }
+.step-card { background:#fff; border:1px solid var(--border); border-radius:14px; padding:24px 22px; }
+.step-num { font-size:12px; font-weight:700; color:var(--gold); letter-spacing:.14em; text-transform:uppercase; margin-bottom:8px; }
+.step-title { font-size:15px; font-weight:700; margin-bottom:8px; }
+.step-text { font-size:13px; color:#666; line-height:1.65; }
+.brand-card { border-radius:14px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+.brand-card-head { padding:18px 22px; color:#fff; background:var(--dark); display:flex; align-items:center; justify-content:space-between; }
+.brand-card-head h3 { font-size:15px; font-weight:700; }
+.brand-card-head .bc-tag { font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--gold); }
+.brand-card-body { padding:16px 22px 20px; background:#fff; }
+.brand-card-body p { font-size:13px; color:#555; line-height:1.65; }
+
+/* ── КОНТАКТЫ ── */
+.contact-hero { background:var(--dark); border-radius:14px; padding:36px 40px; margin-bottom:28px; text-align:center; }
+.contact-hero h2 { font-size:24px; font-weight:700; color:#fff; margin-bottom:10px; }
+.contact-hero p { font-size:14px; color:#9aa0b8; line-height:1.7; max-width:560px; margin:0 auto 28px; }
+.contact-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; max-width:560px; margin:0 auto; }
+.contact-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:18px 20px; text-align:left; }
+.contact-card-label { font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:5px; }
+.contact-card-val { font-size:14px; font-weight:600; color:#fff; }
+.contact-card-val a { color:var(--gold); text-decoration:none; }
+.reqs { background:#fff; border:1px solid var(--border); border-radius:12px; padding:20px 24px; margin-bottom:20px; }
+.reqs h3 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:12px; }
+.reqs-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px; }
+.reqs-row:last-child { border-bottom:none; }
+.reqs-row span:first-child { color:#888; }
+.reqs-row span:last-child { font-weight:600; }
+
+/* ── ФУТЕР ── */
+.footer { background:var(--dark); color:#888; text-align:center; padding:28px 24px; font-size:12px; line-height:2; }
+.footer strong { color:var(--gold); }
+.footer a { color:var(--gold); text-decoration:none; }
+
+/* ── ПЕЧАТЬ ── */
+.print-bar { display:flex; justify-content:flex-end; margin-bottom:20px; }
+.btn-print { display:inline-flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--border); border-radius:8px; padding:8px 16px; font-size:12px; font-weight:500; color:var(--muted); cursor:pointer; font-family:inherit; transition:all .15s; }
+.btn-print:hover { border-color:var(--gold); color:var(--text); }
+
+/* ── АДАПТИВ ── */
+@media(max-width:768px){
+  .header { padding:20px; flex-direction:column; align-items:flex-start; gap:12px; }
+  .brand-bar { padding:9px 20px; }
+  .addressee { padding:14px 20px; flex-wrap:wrap; gap:14px; }
+  .kp-guide { padding:10px 20px; }
+  .kp-guide-tabs { flex-wrap:wrap; }
+  .kp-guide-tab { flex:none; }
+  .pad { padding:24px 20px 40px; }
+  .brief-grid,.conditions-grid,.steps-grid,.contact-grid { grid-template-columns:1fr; }
+  .variant-hero { flex-direction:column; align-items:flex-start; gap:16px; }
+  .variant-price-block { text-align:left; }
+  .kp-total { flex-direction:column; align-items:flex-start; gap:8px; }
+  .vis-img-wrap { height:280px; }
+}
+@media print {
+  .kp-guide,.print-bar { display:none!important; }
+  .tab-panel { display:block!important; }
+  .container { max-width:100%; }
+  .pad { padding:24px; }
+  body { background:#fff; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ═══════════════ ШАПКА ═══════════════ -->
+<div class="header">
+  <div>
+    <div class="logo-title">Home Project</div>
+    <div class="logo-sub">Премиальная встраиваемая техника · homeproject.online</div>
+  </div>
+  <div style="text-align:right">
+    <div class="kp-label">Коммерческое предложение</div>
+    <div class="kp-meta">КП · 12.07.2026</div>
+    <div class="kp-date">действует до 26 июля 2026</div>
+  </div>
+</div>
+
+<!-- ═══ БРЕНД-ПОЛОСА ═══ -->
+<div class="brand-bar">
+  <span class="brand-bar-name">De Dietrich</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-name">Kuppersbusch</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-name">Schulthess</span>
+  <span class="brand-bar-sep">·</span>
+  <span class="brand-bar-tagline">Встраиваемая техника + стирка/сушка · тёмные финиши · на складе</span>
+</div>
+
+<!-- ═══ АДРЕСАТ ═══ -->
+<div class="addressee">
+  <div>
+    <div class="addr-lbl">Подготовлено для</div>
+    <div class="addr-val">Андрей Ботьев</div>
+  </div>
+  <div>
+    <div class="addr-lbl">Категория</div>
+    <div class="addr-val">Комплект встраиваемой + стирка/сушка</div>
+  </div>
+  <div>
+    <div class="addr-lbl">Менеджер</div>
+    <div class="addr-val">Ария · AI-менеджер Home Project</div>
+  </div>
+  <div>
+    <div class="addr-lbl">Бюджет</div>
+    <div class="addr-val" style="color:var(--gold)">1 500 000 ₽</div>
+  </div>
+</div>
+
+<!-- ═══ НАВИГАЦИЯ ═══ -->
+<div class="kp-guide">
+  <div class="kp-guide-title">Навигация по разделам:</div>
+  <div class="kp-guide-tabs">
+    <div class="kp-guide-tab active" onclick="showTab('brief',this)"><span class="gt-icon">📋</span> Запрос</div>
+    <div class="kp-guide-tab"        onclick="showTab('varA',this)"><span class="gt-icon">💰</span> Вариант A</div>
+    <div class="kp-guide-tab"        onclick="showTab('varB',this)"><span class="gt-icon">🖤</span> Вариант B</div>
+    <div class="kp-guide-tab"        onclick="showTab('visual',this)"><span class="gt-icon">🖼</span> Визуалы</div>
+    <div class="kp-guide-tab"        onclick="showTab('about',this)"><span class="gt-icon">🏢</span> Как работаем</div>
+    <div class="kp-guide-tab"        onclick="showTab('contacts',this)"><span class="gt-icon">📞</span> Контакты</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     ВКЛАДКА 1: ЗАПРОС
+     ══════════════════════════════════════════ -->
+<div id="tab-brief" class="tab-panel active">
+<div class="pad">
+
+  <div class="section-title">О запросе клиента</div>
+
+  <div class="brief-intro">
+    <div class="brief-intro-title">Андрей Ботьев — полный комплект для кухни 29 м²</div>
+    <div class="brief-intro-text">
+      Запрос получен 11 июля 2026. КП подготовлено в течение дня —
+      <span class="brief-intro-accent">два варианта: оптимальный (De Dietrich + Schulthess) и тёмный premium (Kuppersbusch + De Dietrich + Schulthess Anthracite).</span>
+      Все позиции — из наличия на складе, тёмные финиши.
+    </div>
+  </div>
+
+  <div class="brief-quote">
+    «Кухня 29 м², тёмный цвет, из наличия. Комплект: духовка, вытяжка, варочная панель, посудомоечная машина, холодильник, стирка + сушка. Бюджет ~1,5 млн ₽. 2–3 варианта.»
+    <cite>— Андрей Ботьев, 11 июля 2026</cite>
+  </div>
+
+  <div class="brief-grid">
+    <div class="brief-chip">
+      <div class="brief-chip-icon">🍳</div>
+      <div class="brief-chip-label">Позиций в комплекте</div>
+      <div class="brief-chip-val">7 позиций</div>
+      <div class="brief-chip-sub">духовка, варочная, вытяжка, ПММ, холодильник, стиральная, сушилка</div>
+    </div>
+    <div class="brief-chip">
+      <div class="brief-chip-icon">🖤</div>
+      <div class="brief-chip-label">Финиш</div>
+      <div class="brief-chip-val">Тёмный цвет</div>
+      <div class="brief-chip-sub">чёрное стекло, нержавейка, anthracite</div>
+    </div>
+    <div class="brief-chip">
+      <div class="brief-chip-icon">💰</div>
+      <div class="brief-chip-label">Бюджет</div>
+      <div class="brief-chip-val">~1 500 000 ₽</div>
+      <div class="brief-chip-sub">ориентировочный, без монтажа</div>
+    </div>
+  </div>
+
+  <div class="reality-card">
+    <h3>⚖️ Честно о рынке</h3>
+    <p>Полный комплект из 7 позиций европейской встраиваемой техники (включая стирку + сушку Schulthess) стартует от <strong>1 650 000 ₽</strong> по нашему портфелю. Бюджет 1 500 000 ₽ реалистичен: Вариант A превышает его примерно на 10% — это минимальное отклонение для такого набора категорий.</p>
+    <p>Вариант B — дороже (~+33% к бюджету): добавляет Kuppersbusch Black Chrome в духовку и Schulthess Anthracite. Подходит если тёмный акцент в кухне принципиален. По обоим вариантам всё на складе — без ожидания заказа.</p>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     ВКЛАДКА 2: ВАРИАНТ A
+     ══════════════════════════════════════════ -->
+<div id="tab-varA" class="tab-panel">
+<div class="pad">
+<div class="print-bar"><button class="btn-print" onclick="window.print()">🖨 Распечатать</button></div>
+
+  <div class="variant-hero">
+    <div>
+      <div class="variant-badge">Вариант A · «Оптимальный»</div>
+      <div class="variant-title-big">De Dietrich кухня + Schulthess White</div>
+      <div class="variant-desc">Полный комплект из 7 позиций. Кухонная линейка De Dietrich — чёрное стекло + нержавеющая сталь, единый стиль. Стирка и сушка Schulthess Spirit — швейцарское качество, белый финиш для постирочной зоны.</div>
+    </div>
+    <div class="variant-price-block">
+      <div class="variant-price-label">Итого по варианту A</div>
+      <div class="variant-price">1 658 930 <span>₽</span></div>
+      <div class="variant-price-sub">РРЦ, включая НДС</div>
+    </div>
+  </div>
+
+  <div class="section-title">Спецификация · Вариант A</div>
+
+  <table class="kp-table">
+    <thead>
+      <tr>
+        <th style="width:36px">#</th>
+        <th>Позиция</th>
+        <th style="width:120px;text-align:right">Цена РРЦ, ₽</th>
+        <th style="width:90px;text-align:center">Наличие</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="item-num">01</td>
+        <td>
+          <div class="item-brand">De Dietrich</div>
+          <div class="item-model">Духовой шкаф с пиролизом</div>
+          <div class="item-name">60 см · 73 л · 11 режимов · LCD «Гурман» · чёрное стекло + нержавейка · телескопические направляющие</div>
+          <div class="item-sku">SKU: INSALES-459484336-763573654</div>
+        </td>
+        <td class="item-price">175 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">02</td>
+        <td>
+          <div class="item-brand">De Dietrich</div>
+          <div class="item-model">Индукционная варочная панель HORIZONE PLAY</div>
+          <div class="item-name">60 см · 4 зоны horiZone · 7 400 Вт · 20 уровней мощности · Booster · сенсорное управление · чёрное стекло</div>
+          <div class="item-sku">SKU: INSALES-459484370-763573772</div>
+        </td>
+        <td class="item-price">180 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">03</td>
+        <td>
+          <div class="item-brand">De Dietrich</div>
+          <div class="item-model">Вытяжка встраиваемая</div>
+          <div class="item-name">645 м³/ч макс. производительность · электронное управление · 4 уровня мощности + boost · 52–57 дБ</div>
+          <div class="item-sku">SKU: INSALES-459484405-763573866</div>
+        </td>
+        <td class="item-price">73 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">04</td>
+        <td>
+          <div class="item-brand">De Dietrich</div>
+          <div class="item-model">Посудомоечная машина</div>
+          <div class="item-name">Полностью встраиваемая · 15 комплектов · 42 дБ(А) · авт. открытие дверцы · луч на полу · конденсационная сушка · 2 800 л/год</div>
+          <div class="item-sku">SKU: INSALES-459484411-763573879</div>
+        </td>
+        <td class="item-price">145 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">05</td>
+        <td>
+          <div class="item-brand">Bertazzoni</div>
+          <div class="item-model">Холодильник встраиваемый REF603BBNPTC</div>
+          <div class="item-name">Встраиваемый · европейский класс · под фасад · нержавейка · энергокласс A · аналог De Dietrich хол. отдела (De Dietrich хол. — под заказ)</div>
+          <div class="item-sku">SKU: REF603BBNPTC</div>
+        </td>
+        <td class="item-price">134 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">06</td>
+        <td>
+          <div class="item-brand">Schulthess</div>
+          <div class="item-model">Стиральная машина Spirit 520 White</div>
+          <div class="item-name">8 кг загрузка · 1 500 об/мин · технология CleanJet · 3D-Wash · Silent · цветной дисплей 4.3" · хромированная дверь</div>
+          <div class="item-sku">SKU: INSALES-459243513-763255770</div>
+        </td>
+        <td class="item-price">467 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">07</td>
+        <td>
+          <div class="item-brand">Schulthess</div>
+          <div class="item-model">Сушильная машина Spirit 620 White</div>
+          <div class="item-name">8 кг загрузка · тепловой насос Heat Pump · конденсационный тип · самоочистка Autoclean · 62 дБ макс · дисплей 4.3"</div>
+          <div class="item-sku">SKU: INSALES-459243521-763255778</div>
+        </td>
+        <td class="item-price">478 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="kp-total">
+    <div>
+      <div class="kp-total-label">Итого · Вариант A · 7 позиций</div>
+      <div class="kp-total-note">Превышение бюджета: +158 930 ₽ (+10,6%) · все позиции на складе</div>
+    </div>
+    <div class="kp-total-sum">1 658 930 <span>₽</span></div>
+  </div>
+
+  <div class="conditions-grid">
+    <div class="cond-card">
+      <div class="cond-icon">🚚</div>
+      <div class="cond-title">Доставка</div>
+      <div class="cond-val">Москва и МО — от 5 рабочих дней. Все 7 позиций на складе, нет ожидания под заказ.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">🛡</div>
+      <div class="cond-title">Гарантия</div>
+      <div class="cond-val">De Dietrich — 2 года официальная. Schulthess — 2 года. Bertazzoni — 2 года. Авторизованный дистрибьютор.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">💳</div>
+      <div class="cond-title">Оплата</div>
+      <div class="cond-val">100% предоплата по счёту. Для ИП/ООО — безналичный расчёт, закрывающие документы.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">📦</div>
+      <div class="cond-title">Упаковка</div>
+      <div class="cond-val">Заводская упаковка, техника новая. При получении — проверка перед подписанием накладной.</div>
+    </div>
+  </div>
+
+  <div class="kp-note">
+    ℹ️ <strong>Про холодильник:</strong> De Dietrich встраиваемые холодильники поставляются под заказ (4–6 недель). В этом варианте предложен Bertazzoni REF603BBNPTC — аналогичный европейский класс, в наличии, под мебельный фасад. Если принципиален именно De Dietrich — уточним сроки и цену под заказ.
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     ВКЛАДКА 3: ВАРИАНТ B
+     ══════════════════════════════════════════ -->
+<div id="tab-varB" class="tab-panel">
+<div class="pad">
+<div class="print-bar"><button class="btn-print" onclick="window.print()">🖨 Распечатать</button></div>
+
+  <div class="variant-hero" style="background:linear-gradient(135deg,#0e1520 0%,#1a2a3a 60%,#2B4A72 100%);">
+    <div>
+      <div class="variant-badge">Вариант B · «Тёмный»</div>
+      <div class="variant-title-big">Kuppersbusch Black Chrome + De Dietrich + Schulthess Anthracite</div>
+      <div class="variant-desc">Premium-комплект в тёмной теме. Духовой шкаф Kuppersbusch BP 6550.0 Black Chrome — визуальный якорь кухни. Варочная и вытяжка De Dietrich. Schulthess Anthracite — стирка и сушка в одном тоне с кухней.</div>
+    </div>
+    <div class="variant-price-block">
+      <div class="variant-price-label">Итого по варианту B</div>
+      <div class="variant-price">1 993 940 <span>₽</span></div>
+      <div class="variant-price-sub">РРЦ, включая НДС</div>
+    </div>
+  </div>
+
+  <div class="section-title">Спецификация · Вариант B</div>
+
+  <table class="kp-table">
+    <thead>
+      <tr>
+        <th style="width:36px">#</th>
+        <th>Позиция</th>
+        <th style="width:120px;text-align:right">Цена РРЦ, ₽</th>
+        <th style="width:90px;text-align:center">Наличие</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#fafaf8;">
+        <td class="item-num" style="color:#c9a96e;">01</td>
+        <td>
+          <div class="item-brand">Kuppersbusch</div>
+          <div class="item-model">Духовой шкаф BP 6550.0 S2 Black Chrome</div>
+          <div class="item-name">60 см · 44 л · пиролиз (3 уровня) · 14 режимов · 8 спецрежимов · 40+ авт. программ · TFT-дисплей 3.9" · ökotherm®</div>
+          <div class="item-sku">SKU: INSALES-459532946-763664855</div>
+        </td>
+        <td class="item-price" style="color:#c9a96e;">290 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">02</td>
+        <td>
+          <div class="item-brand">De Dietrich</div>
+          <div class="item-model">Индукционная варочная панель</div>
+          <div class="item-name">90 см · 5 независимых зон · центральная 28 см / 3 700 Вт · 20 уровней мощности · Booster · чёрное стекло</div>
+          <div class="item-sku">SKU: INSALES-459484367-763573763</div>
+        </td>
+        <td class="item-price">230 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">03</td>
+        <td>
+          <div class="item-brand">De Dietrich</div>
+          <div class="item-model">Вытяжка встраиваемая</div>
+          <div class="item-name">645 м³/ч · электронное управление · 4 уровня мощности + boost · 52–57 дБ(А)</div>
+          <div class="item-sku">SKU: INSALES-459484405-763573866</div>
+        </td>
+        <td class="item-price">73 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">04</td>
+        <td>
+          <div class="item-brand">De Dietrich</div>
+          <div class="item-model">Посудомоечная машина</div>
+          <div class="item-name">Полностью встраиваемая · 15 комплектов · 42 дБ(А) · авт. открытие дверцы · луч на полу · конденсационная сушка</div>
+          <div class="item-sku">SKU: INSALES-459484411-763573879</div>
+        </td>
+        <td class="item-price">145 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr>
+        <td class="item-num">05</td>
+        <td>
+          <div class="item-brand">Bertazzoni</div>
+          <div class="item-model">Холодильник встраиваемый REF603BBNPVC/20</div>
+          <div class="item-name">Встраиваемый · нержавейка · под фасад · европейский класс · De Dietrich холодильники — под заказ от 4–6 нед.</div>
+          <div class="item-sku">SKU: REF603BBNPVC/20</div>
+        </td>
+        <td class="item-price">175 000</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr style="background:#f8f6f2;">
+        <td class="item-num" style="color:#555;">06</td>
+        <td>
+          <div class="item-brand">Schulthess</div>
+          <div class="item-model">Стиральная машина Spirit 530 Anthracite</div>
+          <div class="item-name">8 кг · 1 600 об/мин · Supersilent · CleanJet · 3D-Wash · сенсор загрязнения · LED барабан · цветной дисплей 4.3"</div>
+          <div class="item-sku">SKU: INSALES-459243515-763255772</div>
+        </td>
+        <td class="item-price">537 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+      <tr style="background:#f8f6f2;">
+        <td class="item-num" style="color:#555;">07</td>
+        <td>
+          <div class="item-brand">Schulthess</div>
+          <div class="item-model">Сушильная машина Spirit 650 Anthracite</div>
+          <div class="item-name">8 кг · тепловой насос Heat Pump · Autoclean · PetPlus · удаление пыльцы · LED барабан · 61 дБ макс · дисплей 4.3"</div>
+          <div class="item-sku">SKU: INSALES-459243523-763255780</div>
+        </td>
+        <td class="item-price">538 990</td>
+        <td style="text-align:center"><span class="badge-stock">На складе</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="kp-total" style="background:linear-gradient(135deg,#0e1520 0%,#1a2a3a 80%,#2B4A72 100%);">
+    <div>
+      <div class="kp-total-label">Итого · Вариант B · 7 позиций</div>
+      <div class="kp-total-note">Превышение бюджета: +493 940 ₽ (+32,9%) · все позиции на складе</div>
+    </div>
+    <div class="kp-total-sum">1 993 940 <span>₽</span></div>
+  </div>
+
+  <div class="conditions-grid">
+    <div class="cond-card">
+      <div class="cond-icon">🚚</div>
+      <div class="cond-title">Доставка</div>
+      <div class="cond-val">Москва и МО — от 5 рабочих дней. Все 7 позиций на складе, одна отгрузка.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">🛡</div>
+      <div class="cond-title">Гарантия</div>
+      <div class="cond-val">Kuppersbusch — 2 года. De Dietrich — 2 года. Schulthess — 2 года. Авторизованный дистрибьютор.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">💳</div>
+      <div class="cond-title">Оплата</div>
+      <div class="cond-val">100% предоплата по счёту. Безналичный расчёт, закрывающие документы для ИП/ООО.</div>
+    </div>
+    <div class="cond-card">
+      <div class="cond-icon">🖤</div>
+      <div class="cond-title">Единый тёмный стиль</div>
+      <div class="cond-val">Kuppersbusch Black Chrome + De Dietrich чёрное стекло + Schulthess Anthracite — последовательный тёмный акцент от кухни до постирочной.</div>
+    </div>
+  </div>
+
+  <div class="kp-note">
+    ℹ️ <strong>Про холодильник:</strong> De Dietrich встраиваемые холодильники — под заказ (4–6 недель). В варианте B предложен Bertazzoni REF603BBNPVC/20 — тот же класс европейского встраиваемого холодильника, в наличии. При желании можем уточнить наличие и сроки поставки De Dietrich холодильников.
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     ВКЛАДКА 4: ВИЗУАЛЫ
+     ══════════════════════════════════════════ -->
+<div id="tab-visual" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Внешний вид техники · оба варианта</div>
+
+  <div class="brief-intro" style="margin-bottom:28px;">
+    <div class="brief-intro-title">Тёмный финиш — от духовки до сушилки</div>
+    <div class="brief-intro-text">Вариант A: De Dietrich — чёрное стекло с нержавеющей сталью, элегантный европейский минимализм. Вариант B: Kuppersbusch Black Chrome добавляет металлический тёмно-хромированный акцент. Schulthess Anthracite — <span class="brief-intro-accent">единственная швейцарская стиральная машина со встраиваемым форматом и тёмным финишем.</span></div>
+  </div>
+
+  <div class="vis-grid">
+
+    <!-- De Dietrich духовка -->
+    <div class="vis-card">
+      <div class="vis-img-wrap">
+        <img src="https://static.insales-cdn.com/images/products/1/7964/919691036/large_y0jqy00szzra5wjlphoewf2klin2045r__2_.png" alt="De Dietrich духовка">
+        <div class="vis-img-badge">
+          <div class="vis-img-badge-num">Поз. 01 · Вариант A</div>
+          <div class="vis-img-badge-model">De Dietrich Духовой шкаф</div>
+        </div>
+        <div class="vis-img-overlay"></div>
+      </div>
+      <div class="vis-body">
+        <div class="vis-cat">Духовой шкаф встраиваемый · 60 см</div>
+        <div class="vis-model">Духовой шкаф с пиролизом</div>
+        <div class="vis-name-sub">De Dietrich · Франция · SKU: INSALES-459484336-763573654</div>
+        <div class="vis-desc">Панель управления «Гурман» с белым LCD-дисплеем. Чёрное стекло + нержавеющая сталь. Объём 73 л, 11 режимов включая конвекцию. Пиролитическая самоочистка. Дверца с плавным закрыванием, телескопические направляющие.</div>
+        <div class="vis-pills">
+          <span class="vis-pill">73 л</span>
+          <span class="vis-pill">11 режимов</span>
+          <span class="vis-pill">Пиролиз</span>
+          <span class="vis-pill vis-pill-gold">Чёрное стекло</span>
+          <span class="vis-pill vis-pill-green">На складе</span>
+        </div>
+        <span class="vis-badge-ab">💰 Вариант A · 175 990 ₽</span>
+      </div>
+    </div>
+
+    <!-- Kuppersbusch духовка -->
+    <div class="vis-card" style="border-color:rgba(201,169,110,.4);">
+      <div class="vis-img-wrap" style="background:#0e1318;">
+        <img src="https://technika-vkusa.ru/upload/iblock/591/jb3lm9thpn8ry5r6ammuml63u0x2ddax.png" alt="Kuppersbusch BP 6550.0 S2 Black Chrome">
+        <div class="vis-img-badge">
+          <div class="vis-img-badge-num">Поз. 01 · Вариант B</div>
+          <div class="vis-img-badge-model">BP 6550.0 S2 Black Chrome</div>
+        </div>
+        <div class="vis-img-overlay"></div>
+      </div>
+      <div class="vis-body">
+        <div class="vis-cat">Духовой шкаф встраиваемый · 60 см</div>
+        <div class="vis-model">BP 6550.0 S2 Black Chrome</div>
+        <div class="vis-name-sub">Kuppersbusch · Германия · SKU: INSALES-459532946-763664855</div>
+        <div class="vis-desc">Флагман Kuppersbusch в отделке Black Chrome — матово-хромированная рамка, чёрное стекло. TFT-дисплей 3.9". Пиролиз 3 уровня, 14 режимов, 40+ автоматических программ. Ökotherm®-катализатор, плавное закрытие дверцы. Визуальный центр Premium-кухни.</div>
+        <div class="vis-pills">
+          <span class="vis-pill">44 л</span>
+          <span class="vis-pill">14 режимов</span>
+          <span class="vis-pill">Пиролиз</span>
+          <span class="vis-pill vis-pill-dark">Black Chrome</span>
+          <span class="vis-pill vis-pill-green">На складе</span>
+        </div>
+        <span class="vis-badge-ab">🖤 Вариант B · 290 990 ₽</span>
+      </div>
+    </div>
+
+    <!-- De Dietrich варочная -->
+    <div class="vis-card">
+      <div class="vis-img-wrap">
+        <img src="https://static.insales-cdn.com/images/products/1/6555/919550363/large_hob_dedietrich_dpi7689xs.jpg" alt="De Dietrich HORIZONE PLAY">
+        <div class="vis-img-badge">
+          <div class="vis-img-badge-num">Поз. 02 · Вариант A</div>
+          <div class="vis-img-badge-model">De Dietrich HORIZONE PLAY</div>
+        </div>
+        <div class="vis-img-overlay"></div>
+      </div>
+      <div class="vis-body">
+        <div class="vis-cat">Индукционная варочная панель · 60 см</div>
+        <div class="vis-model">Индукционная панель HORIZONE PLAY</div>
+        <div class="vis-name-sub">De Dietrich · Франция · SKU: INSALES-459484370-763573772</div>
+        <div class="vis-desc">Концепция horiZone Play: 4 зоны с двумя расширенными зонами 40×23 см. 20 уровней мощности, функции Sous-vide, Гриль/Планча, Clean Lock. Чёрное стекло, 7 400 Вт суммарно. Автоматическое распознавание посуды.</div>
+        <div class="vis-pills">
+          <span class="vis-pill">4 зоны horiZone</span>
+          <span class="vis-pill">7 400 Вт</span>
+          <span class="vis-pill">Sous-vide</span>
+          <span class="vis-pill vis-pill-gold">Чёрное стекло</span>
+          <span class="vis-pill vis-pill-green">На складе</span>
+        </div>
+        <span class="vis-badge-ab">💰 Вариант A · 180 990 ₽</span>
+      </div>
+    </div>
+
+    <!-- De Dietrich варочная 5 зон -->
+    <div class="vis-card">
+      <div class="vis-img-wrap">
+        <img src="https://static.insales-cdn.com/images/products/1/3964/919555964/large_dpi7876x.jpg" alt="De Dietrich варочная 5 зон">
+        <div class="vis-img-badge">
+          <div class="vis-img-badge-num">Поз. 02 · Вариант B</div>
+          <div class="vis-img-badge-model">De Dietrich 5 зон · 90 см</div>
+        </div>
+        <div class="vis-img-overlay"></div>
+      </div>
+      <div class="vis-body">
+        <div class="vis-cat">Индукционная варочная панель · 90 см</div>
+        <div class="vis-model">Индукционная панель 5 зон</div>
+        <div class="vis-name-sub">De Dietrich · Франция · SKU: INSALES-459484367-763573763</div>
+        <div class="vis-desc">5 независимых зон: центральная 28 см/3 700 Вт + 4 рабочих зоны. 20 уровней мощности, Booster на каждой зоне, авт. распознавание посуды. 7 400 Вт суммарно. Расширенная панель 90 см для кухни 29 м² — больше пространства для готовки.</div>
+        <div class="vis-pills">
+          <span class="vis-pill">5 зон</span>
+          <span class="vis-pill">90 см</span>
+          <span class="vis-pill">7 400 Вт</span>
+          <span class="vis-pill vis-pill-gold">Чёрное стекло</span>
+          <span class="vis-pill vis-pill-green">На складе</span>
+        </div>
+        <span class="vis-badge-ab">🖤 Вариант B · 230 990 ₽</span>
+      </div>
+    </div>
+
+    <!-- Schulthess Spirit White -->
+    <div class="vis-card">
+      <div class="vis-img-wrap">
+        <img src="https://static.insales-cdn.com/images/products/1/1089/919503937/large_290dd7af49751be0769b1a13b13e721f.jpg" alt="Schulthess Spirit 520 White">
+        <div class="vis-img-badge">
+          <div class="vis-img-badge-num">Поз. 06 · Вариант A</div>
+          <div class="vis-img-badge-model">Spirit 520 White</div>
+        </div>
+        <div class="vis-img-overlay"></div>
+      </div>
+      <div class="vis-body">
+        <div class="vis-cat">Стиральная машина · Schulthess · Швейцария</div>
+        <div class="vis-model">Spirit 520 White</div>
+        <div class="vis-name-sub">Schulthess · Швейцария · SKU: INSALES-459243513-763255770</div>
+        <div class="vis-desc">Швейцарская стиральная машина премиум-класса. Технология CleanJet — глубокое очищение без перегрева. 3D-Wash, автовзвешивание, Silent-класс. Хромированная дверь, дисплей 4.3". 8 кг загрузка, 1 500 об/мин.</div>
+        <div class="vis-pills">
+          <span class="vis-pill">8 кг</span>
+          <span class="vis-pill">1 500 об/мин</span>
+          <span class="vis-pill">CleanJet</span>
+          <span class="vis-pill vis-pill-green">Silent</span>
+          <span class="vis-pill vis-pill-green">На складе</span>
+        </div>
+        <span class="vis-badge-ab">💰 Вариант A · 467 990 ₽</span>
+      </div>
+    </div>
+
+    <!-- Schulthess Spirit 620 White -->
+    <div class="vis-card">
+      <div class="vis-img-wrap">
+        <img src="https://static.insales-cdn.com/images/products/1/2949/919513989/large_Spirit_620_White.jpg" alt="Schulthess Spirit 620 White">
+        <div class="vis-img-badge">
+          <div class="vis-img-badge-num">Поз. 07 · Вариант A</div>
+          <div class="vis-img-badge-model">Spirit 620 White</div>
+        </div>
+        <div class="vis-img-overlay"></div>
+      </div>
+      <div class="vis-body">
+        <div class="vis-cat">Сушильная машина · Schulthess · Швейцария</div>
+        <div class="vis-model">Spirit 620 White</div>
+        <div class="vis-name-sub">Schulthess · Швейцария · SKU: INSALES-459243521-763255778</div>
+        <div class="vis-desc">Конденсационная сушка с тепловым насосом Heat Pump — экономичнее обычного на 50%. Autoclean — самоочистка теплообменника. 62 дБ максимум. Отложенный запуск до 7 дней. Перенавеска дверцы. Пара к Spirit 520.</div>
+        <div class="vis-pills">
+          <span class="vis-pill">8 кг</span>
+          <span class="vis-pill">Heat Pump</span>
+          <span class="vis-pill">Autoclean</span>
+          <span class="vis-pill vis-pill-green">62 дБ</span>
+          <span class="vis-pill vis-pill-green">На складе</span>
+        </div>
+        <span class="vis-badge-ab">💰 Вариант A · 478 990 ₽</span>
+      </div>
+    </div>
+
+    <!-- Schulthess Spirit 530 Anthracite -->
+    <div class="vis-card">
+      <div class="vis-img-wrap" style="background:#1a1a1a;">
+        <img src="https://static.insales-cdn.com/images/products/1/981/919503829/large_21729f7f50399195d0b277f8f3ca34a8.jpg" alt="Schulthess Spirit 530 Anthracite">
+        <div class="vis-img-badge">
+          <div class="vis-img-badge-num">Поз. 06 · Вариант B</div>
+          <div class="vis-img-badge-model">Spirit 530 Anthracite</div>
+        </div>
+        <div class="vis-img-overlay"></div>
+      </div>
+      <div class="vis-body">
+        <div class="vis-cat">Стиральная машина · Schulthess · Швейцария</div>
+        <div class="vis-model">Spirit 530 Anthracite</div>
+        <div class="vis-name-sub">Schulthess · Швейцария · SKU: INSALES-459243515-763255772</div>
+        <div class="vis-desc">Supersilent — тише, чем Spirit 520. Сенсор загрязнения белья, LED-подсветка барабана, 6 «Избранных» программ. Anthracite-финиш визуально продолжает тёмную тему кухни. 8 кг, 1 600 об/мин.</div>
+        <div class="vis-pills">
+          <span class="vis-pill">8 кг</span>
+          <span class="vis-pill">1 600 об/мин</span>
+          <span class="vis-pill">Supersilent</span>
+          <span class="vis-pill vis-pill-dark">Anthracite</span>
+          <span class="vis-pill vis-pill-green">На складе</span>
+        </div>
+        <span class="vis-badge-ab">🖤 Вариант B · 537 990 ₽</span>
+      </div>
+    </div>
+
+    <!-- Schulthess Spirit 650 Anthracite -->
+    <div class="vis-card">
+      <div class="vis-img-wrap" style="background:#1a1a1a;">
+        <img src="https://static.insales-cdn.com/images/products/1/5429/919516469/large_Spirit_650_ArtLine_antrazit.jpg" alt="Schulthess Spirit 650 Anthracite">
+        <div class="vis-img-badge">
+          <div class="vis-img-badge-num">Поз. 07 · Вариант B</div>
+          <div class="vis-img-badge-model">Spirit 650 Anthracite</div>
+        </div>
+        <div class="vis-img-overlay"></div>
+      </div>
+      <div class="vis-body">
+        <div class="vis-cat">Сушильная машина · Schulthess · Швейцария</div>
+        <div class="vis-model">Spirit 650 Anthracite</div>
+        <div class="vis-name-sub">Schulthess · Швейцария · SKU: INSALES-459243523-763255780</div>
+        <div class="vis-desc">Расширенная версия сушилки: программа «Удаление пыльцы» (для аллергиков), PetPlus (от шерсти животных), LED-подсветка барабана. Тепловой насос Heat Pump, Autoclean. 61 дБ максимум. Anthracite — пара к Spirit 530.</div>
+        <div class="vis-pills">
+          <span class="vis-pill">8 кг</span>
+          <span class="vis-pill">Heat Pump</span>
+          <span class="vis-pill">PetPlus</span>
+          <span class="vis-pill">Анти-пыльца</span>
+          <span class="vis-pill vis-pill-dark">Anthracite</span>
+          <span class="vis-pill vis-pill-green">На складе</span>
+        </div>
+        <span class="vis-badge-ab">🖤 Вариант B · 538 990 ₽</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="kp-note">
+    🖼 <strong>Фото:</strong> официальные изображения из каталогов производителей. Реальная техника на складе — полное соответствие фото. При необходимости организуем просмотр образцов у поставщика в Москве.
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     ВКЛАДКА 5: КАК РАБОТАЕМ
+     ══════════════════════════════════════════ -->
+<div id="tab-about" class="tab-panel">
+<div class="pad">
+
+  <div class="section-title">Как мы работаем</div>
+
+  <div class="brief-intro" style="margin-bottom:28px;">
+    <div class="brief-intro-title">Home Project — один контакт, весь комплект</div>
+    <div class="brief-intro-text">
+      Официальный дистрибьютор 9 европейских брендов: V-ZUG, BORA, Fhiaba, Küppersbusch, De Dietrich, Graude, Schulthess, SKS, ILVE.
+      <span class="brief-intro-accent">Прямые поставки без посредников — только официальный импорт, сертификаты, гарантия.</span>
+    </div>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01 / БРИФ</div>
+      <div class="step-title">Получение запроса в любом формате</div>
+      <div class="step-text">Email, Telegram, телефон. Разбираем категории, финиш, размеры ниш, бюджет, сроки. Если бриф неполный — уточним сами, не будем угадывать.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02 / ПОДБОР</div>
+      <div class="step-title">Сверка с актуальными остатками</div>
+      <div class="step-text">Остатки обновляются 2 раза в неделю от поставщиков. Предлагаем только то, что физически есть на складе — никаких «привезём через 2 месяца».</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03 / КП</div>
+      <div class="step-title">КП за 30–60 минут</div>
+      <div class="step-text">Документ в фирменном стиле с вариантами, ценами и характеристиками. Отправляем ссылкой (как этот документ), PDF или текстом в мессенджер.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04 / СОПРОВОЖДЕНИЕ</div>
+      <div class="step-title">От уточнений до отгрузки</div>
+      <div class="step-text">Коммуникации с поставщиками, отгрузочные документы, согласования — на нашей стороне. Вы получаете результат, не процесс.</div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:8px;">Бренды в этом КП</div>
+
+  <div class="brand-card">
+    <div class="brand-card-head">
+      <h3>De Dietrich · Франция</h3>
+      <span class="bc-tag">Основная кухонная линейка</span>
+    </div>
+    <div class="brand-card-body">
+      <p>Французский бренд с историей с 1684 года. Полная встраиваемая линейка: духовые шкафы, варочные панели, вытяжки, посудомоечные машины. Чёрное стекло + нержавеющая сталь — фирменный стиль кухни. Официальные поставки, сертификаты, гарантия 2 года.</p>
+    </div>
+  </div>
+
+  <div class="brand-card">
+    <div class="brand-card-head">
+      <h3>Küppersbusch · Германия</h3>
+      <span class="bc-tag">Premium-духовка в Варианте B</span>
+    </div>
+    <div class="brand-card-body">
+      <p>Немецкий производитель уровня luxury-сегмента. Отделки Black Chrome, Silver Chrome, Gold, Copper — каждый прибор кастомизируется под дизайн-концепцию. Полная встраиваемая линейка. Позволяет собрать кухню в одном стиле от единого бренда. Цена набора от 900 000 ₽.</p>
+    </div>
+  </div>
+
+  <div class="brand-card">
+    <div class="brand-card-head">
+      <h3>Schulthess · Швейцария</h3>
+      <span class="bc-tag">Стирка + сушка в обоих вариантах</span>
+    </div>
+    <div class="brand-card-body">
+      <p>Швейцарский бренд — один из немногих в мире, кто производит стиральные и сушильные машины премиум-класса с технологией Heat Pump и реальными finishes: White, Anthracite, Solid Gold, Ever Rose. Официальный дистрибьютор в России — HOMEPROJECT. Гарантия 2 года.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     ВКЛАДКА 6: КОНТАКТЫ
+     ══════════════════════════════════════════ -->
+<div id="tab-contacts" class="tab-panel">
+<div class="pad">
+
+  <div class="contact-hero">
+    <h2>Что дальше?</h2>
+    <p>Выберите вариант или уточните детали — подберём финиши, откорректируем позиции, оформим счёт. Отвечаем быстро — обычно в течение часа.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-card-label">Email</div>
+        <div class="contact-card-val"><a href="mailto:info@homeproject.online">info@homeproject.online</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-label">Telegram-бот</div>
+        <div class="contact-card-val"><a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-label">Telegram-канал</div>
+        <div class="contact-card-val"><a href="https://t.me/HomeProjectMsk">@HomeProjectMsk</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-label">Сайт</div>
+        <div class="contact-card-val"><a href="https://homeproject.online">homeproject.online</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reqs">
+    <h3>Реквизиты</h3>
+    <div class="reqs-row"><span>Компания</span><span>Home Project (ИП Кривов С.С.)</span></div>
+    <div class="reqs-row"><span>ИНН</span><span>772171614801</span></div>
+    <div class="reqs-row"><span>Адрес</span><span>109439, г. Москва</span></div>
+    <div class="reqs-row"><span>Дата предложения</span><span>12 июля 2026</span></div>
+    <div class="reqs-row"><span>Действует до</span><span>26 июля 2026</span></div>
+    <div class="reqs-row"><span>Цены</span><span>РРЦ, включая НДС</span></div>
+  </div>
+
+  <div class="kp-note">
+    📌 Предложение действует 14 дней с даты отправки. Цены РРЦ, включая НДС. Для получения счёта — пришлите реквизиты на email или в Telegram-бот.
+  </div>
+
+</div>
+</div>
+
+
+<!-- ═══════════════ ФУТЕР ═══════════════ -->
+<div class="footer">
+  <strong>Home Project</strong> · ИП Кривов С.С. · ИНН 772171614801 · 109439, г. Москва<br>
+  <a href="https://homeproject.online">homeproject.online</a> · <a href="mailto:info@homeproject.online">info@homeproject.online</a> · <a href="https://t.me/homeproject_ai_bot">@homeproject_ai_bot</a><br>
+  Предложение подготовлено 12 июля 2026 · действует до 26 июля 2026
+</div>
+
+</div>
+
+<script>
+function showTab(id, el) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.kp-guide-tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('tab-' + id);
+  if (panel) panel.classList.add('active');
+  if (el) el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
