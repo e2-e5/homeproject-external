@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Аудит Chateau de Vaisselle — 12.07.2026</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0d1117; color: #e2e8f0; font-family: -apple-system, 'Inter', 'Helvetica Neue', sans-serif; font-size: 15px; line-height: 1.7; }
+
+/* NAV */
+.nav { background: #13151b; border-bottom: 1px solid #2a2d38; padding: 14px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.nav-brand { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: .08em; }
+.nav-sub { font-size: 11px; color: #475569; margin-top: 1px; }
+.nav-badge { background: #6366f1; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: .06em; }
+
+/* LAYOUT */
+.page { max-width: 980px; margin: 0 auto; padding: 48px 32px 80px; }
+
+/* HERO */
+.hero { background: linear-gradient(135deg, #1a1d27 0%, #13151b 100%); border: 1px solid #2a2d38; border-radius: 16px; padding: 40px 48px; margin-bottom: 40px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%; border: 1px solid rgba(99,102,241,.12); right: -80px; top: -80px; }
+.hero-label { font-size: 10px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: #6366f1; margin-bottom: 12px; }
+.hero h1 { font-size: 32px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 10px; }
+.hero h1 span { color: #a5b4fc; }
+.hero-meta { font-size: 13px; color: #64748b; margin-bottom: 28px; }
+.hero-kpis { display: flex; gap: 32px; flex-wrap: wrap; }
+.kpi { border-left: 2px solid #6366f1; padding-left: 16px; }
+.kpi-val { font-size: 26px; font-weight: 800; color: #fff; }
+.kpi-label { font-size: 11px; color: #64748b; margin-top: 1px; }
+
+/* SECTIONS */
+.section { margin-bottom: 40px; }
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #1f2129; }
+.section-num { width: 28px; height: 28px; border-radius: 50%; background: #1f2129; border: 1px solid #6366f1; color: #a5b4fc; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-title { font-size: 17px; font-weight: 700; color: #fff; }
+
+/* CARDS GRID */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+.cards-2 { grid-template-columns: repeat(2, 1fr); }
+.cards-4 { grid-template-columns: repeat(4, 1fr); }
+.card { background: #1a1d27; border: 1px solid #2a2d38; border-radius: 12px; padding: 20px; }
+.card-title { font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+.card-val { font-size: 24px; font-weight: 800; color: #fff; }
+.card-sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+.card.accent { border-color: #6366f133; background: #1e1f35; }
+.card.green { border-color: #22c55e33; background: #0f1f15; }
+.card.yellow { border-color: #f59e0b33; background: #1f1a0f; }
+.card.red { border-color: #ef444433; background: #1f1010; }
+
+/* TABLE */
+.tbl-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #2a2d38; margin-bottom: 16px; }
+table { width: 100%; border-collapse: collapse; }
+th { background: #13151b; color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: 10px 14px; text-align: left; border-bottom: 1px solid #2a2d38; }
+td { padding: 10px 14px; border-bottom: 1px solid #1a1d27; font-size: 13px; color: #cbd5e1; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #1a1d27; }
+.td-bold { font-weight: 700; color: #e2e8f0; }
+.td-num { font-weight: 700; color: #a5b4fc; }
+
+/* STATUS BADGES */
+.badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+.badge-green { background: #22c55e22; color: #4ade80; border: 1px solid #22c55e33; }
+.badge-yellow { background: #f59e0b22; color: #fbbf24; border: 1px solid #f59e0b33; }
+.badge-red { background: #ef444422; color: #f87171; border: 1px solid #ef444433; }
+.badge-blue { background: #6366f122; color: #a5b4fc; border: 1px solid #6366f133; }
+
+/* INSIGHT BLOCKS */
+.insight { background: #1a1d27; border-left: 3px solid #6366f1; border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 12px; }
+.insight.green { border-color: #22c55e; }
+.insight.yellow { border-color: #f59e0b; }
+.insight.red { border-color: #ef4444; }
+.insight-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #475569; margin-bottom: 5px; }
+.insight-text { font-size: 14px; color: #e2e8f0; }
+
+/* SCORE */
+.score-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
+.score-item { background: #1a1d27; border: 1px solid #2a2d38; border-radius: 10px; padding: 16px; text-align: center; }
+.score-val { font-size: 22px; font-weight: 800; }
+.score-val.a { color: #4ade80; }
+.score-val.b { color: #a3e635; }
+.score-val.c { color: #fbbf24; }
+.score-val.d { color: #f87171; }
+.score-label { font-size: 10px; color: #64748b; margin-top: 4px; }
+
+/* MIGRATION */
+.mig-block { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.mig-card { background: #1a1d27; border: 1px solid #2a2d38; border-radius: 12px; padding: 22px; }
+.mig-head { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.mig-sub { font-size: 11px; color: #64748b; margin-bottom: 14px; }
+.mig-pros { list-style: none; }
+.mig-pros li { font-size: 12px; color: #94a3b8; padding: 4px 0; border-bottom: 1px solid #13151b; display: flex; gap: 8px; }
+.mig-pros li:last-child { border: none; }
+.mig-pros li::before { content: '+'; color: #4ade80; font-weight: 700; flex-shrink: 0; }
+.mig-cons li::before { content: '−'; color: #f87171; font-weight: 700; flex-shrink: 0; }
+.mig-score { margin-top: 14px; padding-top: 12px; border-top: 1px solid #2a2d38; font-size: 12px; }
+.mig-score-val { font-size: 20px; font-weight: 800; color: #a5b4fc; }
+.mig-card.recommended { border-color: #6366f155; background: #1e1f35; }
+.rec-badge { display: inline-block; background: #6366f133; color: #a5b4fc; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 8px; vertical-align: middle; }
+
+/* ECON */
+.econ-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; margin-bottom: 24px; align-items: start; }
+.econ-col { background: #1a1d27; border: 1px solid #2a2d38; border-radius: 12px; padding: 24px; }
+.econ-col.right { border-color: #6366f155; background: #1e1f35; }
+.econ-divider { display: flex; align-items: center; justify-content: center; padding: 0 20px; margin-top: 80px; }
+.econ-divider-icon { width: 32px; height: 32px; background: #6366f1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
+.econ-col-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #475569; margin-bottom: 18px; }
+.econ-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #13151b; font-size: 13px; }
+.econ-row:last-child { border: none; }
+.econ-key { color: #94a3b8; }
+.econ-val { font-weight: 700; color: #e2e8f0; }
+.econ-val.up { color: #4ade80; }
+.econ-val.down { color: #f87171; }
+
+/* NEXT STEPS */
+.steps { counter-reset: steps; }
+.step { display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; background: #6366f1; color: #fff; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.step-body { flex: 1; }
+.step-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: #94a3b8; }
+
+/* FOOTER */
+.footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid #1f2129; display: flex; justify-content: space-between; align-items: center; }
+.footer-brand { font-size: 11px; font-weight: 800; color: #fff; letter-spacing: .1em; }
+.footer-meta { font-size: 11px; color: #475569; }
+
+@media (max-width: 700px) {
+  .cards, .cards-2, .cards-4, .mig-block, .econ-compare, .score-grid { grid-template-columns: 1fr 1fr; }
+  .hero h1 { font-size: 22px; }
+  .page { padding: 24px 16px 60px; }
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div>
+    <div class="nav-brand">HOMEPROJECT — Аудит партнёра</div>
+    <div class="nav-sub">Подготовка к встрече · 13 июля 2026</div>
+  </div>
+  <div class="nav-badge">КОНФИДЕНЦИАЛЬНО</div>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Аудит сайта и бизнеса</div>
+    <h1>Chateau de <span>Vaisselle</span></h1>
+    <div class="hero-meta">chateaudevaisselle.com · Москва · Основана 2012 · Проверено 12.07.2026</div>
+    <div class="hero-kpis">
+      <div class="kpi">
+        <div class="kpi-val">100+</div>
+        <div class="kpi-label">брендов в каталоге</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">~4 200</div>
+        <div class="kpi-label">позиций в наличии</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">2</div>
+        <div class="kpi-label">физических салона</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">96%</div>
+        <div class="kpi-label">рекомендуют (Facebook)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">OpenCart</div>
+        <div class="kpi-label">платформа сайта</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. КАТАЛОГ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Структура каталога</div>
+    </div>
+
+    <div class="cards cards-4">
+      <div class="card accent">
+        <div class="card-title">Бытовая техника</div>
+        <div class="card-val">957</div>
+        <div class="card-sub">в наличии (из ~1 400 всего)</div>
+      </div>
+      <div class="card accent">
+        <div class="card-title">Встраиваемая</div>
+        <div class="card-val">625</div>
+        <div class="card-sub">подраздел техники</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Посуда</div>
+        <div class="card-val">1 900+</div>
+        <div class="card-sub">135 по акции</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Сервировка</div>
+        <div class="card-val">577</div>
+        <div class="card-sub">в наличии</div>
+      </div>
+    </div>
+    <div class="cards cards-4">
+      <div class="card">
+        <div class="card-title">Ножи / приборы</div>
+        <div class="card-val">200+</div>
+        <div class="card-sub">9 страниц каталога</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Декор</div>
+        <div class="card-val">343</div>
+        <div class="card-sub">в наличии</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Текстиль</div>
+        <div class="card-val">189</div>
+        <div class="card-sub">в наличии</div>
+      </div>
+      <div class="card green">
+        <div class="card-title">ИТОГО в наличии</div>
+        <div class="card-val">~4 200</div>
+        <div class="card-sub">реальные позиции</div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Бренд</th><th>Позиций в технике</th><th>Пересечение с HOMEPROJECT</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-bold">SMEG</td><td class="td-num">778</td><td>—</td></tr>
+          <tr><td class="td-bold">GAGGENAU</td><td class="td-num">352</td><td>—</td></tr>
+          <tr><td class="td-bold">Weissgauff</td><td class="td-num">327</td><td>—</td></tr>
+          <tr><td class="td-bold">Kuppersbusch</td><td class="td-num">304</td><td><span class="badge badge-blue">✓ наш бренд</span></td></tr>
+          <tr><td class="td-bold">ASKO</td><td class="td-num">229</td><td>—</td></tr>
+          <tr><td class="td-bold">KAISER</td><td class="td-num">155</td><td>—</td></tr>
+          <tr><td class="td-bold">Schulthess</td><td class="td-num">65</td><td><span class="badge badge-blue">✓ наш бренд</span></td></tr>
+          <tr><td class="td-bold">Graude</td><td class="td-num">55</td><td><span class="badge badge-blue">✓ наш бренд</span></td></tr>
+          <tr><td class="td-bold">De Dietrich</td><td class="td-num">64</td><td><span class="badge badge-blue">✓ наш бренд</span></td></tr>
+          <tr><td class="td-bold">BERTAZZONI</td><td class="td-num">104</td><td>—</td></tr>
+          <tr><td class="td-bold">Cold Vine / Dunavox</td><td class="td-num">63–64</td><td>—</td></tr>
+          <tr><td class="td-bold">Miele</td><td class="td-num">45</td><td>—</td></tr>
+          <tr><td class="td-bold">V-ZUG</td><td class="td-num">есть</td><td><span class="badge badge-blue">✓ наш бренд</span></td></tr>
+          <tr><td class="td-bold">Sub-Zero</td><td class="td-num">39</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight green">
+      <div class="insight-label">Ключевой факт для переговоров</div>
+      <div class="insight-text">4 бренда из наших 9 уже представлены в Шато: Kuppersbusch (304 позиции), De Dietrich (64), Schulthess (65), Graude (55). Это устраняет возражение «мы не знаем ваших поставщиков» — знают и продают.</div>
+    </div>
+    <div class="insight yellow">
+      <div class="insight-label">Ценовой диапазон</div>
+      <div class="insight-text">460 ₽ (ложка) — 6 850 000 ₽ (гриль-центр). Кухни — до 15 млн руб. Это подтверждает premium-позиционирование и платёжеспособность аудитории.</div>
+    </div>
+  </div>
+
+  <!-- 2. ТЕХНИКА -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Техническая работоспособность сайта</div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Параметр</th><th>Статус</th><th>Комментарий</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>SSL / HTTPS</td><td><span class="badge badge-green">✓ Активен</span></td><td>Сертификат работает</td></tr>
+          <tr><td>Платформа</td><td><span class="badge badge-yellow">OpenCart</span></td><td>Зрелая, но устаревшая e-commerce CMS. Определяется по URL-паттернам.</td></tr>
+          <tr><td>Мобильная адаптация</td><td><span class="badge badge-green">✓ Есть</span></td><td>Responsive дизайн, viewport meta</td></tr>
+          <tr><td>Корзина</td><td><span class="badge badge-green">✓ Работает</span></td><td>«Добавить в корзину» на товарах, счётчик в шапке</td></tr>
+          <tr><td>Фильтры каталога</td><td><span class="badge badge-green">✓ Работают</span></td><td>По цене, бренду, наличию, акции, новизне</td></tr>
+          <tr><td>Поиск</td><td><span class="badge badge-green">✓ Есть</span></td><td>Строка поиска в шапке</td></tr>
+          <tr><td>robots.txt</td><td><span class="badge badge-green">✓ Корректный</span></td><td>Блокирует дубли, настроен под Яндекс отдельно</td></tr>
+          <tr><td>sitemap.xml</td><td><span class="badge badge-yellow">⚠ Нестандартный</span></td><td>/sitemap.xml → 404. Работает /fx-sitemap/ (OpenCart-расширение)</td></tr>
+          <tr><td>URL-структура</td><td><span class="badge badge-yellow">⚠ Нестандартная</span></td><td>Транслитерация с ошибками (/bitovaya-texnika/ вместо /bytovaya-tekhnika/)</td></tr>
+          <tr><td>Wishlist</td><td><span class="badge badge-green">✓ Есть</span></td><td>Список избранного</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight yellow">
+      <div class="insight-label">Техническое слабое место</div>
+      <div class="insight-text">/sitemap.xml → 404 — это малозаметный, но реальный SEO-риск. Поисковики могут не найти часть страниц. Нестандартная транслитерация в URL усложняет пользовательский набор адреса вручную, хотя автоматическая навигация работает.</div>
+    </div>
+  </div>
+
+  <!-- 3. SEO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">SEO и поисковая видимость</div>
+    </div>
+
+    <div class="score-grid">
+      <div class="score-item">
+        <div class="score-val b">B+</div>
+        <div class="score-label">Общий SEO</div>
+      </div>
+      <div class="score-item">
+        <div class="score-val a">A</div>
+        <div class="score-label">Брендовые запросы</div>
+      </div>
+      <div class="score-item">
+        <div class="score-val b">B</div>
+        <div class="score-label">Техническая SEO</div>
+      </div>
+      <div class="score-item">
+        <div class="score-val c">C</div>
+        <div class="score-label">Внешние ссылки</div>
+      </div>
+      <div class="score-item">
+        <div class="score-val b">B</div>
+        <div class="score-label">Контентная SEO</div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Критерий</th><th>Факт</th></tr></thead>
+        <tbody>
+          <tr><td>Брендовый запрос «chateaudevaisselle»</td><td>1-е место в Google и Яндекс</td></tr>
+          <tr><td>Title / Description на страницах</td><td>Присутствуют на категориях и товарах</td></tr>
+          <tr><td>Индексация Google</td><td>Сайт проиндексирован, есть расширенные сниппеты</td></tr>
+          <tr><td>Яндекс настройки</td><td>Отдельный блок для Яндекс-бота в robots.txt — активная работа с SEO</td></tr>
+          <tr><td>sitemap.xml</td><td>Нестандартный путь /fx-sitemap/ — работает, но /sitemap.xml → 404</td></tr>
+          <tr><td>Структурированные данные (schema.org)</td><td>Не проверялось полностью — типично для OpenCart слабые</td></tr>
+          <tr><td>Скорость страниц</td><td>Загрузка нормальная субъективно (OpenCart часто медленный на мобиле)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 4. РЕПУТАЦИЯ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Репутация и отзывы</div>
+    </div>
+
+    <div class="cards cards-4">
+      <div class="card green">
+        <div class="card-title">Facebook</div>
+        <div class="card-val">96%</div>
+        <div class="card-sub">116 рекомендаций</div>
+      </div>
+      <div class="card green">
+        <div class="card-title">Fooby.ru</div>
+        <div class="card-val">4.5/5</div>
+        <div class="card-sub">8 отзывов</div>
+      </div>
+      <div class="card green">
+        <div class="card-title">Zoon.ru</div>
+        <div class="card-val">4/5</div>
+        <div class="card-sub">несколько локаций</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Негативных отзывов</div>
+        <div class="card-val">0</div>
+        <div class="card-sub">в публичном доступе</div>
+      </div>
+    </div>
+
+    <div class="insight green">
+      <div class="insight-label">Сильная репутация</div>
+      <div class="insight-text">96% рекомендаций на Facebook при 116 голосах — исключительный результат для premium-сегмента. Типичный sentiment: «дорого и манерно, но для Москвы нормально». Негативных отзывов в публичном поиске не обнаружено.</div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Параметр</th><th>Данные</th></tr></thead>
+        <tbody>
+          <tr><td>Физические точки</td><td>Vegas Крокус Сити (4 эт., 10:00–23:00) + МТК ЕвроПарк Рублёвское ш. 62 (2 зала)</td></tr>
+          <tr><td>Кулинарная школа</td><td>Отдельный сайт cooking-chateaudevaisselle.ru — экосистема бренда</td></tr>
+          <tr><td>ВКонтакте / соцсети</td><td>Присутствие есть. Facebook активен.</td></tr>
+          <tr><td>Целевая аудитория</td><td>Архитекторы, дизайнеры интерьеров, состоятельные частные покупатели. Явная B2B-составляющая.</td></tr>
+          <tr><td>Владелец</td><td>Ирина Печерская (основатель), ООО «РИСТАНТ»</td></tr>
+          <tr><td>Год основания</td><td>2012–2013. Три точки в Москве, с 2015 — кулинарный салон</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. ЭКОНОМИКА -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">Оценка экономической эффективности (первое приближение)</div>
+    </div>
+
+    <div class="econ-compare">
+      <div class="econ-col">
+        <div class="econ-col-title">Сейчас (без нашей системы)</div>
+        <div class="econ-row"><span class="econ-key">Управление каталогом</span><span class="econ-val down">Ручное</span></div>
+        <div class="econ-row"><span class="econ-key">Обновление цен</span><span class="econ-val down">Ручное, нерегулярно</span></div>
+        <div class="econ-row"><span class="econ-key">AI-рекомендации</span><span class="econ-val down">Нет</span></div>
+        <div class="econ-row"><span class="econ-key">Скорость КП клиенту</span><span class="econ-val down">Дни</span></div>
+        <div class="econ-row"><span class="econ-key">Email-маркетинг</span><span class="econ-val down">Базовый / нет данных</span></div>
+        <div class="econ-row"><span class="econ-key">CRM</span><span class="econ-val down">Неизвестно</span></div>
+        <div class="econ-row"><span class="econ-key">Онлайн-конверсия</span><span class="econ-val">~1–2% (типично OpenCart)</span></div>
+        <div class="econ-row"><span class="econ-key">Трафик / мес.</span><span class="econ-val">~15–30К (оценка, нет данных)</span></div>
+        <div class="econ-row"><span class="econ-key">Оценка онлайн-выручки</span><span class="econ-val">Неизвестна, офлайн доминирует</span></div>
+      </div>
+
+      <div class="econ-divider">
+        <div class="econ-divider-icon">→</div>
+      </div>
+
+      <div class="econ-col right">
+        <div class="econ-col-title">С нашей системой (Medusa + AI)</div>
+        <div class="econ-row"><span class="econ-key">Управление каталогом</span><span class="econ-val up">Автоматизировано</span></div>
+        <div class="econ-row"><span class="econ-key">Обновление цен</span><span class="econ-val up">Автоматически от поставщика</span></div>
+        <div class="econ-row"><span class="econ-key">AI-рекомендации</span><span class="econ-val up">Чат-консультант на сайте</span></div>
+        <div class="econ-row"><span class="econ-key">Скорость КП клиенту</span><span class="econ-val up">20 минут (наш стандарт)</span></div>
+        <div class="econ-row"><span class="econ-key">Email-маркетинг</span><span class="econ-val up">Автоматизированные кампании</span></div>
+        <div class="econ-row"><span class="econ-key">CRM</span><span class="econ-val up">Полная интеграция, 14К+ контактов</span></div>
+        <div class="econ-row"><span class="econ-key">Онлайн-конверсия</span><span class="econ-val up">+1–2% к текущей (AI-ассистент)</span></div>
+        <div class="econ-row"><span class="econ-key">Трафик / мес.</span><span class="econ-val up">Те же + SEO-улучшение</span></div>
+        <div class="econ-row"><span class="econ-key">Потенциальный эффект</span><span class="econ-val up">+15–25% онлайн-выручки (оценка)</span></div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-label">Важная оговорка</div>
+      <div class="insight-text">Конкретные данные по трафику и выручке Шато недоступны публично — цифры выше являются оценочными на основе OpenCart-бенчмарков и размера каталога. На встрече стоит запросить данные Яндекс.Метрики / Google Analytics для точного расчёта ROI.</div>
+    </div>
+
+    <div class="cards cards-2">
+      <div class="card yellow">
+        <div class="card-title">Текущая боль</div>
+        <div class="card-sub" style="font-size:13px; color:#e2e8f0; margin-top:8px;">100+ брендов, 4 200+ SKU — управление на OpenCart вручную огромный операционный overhead. Каждое обновление цены, описания, фото требует ручной работы. Это точка боли, которую мы решаем.</div>
+      </div>
+      <div class="card green">
+        <div class="card-title">Наш аргумент</div>
+        <div class="card-sub" style="font-size:13px; color:#e2e8f0; margin-top:8px;">Мы сами управляем 2 367 SKU + 9 брендов через Medusa с AI-агентами. Их каталог в 1.8× больше — но архитектура масштабируется. Показать живой сайт homeproject.online как референс.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. ВАРИАНТЫ ПАРТНЁРСТВА -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">Варианты перевода на нашу систему</div>
+    </div>
+
+    <div class="mig-block">
+      <div class="mig-card">
+        <div class="mig-head">Вариант А — Агентское управление</div>
+        <div class="mig-sub">Их сайт остаётся. Мы управляем каталогом через наш API-слой.</div>
+        <ul class="mig-pros">
+          <li>Нет риска потери SEO и клиентских аккаунтов</li>
+          <li>Минимальные технические риски</li>
+          <li>Быстрый старт — от 2 недель</li>
+          <li>Предсказуемые расходы</li>
+        </ul>
+        <ul class="mig-pros mig-cons">
+          <li>Ограниченный контроль над платформой</li>
+          <li>OpenCart остаётся «узким местом»</li>
+          <li>AI-консультант нельзя встроить без их dev-ресурса</li>
+        </ul>
+        <div class="mig-score">Сложность запуска: <span class="mig-score-val">Низкая</span></div>
+      </div>
+
+      <div class="mig-card recommended">
+        <div class="mig-head">Вариант Б — Новый сайт на Medusa <span class="rec-badge">РЕКОМЕНДУЕМ</span></div>
+        <div class="mig-sub">Создаём сайт-близнец на нашем стеке. Их домен, их каталог, наша система.</div>
+        <ul class="mig-pros">
+          <li>Полный контроль над каталогом и ценами</li>
+          <li>AI-консультант «из коробки»</li>
+          <li>Автоматические КП за 20 минут</li>
+          <li>Email-маркетинг и CRM сразу</li>
+          <li>Референс: homeproject.online (живой)</li>
+        </ul>
+        <ul class="mig-pros mig-cons">
+          <li>Миграция каталога ~4 200 SKU — 2–4 недели</li>
+          <li>301-редиректы для сохранения SEO</li>
+          <li>Обучение команды Шато</li>
+        </ul>
+        <div class="mig-score">Сложность запуска: <span class="mig-score-val">Средняя</span></div>
+      </div>
+
+      <div class="mig-card">
+        <div class="mig-head">Вариант В — Полная миграция</div>
+        <div class="mig-sub">OpenCart полностью заменяется. Их домен, их данные, наш стек.</div>
+        <ul class="mig-pros">
+          <li>Максимальная автоматизация</li>
+          <li>Единая система для всего</li>
+          <li>Глубокая интеграция с поставщиками</li>
+        </ul>
+        <ul class="mig-pros mig-cons">
+          <li>Высокий риск: потеря SEO-позиций при плохой миграции</li>
+          <li>Клиентские аккаунты и история заказов OpenCart</li>
+          <li>Длинная разработка — 1–3 мес.</li>
+          <li>Требует глубокого доверия партнёра</li>
+        </ul>
+        <div class="mig-score">Сложность запуска: <span class="mig-score-val">Высокая</span></div>
+      </div>
+    </div>
+
+    <div class="insight green">
+      <div class="insight-label">Рекомендация</div>
+      <div class="insight-text"><strong>Вариант Б</strong> — оптимальный баланс. Мы берём их каталог, переносим на Medusa, добавляем AI-консультанта и автоматизацию. Клиент получает современный управляемый сайт без риска потери бизнеса. Referenc — наш живой homeproject.online с 2 367 SKU показывает что система работает в продакшне.</div>
+    </div>
+  </div>
+
+  <!-- 7. ЧТО УЛУЧШИТЬ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div class="section-title">Слабые места сайта — аргументы для встречи</div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Проблема</th><th>Критичность</th><th>Что мы даём</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>OpenCart — устаревшая CMS без нативного AI</td>
+            <td><span class="badge badge-red">Высокая</span></td>
+            <td>Medusa + AI-консультант, управление через агентов</td>
+          </tr>
+          <tr>
+            <td>Ручное управление 4 200+ SKU / 100+ брендов</td>
+            <td><span class="badge badge-red">Высокая</span></td>
+            <td>Автоматическая синхронизация с поставщиками</td>
+          </tr>
+          <tr>
+            <td>Нет AI-подбора техники и быстрого КП</td>
+            <td><span class="badge badge-red">Высокая</span></td>
+            <td>КП за 20 мин, чат-консультант на сайте 24/7</td>
+          </tr>
+          <tr>
+            <td>/sitemap.xml → 404 (нестандартный путь)</td>
+            <td><span class="badge badge-yellow">Средняя</span></td>
+            <td>Стандартная sitemap из коробки в Medusa</td>
+          </tr>
+          <tr>
+            <td>URL-транслитерация нестандартная</td>
+            <td><span class="badge badge-yellow">Средняя</span></td>
+            <td>Стандартные slug'и, чистые URL при миграции</td>
+          </tr>
+          <tr>
+            <td>Нет видимости данных о трафике / конверсии</td>
+            <td><span class="badge badge-yellow">Средняя</span></td>
+            <td>KPI-дашборд в реальном времени (Яндекс.Метрика + CRM)</td>
+          </tr>
+          <tr>
+            <td>Email-маркетинг — статус неизвестен</td>
+            <td><span class="badge badge-yellow">Средняя</span></td>
+            <td>Unisender Go, готовые шаблоны, A/B тесты</td>
+          </tr>
+          <tr>
+            <td>Нет раздела с архитектурными / дизайн-материалами</td>
+            <td><span class="badge badge-yellow">Средняя</span></td>
+            <td>Генерация КП и материалов под B2B-аудиторию</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 8. СЛЕДУЮЩИЕ ШАГИ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <div class="section-title">Рекомендации к встрече</div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Показать референс — homeproject.online</div>
+          <div class="step-desc">Живой сайт на Medusa с 2 367 SKU и AI-консультантом. Они управляют 4 200 позициями вручную — показать что у нас работает автоматически.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Сыграть на пересечении брендов</div>
+          <div class="step-desc">Kuppersbusch, De Dietrich, Schulthess, Graude — мы работаем с теми же поставщиками. Можем дать им актуальные остатки и прайсы автоматически.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Запросить данные для точного ROI</div>
+          <div class="step-desc">Яндекс.Метрика: трафик, конверсия, источники. Это покажет точный потенциал нашей системы в их контексте. Без этих данных ROI — оценочный.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Предложить пилот на одной категории</div>
+          <div class="step-desc">Например, перевести на Medusa только «Встраиваемая техника» (625 позиций) — показать систему в действии с минимальным риском для их бизнеса.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">После согласования — сделать полноценную презентацию</div>
+          <div class="step-desc">На основе этого аудита + их данных по трафику — подготовить КП с конкретными цифрами ROI, планом миграции, стоимостью и timeline.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>
+      <div class="footer-brand">HOME PROJECT</div>
+      <div class="footer-meta" style="margin-top:3px;">homeproject.online</div>
+    </div>
+    <div class="footer-meta">Аудит подготовлен AI-агентом HOMEPROJECT · 12.07.2026 · Первое приближение</div>
+  </div>
+
+</div>
+</body>
+</html>
