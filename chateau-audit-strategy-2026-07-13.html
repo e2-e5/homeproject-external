@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chateau de Vaisselle · Аудит бизнеса + стратегия AI-внедрения</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f8fafc;color:#0f172a;font-size:15px;line-height:1.6}
+  .hero{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:white;padding:56px 40px 44px}
+  .hero-inner{max-width:1000px;margin:0 auto}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.1);color:#93c5fd;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:600;margin-bottom:14px}
+  .hero h1{font-size:34px;font-weight:800;letter-spacing:-.02em;margin-bottom:12px;line-height:1.15}
+  .hero .lead{color:#cbd5e1;font-size:16px;max-width:720px;line-height:1.55}
+  .hero .meta{margin-top:20px;color:#94a3b8;font-size:13px}
+  .container{max-width:1000px;margin:0 auto;padding:44px 40px}
+  .section{background:white;border:1px solid #e2e8f0;border-radius:16px;padding:36px 40px;margin-bottom:22px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+  .section-num{display:inline-block;background:#0f172a;color:white;width:34px;height:34px;border-radius:10px;text-align:center;line-height:34px;font-weight:700;font-size:15px;margin-right:12px;vertical-align:middle}
+  .section h2{font-size:24px;font-weight:700;color:#0f172a;margin-bottom:6px;display:inline-block;vertical-align:middle}
+  .section-sub{color:#64748b;font-size:14px;margin-bottom:24px;padding-left:46px}
+  h3{font-size:16px;font-weight:700;color:#0f172a;margin:28px 0 12px}
+  h4{font-size:14px;font-weight:600;color:#334155;margin:16px 0 8px}
+  p{color:#334155;margin-bottom:12px}
+  ul,ol{margin:8px 0 16px 24px;color:#334155}
+  li{margin-bottom:6px}
+  .question-block{background:#f8fafc;border-left:3px solid #3b82f6;padding:16px 20px;border-radius:0 10px 10px 0;margin-bottom:12px}
+  .question-block h4{color:#0f172a;margin:0 0 8px}
+  .question-block .why{font-size:12px;color:#64748b;font-style:italic;margin-top:6px}
+  .q-cat{display:inline-block;background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:600;margin-right:6px}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  th{text-align:left;background:#f1f5f9;color:#475569;font-weight:600;padding:12px 14px;border-bottom:2px solid #e2e8f0;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  td{padding:12px 14px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  .compare-table th:first-child{width:200px}
+  .pro{color:#059669;font-weight:600}
+  .con{color:#dc2626;font-weight:600}
+  .neutral{color:#64748b}
+  .option-card{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:22px 24px;margin-bottom:16px}
+  .option-card.recommended{background:linear-gradient(135deg,#f0fdf4 0%,#ecfdf5 100%);border-color:#22c55e;border-width:2px}
+  .option-card h4{font-size:16px;margin:0 0 8px;color:#0f172a}
+  .option-card .badge-rec{display:inline-block;background:#22c55e;color:white;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;margin-left:10px}
+  .option-card .badge-warn{display:inline-block;background:#f59e0b;color:white;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;margin-left:10px}
+  .pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
+  .pros-cons .box{background:white;border-radius:8px;padding:14px 16px;border:1px solid #e2e8f0}
+  .pros-cons h5{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#64748b;margin-bottom:8px;font-weight:600}
+  .pros-cons ul{margin:0 0 0 18px;font-size:13px}
+  .phase{background:#f8fafc;border-radius:12px;padding:20px 24px;margin-bottom:14px;border-left:4px solid #3b82f6;position:relative}
+  .phase-num{position:absolute;left:-18px;top:20px;background:#3b82f6;color:white;width:32px;height:32px;border-radius:50%;text-align:center;line-height:32px;font-weight:700;font-size:13px;box-shadow:0 2px 4px rgba(59,130,246,.3)}
+  .phase h4{font-size:15px;margin:0 0 6px;color:#0f172a;padding-left:22px}
+  .phase .dur{display:inline-block;background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:600;margin-left:10px}
+  .phase .desc{color:#475569;font-size:13px;margin-left:22px}
+  .phase ul{margin:8px 0 4px 46px;font-size:13px;color:#475569}
+  .phase.critical{border-left-color:#22c55e}
+  .phase.critical .phase-num{background:#22c55e;box-shadow:0 2px 4px rgba(34,197,94,.3)}
+  .phase.critical .dur{background:#dcfce7;color:#166534}
+  .risk-box{background:#fef3c7;border:1px solid #f59e0b;border-radius:10px;padding:16px 20px;margin:14px 0}
+  .risk-box h4{color:#92400e;margin:0 0 8px;font-size:14px}
+  .risk-box p{color:#78350f;font-size:13px;margin:0}
+  .info-box{background:#eff6ff;border:1px solid #3b82f6;border-radius:10px;padding:16px 20px;margin:14px 0}
+  .info-box h4{color:#1e40af;margin:0 0 8px;font-size:14px}
+  .info-box p{color:#1e3a8a;font-size:13px;margin:0}
+  .cta{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:white;padding:36px 40px;border-radius:16px;text-align:center;margin-top:28px}
+  .cta h3{color:white;font-size:22px;margin-bottom:10px}
+  .cta p{color:#cbd5e1;margin-bottom:0;max-width:600px;margin-left:auto;margin-right:auto}
+  .footer{text-align:center;color:#94a3b8;font-size:12px;padding:32px 40px 20px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .metric-tag{display:inline-block;padding:3px 10px;border-radius:5px;font-size:11px;font-weight:600;margin:2px 4px 2px 0}
+  .metric-cost{background:#fef2f2;color:#991b1b}
+  .metric-value{background:#f0fdf4;color:#166534}
+  .metric-time{background:#eff6ff;color:#1e40af}
+  .toc{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px 28px;margin-bottom:22px}
+  .toc h4{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:12px}
+  .toc ol{margin:0 0 0 20px;color:#0f172a;font-size:14px}
+  .toc li{margin-bottom:4px;font-weight:500}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="tag">Стратегический документ · Для встречи</div>
+    <h1>Аудит бизнеса и стратегия<br>AI-внедрения на chateaudevaisselle.com</h1>
+    <div class="lead">Три части: вопросы для оценки бизнеса → сравнение платформ (текущая vs Medusa) → пошаговый план внедрения AI-агентов и миграции сайта.</div>
+    <div class="meta">HOMEPROJECT · для Chateau de Vaisselle · 13.07.2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h4>Содержание</h4>
+    <ol>
+      <li>Вопросы для аудита бизнеса (24 вопроса, 6 блоков)</li>
+      <li>Текущая платформа vs Medusa — техническое сравнение</li>
+      <li>Три сценария внедрения AI + рекомендация</li>
+      <li>Этапы работ по сайту (6 фаз, 4–6 месяцев)</li>
+      <li>Порядок действий на ближайшие 2 недели</li>
+    </ol>
+  </div>
+
+  <!-- ============ SECTION 1: AUDIT QUESTIONS ============ -->
+  <div class="section">
+    <span class="section-num">1</span>
+    <h2>Вопросы для аудита бизнеса</h2>
+    <div class="section-sub">Достаточно ответов «в процентах» / «диапазоне» / «примерно» — по каждому нам надо понять масштаб и точки роста. Полные цифры не нужны.</div>
+
+    <h3>💰 Блок 1. Финансы и обороты (6 вопросов)</h3>
+
+    <div class="question-block">
+      <span class="q-cat">оборот</span>
+      <h4>1.1. Каков годовой оборот компании? (можно диапазоном: 100–200 млн / 200–500 млн / 500 млн+)</h4>
+      <div class="why">Зачем: понять размер бизнеса, сравнить с нашими бенчмарками и оценить потенциал роста от AI-внедрения (обычно 15–30% при полной реализации).</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">канал</span>
+      <h4>1.2. Как оборот распределён между каналами? (шоурумы % / сайт % / B2B-партнёры %)</h4>
+      <div class="why">Зачем: определить где AI даст максимальный эффект. Если сайт даёт 5% — там огромный потенциал; если 50% — фокус на удержании и upsell.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">маржа</span>
+      <h4>1.3. Средняя маржинальность по трём категориям (бытовая техника / посуда / мебель) — в процентных диапазонах</h4>
+      <div class="why">Зачем: понять экономическую отдачу от AI-инвестиций в каждую категорию, определить приоритет.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">чек</span>
+      <h4>1.4. Средний чек по каналам: онлайн-заказ / офлайн / B2B-проект (порядок цифр)</h4>
+      <div class="why">Зачем: рассчитать сколько денег принесёт каждый лид/конверсия — обосновать ROI внедрения.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">рост</span>
+      <h4>1.5. Динамика оборота 2024 → 2025 → 2026 (в % — рост/падение)</h4>
+      <div class="why">Зачем: понять фазу бизнеса. Рост = инвестируем в масштабирование, стагнация = ищем новые источники, спад = фокус на эффективность.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">конверсия</span>
+      <h4>1.6. Средняя конверсия сайта в заказ (в %, если считаете)</h4>
+      <div class="why">Зачем: базовый KPI для замера эффекта AI-консультанта — типично улучшение x1.5–x2.5 от базовой.</div>
+    </div>
+
+    <h3>👥 Блок 2. Клиенты и партнёры (4 вопроса)</h3>
+
+    <div class="question-block">
+      <span class="q-cat">B2C/B2B</span>
+      <h4>2.1. Доля B2C (частные клиенты) / B2B (дизайнеры, застройщики, дилеры)</h4>
+      <div class="why">Зачем: сегментация коммуникации, разные шаблоны КП и цикла сделки для каждого сегмента.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">база</span>
+      <h4>2.2. Сколько активных клиентов в базе? Сколько партнёров-дизайнеров?</h4>
+      <div class="why">Зачем: определить масштаб рассылок, необходимость сегментации, потенциал повторных продаж.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">LTV</span>
+      <h4>2.3. Доля повторных покупок в год (% клиентов возвращаются)</h4>
+      <div class="why">Зачем: если LTV высокий — фокус на retention-механики (нужны напоминания, персональные предложения); если низкий — фокус на acquisition.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">лиды</span>
+      <h4>2.4. Основные источники лидов (сайт %, соцсети %, «сарафан» %, реклама %, дизайнеры %)</h4>
+      <div class="why">Зачем: понять куда направить усилия AI (email/соцсети/consult) в первую очередь.</div>
+    </div>
+
+    <h3>📦 Блок 3. Каталог и ассортимент (4 вопроса)</h3>
+
+    <div class="question-block">
+      <span class="q-cat">SKU</span>
+      <h4>3.1. Общее количество SKU на сайте (точная цифра или порядок: 5К / 10К / 20К+)</h4>
+      <div class="why">Зачем: оценить трудозатраты на миграцию и настройку карточек. На сайте видно ~4200 в наличии — вопрос сколько «в базе».</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">бренды</span>
+      <h4>3.2. Сколько брендов активно продаётся? Сколько «в каталоге для галочки»?</h4>
+      <div class="why">Зачем: определить приоритет — активные бренды выводим в MVP, «для галочки» переносим в фоне.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">обновление</span>
+      <h4>3.3. Как часто обновляется каталог? Кто это делает — контент-менеджер, поставщик, автоматически?</h4>
+      <div class="why">Зачем: понять текущие процессы. Если ручные — экономия от автоматизации огромна. Если автомат — интеграция уже есть.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">поставщики</span>
+      <h4>3.4. Есть ли автоматическая интеграция с поставщиками (остатки, цены)?</h4>
+      <div class="why">Зачем: критично для актуальности сайта. Наш опыт: 90% нишевых игроков не имеют — здесь легко дать быстрый эффект.</div>
+    </div>
+
+    <h3>🎯 Блок 4. Маркетинг и коммуникация (4 вопроса)</h3>
+
+    <div class="question-block">
+      <span class="q-cat">бюджет</span>
+      <h4>4.1. Годовой маркетинг-бюджет (в % от оборота)</h4>
+      <div class="why">Зачем: рассчитать реальный ROI. Если тратят 10% от оборота на маркетинг, наш AI-инструмент замещает часть этих расходов + повышает эффективность.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">каналы</span>
+      <h4>4.2. Какие маркетинг-каналы работают? (Директ / SEO / соцсети / email / офлайн)</h4>
+      <div class="why">Зачем: где AI даст быстрый эффект. Соцсети + email — самое очевидное для автоматизации.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">SMM</span>
+      <h4>4.3. Кто ведёт соцсети сейчас? Какие площадки? Как часто публикации?</h4>
+      <div class="why">Зачем: наш content-creator агент способен закрыть 80% работы SMM-специалиста. Оценить экономию.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">email</span>
+      <h4>4.4. Есть ли регулярные email-рассылки? На какой сервис? Open rate / CTR?</h4>
+      <div class="why">Зачем: если рассылок нет — огромный неиспользуемый актив. Если есть — знаем базовый бенчмарк для сравнения после внедрения AI.</div>
+    </div>
+
+    <h3>⚙️ Блок 5. Операции и команда (3 вопроса)</h3>
+
+    <div class="question-block">
+      <span class="q-cat">команда</span>
+      <h4>5.1. Размер команды: продажи / логистика / маркетинг / IT (человек)</h4>
+      <div class="why">Зачем: понять кого AI усиливает, кого замещает, куда пойдёт экономия времени.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">процесс</span>
+      <h4>5.2. Как обрабатывается заказ с сайта: сколько людей участвует, сколько занимает времени?</h4>
+      <div class="why">Зачем: оценить где узкие места. Обычная точка — подготовка КП (2–4 часа менеджера); наш AI делает это за 1–2 минуты.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">КП</span>
+      <h4>5.3. Есть ли шаблонизированная механика КП для дизайнеров/застройщиков? Или каждое КП пишется вручную?</h4>
+      <div class="why">Зачем: если вручную — очевидное место для нашего proposal-writer агента (у нас это работает промышленно).</div>
+    </div>
+
+    <h3>🚀 Блок 6. Планы и приоритеты (3 вопроса)</h3>
+
+    <div class="question-block">
+      <span class="q-cat">планы</span>
+      <h4>6.1. Что вы планируете сделать в бизнесе в ближайшие 12 месяцев? (расширение / новые категории / удержание)</h4>
+      <div class="why">Зачем: чтобы AI-стратегия ложилась в бизнес-цели, а не была параллельным проектом.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">боль</span>
+      <h4>6.2. Что сейчас болит больше всего? Топ-3 проблемы, которые вы бы решили в первую очередь</h4>
+      <div class="why">Зачем: приоритезировать этапы внедрения. Начнём с того, что реально болит.</div>
+    </div>
+
+    <div class="question-block">
+      <span class="q-cat">бюджет</span>
+      <h4>6.3. Какой бюджет и горизонт вы готовы выделить на цифровизацию/AI в год?</h4>
+      <div class="why">Зачем: подобрать реалистичный сценарий (быстрый MVP vs полная миграция). У нас есть решения от 40К до 500К+ ₽/месяц.</div>
+    </div>
+
+  </div>
+
+  <!-- ============ SECTION 2: PLATFORM COMPARISON ============ -->
+  <div class="section">
+    <span class="section-num">2</span>
+    <h2>Платформа: текущая vs Medusa</h2>
+    <div class="section-sub">Техническое сравнение с точки зрения возможности внедрения AI-агентов.</div>
+
+    <h3>Что видно по chateaudevaisselle.com сейчас</h3>
+    <p>На сайте — классическая CMS-система (тип Bitrix / 1С-Битрикс / OpenCart, точно определить можно после интервью с IT). Признаки: серверный рендеринг всех страниц, тяжёлая админка, отсутствие headless-режима, ограниченный REST API. Это стандартный «монолит» — работает, но плохо адаптируется под современные надстройки.</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr><th>Параметр</th><th>Текущая платформа</th><th>Medusa (наш стек)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Архитектура</strong></td>
+          <td class="neutral">Монолит: фронт + бэк слиты. Любое изменение фронта требует правки в CMS.</td>
+          <td class="pro">Headless: витрина отделена от логики. Можно менять дизайн без затрагивания каталога, ставить несколько storefront'ов.</td>
+        </tr>
+        <tr>
+          <td><strong>API для AI</strong></td>
+          <td class="con">Ограниченное REST-API либо вообще XML-выгрузка. AI-агент читает медленно, писать почти не может.</td>
+          <td class="pro">Современное REST + GraphQL из коробки. AI-агент читает/пишет любое поле, создаёт товары, меняет цены, управляет коллекциями.</td>
+        </tr>
+        <tr>
+          <td><strong>Скорость обновлений каталога</strong></td>
+          <td class="con">1С-обмен раз в 3–24 часа. Ручные правки через тяжёлую админку.</td>
+          <td class="pro">Real-time через API. Обновление цены/остатка → мгновенно на сайте. AI-агент дёргает автоматически.</td>
+        </tr>
+        <tr>
+          <td><strong>Кастомизация фронта</strong></td>
+          <td class="con">Тема шаблонная, любые правки → часы работы верстальщика.</td>
+          <td class="pro">Next.js/React-фронт, современный UX. Правки — минуты в компоненте.</td>
+        </tr>
+        <tr>
+          <td><strong>Интеграции</strong></td>
+          <td class="neutral">Только через готовые модули. Кастомная интеграция — заказ разработчику CMS.</td>
+          <td class="pro">Любая через API: CRM, Unisender, Telegram, платежи, доставка, склад.</td>
+        </tr>
+        <tr>
+          <td><strong>Стоимость владения</strong></td>
+          <td class="con">Лицензии CMS + доработки поштучно. Обычно 200–500К ₽/год минимум.</td>
+          <td class="pro">Open-source ядро. Основная стоимость — хостинг (10–30К ₽/мес) + наша поддержка.</td>
+        </tr>
+        <tr>
+          <td><strong>Поиск и AI-подсказки</strong></td>
+          <td class="con">Базовый MySQL LIKE / встроенный поиск CMS. Векторный поиск невозможен.</td>
+          <td class="pro">Из коробки: pgvector, семантический поиск. AI-консультант находит «нужна плита с духовкой и грилем до 100К» без exact-match.</td>
+        </tr>
+        <tr>
+          <td><strong>Масштабирование</strong></td>
+          <td class="con">При росте трафика — вертикально (более мощный сервер). Дорого.</td>
+          <td class="pro">Горизонтально. Каждый компонент масштабируется отдельно.</td>
+        </tr>
+        <tr>
+          <td><strong>Скорость загрузки страниц</strong></td>
+          <td class="con">Типично 3–7 секунд (полный SSR каждой страницы).</td>
+          <td class="pro">0.5–1.5 сек (SSG + edge caching).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <h4>💡 Главный вывод по платформе</h4>
+      <p>Текущая CMS справляется с базовой e-commerce задачей, но <strong>физически ограничивает возможности AI-агентов</strong>. Мы можем «подключить» AI сверху (чат-виджет, парсинг каталога), но полная автоматизация — создание карточек, автообновление цен, real-time рекомендации — требует другой архитектуры.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ SECTION 3: SCENARIOS ============ -->
+  <div class="section">
+    <span class="section-num">3</span>
+    <h2>Три сценария внедрения AI</h2>
+    <div class="section-sub">Клиент задал ключевой вопрос: «внедрять на текущий сайт или мигрировать на Medusa?». Ответ: есть три пути, у каждого своё место.</div>
+
+    <div class="option-card">
+      <h4>Сценарий А. AI-агенты поверх текущего сайта<span class="badge-warn">Быстро, но ограниченно</span></h4>
+      <p>Не трогаем текущий сайт. Ставим сверху: чат-консультант (виджет), email-агент, SMM-агент. Каталог читаем через парсинг или существующий XML-экспорт (обновление раз в сутки).</p>
+      <div class="pros-cons">
+        <div class="box">
+          <h5>Плюсы</h5>
+          <ul>
+            <li>Запуск за 2–3 недели</li>
+            <li>Не рискуем текущим сайтом (продажи не падают)</li>
+            <li>Быстрый эффект по SMM и email</li>
+            <li>Низкие вложения (40–150К ₽ первый месяц)</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h5>Минусы</h5>
+          <ul>
+            <li>Консультант работает на «вчерашних» остатках</li>
+            <li>Автосоздание карточек невозможно — только рекомендации менеджеру</li>
+            <li>Цены обновляются с задержкой (после следующего 1С-обмена)</li>
+            <li>Riski: любое изменение CMS ломает парсер</li>
+          </ul>
+        </div>
+      </div>
+      <div class="risk-box">
+        <h4>⚠️ Ключевой риск сценария А</h4>
+        <p>AI-консультант <strong>обещает клиенту товар, которого уже нет</strong> (устаревшие остатки). Один такой инцидент = удар по репутации. Решается только real-time API — который в текущей платформе появится только после доработки за 200–500К ₽ (силами разработчика их CMS).</p>
+      </div>
+    </div>
+
+    <div class="option-card">
+      <h4>Сценарий Б. Полная миграция на Medusa за один раз<span class="badge-warn">Долго и рискованно</span></h4>
+      <p>Одномоментно переносим весь сайт (все категории, весь каталог, все интеграции) на Medusa. Старый сайт отключаем.</p>
+      <div class="pros-cons">
+        <div class="box">
+          <h5>Плюсы</h5>
+          <ul>
+            <li>Единая современная платформа</li>
+            <li>Полная функциональность AI сразу</li>
+            <li>Максимальный эффект по всем метрикам</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h5>Минусы</h5>
+          <ul>
+            <li>6–9 месяцев работы</li>
+            <li>Риск потерять SEO-позиции при массовой смене URL</li>
+            <li>Крупные единовременные вложения (1.5–3 млн ₽)</li>
+            <li>Ошибка в переносе одной категории → падает весь сайт</li>
+            <li>Долгое ожидание первого эффекта</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="option-card recommended">
+      <h4>✅ Сценарий В. Поэтапная миграция по категориям<span class="badge-rec">Рекомендуем</span></h4>
+      <p><strong>Начинаем с одной категории (бытовая техника) на Medusa</strong>, параллельно текущий сайт продолжает работу. Через 6–8 недель — первая категория на Medusa с полным набором AI-агентов. Затем поочерёдно переносим посуду и мебель. Никакой единовременной ломки, каждый этап окупается.</p>
+      <div class="pros-cons">
+        <div class="box">
+          <h5>Плюсы</h5>
+          <ul>
+            <li>Первый эффект уже через 6–8 недель</li>
+            <li>Каждый этап окупается до следующего</li>
+            <li>Постепенная миграция базы клиентов и партнёров</li>
+            <li>Команда клиента учится работать с новой системой не в стрессе</li>
+            <li>SEO переносится плавно (301-редиректы категорий)</li>
+            <li>Можно остановиться на любом этапе, если что-то не подходит</li>
+            <li>Умеренная стоимость на старте (150–400К ₽ на MVP)</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h5>Минусы</h5>
+          <ul>
+            <li>Временно 2 системы работают параллельно (админам нужно обучение)</li>
+            <li>Единый чекаут — либо на старом, либо на новом (нужно решать в первом этапе)</li>
+            <li>Общий срок дольше сценария Б</li>
+          </ul>
+        </div>
+      </div>
+      <div class="info-box">
+        <h4>Почему именно бытовая техника первой</h4>
+        <p>1) Самая высокая маржа в категории. 2) Самая сложная для клиента категория (техник помогает больше всего). 3) Совпадает с нашей экспертизой — HOMEPROJECT сам работает в этой нише, мы уже знаем поставщиков, каталог, тонкости КП.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ SECTION 4: PHASES ============ -->
+  <div class="section">
+    <span class="section-num">4</span>
+    <h2>Этапы работ по сайту — 6 фаз</h2>
+    <div class="section-sub">Реалистичный план для рекомендованного сценария В. Общий срок «сайт полностью на Medusa + все AI-агенты работают» — 4–6 месяцев.</div>
+
+    <div class="phase critical">
+      <div class="phase-num">1</div>
+      <h4>Discovery и архитектура<span class="dur">1–2 недели</span></h4>
+      <div class="desc">Фундамент. Без него любой следующий этап рискует пересобираться.</div>
+      <ul>
+        <li>Интервью с командой: продажи, маркетинг, IT, склад</li>
+        <li>Аудит каталога: выгрузка + инвентаризация SKU, брендов, категорий</li>
+        <li>Согласование архитектуры (URL, домены, subdomain vs path)</li>
+        <li>Дизайн-система (частично на базе текущего сайта, частично наши компоненты)</li>
+        <li>План интеграций: 1С / складская программа / платежи / доставка</li>
+        <li>Выбор пилотной категории и её объём</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <h4>MVP: бытовая техника на Medusa<span class="dur">5–6 недель</span></h4>
+      <div class="desc">Первая работающая витрина. Отдельный субдомен, например appliances.chateaudevaisselle.com, ссылки с основного сайта переводят на неё.</div>
+      <ul>
+        <li>Развёртывание Medusa на инфраструктуре клиента (или нашей)</li>
+        <li>Импорт каталога БТ (~2500 SKU) из текущей CMS</li>
+        <li>Интеграция с 1С: обмен остатками и ценами (real-time или интервально — по выбору)</li>
+        <li>Разработка/адаптация фронта Storefront в стилистике chateaudevaisselle</li>
+        <li>Настройка платежей и доставки</li>
+        <li>Миграция SEO по категории (301-редиректы, sitemap)</li>
+        <li>Обучение контент-менеджера работе с админкой Medusa</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <h4>AI-агенты для витрины БТ<span class="dur">2–3 недели, параллельно с фазой 2</span></h4>
+      <div class="desc">Как только Medusa работает — накладываем интеллект.</div>
+      <ul>
+        <li><strong>AI-консультант на сайте</strong>: чат в правом нижнем углу, понимает запросы вроде «нужна плита с духовкой и грилем до 120К» → возвращает 3–5 моделей с обоснованием</li>
+        <li><strong>Механика КП (Proposal Writer)</strong>: клиент/дизайнер собирает корзину → получает PDF-КП с брендированием, ценами, характеристиками, срокам доставки</li>
+        <li><strong>Автоматизация карточек</strong>: агент вычитывает прайс-листы поставщиков, автоматически создаёт/обновляет карточки, флагирует спорные моменты для менеджера</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">4</div>
+      <h4>CRM: сегментация базы и коммуникация<span class="dur">3–4 недели</span></h4>
+      <div class="desc">Работа с базой клиентов и партнёров. Начинать можно параллельно с фазой 2.</div>
+      <ul>
+        <li>Импорт базы клиентов и партнёров в единую CRM (у нас — PostgreSQL + типизация)</li>
+        <li>Сегментация: B2C по чеку и категориям, B2B по типу (дизайнеры / застройщики / дилеры), по активности</li>
+        <li>Настройка email-рассылок через Unisender: welcome-серия, реактивация, релиз новинок</li>
+        <li>Telegram-канал для B2B партнёров с уведомлениями (новые остатки, акции)</li>
+        <li>Партнёрская программа: единый кабинет для дизайнеров с прайс-листом и корзиной</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">5</div>
+      <h4>Соцсети под управлением AI<span class="dur">2 недели</span></h4>
+      <div class="desc">Content-creator агент. Начинать можно после фазы 3.</div>
+      <ul>
+        <li>Content-plan на месяц: новинки, акции, обзоры, «полезное»</li>
+        <li>Автогенерация постов TG / VK / Instagram под каждую платформу</li>
+        <li>Визуалы: карточки-обложки с ценой и главным преимуществом</li>
+        <li>Согласование через chat-интерфейс: SMM-менеджер получает 5 черновиков утром, апрувит одной кнопкой</li>
+        <li>Аналитика: авто-отчёт по метрикам раз в неделю</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">6</div>
+      <h4>Расширение: посуда → мебель → полная замена сайта<span class="dur">4–8 недель на категорию</span></h4>
+      <div class="desc">Повторяем цикл фаз 2–3 для оставшихся категорий.</div>
+      <ul>
+        <li>Приоритет 2: посуда (2500–4000 SKU, зависит от объёма). Сроки — короче, потому что каркас уже готов</li>
+        <li>Приоритет 3: мебель (сложнее в карточках — размеры, комплектация, фото)</li>
+        <li>Финал: единый storefront под chateaudevaisselle.com, старая CMS уходит в архив</li>
+        <li>Единый checkout, единый профиль клиента, единая CRM</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h4>💰 Экономика по этапам</h4>
+      <p>Setup (Discovery + MVP + AI для БТ): <strong>~150–250К ₽</strong>. Далее — фиксированный тариф <strong>40–55К ₽/мес</strong> за поддержку и развитие. Каждое расширение категории — от 80К до 150К ₽ setup + без изменения абонплаты. Пилот показывает эффект за 2–3 месяца, дальше идёт органический рост.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ SECTION 5: ACTION PLAN ============ -->
+  <div class="section">
+    <span class="section-num">5</span>
+    <h2>Порядок действий на ближайшие 2 недели</h2>
+    <div class="section-sub">Что делаем прямо сейчас, чтобы стартовать работу.</div>
+
+    <table>
+      <thead>
+        <tr><th style="width:80px">Дни 1–3</th><th>Действие</th><th style="width:180px">Кто отвечает</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1–3</strong></td>
+          <td>Клиент отвечает на вопросы аудита (24 вопроса из раздела 1). Формат — часовое интервью или письменно.</td>
+          <td>Chateau + HOMEPROJECT</td>
+        </tr>
+        <tr>
+          <td><strong>3–5</strong></td>
+          <td>HOMEPROJECT готовит финальное коммерческое предложение с точной сметой на основе ответов. Уточняем стоимость MVP.</td>
+          <td>HOMEPROJECT</td>
+        </tr>
+        <tr>
+          <td><strong>5–7</strong></td>
+          <td>Обсуждение КП, согласование этапов, договор.</td>
+          <td>Chateau + HOMEPROJECT</td>
+        </tr>
+        <tr>
+          <td><strong>7–10</strong></td>
+          <td>Подписание договора, аванс, старт фазы 1 (Discovery).</td>
+          <td>Юристы + оба</td>
+        </tr>
+        <tr>
+          <td><strong>10–14</strong></td>
+          <td>Discovery-workshop: полдня в офисе Chateau, интервью с командой, выгрузка каталога, согласование пилотной категории.</td>
+          <td>HOMEPROJECT + команда Chateau</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box" style="margin-top:20px">
+      <h4>Наше обязательство на встрече</h4>
+      <p>По итогам встречи мы готовы <strong>в течение 3 дней</strong> отправить финальное КП с точной сметой и графиком, если получим ответы хотя бы на 12 из 24 вопросов из раздела 1. Даже частичные ответы («примерно», «в диапазоне», «в %») достаточны для расчёта.</p>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h3>Что мы предлагаем как результат встречи</h3>
+    <p>Решение по сценарию (А / Б / В), согласование первой пилотной категории, ответы на блок вопросов из раздела 1 и назначение Discovery-воркшопа на ближайшую неделю. Дальше — работа.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  HOMEPROJECT · Стратегический аудит и план внедрения для Chateau de Vaisselle · 13 июля 2026
+</div>
+
+</body>
+</html>
