@@ -3,670 +3,1211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Château de Vaisselle · Анкета к встрече 17 июля</title>
+<title>Анкета — Château de Vaisselle × HOMEPROJECT</title>
+<meta name="robots" content="noindex,nofollow">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f1f5f9;color:#0f172a;font-size:15px;line-height:1.65}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: #faf9f7;
+    color: #1a1a1a;
+    line-height: 1.7;
+  }
+  a { color: #8b6914; }
 
-  /* COVER */
-  .cover{background:linear-gradient(160deg,#0f172a 0%,#1e3a5f 100%);color:white;padding:56px 40px 48px;text-align:center}
-  .cover .logo{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#93c5fd;margin-bottom:20px}
-  .cover h1{font-size:32px;font-weight:800;letter-spacing:-.02em;margin-bottom:14px;line-height:1.2}
-  .cover .subtitle{color:#94a3b8;font-size:16px;margin-bottom:32px}
-  .cover-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px 36px;max-width:700px;margin:0 auto;text-align:left}
-  .cover-card h2{font-size:17px;font-weight:700;color:#f1f5f9;margin-bottom:14px}
-  .cover-card p{color:#cbd5e1;font-size:14px;margin-bottom:10px;line-height:1.6}
-  .cover-card p:last-child{margin-bottom:0}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
-  .step{background:rgba(255,255,255,.06);border-radius:12px;padding:16px;text-align:center}
-  .step .num{font-size:26px;font-weight:800;color:#60a5fa;line-height:1;margin-bottom:6px}
-  .step .text{font-size:13px;color:#cbd5e1;line-height:1.45}
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2410 100%);
+    color: #fff;
+    padding: 60px 24px 50px;
+    text-align: center;
+  }
+  .hero-logo {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: normal;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .hero-sub {
+    color: #c9a84c;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .hero-meta {
+    display: inline-flex;
+    gap: 24px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 13px;
+    color: #e0d4b0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
-  /* LAYOUT */
-  .container{max-width:800px;margin:0 auto;padding:36px 20px 60px}
+  /* How-to */
+  .howto {
+    background: #fff;
+    border-bottom: 1px solid #e8e0d0;
+    padding: 40px 24px;
+  }
+  .howto-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .howto h2 {
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #2d2410;
+  }
+  .howto-sub {
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 32px;
+  }
 
-  /* BLOCKS */
-  .block{background:white;border:1px solid #e2e8f0;border-radius:16px;margin-bottom:20px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-  .block-header{padding:20px 28px 16px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:14px}
-  .block-icon{font-size:26px;line-height:1}
-  .block-title{flex:1}
-  .block-title h3{font-size:17px;font-weight:700;color:#0f172a;margin-bottom:2px}
-  .block-title .desc{font-size:12px;color:#64748b}
-  .block-num{background:#1e40af;color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
-  .block-body{padding:20px 28px}
+  /* Two tracks */
+  .tracks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media(max-width: 600px){ .tracks { grid-template-columns: 1fr; } }
 
-  /* QUESTIONS */
-  .q{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #f1f5f9}
-  .q:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
-  .q-label{font-size:14px;font-weight:600;color:#0f172a;margin-bottom:4px;display:flex;gap:8px;align-items:flex-start}
-  .q-num{color:#3b82f6;font-weight:700;min-width:28px}
-  .q-hint{font-size:12px;color:#94a3b8;margin-bottom:8px;padding-left:36px}
-  .q-found{font-size:12px;color:#1d4ed8;background:#eff6ff;padding:6px 10px;border-radius:6px;margin-bottom:8px;margin-left:36px}
-  textarea{width:100%;border:1.5px solid #e2e8f0;border-radius:8px;padding:10px 12px;font-size:14px;font-family:inherit;color:#0f172a;resize:vertical;min-height:52px;background:#fafafa;transition:border-color .15s;outline:none;margin-left:0}
-  textarea:focus{border-color:#3b82f6;background:white}
-  .radio-group,.check-group{display:flex;flex-wrap:wrap;gap:8px;padding-left:36px;margin-top:4px}
-  .radio-group label,.check-group label{display:flex;align-items:center;gap:6px;font-size:13px;color:#334155;background:#f8fafc;border:1.5px solid #e2e8f0;padding:6px 12px;border-radius:8px;cursor:pointer;transition:all .15s}
-  .radio-group label:hover,.check-group label:hover{border-color:#3b82f6;background:#eff6ff;color:#1e40af}
-  .radio-group input,.check-group input{accent-color:#3b82f6}
-  .block-hint{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 14px;margin-top:6px;font-size:12px;color:#166534}
+  .track {
+    border: 2px solid #e8e0d0;
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .track.track-text { border-color: #c9a84c; background: #fffdf5; }
+  .track.track-voice { border-color: #a0c4a0; background: #f5fbf5; }
 
-  /* SEND BLOCK */
-  .send-block{background:white;border:2px solid #3b82f6;border-radius:16px;padding:32px 36px;text-align:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(59,130,246,.12)}
-  .send-block h3{font-size:20px;font-weight:800;color:#0f172a;margin-bottom:8px}
-  .send-block p{font-size:14px;color:#64748b;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
-  .btn-copy{background:#1e40af;color:white;border:none;padding:16px 40px;font-size:16px;font-weight:700;border-radius:12px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:all .15s;font-family:inherit}
-  .btn-copy:hover{background:#1d4ed8;transform:translateY(-1px);box-shadow:0 4px 14px rgba(30,64,175,.35)}
-  .btn-copy:active{transform:none}
-  .send-channels{display:flex;justify-content:center;gap:16px;margin-top:20px;flex-wrap:wrap}
-  .channel{display:flex;align-items:center;gap:6px;font-size:13px;color:#475569;background:#f8fafc;padding:8px 16px;border-radius:8px;border:1px solid #e2e8f0}
-  .toast{display:none;background:#22c55e;color:white;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:600;margin-top:16px;animation:fadeIn .3s}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+  .track-icon { font-size: 32px; margin-bottom: 10px; }
+  .track-title { font-size: 15px; font-weight: bold; margin-bottom: 8px; }
+  .track-title.text-color { color: #8b6914; }
+  .track-title.voice-color { color: #3a7a3a; }
 
-  /* FOOTER */
-  .footer{text-align:center;color:#94a3b8;font-size:12px;padding-bottom:20px}
+  .steps { list-style: none; text-align: left; margin-top: 12px; }
+  .steps li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #444;
+  }
+  .step-num {
+    background: #c9a84c;
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-num.green { background: #3a7a3a; }
 
-  @media(max-width:600px){
-    .cover{padding:40px 20px 36px}
-    .cover h1{font-size:24px}
-    .cover-card{padding:20px}
-    .steps{grid-template-columns:1fr}
-    .block-header,.block-body{padding:16px 18px}
-    .send-block{padding:24px 20px}
+  /* Container */
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* Block */
+  .block {
+    margin-top: 48px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e8e0d0;
+    overflow: hidden;
+  }
+  .block-header {
+    background: linear-gradient(90deg, #2d2410, #4a3820);
+    color: #fff;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .block-num {
+    background: #c9a84c;
+    color: #1a1a1a;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .block-title { font-size: 16px; font-weight: normal; letter-spacing: 0.5px; }
+  .block-subtitle { font-size: 12px; color: #c9a84c; margin-top: 2px; }
+  .block-body { padding: 24px; }
+
+  /* Found note */
+  .found-note {
+    background: #f5fbf5;
+    border: 1px solid #a0c4a0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #3a5a3a;
+    margin-bottom: 20px;
+  }
+  .found-note strong { color: #2d6b2d; }
+
+  /* Question */
+  .question { margin-bottom: 24px; }
+  .question:last-child { margin-bottom: 0; }
+  .q-label {
+    font-size: 14px;
+    color: #2d2410;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .q-num { color: #c9a84c; margin-right: 6px; font-size: 12px; }
+
+  textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 80px;
+    color: #1a1a1a;
+    background: #faf9f7;
+    transition: border-color 0.2s;
+  }
+  textarea:focus { outline: none; border-color: #c9a84c; }
+
+  .radio-group, .check-group { display: flex; flex-direction: column; gap: 8px; }
+  .radio-group label, .check-group label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    transition: background 0.15s;
+  }
+  .radio-group label:hover, .check-group label:hover { background: #fdfaf0; }
+  input[type="radio"], input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: #c9a84c;
+    flex-shrink: 0;
+  }
+
+  .inline-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  @media(max-width: 500px){ .inline-grid { grid-template-columns: 1fr; } }
+
+  .q-hint { font-size: 12px; color: #888; margin-top: 4px; display: block; }
+
+  /* Action section */
+  .action-section {
+    margin-top: 48px;
+    background: #fff;
+    border-radius: 12px;
+    border: 2px solid #c9a84c;
+    overflow: hidden;
+  }
+  .action-header {
+    background: linear-gradient(90deg, #8b6914, #c9a84c);
+    color: #fff;
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .action-header h2 { font-size: 18px; font-weight: normal; }
+  .action-body { padding: 28px 24px; }
+
+  .copy-btn {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #8b6914, #c9a84c);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 18px;
+    font-size: 17px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    font-family: inherit;
+    transition: opacity 0.2s, transform 0.1s;
+    margin-bottom: 20px;
+  }
+  .copy-btn:hover { opacity: 0.9; }
+  .copy-btn:active { transform: scale(0.98); }
+
+  .send-channels {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .channel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .channel.wa { background: #f0faf0; border: 1px solid #a0d0a0; }
+  .channel.tg { background: #f0f6ff; border: 1px solid #a0b8e0; }
+  .channel.em { background: #fff8f0; border: 1px solid #e0c080; }
+  .channel-icon { font-size: 22px; }
+  .channel-label { font-size: 12px; color: #666; }
+  .channel-val { font-weight: bold; color: #1a1a1a; }
+  .channel-note { font-size: 12px; color: #888; margin-top: 2px; }
+
+  /* Voice section */
+  .voice-section {
+    margin-top: 48px;
+    background: #fff;
+    border-radius: 12px;
+    border: 2px solid #a0c4a0;
+    overflow: hidden;
+  }
+  .voice-header {
+    background: linear-gradient(90deg, #2d5a2d, #4a8a4a);
+    color: #fff;
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .voice-header h2 { font-size: 18px; font-weight: normal; }
+  .voice-header p { font-size: 13px; color: #c0e8c0; margin-top: 6px; }
+  .voice-body { padding: 28px 24px; }
+
+  .voice-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .voice-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .vs-num {
+    background: #3a7a3a;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .vs-text { font-size: 14px; color: #333; padding-top: 5px; }
+  .vs-text strong { color: #2d5a2d; }
+
+  .voice-script {
+    background: #f5fbf5;
+    border: 1px solid #a0c4a0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .voice-script h3 {
+    font-size: 14px;
+    color: #2d5a2d;
+    margin-bottom: 14px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  .script-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .script-block-num {
+    background: #3a7a3a;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    height: fit-content;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .script-text { color: #2d4a2d; line-height: 1.5; }
+  .script-text em { color: #666; font-style: italic; }
+
+  .voice-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #2d5a2d;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 15px;
+    transition: transform 0.3s ease;
+    z-index: 999;
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Fallback note */
+  .fallback-note {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+    padding: 16px;
+    border-top: 1px dashed #ddd;
   }
 </style>
 </head>
 <body>
 
-<!-- COVER -->
-<div class="cover">
-  <div class="logo">Château de Vaisselle × HOMEPROJECT</div>
-  <h1>Анкета к встрече<br>17 июля 2026</h1>
-  <div class="subtitle">8 блоков · 40 вопросов · ~30 минут</div>
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-logo">HOMEPROJECT × Château de Vaisselle</div>
+  <h1>Анкета к встрече 17 июля 2026</h1>
+  <div class="hero-sub">Предварительный аудит</div>
+  <div class="hero-meta">
+    <span>📋 8 блоков</span>
+    <span>❓ 40 вопросов</span>
+    <span>⏱ ~30 минут</span>
+    <span>📅 Встреча: 17.07.2026</span>
+  </div>
+</div>
 
-  <div class="cover-card">
-    <h2>Зачем это нужно и как использовать</h2>
-    <p>Мы уже изучили ваш сайт, кулинарную студию и публичные данные о точках продаж. Этот опросник — основа нашего разговора в четверг, чтобы встреча прошла глубоко и по делу, без «расскажите о себе с нуля».</p>
-    <p><strong style="color:#f1f5f9">Готовиться заранее не обязательно</strong> — мы пройдём вместе устно на встрече. Но если хотите подготовиться или прислать ответы до четверга — заполните что можете и нажмите кнопку внизу.</p>
-    <div class="steps">
-      <div class="step">
-        <div class="num">1</div>
-        <div class="text">Заполните вопросы которые знаете. Пропустите остальные — разберём вместе</div>
+<!-- How to -->
+<div class="howto">
+  <div class="howto-inner">
+    <h2>Как заполнить анкету</h2>
+    <p class="howto-sub">Выберите удобный для вас способ — текст или голос</p>
+    <div class="tracks">
+      <div class="track track-text">
+        <div class="track-icon">✍️</div>
+        <div class="track-title text-color">Текстом</div>
+        <ul class="steps">
+          <li>
+            <div class="step-num">1</div>
+            <span>Заполните поля ответов в блоках ниже — пишите кратко, в свободной форме</span>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <span>Нажмите кнопку <strong>«📋 Скопировать ответы»</strong> — все ответы скопируются одним текстом</span>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <span>Вставьте скопированный текст в <strong>WhatsApp / Telegram / email</strong> и отправьте нам</span>
+          </li>
+        </ul>
       </div>
-      <div class="step">
-        <div class="num">2</div>
-        <div class="text">Нажмите кнопку «Скопировать ответы» внизу страницы</div>
-      </div>
-      <div class="step">
-        <div class="num">3</div>
-        <div class="text">Вставьте в WhatsApp или email и отправьте нам. Всё!</div>
+      <div class="track track-voice">
+        <div class="track-icon">🎙️</div>
+        <div class="track-title voice-color">Голосом</div>
+        <ul class="steps">
+          <li>
+            <div class="step-num green">1</div>
+            <span>Запишите <strong>голосовое сообщение</strong> в WhatsApp или Telegram — отвечайте по блокам</span>
+          </li>
+          <li>
+            <div class="step-num green">2</div>
+            <span>Называйте блок и отвечайте: <em>«Блок 1 — основан в 2003, форма ООО…»</em></span>
+          </li>
+          <li>
+            <div class="step-num green">3</div>
+            <span>Отправьте голосовое(ые) нам — мы всё расшифруем и обработаем</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FORM -->
+<!-- Questions -->
 <div class="container">
 
-  <!-- BLOCK 1 -->
+  <!-- Block 1 -->
   <div class="block">
     <div class="block-header">
       <div class="block-num">1</div>
-      <div class="block-icon">💼</div>
-      <div class="block-title">
-        <h3>Бизнес в целом</h3>
-        <div class="desc">Понять масштаб, динамику и структуру выручки — точные цифры не обязательны</div>
+      <div>
+        <div class="block-title">Бизнес — общая картина</div>
+        <div class="block-subtitle">История, масштаб, структура</div>
       </div>
     </div>
     <div class="block-body">
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">1.1</span>Сколько лет компания работает на рынке?</div>
-        <textarea name="q1_1" placeholder="Например: работаем с 2003 года, 23 года на рынке…"></textarea>
+      <div class="found-note">
+        <strong>Нашли из открытых источников:</strong> работаете более 20 лет, 3 торговые точки, 3 000+ м², 150+ брендов посуды и кухонного инвентаря. Дополните и уточните.
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">1.2</span>Годовой оборот компании (выберите диапазон)</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">1.1</span>Год основания и краткая история — как всё начиналось?</label>
+        <textarea name="q1_1" placeholder="Например: основан в 2001 году, начинали с одного магазина..."></textarea>
+      </div>
+
+      <div class="question">
+        <label class="q-label"><span class="q-num">1.2</span>Юридическая форма (ООО / ИП / другое)?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q1_2" value="до 100 млн ₽"> до 100 млн ₽</label>
-          <label><input type="radio" name="q1_2" value="100–300 млн ₽"> 100–300 млн ₽</label>
-          <label><input type="radio" name="q1_2" value="300–600 млн ₽"> 300–600 млн ₽</label>
-          <label><input type="radio" name="q1_2" value="600 млн ₽+"> 600 млн ₽+</label>
-          <label><input type="radio" name="q1_2" value="не готов указать"> не готов указать</label>
+          <label><input type="radio" name="q1_2" value="ООО"> ООО</label>
+          <label><input type="radio" name="q1_2" value="ИП"> ИП</label>
+          <label><input type="radio" name="q1_2" value="АО"> АО</label>
+          <label><input type="radio" name="q1_2" value="другое"> Другое</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">1.3</span>Как оборот распределён по направлениям (примерно в %)?</div>
-        <div class="q-hint">Бытовая техника ___% / Посуда ___% / Мебель и кухни ___% / Кулинарные события ___% / Прочее ___%</div>
-        <textarea name="q1_3" placeholder="Например: техника 40%, посуда 45%, студия 10%, мебель 5%…"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">1.4</span>Соотношение B2C (частные клиенты) и B2B (дизайнеры, застройщики, дилеры)</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">1.3</span>Примерная выручка за последний год (конфиденциально, нужно для масштаба задач)?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q1_4" value="90% B2C / 10% B2B"> 90/10 (почти весь B2C)</label>
-          <label><input type="radio" name="q1_4" value="70% B2C / 30% B2B"> 70/30</label>
-          <label><input type="radio" name="q1_4" value="50% / 50%"> 50/50</label>
-          <label><input type="radio" name="q1_4" value="30% B2C / 70% B2B"> 30/70 (больше B2B)</label>
+          <label><input type="radio" name="q1_3" value="до 50 млн"> До 50 млн ₽</label>
+          <label><input type="radio" name="q1_3" value="50-150 млн"> 50–150 млн ₽</label>
+          <label><input type="radio" name="q1_3" value="150-500 млн"> 150–500 млн ₽</label>
+          <label><input type="radio" name="q1_3" value="свыше 500 млн"> Свыше 500 млн ₽</label>
+          <label><input type="radio" name="q1_3" value="не готов раскрыть"> Предпочитаю не называть</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">1.5</span>Динамика за последние 3 года</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">1.4</span>Соотношение продаж: офлайн (салоны) vs онлайн (сайт, маркетплейсы)?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q1_5" value="стабильный рост"> 📈 Стабильный рост</label>
-          <label><input type="radio" name="q1_5" value="стагнация"> ➡️ Стагнация</label>
-          <label><input type="radio" name="q1_5" value="снижение"> 📉 Снижение</label>
-          <label><input type="radio" name="q1_5" value="волатильно"> 〰️ По-разному</label>
+          <label><input type="radio" name="q1_4" value="100% офлайн"> 100% офлайн — онлайн почти нет</label>
+          <label><input type="radio" name="q1_4" value="80/20 офлайн"> ~80% офлайн / 20% онлайн</label>
+          <label><input type="radio" name="q1_4" value="50/50"> Примерно 50/50</label>
+          <label><input type="radio" name="q1_4" value="больше онлайн"> Онлайн уже больше</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">1.6</span>Топ-3 источника выручки прямо сейчас</div>
-        <textarea name="q1_6" placeholder="Например: 1) Шоурумы — основная часть, 2) Дизайнеры B2B, 3) Сайт (малая доля)…"></textarea>
+      <div class="question">
+        <label class="q-label"><span class="q-num">1.5</span>Какие категории товаров приносят основную выручку?</label>
+        <textarea name="q1_5" placeholder="Например: посуда, ножи, кухонный текстиль, бытовая техника..."></textarea>
       </div>
-
     </div>
   </div>
 
-  <!-- BLOCK 2 -->
+  <!-- Block 2 -->
   <div class="block">
     <div class="block-header">
       <div class="block-num">2</div>
-      <div class="block-icon">🏪</div>
-      <div class="block-title">
-        <h3>Физические салоны и трафик</h3>
-        <div class="desc">Главная боль — падение трафика в точки. Нам важно понять масштаб и причины</div>
+      <div>
+        <div class="block-title">Физические салоны</div>
+        <div class="block-subtitle">Трафик, локации, клиентский опыт</div>
       </div>
     </div>
     <div class="block-body">
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">2.1</span>Количество и адреса салонов</div>
-        <div class="q-found">📍 Нашли: Vegas Крокус Сити (4 эт.) + EvroPark Рублёвка (2 секции). Это все точки или есть ещё?</div>
-        <textarea name="q2_1" placeholder="Уточните, если что-то пропустили…"></textarea>
+      <div class="found-note">
+        <strong>Нашли:</strong> Vegas Krokus City (4 этаж) + EvroPark (2 секции). Всего 3 торговые точки. Дополните адреса и уточните трафик.
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">2.2</span>Площадь каждого салона (м²)</div>
-        <div class="q-found">📐 На сайте указано «более 3 000 м² суммарно» — как распределяется по точкам?</div>
-        <textarea name="q2_2" placeholder="Например: Vegas ~1200 м², EvroPark секция 1 ~1000 м², секция 2 ~800 м²…"></textarea>
+      <div class="question">
+        <label class="q-label"><span class="q-num">2.1</span>Точные адреса и площадь каждой точки?</label>
+        <textarea name="q2_1" placeholder="Точка 1: Vegas Krokus City, 4 этаж, ~XXX м²&#10;Точка 2: EvroPark, секция А, ~XXX м²&#10;Точка 3: ..."></textarea>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">2.3</span>Сколько единиц товара выставлено в каждом салоне?</div>
-        <textarea name="q2_3" placeholder="Порядок цифр: 500 SKU / 1000 SKU / 2000+…"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">2.4</span>Команда в точках: сколько консультантов в каждом салоне?</div>
-        <textarea name="q2_4" placeholder="Например: Vegas — 4 человека, EvroPark — 6…"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">2.5</span>Трафик в точках — как изменился за 2 года?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">2.2</span>Как изменился трафик в салоны за последние 1–2 года?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q2_5" value="вырос"> 📈 Вырос</label>
-          <label><input type="radio" name="q2_5" value="примерно такой же"> ➡️ Примерно такой же</label>
-          <label><input type="radio" name="q2_5" value="снизился на 10-30%"> 📉 Снизился на 10–30%</label>
-          <label><input type="radio" name="q2_5" value="снизился более 30%"> 📉📉 Снизился более 30%</label>
-        </div>
-        <textarea name="q2_5b" placeholder="С чем связываете изменение трафика?…" style="margin-top:8px"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">2.6</span>Как клиенты находят ваши салоны? (можно несколько)</div>
-        <div class="check-group">
-          <label><input type="checkbox" name="q2_6" value="Яндекс/Google Карты"> 🗺 Карты</label>
-          <label><input type="checkbox" name="q2_6" value="Сарафанное радио"> 🗣 Сарафан</label>
-          <label><input type="checkbox" name="q2_6" value="Реклама онлайн"> 📱 Онлайн реклама</label>
-          <label><input type="checkbox" name="q2_6" value="Наружная реклама"> 🪧 Наружка</label>
-          <label><input type="checkbox" name="q2_6" value="Через дизайнеров"> 🎨 Через дизайнеров</label>
-          <label><input type="checkbox" name="q2_6" value="Случайно в ТРЦ/МТК"> 🏢 Случайно в ТРЦ</label>
+          <label><input type="radio" name="q2_2" value="растёт"> Растёт</label>
+          <label><input type="radio" name="q2_2" value="стабильно"> Стабильно</label>
+          <label><input type="radio" name="q2_2" value="снижается"> Снижается — это наша боль</label>
+          <label><input type="radio" name="q2_2" value="сезонность"> Сильная сезонность, сложно оценить</label>
         </div>
       </div>
 
+      <div class="question">
+        <label class="q-label"><span class="q-num">2.3</span>Как сейчас привлекаете посетителей в залы? (отметьте всё что работает)</label>
+        <div class="check-group inline-grid">
+          <label><input type="checkbox" name="q2_3" value="соцсети"> Соцсети</label>
+          <label><input type="checkbox" name="q2_3" value="контекст"> Контекстная реклама</label>
+          <label><input type="checkbox" name="q2_3" value="рассылки"> Email / WhatsApp-рассылки</label>
+          <label><input type="checkbox" name="q2_3" value="партнёры"> Партнёры и коллаборации</label>
+          <label><input type="checkbox" name="q2_3" value="события"> Мероприятия / кулинарные классы</label>
+          <label><input type="checkbox" name="q2_3" value="сарафан"> Сарафанное радио</label>
+          <label><input type="checkbox" name="q2_3" value="навигация тц"> Навигация ТЦ</label>
+          <label><input type="checkbox" name="q2_3" value="не занимаемся"> Целенаправленно не занимаемся</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <label class="q-label"><span class="q-num">2.4</span>Есть ли в залах цифровые точки взаимодействия (QR-коды, экраны, планшеты)?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="q2_4" value="да"> Да, используем</label>
+          <label><input type="radio" name="q2_4" value="нет"> Нет</label>
+          <label><input type="radio" name="q2_4" value="думаем"> Думаем об этом</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <label class="q-label"><span class="q-num">2.5</span>Что, по-вашему, главная причина снижения / недостатка трафика в точки?</label>
+        <textarea name="q2_5" placeholder="Ваше субъективное ощущение..."></textarea>
+      </div>
     </div>
   </div>
 
-  <!-- BLOCK 3 -->
+  <!-- Block 3 -->
   <div class="block">
     <div class="block-header">
       <div class="block-num">3</div>
-      <div class="block-icon">🍳</div>
-      <div class="block-title">
-        <h3>Кулинарная студия</h3>
-        <div class="desc">По нашей оценке — самый недоиспользованный актив. Хотим понять реальный масштаб</div>
+      <div>
+        <div class="block-title">Кулинарная студия</div>
+        <div class="block-subtitle">Мероприятия, аудитория, монетизация</div>
       </div>
     </div>
     <div class="block-body">
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">3.1</span>Сколько событий проводится в месяц?</div>
-        <div class="q-found">📅 На сайте написано «ежедневно» — это так? Или в среднем сколько в неделю?</div>
-        <textarea name="q3_1" placeholder="Например: 3–4 в неделю, в среднем 12–15 в месяц…"></textarea>
+      <div class="found-note">
+        <strong>Нашли:</strong> ежедневные мастер-классы, до 150 человек корпоративно, от 30 000 ₽/сессия. Instagram @salon_chateau (cooking events). Это очень сильный актив — хотим понять, как он используется.
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">3.2</span>Средняя посещаемость одного события (человек)</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">3.1</span>Сколько мероприятий проводите в месяц? Есть ли сезонность?</label>
+        <textarea name="q3_1" placeholder="Например: ~20 мастер-классов + 4-5 корпоратива в месяц, пик в декабре..."></textarea>
+      </div>
+
+      <div class="question">
+        <label class="q-label"><span class="q-num">3.2</span>Средняя заполняемость залов на мероприятиях?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q3_2" value="до 10 чел"> до 10</label>
-          <label><input type="radio" name="q3_2" value="10–20 чел"> 10–20</label>
-          <label><input type="radio" name="q3_2" value="20–50 чел"> 20–50</label>
-          <label><input type="radio" name="q3_2" value="50+ чел"> 50+</label>
+          <label><input type="radio" name="q3_2" value="меньше 30%"> Меньше 30% — часто полупустые</label>
+          <label><input type="radio" name="q3_2" value="30-60%"> 30–60% — нормально, но хочется больше</label>
+          <label><input type="radio" name="q3_2" value="60-90%"> 60–90% — хорошо заполнены</label>
+          <label><input type="radio" name="q3_2" value="полная запись"> Постоянно полная запись, отказываем</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">3.3</span>Кто ведёт мастер-классы?</div>
-        <div class="radio-group">
-          <label><input type="radio" name="q3_3" value="штатный шеф"> Штатный шеф</label>
-          <label><input type="radio" name="q3_3" value="приглашённые"> Приглашённые шефы</label>
-          <label><input type="radio" name="q3_3" value="разные"> По-разному</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">3.4</span>Доля корпоративных vs частных событий</div>
-        <div class="radio-group">
-          <label><input type="radio" name="q3_4" value="в основном частные"> В основном частные</label>
-          <label><input type="radio" name="q3_4" value="50/50"> 50/50</label>
-          <label><input type="radio" name="q3_4" value="в основном корпоративные"> В основном корпоративные</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">3.5</span>Как гости узнают о событиях?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">3.3</span>Кто приходит на мероприятия? Кто ваша типичная аудитория?</label>
         <div class="check-group">
-          <label><input type="checkbox" name="q3_5" value="Instagram"> 📷 Instagram</label>
-          <label><input type="checkbox" name="q3_5" value="WhatsApp рассылка"> 💬 WhatsApp</label>
-          <label><input type="checkbox" name="q3_5" value="Сайт студии"> 🌐 Сайт</label>
-          <label><input type="checkbox" name="q3_5" value="Сарафан"> 🗣 Сарафан</label>
-          <label><input type="checkbox" name="q3_5" value="Реклама"> 📣 Реклама</label>
+          <label><input type="checkbox" name="q3_3" value="частные"> Частные клиенты (семьи, пары)</label>
+          <label><input type="checkbox" name="q3_3" value="корпоративы"> Корпоративные группы</label>
+          <label><input type="checkbox" name="q3_3" value="блогеры"> Блогеры / инфлюенсеры</label>
+          <label><input type="checkbox" name="q3_3" value="профессионалы"> Профессиональные повара / шефы</label>
+          <label><input type="checkbox" name="q3_3" value="дизайнеры"> Дизайнеры интерьера / архитекторы</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">3.6</span>Конвертируются ли гости студии в покупателей магазина?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">3.4</span>Записывается ли видео / фото контент на мероприятиях? Публикуется ли он?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q3_6" value="да, отслеживаем"> ✅ Да, отслеживаем</label>
-          <label><input type="radio" name="q3_6" value="да, но не считаем"> Да, но не измеряем</label>
-          <label><input type="radio" name="q3_6" value="редко"> Редко</label>
-          <label><input type="radio" name="q3_6" value="не связано"> Не связано</label>
+          <label><input type="radio" name="q3_4" value="да системно"> Да, системно записываем и публикуем</label>
+          <label><input type="radio" name="q3_4" value="иногда"> Иногда — несистемно</label>
+          <label><input type="radio" name="q3_4" value="нет"> Не записываем</label>
         </div>
-        <textarea name="q3_6b" placeholder="Есть ли механика перевода гостей в покупателей?…" style="margin-top:8px"></textarea>
       </div>
 
+      <div class="question">
+        <label class="q-label"><span class="q-num">3.5</span>Конвертируются ли гости мероприятий в покупателей? Отслеживаете это?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="q3_5" value="да отслеживаем"> Да, отслеживаем — знаем цифры</label>
+          <label><input type="radio" name="q3_5" value="конвертируются не отслеживаем"> Конвертируются, но цифр нет</label>
+          <label><input type="radio" name="q3_5" value="слабо"> Конвертация слабая</label>
+          <label><input type="radio" name="q3_5" value="не думали"> Не думали об этом</label>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- BLOCK 4 -->
+  <!-- Block 4 -->
   <div class="block">
     <div class="block-header">
       <div class="block-num">4</div>
-      <div class="block-icon">🌐</div>
-      <div class="block-title">
-        <h3>Сайт и расходы на него</h3>
-        <div class="desc">Поймём реальную стоимость текущего сайта — часто она выше чем кажется</div>
+      <div>
+        <div class="block-title">Сайт и цифровые расходы</div>
+        <div class="block-subtitle">CMS, каталог, стоимость поддержки</div>
       </div>
     </div>
     <div class="block-body">
+      <div class="found-note">
+        <strong>Нашли:</strong> два отдельных сайта — chateaudevaisselle.com и cooking-chateaudevaisselle.ru. Это фрагментация аудитории. Хотим понять расходы и возможности для оптимизации.
+      </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">4.1</span>На какой платформе работает сайт?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">4.1</span>На какой платформе работают сайты? Кто их обслуживает?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q4_1" value="Битрикс/1С-Битрикс"> Битрикс / 1С-Битрикс</label>
-          <label><input type="radio" name="q4_1" value="WordPress"> WordPress</label>
-          <label><input type="radio" name="q4_1" value="Tilda"> Tilda</label>
-          <label><input type="radio" name="q4_1" value="самописный"> Самописный</label>
-          <label><input type="radio" name="q4_1" value="не знаю"> Не знаю точно</label>
+          <label><input type="radio" name="q4_1" value="wordpress"> WordPress</label>
+          <label><input type="radio" name="q4_1" value="tilda"> Tilda</label>
+          <label><input type="radio" name="q4_1" value="1c bitrix"> 1С-Битрикс</label>
+          <label><input type="radio" name="q4_1" value="insales"> InSales</label>
+          <label><input type="radio" name="q4_1" value="другое"> Другое</label>
+          <label><input type="radio" name="q4_1" value="не знаю"> Не знаю / разберёмся с подрядчиком</label>
         </div>
+        <textarea name="q4_1_detail" placeholder="Кто занимается сайтом (штатный сотрудник / агентство / фрилансер)?"></textarea>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">4.2</span>Ежемесячные расходы на сайт (сумма или диапазон)</div>
-        <div class="q-hint">Хостинг + лицензии + поддержка разработчика + контент-менеджер</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">4.2</span>Сколько тратите на сайт(ы) в месяц? (хостинг + поддержка + контент)</label>
         <div class="radio-group">
-          <label><input type="radio" name="q4_2" value="до 30 тыс/мес"> до 30 тыс/мес</label>
-          <label><input type="radio" name="q4_2" value="30–100 тыс/мес"> 30–100 тыс</label>
-          <label><input type="radio" name="q4_2" value="100–300 тыс/мес"> 100–300 тыс</label>
-          <label><input type="radio" name="q4_2" value="300 тыс+/мес"> 300 тыс+</label>
-          <label><input type="radio" name="q4_2" value="не считали"> Не считали</label>
+          <label><input type="radio" name="q4_2" value="до 20 тыс"> До 20 000 ₽/мес</label>
+          <label><input type="radio" name="q4_2" value="20-50 тыс"> 20 000–50 000 ₽/мес</label>
+          <label><input type="radio" name="q4_2" value="50-150 тыс"> 50 000–150 000 ₽/мес</label>
+          <label><input type="radio" name="q4_2" value="свыше 150 тыс"> Свыше 150 000 ₽/мес</label>
+          <label><input type="radio" name="q4_2" value="не знаю"> Точно не знаю</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">4.3</span>Кто занимается контентом сайта?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">4.3</span>Есть ли на сайте онлайн-каталог / прайс с актуальными остатками?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q4_3" value="штатный контент-менеджер"> Штатный сотрудник</label>
-          <label><input type="radio" name="q4_3" value="подрядчик"> Подрядчик</label>
-          <label><input type="radio" name="q4_3" value="разработчик по запросу"> Разработчик по запросу</label>
-          <label><input type="radio" name="q4_3" value="никто регулярно"> Никто регулярно</label>
+          <label><input type="radio" name="q4_3" value="да полный"> Да, полный и актуальный</label>
+          <label><input type="radio" name="q4_3" value="частичный"> Частичный — не всё выложено</label>
+          <label><input type="radio" name="q4_3" value="витрина без цен"> Есть витрина, но без цен / остатков</label>
+          <label><input type="radio" name="q4_3" value="нет"> Каталога нет — только информационный сайт</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">4.4</span>Сколько времени уходит на создание одной карточки товара?</div>
-        <div class="radio-group">
-          <label><input type="radio" name="q4_4" value="5–15 мин"> 5–15 мин</label>
-          <label><input type="radio" name="q4_4" value="30–60 мин"> 30–60 мин</label>
-          <label><input type="radio" name="q4_4" value="несколько часов"> Несколько часов</label>
-          <label><input type="radio" name="q4_4" value="не занимаемся этим"> Не занимаемся</label>
+      <div class="question">
+        <label class="q-label"><span class="q-num">4.4</span>Насколько вы довольны текущим сайтом по шкале 1–5?</label>
+        <div class="radio-group" style="flex-direction:row; flex-wrap:wrap; gap:6px;">
+          <label style="flex:1; min-width:50px; justify-content:center;"><input type="radio" name="q4_4" value="1"> 1 — плохо</label>
+          <label style="flex:1; min-width:50px; justify-content:center;"><input type="radio" name="q4_4" value="2"> 2</label>
+          <label style="flex:1; min-width:50px; justify-content:center;"><input type="radio" name="q4_4" value="3"> 3</label>
+          <label style="flex:1; min-width:50px; justify-content:center;"><input type="radio" name="q4_4" value="4"> 4</label>
+          <label style="flex:1; min-width:50px; justify-content:center;"><input type="radio" name="q4_4" value="5"> 5 — отлично</label>
         </div>
       </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">4.5</span>Трафик сайта в месяц (посетители)</div>
-        <div class="radio-group">
-          <label><input type="radio" name="q4_5" value="до 5 000"> до 5 тыс</label>
-          <label><input type="radio" name="q4_5" value="5–20 тыс"> 5–20 тыс</label>
-          <label><input type="radio" name="q4_5" value="20–50 тыс"> 20–50 тыс</label>
-          <label><input type="radio" name="q4_5" value="50 тыс+"> 50 тыс+</label>
-          <label><input type="radio" name="q4_5" value="не смотрим"> Не смотрим</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">4.6</span>Основной источник трафика на сайт</div>
-        <div class="check-group">
-          <label><input type="checkbox" name="q4_6" value="SEO (органика)"> 🔍 SEO</label>
-          <label><input type="checkbox" name="q4_6" value="Яндекс.Директ"> 📣 Директ</label>
-          <label><input type="checkbox" name="q4_6" value="Соцсети"> 📱 Соцсети</label>
-          <label><input type="checkbox" name="q4_6" value="Прямые заходы"> 🏠 Прямые</label>
-          <label><input type="checkbox" name="q4_6" value="Не знаем"> ❓ Не знаем</label>
-        </div>
-      </div>
-
     </div>
   </div>
 
-  <!-- BLOCK 5 -->
+  <!-- Block 5 -->
   <div class="block">
     <div class="block-header">
       <div class="block-num">5</div>
-      <div class="block-icon">📱</div>
-      <div class="block-title">
-        <h3>Соцсети</h3>
-        <div class="desc">Нашли только @salon_chateau у студии — хотим понять полную картину</div>
+      <div>
+        <div class="block-title">Социальные сети</div>
+        <div class="block-subtitle">Каналы, активность, бюджет</div>
       </div>
     </div>
     <div class="block-body">
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">5.1</span>Какие соцсети есть у компании? (все аккаунты)</div>
-        <div class="q-found">📷 Нашли @salon_chateau в Instagram — только для студии. Есть ли аккаунты основного магазина?</div>
-        <textarea name="q5_1" placeholder="Instagram: @... / VK: ... / TG: ... / YouTube: ..."></textarea>
+      <div class="found-note">
+        <strong>Нашли:</strong> Instagram @salon_chateau — ведётся для кулинарных событий. Другие соцсети в открытых источниках не обнаружили.
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">5.2</span>Кто сейчас ведёт соцсети и как часто?</div>
-        <div class="radio-group">
-          <label><input type="radio" name="q5_2" value="штатный SMM"> Штатный SMM</label>
-          <label><input type="radio" name="q5_2" value="подрядчик"> Подрядчик</label>
-          <label><input type="radio" name="q5_2" value="сами иногда"> Сами, когда есть время</label>
-          <label><input type="radio" name="q5_2" value="не ведём"> Не ведём</label>
+      <div class="question">
+        <label class="q-label"><span class="q-num">5.1</span>Какие соцсети ведёте сейчас? (отметьте все активные)</label>
+        <div class="check-group inline-grid">
+          <label><input type="checkbox" name="q5_1" value="instagram"> Instagram</label>
+          <label><input type="checkbox" name="q5_1" value="vk"> ВКонтакте</label>
+          <label><input type="checkbox" name="q5_1" value="telegram"> Telegram-канал</label>
+          <label><input type="checkbox" name="q5_1" value="youtube"> YouTube</label>
+          <label><input type="checkbox" name="q5_1" value="tiktok"> TikTok / Reels</label>
+          <label><input type="checkbox" name="q5_1" value="pinterest"> Pinterest</label>
+          <label><input type="checkbox" name="q5_1" value="не ведём"> Не ведём</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">5.3</span>Есть ли фото/видео с прошлых событий в студии?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">5.2</span>Как часто выходят публикации?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q5_3" value="да, много"> ✅ Да, целый архив</label>
-          <label><input type="radio" name="q5_3" value="да, немного"> Немного</label>
-          <label><input type="radio" name="q5_3" value="нет"> Нет</label>
+          <label><input type="radio" name="q5_2" value="ежедневно"> Ежедневно</label>
+          <label><input type="radio" name="q5_2" value="несколько в неделю"> Несколько раз в неделю</label>
+          <label><input type="radio" name="q5_2" value="раз в неделю"> Примерно раз в неделю</label>
+          <label><input type="radio" name="q5_2" value="редко"> Редко — когда есть повод</label>
+          <label><input type="radio" name="q5_2" value="не публикуем"> Не публикуем</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">5.4</span>Пробовали платное продвижение в соцсетях?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">5.3</span>Есть ли выделенный SMM-специалист или подрядчик?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q5_4" value="да, работает"> Да, результат есть</label>
-          <label><input type="radio" name="q5_4" value="да, не сработало"> Да, без результата</label>
-          <label><input type="radio" name="q5_4" value="нет"> Нет, не пробовали</label>
+          <label><input type="radio" name="q5_3" value="штатный"> Штатный сотрудник</label>
+          <label><input type="radio" name="q5_3" value="агентство"> Агентство / фрилансер</label>
+          <label><input type="radio" name="q5_3" value="своими силами"> Своими силами — кто успевает</label>
+          <label><input type="radio" name="q5_3" value="никто"> Никто не занимается</label>
         </div>
       </div>
 
+      <div class="question">
+        <label class="q-label"><span class="q-num">5.4</span>Есть ли рекламный бюджет на продвижение в соцсетях?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="q5_4" value="нет"> Нет, органика</label>
+          <label><input type="radio" name="q5_4" value="до 50 тыс"> До 50 000 ₽/мес</label>
+          <label><input type="radio" name="q5_4" value="50-200 тыс"> 50 000–200 000 ₽/мес</label>
+          <label><input type="radio" name="q5_4" value="свыше 200 тыс"> Свыше 200 000 ₽/мес</label>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- BLOCK 6 -->
+  <!-- Block 6 -->
   <div class="block">
     <div class="block-header">
       <div class="block-num">6</div>
-      <div class="block-icon">👥</div>
-      <div class="block-title">
-        <h3>Клиентская база и CRM</h3>
-        <div class="desc">Накопленная база — часто «золото» которое лежит без дела. Оценим потенциал</div>
+      <div>
+        <div class="block-title">CRM и база клиентов</div>
+        <div class="block-subtitle">База, рассылки, работа с лояльностью</div>
       </div>
     </div>
     <div class="block-body">
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">6.1</span>Где хранится база клиентов?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">6.1</span>Есть ли CRM-система? Какая?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q6_1" value="CRM система"> CRM-система</label>
-          <label><input type="radio" name="q6_1" value="1С"> 1С</label>
-          <label><input type="radio" name="q6_1" value="Excel"> Excel</label>
-          <label><input type="radio" name="q6_1" value="несколько мест"> В нескольких местах</label>
-          <label><input type="radio" name="q6_1" value="нет единой базы"> Нет единой базы</label>
+          <label><input type="radio" name="q6_1" value="bitrix24"> Bitrix24</label>
+          <label><input type="radio" name="q6_1" value="amocrm"> AmoCRM</label>
+          <label><input type="radio" name="q6_1" value="1c"> 1С</label>
+          <label><input type="radio" name="q6_1" value="excel"> Excel / Google Sheets</label>
+          <label><input type="radio" name="q6_1" value="нет"> CRM нет</label>
+          <label><input type="radio" name="q6_1" value="другое"> Другое</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">6.2</span>Примерный размер базы</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">6.2</span>Примерный размер базы (клиенты + участники мероприятий)?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q6_2" value="до 1 тыс"> до 1 тыс</label>
-          <label><input type="radio" name="q6_2" value="1–5 тыс"> 1–5 тыс</label>
-          <label><input type="radio" name="q6_2" value="5–20 тыс"> 5–20 тыс</label>
-          <label><input type="radio" name="q6_2" value="20 тыс+"> 20 тыс+</label>
+          <label><input type="radio" name="q6_2" value="до 1000"> До 1 000</label>
+          <label><input type="radio" name="q6_2" value="1-5 тыс"> 1 000–5 000</label>
+          <label><input type="radio" name="q6_2" value="5-20 тыс"> 5 000–20 000</label>
+          <label><input type="radio" name="q6_2" value="свыше 20 тыс"> Свыше 20 000</label>
+          <label><input type="radio" name="q6_2" value="не знаю"> Не знаю</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">6.3</span>Когда последний раз делали рассылку по базе?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">6.3</span>Как часто делаете рассылки по базе?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q6_3" value="в этом месяце"> В этом месяце</label>
-          <label><input type="radio" name="q6_3" value="в этом квартале"> В этом квартале</label>
-          <label><input type="radio" name="q6_3" value="в этом году"> В этом году</label>
-          <label><input type="radio" name="q6_3" value="не помним"> Не помним</label>
-          <label><input type="radio" name="q6_3" value="никогда"> Никогда</label>
+          <label><input type="radio" name="q6_3" value="регулярно"> Регулярно — еженедельно или чаще</label>
+          <label><input type="radio" name="q6_3" value="иногда"> Иногда — по поводу акций / событий</label>
+          <label><input type="radio" name="q6_3" value="редко"> Редко — несколько раз в год</label>
+          <label><input type="radio" name="q6_3" value="никогда"> Не делаем рассылки</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">6.4</span>Есть ли отдельная база гостей кулинарной студии?</div>
-        <div class="radio-group">
-          <label><input type="radio" name="q6_4" value="да, отдельная"> Да, отдельная</label>
-          <label><input type="radio" name="q6_4" value="смешана с общей"> Смешана с общей</label>
-          <label><input type="radio" name="q6_4" value="нет базы студии"> Нет</label>
+      <div class="question">
+        <label class="q-label"><span class="q-num">6.4</span>Через какой канал общаетесь с клиентами чаще всего?</label>
+        <div class="check-group inline-grid">
+          <label><input type="checkbox" name="q6_4" value="email"> Email</label>
+          <label><input type="checkbox" name="q6_4" value="whatsapp"> WhatsApp</label>
+          <label><input type="checkbox" name="q6_4" value="telegram"> Telegram</label>
+          <label><input type="checkbox" name="q6_4" value="звонки"> Телефонные звонки</label>
+          <label><input type="checkbox" name="q6_4" value="директ"> Instagram Direct</label>
+          <label><input type="checkbox" name="q6_4" value="не общаемся"> Системно не общаемся</label>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- BLOCK 7 -->
+  <!-- Block 7 -->
   <div class="block">
     <div class="block-header">
       <div class="block-num">7</div>
-      <div class="block-icon">⚙️</div>
-      <div class="block-title">
-        <h3>Команда и процессы</h3>
-        <div class="desc">Кого усилит AI, а кого освободит — зависит от текущей структуры</div>
+      <div>
+        <div class="block-title">Команда</div>
+        <div class="block-subtitle">Структура, роли, ресурсы</div>
       </div>
     </div>
     <div class="block-body">
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">7.1</span>Есть ли в команде человек, отвечающий за маркетинг и диджитал?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">7.1</span>Сколько человек в команде (включая продавцов)?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q7_1" value="да, отдельный человек"> Да, отдельный</label>
-          <label><input type="radio" name="q7_1" value="совмещает с другим"> Совмещает</label>
-          <label><input type="radio" name="q7_1" value="нет"> Нет</label>
+          <label><input type="radio" name="q7_1" value="до 10"> До 10</label>
+          <label><input type="radio" name="q7_1" value="10-30"> 10–30</label>
+          <label><input type="radio" name="q7_1" value="30-100"> 30–100</label>
+          <label><input type="radio" name="q7_1" value="свыше 100"> Свыше 100</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">7.2</span>Как сейчас готовятся КП для дизайнеров и застройщиков?</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">7.2</span>Есть ли в штате маркетолог / PR-специалист?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q7_2" value="шаблон есть"> Есть шаблон, быстро</label>
-          <label><input type="radio" name="q7_2" value="каждый раз вручную"> Каждый раз вручную</label>
-          <label><input type="radio" name="q7_2" value="редко делаем"> Редко делаем</label>
-        </div>
-        <textarea name="q7_2b" placeholder="Сколько примерно времени уходит на одно КП?" style="margin-top:8px"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">7.3</span>Есть ли в команде IT-специалист или технический руководитель?</div>
-        <div class="radio-group">
-          <label><input type="radio" name="q7_3" value="да, штатный"> Да, штатный</label>
-          <label><input type="radio" name="q7_3" value="подрядчик"> Подрядчик</label>
-          <label><input type="radio" name="q7_3" value="нет"> Нет</label>
+          <label><input type="radio" name="q7_2" value="да штатный"> Да, штатный</label>
+          <label><input type="radio" name="q7_2" value="подрядчик"> Внешний подрядчик</label>
+          <label><input type="radio" name="q7_2" value="нет"> Нет</label>
         </div>
       </div>
 
+      <div class="question">
+        <label class="q-label"><span class="q-num">7.3</span>Кто принимает решения по digital / маркетингу?</label>
+        <textarea name="q7_3" placeholder="Директор / маркетолог / коллегиально..."></textarea>
+      </div>
+
+      <div class="question">
+        <label class="q-label"><span class="q-num">7.4</span>Есть ли IT-ресурс внутри компании?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="q7_4" value="штатный it"> Штатный IT-специалист</label>
+          <label><input type="radio" name="q7_4" value="подрядчик it"> Внешний подрядчик</label>
+          <label><input type="radio" name="q7_4" value="нет it"> IT-ресурса нет</label>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- BLOCK 8 -->
+  <!-- Block 8 -->
   <div class="block">
     <div class="block-header">
       <div class="block-num">8</div>
-      <div class="block-icon">🚀</div>
-      <div class="block-title">
-        <h3>Планы и приоритеты</h3>
-        <div class="desc">Самый важный блок — от этого зависит с чего мы начнём</div>
+      <div>
+        <div class="block-title">Планы и приоритеты</div>
+        <div class="block-subtitle">Цели, бюджет, готовность к изменениям</div>
       </div>
     </div>
     <div class="block-body">
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">8.1</span>Что болит больше всего прямо сейчас? Топ-3 проблемы</div>
-        <textarea name="q8_1" rows="4" placeholder="1. …&#10;2. …&#10;3. …"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">8.2</span>Какой результат вы считаете успешным через 6 месяцев?</div>
-        <textarea name="q8_2" placeholder="Например: +30% трафик в салоны, рост среднего чека, 1000 подписчиков в TG…"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="q-label"><span class="q-num">8.3</span>Бюджет на цифровизацию и AI в год</div>
+      <div class="question">
+        <label class="q-label"><span class="q-num">8.1</span>Главная цель на 2026–2027 год?</label>
         <div class="radio-group">
-          <label><input type="radio" name="q8_3" value="до 500 тыс/год"> до 500 тыс/год</label>
-          <label><input type="radio" name="q8_3" value="500 тыс – 2 млн/год"> 500 тыс – 2 млн</label>
-          <label><input type="radio" name="q8_3" value="2 млн+/год"> 2 млн+</label>
-          <label><input type="radio" name="q8_3" value="обсудим на встрече"> Обсудим на встрече</label>
+          <label><input type="radio" name="q8_1" value="трафик в залы"> Увеличить трафик в физические залы</label>
+          <label><input type="radio" name="q8_1" value="онлайн продажи"> Запустить онлайн-продажи</label>
+          <label><input type="radio" name="q8_1" value="узнаваемость"> Повысить узнаваемость бренда</label>
+          <label><input type="radio" name="q8_1" value="лояльность базы"> Активировать существующую базу клиентов</label>
+          <label><input type="radio" name="q8_1" value="студия"> Масштабировать кулинарную студию</label>
+          <label><input type="radio" name="q8_1" value="всё сразу"> Всё сразу — нужна комплексная стратегия</label>
         </div>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">8.4</span>Пробовали ли AI-инструменты раньше? Что пробовали?</div>
-        <textarea name="q8_4" placeholder="ChatGPT, Midjourney, другое — что использовали и с каким результатом?…"></textarea>
+      <div class="question">
+        <label class="q-label"><span class="q-num">8.2</span>Что уже пробовали и не сработало?</label>
+        <textarea name="q8_2" placeholder="Любые digital-инициативы, рекламные кампании, инструменты которые не дали результата..."></textarea>
       </div>
 
-      <div class="q">
-        <div class="q-label"><span class="q-num">8.5</span>Что ещё важно, чего мы не спросили?</div>
-        <textarea name="q8_5" rows="3" placeholder="Любые комментарии, пожелания, ограничения…"></textarea>
+      <div class="question">
+        <label class="q-label"><span class="q-num">8.3</span>Ориентировочный бюджет на digital-развитие в месяц?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="q8_3" value="до 50 тыс"> До 50 000 ₽/мес</label>
+          <label><input type="radio" name="q8_3" value="50-150 тыс"> 50 000–150 000 ₽/мес</label>
+          <label><input type="radio" name="q8_3" value="150-500 тыс"> 150 000–500 000 ₽/мес</label>
+          <label><input type="radio" name="q8_3" value="свыше 500 тыс"> Свыше 500 000 ₽/мес</label>
+          <label><input type="radio" name="q8_3" value="обсудим"> Обсудим на встрече</label>
+        </div>
       </div>
 
+      <div class="question">
+        <label class="q-label"><span class="q-num">8.4</span>Насколько вы готовы к внедрению AI-инструментов (чат-боты, автоматизация, рекомендации)?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="q8_4" value="полностью готовы"> Полностью готовы — давайте быстрее</label>
+          <label><input type="radio" name="q8_4" value="готовы осторожно"> Готовы, но осторожно — хотим понять сначала</label>
+          <label><input type="radio" name="q8_4" value="скептически"> Скептически — нужно убедить</label>
+          <label><input type="radio" name="q8_4" value="не готовы"> Пока не готовы</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <label class="q-label"><span class="q-num">8.5</span>Есть ли опыт с чат-ботами, автоответчиками, AI-ассистентами?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="q8_5" value="да успешно"> Да, есть — работает хорошо</label>
+          <label><input type="radio" name="q8_5" value="да неудачно"> Пробовали — не пошло</label>
+          <label><input type="radio" name="q8_5" value="нет"> Нет опыта</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <label class="q-label"><span class="q-num">8.6</span>Главный вопрос или ожидание от встречи с HOMEPROJECT 17 июля?</label>
+        <textarea name="q8_6" placeholder="Что вы хотите услышать, получить или решить на встрече?"></textarea>
+      </div>
     </div>
   </div>
 
-  <!-- SEND BLOCK -->
-  <div class="send-block">
-    <h3>📤 Готово — отправьте нам ответы</h3>
-    <p>Нажмите кнопку ниже — все ваши ответы скопируются в буфер обмена. Вставьте в WhatsApp, Telegram или email и отправьте нам.</p>
-    <button class="btn-copy" onclick="copyAnswers()">
-      <span>📋</span> Скопировать все ответы
-    </button>
-    <div class="toast" id="toast">✅ Скопировано! Вставьте в WhatsApp или email (Ctrl+V / Cmd+V)</div>
-    <div class="send-channels">
-      <div class="channel">💬 WhatsApp: +7 (XXX) XXX-XX-XX</div>
-      <div class="channel">✈️ Telegram: @homeproject</div>
-      <div class="channel">📧 info@homeproject.online</div>
+  <!-- Action Section (Text answers) -->
+  <div class="action-section">
+    <div class="action-header">
+      <h2>✍️ Отправить ответы текстом</h2>
     </div>
-    <p style="margin-top:16px;font-size:12px;color:#94a3b8">Не хотите заполнять заранее — просто приходите в четверг 17 июля. Пройдём по всем вопросам вместе устно.</p>
+    <div class="action-body">
+      <p style="font-size:14px; color:#666; margin-bottom:20px; text-align:center;">
+        Нажмите кнопку — все ваши ответы скопируются одним сообщением. Вставьте в WhatsApp, Telegram или email.
+      </p>
+      <button class="copy-btn" onclick="copyAnswers()">📋 Скопировать все ответы</button>
+
+      <div class="send-channels">
+        <div class="channel wa">
+          <div class="channel-icon">💬</div>
+          <div>
+            <div class="channel-label">WhatsApp</div>
+            <div class="channel-val">+7 (905) 522-35-14</div>
+            <div class="channel-note">Андрей — ответит в течение дня</div>
+          </div>
+        </div>
+        <div class="channel tg">
+          <div class="channel-icon">✈️</div>
+          <div>
+            <div class="channel-label">Telegram</div>
+            <div class="channel-val">@homeproject_andrey</div>
+            <div class="channel-note">Или найдите нас по номеру +7 (905) 522-35-14</div>
+          </div>
+        </div>
+        <div class="channel em">
+          <div class="channel-icon">📧</div>
+          <div>
+            <div class="channel-label">Email</div>
+            <div class="channel-val">info@homeproject.online</div>
+            <div class="channel-note">Для развёрнутых ответов и прикреплённых файлов</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="footer">
-    HOMEPROJECT · Конфиденциально · Для встречи 17 июля 2026
+  <!-- Voice Section -->
+  <div class="voice-section">
+    <div class="voice-header">
+      <h2>🎙️ Ответить голосом</h2>
+      <p>Не хотите печатать? Запишите голосовые сообщения — мы всё расшифруем</p>
+    </div>
+    <div class="voice-body">
+
+      <div class="voice-steps">
+        <div class="voice-step">
+          <div class="vs-num">1</div>
+          <div class="vs-text">Откройте <strong>WhatsApp или Telegram</strong> и найдите контакт <strong>+7 (905) 522-35-14</strong> (Андрей, HOMEPROJECT)</div>
+        </div>
+        <div class="voice-step">
+          <div class="vs-num">2</div>
+          <div class="vs-text">Запишите голосовые сообщения, отвечая <strong>по блокам</strong> — называйте номер блока в начале каждого сообщения. Можно несколько сообщений подряд.</div>
+        </div>
+        <div class="voice-step">
+          <div class="vs-num">3</div>
+          <div class="vs-text">Отправьте. Мы расшифруем голос, оформим ответы и подготовимся к встрече 17 июля.</div>
+        </div>
+      </div>
+
+      <div class="voice-script">
+        <h3>📝 ПЛАН ГОЛОСОВОГО ОТВЕТА — что говорить в каждом блоке</h3>
+
+        <div class="script-item">
+          <div class="script-block-num">Блок 1</div>
+          <div class="script-text">
+            <strong>Бизнес:</strong> год основания, юридическая форма, примерная выручка, соотношение онлайн/офлайн, топ-категории товаров
+          </div>
+        </div>
+
+        <div class="script-item">
+          <div class="script-block-num">Блок 2</div>
+          <div class="script-text">
+            <strong>Салоны:</strong> адреса и площади точек, как изменился трафик, что делаете для привлечения, есть ли цифровые точки в зале, в чём видите главную причину низкого трафика
+          </div>
+        </div>
+
+        <div class="script-item">
+          <div class="script-block-num">Блок 3</div>
+          <div class="script-text">
+            <strong>Кулинарная студия:</strong> сколько мероприятий в месяц, средняя заполняемость, кто приходит, снимаете ли видео и фото, конвертируются ли гости в покупателей
+          </div>
+        </div>
+
+        <div class="script-item">
+          <div class="script-block-num">Блок 4</div>
+          <div class="script-text">
+            <strong>Сайт:</strong> платформа и кто обслуживает, сколько тратите в месяц, есть ли онлайн-каталог с ценами и остатками, оцените текущий сайт по шкале 1–5
+          </div>
+        </div>
+
+        <div class="script-item">
+          <div class="script-block-num">Блок 5</div>
+          <div class="script-text">
+            <strong>Соцсети:</strong> какие ведёте, как часто публикуете, есть ли SMM-специалист, есть ли рекламный бюджет
+          </div>
+        </div>
+
+        <div class="script-item">
+          <div class="script-block-num">Блок 6</div>
+          <div class="script-text">
+            <strong>База клиентов:</strong> есть ли CRM и какая, размер базы, делаете ли рассылки и как часто, через какой канал общаетесь с клиентами
+          </div>
+        </div>
+
+        <div class="script-item">
+          <div class="script-block-num">Блок 7</div>
+          <div class="script-text">
+            <strong>Команда:</strong> сколько человек, есть ли маркетолог, кто принимает digital-решения, есть ли IT-ресурс
+          </div>
+        </div>
+
+        <div class="script-item">
+          <div class="script-block-num">Блок 8</div>
+          <div class="script-text">
+            <strong>Планы:</strong> главная цель на 2026–27 год, что пробовали и не сработало, ориентировочный бюджет на digital, готовность к AI-инструментам, главный вопрос к нам на встрече
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-contacts">
+        <div class="channel wa">
+          <div class="channel-icon">🎙️</div>
+          <div>
+            <div class="channel-label">Голосовые сообщения — WhatsApp или Telegram</div>
+            <div class="channel-val">+7 (905) 522-35-14</div>
+            <div class="channel-note">Андрей, HOMEPROJECT · принимаем голос, видео, фото, документы</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fallback-note">
+        Не успеваете заполнить до 17 июля? Не страшно — приходите на встречу, разберём всё вместе. Анкета нужна для более продуктивного разговора, а не как обязательное условие.
+      </div>
+    </div>
   </div>
 
 </div>
 
+<!-- Toast -->
+<div class="toast" id="toast">✅ Скопировано! Вставьте в WhatsApp или email</div>
+
 <script>
 function copyAnswers() {
-  const lines = ['=== АНКЕТА CHÂTEAU DE VAISSELLE × HOMEPROJECT ===', 'Дата встречи: 17 июля 2026', ''];
+  const lines = [];
+  lines.push('═══════════════════════════════════');
+  lines.push('АНКЕТА — CHÂTEAU DE VAISSELLE');
+  lines.push('Встреча с HOMEPROJECT · 17.07.2026');
+  lines.push('═══════════════════════════════════');
+  lines.push('');
 
   const blocks = [
-    ['💼 БЛОК 1. БИЗНЕС В ЦЕЛОМ', ['q1_1','q1_2','q1_3','q1_4','q1_5','q1_6']],
-    ['🏪 БЛОК 2. ФИЗИЧЕСКИЕ САЛОНЫ', ['q2_1','q2_2','q2_3','q2_4','q2_5','q2_5b','q2_6']],
-    ['🍳 БЛОК 3. КУЛИНАРНАЯ СТУДИЯ', ['q3_1','q3_2','q3_3','q3_4','q3_5','q3_6','q3_6b']],
-    ['🌐 БЛОК 4. САЙТ И РАСХОДЫ', ['q4_1','q4_2','q4_3','q4_4','q4_5','q4_6']],
-    ['📱 БЛОК 5. СОЦСЕТИ', ['q5_1','q5_2','q5_3','q5_4']],
-    ['👥 БЛОК 6. КЛИЕНТСКАЯ БАЗА', ['q6_1','q6_2','q6_3','q6_4']],
-    ['⚙️ БЛОК 7. КОМАНДА', ['q7_1','q7_2','q7_2b','q7_3']],
-    ['🚀 БЛОК 8. ПЛАНЫ', ['q8_1','q8_2','q8_3','q8_4','q8_5']]
+    { num: 1, title: 'БИЗНЕС — ОБЩАЯ КАРТИНА' },
+    { num: 2, title: 'ФИЗИЧЕСКИЕ САЛОНЫ' },
+    { num: 3, title: 'КУЛИНАРНАЯ СТУДИЯ' },
+    { num: 4, title: 'САЙТ И ЦИФРОВЫЕ РАСХОДЫ' },
+    { num: 5, title: 'СОЦИАЛЬНЫЕ СЕТИ' },
+    { num: 6, title: 'CRM И БАЗА КЛИЕНТОВ' },
+    { num: 7, title: 'КОМАНДА' },
+    { num: 8, title: 'ПЛАНЫ И ПРИОРИТЕТЫ' },
   ];
 
-  const labels = {
-    q1_1:'Лет на рынке',q1_2:'Оборот',q1_3:'Распределение по направлениям',q1_4:'B2C vs B2B',q1_5:'Динамика 3 года',q1_6:'Топ-3 источника выручки',
-    q2_1:'Салоны и адреса',q2_2:'Площадь',q2_3:'Товар на выставке',q2_4:'Консультанты',q2_5:'Трафик динамика',q2_5b:'Причина изменения',q2_6:'Как находят салоны',
-    q3_1:'Событий в месяц',q3_2:'Посещаемость события',q3_3:'Кто ведёт',q3_4:'Корп vs частные',q3_5:'Как узнают о событиях',q3_6:'Конверсия гостей',q3_6b:'Механика конверсии',
-    q4_1:'Платформа сайта',q4_2:'Расходы на сайт/мес',q4_3:'Кто ведёт контент',q4_4:'Время на карточку',q4_5:'Трафик сайта',q4_6:'Источники трафика',
-    q5_1:'Аккаунты соцсетей',q5_2:'Кто ведёт SMM',q5_3:'Архив фото/видео',q5_4:'Платное продвижение',
-    q6_1:'Где хранится база',q6_2:'Размер базы',q6_3:'Последняя рассылка',q6_4:'База студии',
-    q7_1:'Маркетолог в команде',q7_2:'Как делают КП',q7_2b:'Время на КП',q7_3:'IT-специалист',
-    q8_1:'Топ-3 боли',q8_2:'Результат через 6 мес',q8_3:'Бюджет на AI',q8_4:'Опыт с AI',q8_5:'Дополнения'
+  const questions = {
+    q1_1: '1.1 История и год основания',
+    q1_2: '1.2 Юридическая форма',
+    q1_3: '1.3 Выручка (диапазон)',
+    q1_4: '1.4 Офлайн vs онлайн',
+    q1_5: '1.5 Топ-категории товаров',
+    q2_1: '2.1 Адреса и площади точек',
+    q2_2: '2.2 Динамика трафика',
+    q2_3: '2.3 Каналы привлечения',
+    q2_4: '2.4 Цифровые точки в зале',
+    q2_5: '2.5 Причина низкого трафика',
+    q3_1: '3.1 Мероприятий в месяц',
+    q3_2: '3.2 Заполняемость залов',
+    q3_3: '3.3 Аудитория мероприятий',
+    q3_4: '3.4 Видео/фото контент',
+    q3_5: '3.5 Конверсия гостей в покупателей',
+    q4_1: '4.1 Платформа и поддержка сайта',
+    q4_1_detail: '4.1 Кто занимается сайтом',
+    q4_2: '4.2 Расходы на сайт в месяц',
+    q4_3: '4.3 Наличие онлайн-каталога',
+    q4_4: '4.4 Оценка текущего сайта',
+    q5_1: '5.1 Активные соцсети',
+    q5_2: '5.2 Частота публикаций',
+    q5_3: '5.3 SMM-специалист',
+    q5_4: '5.4 Рекламный бюджет',
+    q6_1: '6.1 CRM-система',
+    q6_2: '6.2 Размер базы клиентов',
+    q6_3: '6.3 Частота рассылок',
+    q6_4: '6.4 Каналы коммуникации',
+    q7_1: '7.1 Размер команды',
+    q7_2: '7.2 Маркетолог в штате',
+    q7_3: '7.3 Кто принимает digital-решения',
+    q7_4: '7.4 IT-ресурс',
+    q8_1: '8.1 Главная цель на 2026–27',
+    q8_2: '8.2 Что не сработало',
+    q8_3: '8.3 Бюджет на digital',
+    q8_4: '8.4 Готовность к AI',
+    q8_5: '8.5 Опыт с чат-ботами',
+    q8_6: '8.6 Главный вопрос к HOMEPROJECT',
   };
 
-  blocks.forEach(([title, fields]) => {
-    lines.push('');
-    lines.push('─'.repeat(40));
-    lines.push(title);
-    lines.push('─'.repeat(40));
-    fields.forEach(name => {
-      const label = labels[name] || name;
-      // textarea
-      const ta = document.querySelector(`textarea[name="${name}"]`);
-      if (ta && ta.value.trim()) {
-        lines.push(`${label}: ${ta.value.trim()}`);
-      }
-      // radio
-      const radio = document.querySelector(`input[type="radio"][name="${name}"]:checked`);
+  const blockMap = {
+    1: ['q1_1','q1_2','q1_3','q1_4','q1_5'],
+    2: ['q2_1','q2_2','q2_3','q2_4','q2_5'],
+    3: ['q3_1','q3_2','q3_3','q3_4','q3_5'],
+    4: ['q4_1','q4_1_detail','q4_2','q4_3','q4_4'],
+    5: ['q5_1','q5_2','q5_3','q5_4'],
+    6: ['q6_1','q6_2','q6_3','q6_4'],
+    7: ['q7_1','q7_2','q7_3','q7_4'],
+    8: ['q8_1','q8_2','q8_3','q8_4','q8_5','q8_6'],
+  };
+
+  blocks.forEach(function(block) {
+    lines.push('─── Блок ' + block.num + ': ' + block.title + ' ───');
+    const qNames = blockMap[block.num];
+    qNames.forEach(function(name) {
+      const label = questions[name] || name;
+      // Radio
+      const radio = document.querySelector('input[name="' + name + '"]:checked');
       if (radio) {
-        lines.push(`${label}: ${radio.value}`);
+        lines.push(label + ': ' + radio.value);
+        return;
       }
-      // checkboxes
-      const checks = document.querySelectorAll(`input[type="checkbox"][name="${name}"]:checked`);
+      // Checkboxes
+      const checks = document.querySelectorAll('input[name="' + name + '"]:checked');
       if (checks.length > 0) {
-        lines.push(`${label}: ${[...checks].map(c=>c.value).join(', ')}`);
+        const vals = Array.from(checks).map(function(c){ return c.value; });
+        lines.push(label + ': ' + vals.join(', '));
+        return;
       }
+      // Textarea
+      const ta = document.querySelector('textarea[name="' + name + '"]');
+      if (ta && ta.value.trim()) {
+        lines.push(label + ': ' + ta.value.trim());
+        return;
+      }
+      lines.push(label + ': —');
     });
+    lines.push('');
   });
 
-  lines.push('');
-  lines.push('─'.repeat(40));
-  lines.push('Отправлено через анкету к встрече 17.07.2026');
+  lines.push('═══════════════════════════════════');
+  lines.push('Отправлено через анкету homeproject.online');
 
   const text = lines.join('\n');
-  navigator.clipboard.writeText(text).then(() => {
-    const toast = document.getElementById('toast');
-    toast.style.display = 'block';
-    setTimeout(() => { toast.style.display = 'none'; }, 4000);
-  }).catch(() => {
-    // fallback
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    const toast = document.getElementById('toast');
-    toast.style.display = 'block';
-    setTimeout(() => { toast.style.display = 'none'; }, 4000);
-  });
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(showToast).catch(function() {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); showToast(); } catch(e) { alert('Не удалось скопировать автоматически. Выделите текст вручную.'); }
+  document.body.removeChild(ta);
+}
+
+function showToast() {
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(function(){ toast.classList.remove('show'); }, 3000);
 }
 </script>
 </body>
