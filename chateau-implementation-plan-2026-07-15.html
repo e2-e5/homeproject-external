@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Château de Vaisselle — План внедрения AI + Интерактивный сайт</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#f0f2f8;color:#1a1a2e;line-height:1.65;font-size:14px}
+.hero{background:linear-gradient(135deg,#0d1b4b 0%,#1a3a8f 50%,#2952c4 100%);color:#fff;padding:40px 32px 36px;position:relative;overflow:hidden}
+.hero::before{content:'🏰';position:absolute;right:40px;top:16px;font-size:96px;opacity:.08}
+.hero h1{font-size:26px;font-weight:800;margin-bottom:6px}
+.hero .sub{font-size:14px;opacity:.7;margin-bottom:24px}
+.kpi-row{display:flex;gap:10px;flex-wrap:wrap}
+.kpi{background:rgba(255,255,255,.14);border-radius:10px;padding:11px 16px;text-align:center;min-width:90px}
+.kpi-n{font-size:20px;font-weight:800}
+.kpi-l{font-size:11px;opacity:.7;margin-top:2px}
+.confidential{display:inline-block;background:rgba(255,100,100,.25);border:1px solid rgba(255,100,100,.4);color:#ffcdd2;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:3px 10px;border-radius:4px;text-transform:uppercase;margin-bottom:18px}
+.wrap{max-width:960px;margin:0 auto;padding:28px 16px 60px}
+.section-title{font-size:20px;font-weight:800;color:#1a237e;margin:36px 0 16px;display:flex;align-items:center;gap:10px;border-bottom:2px solid #c5cae9;padding-bottom:10px}
+.section-title span{font-size:24px}
+.card{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.card-h{font-size:15px;font-weight:700;color:#1a237e;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+p{margin-bottom:8px;font-size:13px;color:#374151}
+p:last-child{margin-bottom:0}
+.phases{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px}
+@media(max-width:640px){.phases{grid-template-columns:1fr}}
+.phase{border-radius:12px;padding:20px;position:relative;overflow:hidden}
+.phase-0{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border:1px solid #90caf9}
+.phase-1{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:1px solid #a5d6a7}
+.phase-2{background:linear-gradient(135deg,#f3e5f5,#e1bee7);border:1px solid #ce93d8}
+.phase-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.65;margin-bottom:6px}
+.phase-title{font-size:16px;font-weight:800;margin-bottom:4px;color:#1a1a2e}
+.phase-period{font-size:12px;color:#555;margin-bottom:14px;font-weight:600}
+.phase-items{list-style:none;padding:0}
+.phase-items li{font-size:12.5px;color:#333;padding:4px 0;border-bottom:1px solid rgba(0,0,0,.07);display:flex;align-items:flex-start;gap:6px}
+.phase-items li:last-child{border-bottom:none}
+.phase-items li::before{content:'→';color:#3949ab;font-weight:700;flex-shrink:0;margin-top:1px}
+.phase-price{margin-top:14px;background:rgba(255,255,255,.6);border-radius:8px;padding:10px 12px;text-align:center}
+.phase-price-n{font-size:18px;font-weight:800;color:#1a237e}
+.phase-price-l{font-size:11px;color:#555;margin-top:2px}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th{background:#1a237e;color:#fff;padding:10px 14px;text-align:left;font-size:13px;font-weight:600}
+td{padding:10px 14px;border-bottom:1px solid #eef1f7;font-size:13px;vertical-align:top}
+tr:nth-child(even) td{background:#f7f9ff}
+.tier-rec{background:#e8f5e9 !important}
+.price-big{font-size:22px;font-weight:800;color:#1a237e}
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:540px){.roi-grid{grid-template-columns:1fr}}
+.roi-box{border-radius:10px;padding:16px 20px;text-align:center}
+.roi-cost{background:#fff3e0;border:1px solid #ffcc80}
+.roi-save{background:#e8f5e9;border:1px solid #a5d6a7}
+.roi-n{font-size:26px;font-weight:800;color:#1a237e;margin-bottom:4px}
+.roi-save .roi-n{color:#2e7d32}
+.roi-l{font-size:12px;color:#555}
+.roi-result{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;border-radius:10px;padding:16px 20px;text-align:center;margin-top:14px}
+.roi-result .roi-n{color:#fff;font-size:32px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:600px){.options{grid-template-columns:1fr}}
+.option{border-radius:12px;padding:20px 22px;border:2px solid transparent;position:relative}
+.option-a{background:#fff;border-color:#c5cae9}
+.option-b{background:#fff;border-color:#b39ddb}
+.option-rec{position:absolute;top:-10px;right:16px;background:#2e7d32;color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:10px;text-transform:uppercase}
+.option-title{font-size:15px;font-weight:800;color:#1a237e;margin-bottom:4px}
+.option-sub{font-size:12px;color:#666;margin-bottom:14px}
+.option-features{list-style:none;padding:0;margin-bottom:14px}
+.option-features li{font-size:12.5px;padding:4px 0;border-bottom:1px solid #eef1f7;display:flex;gap:6px;align-items:flex-start}
+.option-features li:last-child{border-bottom:none}
+.check{color:#2e7d32;font-weight:700;flex-shrink:0}
+.cross{color:#c62828;font-weight:700;flex-shrink:0}
+.option-price-box{background:#f7f9ff;border-radius:8px;padding:12px 14px}
+.option-price{font-size:20px;font-weight:800;color:#1a237e}
+.option-time{font-size:12px;color:#555;margin-top:4px}
+.market-table td:first-child{font-weight:600;color:#1a237e;width:35%}
+.our-price{color:#2e7d32;font-weight:700}
+.modules{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+@media(max-width:540px){.modules{grid-template-columns:1fr}}
+.module{background:#fff;border-radius:10px;padding:14px 16px;border-left:4px solid #5c6bc0}
+.module-title{font-size:13px;font-weight:700;color:#1a237e;margin-bottom:6px}
+.module-desc{font-size:12px;color:#555;margin-bottom:8px}
+.module-price{font-size:15px;font-weight:800;color:#3949ab}
+.module-time{font-size:11px;color:#888;margin-top:2px}
+.gantt{overflow-x:auto;margin:12px 0}
+.gantt table{min-width:560px}
+.gantt th{font-size:12px;padding:8px 10px;background:#3949ab}
+.gantt td{font-size:12px;padding:7px 10px}
+.gantt .bar{height:14px;border-radius:4px;display:inline-block;vertical-align:middle}
+.bar-blue{background:#3949ab}.bar-green{background:#43a047}.bar-purple{background:#8e24aa}.bar-orange{background:#fb8c00}
+.w1{width:40px}.w2{width:80px}
+.rec-box{background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border-radius:12px;padding:20px 24px;border:1px solid #a5d6a7;margin-top:16px}
+.rec-title{font-weight:800;color:#1b5e20;font-size:15px;margin-bottom:12px}
+.rec-steps li{font-size:13px;color:#2d3142;margin-bottom:8px;padding:8px 12px;background:#fff;border-radius:8px;list-style:none;display:flex;gap:10px;align-items:flex-start}
+.step-num{background:#43a047;color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.pain-match{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.pm-row{display:grid;grid-template-columns:200px 1fr 80px;gap:8px;align-items:center;background:#fff;border-radius:8px;padding:10px 14px;border-left:4px solid #e53935}
+.pm-row.solved{border-left-color:#43a047}
+.pm-pain{font-size:12px;font-weight:600;color:#c62828}
+.pm-row.solved .pm-pain{color:#1b5e20}
+.pm-solution{font-size:12px;color:#555}
+.pm-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;text-align:center;white-space:nowrap}
+.badge-p0{background:#c62828;color:#fff}.badge-p1{background:#fb8c00;color:#fff}.badge-p2{background:#1565c0;color:#fff}
+.warn{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:12px 16px;font-size:13px;color:#795548;margin:12px 0}
+.warn strong{color:#e65100}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin:2px}
+.tag-g{background:#e8f5e9;color:#1b5e20}.tag-o{background:#fff3e0;color:#e65100}.tag-r{background:#ffebee;color:#c62828}.tag-b{background:#e3f2fd;color:#1565c0}
+.footer{text-align:center;color:#aaa;font-size:12px;padding:20px;border-top:1px solid #e0e0e0;margin-top:32px}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="confidential">⛔ Внутренний документ — не для клиента</div>
+  <h1>🏰 Château de Vaisselle — План внедрения</h1>
+  <div class="sub">AI-платформа + Интерактивный сайт · Оценка и ценообразование · 15 июля 2026</div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-n">53К</div><div class="kpi-l">клиентов в базе</div></div>
+    <div class="kpi"><div class="kpi-n">2</div><div class="kpi-l">шоурума (Vegas / ЕвроПарк)</div></div>
+    <div class="kpi"><div class="kpi-n">3</div><div class="kpi-l">дизайнера кухонь</div></div>
+    <div class="kpi"><div class="kpi-n">2М ₽</div><div class="kpi-l">средний чек кухни</div></div>
+    <div class="kpi"><div class="kpi-n">700К ₽</div><div class="kpi-l">тех. бюджет/проект</div></div>
+    <div class="kpi"><div class="kpi-n">2–6 нед</div><div class="kpi-l">цикл сделки</div></div>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="section-title"><span>🤖</span> Часть 1 — AI-система: план внедрения и цены</div>
+
+<div class="card">
+  <div class="card-h">🔴 Боли из анкеты → что закрывает наша система</div>
+  <div class="pain-match">
+    <div class="pm-row solved"><div class="pm-pain">✅ КП по технике — вручную, часами</div><div class="pm-solution">AI-КП за 20 секунд: подбор по бюджету + монтажные требования → на email клиенту автоматически</div><div class="pm-badge badge-p0">P0 Сразу</div></div>
+    <div class="pm-row solved"><div class="pm-pain">✅ Нет актуальных остатков</div><div class="pm-solution">Каталог синхронизирован с поставщиками в реальном времени — наличие в КП всегда актуально</div><div class="pm-badge badge-p0">P0 Сразу</div></div>
+    <div class="pm-row solved"><div class="pm-pain">✅ База 53К не работает</div><div class="pm-solution">CRM + автоматические email-цепочки: follow-up через 24 ч, персональные подборки, реактивация</div><div class="pm-badge badge-p1">P1 Этап 1</div></div>
+    <div class="pm-row solved"><div class="pm-pain">✅ МК не конвертируются в базу</div><div class="pm-solution">Форма регистрации → база → автоматический follow-up с техникой как продолжение темы МК</div><div class="pm-badge badge-p1">P1 Этап 1</div></div>
+    <div class="pm-row solved"><div class="pm-pain">✅ Клиент ушёл — никто не вернул</div><div class="pm-solution">Автоцепочка: через 24 ч — подборка, через 7 дней — новинки бренда, через 30 дней — персональное предложение</div><div class="pm-badge badge-p1">P1 Этап 1</div></div>
+    <div class="pm-row"><div class="pm-pain">⚠️ Нет стандарта продаж (3 дизайнера)</div><div class="pm-solution">AI-скрипт консультации + единый шаблон КП: каждый дизайнер работает по одному стандарту</div><div class="pm-badge badge-p2">P2 Этап 2</div></div>
+    <div class="pm-row"><div class="pm-pain">⚠️ Клиент не понимает разницу брендов</div><div class="pm-solution">AI-консультант на сайте: сравнение брендов, подбор по параметрам, «почему именно этот»</div><div class="pm-badge badge-p2">P2 Этап 2</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-h">📅 3 фазы внедрения</div>
+  <div class="phases">
+    <div class="phase phase-0">
+      <div class="phase-label">Фаза 0</div>
+      <div class="phase-title">Синхронизация данных</div>
+      <div class="phase-period">⏱ 2 недели · Старт сразу после договора</div>
+      <ul class="phase-items">
+        <li>Подключение аккаунта Château к платформе</li>
+        <li>Загрузка каталога: Küppersbusch + De Dietrich (якорные) + V-ZUG, BORA, Fhiaba</li>
+        <li>Импорт базы 53К клиентов — сегментация (кухни / техника / МК)</li>
+        <li>Настройка шаблонов КП под стиль Château (логотип, тон, контакты)</li>
+        <li>Обучение 3-х дизайнеров + менеджера B2B (2 часа)</li>
+        <li>Тест: первое демо-КП на реальном объекте Château</li>
+      </ul>
+      <div class="phase-price"><div class="phase-price-n">25 000 ₽</div><div class="phase-price-l">Единоразово · Онбординг</div></div>
+    </div>
+    <div class="phase phase-1">
+      <div class="phase-label">Фаза 1</div>
+      <div class="phase-title">Первый этап (Pilot → Бизнес)</div>
+      <div class="phase-period">⏱ Недели 3–10 (2 месяца)</div>
+      <ul class="phase-items">
+        <li>14 дней пилота — бесплатно (стандартный оффер)</li>
+        <li>AI-КП в работе всех 3-х дизайнеров ежедневно</li>
+        <li>Первая email-кампания по сегменту «кухни» из базы 53К</li>
+        <li>Автоцепочка: клиент пришёл → ушёл → follow-up через 24 ч</li>
+        <li>Форма регистрации на МК → автоматически в CRM</li>
+        <li>Интеграция AI-чата на сайт Château (встроенный консультант)</li>
+        <li>Ежемесячный отчёт: конверсия КП, открываемость, новые лиды</li>
+      </ul>
+      <div class="phase-price"><div class="phase-price-n">5 900 ₽/мес</div><div class="phase-price-l">Тариф «Бизнес» · 3 агента · Email включён</div></div>
+    </div>
+    <div class="phase phase-2">
+      <div class="phase-label">Фаза 2</div>
+      <div class="phase-title">Полное внедрение (Про)</div>
+      <div class="phase-period">⏱ Месяц 3 и далее · Постоянно</div>
+      <ul class="phase-items">
+        <li>Переход на тариф «Про» (10 агентов)</li>
+        <li>AI-скрипт стандарта продаж для всех менеджеров</li>
+        <li>Автоматический анализ pipeline сделок</li>
+        <li>Реактивация «спящих» клиентов из 53К по сегментам</li>
+        <li>Аналитика: какие бренды / модели конвертируются лучше</li>
+        <li>Прогноз выручки по объектам в работе</li>
+        <li>Личный менеджер от Home Project</li>
+        <li>Расширение каталога: ILVE, Graude, SKS, Schulthess</li>
+      </ul>
+      <div class="phase-price"><div class="phase-price-n">9 900 ₽/мес</div><div class="phase-price-l">Тариф «Про» · 10 агентов · Полная аналитика</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-h">💰 Выбор тарифа для Château</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Параметр</th>
+        <th>Старт · 2 900 ₽/мес</th>
+        <th style="background:#1b5e20">✅ Бизнес · 5 900 ₽/мес (Фаза 1)</th>
+        <th>Про · 9 900 ₽/мес (Фаза 2)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Каталог (SKU)</td><td>до 1 000</td><td class="tier-rec">Без лимита</td><td>Без лимита</td></tr>
+      <tr><td>AI-агенты</td><td>1</td><td class="tier-rec">3 (КП + CRM + Маркетинг)</td><td>10 (все модули)</td></tr>
+      <tr><td>Email-рассылки</td><td>❌</td><td class="tier-rec">✅ (база 53К)</td><td>✅</td></tr>
+      <tr><td>Аналитика</td><td>Базовая</td><td class="tier-rec">Расширенная</td><td>Полная + прогноз</td></tr>
+      <tr><td>Поддержка</td><td>Email</td><td class="tier-rec">Приоритет</td><td>Личный менеджер</td></tr>
+      <tr><td>Подходит Château?</td><td><span class="tag tag-r">❌ Мало агентов, нет email</span></td><td class="tier-rec"><span class="tag tag-g">✅ Оптимально для старта</span></td><td><span class="tag tag-o">⚡ Цель через 3 месяца</span></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px;color:#555"><strong>Партнёрская опция:</strong> если Château начинает закупки через Home Project от 500К ₽/квартал — тариф «Бизнес» включается в партнёрские условия поставки без отдельной оплаты.</p>
+</div>
+
+<div class="card">
+  <div class="card-h">📈 ROI для Château de Vaisselle</div>
+  <p style="color:#555;margin-bottom:14px">3 дизайнера тратят ~2 ч/день на подбор техники вручную = <strong>1 560 чел-часов в год</strong>. Стоимость времени: ~180–240К ₽/мес только на рутину с техникой.</p>
+  <div class="roi-grid">
+    <div class="roi-box roi-cost"><div class="roi-n">71 800 ₽</div><div class="roi-l">Стоимость за год<br>25К онбординг + 5 900×8 мес + 9 900×4 мес</div></div>
+    <div class="roi-box roi-save"><div class="roi-n">1 080 000 ₽</div><div class="roi-l">Высвобождение времени дизайнеров<br>180К/мес × 6 мес (консервативно)</div></div>
+  </div>
+  <div class="roi-result"><div class="roi-n">ROI = 15x</div><div style="font-size:13px;opacity:.85;margin-top:4px">Платформа окупается за 1–2 первых КП. Один проект с Küppersbusch ≈ 700К ₽ → покрывает год подписки.</div></div>
+</div>
+
+<div class="section-title"><span>🌐</span> Часть 2 — Интерактивный / «игровой» сайт</div>
+
+<div class="card">
+  <div class="card-h">🔍 Исходная ситуация (из анкеты)</div>
+  <p>У Château уже есть интернет-магазин с клубом привилегий и накопительными картами. Есть кулинарный салон с записью через соцсети. Проблемы цифрового канала:</p>
+  <ul style="margin:10px 0 0 18px;font-size:13px;color:#555">
+    <li style="margin-bottom:6px"><strong>Сайт не генерирует квалифицированных лидов</strong> — клиенты приходят walk-in или по рекомендации</li>
+    <li style="margin-bottom:6px"><strong>МК не монетизируются через сайт</strong> — запись через Instagram/Telegram, контакты не собираются</li>
+    <li style="margin-bottom:6px"><strong>Техника не продаётся онлайн</strong> — нет инструмента сравнения, подбора, конфигуратора</li>
+    <li><strong>Онлайн-чат — живой оператор</strong> (указали в анкете) — нет AI-ассистента</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-h">⚖️ Два варианта: быстро vs. стратегически</div>
+  <div class="options">
+    <div class="option option-a">
+      <div class="option-rec">СТАРТ · РЕКОМЕНДОВАН</div>
+      <div class="option-title">Вариант А — Модули на текущий сайт</div>
+      <div class="option-sub">Быстро, низкий риск, проверяем гипотезу</div>
+      <ul class="option-features">
+        <li><span class="check">✓</span> AI-ассистент по технике (замена живого чата)</li>
+        <li><span class="check">✓</span> Форма регистрации на МК → автоматически в CRM</li>
+        <li><span class="check">✓</span> Виджет «Подобрать технику» (квиз → КП)</li>
+        <li><span class="check">✓</span> Страница сравнения брендов (Küppersbusch vs. AEG vs. De Dietrich)</li>
+        <li><span class="check">✓</span> Форма заявки с callback через WhatsApp/TG</li>
+        <li><span class="cross">✗</span> 3D-конфигуратор кухни</li>
+        <li><span class="cross">✗</span> Виртуальный тур по шоуруму</li>
+        <li><span class="cross">✗</span> Новый дизайн / UX</li>
+      </ul>
+      <div class="option-price-box"><div class="option-price">160 000 – 220 000 ₽</div><div class="option-time">⏱ 6–8 недель · Запуск в сентябре 2026</div></div>
+    </div>
+    <div class="option option-b">
+      <div class="option-rec" style="background:#6a1b9a">СТРАТЕГИЧЕСКИ · Q1 2027</div>
+      <div class="option-title">Вариант Б — Новый интерактивный сайт</div>
+      <div class="option-sub">Полное переосмысление цифрового присутствия</div>
+      <ul class="option-features">
+        <li><span class="check">✓</span> Всё из Варианта А</li>
+        <li><span class="check">✓</span> 3D-конфигуратор кухни (расстановка техники)</li>
+        <li><span class="check">✓</span> Виртуальный тур по шоуруму (360°)</li>
+        <li><span class="check">✓</span> Игровая лояльность: квесты, «собери кухню мечты»</li>
+        <li><span class="check">✓</span> Личный кабинет: история проекта, избранное, КП</li>
+        <li><span class="check">✓</span> Booking МК: календарь + оплата онлайн</li>
+        <li><span class="check">✓</span> B2B-раздел для дизайнеров-партнёров</li>
+        <li><span class="check">✓</span> Новый UX/UI под премиум-позиционирование</li>
+      </ul>
+      <div class="option-price-box"><div class="option-price">550 000 – 850 000 ₽</div><div class="option-time">⏱ 4–5 месяцев · Запуск Q1 2027</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-h">🔧 Вариант А — детализация модулей и цен</div>
+  <div class="modules">
+    <div class="module"><div class="module-title">🤖 AI-ассистент на сайте</div><div class="module-desc">Чат-бот по технике: подбор по запросу, сравнение, цены, наличие. Подключён к нашему каталогу. Замена живого оператора 24/7.</div><div class="module-price">45 000 ₽</div><div class="module-time">⏱ 2 недели · включено в тариф «Бизнес»</div></div>
+    <div class="module"><div class="module-title">📋 Квиз «Подобрать технику»</div><div class="module-desc">5 вопросов: бюджет, тип, бренд, параметры → готовое КП на email или WhatsApp. Интеграция с нашим AI-КП.</div><div class="module-price">55 000 ₽</div><div class="module-time">⏱ 2–3 недели · разработка + настройка</div></div>
+    <div class="module"><div class="module-title">📅 Регистрация на МК</div><div class="module-desc">Форма записи → в CRM → автоматически: подтверждение, напоминание за день, follow-up после МК с предложением техники.</div><div class="module-price">35 000 ₽</div><div class="module-time">⏱ 1–2 недели · простая интеграция</div></div>
+    <div class="module"><div class="module-title">🏷️ Сравнение брендов</div><div class="module-desc">Интерактивная страница: Küppersbusch vs. AEG vs. De Dietrich — характеристики, «почему выбирают», цены, кнопка «Получить КП».</div><div class="module-price">30 000 ₽</div><div class="module-time">⏱ 1 неделя · контент + вёрстка</div></div>
+  </div>
+  <table>
+    <thead><tr><th>Модуль</th><th>Трудозатраты</th><th>Стоимость</th><th>Срок</th></tr></thead>
+    <tbody>
+      <tr><td>AI-ассистент на сайте</td><td>UX 2 дня + интеграция 8 дней</td><td>45 000 ₽</td><td>2 нед</td></tr>
+      <tr><td>Квиз «Подобрать технику»</td><td>Дизайн 3 дня + Front 8 дней + Back 5 дней</td><td>55 000 ₽</td><td>2–3 нед</td></tr>
+      <tr><td>Форма регистрации МК + CRM</td><td>Front 3 дня + интеграция 5 дней</td><td>35 000 ₽</td><td>1–2 нед</td></tr>
+      <tr><td>Сравнение брендов</td><td>Контент 3 дня + вёрстка 4 дня</td><td>30 000 ₽</td><td>1 нед</td></tr>
+      <tr><td>PM + тестирование + запуск</td><td>PM 10 дней</td><td>35 000 ₽</td><td>параллельно</td></tr>
+      <tr style="background:#e8f5e9"><td><strong>ИТОГО Вариант А</strong></td><td>~48 чел-дней</td><td><strong class="our-price">200 000 ₽</strong></td><td><strong>7–8 нед</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-h">📊 Рыночный анализ цен (Москва, 2026)</div>
+  <table class="market-table">
+    <thead><tr><th>Тип работы</th><th>Рынок (медиана)</th><th>Наша цена</th><th>Позиция</th></tr></thead>
+    <tbody>
+      <tr><td>AI-чат / чат-бот на сайт</td><td>30 000 – 80 000 ₽</td><td class="our-price">45 000 ₽</td><td><span class="tag tag-g">Рынок</span></td></tr>
+      <tr><td>Квиз-конфигуратор (5–7 вопросов)</td><td>60 000 – 150 000 ₽</td><td class="our-price">55 000 ₽</td><td><span class="tag tag-g">Ниже рынка</span></td></tr>
+      <tr><td>CRM-интеграция + автоцепочки</td><td>40 000 – 100 000 ₽</td><td class="our-price">35 000 ₽</td><td><span class="tag tag-g">Ниже рынка</span></td></tr>
+      <tr><td>Контентная страница + вёрстка</td><td>25 000 – 60 000 ₽</td><td class="our-price">30 000 ₽</td><td><span class="tag tag-g">Рынок</span></td></tr>
+      <tr><td>PM + тестирование</td><td>20 000 – 45 000 ₽</td><td class="our-price">35 000 ₽</td><td><span class="tag tag-g">Рынок</span></td></tr>
+      <tr><td><strong>3D-конфигуратор кухни</strong></td><td>400 000 – 1 500 000 ₽</td><td class="our-price">280 000 – 400 000 ₽</td><td><span class="tag tag-b">Ниже рынка</span></td></tr>
+      <tr><td>Виртуальный тур 360°</td><td>80 000 – 200 000 ₽</td><td class="our-price">70 000 – 100 000 ₽</td><td><span class="tag tag-g">Рынок</span></td></tr>
+      <tr><td>Полный новый сайт</td><td>350 000 – 900 000 ₽</td><td class="our-price">300 000 – 450 000 ₽</td><td><span class="tag tag-b">Ниже рынка</span></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:10px;color:#888;font-size:12px">* Наши цены ниже рынка: используем готовые модули (AI-ассистент, квиз, KP-генератор) — кастомизация быстрее. Часть работ через субподряд + наш PM.</p>
+</div>
+
+<div class="card">
+  <div class="card-h">🚀 Вариант Б — детализация нового интерактивного сайта</div>
+  <table>
+    <thead><tr><th>Этап</th><th>Что делаем</th><th>Срок</th><th>Стоимость</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1. Discovery + UX</strong></td><td>Брифинг, карта пути клиента, прототипы ключевых экранов, согласование структуры</td><td>2–3 нед</td><td>80 000 ₽</td></tr>
+      <tr><td><strong>2. Дизайн UI</strong></td><td>Дизайн-система, все макеты (desktop + mobile), брендинг под Château</td><td>3–4 нед</td><td>120 000 ₽</td></tr>
+      <tr><td><strong>3. Frontend</strong></td><td>Квиз, AI-ассистент, сравнение брендов, форма МК, B2B-раздел, личный кабинет</td><td>5–6 нед</td><td>180 000 ₽</td></tr>
+      <tr><td><strong>4. Backend + интеграции</strong></td><td>CRM, API каталога, email-автоматизация, 3D-конфигуратор (базовый)</td><td>5–6 нед</td><td>220 000 ₽</td></tr>
+      <tr><td><strong>5. Контент</strong></td><td>Тексты, фото брендов, сценарии AI, 360° тур (съёмка)</td><td>3–4 нед (парал.)</td><td>80 000 ₽</td></tr>
+      <tr><td><strong>6. Тест + запуск</strong></td><td>QA, правки, SEO-базис, перенос домена, мягкий запуск</td><td>2 нед</td><td>50 000 ₽</td></tr>
+      <tr style="background:#e8f5e9"><td><strong>ИТОГО Вариант Б</strong></td><td></td><td><strong>4.5–5.5 мес</strong></td><td><strong class="our-price">730 000 ₽</strong></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:10px;color:#555">Включён 3-месячный гарантийный период поддержки после запуска. Хостинг и домен — отдельно (3 000–8 000 ₽/мес).</p>
+</div>
+
+<div class="card">
+  <div class="card-h">📆 Таймлайн (Вариант А — рекомендован)</div>
+  <div class="gantt">
+    <table>
+      <thead><tr><th>Задача</th><th>Нед 1–2</th><th>Нед 3–4</th><th>Нед 5–6</th><th>Нед 7–8</th></tr></thead>
+      <tbody>
+        <tr><td>AI-ассистент на сайт</td><td><span class="bar bar-blue w2"></span></td><td></td><td></td><td></td></tr>
+        <tr><td>Регистрация на МК + CRM</td><td><span class="bar bar-green w1"></span></td><td><span class="bar bar-green w1"></span></td><td></td><td></td></tr>
+        <tr><td>Квиз «Подобрать технику»</td><td></td><td><span class="bar bar-purple w2"></span></td><td><span class="bar bar-purple w1"></span></td><td></td></tr>
+        <tr><td>Сравнение брендов</td><td></td><td></td><td><span class="bar bar-orange w1"></span></td><td></td></tr>
+        <tr><td>Тестирование + запуск</td><td></td><td></td><td></td><td><span class="bar bar-blue w1"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12px;color:#888">Старт: август 2026 → Готово: конец сентября 2026. Параллельно с Фазой 1 AI-внедрения.</p>
+</div>
+
+<div class="card">
+  <div class="card-h">🎯 Итоговая рекомендация — пакет для Château</div>
+  <div class="rec-box">
+    <div class="rec-title">5 шагов от демо до полного внедрения</div>
+    <ul class="rec-steps">
+      <li><div class="step-num">1</div><div><strong>Демо-встреча (бесплатно, 1 час)</strong><br>Показываем AI-КП в реальном времени на объекте Château с Küppersbusch. Закрываем боль #1 на глазах.</div></li>
+      <li><div class="step-num">2</div><div><strong>Онбординг AI-платформы — 25 000 ₽ разово</strong><br>Подключение каталога, импорт базы 53К, настройка шаблонов. Срок: 2 недели после договора.</div></li>
+      <li><div class="step-num">3</div><div><strong>14 дней пилота бесплатно → тариф «Бизнес» 5 900 ₽/мес</strong><br>КП + CRM + рассылки. Первая кампания по базе 53К — реактивация сегмента «кухни».</div></li>
+      <li><div class="step-num">4</div><div><strong>Вариант А интерактивного сайта — 200 000 ₽</strong><br>AI-ассистент + квиз + форма МК + сравнение брендов. Старт: август, завершение: сентябрь 2026.</div></li>
+      <li><div class="step-num">5</div><div><strong>По итогам Q3 — решение по Варианту Б</strong><br>Если квиз и AI-ассистент дают лиды → считаем ROI и обсуждаем полный новый сайт (730К ₽, Q1 2027).</div></li>
+    </ul>
+  </div>
+  <table style="margin-top:16px">
+    <thead><tr><th>Что</th><th>Когда</th><th>Цена</th></tr></thead>
+    <tbody>
+      <tr><td>Онбординг AI-платформы</td><td>Август 2026</td><td>25 000 ₽ разово</td></tr>
+      <tr><td>AI-платформа «Бизнес»</td><td>Август – октябрь 2026 (3 мес)</td><td>17 700 ₽ (3 × 5 900)</td></tr>
+      <tr><td>AI-платформа «Про»</td><td>Ноябрь 2026 и далее</td><td>9 900 ₽/мес</td></tr>
+      <tr><td>Интерактивные модули на сайт (Вариант А)</td><td>Август – сентябрь 2026</td><td>200 000 ₽</td></tr>
+      <tr style="background:#e8f5e9"><td><strong>Итого вход (до конца 2026)</strong></td><td></td><td><strong class="our-price">≈ 282 000 ₽</strong></td></tr>
+      <tr style="background:#e3f2fd"><td><strong>Вариант Б (опционально, Q1 2027)</strong></td><td></td><td><strong style="color:#1565c0">730 000 ₽</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="warn" style="margin-top:14px">
+    <strong>⚠️ Партнёрская опция:</strong> если объём закупок техники через Home Project составит от 1.5М ₽ в год — AI-платформа («Бизнес») включается в условия поставки без доплаты. Стоит предложить на встрече как стимул для перехода на Küppersbusch + De Dietrich.
+  </div>
+</div>
+
+</div>
+<div class="footer">⛔ КОНФИДЕНЦИАЛЬНО · Внутренний документ Home Project · Не для передачи клиенту · 15.07.2026</div>
+</body>
+</html>
