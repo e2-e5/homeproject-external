@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Бэклог задач инженеру — Home Project · 15.07.2026</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f2f8;color:#1a1a2e;font-size:14px;line-height:1.6}
+  .header{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:28px 32px 24px}
+  .header h1{font-size:22px;font-weight:700;margin-bottom:6px}
+  .header .meta{font-size:13px;opacity:.8}
+  .header .meta span{margin-right:16px}
+  .stats{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+  .stat{background:rgba(255,255,255,.15);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px}
+  .stat-n{font-size:24px;font-weight:800}
+  .stat-l{font-size:11px;opacity:.8;margin-top:2px}
+  .content{max-width:1000px;margin:0 auto;padding:24px 16px}
+  .section{margin-bottom:32px}
+  .section-title{font-size:15px;font-weight:700;color:#1a237e;padding:10px 16px;background:#fff;border-radius:8px 8px 0 0;border-bottom:2px solid #3949ab;display:flex;align-items:center;gap:8px}
+  .section-title .icon{font-size:18px}
+  .task{background:#fff;border-left:4px solid #ccc;margin-bottom:2px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start}
+  .task:last-child{border-radius:0 0 8px 8px}
+  .task.p-critical{border-left-color:#c62828}
+  .task.p-high{border-left-color:#e65100}
+  .task.p-medium{border-left-color:#1565c0}
+  .task.p-low{border-left-color:#2e7d32}
+  .task-title{font-weight:600;color:#1a1a2e;font-size:14px;margin-bottom:4px}
+  .task-desc{font-size:13px;color:#555;line-height:1.55}
+  .task-desc code{background:#f0f4ff;padding:1px 5px;border-radius:3px;font-family:'SF Mono',Consolas,monospace;font-size:12px;color:#3949ab}
+  .task-meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;white-space:nowrap}
+  .badge{display:inline-block;padding:3px 9px;border-radius:4px;font-size:11px;font-weight:700}
+  .badge.critical{background:#ffebee;color:#c62828;border:1px solid #ef9a9a}
+  .badge.high{background:#fff3e0;color:#e65100;border:1px solid #ffcc80}
+  .badge.medium{background:#e3f2fd;color:#1565c0;border:1px solid #90caf9}
+  .badge.low{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
+  .badge.file{background:#f3e5f5;color:#6a1b9a;border:1px solid #ce93d8;font-weight:400;font-size:11px}
+  .task-id{font-size:11px;color:#aaa;font-family:monospace}
+  .section-intro{background:#f7f9ff;border-radius:0;padding:10px 16px;font-size:13px;color:#3949ab;border-left:4px solid #3949ab;margin-bottom:2px}
+  .divider{height:1px;background:#e0e4ec;margin:8px 0}
+  .footer{text-align:center;padding:24px;color:#888;font-size:12px}
+  .tag{display:inline-block;background:#eef1f7;color:#666;padding:1px 6px;border-radius:3px;font-size:11px;margin-left:4px}
+  @media(max-width:600px){.task{grid-template-columns:1fr}.task-meta{flex-direction:row;align-items:center}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📋 Бэклог задач инженеру — Home Project</h1>
+  <div class="meta">
+    <span>📅 Обновлено: 15.07.2026</span>
+    <span>👤 Составил: CEO-агент</span>
+    <span>🔗 Проект: homeproject.online</span>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l">в /tasks</div></div>
+    <div class="stat"><div class="stat-n" style="color:#ff8a65">4</div><div class="stat-l">критичных 🔴</div></div>
+    <div class="stat"><div class="stat-n" style="color:#ffb74d">8</div><div class="stat-l">важных 🟡</div></div>
+    <div class="stat"><div class="stat-n" style="color:#81c784">8</div><div class="stat-l">желательных 🟢</div></div>
+    <div class="stat"><div class="stat-n">20+</div><div class="stat-l">всего задач</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- A: КП -->
+<div class="section">
+  <div class="section-title"><span class="icon">📄</span> A. Система коммерческих предложений (КП)</div>
+  <div class="section-intro">КП генерируются автоматически. Сейчас 3 живых КП отправлено клиентам (Zdor, S8, Ботьев). Ниже — что нужно доделать для полноты.</div>
+
+  <div class="task p-high">
+    <div>
+      <div class="task-title">A1. Подключить монтажные схемы для 4 брендов в kp-install-index.ts</div>
+      <div class="task-desc">
+        Данные уже готовы — 370 PNG-схем и JSON-индексы лежат в <code>docs/product/</code>:<br>
+        • <code>Kuppersbusch/install-index.json</code> — 102 модели<br>
+        • <code>V-ZUG/install-index.json</code> — 62 модели<br>
+        • <code>ILVE/install-index.json</code> — 52 модели<br>
+        • <code>Liebherr/install-index.json</code> — 83 модели<br><br>
+        Нужно: в <code>app/server/content/kp-install-index.ts</code> расширить <code>lookupInstallScheme()</code> — сейчас жёстко прописан только Graude. Добавить lookup по тому же паттерну для 4 брендов.<br><br>
+        <b>Результат:</b> Монтаж-таб в КП появится для Küppersbusch (55% ТО), V-ZUG, ILVE, Liebherr. Один файл, одно изменение.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge high">🟡 HIGH</span>
+      <span class="badge file">kp-install-index.ts</span>
+      <span class="task-id">t_mrlu224j</span>
+    </div>
+  </div>
+
+  <div class="task p-high">
+    <div>
+      <div class="task-title">A2. Fuzzy SKU lookup — если артикул не найден точно</div>
+      <div class="task-desc">
+        Проблема: <code>getProductBySku(sku)</code> → null → КП не генерируется (возвращает missingSkus). Происходит когда клиент пишет артикул с опечаткой или в другом формате (напр. "B6.3" вместо "B63500").<br><br>
+        Что сделать в <code>app/server/content/kp-data.ts</code>:<br>
+        1. Если exact-match → null: запрос <code>GET /store/products?q={sku}&limit=3</code> к Medusa<br>
+        2. Взять первый результат по relevance<br>
+        3. Залоггировать как <code>fuzzyMatch: true</code> в skeleton<br><br>
+        <b>Результат:</b> КП генерируется даже при расхождении форматов артикулов.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge high">🟡 HIGH</span>
+      <span class="badge file">kp-data.ts</span>
+      <span class="task-id">t_mrlu25xn</span>
+    </div>
+  </div>
+
+  <div class="task p-medium">
+    <div>
+      <div class="task-title">A3. Contact enrichment — phone / email / company в блоке «Адресат»</div>
+      <div class="task-desc">
+        Сейчас КП показывает только <code>contacts.name</code>. В <code>src/db/schema.ts</code> поля phone, email, company уже есть — просто не передаются в pipeline.<br><br>
+        Что сделать:<br>
+        1. В <code>kp-data.ts → gatherKp()</code>: добавить SELECT phone, email, company по contactId<br>
+        2. Расширить <code>KpModelFull.contact</code> в <code>kp-types.ts</code><br>
+        3. В <code>kp-render-full.ts</code>: отобразить в блоке Адресат<br><br>
+        <b>Результат:</b> «Андрей Ботьев · Château de Vaisselle · +7 926...» — персональное КП.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge medium">🔵 MEDIUM</span>
+      <span class="badge file">kp-data.ts + kp-types.ts</span>
+      <span class="task-id">t_mrlu2a6v</span>
+    </div>
+  </div>
+
+  <div class="task p-medium">
+    <div>
+      <div class="task-title">A4. Несколько вариантов A/B в Cabinet UI</div>
+      <div class="task-desc">
+        Типы <code>KpModelFull.variants[]</code> и рендер уже поддерживают несколько вкладок (Вариант A / Вариант B). Но Cabinet UI формирует только 1 вариант.<br><br>
+        Что сделать: в Cabinet-странице (<code>app/src/pages/Cabinet*</code>) добавить кнопку «+ Добавить вариант B» и передавать массив <code>variants: [{items_A}, {items_B}]</code> при генерации.<br><br>
+        <b>Результат:</b> Можно дать клиенту сравнение двух конфигураций в одном КП.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge medium">🔵 MEDIUM</span>
+      <span class="badge file">Cabinet*.tsx</span>
+    </div>
+  </div>
+
+  <div class="task p-low">
+    <div>
+      <div class="task-title">A5. Кеш writeProse по бренду (TTL 24h)</div>
+      <div class="task-desc">
+        <code>brandTagline</code> и <code>brief.marketParas</code> одинаковы для всех КП одного бренда — но каждый раз генерируются заново (лишние 10-20 сек и токены LLM).<br><br>
+        Что сделать в <code>kp-narrative.ts</code>: добавить in-memory Map <code>&lt;brand, {tagline, marketParas, ts}&gt;</code> с TTL 24h.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge low">🟢 LOW</span>
+      <span class="badge file">kp-narrative.ts</span>
+    </div>
+  </div>
+</div>
+
+<!-- B: Admin Panel -->
+<div class="section">
+  <div class="section-title"><span class="icon">🖥️</span> B. Панель управления (Admin UI)</div>
+  <div class="section-intro">Панель на 80.91.86.53.nip.io. Часть страниц сломана из-за блокировки InSales.</div>
+
+  <div class="task p-high">
+    <div>
+      <div class="task-title">B1. /products: переключить с InSales → Medusa API</div>
+      <div class="task-desc">
+        InSales аккаунт заблокирован (423 Locked) → страница /products выдаёт 502.<br><br>
+        Что сделать в <code>products-routes.ts</code>:<br>
+        • <code>listProducts</code> → <code>GET /store/products?limit=50&offset=...</code> (Medusa Store API)<br>
+        • <code>getProduct</code> → <code>GET /store/products/:id</code><br>
+        • <code>updateProduct</code> → <code>PATCH /admin/products/:id</code> (Medusa Admin API)<br><br>
+        Medusa-клиент уже есть в <code>app/server/medusa.ts</code> — переиспользовать.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge high">🟡 HIGH</span>
+      <span class="badge file">products-routes.ts</span>
+      <span class="task-id">t_mrlu2ht0</span>
+    </div>
+  </div>
+
+  <div class="task p-medium">
+    <div>
+      <div class="task-title">B2. /mailings: импорт истории рассылок из Unisender Go</div>
+      <div class="task-desc">
+        Страница /mailings пустая — таблица mailings в БД не заполнена.<br><br>
+        Что сделать:<br>
+        1. Вызвать Unisender Go API <code>GET /v1/email/messages</code> → список кампаний<br>
+        2. Сохранить в таблицу mailings (id, name, sent_at, sent_count, template_id)<br>
+        3. Опционально: события (opened/clicked) через статистику Go<br><br>
+        API ключ: <code>UNISENDER_GO_API_KEY</code> в .env
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge medium">🔵 MEDIUM</span>
+      <span class="badge file">mailings-routes.ts</span>
+      <span class="task-id">t_mrlu2l9i</span>
+    </div>
+  </div>
+
+  <div class="task p-medium">
+    <div>
+      <div class="task-title">B3. /site tab: live health checks (SSL, DNS, Medusa, Postgres)</div>
+      <div class="task-desc">
+        Новая страница /site с картами статуса: SSL-сертификат, DNS, HTTP-ответ homeproject.online, подключение к Medusa API, подключение к Postgres.<br><br>
+        Три OAuth-кнопки: Яндекс.Метрика, ВКонтакте (VK Pixel), Яндекс.Вебмастер — для последующего подключения аналитики.<br><br>
+        Архитектура: <code>server/site-routes.ts</code> (Hono) + <code>src/pages/SitePage.tsx</code> (React).
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge medium">🔵 MEDIUM</span>
+      <span class="badge file">site-routes.ts</span>
+    </div>
+  </div>
+
+  <div class="task p-low">
+    <div>
+      <div class="task-title">B4. /site tab Phase 2: OAuth Яндекс.Метрика + отчёты трафика</div>
+      <div class="task-desc">
+        OAuth-подключение Метрики (счётчик 110362997) на странице /site. Backend route для code→token swap. Карточка с live-данными: визиты, источники, конверсии.<br><br>
+        Зависит от B3 (страница /site должна существовать).
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge low">🟢 LOW</span>
+      <span class="badge file">site-metrika-routes.ts</span>
+    </div>
+  </div>
+</div>
+
+<!-- C: Email -->
+<div class="section">
+  <div class="section-title"><span class="icon">📧</span> C. Email / Unisender / Рассылки</div>
+  <div class="section-intro">Рассылки идут через Unisender Go (MCP tools работают). Проблема: webhook для событий возвращает 404 — теряем статистику открытий и кликов.</div>
+
+  <div class="task p-high">
+    <div>
+      <div class="task-title">C1. Webhook /api/email-webhook → 404 (нет endpoint или неверный путь)</div>
+      <div class="task-desc">
+        Unisender Go настроен слать события на <code>https://homeproject.online/api/email-webhook</code> — но URL возвращает 404.<br><br>
+        По коду endpoint называется <code>/api/webhook/unisender</code> (в <code>public-kp-routes.ts</code>) — несовпадение пути.<br><br>
+        Что сделать:<br>
+        <b>Вариант A</b> (быстро): добавить alias в роутере: <code>/api/email-webhook</code> → тот же handler что <code>/api/webhook/unisender</code><br>
+        <b>Вариант B</b>: переподписать webhook в Unisender Go console на правильный URL<br><br>
+        Handler должен сохранять события (delivered/opened/clicked/bounced/unsubscribed) в таблицу <code>email_events</code> или обновлять <code>email_sends.status</code>.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge high">🟡 HIGH</span>
+      <span class="badge file">public-kp-routes.ts</span>
+      <span class="task-id">t_mrlu2e5z</span>
+    </div>
+  </div>
+
+  <div class="task p-medium">
+    <div>
+      <div class="task-title">C2. IMAP-мониторинг info@homeproject.online — парсинг остатков поставщиков</div>
+      <div class="task-desc">
+        Поставщики присылают прайсы и остатки на <code>info@homeproject.online</code>:<br>
+        • <code>ostatki@kuppersbusch.ru</code> → Homeier (Küppersbusch, DD, SKS, ILVE, Schulthess, Liebherr)<br>
+        • <code>d.zdor@graude.ru</code> → Graude<br>
+        • <code>v.ignatov@home-holding.ru</code> → HOMETEK (V-ZUG, BORA, Fhiaba)<br><br>
+        Нужно: IMAP-polling → парсинг вложений (Excel с остатками) → обновление stocks в Medusa или БД → нотификация агентам.<br><br>
+        Спека: <code>docs/tasks/2026-05-14-phase1-imap-poller.md</code>
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge medium">🔵 MEDIUM</span>
+      <span class="badge file">imap-poller.ts</span>
+    </div>
+  </div>
+
+  <div class="task p-low">
+    <div>
+      <div class="task-title">C3. Cron-отправщик ежедневных email-батчей</div>
+      <div class="task-desc">
+        Сейчас ежедневные батч-рассылки (файлы <code>batch-email-2026-07-XX.csv</code>, по 200 адресов) запускаются вручную через агента-маркетолога.<br><br>
+        Нужен cron-скрипт: каждое утро в 10:00 МСК читает batch-файл на текущую дату → отправляет через Unisender Go API → логирует результат в email_sends. Скрипт-заготовка: <code>scripts/daily_email_send.py</code>.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge low">🟢 LOW</span>
+      <span class="badge file">daily_email_send.py</span>
+    </div>
+  </div>
+</div>
+
+<!-- D: Каталог -->
+<div class="section">
+  <div class="section-title"><span class="icon">🗂️</span> D. Каталог / Medusa / Контент</div>
+
+  <div class="task p-high">
+    <div>
+      <div class="task-title">D1. ILVE — починить поле brand в Medusa (поиск возвращает Kuppersbusch)</div>
+      <div class="task-desc">
+        В Medusa фильтр <code>brand=ILVE</code> возвращает товары Küppersbusch. Ошибка в маппинге vendor→brand при загрузке каталога или в структуре данных.<br><br>
+        Нужна диагностика: проверить <code>products.vendor</code> и <code>products.brand</code> в Medusa DB для ILVE товаров, исправить маппинг.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge high">🟡 HIGH</span>
+      <span class="badge file">Medusa DB / catalog</span>
+    </div>
+  </div>
+
+  <div class="task p-high">
+    <div>
+      <div class="task-title">D2. SKS (Signature Kitchen Suite) — залить основные модели в каталог</div>
+      <div class="task-desc">
+        В прайсе SKS 32 модели техники, на сайте только 9 (аксессуары). Нужно загрузить духовки, плиты и т.д. через Medusa Admin API.<br><br>
+        Прайс: <code>docs/finance/pricelists/Прайс-лист SKS_02022026_Home Project.xlsx</code><br>
+        Каталог: <code>docs/product/SKS/SKS_CATALOGO_RU_2026.pdf</code>
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge high">🟡 HIGH</span>
+      <span class="badge file">Medusa catalog</span>
+    </div>
+  </div>
+
+  <div class="task p-medium">
+    <div>
+      <div class="task-title">D3. V-ZUG — залить ~156 недостающих SKU из прайса 2026</div>
+      <div class="task-desc">
+        На сайте 112 из 268 V-ZUG SKU (42%). Нужно загрузить остальные ~156 SKU через Medusa.<br><br>
+        Прайс: <code>docs/finance/pricelists/Прайс лист V-ZUG от 19.01.2026_Home Project.xlsx</code><br>
+        Актуальный прайс 2026 также на Яндекс.Диске: <code>https://disk.yandex.ru/d/YnD3fMHDMWdHuA/1.VZUG/Прайс лист 2026</code>
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge medium">🔵 MEDIUM</span>
+      <span class="badge file">Medusa catalog</span>
+    </div>
+  </div>
+
+  <div class="task p-medium">
+    <div>
+      <div class="task-title">D4. Монтажные схемы для BORA / De Dietrich / Fhiaba — извлечь из PDF-каталогов</div>
+      <div class="task-desc">
+        У 5 брендов схемы уже готовы (370 PNG). Для BORA, De Dietrich, Fhiaba, SKS — схемы есть в PDF-каталогах, но не извлечены.<br><br>
+        Файлы:<br>
+        • <code>docs/product/BORA/BORA каталог 2023.pdf</code><br>
+        • <code>docs/product/De_Dietrich/DeDietrich_RU.pdf</code><br>
+        • <code>docs/product/Fhiaba/Каталог FHIABA 2025_RU.pdf</code><br><br>
+        Нужно: извлечь схемы встраивания → PNG-файлы в <code>images/schemes/</code> → создать <code>install-index.json</code> по образцу Graude/Kuppersbusch.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge medium">🔵 MEDIUM</span>
+      <span class="badge file">docs/product/*/install-index.json</span>
+    </div>
+  </div>
+
+  <div class="task p-low">
+    <div>
+      <div class="task-title">D5. Обновить устаревшие прайсы: De Dietrich / Graude / Brandt</div>
+      <div class="task-desc">
+        Актуальность прайсов:<br>
+        • De Dietrich — октябрь 2025 (9 месяцев)<br>
+        • Graude — ноябрь 2025 (8 месяцев)<br>
+        • Brandt — октябрь 2025 (9 месяцев)<br><br>
+        Запросить актуальные у поставщиков и обновить цены в Medusa.
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge low">🟢 LOW</span>
+      <span class="badge file">docs/finance/pricelists/</span>
+    </div>
+  </div>
+</div>
+
+<!-- E: Интеграции -->
+<div class="section">
+  <div class="section-title"><span class="icon">🔌</span> E. Интеграции / Инфраструктура</div>
+
+  <div class="task p-medium">
+    <div>
+      <div class="task-title">E1. Site Chat Assistant — backend API (agent + 3 MCP tools)</div>
+      <div class="task-desc">
+        AI-консультант на сайте уже работает. Нужно бэкенд-усиление:<br>
+        • <code>promos.ts</code> — актуальные акции с date-фильтром<br>
+        • <code>catalog.ts</code> — shape Medusa rows → AssistantProduct с verbatim JSON<br>
+        • <code>reply.ts</code> — парсинг ответа агента: text + products block<br>
+        • <code>rate-limit.ts</code> — fixed-window in-memory (≤20 req/min per IP)<br>
+        • 3 MCP tools: <code>assistant_search_products</code>, <code>assistant_check_availability</code>, <code>assistant_list_promos</code><br>
+        • <code>POST /api/assistant/chat</code> — guarded route<br><br>
+        Полная спека: <code>docs/superpowers/plans/2026-06-24-site-chat-assistant-backend.md</code>
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge medium">🔵 MEDIUM</span>
+      <span class="badge file">server/assistant/</span>
+    </div>
+  </div>
+
+  <div class="task p-low">
+    <div>
+      <div class="task-title">E2. VK Pixel — установить на сайт для ретаргетинга</div>
+      <div class="task-desc">
+        Установить VK Pixel (код пикселя) на homeproject.online для отслеживания конверсий и ретаргетинга рекламы во ВКонтакте.<br><br>
+        Спека: <code>docs/superpowers/plans/2026-07-03-site-tab-phase2c-vk-pixel.md</code>
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge low">🟢 LOW</span>
+      <span class="badge file">storefront layout</span>
+    </div>
+  </div>
+
+  <div class="task p-low">
+    <div>
+      <div class="task-title">E3. Яндекс.Вебмастер — OAuth + поисковые запросы клиентов</div>
+      <div class="task-desc">
+        Подключить Яндекс.Вебмастер OAuth на странице /site. Pull данных: поисковые запросы, показы, клики по сайту — карточка в Admin UI.<br><br>
+        Спека: <code>docs/superpowers/plans/2026-07-03-site-tab-phase2d*.md</code>
+      </div>
+    </div>
+    <div class="task-meta">
+      <span class="badge low">🟢 LOW</span>
+      <span class="badge file">site-webmaster-routes.ts</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<div class="footer">
+  Home Project · Бэклог задач инженеру · 15.07.2026<br>
+  Вопросы: @HomeProjectMsk · info@homeproject.online
+</div>
+
+</body>
+</html>
