@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Home Project AI Platform — Калькулятор ROI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #08090E;
+    --card: #0E1320;
+    --card2: #111827;
+    --accent: #4A8BF5;
+    --gold: #F0A500;
+    --green: #0FB97A;
+    --text: #DDE3F0;
+    --muted: #7A8BA8;
+    --border: #1E2A3A;
+    --border-muted: #1A2030;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    padding: 56px 24px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: inline-block;
+    border: 1px solid rgba(74,139,245,0.25);
+    border-radius: 20px;
+    padding: 5px 16px;
+  }
+  h1 {
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #DDE3F0 0%, #8BA8D0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .columns { grid-template-columns: 1fr; }
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--border);
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── FORM ── */
+  .field {
+    margin-bottom: 22px;
+  }
+
+  .field-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .field-value {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 14px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    box-shadow: 0 0 0 3px rgba(74,139,245,0.2);
+    transition: box-shadow 0.2s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 5px rgba(74,139,245,0.3);
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 0 3px rgba(74,139,245,0.2);
+  }
+
+  .range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input[type="number"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(74,139,245,0.1);
+  }
+  input[type="number"]::placeholder { color: var(--muted); }
+
+  .section-divider {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 24px 0 16px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-muted);
+  }
+
+  .btn-calc {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .btn-calc:hover {
+    background: #5C9BFF;
+    box-shadow: 0 4px 20px rgba(74,139,245,0.35);
+  }
+  .btn-calc:active { transform: scale(0.98); }
+
+  /* ── RESULTS PLACEHOLDER ── */
+  .results-placeholder {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 60px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .results-placeholder svg {
+    display: block;
+    margin: 0 auto 16px;
+    opacity: 0.3;
+  }
+
+  /* ── RESULTS GRID ── */
+  .results-grid {
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .results-grid.visible { display: flex; }
+
+  .res-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px 22px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .res-card.show { opacity: 1; transform: translateY(0); }
+  .res-card.accent { border-left-color: var(--accent); }
+  .res-card.green { border-left-color: var(--green); }
+  .res-card.gold { border-left-color: var(--gold); }
+  .res-card.muted-border { border-left-color: var(--muted); }
+
+  .res-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .res-value {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .res-card.accent .res-value { color: var(--accent); }
+  .res-card.green .res-value { color: var(--green); }
+  .res-card.gold .res-value { color: var(--gold); }
+
+  .res-sub {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .res-card-payback {
+    background: linear-gradient(135deg, #0E1320 0%, #0A1128 100%);
+    border-radius: 12px;
+    padding: 26px 22px;
+    border: 1px solid rgba(240,165,0,0.3);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s;
+    position: relative;
+    overflow: hidden;
+  }
+  .res-card-payback::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .res-card-payback.show { opacity: 1; transform: translateY(0); }
+  .res-card-payback .res-label { color: var(--gold); }
+  .res-card-payback .res-value { color: var(--gold); font-size: 32px; }
+  .res-roi {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--green);
+    margin: 8px 0;
+  }
+  .disclaimer {
+    font-size: 12px;
+    color: var(--muted);
+    background: rgba(240,165,0,0.05);
+    border: 1px solid rgba(240,165,0,0.15);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── INVESTMENT BLOCK ── */
+  .inv-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border-muted);
+    font-size: 13px;
+  }
+  .inv-row:last-child { border-bottom: none; }
+  .inv-row-label { color: var(--muted); }
+  .inv-row-value { font-weight: 600; color: var(--text); }
+
+  /* ── CTA ── */
+  .cta-section {
+    max-width: 900px;
+    margin: 48px auto 0;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .cta-card {
+    background: linear-gradient(135deg, #0E1320 0%, #091530 100%);
+    border: 1px solid rgba(74,139,245,0.25);
+    border-radius: 16px;
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .cta-title {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .cta-sub {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    padding: 13px 26px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    background: #5C9BFF;
+    box-shadow: 0 4px 20px rgba(74,139,245,0.35);
+  }
+  .btn-secondary {
+    padding: 13px 26px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    background: rgba(74,139,245,0.06);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 24px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border-muted);
+    margin-top: 56px;
+    line-height: 1.8;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  /* ── MISC ── */
+  .notice {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 14px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">Home Project AI Platform</div>
+  <h1>Калькулятор ROI от внедрения AI-агентов</h1>
+  <p class="subtitle">Введите параметры вашего бизнеса — получите ориентировочную оценку эффекта. Все проекты рассчитываются индивидуально.</p>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="columns">
+
+    <!-- LEFT: FORM -->
+    <div class="card" id="form-card">
+      <div class="card-title">Ваш бизнес сегодня</div>
+
+      <!-- 1. Сотрудники -->
+      <div class="field">
+        <div class="field-label">
+          Количество сотрудников
+          <span class="field-value" id="val-employees">20</span>
+        </div>
+        <input type="range" id="employees" min="5" max="200" step="5" value="20"
+          oninput="document.getElementById('val-employees').textContent = this.value">
+        <div class="range-labels"><span>5</span><span>200</span></div>
+      </div>
+
+      <!-- 2. Зарплата -->
+      <div class="field">
+        <div class="field-label">Средняя зарплата сотрудника, ₽/мес</div>
+        <input type="number" id="salary" placeholder="75000" value="75000" min="0">
+      </div>
+
+      <div class="section-divider">Рутина (часов/нед, вся команда)</div>
+
+      <!-- 3. КП -->
+      <div class="field">
+        <div class="field-label">
+          Подготовка коммерческих предложений
+          <span class="field-value" id="val-kp">20</span>
+        </div>
+        <input type="range" id="kp" min="0" max="80" step="1" value="20"
+          oninput="document.getElementById('val-kp').textContent = this.value">
+        <div class="range-labels"><span>0</span><span>80 ч</span></div>
+      </div>
+
+      <!-- 4. Каталог -->
+      <div class="field">
+        <div class="field-label">
+          Обновление каталога и прайсов
+          <span class="field-value" id="val-catalog">10</span>
+        </div>
+        <input type="range" id="catalog" min="0" max="40" step="1" value="10"
+          oninput="document.getElementById('val-catalog').textContent = this.value">
+        <div class="range-labels"><span>0</span><span>40 ч</span></div>
+      </div>
+
+      <!-- 5. Маркетинг -->
+      <div class="field">
+        <div class="field-label">
+          Маркетинг и рассылки
+          <span class="field-value" id="val-mkt">8</span>
+        </div>
+        <input type="range" id="mkt" min="0" max="40" step="1" value="8"
+          oninput="document.getElementById('val-mkt').textContent = this.value">
+        <div class="range-labels"><span>0</span><span>40 ч</span></div>
+      </div>
+
+      <!-- 6. Отчёты -->
+      <div class="field">
+        <div class="field-label">
+          Отчёты и аналитика
+          <span class="field-value" id="val-reports">5</span>
+        </div>
+        <input type="range" id="reports" min="0" max="20" step="1" value="5"
+          oninput="document.getElementById('val-reports').textContent = this.value">
+        <div class="range-labels"><span>0</span><span>20 ч</span></div>
+      </div>
+
+      <!-- 7. Адм. рутина -->
+      <div class="field">
+        <div class="field-label">
+          Административная рутина
+          <span class="field-value" id="val-admin">10</span>
+        </div>
+        <input type="range" id="admin" min="0" max="40" step="1" value="10"
+          oninput="document.getElementById('val-admin').textContent = this.value">
+        <div class="range-labels"><span>0</span><span>40 ч</span></div>
+      </div>
+
+      <div class="section-divider">Финансы</div>
+
+      <!-- 8. Выручка -->
+      <div class="field">
+        <div class="field-label">Ежемесячная выручка, млн ₽</div>
+        <input type="number" id="revenue" placeholder="5" value="5" min="0" step="0.5">
+      </div>
+
+      <!-- 9. Конверсия -->
+      <div class="field">
+        <div class="field-label">
+          Текущая конверсия КП в сделку
+          <span class="field-value" id="val-conv">20%</span>
+        </div>
+        <input type="range" id="conv" min="5" max="60" step="1" value="20"
+          oninput="document.getElementById('val-conv').textContent = this.value + '%'">
+        <div class="range-labels"><span>5%</span><span>60%</span></div>
+      </div>
+
+      <button class="btn-calc" onclick="calculate()">Рассчитать</button>
+      <p class="notice">Все расчёты носят ориентировочный характер</p>
+    </div>
+
+    <!-- RIGHT: RESULTS -->
+    <div id="results-area">
+
+      <!-- Placeholder -->
+      <div class="results-placeholder" id="results-placeholder">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <rect x="8" y="8" width="32" height="32" rx="6" stroke="#7A8BA8" stroke-width="2"/>
+          <path d="M16 24h16M16 18h10M16 30h8" stroke="#7A8BA8" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Введите данные и нажмите «Рассчитать»
+      </div>
+
+      <!-- Results -->
+      <div class="results-grid" id="results-grid">
+
+        <!-- Card 1: Рутина -->
+        <div class="res-card accent" id="rc1">
+          <div class="res-label">Рутина сейчас</div>
+          <div class="res-value" id="r-routine-hours">—</div>
+          <div class="res-sub" id="r-routine-share">—</div>
+        </div>
+
+        <!-- Card 2: Экономия ФОТ -->
+        <div class="res-card green" id="rc2">
+          <div class="res-label">Экономия ФОТ</div>
+          <div class="res-value" id="r-fot">—</div>
+          <div class="res-sub">AI берёт 75% рутины — команда фокусируется на продажах</div>
+        </div>
+
+        <!-- Card 3: Рост выручки -->
+        <div class="res-card gold" id="rc3">
+          <div class="res-label">Рост выручки</div>
+          <div class="res-value" id="r-revenue">—</div>
+          <div class="res-sub">Конверсия КП растёт на ~30% при скорости ответа 20 сек vs 4 часов</div>
+        </div>
+
+        <!-- Card 4: Суммарный эффект -->
+        <div class="res-card accent" id="rc4">
+          <div class="res-label">Суммарный эффект</div>
+          <div class="res-value" id="r-total">—</div>
+          <div class="res-sub">ФОТ + дополнительная выручка</div>
+        </div>
+
+        <!-- Card 5: Инвестиции -->
+        <div class="res-card muted-border" id="rc5">
+          <div class="res-label">Ориентир инвестиций</div>
+          <div id="r-invest-table"></div>
+          <div class="res-sub" style="margin-top:10px">* Все проекты рассчитываются индивидуально по итогам аудита</div>
+        </div>
+
+        <!-- Card 6: Окупаемость -->
+        <div class="res-card-payback" id="rc6">
+          <div class="res-label">Окупаемость</div>
+          <div class="res-value" id="r-payback">—</div>
+          <div class="res-roi" id="r-roi">—</div>
+          <div class="disclaimer">⚠️ Это ориентир для первичной оценки. Реальные цифры — по итогам аудита вашего бизнеса.</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /columns -->
+</main>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="cta-card">
+    <div class="cta-title">Получить точный расчёт под ваш бизнес</div>
+    <p class="cta-sub">Пройдите аудит-анкету или свяжитесь с нами — подберём решение под ваши процессы и бюджет.</p>
+    <div class="cta-buttons">
+      <a href="https://e2-e5.github.io/homeproject-external/hp-ai-readiness.html" class="btn-primary" target="_blank" rel="noopener">Пройти аудит-анкету</a>
+      <a href="mailto:info@homeproject.online" class="btn-secondary">Связаться с нами</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>HOME PROJECT AI PLATFORM · <a href="https://homeproject.online">homeproject.online</a> · <a href="mailto:info@homeproject.online">info@homeproject.online</a></div>
+  <div style="margin-top:6px">Все расчёты носят ориентировочный характер и не являются коммерческим предложением.</div>
+</footer>
+
+<script>
+function fmt(n) {
+  return Math.round(n).toLocaleString('ru-RU');
+}
+
+function calculate() {
+  // Inputs
+  const employees = parseInt(document.getElementById('employees').value) || 20;
+  const salary    = parseFloat(document.getElementById('salary').value) || 75000;
+  const kpHours   = parseInt(document.getElementById('kp').value) || 0;
+  const catHours  = parseInt(document.getElementById('catalog').value) || 0;
+  const mktHours  = parseInt(document.getElementById('mkt').value) || 0;
+  const repHours  = parseInt(document.getElementById('reports').value) || 0;
+  const admHours  = parseInt(document.getElementById('admin').value) || 0;
+  const revenue   = parseFloat(document.getElementById('revenue').value) || 5;
+  // conv is available but not used in formulas directly
+  // const conv   = parseInt(document.getElementById('conv').value) || 20;
+
+  // Calculations
+  const totalSalary          = employees * salary;
+  const routineHoursWeek     = kpHours + catHours + mktHours + repHours + admHours;
+  const routineHoursMonth    = routineHoursWeek * 4.3;
+  const totalWorkHoursMonth  = employees * 160;
+  const routineShare         = routineHoursMonth / totalWorkHoursMonth;
+  const aiCoverage           = 0.75;
+  const savedHoursMonth      = routineHoursMonth * aiCoverage;
+  const savedFOTMonth        = (savedHoursMonth / 160) * salary;
+  const conversionUplift     = 0.30;
+  const revenueRub           = revenue * 1_000_000;
+  const additionalRevenue    = revenueRub * conversionUplift * 0.3;
+  const totalMonthlyEffect   = savedFOTMonth + additionalRevenue;
+
+  const implLow  = Math.max(500_000, employees * 25_000);
+  const implHigh = implLow * 2.5;
+  const subMonth = Math.max(50_000, employees * 2_500);
+
+  const paybackMonths = Math.round((implLow / totalMonthlyEffect) * 10) / 10;
+  const roi12 = Math.round(
+    (totalMonthlyEffect * 12 - implHigh - subMonth * 12)
+    / (implHigh + subMonth * 12) * 100
+  );
+
+  // Render
+  // Card 1
+  document.getElementById('r-routine-hours').textContent =
+    fmt(routineHoursMonth) + ' ч/мес на задачи, которые может делать AI';
+  document.getElementById('r-routine-share').textContent =
+    Math.round(routineShare * 100) + '% рабочего времени команды — на рутину';
+
+  // Card 2
+  document.getElementById('r-fot').textContent =
+    '~' + fmt(savedFOTMonth) + ' ₽/мес — эквивалент высвобожденного ФОТ';
+
+  // Card 3
+  document.getElementById('r-revenue').textContent =
+    '+' + fmt(additionalRevenue) + ' ₽/мес — ориентировочный эффект от ускорения КП';
+
+  // Card 4
+  document.getElementById('r-total').textContent =
+    '~' + fmt(totalMonthlyEffect) + ' ₽/мес общий ориентировочный эффект';
+
+  // Card 5
+  document.getElementById('r-invest-table').innerHTML = `
+    <div class="inv-row">
+      <span class="inv-row-label">Внедрение (единоразово)</span>
+      <span class="inv-row-value">от ${fmt(implLow)} до ${fmt(implHigh)} ₽</span>
+    </div>
+    <div class="inv-row">
+      <span class="inv-row-label">Сопровождение</span>
+      <span class="inv-row-value">от ${fmt(subMonth)} ₽/мес</span>
+    </div>
+  `;
+
+  // Card 6
+  document.getElementById('r-payback').textContent =
+    '~' + paybackMonths + ' мес — ориентировочный срок окупаемости';
+  document.getElementById('r-roi').textContent =
+    'ROI за 12 месяцев: ~' + roi12 + '%';
+
+  // Show results
+  document.getElementById('results-placeholder').style.display = 'none';
+  const grid = document.getElementById('results-grid');
+  grid.classList.add('visible');
+
+  // Animate cards
+  const cards = ['rc1','rc2','rc3','rc4','rc5','rc6'];
+  cards.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('show');
+    setTimeout(() => { el.classList.add('show'); }, 60 + i * 80);
+  });
+
+  // Smooth scroll to results
+  setTimeout(() => {
+    document.getElementById('results-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 120);
+}
+</script>
+
+</body>
+</html>
