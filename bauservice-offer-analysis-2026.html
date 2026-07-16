@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BauService × Андрей — Оценка оффера, ФОТ, AI-стратегия, Plan 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0F1F3D;
+  --blue: #1A4B8C;
+  --blue2: #2563EB;
+  --sky: #3B82F6;
+  --teal: #0891B2;
+  --green: #059669;
+  --red: #DC2626;
+  --amber: #D97706;
+  --gold: #B45309;
+  --white: #FFFFFF;
+  --off: #F8F7F4;
+  --gray1: #F3F4F6;
+  --gray2: #E5E7EB;
+  --gray3: #9CA3AF;
+  --dark: #111827;
+  --text2: #374151;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; font-family: 'Inter', sans-serif; background: #0A0A0A; }
+
+/* SLIDE ENGINE */
+.slides { width: 100%; height: 100vh; overflow: hidden; position: relative; }
+.slide {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.slide.active { opacity: 1; pointer-events: all; }
+
+/* NAVIGATION */
+.nav {
+  position: fixed; bottom: 28px; right: 36px; z-index: 100;
+  display: flex; align-items: center; gap: 12px;
+}
+.nav-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  color: white; font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.25); }
+.nav-counter {
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5);
+  min-width: 40px; text-align: center;
+}
+.progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: var(--sky); transition: width 0.4s ease; z-index: 200;
+}
+
+/* SLIDE 1: TITLE */
+.s-title {
+  background: linear-gradient(135deg, #0F1F3D 0%, #1A3A6B 60%, #0F2B5C 100%);
+  justify-content: center; align-items: flex-start;
+  padding: 80px 80px 60px;
+}
+.title-tag {
+  display: inline-block; background: rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.4);
+  color: #93C5FD; border-radius: 20px; padding: 4px 14px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px;
+}
+.title-main { font-size: 52px; font-weight: 900; color: white; line-height: 1.1; margin-bottom: 16px; }
+.title-sub { font-size: 18px; color: rgba(255,255,255,0.55); max-width: 640px; margin-bottom: 56px; line-height: 1.5; }
+.title-meta { display: flex; gap: 40px; flex-wrap: wrap; }
+.tm { display: flex; flex-direction: column; gap: 3px; }
+.tm-l { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); }
+.tm-v { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.8); }
+.title-chapters {
+  position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.chapter-pill {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 10px 16px;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65);
+}
+.ch-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--sky); color: white; font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+/* SLIDE 2: OFFER SUMMARY */
+.s-light { background: var(--off); color: var(--dark); }
+.slide-header {
+  padding: 40px 72px 0;
+  border-bottom: 1px solid var(--gray2);
+  padding-bottom: 20px; margin-bottom: 32px;
+}
+.slide-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sky); margin-bottom: 6px; }
+.slide-title { font-size: 28px; font-weight: 800; color: var(--navy); }
+.slide-body { padding: 0 72px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+/* DARK SLIDE */
+.s-dark { background: var(--navy); color: white; }
+.s-dark .slide-title { color: white; }
+.s-dark .slide-tag { color: #60A5FA; }
+
+/* BLUE SLIDE */
+.s-blue { background: linear-gradient(135deg, #1E3A8A 0%, #1A4B8C 100%); color: white; }
+.s-blue .slide-title { color: white; }
+.s-blue .slide-tag { color: #93C5FD; }
+
+/* TEAL SLIDE */
+.s-teal { background: linear-gradient(135deg, #0C4A6E 0%, #075985 100%); color: white; }
+.s-teal .slide-title { color: white; }
+.s-teal .slide-tag { color: #7DD3FC; }
+
+/* GREEN SLIDE */
+.s-green { background: linear-gradient(135deg, #064E3B 0%, #065F46 100%); color: white; }
+.s-green .slide-title { color: white; }
+.s-green .slide-tag { color: #6EE7B7; }
+
+/* COMPONENTS */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+.card {
+  background: white; border: 1px solid var(--gray2); border-radius: 12px; padding: 20px 22px;
+}
+.card-dark {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px; padding: 18px 20px;
+}
+.card-accent {
+  background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25);
+  border-radius: 12px; padding: 18px 20px;
+}
+.card-red { background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.2); border-radius: 12px; padding: 16px 18px; }
+.card-green { background: rgba(5,150,105,0.1); border: 1px solid rgba(5,150,105,0.2); border-radius: 12px; padding: 16px 18px; }
+.card-amber { background: rgba(217,119,6,0.1); border: 1px solid rgba(217,119,6,0.2); border-radius: 12px; padding: 16px 18px; }
+
+.stat-l { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.5; margin-bottom: 5px; }
+.stat-v { font-size: 28px; font-weight: 800; line-height: 1.1; margin-bottom: 4px; }
+.stat-s { font-size: 12px; opacity: 0.6; }
+.stat-v.red { color: var(--red); }
+.stat-v.green { color: var(--green); }
+.stat-v.amber { color: var(--amber); }
+.stat-v.sky { color: var(--sky); }
+.stat-v.white { color: white; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; white-space: nowrap;
+}
+.badge-red { background: rgba(220,38,38,0.15); color: #EF4444; border: 1px solid rgba(220,38,38,0.3); }
+.badge-green { background: rgba(5,150,105,0.15); color: #10B981; border: 1px solid rgba(5,150,105,0.3); }
+.badge-amber { background: rgba(217,119,6,0.15); color: #F59E0B; border: 1px solid rgba(217,119,6,0.3); }
+.badge-blue { background: rgba(59,130,246,0.15); color: #60A5FA; border: 1px solid rgba(59,130,246,0.3); }
+.badge-gray { background: rgba(156,163,175,0.15); color: #9CA3AF; border: 1px solid rgba(156,163,175,0.3); }
+
+.row-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: 13px;
+}
+.row-item:last-child { border-bottom: none; }
+.row-l { flex: 1; opacity: 0.6; }
+.row-v { font-weight: 700; }
+
+.table-s { width: 100%; border-collapse: collapse; font-size: 13px; }
+.table-s thead th { padding: 8px 12px; text-align: left; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; opacity: 0.45; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.table-s.light thead th { border-bottom: 1px solid var(--gray2); color: var(--gray3); }
+.table-s tbody tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
+.table-s.light tbody tr { border-bottom: 1px solid var(--gray2); }
+.table-s tbody tr:last-child { border-bottom: none; }
+.table-s td { padding: 10px 12px; vertical-align: middle; }
+.table-s.light td { color: var(--text2); }
+.hl-row td { background: rgba(59,130,246,0.08); }
+.hl-row-red td { background: rgba(220,38,38,0.06); }
+
+/* TIMELINE */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.tl { display: flex; gap: 16px; position: relative; }
+.tl-left { width: 80px; flex-shrink: 0; text-align: right; padding-top: 2px; padding-right: 16px; padding-bottom: 20px; position: relative; }
+.tl-date { font-size: 11px; font-weight: 700; color: var(--sky); }
+.tl-line { position: absolute; right: 7px; top: 18px; bottom: 0; width: 2px; background: rgba(255,255,255,0.12); }
+.tl-dot { position: absolute; right: 3px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--sky); }
+.tl-content { flex: 1; padding-bottom: 20px; }
+.tl-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.tl-text { font-size: 12px; opacity: 0.6; line-height: 1.5; }
+
+/* KPI TABLE */
+.kpi-row { display: grid; grid-template-columns: 3fr 1fr 2fr 2fr; gap: 0; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.07); align-items: center; font-size: 12px; }
+.kpi-row.kpi-head { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.4; padding: 8px 16px; }
+.kpi-metric { font-weight: 500; }
+.kpi-w { font-weight: 800; color: var(--sky); }
+.kpi-t { opacity: 0.6; }
+.kpi-b { color: #6EE7B7; font-weight: 700; }
+
+/* PHASE CARDS */
+.phase-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px; padding: 22px; position: relative; overflow: hidden;
+}
+.phase-card::before {
+  content: attr(data-num);
+  position: absolute; right: 16px; top: 12px;
+  font-size: 48px; font-weight: 900; opacity: 0.06; color: white;
+}
+.phase-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.5; margin-bottom: 8px; }
+.phase-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+.phase-items { display: flex; flex-direction: column; gap: 5px; }
+.phase-item { font-size: 12px; opacity: 0.7; display: flex; gap: 6px; align-items: flex-start; }
+.phase-item::before { content: '→'; color: var(--sky); flex-shrink: 0; font-weight: 700; }
+
+/* ROI NUMBERS */
+.roi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.roi-card {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 20px;
+  text-align: center;
+}
+.roi-icon { font-size: 28px; margin-bottom: 8px; }
+.roi-val { font-size: 26px; font-weight: 900; color: #6EE7B7; margin-bottom: 4px; }
+.roi-label { font-size: 11px; opacity: 0.55; line-height: 1.4; }
+
+/* COMPARISON TABLE */
+.cmp { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 0; }
+.cmp-head { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray3); padding: 8px 12px; border-bottom: 1px solid var(--gray2); }
+.cmp-cell { padding: 10px 12px; border-bottom: 1px solid var(--gray2); font-size: 13px; vertical-align: middle; display: flex; align-items: center; }
+.cmp-cell.bold { font-weight: 700; }
+.cmp-cell.red { color: var(--red); font-weight: 700; }
+.cmp-cell.green { color: var(--green); font-weight: 700; }
+.cmp-cell.amber { color: var(--amber); font-weight: 700; }
+.cmp-row-hl .cmp-cell { background: rgba(59,130,246,0.06); }
+
+/* PLAN TABLE */
+.plan-row { display: grid; grid-template-columns: 100px 1fr 1fr; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.plan-month { padding: 12px 14px; font-size: 12px; font-weight: 700; color: var(--sky); }
+.plan-focus { padding: 12px 14px; font-size: 12px; }
+.plan-kpi { padding: 12px 14px; font-size: 12px; color: #6EE7B7; font-weight: 600; }
+
+/* HIGHLIGHT LINE */
+.hl-line {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: rgba(255,255,255,0.05); border-left: 3px solid var(--sky);
+  border-radius: 0 8px 8px 0; padding: 12px 16px; margin-bottom: 8px;
+}
+.hl-line-red { border-left-color: var(--red); }
+.hl-line-green { border-left-color: var(--green); }
+.hl-line-amber { border-left-color: var(--amber); }
+.hl-line .hl-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.hl-line .hl-text { font-size: 12px; line-height: 1.5; opacity: 0.85; }
+.hl-line .hl-text strong { color: white; opacity: 1; }
+
+/* FOOTER */
+.slide-footer {
+  padding: 14px 72px;
+  font-size: 11px; opacity: 0.25;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; justify-content: space-between;
+}
+.slide-footer.light {
+  border-top: 1px solid var(--gray2); color: var(--gray3);
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="slides" id="slides">
+
+<!-- ======================== SLIDE 1: TITLE ======================== -->
+<div class="slide s-title active">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:80px">
+    <div class="title-tag">Конфиденциально · BauService × Андрей · 16 июля 2026</div>
+    <div class="title-main">Оффер. Оценка.<br>Стратегия. План.</div>
+    <div class="title-sub">Анализ предложения от BauService, корректировка условий, предложение AI-трансформации и план действий на H2 2026</div>
+    <div class="title-meta">
+      <div class="tm"><span class="tm-l">Компания</span><span class="tm-v">ООО «Баусервис» / BauService</span></div>
+      <div class="tm"><span class="tm-l">Оборот группы</span><span class="tm-v">~11–12 млрд ₽</span></div>
+      <div class="tm"><span class="tm-l">Позиция</span><span class="tm-v">Зам. ГД по продажам и развитию</span></div>
+      <div class="tm"><span class="tm-l">Период</span><span class="tm-v">Июль — Декабрь 2026</span></div>
+    </div>
+  </div>
+  <div class="title-chapters">
+    <div class="chapter-pill"><div class="ch-num">1</div>Оффер — что предложено</div>
+    <div class="chapter-pill"><div class="ch-num">2</div>Оценка vs рынок</div>
+    <div class="chapter-pill"><div class="ch-num">3</div>Корректировка ФОТ</div>
+    <div class="chapter-pill"><div class="ch-num">4</div>KPI-структура</div>
+    <div class="chapter-pill"><div class="ch-num">5</div>AI-предложение Новицкому</div>
+    <div class="chapter-pill"><div class="ch-num">6</div>Экономика AI</div>
+    <div class="chapter-pill"><div class="ch-num">7</div>План H2 2026</div>
+  </div>
+  <div class="slide-footer">BauService × Андрей · Конфиденциально</div>
+</div>
+
+<!-- ======================== SLIDE 2: ЧТО ПРЕДЛОЖЕНО ======================== -->
+<div class="slide s-dark">
+  <div class="slide-header">
+    <div class="slide-tag">Блок 1 · Оффер</div>
+    <div class="slide-title">Что предложил BauService</div>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2" style="gap:28px;align-items:start">
+      <div>
+        <div style="font-size:12px;font-weight:700;opacity:0.4;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Условия оффера (дословно)</div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;overflow:hidden">
+          <div class="row-item" style="padding:12px 16px"><span class="row-l">Должность</span><span class="row-v" style="font-size:12px">Зам. ГД по развитию и управлению эффективными продажами</span></div>
+          <div class="row-item" style="padding:12px 16px"><span class="row-l">Место работы</span><span class="row-v">Москва, Симферопольский пр., 20</span></div>
+          <div class="row-item" style="padding:12px 16px"><span class="row-l">Подчинение</span><span class="row-v">Генеральный директор / Собственник</span></div>
+          <div class="row-item" style="padding:12px 16px"><span class="row-l">Прямое управление</span><span class="row-v">Коммерческий блок</span></div>
+          <div class="row-item" style="padding:12px 16px"><span class="row-l">Оклад (gross)</span><span class="row-v" style="color:#60A5FA;font-size:15px">517 242 ₽/мес</span></div>
+          <div class="row-item" style="padding:12px 16px"><span class="row-l">Переменная (со 2-го мес.)</span><span class="row-v" style="color:#FCD34D">114 943 ₽/мес при плане</span></div>
+          <div class="row-item" style="padding:12px 16px"><span class="row-l">KPI-премия</span><span class="row-v">% от чистой прибыли — после 6 мес.</span></div>
+          <div class="row-item" style="padding:12px 16px"><span class="row-l">Испытательный срок</span><span class="row-v" style="color:#F87171">6 месяцев</span></div>
+          <div class="row-item" style="padding:12px 16px"><span class="row-l">Отпуск</span><span class="row-v">31 календарный день</span></div>
+          <div class="row-item" style="padding:12px 16px;border-bottom:none"><span class="row-l">Авто / ДМС / телефон</span><span class="row-v" style="color:#F87171">— не указано</span></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;opacity:0.4;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Что это означает по деньгам</div>
+        <div class="grid-2" style="gap:12px;margin-bottom:14px">
+          <div class="card-dark">
+            <div class="stat-l">Оклад net (на руки)</div>
+            <div class="stat-v amber">~450 000 ₽</div>
+            <div class="stat-s">517 242 × (1−13%) НДФЛ</div>
+          </div>
+          <div class="card-red">
+            <div class="stat-l">Цель Андрея net</div>
+            <div class="stat-v red">500 000 ₽</div>
+            <div class="stat-s">Разрыв в фиксе: −50 000 ₽/мес</div>
+          </div>
+        </div>
+        <div class="card-dark" style="margin-bottom:12px">
+          <div class="stat-l">Совокупный OTE при плане (год)</div>
+          <div class="stat-v sky">~6,6 млн ₽ net</div>
+          <div class="stat-s">(517 242 + 114 943) × 12 × 0,87 = 6,59 млн/год — только если план с 1-го месяца</div>
+        </div>
+        <div class="hl-line hl-line-red">
+          <div class="hl-icon">⚠️</div>
+          <div class="hl-text">KPI-премия от прибыли <strong>начинается только после 6 месяцев испытательного</strong> — всё это время бонус заморожен. Сумма KPI-премии не раскрыта.</div>
+        </div>
+        <div class="hl-line hl-line-red">
+          <div class="hl-icon">⚠️</div>
+          <div class="hl-text"><strong>Нет ни авто, ни ДМС, ни квартального/годового бонуса</strong> — для позиции CCO уровня ~12 млрд компании это нестандартно.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">BauService × Андрей · Конфиденциально</div>
+</div>
+
+<!-- ======================== SLIDE 3: ОЦЕНКА VS РЫНОК ======================== -->
+<div class="slide s-light">
+  <div class="slide-header">
+    <div class="slide-tag">Блок 2 · Оценка</div>
+    <div class="slide-title">Оффер vs Рынок — сравнение</div>
+  </div>
+  <div class="slide-body">
+    <div style="margin-bottom:20px">
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:0;border:1px solid var(--gray2);border-radius:12px;overflow:hidden">
+        <div style="padding:10px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray3);border-bottom:1px solid var(--gray2);background:var(--gray1)">Параметр</div>
+        <div style="padding:10px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray3);border-bottom:1px solid var(--gray2);background:var(--gray1);text-align:center">Оффер</div>
+        <div style="padding:10px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--blue2);border-bottom:1px solid var(--gray2);background:#EFF6FF;text-align:center">Рынок (мин)</div>
+        <div style="padding:10px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--blue2);border-bottom:1px solid var(--gray2);background:#EFF6FF;text-align:center">Рынок (цель)</div>
+        <div style="padding:10px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray3);border-bottom:1px solid var(--gray2);background:var(--gray1);text-align:center">Оценка</div>
+
+        <div style="padding:10px 14px;font-size:13px;font-weight:600;border-bottom:1px solid var(--gray2)">Фикс net (на руки)</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;color:var(--amber);border-bottom:1px solid var(--gray2);text-align:center">450 тыс. ₽</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">380 тыс. ₽</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">500 тыс. ₽</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center"><span class="badge badge-amber">⚠️ Ниже цели</span></div>
+
+        <div style="padding:10px 14px;font-size:13px;font-weight:600;border-bottom:1px solid var(--gray2)">Перем. бонус / мес</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;color:var(--red);border-bottom:1px solid var(--gray2);text-align:center">~100 тыс. net</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">120 тыс. ₽</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">200 тыс. ₽</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center"><span class="badge badge-red">✗ Ниже рынка</span></div>
+
+        <div style="padding:10px 14px;font-size:13px;font-weight:600;border-bottom:1px solid var(--gray2)">Квартальный бонус</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;color:var(--red);border-bottom:1px solid var(--gray2);text-align:center">Отсутствует</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">300 тыс. ₽</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">430 тыс. ₽</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center"><span class="badge badge-red">✗ Нет</span></div>
+
+        <div style="padding:10px 14px;font-size:13px;font-weight:600;border-bottom:1px solid var(--gray2)">Годовой бонус</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;color:var(--red);border-bottom:1px solid var(--gray2);text-align:center">KPI после 6 мес (N не указан)</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">1 000 тыс. ₽</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">1 500 тыс. ₽</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center"><span class="badge badge-amber">⚠️ Не определён</span></div>
+
+        <div style="padding:10px 14px;font-size:13px;font-weight:600;border-bottom:1px solid var(--gray2)">Авто / ДМС / телефон</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;color:var(--red);border-bottom:1px solid var(--gray2);text-align:center">Не предусмотрено</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">50 тыс. ₽/мес</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">65 тыс. ₽/мес</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center"><span class="badge badge-red">✗ Нет</span></div>
+
+        <div style="padding:10px 14px;font-size:13px;font-weight:600;border-bottom:1px solid var(--gray2)">Испытательный срок</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;color:var(--red);border-bottom:1px solid var(--gray2);text-align:center">6 месяцев</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">3 мес.</div>
+        <div style="padding:10px 14px;font-size:13px;font-weight:700;border-bottom:1px solid var(--gray2);text-align:center;background:#F0F9FF">3 мес.</div>
+        <div style="padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray2);text-align:center"><span class="badge badge-red">✗ Вдвое выше нормы</span></div>
+
+        <div style="padding:10px 14px;font-size:13px;font-weight:800;background:#FEF3C7">OTE (at plan, год gross)</div>
+        <div style="padding:10px 14px;font-size:14px;font-weight:800;color:var(--amber);background:#FEF3C7;text-align:center">~7,6 млн ₽</div>
+        <div style="padding:10px 14px;font-size:14px;background:#EFF6FF;text-align:center">9,5 млн ₽</div>
+        <div style="padding:10px 14px;font-size:14px;font-weight:800;color:var(--blue2);background:#DBEAFE;text-align:center">12,5 млн ₽</div>
+        <div style="padding:10px 14px;font-size:13px;text-align:center;background:#FEF3C7"><span class="badge badge-amber">−38% к цели</span></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px">
+      <div style="flex:1;background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;padding:14px 16px">
+        <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">🔴 Главная проблема</div>
+        <div style="font-size:12px;color:var(--text2)">Предложенный оффер <strong>на 38% ниже рыночного OTE</strong> для уровня CCO в компании с оборотом 12 млрд руб. Без корректировки — риск потерять сильного кандидата.</div>
+      </div>
+      <div style="flex:1;background:#ECFDF5;border:1px solid #A7F3D0;border-radius:10px;padding:14px 16px">
+        <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:4px">✅ Что хорошо</div>
+        <div style="font-size:12px;color:var(--text2)">Размер фикса (517 тыс. gross) является конкурентной базой — просто на 10% ниже ориентира Андрея. Структуру можно скорректировать.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer light">BauService × Андрей · Конфиденциально</div>
+</div>
+
+<!-- ======================== SLIDE 4: КОРРЕКТИРОВКА ФОТ ======================== -->
+<div class="slide s-blue">
+  <div class="slide-header">
+    <div class="slide-tag">Блок 3 · Корректировка ФОТ</div>
+    <div class="slide-title">Предлагаемая структура ФОТ</div>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2" style="gap:28px;align-items:start">
+      <div>
+        <div style="font-size:12px;font-weight:700;opacity:0.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">Рекомендуемый оффер</div>
+        <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;overflow:hidden">
+          <div style="background:rgba(255,255,255,0.1);padding:10px 16px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;opacity:0.6;display:grid;grid-template-columns:2fr 1fr 1fr">
+            <div>Элемент</div><div style="text-align:center">Gross</div><div style="text-align:center">Net (~87%)</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,0.07);padding:10px 16px;align-items:center;font-size:13px">
+            <div>Фиксированный оклад</div><div style="text-align:center;font-weight:800;color:#FCD34D">574 713 ₽</div><div style="text-align:center;font-weight:800;color:#FCD34D">500 000 ₽</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,0.07);padding:10px 16px;align-items:center;font-size:13px">
+            <div>Ежемесячный KPI-бонус <span style="opacity:.5;font-size:11px">(при 100%)</span></div><div style="text-align:center;font-weight:700;color:#93C5FD">до 230 000 ₽</div><div style="text-align:center;font-weight:700;color:#93C5FD">до 200 000 ₽</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,0.07);padding:10px 16px;align-items:center;font-size:13px">
+            <div>Квартальная премия <span style="opacity:.5;font-size:11px">(× 4)</span></div><div style="text-align:center;font-weight:700;color:#93C5FD">500 000 ₽</div><div style="text-align:center;font-weight:700;color:#93C5FD">435 000 ₽</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,0.07);padding:10px 16px;align-items:center;font-size:13px">
+            <div>Годовой бонус <span style="opacity:.5;font-size:11px">(стратег.)</span></div><div style="text-align:center;font-weight:700;color:#93C5FD">1 500 000 ₽</div><div style="text-align:center;font-weight:700;color:#93C5FD">1 305 000 ₽</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,0.07);padding:10px 16px;align-items:center;font-size:13px">
+            <div>Авто + телефон</div><div style="text-align:center;font-weight:700;color:#6EE7B7">55 000 ₽</div><div style="text-align:center;font-weight:700;color:#6EE7B7">55 000 ₽</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:10px 16px;align-items:center;font-size:13px">
+            <div>ДМС (страховая)</div><div style="text-align:center;font-weight:700;color:#6EE7B7">80 000 ₽/год</div><div style="text-align:center;font-weight:700;color:#6EE7B7">80 000 ₽</div>
+          </div>
+          <div style="background:rgba(250,204,21,0.12);display:grid;grid-template-columns:2fr 1fr 1fr;padding:12px 16px;align-items:center;font-size:14px;border-top:1px solid rgba(250,204,21,0.2)">
+            <div style="font-weight:800">OTE / год (at plan)</div><div style="text-align:center;font-weight:900;color:#FCD34D">~15,7 млн ₽</div><div style="text-align:center;font-weight:900;color:#FCD34D">~13,7 млн ₽</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;opacity:0.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">Ключевые изменения к офферу</div>
+        <div class="hl-line" style="margin-bottom:8px">
+          <div class="hl-icon">💰</div>
+          <div class="hl-text"><strong>Фикс → 574 713 gross (500 000 net)</strong><br>Ориентир Андрея закрывается. Повышение с 517 тыс. всего на ~11% — легко обосновать рынком CCO.</div>
+        </div>
+        <div class="hl-line" style="margin-bottom:8px">
+          <div class="hl-icon">📅</div>
+          <div class="hl-text"><strong>Испытательный срок → 3 месяца</strong><br>6 месяцев — нестандарт для Зам. ГД. При невыходе на результат достаточно 3 мес. для оценки.</div>
+        </div>
+        <div class="hl-line" style="margin-bottom:8px">
+          <div class="hl-icon">📆</div>
+          <div class="hl-text"><strong>Добавить квартальный бонус</strong><br>500 тыс. gross/квартал при выполнении квартального плана. Стандарт для уровня CCO.</div>
+        </div>
+        <div class="hl-line" style="margin-bottom:8px">
+          <div class="hl-icon">📊</div>
+          <div class="hl-text"><strong>Годовой бонус — фиксированный размер</strong><br>1,5 млн gross при выполнении стратегического плана. Сейчас "% от прибыли" без цифры = риск.</div>
+        </div>
+        <div class="hl-line" style="margin-bottom:8px">
+          <div class="hl-icon">🚗</div>
+          <div class="hl-text"><strong>Авто 50 тыс. + ДМС + телефон 5 тыс.</strong><br>Базовый пакет бенефитов уровня руководителя. Без этого оффер выглядит неполным.</div>
+        </div>
+        <div class="hl-line hl-line-amber" style="margin-bottom:0">
+          <div class="hl-icon">🛡️</div>
+          <div class="hl-text"><strong>Компенсация при расторжении — 3 оклада</strong><br>Обязательно зафиксировать письменно — с учётом репутации работодателя (2.4/5).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">BauService × Андрей · Конфиденциально</div>
+</div>
+
+<!-- ======================== SLIDE 5: KPI СТРУКТУРА ======================== -->
+<div class="slide s-dark">
+  <div class="slide-header">
+    <div class="slide-tag">Блок 4 · KPI</div>
+    <div class="slide-title">Структура KPI — месяц / квартал / год</div>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2" style="gap:24px">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#60A5FA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">📅 Ежемесячно — операционные (max 200 тыс. gross)</div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:16px">
+          <div class="kpi-row kpi-head"><div>Метрика</div><div>Вес</div><div>Цель</div><div>Бонус</div></div>
+          <div class="kpi-row"><div class="kpi-metric">Выполнение плана продаж группы</div><div class="kpi-w">35%</div><div class="kpi-t">≥100% плана</div><div class="kpi-b">70 000 ₽</div></div>
+          <div class="kpi-row"><div class="kpi-metric">Маржинальность (Gross Margin)</div><div class="kpi-w">25%</div><div class="kpi-t">GM ≥ норматив</div><div class="kpi-b">50 000 ₽</div></div>
+          <div class="kpi-row"><div class="kpi-metric">Оборачиваемость ДЗ</div><div class="kpi-w">20%</div><div class="kpi-t">Просрочка &lt;5%</div><div class="kpi-b">40 000 ₽</div></div>
+          <div class="kpi-row" style="border-bottom:none"><div class="kpi-metric">Новые B2B-клиенты</div><div class="kpi-w">20%</div><div class="kpi-t">≥N договоров/отгрузка</div><div class="kpi-b">40 000 ₽</div></div>
+        </div>
+
+        <div style="font-size:12px;font-weight:700;color:#60A5FA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">📆 Ежеквартально — тактические (max 500 тыс. gross)</div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden">
+          <div class="kpi-row kpi-head"><div>Метрика</div><div>Вес</div><div>Цель</div><div>Бонус</div></div>
+          <div class="kpi-row"><div class="kpi-metric">Рост выручки YoY</div><div class="kpi-w">35%</div><div class="kpi-t">≥+5% к прошл. году</div><div class="kpi-b">175 000 ₽</div></div>
+          <div class="kpi-row"><div class="kpi-metric">Региональная экспансия</div><div class="kpi-w">25%</div><div class="kpi-t">≥1 нового дилера</div><div class="kpi-b">125 000 ₽</div></div>
+          <div class="kpi-row"><div class="kpi-metric">Глубина ассортимента у топ-50</div><div class="kpi-w">20%</div><div class="kpi-t">Рост SKU ≥10%</div><div class="kpi-b">100 000 ₽</div></div>
+          <div class="kpi-row" style="border-bottom:none"><div class="kpi-metric">NPS ключевых клиентов</div><div class="kpi-w">20%</div><div class="kpi-t">NPS ≥50 по топ-30</div><div class="kpi-b">100 000 ₽</div></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#60A5FA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">📊 Годовые — стратегические (max 1 500 тыс. gross)</div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:20px">
+          <div class="kpi-row kpi-head"><div>Метрика</div><div>Вес</div><div>Цель</div><div>Бонус</div></div>
+          <div class="kpi-row"><div class="kpi-metric">Рост выручки группы</div><div class="kpi-w">40%</div><div class="kpi-t">+10% к 2025</div><div class="kpi-b">600 000 ₽</div></div>
+          <div class="kpi-row"><div class="kpi-metric">Расширение LAPARET/TESSER</div><div class="kpi-w">25%</div><div class="kpi-t">+20 точек / +2 региона</div><div class="kpi-b">375 000 ₽</div></div>
+          <div class="kpi-row"><div class="kpi-metric">Построение команды</div><div class="kpi-w">20%</div><div class="kpi-t">Укомплект. ≥90%</div><div class="kpi-b">300 000 ₽</div></div>
+          <div class="kpi-row" style="border-bottom:none"><div class="kpi-metric">Рентабельность (ROS)</div><div class="kpi-w">15%</div><div class="kpi-t">Прибыль ≥ N млн ₽</div><div class="kpi-b">225 000 ₽</div></div>
+        </div>
+
+        <div style="font-size:12px;font-weight:700;color:#FCD34D;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">⚡ Ускоритель продаж</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.15);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:13px">Перевыполнение >110% плана</span>
+            <span style="font-weight:800;color:#FCD34D">× 1,3 к бонусу</span>
+          </div>
+          <div style="background:rgba(250,204,21,0.12);border:1px solid rgba(250,204,21,0.2);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:13px">Перевыполнение >120% плана</span>
+            <span style="font-weight:800;color:#FCD34D">× 1,5 к бонусу</span>
+          </div>
+          <div style="background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.15);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:13px">🛑 Вето: ДЗ просрочка >15%</span>
+            <span style="font-weight:800;color:#F87171">Месяц. бонус 0</span>
+          </div>
+          <div style="background:rgba(5,150,105,0.08);border:1px solid rgba(5,150,105,0.15);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:13px">✅ Адаптационный период 1–2 мес</span>
+            <span style="font-weight:800;color:#6EE7B7">100% бонус гарант.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">BauService × Андрей · Конфиденциально</div>
+</div>
+
+<!-- ======================== SLIDE 6: AI ПРЕДЛОЖЕНИЕ ПОЧЕМУ ======================== -->
+<div class="slide s-teal">
+  <div class="slide-header">
+    <div class="slide-tag">Блок 5 · AI-предложение для А. Новицкого</div>
+    <div class="slide-title">Зачем BauService нужна AI-трансформация — прямо сейчас</div>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2" style="gap:24px;align-items:start">
+      <div>
+        <div style="font-size:13px;font-weight:700;opacity:0.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">Диагноз компании (факты 2025)</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+          <div class="hl-line hl-line-red"><div class="hl-icon">📉</div><div class="hl-text"><strong>Выручка −13%, прибыль −90%</strong> — компания не видит потери в реальном времени. Отчётность — раз в месяц.</div></div>
+          <div class="hl-line hl-line-red"><div class="hl-icon">👥</div><div class="hl-text"><strong>Персонал −27%</strong> за год — каждый оставшийся человек несёт нагрузку 1,4 человека. Производительность падает.</div></div>
+          <div class="hl-line hl-line-red"><div class="hl-icon">📋</div><div class="hl-text"><strong>7 юрлиц в 6 регионах</strong> — ГД управляет вслепую, нет единого P&L dashboard.</div></div>
+          <div class="hl-line hl-line-amber"><div class="hl-icon">⏱️</div><div class="hl-text"><strong>Каталог 1,2 млн кв.м</strong> на складе, 250 дилеров — коммуникация ручная, нет AI-консультанта на сайте.</div></div>
+        </div>
+
+        <div style="font-size:13px;font-weight:700;opacity:0.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Позиция для Новицкого</div>
+        <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:18px 20px">
+          <div style="font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.3">«Внедряем AI не как инструмент — а как нового сотрудника, который работает 24/7 и не уходит в декрет»</div>
+          <div style="font-size:12px;opacity:0.65;line-height:1.5">Андрей приходит не просто управлять продажами — он внедряет AI-платформу <strong>параллельно</strong> с операционным управлением. Это превращает его роль в стратегическую трансформацию, а не просто наём коммерческого директора.</div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:13px;font-weight:700;opacity:0.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">Что получает Новицкий от AI-платформы</div>
+        <div class="grid-2" style="gap:10px">
+          <div class="card-dark">
+            <div style="font-size:22px;margin-bottom:6px">📊</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px">Единый дашборд</div>
+            <div style="font-size:11px;opacity:0.6">P&L всех 7 юрлиц в реальном времени. Ежедневный отчёт CEO без ручной сборки.</div>
+          </div>
+          <div class="card-dark">
+            <div style="font-size:22px;margin-bottom:6px">🤖</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px">AI-агент продаж</div>
+            <div style="font-size:11px;opacity:0.6">Консультант на сайте, квалификация входящих, автооформление заявок от дилеров.</div>
+          </div>
+          <div class="card-dark">
+            <div style="font-size:22px;margin-bottom:6px">💰</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px">Контроль ДЗ</div>
+            <div style="font-size:11px;opacity:0.6">AI мониторит просрочки, автоматически напоминает клиентам, эскалирует критичные случаи.</div>
+          </div>
+          <div class="card-dark">
+            <div style="font-size:22px;margin-bottom:6px">📦</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px">Каталог + цены</div>
+            <div style="font-size:11px;opacity:0.6">AI синхронизирует 250 дилеров, обновляет цены и остатки автоматически.</div>
+          </div>
+          <div class="card-dark">
+            <div style="font-size:22px;margin-bottom:6px">👤</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px">HR-агент</div>
+            <div style="font-size:11px;opacity:0.6">Первичный скрининг кандидатов — решает проблему 27%-й текучки на входящем потоке.</div>
+          </div>
+          <div class="card-dark">
+            <div style="font-size:22px;margin-bottom:6px">📈</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px">Прогноз продаж</div>
+            <div style="font-size:11px;opacity:0.6">AI строит прогноз по каждому региону на 30/60/90 дней на основе исторических данных.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">BauService × Андрей · Конфиденциально</div>
+</div>
+
+<!-- ======================== SLIDE 7: ЭТАПЫ ВНЕДРЕНИЯ ======================== -->
+<div class="slide s-dark">
+  <div class="slide-header">
+    <div class="slide-tag">Блок 5 · AI-платформа</div>
+    <div class="slide-title">Два этапа внедрения AI-платформы</div>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2" style="gap:24px">
+      <div>
+        <div style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);border-radius:14px;padding:22px;height:100%">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#93C5FD;margin-bottom:4px">Этап 1 · Месяцы 2–5</div>
+              <div style="font-size:18px;font-weight:800">AI-агенты<br>для текущего бизнеса</div>
+            </div>
+            <div style="font-size:36px">🚀</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:18px">
+            <div class="phase-item">CEO-дашборд: единый P&L всех юрлиц (ежедневно)</div>
+            <div class="phase-item">AI-агент продаж: обработка входящих, квалификация, оффер</div>
+            <div class="phase-item">Агент контроля ДЗ: мониторинг + авторапоминания</div>
+            <div class="phase-item">AI-консультант на сайте bauservice.ru + laparet.ru</div>
+            <div class="phase-item">Агент отчётности: продажи/маржа по регионам ежедневно</div>
+            <div class="phase-item">HR-агент: первичный скрининг резюме</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.5;margin-bottom:6px">Инвестиции</div>
+            <div style="font-size:15px;font-weight:800;color:#FCD34D">1,5 – 2,5 млн ₽</div>
+            <div style="font-size:11px;opacity:0.6;margin-top:2px">единоразово + 200–300 тыс./мес. поддержка</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="background:rgba(5,150,105,0.15);border:1px solid rgba(5,150,105,0.3);border-radius:14px;padding:22px;height:100%">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6EE7B7;margin-bottom:4px">Этап 2 · Месяцы 5–12</div>
+              <div style="font-size:18px;font-weight:800">AI-платформа<br>для всего бизнеса</div>
+            </div>
+            <div style="font-size:36px">🏗️</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:18px">
+            <div class="phase-item">MCP-сайт: AI-to-AI коммуникация с дилерами и клиентами</div>
+            <div class="phase-item">CRM-трансформация: все 250+ дилеров в едином пространстве</div>
+            <div class="phase-item">Агент маркетинга: автоконтент, SEO, рассылки по 106 регионам</div>
+            <div class="phase-item">AI-ценообразование: динамические цены по остаткам и спросу</div>
+            <div class="phase-item">AI-финансовый директор: прогнозирование P&L на 6 мес.</div>
+            <div class="phase-item">Интеграция всех 7 юрлиц в единый AI-холдинг</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.5;margin-bottom:6px">Инвестиции</div>
+            <div style="font-size:15px;font-weight:800;color:#6EE7B7">+3 – 4 млн ₽</div>
+            <div style="font-size:11px;opacity:0.6;margin-top:2px">единоразово + 350–500 тыс./мес. платформа</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.2);border-radius:10px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-size:13px;font-weight:700">💡 Позиционирование для Новицкого</div>
+      <div style="font-size:12px;opacity:0.75;max-width:600px">Это не IT-расходы — это <strong>замена 5–8 функциональных сотрудников</strong> AI-агентами. При ФОТ 100–200 тыс./чел. в мес., экономия покрывает инвестиции за 6–9 месяцев.</div>
+    </div>
+  </div>
+  <div class="slide-footer">BauService × Андрей · Конфиденциально</div>
+</div>
+
+<!-- ======================== SLIDE 8: ЭКОНОМИКА AI ======================== -->
+<div class="slide s-green">
+  <div class="slide-header">
+    <div class="slide-tag">Блок 6 · Экономика внедрения AI</div>
+    <div class="slide-title">Что даёт AI-платформа BauService — в цифрах</div>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2" style="gap:24px;align-items:start">
+      <div>
+        <div style="font-size:12px;font-weight:700;opacity:0.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Прямая экономия (снижение затрат)</div>
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;overflow:hidden;margin-bottom:16px">
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;padding:8px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;opacity:.45;border-bottom:1px solid rgba(255,255,255,0.07)"><div>Эффект</div><div style="text-align:center">Год 1</div><div style="text-align:center">Год 2</div></div>
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;padding:10px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.06);align-items:center"><div>Замена 4–6 операционных сотрудников AI-агентами</div><div style="text-align:center;font-weight:700;color:#6EE7B7">−5,5 млн ₽</div><div style="text-align:center;font-weight:700;color:#6EE7B7">−8 млн ₽</div></div>
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;padding:10px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.06);align-items:center"><div>Сокращение ошибок ценообразования (AI-цены)</div><div style="text-align:center;font-weight:700;color:#6EE7B7">−1,5 млн ₽</div><div style="text-align:center;font-weight:700;color:#6EE7B7">−3 млн ₽</div></div>
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;padding:10px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.06);align-items:center"><div>Снижение ДЗ просрочки на 20% (автоконтроль)</div><div style="text-align:center;font-weight:700;color:#6EE7B7">−2 млн ₽</div><div style="text-align:center;font-weight:700;color:#6EE7B7">−4 млн ₽</div></div>
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;padding:10px 14px;font-size:12px;align-items:center"><div>Сокращение HR-ошибок (AI-скрининг)</div><div style="text-align:center;font-weight:700;color:#6EE7B7">−0,5 млн ₽</div><div style="text-align:center;font-weight:700;color:#6EE7B7">−1 млн ₽</div></div>
+        </div>
+
+        <div style="font-size:12px;font-weight:700;opacity:0.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Рост выручки (генерация дохода)</div>
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;overflow:hidden">
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;padding:8px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;opacity:.45;border-bottom:1px solid rgba(255,255,255,0.07)"><div>Эффект</div><div style="text-align:center">Год 1</div><div style="text-align:center">Год 2</div></div>
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;padding:10px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.06);align-items:center"><div>AI-консультант → конверсия сайта +15%</div><div style="text-align:center;font-weight:700;color:#FCD34D">+200 млн ₽</div><div style="text-align:center;font-weight:700;color:#FCD34D">+400 млн ₽</div></div>
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;padding:10px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.06);align-items:center"><div>Удержание дилеров AI-CRM (+5% к retention)</div><div style="text-align:center;font-weight:700;color:#FCD34D">+150 млн ₽</div><div style="text-align:center;font-weight:700;color:#FCD34D">+350 млн ₽</div></div>
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;padding:10px 14px;font-size:12px;align-items:center"><div>Прирост маржи от AI-ценообразования (+1,5%)</div><div style="text-align:center;font-weight:700;color:#FCD34D">+120 млн ₽</div><div style="text-align:center;font-weight:700;color:#FCD34D">+250 млн ₽</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:12px;font-weight:700;opacity:0.5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Итоговый расчёт ROI</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:14px 16px">
+            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;opacity:.45;margin-bottom:6px">Суммарный эффект ГОД 1</div>
+            <div style="font-size:28px;font-weight:900;color:#6EE7B7">+~480 млн ₽</div>
+            <div style="font-size:11px;opacity:0.6;margin-top:3px">Снижение затрат ~9,5 + рост выручки ~470 млн (маржа ~2%)</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:14px 16px">
+            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;opacity:.45;margin-bottom:6px">Инвестиции в AI-платформу</div>
+            <div style="font-size:28px;font-weight:900;color:#FCD34D">5 – 7 млн ₽</div>
+            <div style="font-size:11px;opacity:0.6;margin-top:3px">Этап 1 + Этап 2 + поддержка 12 мес.</div>
+          </div>
+          <div style="background:rgba(250,204,21,0.12);border:1px solid rgba(250,204,21,0.25);border-radius:10px;padding:14px 16px">
+            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#FCD34D;margin-bottom:6px">Окупаемость</div>
+            <div style="font-size:28px;font-weight:900;color:#FCD34D">6–8 месяцев</div>
+            <div style="font-size:11px;opacity:0.7;margin-top:3px">После запуска Этапа 1 (агентский слой)</div>
+          </div>
+          <div style="background:rgba(5,150,105,0.12);border:1px solid rgba(5,150,105,0.25);border-radius:10px;padding:14px 16px">
+            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#6EE7B7;margin-bottom:6px">ROI за 2 года</div>
+            <div style="font-size:28px;font-weight:900;color:#6EE7B7">×18 – ×25</div>
+            <div style="font-size:11px;opacity:0.7;margin-top:3px">На вложенные 6 млн ₽ в AI-платформу</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;background:rgba(255,255,255,0.05);border-radius:8px;padding:12px 14px;font-size:11px;opacity:0.55;line-height:1.5">
+          * Расчёт на базе оборота группы 12 млрд ₽. Приведены оценочные значения. Фактический эффект зависит от качества внедрения и скорости интеграции данных.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">BauService × Андрей · Конфиденциально</div>
+</div>
+
+<!-- ======================== SLIDE 9: ПЛАН H2 2026 ======================== -->
+<div class="slide s-blue">
+  <div class="slide-header">
+    <div class="slide-tag">Блок 7 · План действий</div>
+    <div class="slide-title">100 дней Андрея в BauService — Июль–Октябрь 2026</div>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2" style="gap:24px">
+      <div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="border-left:2px solid rgba(255,255,255,0.15);padding-left:20px;position:relative;padding-bottom:20px">
+            <div style="position:absolute;left:-6px;top:4px;width:10px;height:10px;border-radius:50%;background:#60A5FA"></div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#93C5FD;margin-bottom:4px">Июль · Недели 1–2 · ПОГРУЖЕНИЕ</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:6px">Знакомство, аудит, базовая линия</div>
+            <div style="font-size:12px;opacity:0.65;line-height:1.6">Встречи со всеми руководителями и ключевыми клиентами (топ-20). Аудит коммерческих процессов. Карта выручки по каналам и регионам. Оценка текущего состояния ДЗ. Запрос доступа к P&L всех юрлиц.</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.15);padding-left:20px;position:relative;padding-bottom:20px">
+            <div style="position:absolute;left:-6px;top:4px;width:10px;height:10px;border-radius:50%;background:#60A5FA"></div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#93C5FD;margin-bottom:4px">Июль · Недели 3–4 · ПЕРВЫЕ ДЕЙСТВИЯ</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:6px">Быстрые победы (Quick Wins)</div>
+            <div style="font-size:12px;opacity:0.65;line-height:1.6">Запуск еженедельного отчёта по продажам (ручной прототип будущего AI-дашборда). Первый визит в регионы (СПб + Н.Новгород). Выявить топ-3 клиентов под угрозой потери — спасти. Дать рекомендацию по ДЗ Новицкому.</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.15);padding-left:20px;position:relative;padding-bottom:20px">
+            <div style="position:absolute;left:-6px;top:4px;width:10px;height:10px;border-radius:50%;background:#FCD34D"></div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#FCD34D;margin-bottom:4px">Август–Сентябрь · СТАБИЛИЗАЦИЯ</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:6px">Операционный контроль + первый AI</div>
+            <div style="font-size:12px;opacity:0.65;line-height:1.6">Внедрение AI-агента отчётности (Этап 1 начало). Реструктуризация слабых каналов. Запуск плана по новым клиентам (+10 контрактов/мес). Квартальный план Q3 выполнен ≥90%. Представление AI-стратегии Новицкому.</div>
+          </div>
+          <div style="padding-left:20px;position:relative">
+            <div style="position:absolute;left:-5px;top:4px;width:10px;height:10px;border-radius:50%;background:#6EE7B7"></div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6EE7B7;margin-bottom:4px">Октябрь · СОГЛАСОВАНИЕ AI-ПРОЕКТА</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:6px">Защита AI-платформы перед Новицким</div>
+            <div style="font-size:12px;opacity:0.65;line-height:1.6">Презентация ROI AI-платформы. Подписание ТЗ на Этап 1. Запуск CEO-дашборда и AI-консультанта.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="border-left:2px solid rgba(255,255,255,0.15);padding-left:20px;position:relative;padding-bottom:20px">
+            <div style="position:absolute;left:-6px;top:4px;width:10px;height:10px;border-radius:50%;background:#6EE7B7"></div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6EE7B7;margin-bottom:4px">Ноябрь · РОСТ</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:6px">Расширение и масштаб</div>
+            <div style="font-size:12px;opacity:0.65;line-height:1.6">Запуск расширенной кампании LAPARET в новых регионах (+3 региона). AI-агент продаж активирован. Командировки Краснодар + Новосибирск. Рост выручки vs ноябрь 2025 ≥+5%.</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.15);padding-left:20px;position:relative;padding-bottom:20px">
+            <div style="position:absolute;left:-6px;top:4px;width:10px;height:10px;border-radius:50%;background:#6EE7B7"></div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6EE7B7;margin-bottom:4px">Декабрь · БЮДЖЕТ + AI ЭТАП 2</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:6px">Закрытие 2026 + Запуск 2027</div>
+            <div style="font-size:12px;opacity:0.65;line-height:1.6">Защита бюджета продаж H1 2027. Итоговый отчёт по году Новицкому. Запуск переговоров по Этапу 2 AI-платформы. Годовая премия — KPI достигнут.</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:18px;margin-top:12px">
+            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;opacity:.5;margin-bottom:12px">Ожидаемые результаты к 31 декабря 2026</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+                <span style="opacity:.75">Динамика выручки группы</span>
+                <span style="font-weight:800;color:#6EE7B7">Стоп падению → +3–5%</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+                <span style="opacity:.75">Новые B2B-клиенты</span>
+                <span style="font-weight:800;color:#6EE7B7">+40–60 контрактов</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+                <span style="opacity:.75">Просрочка ДЗ</span>
+                <span style="font-weight:800;color:#6EE7B7">−20% от текущего уровня</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+                <span style="opacity:.75">Gross Margin</span>
+                <span style="font-weight:800;color:#6EE7B7">+1,5 п.п.</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0">
+                <span style="opacity:.75">AI-платформа</span>
+                <span style="font-weight:800;color:#FCD34D">Этап 1 запущен</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">BauService × Андрей · Конфиденциально</div>
+</div>
+
+<!-- ======================== SLIDE 10: ИТОГ ======================== -->
+<div class="slide" style="background:linear-gradient(135deg,#0F1F3D 0%,#1A3A6B 50%,#0C4A6E 100%)">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:70px 80px;position:relative">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#7DD3FC;margin-bottom:20px">Итоговые рекомендации</div>
+    <div style="font-size:36px;font-weight:900;color:white;line-height:1.2;margin-bottom:36px">Три шага Андрея<br>прямо сейчас</div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:680px;margin-bottom:48px">
+      <div style="display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 20px">
+        <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:white;flex-shrink:0">1</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:4px">Скорректировать оффер</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6)">Запросить: фикс 574 713 gross (500 000 net) + квартальные бонусы + годовой бонус 1,5 млн + авто + ДМС + испытательный 3 мес. Нижняя граница переговоров — те же деньги, другая структура.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 20px">
+        <div style="width:36px;height:36px;border-radius:10px;background:#059669;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:white;flex-shrink:0">2</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:4px">Войти и сделать 100-дневный план</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6)">Первые 14 дней — только слушать и собирать данные. Не объявлять реформы. Быстрые победы в августе — остановить критические потери. Первый отчёт Новицкому — в конце августа.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 20px">
+        <div style="width:36px;height:36px;border-radius:10px;background:#D97706;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:white;flex-shrink:0">3</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:4px">Представить AI-предложение в октябре</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6)">После 3 месяцев — кредит доверия накоплен, боли очевидны. Именно тогда — презентация ROI AI-платформы для Новицкого с конкретными цифрами по его бизнесу.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:32px;flex-wrap:wrap">
+      <div class="tm"><span class="tm-l" style="color:rgba(255,255,255,0.35)">Рекомендуемый фикс net</span><span class="tm-v" style="font-size:18px;color:#FCD34D">500 000 ₽/мес</span></div>
+      <div class="tm"><span class="tm-l" style="color:rgba(255,255,255,0.35)">OTE год (at plan)</span><span class="tm-v" style="font-size:18px;color:#FCD34D">~13,7 млн ₽</span></div>
+      <div class="tm"><span class="tm-l" style="color:rgba(255,255,255,0.35)">AI-платформа инвестиции</span><span class="tm-v" style="font-size:18px;color:#6EE7B7">5–7 млн ₽</span></div>
+      <div class="tm"><span class="tm-l" style="color:rgba(255,255,255,0.35)">Окупаемость AI</span><span class="tm-v" style="font-size:18px;color:#6EE7B7">6–8 месяцев</span></div>
+    </div>
+  </div>
+  <div class="slide-footer">BauService × Андрей · Конфиденциально · Home Project AI Platform</div>
+</div>
+
+</div><!-- /slides -->
+
+<!-- NAVIGATION -->
+<div class="nav">
+  <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">←</button>
+  <span class="nav-counter" id="counter">1 / 10</span>
+  <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">→</button>
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const progress = document.getElementById('progress');
+const counter = document.getElementById('counter');
+
+function goTo(n) {
+  slides[current].classList.remove('active');
+  current = (n + total) % total;
+  slides[current].classList.add('active');
+  counter.textContent = (current + 1) + ' / ' + total;
+  progress.style.width = ((current + 1) / total * 100) + '%';
+}
+
+function changeSlide(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+let touchX = 0;
+document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1);
+});
+
+// Init progress
+progress.style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>
