@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Home Project — Компании нового поколения</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #08090E;
+  --card: #0E1320;
+  --mid: #141E33;
+  --accent: #4A8BF5;
+  --gold: #F0A500;
+  --green: #0FB97A;
+  --text: #DDE3F0;
+  --muted: #7A8BA8;
+  --border: #1B2840;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  z-index: 100;
+}
+
+.counter {
+  position: fixed;
+  top: 16px; right: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  z-index: 100;
+  letter-spacing: 0.05em;
+}
+
+.fullscreen-btn {
+  position: fixed;
+  top: 10px; right: 80px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 100;
+  transition: color 0.2s, border-color 0.2s;
+}
+.fullscreen-btn:hover { color: var(--text); border-color: var(--accent); }
+
+.nav {
+  position: fixed;
+  bottom: 20px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  z-index: 100;
+}
+
+.nav button {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s, border-color 0.2s;
+}
+.nav button:hover { background: var(--mid); border-color: var(--accent); }
+.nav button:disabled { opacity: 0.3; cursor: default; }
+
+.slides-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 60px 72px 80px;
+  display: none;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.slide.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.slide.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+h1 { font-size: 60px; font-weight: 800; color: #fff; line-height: 1.1; }
+h2 { font-size: 32px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+h3 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 12px; }
+
+.sub { font-size: 18px; color: var(--muted); margin-bottom: 32px; line-height: 1.5; }
+
+/* SLIDE 1 */
+#s1 { flex-direction: row; padding: 0; overflow: hidden; }
+
+.s1-left {
+  flex: 1;
+  padding: 80px 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.s1-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.s1-left h1 { margin-bottom: 24px; }
+
+.s1-sub {
+  font-size: 20px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+.s1-footer {
+  font-size: 13px;
+  color: var(--muted);
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.s1-right {
+  width: 42%;
+  background: var(--card);
+  position: relative;
+  overflow: hidden;
+}
+
+.s1-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.5;
+}
+
+.s1-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 60% 40%, rgba(74,139,245,0.12) 0%, transparent 70%);
+}
+
+/* SLIDE 2 */
+.cards-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.card-icon { font-size: 28px; margin-bottom: 12px; }
+.card-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+.card-text { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+.gold-row { color: var(--gold); font-size: 18px; font-weight: 700; margin-top: 8px; }
+
+/* SLIDE 3 */
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  flex: 1;
+}
+
+.col-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.col-label.muted { color: var(--muted); }
+.col-label.accent { color: var(--accent); }
+
+.process-box {
+  background: var(--mid);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+
+.process-box.accent-border { border-left: 3px solid var(--accent); }
+
+.process-item {
+  font-size: 14px;
+  color: var(--text);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.4;
+}
+.process-item:last-child { border-bottom: none; }
+
+.col-result {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.col-result.green { color: var(--green); font-weight: 600; }
+
+/* SLIDE 4 */
+.agent-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  position: relative;
+  margin: 20px 0;
+}
+
+.agent-center {
+  width: 140px;
+  height: 140px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  z-index: 2;
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+
+.agent-center span { font-size: 11px; font-weight: 400; opacity: 0.8; margin-top: 4px; }
+
+.agents-ring {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agent-node {
+  position: absolute;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  width: 150px;
+}
+
+.agent-node .node-icon { font-size: 20px; margin-bottom: 6px; }
+.agent-node .node-name { color: #fff; font-weight: 600; font-size: 13px; }
+.agent-node .node-desc { color: var(--muted); font-size: 11px; margin-top: 3px; }
+.agent-node.gold-border { border-color: var(--gold); border-style: dashed; }
+
+.node-top    { top: 0; left: 50%; transform: translateX(-50%); }
+.node-right  { right: 0; top: 50%; transform: translateY(-50%); }
+.node-bottom-right { bottom: 10%; right: 4%; }
+.node-bottom-left  { bottom: 10%; left: 4%; }
+.node-left   { left: 0; top: 50%; transform: translateY(-50%); }
+
+.diagram-note {
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+/* SLIDE 5 */
+.table-wrap { flex: 1; overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+thead th {
+  background: var(--mid);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: rgba(74,139,245,0.05); }
+
+tbody td {
+  padding: 14px 16px;
+  color: var(--text);
+  line-height: 1.4;
+  vertical-align: top;
+}
+
+tbody td:first-child { font-weight: 600; white-space: nowrap; }
+.td-muted { color: var(--muted); }
+.td-gold { color: var(--gold); font-weight: 700; font-size: 16px; }
+
+/* SLIDE 6 */
+.case-layout {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 40px;
+  flex: 1;
+  align-items: start;
+  margin-top: 8px;
+}
+
+.case-text p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stat-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-num.green { color: var(--green); }
+
+.stat-label { font-size: 13px; color: var(--muted); }
+
+/* SLIDE 7 */
+.result-blocks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  flex: 1;
+  align-items: start;
+  margin-top: 8px;
+}
+
+.result-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.result-card.accent-top { border-top: 3px solid var(--accent); }
+.result-card.gold-top   { border-top: 3px solid var(--gold); }
+.result-card.green-top  { border-top: 3px solid var(--green); }
+
+.result-card h3 { font-size: 18px; margin-bottom: 16px; }
+
+.result-item {
+  font-size: 14px;
+  color: var(--muted);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+}
+.result-item:last-child { border-bottom: none; }
+.result-item strong { color: var(--text); }
+
+.result-footer {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* SLIDE 8 */
+.segments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+  margin-top: 8px;
+}
+
+.seg-card {
+  background: var(--mid);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.seg-icon { font-size: 28px; margin-bottom: 10px; }
+.seg-name { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.seg-spec { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+.arch-note {
+  margin-top: 20px;
+  font-size: 15px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* SLIDE 9 */
+.stages {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  flex: 1;
+  margin-top: 8px;
+  align-items: start;
+}
+
+.stage {
+  padding: 24px 20px;
+  position: relative;
+}
+
+.stage:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -10px;
+  top: 34px;
+  font-size: 22px;
+  color: var(--border);
+  z-index: 2;
+}
+
+.stage-num {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.stage-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.stage-time { font-size: 12px; color: var(--accent); margin-bottom: 12px; font-weight: 500; }
+.stage-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+.stage-footer {
+  margin-top: 20px;
+  padding: 14px 20px;
+  background: rgba(240,165,0,0.08);
+  border: 1px solid rgba(240,165,0,0.25);
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--gold);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* SLIDE 10 */
+#s10 {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 30%, rgba(74,139,245,0.1) 0%, transparent 60%);
+}
+
+#s10 h1 { font-size: 52px; margin-bottom: 24px; }
+
+.cta-sub {
+  font-size: 20px;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+.divider {
+  width: 80px;
+  height: 1px;
+  background: var(--border);
+  margin: 0 auto 32px;
+}
+
+.contacts {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 28px;
+  line-height: 1.8;
+}
+
+.badge {
+  display: inline-block;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 10px 28px;
+  font-size: 13px;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+<div class="counter" id="counter">1 / 10</div>
+<button class="fullscreen-btn" onclick="toggleFS()" title="Полный экран">⛶</button>
+
+<div class="slides-container" id="container">
+
+  <!-- SLIDE 1 -->
+  <section class="slide" id="s1">
+    <div class="s1-left">
+      <div class="s1-label">Home Project · 2026</div>
+      <h1>Компании<br>нового поколения</h1>
+      <p class="s1-sub">Новая бизнес-модель на основе AI-агентов.<br>Разработана и проверена на реальном бизнесе.</p>
+      <div class="s1-footer">📍 Москва, 2026 · info@homeproject.online · homeproject.online</div>
+    </div>
+    <div class="s1-right"></div>
+  </section>
+
+  <!-- SLIDE 2 -->
+  <section class="slide" id="s2">
+    <h2>Рынок меняется</h2>
+    <p class="sub">Три сигнала, которые нельзя игнорировать</p>
+    <div class="cards-3">
+      <div class="card">
+        <div class="card-icon">📈</div>
+        <div class="card-title">Стоимость людей растёт</div>
+        <div class="card-text">ФОТ составляет 40–60% расходов малого бизнеса. Найти, удержать и управлять людьми — становится дороже каждый год.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Скорость решает</div>
+        <div class="card-text">Клиент ждёт КП сегодня, не завтра. Компании, которые отвечают быстро, выигрывают сделки. Медленные — теряют.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <div class="card-title">AI стал доступен</div>
+        <div class="card-text">Впервые в истории малый бизнес может работать с теми же инструментами, что крупные корпорации. Без миллионных инвестиций.</div>
+      </div>
+    </div>
+    <div class="gold-row">Те, кто адаптируются первыми — получают преимущество, которое сложно догнать.</div>
+  </section>
+
+  <!-- SLIDE 3 -->
+  <section class="slide" id="s3">
+    <h2>Традиционная компания vs Компания нового поколения</h2>
+    <div class="two-cols" style="margin-top:20px">
+      <div>
+        <div class="col-label muted">Как есть</div>
+        <div class="process-box">
+          <div class="process-item">👤 Менеджер по продажам — составляет КП вручную (3–4 часа)</div>
+          <div class="process-item">👤 Контент-менеджер — обновляет каталог и сайт (2–3 дня)</div>
+          <div class="process-item">👤 Маркетолог — рассылки, соцсети, реклама</div>
+          <div class="process-item">👤 Аналитик — собирает отчёты вручную</div>
+          <div class="process-item">👤 Операционист — прайсы, переписка, рутина</div>
+        </div>
+        <div class="col-result">5+ человек · Высокий ФОТ · Медленно · Ошибки человеческого фактора</div>
+      </div>
+      <div>
+        <div class="col-label accent">Как будет</div>
+        <div class="process-box accent-border">
+          <div class="process-item">🤖 AI-агент продаж — КП за 20 секунд</div>
+          <div class="process-item">🤖 AI-агент каталога — обновление за 15 минут</div>
+          <div class="process-item">🤖 AI-агент маркетинга — рассылки и посты автоматически</div>
+          <div class="process-item">🤖 AI-агент аналитики — отчёты в реальном времени</div>
+          <div class="process-item">🤖 AI-агент операций — рутина без участия человека</div>
+        </div>
+        <div class="col-result green">1–2 человека · Низкий ФОТ · В 10–200× быстрее · 24/7 без выходных</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 -->
+  <section class="slide" id="s4">
+    <h2>Как устроена агентная модель</h2>
+    <p class="sub">Агент — это не инструмент. Это полноценный сотрудник с задачами, памятью и зоной ответственности.</p>
+    <div class="agent-diagram" style="height:340px; flex-shrink:0;">
+      <div class="agents-ring">
+        <div class="agent-node node-top">
+          <div class="node-icon">📣</div>
+          <div class="node-name">Маркетолог</div>
+          <div class="node-desc">email, соцсети, лиды</div>
+        </div>
+        <div class="agent-node node-right">
+          <div class="node-icon">💰</div>
+          <div class="node-name">Бухгалтер</div>
+          <div class="node-desc">финансы, счета, аналитика</div>
+        </div>
+        <div class="agent-node node-bottom-right gold-border">
+          <div class="node-icon">🔍</div>
+          <div class="node-name">+ N агентов</div>
+          <div class="node-desc" style="color:var(--gold)">под задачи бизнеса</div>
+        </div>
+        <div class="agent-node node-bottom-left">
+          <div class="node-icon">🎨</div>
+          <div class="node-name">Дизайнер</div>
+          <div class="node-desc">КП, презентации, визуал</div>
+        </div>
+        <div class="agent-node node-left">
+          <div class="node-icon">📁</div>
+          <div class="node-name">Секретарь</div>
+          <div class="node-desc">каталог, прайсы, рутина</div>
+        </div>
+      </div>
+      <div class="agent-center">CEO-агент<span>Координация и контроль</span></div>
+    </div>
+    <p class="diagram-note">Количество агентов не ограничено — каждый бизнес получает ровно столько, сколько нужно.<br>Агенты работают параллельно, 24/7.</p>
+  </section>
+
+  <!-- SLIDE 5 -->
+  <section class="slide" id="s5">
+    <h2>Что даёт каждый агент</h2>
+    <div class="table-wrap" style="margin-top:20px">
+      <table>
+        <thead>
+          <tr>
+            <th>Агент</th>
+            <th>Функция</th>
+            <th>Было</th>
+            <th>Стало</th>
+            <th>Ускорение</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CEO-агент</td>
+            <td class="td-muted">Координация задач, контроль дедлайнов</td>
+            <td class="td-muted">Ежедневные совещания, упущенные задачи</td>
+            <td class="td-muted">Всё под контролем, автоматические алерты</td>
+            <td class="td-muted">—</td>
+          </tr>
+          <tr>
+            <td>Агент продаж</td>
+            <td class="td-muted">Генерация КП</td>
+            <td class="td-muted">3–4 часа вручную</td>
+            <td class="td-muted">20 секунд</td>
+            <td class="td-gold">×120</td>
+          </tr>
+          <tr>
+            <td>Агент каталога</td>
+            <td class="td-muted">Обновление прайсов и сайта</td>
+            <td class="td-muted">2–3 рабочих дня</td>
+            <td class="td-muted">15 минут</td>
+            <td class="td-gold">×200</td>
+          </tr>
+          <tr>
+            <td>Агент маркетинга</td>
+            <td class="td-muted">Email-рассылки, соцсети</td>
+            <td class="td-muted">Нужен отдельный специалист</td>
+            <td class="td-muted">200+ писем/день, посты — автоматически</td>
+            <td class="td-gold">×18–50</td>
+          </tr>
+          <tr>
+            <td>Агент аналитики</td>
+            <td class="td-muted">Отчёты и прогнозы</td>
+            <td class="td-muted">Вручную, раз в неделю</td>
+            <td class="td-muted">В реальном времени, 24/7</td>
+            <td class="td-muted">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 -->
+  <section class="slide" id="s6">
+    <h2>Мы разработали модель на собственном бизнесе</h2>
+    <p class="sub">Прежде чем предлагать трансформацию другим — мы прошли её сами.</p>
+    <div class="case-layout">
+      <div class="case-text">
+        <h3>Сегмент: дистрибуция премиальной бытовой техники и сантехники</h3>
+        <p>Home Project — официальный дистрибьютор 14 европейских брендов (V-ZUG, BORA, Fhiaba, Küppersbusch, ILVE и другие). Это сложный сегмент ТНП: большой каталог, работа с дизайнерами и архитекторами, большая клиентская база.</p>
+        <p>С мая 2026 г. компания работает полностью на агентной модели. Один операционный менеджер управляет всем бизнесом с помощью AI-агентов.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-block">
+          <div class="stat-num">14</div>
+          <div class="stat-label">брендов в управлении</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">2 367</div>
+          <div class="stat-label">SKU на сайте</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">14 000+</div>
+          <div class="stat-label">контактов в CRM</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num green">1</div>
+          <div class="stat-label">человек + AI-агенты</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7 -->
+  <section class="slide" id="s7">
+    <h2>Результаты: что изменилось</h2>
+    <div class="result-blocks">
+      <div class="result-card accent-top">
+        <h3>Скорость</h3>
+        <div class="result-item">КП клиенту: <strong>4 часа → 20 сек</strong></div>
+        <div class="result-item">Обновление каталога: <strong>3 дня → 15 мин</strong></div>
+        <div class="result-item">Запуск email-кампании: <strong>2 дня → 2 часа</strong></div>
+      </div>
+      <div class="result-card gold-top">
+        <h3>Масштаб</h3>
+        <div class="result-item"><strong>200 email-рассылок</strong> в день автоматически</div>
+        <div class="result-item">База <strong>14 000 контактов</strong> — сегментирована и ведётся агентами</div>
+        <div class="result-item">Каталог <strong>2 367 позиций</strong> обновляется без участия человека</div>
+      </div>
+      <div class="result-card green-top">
+        <h3>Команда</h3>
+        <div class="result-item">Было: планировалось <strong>5–7 сотрудников</strong></div>
+        <div class="result-item">Стало: <strong>1 человек + агенты</strong></div>
+        <div class="result-item">Экономия ФОТ: <strong>~400 000–600 000 ₽/мес</strong></div>
+      </div>
+    </div>
+    <div class="result-footer">Полноценная дистрибьюторская компания — без раздутого штата.</div>
+  </section>
+
+  <!-- SLIDE 8 -->
+  <section class="slide" id="s8">
+    <h2>Модель работает в любом сегменте ТНП</h2>
+    <p class="sub">Мы разработали универсальную архитектуру. Агенты адаптируются под специфику вашего рынка.</p>
+    <div class="segments-grid">
+      <div class="seg-card">
+        <div class="seg-icon">🏠</div>
+        <div class="seg-name">Строительные и отделочные материалы</div>
+        <div class="seg-spec">Агенты адаптируются под специфику: сезонность и прайсы</div>
+      </div>
+      <div class="seg-card">
+        <div class="seg-icon">🪑</div>
+        <div class="seg-name">Мебель и интерьер</div>
+        <div class="seg-spec">Агенты адаптируются под специфику: конфигураторы и проекты</div>
+      </div>
+      <div class="seg-card">
+        <div class="seg-icon">👕</div>
+        <div class="seg-name">Одежда и текстиль</div>
+        <div class="seg-spec">Агенты адаптируются под специфику: сезонные коллекции и размерный ряд</div>
+      </div>
+      <div class="seg-card">
+        <div class="seg-icon">💻</div>
+        <div class="seg-name">Электроника и гаджеты</div>
+        <div class="seg-spec">Агенты адаптируются под специфику: быстрые изменения цен</div>
+      </div>
+      <div class="seg-card">
+        <div class="seg-icon">🍽️</div>
+        <div class="seg-name">Товары для дома и кухни</div>
+        <div class="seg-spec">Агенты адаптируются под специфику: широкая линейка SKU</div>
+      </div>
+      <div class="seg-card">
+        <div class="seg-icon">🚗</div>
+        <div class="seg-name">Автотовары и аксессуары</div>
+        <div class="seg-spec">Агенты адаптируются под специфику: VIN-подбор и наличие</div>
+      </div>
+    </div>
+    <p class="arch-note" style="margin-top:16px">Архитектура одна — наполнение под ваш бизнес.</p>
+  </section>
+
+  <!-- SLIDE 9 -->
+  <section class="slide" id="s9">
+    <h2>Трансформация вашего бизнеса</h2>
+    <p class="sub">Мы не продаём ПО. Мы перестраиваем бизнес-процессы.</p>
+    <div class="stages">
+      <div class="stage">
+        <div class="stage-num">01</div>
+        <div class="stage-title">Аудит</div>
+        <div class="stage-time">2 недели</div>
+        <div class="stage-text">Изучаем ваши процессы, команду, каталог, клиентскую базу. Определяем, какие агенты нужны.</div>
+      </div>
+      <div class="stage">
+        <div class="stage-num">02</div>
+        <div class="stage-title">Проектирование</div>
+        <div class="stage-time">2 недели</div>
+        <div class="stage-text">Разрабатываем архитектуру агентной системы под ваш бизнес. Согласовываем с вами каждый блок.</div>
+      </div>
+      <div class="stage">
+        <div class="stage-num">03</div>
+        <div class="stage-title">Внедрение</div>
+        <div class="stage-time">4–6 недель</div>
+        <div class="stage-text">Запускаем агентов на ваших данных. Обучаем на вашем каталоге, клиентах, процессах. Первые результаты — через 24 часа.</div>
+      </div>
+      <div class="stage">
+        <div class="stage-num">04</div>
+        <div class="stage-title">Сопровождение</div>
+        <div class="stage-time">ongoing</div>
+        <div class="stage-text">Агенты работают, мы контролируем. Добавляем новые агенты при росте задач. Ваш бизнес становится компанией нового поколения.</div>
+      </div>
+    </div>
+    <div class="stage-footer">Среднее время до первого результата: 24 часа после старта.</div>
+  </section>
+
+  <!-- SLIDE 10 -->
+  <section class="slide" id="s10">
+    <h1>Готовы обсудить<br>трансформацию?</h1>
+    <p class="cta-sub">Расскажите о вашем бизнесе — мы покажем, как агентная модель меняет конкретно вашу ситуацию.</p>
+    <div class="divider"></div>
+    <div class="contacts">📧 info@homeproject.online · 🌐 homeproject.online</div>
+    <div class="badge">Первая встреча — 30 минут. Без обязательств.</div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button id="btnPrev" onclick="go(-1)" disabled>← Назад</button>
+  <button id="btnNext" onclick="go(1)">Вперёд →</button>
+</div>
+
+<script>
+let cur = 0;
+const total = 10;
+const slides = document.querySelectorAll('.slide');
+
+function show(idx) {
+  slides.forEach((s, i) => {
+    s.classList.remove('active', 'visible');
+  });
+  slides[idx].classList.add('active');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      slides[idx].classList.add('visible');
+    });
+  });
+  document.getElementById('counter').textContent = (idx + 1) + ' / ' + total;
+  document.getElementById('btnPrev').disabled = idx === 0;
+  document.getElementById('btnNext').disabled = idx === total - 1;
+}
+
+function go(dir) {
+  const next = cur + dir;
+  if (next < 0 || next >= total) return;
+  cur = next;
+  show(cur);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+});
+
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const dx = tx - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 50) go(dx > 0 ? 1 : -1);
+});
+
+function toggleFS() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+show(0);
+</script>
+</body>
+</html>
