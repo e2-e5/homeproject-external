@@ -4,731 +4,695 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Home Project AI Platform — Калькулятор ROI</title>
+<title>Калькулятор ROI от AI-трансформации — Home Project AI Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08090E;--card:#0E1320;--mid:#141E33;--deep:#070810;
+  --accent:#4A8BF5;--gold:#F0A500;--green:#0FB97A;--red:#E05252;--purple:#863bff;
+  --text:#DDE3F0;--muted:#7A8BA8;--border:#1B2840;
+  --accent-glow:rgba(74,139,245,.12);
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
 
-  :root {
-    --bg: #08090E;
-    --card: #0E1320;
-    --card2: #111827;
-    --accent: #4A8BF5;
-    --gold: #F0A500;
-    --green: #0FB97A;
-    --text: #DDE3F0;
-    --muted: #7A8BA8;
-    --border: #1E2A3A;
-    --border-muted: #1A2030;
-  }
+/* ── HEADER ── */
+.top-bar{background:rgba(8,9,14,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.grad-bar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));z-index:200}
+.tbar-logo{display:flex;align-items:center;gap:8px}
+.tbar-logo-div{width:1px;height:20px;background:rgba(255,255,255,.15)}
+.tbar-logo-text{font-size:12px;font-weight:700;color:#fff;letter-spacing:.1em;text-transform:uppercase;line-height:1}
+.tbar-logo-sub{font-size:8px;color:var(--purple);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+.tbar-right{font-size:12px;color:var(--muted)}
+.tbar-back{color:var(--muted);text-decoration:none;font-size:13px}
+.tbar-back:hover{color:var(--accent)}
 
-  html { scroll-behavior: smooth; }
+/* ── LAYOUT ── */
+.container{max-width:1080px;margin:0 auto;padding:32px 20px 60px}
+.hero{text-align:center;margin-bottom:40px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(74,139,245,.1);border:1px solid rgba(74,139,245,.2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px}
+.hero h1{font-size:clamp(26px,4vw,40px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:14px}
+.hero p{color:var(--muted);font-size:16px;max-width:540px;margin:0 auto}
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    line-height: 1.6;
-    font-size: 15px;
-  }
+/* ── PROGRESS ── */
+.progress-wrap{margin-bottom:32px}
+.progress-steps{display:flex;gap:0;margin-bottom:12px}
+.pstep{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;position:relative}
+.pstep::after{content:'';position:absolute;top:14px;left:50%;right:-50%;height:2px;background:var(--border);z-index:0}
+.pstep:last-child::after{display:none}
+.pstep-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);position:relative;z-index:1;transition:all .2s}
+.pstep-label{font-size:11px;color:var(--muted);text-align:center;line-height:1.3;max-width:80px}
+.pstep.active .pstep-dot{border-color:var(--accent);background:var(--accent);color:#fff}
+.pstep.active .pstep-label{color:var(--accent);font-weight:600}
+.pstep.done .pstep-dot{border-color:var(--green);background:var(--green);color:#fff}
+.pstep.done .pstep-label{color:var(--green)}
+.pstep.done::after{background:var(--green)}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:4px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:2px;transition:width .4s ease;width:0%}
 
-  /* ── HEADER ── */
-  .header {
-    text-align: center;
-    padding: 56px 24px 40px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .logo {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 20px;
-    display: inline-block;
-    border: 1px solid rgba(74,139,245,0.25);
-    border-radius: 20px;
-    padding: 5px 16px;
-  }
-  h1 {
-    font-size: clamp(26px, 5vw, 42px);
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-    background: linear-gradient(135deg, #DDE3F0 0%, #8BA8D0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .subtitle {
-    color: var(--muted);
-    font-size: 15px;
-    max-width: 620px;
-    margin: 0 auto;
-  }
+/* ── MAIN GRID ── */
+.main-grid{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start}
 
-  /* ── MAIN LAYOUT ── */
-  .main {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 24px 60px;
-  }
+/* ── FORM PANEL ── */
+.form-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px}
+.step-block{display:none}
+.step-block.active{display:block}
+.step-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:6px}
+.step-sub{font-size:14px;color:var(--muted);margin-bottom:24px}
+.field{margin-bottom:22px}
+.field-label{font-size:14px;font-weight:600;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.opt-tag{font-size:11px;font-weight:400;color:var(--muted);background:var(--mid);padding:2px 8px;border-radius:10px}
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.opt-btn{background:var(--mid);border:1.5px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;font-weight:500;padding:10px 12px;cursor:pointer;transition:all .15s;text-align:center;font-family:'Inter',sans-serif;line-height:1.3}
+.opt-btn:hover{border-color:var(--accent);color:var(--text)}
+.opt-btn.selected{border-color:var(--accent);background:var(--accent-glow);color:var(--accent);font-weight:600}
+.check-grid{display:flex;flex-direction:column;gap:8px}
+.check-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--mid);border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all .15s}
+.check-item:hover{border-color:var(--accent)}
+.check-item.selected{border-color:var(--accent);background:var(--accent-glow)}
+.check-item input{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
+.check-item label{font-size:13px;color:var(--muted);cursor:pointer}
+.check-item.selected label{color:var(--accent);font-weight:600}
+.num-input{background:var(--mid);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;padding:11px 14px;outline:none;width:100%;transition:border-color .2s}
+.num-input:focus{border-color:var(--accent)}
+.num-input::placeholder{color:var(--muted);font-weight:400;font-size:14px}
+.field-error{font-size:12px;color:var(--red);margin-top:6px;display:none}
+.field-error.show{display:block}
+.btn-row{display:flex;gap:12px;margin-top:28px}
+.btn{padding:12px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all .2s;flex:1}
+.btn-back{background:var(--mid);color:var(--muted);border:1px solid var(--border)}
+.btn-back:hover{color:var(--text);border-color:var(--accent)}
+.btn-next{background:var(--accent);color:#fff}
+.btn-next:hover{background:#3a7be5}
 
-  .columns {
-    display: grid;
-    grid-template-columns: 420px 1fr;
-    gap: 24px;
-    align-items: start;
-  }
+/* ── SIDE PANEL ── */
+.side-panel{position:sticky;top:72px;display:flex;flex-direction:column;gap:16px}
+.summary-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px}
+.summary-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.summary-empty{text-align:center;padding:24px 0;color:var(--muted);font-size:14px}
+.summary-empty-icon{font-size:28px;margin-bottom:10px}
+.metric-row{display:flex;flex-direction:column;gap:4px;padding:12px 0;border-bottom:1px solid var(--border)}
+.metric-row:last-child{border-bottom:none;padding-bottom:0}
+.metric-label{font-size:12px;color:var(--muted)}
+.metric-val{font-size:20px;font-weight:700;color:var(--accent)}
+.metric-val.gold{color:var(--gold)}
+.metric-val.green{color:var(--green)}
+.metric-sub{font-size:12px;color:var(--muted);margin-top:2px}
 
-  @media (max-width: 900px) {
-    .columns { grid-template-columns: 1fr; }
-  }
+/* ROI CARD */
+.roi-card{background:var(--mid);border:1px solid rgba(74,139,245,.25);border-radius:14px;padding:22px;text-align:center;position:relative;overflow:hidden}
+.roi-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(74,139,245,.08) 0%,transparent 60%);pointer-events:none}
+.roi-badge{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.roi-num{font-size:42px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.roi-label{font-size:13px;color:var(--muted);margin-bottom:16px}
+.roi-locked{background:rgba(255,255,255,.03);border:1px dashed var(--border);border-radius:10px;padding:14px;font-size:13px;color:var(--muted);line-height:1.5}
+.roi-payback{font-size:14px;color:var(--gold);font-weight:600;margin-top:10px}
 
-  /* ── CARD ── */
-  .card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 24px;
-    border: 1px solid var(--border);
-  }
+/* ── STEP 4: EMAIL GATE ── */
+.gate-wrap{text-align:center}
+.gate-icon{font-size:40px;margin-bottom:16px}
+.gate-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:10px}
+.gate-sub{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-width:360px;margin-left:auto;margin-right:auto}
+.preview-list{background:var(--mid);border-radius:10px;padding:16px;margin-bottom:24px;text-align:left}
+.preview-list li{list-style:none;font-size:13px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);display:flex;gap:10px}
+.preview-list li:last-child{border-bottom:none}
+.preview-list li span{color:var(--accent)}
+.gate-form{display:flex;flex-direction:column;gap:12px;max-width:360px;margin:0 auto}
+.gate-input{background:var(--mid);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;padding:12px 16px;outline:none;transition:border-color .2s;width:100%}
+.gate-input:focus{border-color:var(--accent)}
+.gate-input::placeholder{color:var(--muted)}
+.gate-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
+.gate-btn:hover{background:#3a7be5}
+.gate-note{font-size:12px;color:var(--muted);opacity:.7;margin-top:8px}
+.gate-error{font-size:13px;color:var(--red);margin-top:4px}
 
-  .card-title {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 24px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--border);
-  }
+/* ── RESULTS ── */
+.results-wrap{display:none}
+.results-wrap.show{display:block}
+.results-hero{background:linear-gradient(135deg,rgba(74,139,245,.12),rgba(134,59,255,.08));border:1px solid rgba(74,139,245,.2);border-radius:16px;padding:28px;text-align:center;margin-bottom:24px}
+.results-roi-num{font-size:56px;font-weight:900;color:#fff;line-height:1}
+.results-roi-label{font-size:16px;color:var(--accent);font-weight:600;margin-top:8px}
+.results-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:24px}
+.res-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.res-card-icon{font-size:22px;margin-bottom:10px}
+.res-card-val{font-size:24px;font-weight:700;color:var(--accent);margin-bottom:4px}
+.res-card-val.gold{color:var(--gold)}
+.res-card-val.green{color:var(--green)}
+.res-card-label{font-size:12px;color:var(--muted);line-height:1.4}
+.roadmap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:24px}
+.roadmap-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:16px}
+.roadmap-steps{display:flex;flex-direction:column;gap:10px}
+.roadmap-step{display:flex;gap:12px;align-items:flex-start}
+.roadmap-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.roadmap-text{font-size:13px;color:var(--muted);line-height:1.5}
+.roadmap-text strong{color:var(--text)}
+.cta-final{background:var(--mid);border:1px solid rgba(74,139,245,.2);border-radius:14px;padding:24px;text-align:center}
+.cta-final h3{font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
+.cta-final p{font-size:14px;color:var(--muted);margin-bottom:20px}
+.cta-final-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-a{padding:12px 24px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s}
+.cta-a.primary{background:var(--accent);color:#fff}.cta-a.primary:hover{background:#3a7be5}
+.cta-a.outline{border:1px solid var(--accent);color:var(--accent)}.cta-a.outline:hover{background:var(--accent-glow)}
+.disclaimer{font-size:11px;color:var(--muted);opacity:.5;text-align:center;margin-top:20px;line-height:1.6}
 
-  /* ── FORM ── */
-  .field {
-    margin-bottom: 22px;
-  }
+/* ── FOOTER ── */
+.page-footer{text-align:center;padding:24px 0 0;font-size:12px;color:var(--muted);opacity:.5;border-top:1px solid var(--border);margin-top:40px}
+.page-footer a{color:var(--accent);text-decoration:none;opacity:1}
 
-  .field-label {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .field-value {
-    font-weight: 700;
-    color: var(--accent);
-    font-size: 14px;
-  }
-
-  input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    outline: none;
-    cursor: pointer;
-  }
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    box-shadow: 0 0 0 3px rgba(74,139,245,0.2);
-    transition: box-shadow 0.2s;
-  }
-  input[type="range"]::-webkit-slider-thumb:hover {
-    box-shadow: 0 0 0 5px rgba(74,139,245,0.3);
-  }
-  input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 0 0 3px rgba(74,139,245,0.2);
-  }
-
-  .range-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 5px;
-  }
-
-  input[type="number"] {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 10px 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  input[type="number"]:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(74,139,245,0.1);
-  }
-  input[type="number"]::placeholder { color: var(--muted); }
-
-  .section-divider {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 24px 0 16px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-muted);
-  }
-
-  .btn-calc {
-    width: 100%;
-    padding: 14px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-    letter-spacing: 0.02em;
-  }
-  .btn-calc:hover {
-    background: #5C9BFF;
-    box-shadow: 0 4px 20px rgba(74,139,245,0.35);
-  }
-  .btn-calc:active { transform: scale(0.98); }
-
-  /* ── RESULTS PLACEHOLDER ── */
-  .results-placeholder {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 60px 24px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.7;
-  }
-  .results-placeholder svg {
-    display: block;
-    margin: 0 auto 16px;
-    opacity: 0.3;
-  }
-
-  /* ── RESULTS GRID ── */
-  .results-grid {
-    display: none;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .results-grid.visible { display: flex; }
-
-  .res-card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 20px 22px;
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--border);
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-  }
-  .res-card.show { opacity: 1; transform: translateY(0); }
-  .res-card.accent { border-left-color: var(--accent); }
-  .res-card.green { border-left-color: var(--green); }
-  .res-card.gold { border-left-color: var(--gold); }
-  .res-card.muted-border { border-left-color: var(--muted); }
-
-  .res-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-
-  .res-value {
-    font-size: 24px;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 6px;
-  }
-  .res-card.accent .res-value { color: var(--accent); }
-  .res-card.green .res-value { color: var(--green); }
-  .res-card.gold .res-value { color: var(--gold); }
-
-  .res-sub {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .res-card-payback {
-    background: linear-gradient(135deg, #0E1320 0%, #0A1128 100%);
-    border-radius: 12px;
-    padding: 26px 22px;
-    border: 1px solid rgba(240,165,0,0.3);
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s;
-    position: relative;
-    overflow: hidden;
-  }
-  .res-card-payback::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-  .res-card-payback.show { opacity: 1; transform: translateY(0); }
-  .res-card-payback .res-label { color: var(--gold); }
-  .res-card-payback .res-value { color: var(--gold); font-size: 32px; }
-  .res-roi {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--green);
-    margin: 8px 0;
-  }
-  .disclaimer {
-    font-size: 12px;
-    color: var(--muted);
-    background: rgba(240,165,0,0.05);
-    border: 1px solid rgba(240,165,0,0.15);
-    border-radius: 8px;
-    padding: 10px 14px;
-    margin-top: 14px;
-    line-height: 1.6;
-  }
-
-  /* ── INVESTMENT BLOCK ── */
-  .inv-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 0;
-    border-bottom: 1px solid var(--border-muted);
-    font-size: 13px;
-  }
-  .inv-row:last-child { border-bottom: none; }
-  .inv-row-label { color: var(--muted); }
-  .inv-row-value { font-weight: 600; color: var(--text); }
-
-  /* ── CTA ── */
-  .cta-section {
-    max-width: 900px;
-    margin: 48px auto 0;
-    padding: 0 24px;
-    text-align: center;
-  }
-  .cta-card {
-    background: linear-gradient(135deg, #0E1320 0%, #091530 100%);
-    border: 1px solid rgba(74,139,245,0.25);
-    border-radius: 16px;
-    padding: 40px 32px;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  }
-  .cta-title {
-    font-size: clamp(20px, 3vw, 28px);
-    font-weight: 800;
-    margin-bottom: 10px;
-    letter-spacing: -0.01em;
-  }
-  .cta-sub {
-    color: var(--muted);
-    font-size: 14px;
-    margin-bottom: 28px;
-  }
-  .cta-buttons {
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .btn-primary {
-    padding: 13px 26px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.2s, box-shadow 0.2s;
-  }
-  .btn-primary:hover {
-    background: #5C9BFF;
-    box-shadow: 0 4px 20px rgba(74,139,245,0.35);
-  }
-  .btn-secondary {
-    padding: 13px 26px;
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .btn-secondary:hover {
-    border-color: var(--accent);
-    background: rgba(74,139,245,0.06);
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    text-align: center;
-    padding: 32px 24px;
-    color: var(--muted);
-    font-size: 12px;
-    border-top: 1px solid var(--border-muted);
-    margin-top: 56px;
-    line-height: 1.8;
-  }
-  footer a { color: var(--muted); text-decoration: none; }
-  footer a:hover { color: var(--accent); }
-
-  /* ── MISC ── */
-  .notice {
-    font-size: 12px;
-    color: var(--muted);
-    text-align: center;
-    margin-top: 14px;
-    font-style: italic;
-  }
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .top-bar{padding:0 16px;height:48px}
+  .tbar-logo-text{font-size:11px}
+  .container{padding:20px 14px 50px}
+  .hero h1{font-size:24px}
+  .hero p{font-size:14px}
+  .main-grid{grid-template-columns:1fr}
+  .side-panel{position:relative;top:0;order:-1}
+  .summary-card,.roi-card{padding:16px}
+  .form-panel{padding:20px 16px}
+  .opt-grid{grid-template-columns:1fr 1fr}
+  .opt-grid.cols-3{grid-template-columns:1fr 1fr}
+  .progress-steps{gap:0}
+  .pstep-label{font-size:10px;max-width:64px}
+  .roi-num{font-size:34px}
+  .results-grid{grid-template-columns:1fr}
+  .cta-final-btns{flex-direction:column}
+  .cta-a{text-align:center}
+  .results-roi-num{font-size:42px}
+  .btn-row{flex-direction:column}
+  .btn{flex:none;width:100%}
+}
 </style>
 </head>
 <body>
+<div class="grad-bar"></div>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="logo">Home Project AI Platform</div>
-  <h1>Калькулятор ROI от внедрения AI-агентов</h1>
-  <p class="subtitle">Введите параметры вашего бизнеса — получите ориентировочную оценку эффекта. Все проекты рассчитываются индивидуально.</p>
-</header>
-
-<!-- MAIN -->
-<main class="main">
-  <div class="columns">
-
-    <!-- LEFT: FORM -->
-    <div class="card" id="form-card">
-      <div class="card-title">Ваш бизнес сегодня</div>
-
-      <!-- 1. Сотрудники -->
-      <div class="field">
-        <div class="field-label">
-          Количество сотрудников
-          <span class="field-value" id="val-employees">20</span>
-        </div>
-        <input type="range" id="employees" min="5" max="200" step="5" value="20"
-          oninput="document.getElementById('val-employees').textContent = this.value">
-        <div class="range-labels"><span>5</span><span>200</span></div>
-      </div>
-
-      <!-- 2. Зарплата -->
-      <div class="field">
-        <div class="field-label">Средняя зарплата сотрудника, ₽/мес</div>
-        <input type="number" id="salary" placeholder="75000" value="75000" min="0">
-      </div>
-
-      <div class="section-divider">Рутина (часов/нед, вся команда)</div>
-
-      <!-- 3. КП -->
-      <div class="field">
-        <div class="field-label">
-          Подготовка коммерческих предложений
-          <span class="field-value" id="val-kp">20</span>
-        </div>
-        <input type="range" id="kp" min="0" max="80" step="1" value="20"
-          oninput="document.getElementById('val-kp').textContent = this.value">
-        <div class="range-labels"><span>0</span><span>80 ч</span></div>
-      </div>
-
-      <!-- 4. Каталог -->
-      <div class="field">
-        <div class="field-label">
-          Обновление каталога и прайсов
-          <span class="field-value" id="val-catalog">10</span>
-        </div>
-        <input type="range" id="catalog" min="0" max="40" step="1" value="10"
-          oninput="document.getElementById('val-catalog').textContent = this.value">
-        <div class="range-labels"><span>0</span><span>40 ч</span></div>
-      </div>
-
-      <!-- 5. Маркетинг -->
-      <div class="field">
-        <div class="field-label">
-          Маркетинг и рассылки
-          <span class="field-value" id="val-mkt">8</span>
-        </div>
-        <input type="range" id="mkt" min="0" max="40" step="1" value="8"
-          oninput="document.getElementById('val-mkt').textContent = this.value">
-        <div class="range-labels"><span>0</span><span>40 ч</span></div>
-      </div>
-
-      <!-- 6. Отчёты -->
-      <div class="field">
-        <div class="field-label">
-          Отчёты и аналитика
-          <span class="field-value" id="val-reports">5</span>
-        </div>
-        <input type="range" id="reports" min="0" max="20" step="1" value="5"
-          oninput="document.getElementById('val-reports').textContent = this.value">
-        <div class="range-labels"><span>0</span><span>20 ч</span></div>
-      </div>
-
-      <!-- 7. Адм. рутина -->
-      <div class="field">
-        <div class="field-label">
-          Административная рутина
-          <span class="field-value" id="val-admin">10</span>
-        </div>
-        <input type="range" id="admin" min="0" max="40" step="1" value="10"
-          oninput="document.getElementById('val-admin').textContent = this.value">
-        <div class="range-labels"><span>0</span><span>40 ч</span></div>
-      </div>
-
-      <div class="section-divider">Финансы</div>
-
-      <!-- 8. Выручка -->
-      <div class="field">
-        <div class="field-label">Ежемесячная выручка, млн ₽</div>
-        <input type="number" id="revenue" placeholder="5" value="5" min="0" step="0.5">
-      </div>
-
-      <!-- 9. Конверсия -->
-      <div class="field">
-        <div class="field-label">
-          Текущая конверсия КП в сделку
-          <span class="field-value" id="val-conv">20%</span>
-        </div>
-        <input type="range" id="conv" min="5" max="60" step="1" value="20"
-          oninput="document.getElementById('val-conv').textContent = this.value + '%'">
-        <div class="range-labels"><span>5%</span><span>60%</span></div>
-      </div>
-
-      <button class="btn-calc" onclick="calculate()">Рассчитать</button>
-      <p class="notice">Все расчёты носят ориентировочный характер</p>
-    </div>
-
-    <!-- RIGHT: RESULTS -->
-    <div id="results-area">
-
-      <!-- Placeholder -->
-      <div class="results-placeholder" id="results-placeholder">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-          <rect x="8" y="8" width="32" height="32" rx="6" stroke="#7A8BA8" stroke-width="2"/>
-          <path d="M16 24h16M16 18h10M16 30h8" stroke="#7A8BA8" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        Введите данные и нажмите «Рассчитать»
-      </div>
-
-      <!-- Results -->
-      <div class="results-grid" id="results-grid">
-
-        <!-- Card 1: Рутина -->
-        <div class="res-card accent" id="rc1">
-          <div class="res-label">Рутина сейчас</div>
-          <div class="res-value" id="r-routine-hours">—</div>
-          <div class="res-sub" id="r-routine-share">—</div>
-        </div>
-
-        <!-- Card 2: Экономия ФОТ -->
-        <div class="res-card green" id="rc2">
-          <div class="res-label">Экономия ФОТ</div>
-          <div class="res-value" id="r-fot">—</div>
-          <div class="res-sub">AI берёт 75% рутины — команда фокусируется на продажах</div>
-        </div>
-
-        <!-- Card 3: Рост выручки -->
-        <div class="res-card gold" id="rc3">
-          <div class="res-label">Рост выручки</div>
-          <div class="res-value" id="r-revenue">—</div>
-          <div class="res-sub">Конверсия КП растёт на ~30% при скорости ответа 20 сек vs 4 часов</div>
-        </div>
-
-        <!-- Card 4: Суммарный эффект -->
-        <div class="res-card accent" id="rc4">
-          <div class="res-label">Суммарный эффект</div>
-          <div class="res-value" id="r-total">—</div>
-          <div class="res-sub">ФОТ + дополнительная выручка</div>
-        </div>
-
-        <!-- Card 5: Инвестиции -->
-        <div class="res-card muted-border" id="rc5">
-          <div class="res-label">Ориентир инвестиций</div>
-          <div id="r-invest-table"></div>
-          <div class="res-sub" style="margin-top:10px">* Все проекты рассчитываются индивидуально по итогам аудита</div>
-        </div>
-
-        <!-- Card 6: Окупаемость -->
-        <div class="res-card-payback" id="rc6">
-          <div class="res-label">Окупаемость</div>
-          <div class="res-value" id="r-payback">—</div>
-          <div class="res-roi" id="r-roi">—</div>
-          <div class="disclaimer">⚠️ Это ориентир для первичной оценки. Реальные цифры — по итогам аудита вашего бизнеса.</div>
-        </div>
-
-      </div>
-    </div>
-
-  </div><!-- /columns -->
-</main>
-
-<!-- CTA -->
-<section class="cta-section" id="cta">
-  <div class="cta-card">
-    <div class="cta-title">Получить точный расчёт под ваш бизнес</div>
-    <p class="cta-sub">Пройдите аудит-анкету или свяжитесь с нами — подберём решение под ваши процессы и бюджет.</p>
-    <div class="cta-buttons">
-      <a href="https://e2-e5.github.io/homeproject-external/hp-ai-readiness.html" class="btn-primary" target="_blank" rel="noopener">Пройти аудит-анкету</a>
-      <a href="mailto:info@homeproject.online" class="btn-secondary">Связаться с нами</a>
-    </div>
+<div class="top-bar">
+  <div class="tbar-logo">
+    <svg width="22" height="21" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg>
+    <div class="tbar-logo-div"></div>
+    <div><div class="tbar-logo-text">Home Project</div><div class="tbar-logo-sub">AI Platform</div></div>
   </div>
-</section>
+  <a class="tbar-back" href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html">← Презентация</a>
+</div>
 
-<footer>
-  <div>HOME PROJECT AI PLATFORM · <a href="https://homeproject.online">homeproject.online</a> · <a href="mailto:info@homeproject.online">info@homeproject.online</a></div>
-  <div style="margin-top:6px">Все расчёты носят ориентировочный характер и не являются коммерческим предложением.</div>
-</footer>
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-badge">🧮 Калькулятор ROI</div>
+    <h1>Сколько сэкономит ваш бизнес<br>от внедрения AI-агентов?</h1>
+    <p>Введите параметры вашего бизнеса — получите персональную оценку эффекта. Все поля проверены с реальными партнёрами.</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-steps">
+      <div class="pstep active" id="ps1"><div class="pstep-dot">1</div><div class="pstep-label">Ваш бизнес</div></div>
+      <div class="pstep" id="ps2"><div class="pstep-dot">2</div><div class="pstep-label">Рутина</div></div>
+      <div class="pstep" id="ps3"><div class="pstep-dot">3</div><div class="pstep-label">Детали</div></div>
+      <div class="pstep" id="ps4"><div class="pstep-dot">4</div><div class="pstep-label">Результат</div></div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="main-grid">
+
+    <!-- FORM -->
+    <div class="form-panel">
+
+      <!-- STEP 1 -->
+      <div class="step-block active" id="step1">
+        <div class="step-title">Ваш бизнес сегодня</div>
+        <div class="step-sub">Расскажите о масштабе — это влияет на расчёт</div>
+
+        <div class="field">
+          <div class="field-label">Сколько сотрудников в компании?</div>
+          <input type="number" class="num-input" id="f-staff" min="1" max="500" placeholder="Например, 15">
+          <div class="field-error" id="err-staff">Укажите количество сотрудников</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Сколько SKU в вашем ассортименте?</div>
+          <div class="opt-grid" id="og-sku">
+            <button class="opt-btn" data-val="100">до 200</button>
+            <button class="opt-btn" data-val="600">200 – 1 000</button>
+            <button class="opt-btn" data-val="2000">1 000 – 3 000</button>
+            <button class="opt-btn" data-val="5000">3 000 +</button>
+          </div>
+          <div class="field-error" id="err-sku">Выберите размер ассортимента</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Годовой оборот компании</div>
+          <div class="opt-grid" id="og-revenue">
+            <button class="opt-btn" data-val="20">до 30 млн ₽</button>
+            <button class="opt-btn" data-val="60">30 – 100 млн ₽</button>
+            <button class="opt-btn" data-val="200">100 – 300 млн ₽</button>
+            <button class="opt-btn" data-val="500">300 + млн ₽</button>
+          </div>
+          <div class="field-error" id="err-revenue">Выберите годовой оборот</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-next" onclick="nextStep(1)">Далее →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-block" id="step2">
+        <div class="step-title">Рутина команды</div>
+        <div class="step-sub">Оцениваем, на что уходит время сейчас</div>
+
+        <div class="field">
+          <div class="field-label">Часов в неделю уходит на актуализацию цен, наличия и каталога?</div>
+          <input type="number" class="num-input" id="f-hours" min="0" max="200" placeholder="Например, 15">
+          <div class="field-error" id="err-hours">Укажите часы (можно 0)</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Сколько занимает подготовка одного КП клиенту?</div>
+          <div class="opt-grid" id="og-cptime">
+            <button class="opt-btn" data-val="5">5 минут</button>
+            <button class="opt-btn" data-val="30">30 минут</button>
+            <button class="opt-btn" data-val="90">1 – 2 часа</button>
+            <button class="opt-btn" data-val="240">Полдня и больше</button>
+          </div>
+          <div class="field-error" id="err-cptime">Выберите время подготовки КП</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Входящих заявок и обращений в месяц?</div>
+          <input type="number" class="num-input" id="f-leads" min="0" max="10000" placeholder="Например, 40">
+          <div class="field-error" id="err-leads">Укажите количество заявок</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-back" onclick="prevStep(2)">← Назад</button>
+          <button class="btn btn-next" onclick="nextStep(2)">Далее →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-block" id="step3">
+        <div class="step-title">Детали бизнеса</div>
+        <div class="step-sub">Уточняем расчёт — поля с меткой «опционально» влияют на точность</div>
+
+        <div class="field">
+          <div class="field-label">Конверсия из заявки в сделку <span class="opt-tag">опционально</span></div>
+          <div class="opt-grid" id="og-conv">
+            <button class="opt-btn" data-val="7">менее 10%</button>
+            <button class="opt-btn" data-val="17">10 – 25%</button>
+            <button class="opt-btn" data-val="37">25 – 50%</button>
+            <button class="opt-btn" data-val="60">более 50%</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Средний чек одной сделки</div>
+          <div class="opt-grid" id="og-check">
+            <button class="opt-btn" data-val="50">до 100 тыс ₽</button>
+            <button class="opt-btn" data-val="250">100 – 500 тыс ₽</button>
+            <button class="opt-btn" data-val="750">500 тыс – 1 млн ₽</button>
+            <button class="opt-btn" data-val="1500">1 млн ₽ и выше</button>
+          </div>
+          <div class="field-error" id="err-check">Выберите средний чек</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">CRM или учётная система <span class="opt-tag">опционально</span></div>
+          <div class="opt-grid cols-3" id="og-crm">
+            <button class="opt-btn" data-val="none">Нет</button>
+            <button class="opt-btn" data-val="1c">1С</button>
+            <button class="opt-btn" data-val="amo">amoCRM</button>
+            <button class="opt-btn" data-val="bitrix">Bitrix24</button>
+            <button class="opt-btn" data-val="excel">Excel / Таблицы</button>
+            <button class="opt-btn" data-val="other">Другое</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Каналы продаж <span class="opt-tag">можно несколько</span></div>
+          <div class="check-grid" id="cg-channels">
+            <div class="check-item" data-val="direct"><input type="checkbox" id="ch1"><label for="ch1">Прямые продажи (встречи, звонки)</label></div>
+            <div class="check-item" data-val="site"><input type="checkbox" id="ch2"><label for="ch2">Сайт / интернет-магазин</label></div>
+            <div class="check-item" data-val="partners"><input type="checkbox" id="ch3"><label for="ch3">Партнёры и дилеры</label></div>
+            <div class="check-item" data-val="tender"><input type="checkbox" id="ch4"><label for="ch4">Тендеры / B2G</label></div>
+            <div class="check-item" data-val="mp"><input type="checkbox" id="ch5"><label for="ch5">Маркетплейсы</label></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Что мешает расти сейчас? <span class="opt-tag">опционально</span></div>
+          <div class="check-grid" id="cg-pain">
+            <div class="check-item" data-val="catalog"><input type="checkbox" id="p1"><label for="p1">Устаревший каталог и прайсы</label></div>
+            <div class="check-item" data-val="slow_cp"><input type="checkbox" id="p2"><label for="p2">Медленная подготовка КП</label></div>
+            <div class="check-item" data-val="followup"><input type="checkbox" id="p3"><label for="p3">Теряем клиентов без follow-up</label></div>
+            <div class="check-item" data-val="analytics"><input type="checkbox" id="p4"><label for="p4">Нет аналитики и отчётности</label></div>
+            <div class="check-item" data-val="staff"><input type="checkbox" id="p5"><label for="p5">Нехватка сотрудников</label></div>
+            <div class="check-item" data-val="crm_chaos"><input type="checkbox" id="p6"><label for="p6">CRM не работает / хаос в базе</label></div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-back" onclick="prevStep(3)">← Назад</button>
+          <button class="btn btn-next" onclick="nextStep(3)">Рассчитать →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: EMAIL GATE + RESULTS -->
+      <div class="step-block" id="step4">
+
+        <div class="gate-wrap" id="gateWrap">
+          <div class="gate-icon">🔒</div>
+          <div class="gate-title">Расчёт готов</div>
+          <div class="gate-sub">Введите имя и email — откроем полный расчёт ROI, срок окупаемости и персональную дорожную карту.</div>
+          <ul class="preview-list">
+            <li><span>→</span> Годовая экономия на рутине</li>
+            <li><span>→</span> Прирост выручки от AI-агентов</li>
+            <li><span>→</span> ROI и срок окупаемости</li>
+            <li><span>→</span> Дорожная карта трансформации</li>
+          </ul>
+          <div class="gate-form">
+            <input type="text" class="gate-input" id="cap-name" placeholder="Ваше имя *">
+            <input type="email" class="gate-input" id="cap-email" placeholder="Email *">
+            <input type="text" class="gate-input" id="cap-company" placeholder="Компания (опционально)">
+            <div class="gate-error" id="cap-error"></div>
+            <button class="gate-btn" onclick="unlockResults()">Открыть расчёт →</button>
+            <div class="gate-note">Мы не передаём данные третьим лицам и не рассылаем спам</div>
+          </div>
+        </div>
+
+        <div class="results-wrap" id="resultsWrap">
+          <div class="results-hero">
+            <div class="results-roi-num" id="r-roi">—</div>
+            <div class="results-roi-label">ROI от AI-трансформации за год</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:8px">Срок окупаемости: <b id="r-payback" style="color:var(--gold)">—</b></div>
+          </div>
+
+          <div class="results-grid">
+            <div class="res-card">
+              <div class="res-card-icon">⚡</div>
+              <div class="res-card-val" id="r-hours-saved">—</div>
+              <div class="res-card-label">Экономия ФОТ<br>на рутине в год</div>
+            </div>
+            <div class="res-card">
+              <div class="res-card-icon">📄</div>
+              <div class="res-card-val gold" id="r-cp-saved">—</div>
+              <div class="res-card-label">Экономия на<br>подготовке КП в год</div>
+            </div>
+            <div class="res-card">
+              <div class="res-card-icon">📈</div>
+              <div class="res-card-val green" id="r-revenue">—</div>
+              <div class="res-card-label">Прирост маржи<br>от доп. выручки в год</div>
+            </div>
+          </div>
+
+          <div class="roadmap">
+            <div class="roadmap-title">Дорожная карта для вашего бизнеса</div>
+            <div class="roadmap-steps" id="roadmapSteps"></div>
+          </div>
+
+          <div class="cta-final">
+            <h3>Хотите точный расчёт под ваш бизнес?</h3>
+            <p>Наш аудит занимает 2 недели и бесплатен. По его итогам — точные цифры, состав агентов и КП.</p>
+            <div class="cta-final-btns">
+              <a class="cta-a primary" href="https://e2-e5.github.io/homeproject-external/hp-contact.html" target="_blank">Записаться на аудит →</a>
+              <a class="cta-a outline" href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html" target="_blank">Вернуться к презентации</a>
+            </div>
+          </div>
+
+          <div class="disclaimer">* Все расчёты носят ориентировочный характер. Фактический эффект зависит от специфики бизнеса и определяется в ходе аудита.</div>
+        </div>
+
+        <div class="btn-row" style="margin-top:24px" id="backFromResult">
+          <button class="btn btn-back" onclick="prevStep(4)">← Изменить данные</button>
+        </div>
+      </div>
+
+    </div><!-- /form-panel -->
+
+    <!-- SIDE PANEL -->
+    <div class="side-panel">
+      <div class="summary-card">
+        <div class="summary-title">📊 Предварительный расчёт</div>
+        <div id="summaryContent">
+          <div class="summary-empty">
+            <div class="summary-empty-icon">🧮</div>
+            <div>Заполните поля — здесь появятся первые оценки</div>
+          </div>
+        </div>
+      </div>
+      <div class="roi-card" id="roiCard" style="display:none">
+        <div class="roi-badge">📈 Годовая выгода</div>
+        <div class="roi-num" id="side-roi">—</div>
+        <div class="roi-label">ориентировочно</div>
+        <div class="roi-locked" id="roiLocked">Введите email на шаге 4 — откроем точный ROI и срок окупаемости</div>
+        <div class="roi-payback" id="side-payback" style="display:none"></div>
+      </div>
+    </div>
+
+  </div><!-- /main-grid -->
+
+  <div class="page-footer">
+    Home Project AI Platform · <a href="https://homeproject.online">homeproject.online</a> · Москва, 2026
+  </div>
+</div>
 
 <script>
-function fmt(n) {
-  return Math.round(n).toLocaleString('ru-RU');
+// ── STATE ──
+const S = {
+  step: 1,
+  staff: null, sku: null, revenue: null,
+  hours: null, cptime: null, leads: null,
+  conv: null, check: null, crm: null,
+  channels: [], pain: [],
+  name: '', email: '', company: ''
+};
+
+// ── CONFIG (из апробированной версии L2 03.07.2026) ──
+const CFG = {
+  HOURLY_RATE: 1200,       // ₽/час
+  HOURS_SAVED: 0.85,       // агент берёт 85% рутины
+  CP_AI_MIN: 3,            // минут на КП с AI
+  CONV_LIFT: 0.20,         // +20% к конверсии от AI follow-up
+  CHECK_LIFT: 0.07,        // +7% к чеку от AI-upsell
+  MARGIN: { A: 0.17, B: 0.15, C: 0.12 },
+  INVEST: { A: 700000, B: 2500000, C: 6000000 }
+};
+
+// ── PROFILE ──
+function getProfile() {
+  const n = S.staff || 1;
+  if (n < 20) return 'A';
+  if (n < 60) return 'B';
+  return 'C';
 }
 
-function calculate() {
-  // Inputs
-  const employees = parseInt(document.getElementById('employees').value) || 20;
-  const salary    = parseFloat(document.getElementById('salary').value) || 75000;
-  const kpHours   = parseInt(document.getElementById('kp').value) || 0;
-  const catHours  = parseInt(document.getElementById('catalog').value) || 0;
-  const mktHours  = parseInt(document.getElementById('mkt').value) || 0;
-  const repHours  = parseInt(document.getElementById('reports').value) || 0;
-  const admHours  = parseInt(document.getElementById('admin').value) || 0;
-  const revenue   = parseFloat(document.getElementById('revenue').value) || 5;
-  // conv is available but not used in formulas directly
-  // const conv   = parseInt(document.getElementById('conv').value) || 20;
+// ── CALCULATIONS ──
+function calc() {
+  const p = getProfile();
+  const margin = CFG.MARGIN[p];
 
-  // Calculations
-  const totalSalary          = employees * salary;
-  const routineHoursWeek     = kpHours + catHours + mktHours + repHours + admHours;
-  const routineHoursMonth    = routineHoursWeek * 4.3;
-  const totalWorkHoursMonth  = employees * 160;
-  const routineShare         = routineHoursMonth / totalWorkHoursMonth;
-  const aiCoverage           = 0.75;
-  const savedHoursMonth      = routineHoursMonth * aiCoverage;
-  const savedFOTMonth        = (savedHoursMonth / 160) * salary;
-  const conversionUplift     = 0.30;
-  const revenueRub           = revenue * 1_000_000;
-  const additionalRevenue    = revenueRub * conversionUplift * 0.3;
-  const totalMonthlyEffect   = savedFOTMonth + additionalRevenue;
+  // 1. Hours savings
+  const hoursWeek = S.hours || 0;
+  const hoursSavedYear = hoursWeek * CFG.HOURS_SAVED * 52 * CFG.HOURLY_RATE;
 
-  const implLow  = Math.max(500_000, employees * 25_000);
-  const implHigh = implLow * 2.5;
-  const subMonth = Math.max(50_000, employees * 2_500);
+  // 2. CP time savings
+  let cpSavedYear = 0;
+  if (S.cptime && S.leads) {
+    const cpPerMonth = S.leads * 2; // ~2 КП на заявку
+    const minSaved = Math.max(0, S.cptime - CFG.CP_AI_MIN);
+    cpSavedYear = (minSaved / 60) * cpPerMonth * 12 * CFG.HOURLY_RATE;
+  }
 
-  const paybackMonths = Math.round((implLow / totalMonthlyEffect) * 10) / 10;
-  const roi12 = Math.round(
-    (totalMonthlyEffect * 12 - implHigh - subMonth * 12)
-    / (implHigh + subMonth * 12) * 100
-  );
+  // 3. Revenue upside
+  let revenueYear = 0;
+  if (S.leads && S.conv && S.check) {
+    const conv = S.conv / 100;
+    const convAI = Math.min(conv * (1 + CFG.CONV_LIFT), 0.85);
+    const checkK = S.check * 1000;
+    const revNow = S.leads * conv * checkK * 12;
+    const revAI = S.leads * convAI * checkK * (1 + CFG.CHECK_LIFT) * 12;
+    revenueYear = (revAI - revNow) * margin;
+  }
 
-  // Render
-  // Card 1
-  document.getElementById('r-routine-hours').textContent =
-    fmt(routineHoursMonth) + ' ч/мес на задачи, которые может делать AI';
-  document.getElementById('r-routine-share').textContent =
-    Math.round(routineShare * 100) + '% рабочего времени команды — на рутину';
+  const totalYear = hoursSavedYear + cpSavedYear + revenueYear;
+  const invest = CFG.INVEST[p];
+  const roi = invest > 0 ? Math.round(totalYear / invest * 100) : 0;
+  const paybackMonths = totalYear > 0 ? Math.round(invest / totalYear * 12) : null;
 
-  // Card 2
-  document.getElementById('r-fot').textContent =
-    '~' + fmt(savedFOTMonth) + ' ₽/мес — эквивалент высвобожденного ФОТ';
+  return { hoursSavedYear, cpSavedYear, revenueYear, totalYear, roi, paybackMonths, invest, profile: p };
+}
 
-  // Card 3
-  document.getElementById('r-revenue').textContent =
-    '+' + fmt(additionalRevenue) + ' ₽/мес — ориентировочный эффект от ускорения КП';
+function fmt(n) {
+  if (!n || n === 0) return '0 ₽';
+  if (n >= 1000000) return (n/1000000).toFixed(1).replace(/\.0$/,'') + ' млн ₽';
+  if (n >= 1000) return Math.round(n/1000) + ' тыс. ₽';
+  return Math.round(n) + ' ₽';
+}
 
-  // Card 4
-  document.getElementById('r-total').textContent =
-    '~' + fmt(totalMonthlyEffect) + ' ₽/мес общий ориентировочный эффект';
+// ── UPDATE SIDE PANEL ──
+function updateSide() {
+  const r = calc();
+  const hasData = S.hours !== null || S.cptime !== null || S.leads !== null;
+  if (!hasData) return;
 
-  // Card 5
-  document.getElementById('r-invest-table').innerHTML = `
-    <div class="inv-row">
-      <span class="inv-row-label">Внедрение (единоразово)</span>
-      <span class="inv-row-value">от ${fmt(implLow)} до ${fmt(implHigh)} ₽</span>
-    </div>
-    <div class="inv-row">
-      <span class="inv-row-label">Сопровождение</span>
-      <span class="inv-row-value">от ${fmt(subMonth)} ₽/мес</span>
-    </div>
+  document.getElementById('roiCard').style.display = 'block';
+
+  const rows = [];
+  if (r.hoursSavedYear > 0) rows.push(`<div class="metric-row"><div class="metric-label">Экономия на рутине/год</div><div class="metric-val">${fmt(r.hoursSavedYear)}</div></div>`);
+  if (r.cpSavedYear > 0) rows.push(`<div class="metric-row"><div class="metric-label">Экономия на КП/год</div><div class="metric-val gold">${fmt(r.cpSavedYear)}</div></div>`);
+  if (r.revenueYear > 0) rows.push(`<div class="metric-row"><div class="metric-label">Прирост маржи/год</div><div class="metric-val green">${fmt(r.revenueYear)}</div></div>`);
+
+  const profile = {A:'Малый бизнес',B:'Средний бизнес',C:'Крупный МСБ'}[r.profile];
+  document.getElementById('summaryContent').innerHTML = `
+    <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Профиль: <b style="color:var(--accent)">${profile}</b></div>
+    ${rows.join('')}
   `;
+  document.getElementById('side-roi').textContent = r.totalYear > 0 ? fmt(r.totalYear) : '—';
+}
 
-  // Card 6
-  document.getElementById('r-payback').textContent =
-    '~' + paybackMonths + ' мес — ориентировочный срок окупаемости';
-  document.getElementById('r-roi').textContent =
-    'ROI за 12 месяцев: ~' + roi12 + '%';
-
-  // Show results
-  document.getElementById('results-placeholder').style.display = 'none';
-  const grid = document.getElementById('results-grid');
-  grid.classList.add('visible');
-
-  // Animate cards
-  const cards = ['rc1','rc2','rc3','rc4','rc5','rc6'];
-  cards.forEach((id, i) => {
-    const el = document.getElementById(id);
-    el.classList.remove('show');
-    setTimeout(() => { el.classList.add('show'); }, 60 + i * 80);
+// ── NAVIGATION ──
+function goStep(n) {
+  document.querySelectorAll('.step-block').forEach((b,i) => b.classList.toggle('active', i+1===n));
+  document.querySelectorAll('.pstep').forEach((p,i) => {
+    p.classList.toggle('active', i+1===n);
+    p.classList.toggle('done', i+1<n);
   });
+  document.getElementById('progressFill').style.width = (n-1)/3*100 + '%';
+  S.step = n;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
-  // Smooth scroll to results
+function nextStep(from) {
+  if (!validateStep(from)) return;
+  goStep(from+1);
+  updateSide();
+}
+function prevStep(from) { goStep(from-1); }
+
+function validateStep(step) {
+  let ok = true;
+  if (step === 1) {
+    const staff = parseInt(document.getElementById('f-staff').value);
+    if (!staff || staff < 1) { showErr('err-staff'); ok=false; } else { hideErr('err-staff'); S.staff = staff; }
+    if (!S.sku) { showErr('err-sku'); ok=false; } else hideErr('err-sku');
+    if (!S.revenue) { showErr('err-revenue'); ok=false; } else hideErr('err-revenue');
+  }
+  if (step === 2) {
+    const h = document.getElementById('f-hours').value;
+    if (h === '' || h < 0) { showErr('err-hours'); ok=false; } else { hideErr('err-hours'); S.hours = parseFloat(h); }
+    if (!S.cptime) { showErr('err-cptime'); ok=false; } else hideErr('err-cptime');
+    const leads = parseInt(document.getElementById('f-leads').value);
+    if (isNaN(leads) || leads < 0) { showErr('err-leads'); ok=false; } else { hideErr('err-leads'); S.leads = leads; }
+  }
+  if (step === 3) {
+    if (!S.check) { showErr('err-check'); ok=false; } else hideErr('err-check');
+  }
+  return ok;
+}
+
+function showErr(id) { document.getElementById(id).classList.add('show'); }
+function hideErr(id) { document.getElementById(id).classList.remove('show'); }
+
+// ── OPT BUTTONS ──
+document.querySelectorAll('[id^="og-"]').forEach(grid => {
+  const key = grid.id.replace('og-','');
+  grid.querySelectorAll('.opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      grid.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      S[key] = parseFloat(btn.dataset.val) || btn.dataset.val;
+      updateSide();
+    });
+  });
+});
+
+// ── CHECKBOXES ──
+document.querySelectorAll('[id^="cg-"]').forEach(grid => {
+  const key = grid.id.replace('cg-','');
+  grid.querySelectorAll('.check-item').forEach(item => {
+    const cb = item.querySelector('input');
+    item.addEventListener('click', e => {
+      if (e.target.tagName === 'INPUT') return;
+      cb.checked = !cb.checked;
+      item.classList.toggle('selected', cb.checked);
+      updateChannels(key, item.dataset.val, cb.checked);
+    });
+    cb.addEventListener('change', () => {
+      item.classList.toggle('selected', cb.checked);
+      updateChannels(key, item.dataset.val, cb.checked);
+    });
+  });
+});
+function updateChannels(key, val, checked) {
+  const arr = key === 'channels' ? S.channels : S.pain;
+  if (checked && !arr.includes(val)) arr.push(val);
+  else if (!checked) { const i=arr.indexOf(val); if(i>-1) arr.splice(i,1); }
+}
+
+// ── UNLOCK RESULTS ──
+function unlockResults() {
+  const name = document.getElementById('cap-name').value.trim();
+  const email = document.getElementById('cap-email').value.trim();
+  const errEl = document.getElementById('cap-error');
+  if (!name) { errEl.textContent='Введите ваше имя'; return; }
+  if (!email || !email.includes('@')) { errEl.textContent='Введите корректный email'; return; }
+  errEl.textContent = '';
+  S.name = name; S.email = email;
+  S.company = document.getElementById('cap-company').value.trim();
+
+  const r = calc();
+  showResults(r);
+
+  // Open Gmail with the data
+  const subj = encodeURIComponent(`ROI-расчёт для ${name}${S.company ? ' ('+S.company+')' : ''}`);
+  const body = encodeURIComponent(
+    `Здравствуйте!\n\nМеня зовут ${name}${S.company ? ', компания ' + S.company : ''}.\n` +
+    `Прошёл калькулятор на вашем сайте. Результаты:\n` +
+    `• Экономия на рутине: ${fmt(r.hoursSavedYear)}/год\n` +
+    `• Экономия на КП: ${fmt(r.cpSavedYear)}/год\n` +
+    `• Прирост маржи: ${fmt(r.revenueYear)}/год\n` +
+    `• Итого: ${fmt(r.totalYear)}/год\n` +
+    `• ROI: ${r.roi}×\n\n` +
+    `Интересует аудит и детальный расчёт.\n\nEmail для связи: ${email}`
+  );
   setTimeout(() => {
-    document.getElementById('results-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 120);
+    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=info%40homeproject.online&su=${subj}&body=${body}`, '_blank');
+  }, 800);
+}
+
+function showResults(r) {
+  document.getElementById('gateWrap').style.display = 'none';
+  document.getElementById('resultsWrap').classList.add('show');
+  document.getElementById('backFromResult').style.display = 'none';
+
+  document.getElementById('r-roi').textContent = r.roi > 0 ? r.roi + '×' : 'считаем…';
+  document.getElementById('r-payback').textContent = r.paybackMonths ? r.paybackMonths + ' мес.' : '—';
+  document.getElementById('r-hours-saved').textContent = fmt(r.hoursSavedYear);
+  document.getElementById('r-cp-saved').textContent = fmt(r.cpSavedYear);
+  document.getElementById('r-revenue').textContent = fmt(r.revenueYear);
+
+  // Update side panel
+  document.getElementById('side-roi').textContent = fmt(r.totalYear);
+  document.getElementById('roiLocked').style.display = 'none';
+  document.getElementById('side-payback').style.display = 'block';
+  document.getElementById('side-payback').textContent = 'Окупаемость: ' + (r.paybackMonths ? r.paybackMonths + ' мес.' : '—');
+
+  // Roadmap
+  const profileName = {A:'малого',B:'среднего',C:'крупного'}[r.profile];
+  const steps = [
+    { n:'01', title:'Аудит — 2 недели', text:`Анализируем процессы ${profileName} бизнеса. Выявляем, где AI даёт максимальный эффект в вашем случае.` },
+    { n:'02', title:'Проектирование — 2 недели', text:'Разрабатываем архитектуру агентов и MCP-интеграций под ваши системы.' },
+    { n:'03', title:'Внедрение — 4–6 недель', text:`Запускаем агентов. Первые результаты — уже в первые 24 часа после старта.` },
+    { n:'04', title:'Выход на ROI ' + r.roi + '×', text:`Ориентировочный срок окупаемости — ${r.paybackMonths || '?'} мес. Затем система работает в плюс каждый месяц.` }
+  ];
+  document.getElementById('roadmapSteps').innerHTML = steps.map(s =>
+    `<div class="roadmap-step"><div class="roadmap-num">${s.n}</div><div class="roadmap-text"><strong>${s.title}</strong><br>${s.text}</div></div>`
+  ).join('');
 }
 </script>
 
