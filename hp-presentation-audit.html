@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аудит презентации — что меняем</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08090E;--card:#0E1320;--mid:#141E33;
+  --accent:#4A8BF5;--gold:#F0A500;--green:#0FB97A;--red:#E05252;--purple:#863bff;
+  --text:#DDE3F0;--muted:#7A8BA8;--border:#1B2840;
+  --keep:#0FB97A;--change:#F0A500;--add:#4A8BF5;--drop:#E05252;
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:15px;padding:0 0 80px}
+
+/* HEADER */
+.page-header{background:linear-gradient(135deg,rgba(74,139,245,.08),rgba(134,59,255,.06));border-bottom:1px solid var(--border);padding:32px 48px 28px}
+.page-header h1{font-size:28px;font-weight:900;color:#fff;margin-bottom:8px}
+.page-header p{color:var(--muted);font-size:15px}
+.legend{display:flex;gap:20px;margin-top:18px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.leg-dot{width:12px;height:12px;border-radius:50%}
+
+/* SLIDE AUDIT CARD */
+.slide-audit{max-width:1200px;margin:32px auto;padding:0 48px}
+.audit-card{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:24px;overflow:hidden}
+.audit-header{display:flex;align-items:center;gap:14px;padding:16px 24px;background:var(--mid);border-bottom:1px solid var(--border)}
+.slide-num{background:var(--accent);color:#fff;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.slide-num.keep{background:rgba(15,185,122,.2);color:var(--green)}
+.slide-num.change{background:rgba(240,165,0,.2);color:var(--gold)}
+.slide-title{font-size:17px;font-weight:700;color:#fff}
+.audit-status{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;padding:5px 14px;border-radius:20px}
+.status-keep{background:rgba(15,185,122,.12);color:var(--green)}
+.status-change{background:rgba(240,165,0,.12);color:var(--gold)}
+
+.audit-cols{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.col-now{border-right:1px solid var(--border);padding:20px 24px}
+.col-prop{padding:20px 24px}
+.col-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.col-label.now{color:var(--muted)}
+.col-label.prop{color:var(--accent)}
+
+/* CONTENT BLOCKS */
+.content-block{margin-bottom:10px}
+.block-item{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;margin-bottom:6px;font-size:13px;line-height:1.5}
+.block-item.keep{background:rgba(15,185,122,.06);border-left:3px solid var(--green)}
+.block-item.change{background:rgba(240,165,0,.06);border-left:3px solid var(--gold)}
+.block-item.add{background:rgba(74,139,245,.06);border-left:3px solid var(--accent)}
+.block-item.drop{background:rgba(224,82,82,.06);border-left:3px solid var(--red)}
+.block-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.block-text{color:var(--text)}
+.block-text .dim{color:var(--muted)}
+.block-sub{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* AGENT GRID */
+.agent-mini{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px}
+.agent-pill{background:var(--mid);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;color:var(--muted)}
+.agent-pill.missing{border-color:var(--red);color:var(--red);background:rgba(224,82,82,.06)}
+.agent-pill.new{border-color:var(--accent);color:var(--accent);background:rgba(74,139,245,.06)}
+.agent-pill.ok{border-color:var(--green);color:var(--green);background:rgba(15,185,122,.06)}
+
+/* PROPOSED AGENT GRID */
+.prop-agents{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.prop-agent{background:var(--mid);border-radius:8px;padding:8px 10px;border-left:2px solid var(--accent)}
+.prop-agent-name{font-size:12px;font-weight:600;color:#fff}
+.prop-agent-pct{font-size:18px;font-weight:900;color:var(--green);line-height:1;margin-top:2px}
+.prop-agent-what{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3}
+
+/* VISUAL DEMO SLIDE */
+.demo-slide{background:var(--mid);border-radius:10px;padding:14px 16px;margin-top:10px;font-size:12px}
+.demo-slide-title{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+
+/* BEFORE/AFTER % CARDS */
+.dept-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:8px}
+.dept-mini-card{background:var(--mid);border-radius:6px;padding:6px 8px;text-align:center}
+.dept-mini-pct{font-size:18px;font-weight:900;line-height:1}
+.dept-mini-name{font-size:9px;color:var(--muted);margin-top:2px}
+
+/* SUMMARY */
+.summary-bar{background:var(--mid);border-radius:12px;padding:20px 24px;margin:0 48px;max-width:1200px;margin:24px auto}
+.summary-bar{max-width:1200px;margin:24px 48px}
+.summary-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:14px}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.sum-card{border-radius:10px;padding:14px 16px;text-align:center}
+.sum-card.keep-c{background:rgba(15,185,122,.08);border:1px solid rgba(15,185,122,.2)}
+.sum-card.change-c{background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.2)}
+.sum-card.add-c{background:rgba(74,139,245,.08);border:1px solid rgba(74,139,245,.2)}
+.sum-card.drop-c{background:rgba(224,82,82,.08);border:1px solid rgba(224,82,82,.2)}
+.sum-num{font-size:36px;font-weight:900;line-height:1}
+.sum-label{font-size:12px;color:var(--muted);margin-top:4px}
+
+.cta-row{max-width:1200px;margin:20px 48px;display:flex;gap:12px;align-items:center}
+.cta-link{display:inline-block;background:var(--accent);color:#fff;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;text-decoration:none}
+.cta-link.outline{background:none;border:1px solid var(--border);color:var(--muted)}
+
+@media(max-width:768px){
+  .page-header{padding:20px 16px}
+  .slide-audit{padding:0 12px}
+  .audit-cols{grid-template-columns:1fr}
+  .col-now{border-right:none;border-bottom:1px solid var(--border)}
+  .prop-agents{grid-template-columns:repeat(2,1fr)}
+  .summary-grid{grid-template-columns:1fr 1fr}
+  .summary-bar,.cta-row{margin:16px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>Аудит презентации — что меняем, что оставляем</h1>
+  <p>Предметный разбор каждого слайда hp-transformation-v2.html · 11 слайдов</p>
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:var(--green)"></div> Оставляем без изменений</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--gold)"></div> Меняем / усиливаем</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--accent)"></div> Добавляем новое</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--red)"></div> Убираем / заменяем</div>
+  </div>
+</div>
+
+<div class="slide-audit">
+
+<!-- S1 -->
+<div class="audit-card">
+  <div class="audit-header">
+    <div class="slide-num keep">Слайд 1</div>
+    <div class="slide-title">Обложка — «Компании нового поколения»</div>
+    <div class="audit-status status-keep">✅ Оставляем</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Заголовок «Компании нового поколения» — сильный, оставляем</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Подзаголовок про «10× эффективнее с AI-агентами»</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Логотип, дата, контакты внизу</div></div></div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Ничего не меняем — слайд работает</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="audit-card">
+  <div class="audit-header">
+    <div class="slide-num keep">Слайд 2</div>
+    <div class="slide-title">Рынок ТНП в России</div>
+    <div class="audit-status status-keep">✅ Оставляем</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Воронка 100% → 0.5% AI-нативных — хорошо работает</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">3 stat-box (1.2 млн компаний / 800 тыс. / ₽18 трлн)</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Вывод «войти в топ 0.5% = стать лидером»</div></div></div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Ничего не меняем</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S3 -->
+<div class="audit-card">
+  <div class="audit-header">
+    <div class="slide-num change">Слайд 3</div>
+    <div class="slide-title">Признаки компании нового поколения</div>
+    <div class="audit-status status-change">✏️ Можно усилить</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">⚡ Скорость ×100</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">🤖 Агенты вместо рутины (75–80%)</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">📊 Данные в реальном времени</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">🔄 Масштаб без роста штата</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">🌐 Цифровое присутствие 24/7</div></div></div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">5 признаков — оставляем</div></div></div>
+      <div class="block-item add"><span class="block-icon">➕</span><div><div class="block-text">Добавить 6-й признак: «Каждая бизнес-функция покрыта агентом — бухгалтерия, юристы, HR, логистика, сервис»</div><div class="block-sub">Это напрямую ведёт к слайду 5 с архитектурой</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="audit-card">
+  <div class="audit-header">
+    <div class="slide-num keep">Слайд 4</div>
+    <div class="slide-title">WOW-эффект — было vs стало</div>
+    <div class="audit-status status-keep">✅ Оставляем</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Сравнение традиционной компании vs нового поколения — работает сильно</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">5 пунктов каждой колонки, вывод «рынок меняется»</div></div></div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Ничего не меняем</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S5 — ГЛАВНОЕ ИЗМЕНЕНИЕ -->
+<div class="audit-card" style="border-color:var(--gold)">
+  <div class="audit-header" style="background:rgba(240,165,0,.06)">
+    <div class="slide-num change">Слайд 5</div>
+    <div class="slide-title">⭐ Архитектура агентов — ГЛАВНОЕ ИЗМЕНЕНИЕ</div>
+    <div class="audit-status status-change">✏️ Полная переработка</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас — проблема</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">CEO-агент (координация) — оставляем</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Продажи, Маркетинг, SEO, Аналитика — оставляем</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Каталог, Финансы, Дизайн — оставляем</div></div></div>
+      <div class="block-item drop"><span class="block-icon">❌</span><div><div class="block-text">«+ N агентов — HR, закупки, логистика, юристы, сервис, обучение...»</div><div class="block-sub">Одна строка на 6 ключевых функций — клиент не видит покрытия. Бухгалтер и Юрист — самые понятные B2B-роли — спрятаны!</div></div></div>
+      <div class="demo-slide">
+        <div class="demo-slide-title">Что клиент видит сейчас:</div>
+        <div class="agent-mini">
+          <div class="agent-pill ok">✅ Продажи</div>
+          <div class="agent-pill ok">✅ Маркетинг</div>
+          <div class="agent-pill ok">✅ SEO</div>
+          <div class="agent-pill ok">✅ Аналитика</div>
+          <div class="agent-pill ok">✅ Каталог</div>
+          <div class="agent-pill ok">✅ Финансы</div>
+          <div class="agent-pill ok">✅ Дизайн</div>
+          <div class="agent-pill missing">❓ Бухгалтер (скрыт)</div>
+          <div class="agent-pill missing">❓ Юрист (скрыт)</div>
+          <div class="agent-pill missing">❓ HR (скрыт)</div>
+          <div class="agent-pill missing">❓ Сервис (скрыт)</div>
+          <div class="agent-pill missing">❓ Логистика (скрыт)</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение — 12 агентов явно</div>
+      <div class="block-item add"><span class="block-icon">➕</span><div><div class="block-text">Показать все 12 агентов карточками с % рутины — клиент сразу видит что «все функции закрыты»</div></div></div>
+      <div class="block-item add"><span class="block-icon">➕</span><div><div class="block-text">Бейдж внизу: «12 агентов = 100% бизнес-функций покрыто»</div></div></div>
+      <div class="demo-slide">
+        <div class="demo-slide-title">Что клиент увидит — 12 карточек с % рутины:</div>
+        <div class="prop-agents">
+          <div class="prop-agent"><div class="prop-agent-name">🎯 Продажи</div><div class="prop-agent-pct">40%</div><div class="prop-agent-what">КП, CRM, follow-up</div></div>
+          <div class="prop-agent"><div class="prop-agent-name">📣 Маркетинг</div><div class="prop-agent-pct">60%</div><div class="prop-agent-what">Email, контент, SEO</div></div>
+          <div class="prop-agent"><div class="prop-agent-name">📒 Бухгалтер</div><div class="prop-agent-pct" style="color:var(--gold)">30%</div><div class="prop-agent-what">Отчёты, сверки, документы</div></div>
+          <div class="prop-agent"><div class="prop-agent-name">⚖️ Юрист</div><div class="prop-agent-pct" style="color:var(--gold)">50%</div><div class="prop-agent-what">Договоры, проверки</div></div>
+          <div class="prop-agent"><div class="prop-agent-name">🎓 HR / Обучение</div><div class="prop-agent-pct">55%</div><div class="prop-agent-what">Онбординг, материалы</div></div>
+          <div class="prop-agent"><div class="prop-agent-name">🛎️ Сервис</div><div class="prop-agent-pct" style="color:var(--gold)">40%</div><div class="prop-agent-what">Поддержка, FAQ</div></div>
+          <div class="prop-agent"><div class="prop-agent-name">🚚 Логистика</div><div class="prop-agent-pct" style="color:var(--gold)">33%</div><div class="prop-agent-what">Координация, статусы</div></div>
+          <div class="prop-agent"><div class="prop-agent-name">👔 Администрация</div><div class="prop-agent-pct">60%</div><div class="prop-agent-what">Документооборот</div></div>
+          <div class="prop-agent"><div class="prop-agent-name">📁 Закупки</div><div class="prop-agent-pct" style="color:var(--gold)">45%</div><div class="prop-agent-what">Прайсы, заказы</div></div>
+          <div class="prop-agent"><div class="prop-agent-name">📊 Аналитика</div><div class="prop-agent-pct">70%</div><div class="prop-agent-what">Отчёты, прогнозы</div></div>
+          <div class="prop-agent"><div class="prop-agent-name">🎨 Дизайн / КП</div><div class="prop-agent-pct">65%</div><div class="prop-agent-what">Презентации, визуал</div></div>
+          <div class="prop-agent" style="border-left-color:var(--purple)"><div class="prop-agent-name">🔍 SEO / Контент</div><div class="prop-agent-pct" style="color:var(--purple)">70%</div><div class="prop-agent-what">Трафик, оптимизация</div></div>
+        </div>
+        <div style="margin-top:10px;background:rgba(15,185,122,.1);border:1px solid rgba(15,185,122,.2);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--green);font-weight:700;text-align:center">
+          ✅ 12 агентов = 100% бизнес-функций под управлением AI
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="audit-card">
+  <div class="audit-header">
+    <div class="slide-num keep">Слайд 6</div>
+    <div class="slide-title">MCP — протокол интеграций</div>
+    <div class="audit-status status-keep">✅ Оставляем</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">API vs MCP сравнение — уникальный аргумент, работает</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">4 бенефита, ссылка на Anthropic — оставляем</div></div></div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Ничего не меняем</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="audit-card">
+  <div class="audit-header">
+    <div class="slide-num change">Слайд 7</div>
+    <div class="slide-title">Наш кейс — проверили на себе</div>
+    <div class="audit-status status-change">✏️ Лёгкое усиление</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Кейс Home Project — 14 брендов, 4200+ SKU, 14 000 CRM</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">«1 менеджер вместо 5–7 в штате»</div></div></div>
+      <div class="block-item drop"><span class="block-icon">⚠️</span><div><div class="block-text">Нет упоминания — какие именно агенты это обеспечивают</div><div class="block-sub">Клиент не видит связку «кейс → архитектура»</div></div></div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Основное содержание оставляем</div></div></div>
+      <div class="block-item add"><span class="block-icon">➕</span><div><div class="block-text">Добавить мини-строку: «Активны: CEO, Маркетолог, Каталог-агент, Бухгалтер, Юрист, Секретарь» — 1 строка под кейсом</div><div class="block-sub">Показывает реальный состав, не абстракцию</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="audit-card">
+  <div class="audit-header">
+    <div class="slide-num keep">Слайд 8</div>
+    <div class="slide-title">Экономика — ДО / ПОСЛЕ + % по отделам</div>
+    <div class="audit-status status-keep">✅ Только что обновили</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас (после последнего обновления)</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Блок «ДО → 30–50% → AI высвобождает» — крупный, читаемый</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">9 карточек отделов с большим % (60%, 50%, 40%...)</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Итоговая строка: 8–15 ролей / 30–50% / 11–30 млн / 12–25× ROI</div></div></div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Ничего не меняем — слайд сильный</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S9 -->
+<div class="audit-card">
+  <div class="audit-header">
+    <div class="slide-num keep">Слайд 9</div>
+    <div class="slide-title">Трансформация: 4 этапа</div>
+    <div class="audit-status status-keep">✅ Оставляем</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">4 этапа: Аудит / Проектирование / Внедрение / Развитие</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Сроки, описания — понятно и конкретно</div></div></div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Ничего не меняем</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="audit-card">
+  <div class="audit-header">
+    <div class="slide-num keep">Слайд 10</div>
+    <div class="slide-title">Ориентиры инвестиций и ROI</div>
+    <div class="audit-status status-keep">✅ Оставляем</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Таблица Малый / Средний / Крупный МСБ — чёткая</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">ROI 8–35×, окупаемость 1–8 мес., годовая выгода</div></div></div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Ничего не меняем</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="audit-card">
+  <div class="audit-header">
+    <div class="slide-num keep">Слайд 11</div>
+    <div class="slide-title">CTA — Готовы трансформировать?</div>
+    <div class="audit-status status-keep">✅ Оставляем</div>
+  </div>
+  <div class="audit-cols">
+    <div class="col-now">
+      <div class="col-label now">Сейчас</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">3 шага: Анкета / Калькулятор / Встреча</div></div></div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Кнопки со ссылками на все инструменты</div></div></div>
+    </div>
+    <div class="col-prop">
+      <div class="col-label prop">Предложение</div>
+      <div class="block-item keep"><span class="block-icon">✅</span><div><div class="block-text">Ничего не меняем</div></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /slide-audit -->
+
+<!-- SUMMARY -->
+<div style="max-width:1200px;margin:32px 48px 20px;padding:20px 24px;background:var(--card);border:1px solid var(--border);border-radius:16px">
+  <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:16px">📋 Итого изменений</div>
+  <div class="summary-grid">
+    <div class="sum-card keep-c"><div class="sum-num" style="color:var(--green)">8</div><div class="sum-label">слайдов оставляем как есть</div></div>
+    <div class="sum-card change-c"><div class="sum-num" style="color:var(--gold)">2</div><div class="sum-label">слайда меняем (S3 + S5)</div></div>
+    <div class="sum-card add-c"><div class="sum-num" style="color:var(--accent)">1</div><div class="sum-label">лёгкое усиление (S7 кейс)</div></div>
+    <div class="sum-card drop-c"><div class="sum-num" style="color:var(--red)">0</div><div class="sum-label">слайдов удаляем</div></div>
+  </div>
+  <div style="margin-top:16px;background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.2);border-radius:10px;padding:14px 18px">
+    <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:6px">⭐ Ключевое изменение — Слайд 5 (Архитектура)</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.6">Сейчас: 7 карточек + «N агентов» (Бухгалтер, Юрист, HR, Сервис, Логистика спрятаны)<br>
+    Предложение: 12 карточек явно — каждая с % рутины. Клиент видит полное покрытие всех функций компании.</div>
+  </div>
+</div>
+
+<div style="max-width:1200px;margin:0 48px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+  <a class="cta-link" href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html" target="_blank">👁 Открыть текущую презентацию</a>
+  <a class="cta-link outline" href="#" style="color:var(--muted)">✏️ После подтверждения — применяем изменения</a>
+</div>
+
+</body>
+</html>
