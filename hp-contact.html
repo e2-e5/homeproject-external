@@ -10,34 +10,94 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#08090E;--card:#0E1320;--mid:#141E33;--accent:#4A8BF5;--gold:#F0A500;--green:#0FB97A;--text:#DDE3F0;--muted:#7A8BA8;--border:#1B2840}
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;padding:32px 20px}
+:root{--bg:#08090E;--card:#0E1320;--mid:#141E33;--accent:#4A8BF5;--gold:#F0A500;--green:#0FB97A;--purple:#863bff;--text:#DDE3F0;--muted:#7A8BA8;--border:#1B2840}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif}
 .grad-bar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));z-index:200}
-.wrap{width:100%;max-width:560px}
-.logo{display:flex;align-items:center;gap:10px;margin-bottom:40px;justify-content:center}
-.logo-div{width:1px;height:26px;background:rgba(255,255,255,0.18)}
+.wrap{width:100%;max-width:560px;margin:0 auto;padding:52px 20px 40px}
+
+/* LOGO */
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:36px;justify-content:center}
+.logo-div{width:1px;height:26px;background:rgba(255,255,255,.18)}
 .logo-text{font-size:13px;font-weight:700;color:#fff;letter-spacing:.1em;text-transform:uppercase;line-height:1}
-.logo-sub{font-size:9px;color:#863bff;letter-spacing:.15em;text-transform:uppercase;margin-top:3px}
-h1{font-size:32px;font-weight:900;color:#fff;text-align:center;margin-bottom:10px;line-height:1.2}
-.subtitle{color:var(--muted);text-align:center;font-size:16px;line-height:1.6;margin-bottom:36px}
-.cards{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--text);transition:border-color 0.2s,background 0.2s;cursor:pointer}
-.card:hover{border-color:var(--accent);background:var(--mid)}
-.card-icon{font-size:28px;flex-shrink:0;width:44px;text-align:center}
-.card-body{}
-.card-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
-.card-desc{font-size:13px;color:var(--muted);line-height:1.5}
-.card-value{font-size:14px;color:var(--accent);font-weight:600;margin-top:6px;word-break:break-all}
-.divider{height:1px;background:var(--border);margin:24px 0}
-.back{text-align:center}
-.back a{color:var(--muted);font-size:14px;text-decoration:none}
+.logo-sub{font-size:9px;color:var(--purple);letter-spacing:.15em;text-transform:uppercase;margin-top:3px}
+
+h1{font-size:30px;font-weight:900;color:#fff;text-align:center;margin-bottom:8px;line-height:1.2}
+.subtitle{color:var(--muted);text-align:center;font-size:15px;line-height:1.6;margin-bottom:32px}
+
+/* FORM */
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 24px;margin-bottom:20px}
+.form-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.form-grid{display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;color:var(--muted);font-weight:500}
+.field input,.field textarea,.field select{
+  background:var(--mid);border:1px solid var(--border);border-radius:8px;
+  color:var(--text);font-family:'Inter',sans-serif;font-size:14px;
+  padding:11px 14px;outline:none;transition:border-color .2s;width:100%;
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:.6}
+.field input:focus,.field textarea:focus{border-color:var(--accent)}
+.field textarea{resize:vertical;min-height:100px;line-height:1.5}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* TOPIC CHIPS */
+.topics{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.topic-chip{background:var(--mid);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .2s;user-select:none}
+.topic-chip.active{background:rgba(74,139,245,.15);border-color:var(--accent);color:var(--accent);font-weight:600}
+
+/* SUBMIT */
+.submit-btn{
+  width:100%;padding:14px;border-radius:10px;border:none;
+  background:var(--accent);color:#fff;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .2s;margin-top:6px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Inter',sans-serif;
+}
+.submit-btn:hover{background:#3a7be5;transform:translateY(-1px)}
+.submit-btn:active{transform:translateY(0)}
+.submit-note{font-size:12px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5}
+.submit-note a{color:var(--accent);text-decoration:none}
+
+/* SUCCESS */
+.success-box{display:none;background:rgba(15,185,122,.08);border:1px solid rgba(15,185,122,.3);border-radius:12px;padding:24px;text-align:center;margin-bottom:20px}
+.success-box.visible{display:block}
+.success-icon{font-size:36px;margin-bottom:12px}
+.success-title{font-size:18px;font-weight:700;color:var(--green);margin-bottom:8px}
+.success-text{font-size:14px;color:var(--muted);line-height:1.6}
+
+/* ALT CONTACTS */
+.alt-section{margin-bottom:20px}
+.alt-title{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;text-align:center}
+.alt-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text);transition:border-color .2s;margin-bottom:8px}
+.alt-card:hover{border-color:var(--accent)}
+.alt-card-icon{font-size:22px;width:32px;text-align:center;flex-shrink:0}
+.alt-card-title{font-size:14px;font-weight:600;color:#fff}
+.alt-card-val{font-size:13px;color:var(--accent);margin-top:2px}
+
+/* TOPICS LIST */
+.meet-list{background:var(--mid);border-radius:12px;padding:18px 20px;margin-bottom:20px}
+.meet-list-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:12px}
+.meet-list ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.meet-list ul li{font-size:13px;color:var(--muted);display:flex;gap:10px;line-height:1.4}
+.meet-list ul li span{color:var(--accent)}
+
+/* BACK */
+.back{text-align:center;margin-top:4px}
+.back a{color:var(--muted);font-size:13px;text-decoration:none}
 .back a:hover{color:var(--accent)}
-.note{font-size:12px;color:var(--muted);opacity:0.5;text-align:center;margin-top:20px;line-height:1.6}
+
+@media(max-width:480px){
+  .field-row{grid-template-columns:1fr}
+  .wrap{padding:44px 16px 32px}
+  .form-card{padding:20px 16px}
+  h1{font-size:26px}
+}
 </style>
 </head>
 <body>
 <div class="grad-bar"></div>
 <div class="wrap">
+
   <div class="logo">
     <svg width="28" height="27" viewBox="0 0 48 46" fill="none"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/></svg>
     <div class="logo-div"></div>
@@ -45,42 +105,147 @@ h1{font-size:32px;font-weight:900;color:#fff;text-align:center;margin-bottom:10p
   </div>
 
   <h1>Свяжитесь с нами</h1>
-  <p class="subtitle">Обсудим трансформацию вашего бизнеса —<br>30 минут, без обязательств</p>
+  <p class="subtitle">Расскажите о вашем бизнесе — ответим в течение рабочего дня</p>
 
-  <div class="cards">
-    <a class="card" href="mailto:info@homeproject.online">
-      <div class="card-icon">✉️</div>
-      <div class="card-body">
-        <div class="card-title">Email</div>
-        <div class="card-desc">Напишите нам — ответим в течение рабочего дня</div>
-        <div class="card-value">info@homeproject.online</div>
-      </div>
-    </a>
+  <!-- SUCCESS STATE -->
+  <div class="success-box" id="successBox">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Сообщение отправлено!</div>
+    <div class="success-text">Откроется Gmail с готовым письмом — нажмите «Отправить».<br>Мы ответим в течение рабочего дня.</div>
+  </div>
 
-    <a class="card" href="https://homeproject.online" target="_blank">
-      <div class="card-icon">🌐</div>
-      <div class="card-body">
-        <div class="card-title">Сайт</div>
-        <div class="card-desc">Каталог, бренды, информация о компании</div>
-        <div class="card-value">homeproject.online</div>
+  <!-- FORM -->
+  <div class="form-card" id="formCard">
+    <div class="form-title">✉️ Написать нам</div>
+    <div class="form-grid">
+
+      <div class="field-row">
+        <div class="field">
+          <label>Ваше имя *</label>
+          <input type="text" id="fname" placeholder="Алексей" required>
+        </div>
+        <div class="field">
+          <label>Компания</label>
+          <input type="text" id="fcompany" placeholder="ООО Ромашка">
+        </div>
       </div>
+
+      <div class="field">
+        <label>Ваш email *</label>
+        <input type="email" id="femail" placeholder="alex@company.ru" required>
+      </div>
+
+      <div class="field">
+        <label>Что вас интересует?</label>
+        <div class="topics" id="topicList">
+          <div class="topic-chip" data-val="Трансформация бизнеса">🚀 Трансформация бизнеса</div>
+          <div class="topic-chip" data-val="Аудит процессов">🔍 Аудит процессов</div>
+          <div class="topic-chip" data-val="Расчёт ROI">🧮 Расчёт ROI</div>
+          <div class="topic-chip" data-val="MCP-интеграции">🧩 MCP-интеграции</div>
+          <div class="topic-chip" data-val="Демо системы">💡 Демо системы</div>
+          <div class="topic-chip" data-val="Другое">💬 Другое</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Сообщение</label>
+        <textarea id="fmessage" placeholder="Расскажите о вашем бизнесе, задачах или вопросах — чем больше деталей, тем точнее мы ответим"></textarea>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="sendForm()">
+        <span>Отправить через Gmail</span> <span>→</span>
+      </button>
+      <div class="submit-note">
+        Откроется Gmail с заполненным письмом — просто нажмите «Отправить».<br>
+        Нет Gmail? Напишите напрямую: <a href="javascript:copyEmail()">info@homeproject.online</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALT CONTACT -->
+  <div class="alt-section">
+    <div class="alt-title">или напрямую</div>
+    <a class="alt-card" href="https://homeproject.online" target="_blank">
+      <div class="alt-card-icon">🌐</div>
+      <div><div class="alt-card-title">Сайт</div><div class="alt-card-val">homeproject.online</div></div>
     </a>
   </div>
 
-  <div style="background:var(--mid);border-radius:12px;padding:20px 24px;margin-bottom:20px">
-    <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:12px">Что обсудим на встрече:</div>
-    <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
-      <li style="font-size:14px;color:var(--muted);display:flex;gap:10px"><span style="color:var(--accent)">→</span><span>Ваши текущие процессы и где агенты сэкономят больше всего</span></li>
-      <li style="font-size:14px;color:var(--muted);display:flex;gap:10px"><span style="color:var(--accent)">→</span><span>Ориентировочный ROI для вашего масштаба</span></li>
-      <li style="font-size:14px;color:var(--muted);display:flex;gap:10px"><span style="color:var(--accent)">→</span><span>Какие агенты нужны именно вам — аудит бесплатно</span></li>
-      <li style="font-size:14px;color:var(--muted);display:flex;gap:10px"><span style="color:var(--accent)">→</span><span>Следующие шаги: без давления, только по вашему запросу</span></li>
+  <!-- WHAT WE'LL DISCUSS -->
+  <div class="meet-list">
+    <div class="meet-list-title">Что обсудим:</div>
+    <ul>
+      <li><span>→</span><span>Ваши текущие процессы и где агенты сэкономят больше всего</span></li>
+      <li><span>→</span><span>Ориентировочный ROI для вашего масштаба</span></li>
+      <li><span>→</span><span>Какие агенты нужны именно вам — аудит бесплатно</span></li>
+      <li><span>→</span><span>Следующие шаги: без давления, только по вашему запросу</span></li>
     </ul>
   </div>
 
-  <div class="divider"></div>
-
   <div class="back"><a href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html">← Вернуться к презентации</a></div>
-  <div class="note">Москва, 2026 · Ответим в течение рабочего дня · Конфиденциальность гарантирована</div>
+
 </div>
+
+<div id="copyToast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;opacity:0;transition:all .3s;pointer-events:none;z-index:999">
+  Email скопирован ✓
+</div>
+
+<script>
+// Topic chips
+let selectedTopics = [];
+document.querySelectorAll('.topic-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('active');
+    const val = chip.dataset.val;
+    if (chip.classList.contains('active')) {
+      selectedTopics.push(val);
+    } else {
+      selectedTopics = selectedTopics.filter(t => t !== val);
+    }
+  });
+});
+
+function sendForm() {
+  const name    = document.getElementById('fname').value.trim();
+  const company = document.getElementById('fcompany').value.trim();
+  const email   = document.getElementById('femail').value.trim();
+  const message = document.getElementById('fmessage').value.trim();
+
+  if (!name) { alert('Пожалуйста, введите ваше имя'); document.getElementById('fname').focus(); return; }
+  if (!email || !email.includes('@')) { alert('Пожалуйста, введите корректный email'); document.getElementById('femail').focus(); return; }
+
+  const topics = selectedTopics.length ? selectedTopics.join(', ') : 'не указано';
+
+  const subject = encodeURIComponent('Запрос от ' + name + (company ? ' (' + company + ')' : ''));
+  const body = encodeURIComponent(
+    'Здравствуйте!\n\n' +
+    'Меня зовут ' + name + (company ? ', компания ' + company : '') + '.\n' +
+    'Мой email для ответа: ' + email + '\n\n' +
+    'Интересует: ' + topics + '\n\n' +
+    (message ? 'Сообщение:\n' + message + '\n\n' : '') +
+    '---\nОтправлено через форму на homeproject.online'
+  );
+
+  const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=info%40homeproject.online&su=' + subject + '&body=' + body;
+
+  window.open(gmailUrl, '_blank');
+
+  document.getElementById('successBox').classList.add('visible');
+  document.getElementById('successBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyEmail() {
+  navigator.clipboard.writeText('info@homeproject.online').then(() => {
+    const t = document.getElementById('copyToast');
+    t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)';
+    setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(20px)'; }, 2500);
+  });
+}
+
+// Enter to submit (Ctrl+Enter in textarea)
+document.getElementById('fmessage').addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 'Enter') sendForm();
+});
+</script>
 </body>
 </html>
