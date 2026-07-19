@@ -79,6 +79,22 @@ h3{color:#fff;font-size:18px;font-weight:600}
 .compare-outcome.good{background:rgba(15,185,122,.1);color:var(--green)}
 .compare-conclusion{background:var(--mid);border-radius:10px;padding:16px;text-align:center;color:var(--gold);font-size:17px;font-weight:700;margin-top:20px;line-height:1.5}
 /* S5 */
+.pct-legend{background:linear-gradient(135deg,rgba(74,139,245,.06),rgba(240,165,0,.05));border:1px solid rgba(74,139,245,.25);border-radius:12px;padding:14px 18px;margin-bottom:14px}
+.pct-legend-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px}
+.pct-legend-hl{color:var(--accent)}
+.pct-legend-text{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:8px}
+.pct-legend-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+.pct-legend-item{font-size:12px;color:var(--muted)}
+.pct-legend-item b{font-weight:800}
+.pct-legend-example{background:rgba(240,165,0,.06);border-left:3px solid var(--gold);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--muted);line-height:1.5}
+.custom-agents-block{background:linear-gradient(135deg,var(--mid),rgba(134,59,255,.05));border:1px dashed rgba(134,59,255,.4);border-radius:12px;padding:14px 18px;margin-top:12px;display:flex;gap:14px;align-items:flex-start}
+.custom-agents-plus{font-size:34px;font-weight:900;color:var(--purple);line-height:.8;flex-shrink:0;margin-top:-4px}
+.custom-agents-body{flex:1;min-width:0}
+.custom-agents-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.custom-agents-text{font-size:12px;color:var(--muted);line-height:1.45;margin-bottom:8px}
+.custom-agents-examples{display:flex;flex-wrap:wrap;gap:6px}
+.ca-chip{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:4px 9px;font-size:11px;color:var(--text)}
+.ca-chip em{font-style:normal;color:var(--muted);opacity:.75}
 .arch-ceo{display:flex;flex-direction:column;align-items:center;margin-bottom:10px}
 .ceo-box{background:var(--accent);color:#fff;border-radius:10px;padding:12px 28px;font-size:16px;font-weight:700;text-align:center}
 .ceo-sub{font-size:11px;color:var(--muted);text-align:center;margin-top:5px}
@@ -220,8 +236,8 @@ h3{color:#fff;font-size:18px;font-weight:600}
 
   /* Each slide — one screen, inner scroll if needed */
   .slide{position:absolute;inset:0;display:none;opacity:0;transform:translateY(16px);transition:opacity .3s ease,transform .3s ease;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:60px 14px 78px !important;background:var(--bg)}
-  .slide.active{display:flex !important;flex-direction:column;opacity:1;transform:translateY(0)}
-  .slide-inner{max-width:100%;flex:1;display:flex;flex-direction:column}
+  .slide.active{display:block !important;opacity:1;transform:translateY(0)}
+  .slide-inner{max-width:100%;display:flex;flex-direction:column;min-height:100%}
 
   /* Cover slide mobile */
   #s1{padding:0 !important;justify-content:flex-end}
@@ -251,8 +267,8 @@ h3{color:#fff;font-size:18px;font-weight:600}
   .funnel-bar{height:28px;font-size:11px;padding:0 10px}
   .funnel-count{order:2;width:auto;font-size:11px}
 
-  /* S3 mobile */
-  .cards-grid{grid-template-columns:1fr;gap:8px}
+  /* S3 mobile — override inline flex:1 so content overflows and slide scrolls */
+  .cards-grid{grid-template-columns:1fr;gap:8px;flex:0 0 auto !important}
   .feat-card{padding:12px 14px}
   .feat-card-title{font-size:13px;margin-bottom:5px}
   .feat-card-text{font-size:12px;line-height:1.5}
@@ -266,6 +282,12 @@ h3{color:#fff;font-size:18px;font-weight:600}
   .compare-conclusion{font-size:13px;padding:12px;margin-top:12px}
 
   /* S5 mobile */
+  .pct-legend{padding:10px 12px;margin-bottom:10px}
+  .pct-legend-title{font-size:12px;margin-bottom:4px}
+  .pct-legend-text{font-size:11px;margin-bottom:6px;line-height:1.4}
+  .pct-legend-row{gap:8px;flex-direction:column;margin-bottom:6px}
+  .pct-legend-item{font-size:11px}
+  .pct-legend-example{font-size:11px;padding:7px 10px;line-height:1.4}
   .ceo-box{padding:10px 22px;font-size:14px}
   .ceo-sub{font-size:10px}
   .agent-groups{gap:6px}
@@ -276,6 +298,12 @@ h3{color:#fff;font-size:18px;font-weight:600}
   .acv2-pct{font-size:15px}
   .acv2-name{font-size:10px}
   .acv2-what{font-size:9px;line-height:1.2}
+  .custom-agents-block{padding:10px 12px;margin-top:8px;gap:10px}
+  .custom-agents-plus{font-size:26px;margin-top:-2px}
+  .custom-agents-title{font-size:12px}
+  .custom-agents-text{font-size:11px;line-height:1.4;margin-bottom:6px}
+  .custom-agents-examples{gap:4px}
+  .ca-chip{font-size:10px;padding:3px 7px}
   .arch-total{font-size:11px;gap:8px;padding:8px 12px}
   .arch-total-item{font-size:11px}
   .arch-total-sep{font-size:12px}
@@ -484,7 +512,16 @@ h3{color:#fff;font-size:18px;font-weight:600}
 <section class="slide" id="s5" data-n="5">
   <div class="slide-inner">
     <h2>20 AI-агентов — полное покрытие бизнеса</h2>
-    <p class="subh">Каждая функция компании под управлением специализированного агента · % рутины, которую берёт AI</p>
+    <p class="subh">Каждая функция компании под управлением специализированного агента</p>
+    <div class="pct-legend">
+      <div class="pct-legend-title">Что означает <span class="pct-legend-hl">% рядом с агентом</span></div>
+      <div class="pct-legend-text">Это доля рутины, которую агент забирает у сотрудника. Остальное — стратегия, креатив, коммуникация с клиентом — остаётся человеку.</div>
+      <div class="pct-legend-row">
+        <span class="pct-legend-item"><b style="color:var(--green)">60–75%</b> — почти полная автоматизация</span>
+        <span class="pct-legend-item"><b style="color:var(--gold)">30–55%</b> — агент помогает, человек контролирует и утверждает</span>
+      </div>
+      <div class="pct-legend-example">💡 Пример: маркетолог тратит ≈60% времени на письма, отчёты, публикации и рутину кампаний → это забирает AI. У человека остаются стратегия, креатив, работа с брендом.</div>
+    </div>
     <div class="arch-ceo">
       <div class="ceo-box">🧠 CEO-агент</div>
       <div class="ceo-sub">Координация всех агентов · Контроль · Приоритеты · Эскалации к владельцу</div>
@@ -536,10 +573,25 @@ h3{color:#fff;font-size:18px;font-weight:600}
         </div>
       </div>
     </div>
+    <div class="custom-agents-block">
+      <div class="custom-agents-plus">+</div>
+      <div class="custom-agents-body">
+        <div class="custom-agents-title">Кастомные агенты под ваш бизнес</div>
+        <div class="custom-agents-text">20 базовых агентов — это ядро, которое подходит любой компании. Под ваши процессы добавляем специализированных:</div>
+        <div class="custom-agents-examples">
+          <span class="ca-chip">🏗️ Агент по недвижимости <em>— для девелопера</em></span>
+          <span class="ca-chip">🛋️ Менеджер шоурума <em>— для розницы</em></span>
+          <span class="ca-chip">🏢 Куратор объектов <em>— для дизайн-студии</em></span>
+          <span class="ca-chip">📞 Ресепшн клиники <em>— для медцентра</em></span>
+          <span class="ca-chip">🍽️ Хостес ресторана <em>— для HoReCa</em></span>
+          <span class="ca-chip">…и любой под ваш процесс</span>
+        </div>
+      </div>
+    </div>
     <div class="arch-total">
-      <span class="arch-total-item green">🤖 20 агентов</span>
+      <span class="arch-total-item green">🤖 20 базовых агентов</span>
       <span class="arch-total-sep">·</span>
-      <span class="arch-total-item">100% функций покрыто</span>
+      <span class="arch-total-item">+ кастомные под ваш бизнес</span>
       <span class="arch-total-sep">·</span>
       <span class="arch-total-item gold">Работают 24/7</span>
     </div>
