@@ -10,32 +10,26 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #06080E;
-  --card: #0C1220;
-  --mid: #121B30;
-  --accent: #4A8BF5;
-  --gold: #C9A84C;
-  --green: #0FB97A;
-  --text: #DDE3F0;
-  --muted: #7A8BA8;
-  --border: #1B2A4A;
-  --purple: #9B59D6;
-  --pink: #E1306C;
+  --bg: #06080E; --card: #0C1220; --mid: #121B30;
+  --accent: #4A8BF5; --gold: #C9A84C; --green: #0FB97A;
+  --text: #DDE3F0; --muted: #7A8BA8; --border: #1B2A4A;
+  --purple: #9B59D6; --pink: #E1306C;
 }
 html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100%; }
 .top-stripe { height: 3px; background: linear-gradient(90deg, var(--pink), var(--purple), var(--gold)); position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
-.topbar {
-  position: fixed; top: 0; left: 0; right: 0; height: 52px;
-  background: rgba(6,8,14,0.96); border-bottom: 1px solid var(--border);
-  z-index: 90; display: flex; align-items: center; justify-content: space-between;
-  padding: 0 40px; backdrop-filter: blur(10px);
-}
+.topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: rgba(6,8,14,0.96); border-bottom: 1px solid var(--border); z-index: 90; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; backdrop-filter: blur(10px); }
 .topbar-logo { font-size: 12px; font-weight: 800; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; }
 .topbar-tag { font-size: 12px; color: var(--muted); border: 1px solid var(--border); border-radius: 20px; padding: 3px 12px; }
 .page { max-width: 860px; margin: 0 auto; padding: 80px 32px 60px; }
 
+/* NAV ANCHOR MENU */
+.anchor-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; margin-top: 8px; }
+.anchor-btn { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 12px; color: var(--muted); text-decoration: none; font-weight: 600; transition: all 0.2s; }
+.anchor-btn:hover { border-color: var(--accent); color: var(--accent); }
+.anchor-btn.new { border-color: rgba(15,185,122,0.4); color: var(--green); }
+
 /* HERO */
-.hero { text-align: center; padding: 40px 0 36px; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+.hero { text-align: center; padding: 40px 0 36px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
 .hero-tag { display: inline-block; background: rgba(225,48,108,0.12); border: 1px solid rgba(225,48,108,0.3); color: var(--pink); border-radius: 20px; padding: 5px 16px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
 .hero h1 { font-size: 40px; font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 12px; }
 .hero h1 span { color: var(--pink); }
@@ -46,7 +40,7 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
 .hero-stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
 /* SECTION */
-.section { margin-bottom: 40px; }
+.section { margin-bottom: 40px; scroll-margin-top: 70px; }
 .section-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 8px; }
 .section-title { font-size: 22px; font-weight: 800; color: var(--gold); margin-bottom: 6px; }
 .section-sub { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
@@ -119,6 +113,7 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
 .info-box.gold { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.25); color: var(--gold); }
 .info-box.blue { background: rgba(74,139,245,0.06); border: 1px solid rgba(74,139,245,0.25); color: var(--accent); }
 .info-box.pink { background: rgba(225,48,108,0.06); border: 1px solid rgba(225,48,108,0.25); color: var(--pink); }
+.info-box.purple { background: rgba(155,89,214,0.06); border: 1px solid rgba(155,89,214,0.25); color: var(--purple); }
 
 /* AI BLOCK */
 .ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
@@ -127,8 +122,50 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
 .ai-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
 .ai-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
+/* STEP BLOCKS (для раздела восстановления) */
+.steps-wrap { display: flex; flex-direction: column; gap: 14px; }
+.step-block { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+.step-block.priority { border-color: var(--green); background: rgba(15,185,122,0.04); }
+.step-block.secondary { border-color: var(--accent); }
+.step-block.tertiary { border-color: var(--gold); }
+.step-block.fallback { border-color: var(--purple); }
+.step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.step-badge-num { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; flex-shrink: 0; }
+.step-badge-num.green { background: var(--green); color: #06080E; }
+.step-badge-num.blue { background: var(--accent); color: #fff; }
+.step-badge-num.gold { background: var(--gold); color: #06080E; }
+.step-badge-num.purple { background: var(--purple); color: #fff; }
+.step-title { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+.step-time { font-size: 12px; font-weight: 700; border-radius: 20px; padding: 2px 10px; display: inline-block; }
+.step-time.fast { background: rgba(15,185,122,0.15); color: var(--green); border: 1px solid rgba(15,185,122,0.3); }
+.step-time.medium { background: rgba(74,139,245,0.15); color: var(--accent); border: 1px solid rgba(74,139,245,0.3); }
+.step-time.slow { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+.step-time.long { background: rgba(155,89,214,0.15); color: var(--purple); border: 1px solid rgba(155,89,214,0.3); }
+.step-ol { list-style: none; counter-reset: step-counter; }
+.step-ol li { counter-increment: step-counter; font-size: 13px; color: var(--muted); margin-bottom: 8px; padding-left: 28px; position: relative; line-height: 1.6; }
+.step-ol li::before { content: counter(step-counter); position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--mid); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--accent); text-align: center; line-height: 20px; }
+.step-ol li strong { color: var(--text); }
+
+/* ESCALATION LADDER */
+.ladder { display: flex; flex-direction: column; gap: 0; }
+.ladder-item { display: flex; gap: 16px; align-items: stretch; }
+.ladder-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.ladder-dot { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
+.ladder-connector { width: 2px; flex: 1; min-height: 20px; background: var(--border); margin: 4px 0; }
+.ladder-last .ladder-connector { display: none; }
+.ladder-content { padding: 0 0 20px; flex: 1; }
+.ladder-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.ladder-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* WHO TABLE */
+.who-table-wrap { margin: 14px 0; }
+
 /* DIVIDER */
 .divider { height: 1px; background: var(--border); margin: 32px 0; }
+.section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--green), transparent); margin: 32px 0; }
+
+/* NEW BADGE */
+.new-badge { display: inline-block; background: rgba(15,185,122,0.15); border: 1px solid rgba(15,185,122,0.4); color: var(--green); border-radius: 6px; padding: 2px 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-left: 8px; vertical-align: middle; }
 
 /* FOOTER */
 .footer { text-align: center; padding: 24px 0; border-top: 1px solid var(--border); }
@@ -137,6 +174,7 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
 
 /* USERNAME TAG */
 .handle { display: inline-block; background: rgba(225,48,108,0.1); border: 1px solid rgba(225,48,108,0.25); color: var(--pink); border-radius: 6px; padding: 2px 8px; font-size: 13px; font-weight: 600; font-family: monospace; }
+.url-tag { display: inline-block; background: rgba(74,139,245,0.1); border: 1px solid rgba(74,139,245,0.25); color: var(--accent); border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 600; font-family: monospace; word-break: break-all; }
 
 @media (max-width: 640px) {
   .page { padding: 72px 20px 40px; }
@@ -145,6 +183,8 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
   .hero-stats { gap: 20px; }
   .cards-grid, .forecast, .ai-grid { grid-template-columns: 1fr; }
   .data-table { display: block; overflow-x: auto; }
+  .anchor-nav { gap: 6px; }
+  .anchor-btn { font-size: 11px; padding: 5px 10px; }
 }
 </style>
 </head>
@@ -161,16 +201,27 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
   <div class="hero">
     <div class="hero-tag">📱 Instagram · Стратегический анализ</div>
     <h1>Château de Vaisselle<br><span>× Instagram</span></h1>
-    <p class="hero-sub">Анализ текущей ситуации, сценарии восстановления и развития нового канала. Подготовлено: Home Project AI Platform · Июль 2026</p>
+    <p class="hero-sub">Анализ текущей ситуации, сценарии восстановления, развитие нового канала и пошаговый алгоритм возврата доступа. Подготовлено: Home Project AI Platform · Июль 2026</p>
     <div class="hero-stats">
       <div class="hero-stat"><div class="hero-stat-val">47 000</div><div class="hero-stat-label">подписчиков</div></div>
       <div class="hero-stat"><div class="hero-stat-val" style="color:var(--pink);">0</div><div class="hero-stat-label">доступа к аккаунту</div></div>
-      <div class="hero-stat"><div class="hero-stat-val" style="color:var(--green);">3</div><div class="hero-stat-label">сценария действий</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" style="color:var(--green);">4</div><div class="hero-stat-label">пути восстановления</div></div>
     </div>
   </div>
 
+  <!-- ANCHOR NAV -->
+  <div class="anchor-nav">
+    <a class="anchor-btn" href="#situation">Ситуация</a>
+    <a class="anchor-btn" href="#scenario1">Восстановление аккаунта</a>
+    <a class="anchor-btn" href="#scenario2">Новый аккаунт</a>
+    <a class="anchor-btn" href="#scenario3">Архив контента</a>
+    <a class="anchor-btn" href="#ai-support">AI-поддержка</a>
+    <a class="anchor-btn" href="#action-plan">План действий</a>
+    <a class="anchor-btn new" href="#recovery-guide">🆕 Алгоритм восстановления</a>
+  </div>
+
   <!-- СИТУАЦИЯ -->
-  <div class="section">
+  <div class="section" id="situation">
     <div class="section-tag">Текущая ситуация</div>
     <div class="section-title">Что имеем</div>
     <div class="info-box pink">
@@ -184,6 +235,7 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
           <li>Контент виден публично (посты, фото)</li>
           <li>Репутация и узнаваемость бренда</li>
           <li>Email-база 53 000 клиентов для реактивации</li>
+          <li>SIM-карта с зарегистрированным номером — у владельца</li>
           <li>3 шоурума — источник нового контента</li>
         </ul>
       </div>
@@ -203,7 +255,7 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
   <div class="divider"></div>
 
   <!-- СЦЕНАРИЙ 1 -->
-  <div class="section">
+  <div class="section" id="scenario1">
     <div class="section-tag">Сценарий 1</div>
     <div class="scenario s1">
       <div class="sc-header">
@@ -213,14 +265,14 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
           <span class="sc-badge green">⭐ Приоритет #1 — делать прямо сейчас</span>
         </div>
       </div>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.7;">47К подписчиков — слишком ценный актив, чтобы сдаться без попытки восстановления. Шанс успеха: <strong style="color:var(--green);">60–80%</strong>, если аккаунт не взломан чужими, а просто потерян пароль.</p>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.7;">47К подписчиков — слишком ценный актив, чтобы сдаться без попытки восстановления. Шанс успеха: <strong style="color:var(--green);">60–80%</strong>, если аккаунт не взломан, а просто потерян пароль. SIM-карта у владельца — это ключевое преимущество.</p>
       <table class="data-table">
         <thead><tr><th>Путь восстановления</th><th>Что делать</th><th>Срок</th></tr></thead>
         <tbody>
-          <tr><td><strong>Email или телефон доступны</strong></td><td>«Забыли пароль» → сброс через SMS или почту</td><td class="green">15 минут</td></tr>
-          <tr><td><strong>Email недоступен</strong></td><td>Instagram → «Нужна доп. помощь» → подтверждение через видеоселфи</td><td class="accent">3–7 дней</td></tr>
+          <tr><td><strong>SIM-карта доступна</strong></td><td>«Забыли пароль» → «Отправить SMS» → 6-значный код → новый пароль</td><td class="green">10 минут</td></tr>
+          <tr><td><strong>Email недоступен</strong></td><td>Instagram → «Нужна доп. помощь» → видеоселфи → ссылка на новый email</td><td class="accent">3–7 дней</td></tr>
           <tr><td><strong>Аккаунт взломан / заблокирован</strong></td><td>instagram.com/hacked → форма апелляции</td><td class="accent">7–14 дней</td></tr>
-          <tr><td><strong>Бизнес-аккаунт + Facebook</strong></td><td>Meta Business Support — самый быстрый канал для компаний</td><td class="green">3–10 дней</td></tr>
+          <tr><td><strong>Бизнес-аккаунт + Facebook</strong></td><td>Meta Business Support — приоритетный канал для компаний</td><td class="green">3–10 дней</td></tr>
         </tbody>
       </table>
       <div class="info-box blue" style="margin-top:14px;">
@@ -231,7 +283,7 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
   </div>
 
   <!-- СЦЕНАРИЙ 2 -->
-  <div class="section">
+  <div class="section" id="scenario2">
     <div class="section-tag">Сценарий 2</div>
     <div class="scenario s2">
       <div class="sc-header">
@@ -258,8 +310,8 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
         <div class="card accent-top">
           <div class="card-title">📧 1. Email-рассылка по базе 53К</div>
           <ul>
-            <li><strong>Самый мощный рычаг</strong> — 53 000 клиентов уже знают бренд</li>
-            <li>Текст: «Мы переехали — подпишитесь на новый аккаунт»</li>
+            <li><strong>Самый мощный рычаг</strong> — 53 000 клиентов знают бренд</li>
+            <li>Тема: «Château de Vaisselle переехал в Instagram»</li>
             <li>Прямая кнопка → ссылка на новый профиль</li>
             <li>Конверт 3–8% → <strong style="color:var(--green);">1 500–4 000 подписчиков за 1 рассылку</strong></li>
           </ul>
@@ -269,65 +321,47 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
           <ul>
             <li>Пост с объявлением о переезде</li>
             <li>Закрепить на 30 дней в каждом канале</li>
-            <li>Если есть VK — репост туда же</li>
             <li>Охват без рекламного бюджета</li>
           </ul>
         </div>
         <div class="card gold-top">
           <div class="card-title">🤝 3. Партнёрские бренды</div>
           <ul>
-            <li>ZWILLING, Le Creuset, Nolte — упоминают новый аккаунт в Stories</li>
+            <li>ZWILLING, Le Creuset, Nolte — упоминают в Stories</li>
             <li>Каждый бренд = тысячи целевых подписчиков</li>
-            <li>Взаимная рекомендация: бренд упоминает Château — Château упоминает бренд</li>
+            <li>Взаимная рекомендация</li>
           </ul>
         </div>
         <div class="card pink-top">
           <div class="card-title">🎯 4. Таргетированная реклама</div>
           <ul>
-            <li>Аудитория: подписчики <span class="handle">@chateaudevaisselle</span> (Custom Audience)</li>
-            <li>+ Look-alike аудитория по базе 53К</li>
-            <li>Бюджет: 30 000–80 000 ₽</li>
-            <li>Ожидаемо: <strong style="color:var(--green);">5 000–15 000 новых подписчиков</strong></li>
+            <li>Аудитория: подписчики <span class="handle">@chateaudevaisselle</span></li>
+            <li>+ Look-alike по базе 53К</li>
+            <li>Бюджет: 30–80 тыс. ₽ → <strong style="color:var(--green);">5 000–15 000 подписчиков</strong></li>
           </ul>
         </div>
       </div>
       <div class="card purple-top" style="margin-top:14px;">
         <div class="card-title">🎬 5. Коллаборации с кулинарными блогерами</div>
         <ul>
-          <li>2–3 блогера с 50–200К подписчиков рассказывают о МК в Château</li>
+          <li>2–3 блогера с 50–200К рассказывают о МК в Château</li>
           <li>«Иду на мастер-класс к <span class="handle">@chateau_vaisselle</span> — подписывайтесь!»</li>
-          <li>Кулинарная ниша = идеальное попадание в ЦА Château</li>
+          <li>Кулинарная ниша = идеальное попадание в ЦА</li>
         </ul>
       </div>
 
       <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:20px 0 12px;">Реалистичный прогноз роста нового аккаунта</div>
       <div class="forecast">
-        <div class="fc-item">
-          <div class="fc-period">Старт + 2 недели</div>
-          <div class="fc-val">3–8К</div>
-          <div class="fc-note">Email-рассылка + объявление</div>
-        </div>
-        <div class="fc-item">
-          <div class="fc-period">1 месяц</div>
-          <div class="fc-val">8–18К</div>
-          <div class="fc-note">Таргет + партнёры</div>
-        </div>
-        <div class="fc-item">
-          <div class="fc-period">3 месяца</div>
-          <div class="fc-val">20–35К</div>
-          <div class="fc-note">Органика + контент</div>
-        </div>
-        <div class="fc-item">
-          <div class="fc-period">6 месяцев</div>
-          <div class="fc-val">35–50К+</div>
-          <div class="fc-note">Полноценный канал</div>
-        </div>
+        <div class="fc-item"><div class="fc-period">Старт + 2 нед</div><div class="fc-val">3–8К</div><div class="fc-note">Email + объявление</div></div>
+        <div class="fc-item"><div class="fc-period">1 месяц</div><div class="fc-val">8–18К</div><div class="fc-note">Таргет + партнёры</div></div>
+        <div class="fc-item"><div class="fc-period">3 месяца</div><div class="fc-val">20–35К</div><div class="fc-note">Органика + контент</div></div>
+        <div class="fc-item"><div class="fc-period">6 месяцев</div><div class="fc-val">35–50К+</div><div class="fc-note">Полноценный канал</div></div>
       </div>
     </div>
   </div>
 
   <!-- СЦЕНАРИЙ 3 -->
-  <div class="section">
+  <div class="section" id="scenario3">
     <div class="section-tag">Сценарий 3</div>
     <div class="scenario s3">
       <div class="sc-header">
@@ -337,7 +371,7 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
           <span class="sc-badge gold">Потеря доступа ≠ потеря всего контента</span>
         </div>
       </div>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.7;">Старые публикации частично восстановимы. Это важно — чтобы новый аккаунт выглядел живым с первого дня, а не пустым.</p>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.7;">Старые публикации частично восстановимы. Это важно — чтобы новый аккаунт выглядел живым с первого дня.</p>
       <table class="data-table">
         <thead><tr><th>Источник</th><th>Что можно достать</th></tr></thead>
         <tbody>
@@ -350,7 +384,7 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
         </tbody>
       </table>
       <div class="info-box gold" style="margin-top:14px;">
-        <strong>Важно:</strong> даже без архива — у Château есть 3 шоурума, кулинарный салон, 100+ брендов. <strong>Нового контента хватит на годы</strong>. Архив — приятный бонус, но не блокер для старта.
+        <strong>Важно:</strong> даже без архива — у Château есть 3 шоурума, кулинарный салон, 100+ брендов. <strong>Нового контента хватит на годы</strong>. Архив — приятный бонус, не блокер для старта.
       </div>
     </div>
   </div>
@@ -358,71 +392,294 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
   <div class="divider"></div>
 
   <!-- AI ПОДДЕРЖКА -->
-  <div class="section">
+  <div class="section" id="ai-support">
     <div class="section-tag">AI-инструменты</div>
     <div class="section-title">Как AI помогает с новым аккаунтом</div>
-    <p class="section-sub">Раз начинаем с чистого листа — строим правильно с первого дня, с AI на борту</p>
+    <p class="section-sub">Начинаем с чистого листа — строим правильно с AI с первого дня</p>
     <div class="ai-grid">
-      <div class="ai-item">
-        <div class="ai-icon">📅</div>
-        <div class="ai-title">Агент маркетинга</div>
-        <div class="ai-desc">Генерирует контент-план на месяц: посты, рецепты, анонсы МК, обзоры посуды — автоматически</div>
-      </div>
-      <div class="ai-item">
-        <div class="ai-icon">✍️</div>
-        <div class="ai-title">AI воссоздаёт стиль</div>
-        <div class="ai-desc">На основе сохранённых материалов обучается стилю Château и создаёт тексты в нём</div>
-      </div>
-      <div class="ai-item">
-        <div class="ai-icon">⏰</div>
-        <div class="ai-title">Автопостинг</div>
-        <div class="ai-desc">Публикация по расписанию: пик активности ЦА — вечер вт/чт/вс. Без ручного труда</div>
-      </div>
-      <div class="ai-item">
-        <div class="ai-icon">🔔</div>
-        <div class="ai-title">Мониторинг бренда</div>
-        <div class="ai-desc">Отслеживает все упоминания Château de Vaisselle и подхватывает каждый пост с тегом</div>
-      </div>
+      <div class="ai-item"><div class="ai-icon">📅</div><div class="ai-title">Агент маркетинга</div><div class="ai-desc">Генерирует контент-план на месяц: посты, рецепты, анонсы МК, обзоры посуды — автоматически</div></div>
+      <div class="ai-item"><div class="ai-icon">✍️</div><div class="ai-title">AI воссоздаёт стиль</div><div class="ai-desc">На основе сохранённых материалов обучается стилю Château и создаёт тексты в нём</div></div>
+      <div class="ai-item"><div class="ai-icon">⏰</div><div class="ai-title">Автопостинг</div><div class="ai-desc">Публикация по расписанию: пик активности ЦА — вечер вт/чт/вс. Без ручного труда</div></div>
+      <div class="ai-item"><div class="ai-icon">🔔</div><div class="ai-title">Мониторинг бренда</div><div class="ai-desc">Отслеживает все упоминания Château de Vaisselle и подхватывает каждый пост с тегом</div></div>
     </div>
   </div>
 
   <div class="divider"></div>
 
   <!-- ПЛАН ДЕЙСТВИЙ -->
-  <div class="section">
-    <div class="section-tag">План действий</div>
+  <div class="section" id="action-plan">
+    <div class="section-tag">Общий план действий</div>
     <div class="section-title">Что делать и когда</div>
     <div class="timeline" style="margin-top:16px;">
       <div class="tl-item green">
         <div class="tl-day">Сегодня</div>
-        <div class="tl-text"><strong>Попытаться восстановить через Meta Business Support</strong> — подать заявку с документами компании. Параллельно: создать новый аккаунт, оформить шапку профиля, 1-й пост «Мы здесь».</div>
+        <div class="tl-text"><strong>SMS-восстановление через телефон владельца</strong> — 10 минут. Параллельно: создать новый аккаунт, оформить профиль, 1-й пост «Мы здесь».</div>
       </div>
       <div class="tl-item">
         <div class="tl-day">День 2–3</div>
-        <div class="tl-text"><strong>Собрать архив контента</strong> — web.archive.org + Google + запрос команде. Подготовить первые 9 постов для нового аккаунта (сетка 3×3).</div>
+        <div class="tl-text"><strong>Собрать архив контента</strong> — web.archive.org + Google + запрос команде. Подготовить первые 9 постов для нового аккаунта.</div>
       </div>
       <div class="tl-item green">
         <div class="tl-day">День 3–5</div>
-        <div class="tl-text"><strong>Email-рассылка по базе 53 000</strong> с объявлением о переезде. Тема письма: «Château de Vaisselle переехал в Instagram» + прямая кнопка на новый аккаунт. Ожидаем 1 500–4 000 подписчиков.</div>
+        <div class="tl-text"><strong>Email-рассылка по базе 53 000</strong> — объявление о переезде + прямая кнопка на новый аккаунт. Ожидаем 1 500–4 000 подписчиков.</div>
       </div>
       <div class="tl-item gold">
         <div class="tl-day">День 7</div>
-        <div class="tl-text"><strong>Запустить таргет</strong> на подписчиков старого аккаунта и похожую аудиторию. Бюджет 30–50 тыс. ₽ на первый месяц.</div>
+        <div class="tl-text"><strong>Запустить таргет</strong> на подписчиков старого аккаунта и look-alike аудиторию. Бюджет 30–50 тыс. ₽.</div>
       </div>
       <div class="tl-item">
         <div class="tl-day">День 10–14</div>
-        <div class="tl-text"><strong>Первые коллаборации</strong> с партнёрами-брендами и кулинарными блогерами. Анонсы мастер-классов как контент.</div>
+        <div class="tl-text"><strong>Коллаборации с партнёрами-брендами</strong> и кулинарными блогерами. Анонсы мастер-классов как контент.</div>
       </div>
       <div class="tl-item gold">
         <div class="tl-day">Месяц 2</div>
-        <div class="tl-text"><strong>Полноценный AI-контент-план</strong>: 15+ постов в месяц, Reels с шоурумов, Stories с МК, регулярный постинг через агента маркетинга.</div>
+        <div class="tl-text"><strong>Полноценный AI-контент-план:</strong> 15+ постов в месяц, Reels с шоурумов, Stories с МК.</div>
       </div>
       <div class="tl-item" style="margin-bottom:0;">
         <div class="tl-day" style="color:var(--purple);">Месяц 3–6</div>
-        <div class="tl-text"><strong>Выход на 20 000–35 000 подписчиков</strong>. Аккаунт становится сильнее старого — потому что аудитория пришла через прогрев, а не накопилась за годы без системы.</div>
+        <div class="tl-text"><strong>Выход на 20 000–35 000 подписчиков.</strong> Аудитория качественнее старой — пришла через прогрев, а не накопилась за годы без системы.</div>
       </div>
     </div>
   </div>
+
+  <!-- РАЗДЕЛИТЕЛЬ НОВОГО БЛОКА -->
+  <div class="section-divider"></div>
+
+  <!-- ===== НОВЫЙ РАЗДЕЛ: АЛГОРИТМ ВОССТАНОВЛЕНИЯ ===== -->
+  <div class="section" id="recovery-guide">
+    <div class="section-tag">Детальный алгоритм <span class="new-badge">Новый раздел</span></div>
+    <div class="section-title">Пошаговый порядок восстановления доступа</div>
+    <p class="section-sub">Кто подаёт, что делает, какие документы нужны — конкретно по каждому пути</p>
+
+    <div class="info-box green" style="margin-bottom:20px;">
+      ✅ <strong>Ключевое преимущество:</strong> SIM-карта с зарегистрированным номером находится у владельца. Это открывает самый быстрый путь — SMS-восстановление за 10 минут без документов.
+    </div>
+
+    <!-- ЛЕСТНИЦА ЭСКАЛАЦИИ -->
+    <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">Лестница эскалации — от простого к сложному</div>
+
+    <div class="steps-wrap">
+
+      <!-- ШАГ 1 -->
+      <div class="step-block priority">
+        <div class="step-header">
+          <div class="step-badge-num green">1</div>
+          <div>
+            <div class="step-title">SMS-восстановление через телефон владельца</div>
+            <span class="step-time fast">⚡ 10 минут</span>
+          </div>
+        </div>
+        <div class="cards-grid" style="margin-bottom:12px;">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Кто делает</div>
+            <div class="info-box green" style="margin:0;padding:12px 14px;">
+              <strong>Владелец SIM-карты лично</strong> — держит телефон в руках. Никаких доверенностей не нужно. Это личное действие.
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Что нужно иметь</div>
+            <ul class="card" style="border:none;background:var(--mid);padding:12px 14px;list-style:none;">
+              <li style="font-size:13px;color:var(--muted);margin-bottom:6px;padding-left:14px;position:relative;line-height:1.5;"><span style="position:absolute;left:0;">📱</span>Телефон с активной SIM-картой</li>
+              <li style="font-size:13px;color:var(--muted);margin-bottom:6px;padding-left:14px;position:relative;line-height:1.5;"><span style="position:absolute;left:0;">🌐</span>Интернет (WiFi или мобильный)</li>
+              <li style="font-size:13px;color:var(--muted);margin-bottom:0;padding-left:14px;position:relative;line-height:1.5;"><span style="position:absolute;left:0;">🔑</span>Новый пароль (придумать заранее)</li>
+            </ul>
+          </div>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Алгоритм действий</div>
+        <ol class="step-ol">
+          <li>Открыть приложение <strong>Instagram</strong> (или instagram.com на компьютере)</li>
+          <li>На экране входа нажать <strong>«Забыли пароль?»</strong></li>
+          <li>Ввести username: <span class="handle">@chateaudevaisselle</span> или номер телефона</li>
+          <li>Выбрать <strong>«Отправить SMS»</strong></li>
+          <li>На телефон придёт <strong>6-значный код</strong> — ввести его в течение 10 минут</li>
+          <li>Придумать и ввести <strong>новый пароль</strong> (минимум 8 символов, буквы + цифры)</li>
+          <li><strong>Войти в аккаунт</strong> — сразу привязать корпоративный email как запасной способ входа</li>
+          <li>Включить <strong>двухфакторную аутентификацию</strong> чтобы не потерять снова</li>
+        </ol>
+        <div class="info-box green" style="margin-top:12px;">
+          🎯 <strong>Если этот шаг сработает — на остальные шаги идти не нужно.</strong> Сохраните пароль в надёжном месте и немедленно добавьте резервный email.
+        </div>
+      </div>
+
+      <!-- ШАГ 2 -->
+      <div class="step-block secondary">
+        <div class="step-header">
+          <div class="step-badge-num blue">2</div>
+          <div>
+            <div class="step-title">Верификация личности через видеоселфи (если SMS не пришло)</div>
+            <span class="step-time medium">⏱ 3–7 дней</span>
+          </div>
+        </div>
+        <div class="cards-grid" style="margin-bottom:12px;">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Кто делает</div>
+            <div class="info-box blue" style="margin:0;padding:12px 14px;">
+              <strong>Владелец аккаунта</strong> — физическое лицо, чьё лицо будет сниматься на видео. Предпочтительно тот же человек, фото которого могут быть в аккаунте.
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Куда идти</div>
+            <div style="background:var(--mid);border-radius:8px;padding:12px 14px;">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">В приложении Instagram:</div>
+              <div style="font-size:13px;color:var(--text);line-height:1.6;">Экран входа → <strong>«Забыли пароль?»</strong> → <strong>«Нужна дополнительная помощь»</strong> → следовать инструкциям</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Алгоритм действий</div>
+        <ol class="step-ol">
+          <li>На экране входа нажать <strong>«Забыли пароль?»</strong> → <strong>«Нужна дополнительная помощь»</strong></li>
+          <li>Ввести username <span class="handle">@chateaudevaisselle</span></li>
+          <li>Instagram предложит <strong>снять видеоселфи</strong> — медленно повернуть голову в разные стороны</li>
+          <li>Видео отправляется в Meta на проверку — <strong>автоматический алгоритм</strong> сравнивает с фото в аккаунте</li>
+          <li>Указать <strong>новый email</strong>, на который придёт ссылка восстановления (через 1–7 дней)</li>
+          <li>Перейти по ссылке из письма → сбросить пароль</li>
+        </ol>
+        <div class="info-box blue" style="margin-top:12px;">
+          ⚠️ <strong>Важно:</strong> видеоселфи сравнивается с фото в профиле. Если в аккаунте нет фото владельца (только бренд-фото) — Instagram может не подтвердить. В этом случае переходить к Шагу 3.
+        </div>
+      </div>
+
+      <!-- ШАГ 3 -->
+      <div class="step-block tertiary">
+        <div class="step-header">
+          <div class="step-badge-num gold">3</div>
+          <div>
+            <div class="step-title">Meta Business Support — официальное обращение</div>
+            <span class="step-time slow">📋 3–10 дней</span>
+          </div>
+        </div>
+        <div class="cards-grid" style="margin-bottom:12px;">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Кто подаёт</div>
+            <div class="info-box gold" style="margin:0;padding:12px 14px;">
+              <strong>Владелец бизнеса (Печерский Дмитрий)</strong> — лично, с документами компании. Имя в обращении должно совпадать с документами.
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Куда идти</div>
+            <div style="background:var(--mid);border-radius:8px;padding:12px 14px;">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">Адрес формы:</div>
+              <span class="url-tag">instagram.com/hacked</span>
+              <div style="font-size:12px;color:var(--muted);margin-top:8px;margin-bottom:4px;">Или через бизнес-кабинет:</div>
+              <span class="url-tag">business.facebook.com/help</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Пакет документов</div>
+        <table class="data-table">
+          <thead><tr><th>Документ</th><th>Зачем нужен</th><th>Формат</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Паспорт владельца</strong></td><td>Подтверждение личности подающего</td><td class="muted">Фото / скан</td></tr>
+            <tr><td><strong>ИНН или выписка из ЕГРИП</strong></td><td>Подтверждение что это бизнес-аккаунт компании</td><td class="muted">Скан / PDF</td></tr>
+            <tr><td><strong>Номер телефона аккаунта</strong></td><td>Основной идентификатор регистрации</td><td class="muted">Указать в форме</td></tr>
+            <tr><td><strong>Email, привязанный к аккаунту</strong></td><td>Дополнительный идентификатор</td><td class="muted">Указать в форме</td></tr>
+            <tr><td><strong>Примеры публикаций</strong></td><td>Доказательство что вы вели аккаунт</td><td class="muted">Название, дата, тема постов</td></tr>
+            <tr><td><strong>Сайт компании</strong></td><td>Подтверждение владения брендом</td><td class="muted">URL сайта</td></tr>
+            <tr><td><strong>Username аккаунта</strong></td><td>Обязательный идентификатор</td><td class="muted">@chateaudevaisselle</td></tr>
+          </tbody>
+        </table>
+
+        <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:16px 0 10px;">Алгоритм действий</div>
+        <ol class="step-ol">
+          <li>Открыть <span class="url-tag">instagram.com/hacked</span></li>
+          <li>Выбрать: <strong>«Мой аккаунт был взломан»</strong> или <strong>«Не могу войти»</strong></li>
+          <li>Ввести username или email/телефон аккаунта</li>
+          <li>Выбрать устройство (iPhone / Android / другое)</li>
+          <li>Загрузить документы: паспорт + ИНН</li>
+          <li>Заполнить описание ситуации: когда потеряли доступ, что произошло</li>
+          <li>Указать <strong>новый контактный email</strong> для получения ответа</li>
+          <li>Ждать ответа от Meta: обычно <strong>3–10 рабочих дней</strong></li>
+          <li>Если ответ не пришёл — повторить обращение через другой канал</li>
+        </ol>
+      </div>
+
+      <!-- ШАГ 4 -->
+      <div class="step-block fallback">
+        <div class="step-header">
+          <div class="step-badge-num purple">4</div>
+          <div>
+            <div class="step-title">Повторная апелляция с полным пакетом</div>
+            <span class="step-time long">📅 7–14 дней</span>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.7;">Если Шаг 3 не дал результата — подаём расширенную апелляцию с доказательствами владения брендом.</p>
+        <ol class="step-ol">
+          <li>Сделать нотариально заверенное заявление о владении брендом (опционально — усиливает позицию)</li>
+          <li>Собрать дополнительные доказательства: скрины переписки в DM, старые рекламные кабинеты, чеки оплаты рекламы</li>
+          <li>Подать через форму <span class="url-tag">facebook.com/help/contact/183000765122339</span></li>
+          <li>Указать что предыдущее обращение было отклонено (добавить номер обращения)</li>
+          <li>Ждать ответа. Параллельно — активно развивать новый аккаунт</li>
+        </ol>
+        <div class="info-box purple" style="margin-top:12px;">
+          💡 <strong>Если и Шаг 4 не поможет</strong> — не критично. К этому моменту новый аккаунт по Сценарию 2 уже будет иметь 8 000–20 000 подписчиков и активный контент.
+        </div>
+      </div>
+
+    </div><!-- end steps-wrap -->
+
+    <!-- КТО ПОДАЁТ -->
+    <div style="margin-top:24px;">
+      <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Кто имеет право подавать апелляцию</div>
+      <table class="data-table">
+        <thead><tr><th>Кто</th><th>Может подавать?</th><th>Комментарий</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Владелец SIM-карты (чей номер в аккаунте)</strong></td><td class="green">✅ Идеально</td><td>Самый быстрый путь — только он получит SMS-код</td></tr>
+          <tr><td><strong>Генеральный директор / ИП-владелец с документами</strong></td><td class="green">✅ Через Business Support</td><td>Нужны паспорт + ИНН + документы на бренд</td></tr>
+          <tr><td><strong>Маркетолог / агентство</strong></td><td class="gold">⚠️ Ограниченно</td><td>Только если есть доступ к Business Manager или нотариальная доверенность</td></tr>
+          <tr><td><strong>Случайный сотрудник</strong></td><td class="muted">❌ Нет</td><td>Не пройдёт верификацию — нет связи с аккаунтом</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ИТОГОВАЯ ВОРОНКА -->
+    <div style="margin-top:24px;">
+      <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">Воронка восстановления — визуально</div>
+      <div class="ladder">
+        <div class="ladder-item">
+          <div class="ladder-line">
+            <div class="ladder-dot" style="background:var(--green);color:#06080E;">1</div>
+            <div class="ladder-connector"></div>
+          </div>
+          <div class="ladder-content">
+            <div class="ladder-title">SMS на телефон владельца → новый пароль <span style="color:var(--green);font-size:12px;">(10 мин)</span></div>
+            <div class="ladder-desc">SIM-карта у владельца → самый быстрый путь. Если сработало — стоп, остальное не нужно.</div>
+          </div>
+        </div>
+        <div class="ladder-item">
+          <div class="ladder-line">
+            <div class="ladder-dot" style="background:var(--accent);color:#fff;">2</div>
+            <div class="ladder-connector"></div>
+          </div>
+          <div class="ladder-content">
+            <div class="ladder-title">Видеоселфи → ссылка на email <span style="color:var(--accent);font-size:12px;">(3–7 дней)</span></div>
+            <div class="ladder-desc">Если SMS не пришло. Работает если фото владельца есть в профиле.</div>
+          </div>
+        </div>
+        <div class="ladder-item">
+          <div class="ladder-line">
+            <div class="ladder-dot" style="background:var(--gold);color:#06080E;">3</div>
+            <div class="ladder-connector"></div>
+          </div>
+          <div class="ladder-content">
+            <div class="ladder-title">Meta Business Support + документы компании <span style="color:var(--gold);font-size:12px;">(3–10 дней)</span></div>
+            <div class="ladder-desc">Паспорт + ИНН. Подаёт владелец бизнеса лично. instagram.com/hacked</div>
+          </div>
+        </div>
+        <div class="ladder-item ladder-last">
+          <div class="ladder-line">
+            <div class="ladder-dot" style="background:var(--purple);color:#fff;">4</div>
+            <div class="ladder-connector"></div>
+          </div>
+          <div class="ladder-content">
+            <div class="ladder-title">Повторная апелляция + доп. доказательства <span style="color:var(--purple);font-size:12px;">(7–14 дней)</span></div>
+            <div class="ladder-desc">Если всё выше не помогло. Параллельно новый аккаунт уже работает и набирает аудиторию.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end recovery-guide -->
 
   <div class="divider"></div>
 
@@ -431,13 +688,13 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
     <div class="section-tag">Вывод</div>
     <div class="info-box green">
       <strong>Главный аргумент в пользу действия сейчас:</strong><br><br>
-      Email-база 53 000 клиентов — это главный актив для быстрого старта нового аккаунта. За одну рассылку новый аккаунт получит больше целевых подписчиков, чем средний аккаунт набирает за год. При активной работе через 6 месяцев новый канал будет сильнее старого — потому что аудитория вовлечённая, прогретая и знает бренд.
+      SIM-карта у владельца + email-база 53 000 клиентов — это два ключа, которые открывают быстрое восстановление и быстрый рост нового аккаунта одновременно. За одну SMS-операцию можно вернуть 47К подписчиков. Если не получится — за одну рассылку новый аккаунт наберёт 1 500–4 000 подписчиков уже в первую неделю.
     </div>
     <div class="cards-grid" style="margin-top:16px;">
       <div class="card accent-top">
         <div class="card-title">📌 Три вещи — прямо сейчас</div>
         <ul>
-          <li>Подать заявку на восстановление через Meta</li>
+          <li>SMS-восстановление через телефон владельца (10 мин)</li>
           <li>Создать новый аккаунт <span class="handle">@chateau_vaisselle</span></li>
           <li>Запустить email-рассылку по базе 53К</li>
         </ul>
@@ -445,7 +702,7 @@ html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var
       <div class="card green-top">
         <div class="card-title">🚀 Что будет через 6 месяцев</div>
         <ul>
-          <li>35 000–50 000+ подписчиков нового аккаунта</li>
+          <li>35 000–50 000+ подписчиков (новый или старый аккаунт)</li>
           <li>Системный контент через AI-агента</li>
           <li>Конверсия соцсетей в трафик шоурумов</li>
           <li>Полная аналитика и отчётность</li>
