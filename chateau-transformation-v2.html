@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="robots" content="noindex,nofollow">
+<title>Château de Vaisselle × Home Project — Трансформация</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06080E;--bg2:#0A0E1A;--card:#0F1626;--card2:#151E33;
+  --accent:#4A8BF5;--accent2:#6BA4FF;
+  --gold:#D4A94A;--gold2:#F0C25E;
+  --green:#10B981;--green2:#34D399;
+  --purple:#8B5CF6;--purple2:#A78BFA;
+  --red:#EF4444;--orange:#F97316;
+  --text:#E7EBF3;--muted:#8896B3;--muted2:#5A6A88;
+  --border:#1E2842;--border2:#2B3856;
+}
+html,body{width:100%;height:100%;position:fixed;overflow:hidden;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+.topbar{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(6,8,14,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-icon{width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff}
+.brand-name{font-size:13px;font-weight:700;color:#fff}
+.brand-sub{font-size:11px;color:var(--muted)}
+.topbar-right{display:flex;align-items:center;gap:16px}
+.slide-counter{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.nav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;background:rgba(15,22,38,.95);border:1px solid var(--border2);border-radius:32px;padding:8px 12px;backdrop-filter:blur(12px);z-index:200}
+.nav-btn{width:36px;height:36px;border-radius:50%;background:transparent;border:1px solid var(--border2);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s}
+.nav-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.nav-dots{display:flex;gap:6px;padding:0 8px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--border2);cursor:pointer;transition:all .2s}
+.dot.active{background:var(--accent);width:20px;border-radius:3px}
+.deck{position:fixed;top:52px;left:0;right:0;bottom:0}
+.slide{position:absolute;inset:0;padding:36px 40px 90px;overflow-y:auto;display:none;background:var(--bg)}
+.slide.active{display:block}
+.slide-inner{max-width:1100px;margin:0 auto}
+h1.big{font-size:42px;font-weight:800;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,#C8D4F8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2.h2{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:10px;color:#fff}
+.subtitle{font-size:16px;color:var(--muted);margin-bottom:28px;line-height:1.5;max-width:800px}
+.eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);background:rgba(74,139,245,.1);border:1px solid rgba(74,139,245,.25);padding:5px 12px;border-radius:20px;margin-bottom:16px}
+.eyebrow.gold{color:var(--gold);background:rgba(212,169,74,.1);border-color:rgba(212,169,74,.25)}
+.eyebrow.green{color:var(--green2);background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.25)}
+.cover{min-height:calc(100vh - 142px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 20px}
+.cover-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,169,74,.12);border:1px solid rgba(212,169,74,.3);border-radius:24px;padding:8px 18px;margin-bottom:24px;font-size:12px;font-weight:600;color:var(--gold)}
+.cover h1{font-size:56px;font-weight:900;line-height:1.05;letter-spacing:-.03em;margin-bottom:20px;background:linear-gradient(135deg,#fff 0%,#8BA8E8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cover p{font-size:18px;color:var(--muted);max-width:640px;margin-bottom:36px;line-height:1.5}
+.cover-meta{display:flex;gap:32px;flex-wrap:wrap;justify-content:center;font-size:13px;color:var(--muted)}
+.cover-meta strong{color:var(--text);font-weight:600}
+.cover-mark{margin-top:36px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--muted2)}
+.confidential-tag{display:inline-block;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#F87171;font-size:10px;font-weight:700;letter-spacing:1.5px;padding:3px 10px;border-radius:4px;text-transform:uppercase;margin-bottom:20px}
+.cards-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cards-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;transition:all .2s}
+.card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.card-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:12px}
+.icon-blue{background:rgba(74,139,245,.15);color:var(--accent)}
+.icon-gold{background:rgba(212,169,74,.15);color:var(--gold)}
+.icon-green{background:rgba(16,185,129,.15);color:var(--green2)}
+.icon-purple{background:rgba(139,92,246,.15);color:var(--purple2)}
+.icon-red{background:rgba(239,68,68,.15);color:#F87171}
+.card h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.3}
+.card p{font-size:12.5px;color:var(--muted);line-height:1.5}
+.card .val{font-size:22px;font-weight:800;color:#fff;line-height:1;margin-bottom:4px}
+.card .lbl{font-size:11px;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.audit-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.audit-block{background:var(--card);border-radius:12px;padding:20px 22px;border-left:3px solid var(--green)}
+.audit-block.gap{border-left-color:var(--orange)}
+.audit-block h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.audit-block h4 .tag{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:700;letter-spacing:1px}
+.audit-block .tag-good{background:rgba(16,185,129,.15);color:var(--green2)}
+.audit-block .tag-gap{background:rgba(249,115,22,.15);color:#FDBA74}
+.audit-block ul{list-style:none;padding:0}
+.audit-block li{font-size:12.5px;color:var(--muted);padding:5px 0;padding-left:16px;position:relative;line-height:1.5}
+.audit-block li::before{content:'—';position:absolute;left:0;color:var(--muted2)}
+.audit-block li strong{color:var(--text)}
+table.data{width:100%;border-collapse:collapse;margin-top:16px;background:var(--card);border-radius:12px;overflow:hidden}
+table.data th{background:var(--card2);color:var(--muted);font-size:11px;font-weight:700;text-align:left;padding:12px 16px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--border2)}
+table.data td{padding:12px 16px;font-size:13px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle}
+table.data tr:last-child td{border-bottom:none}
+table.data tr:hover td{background:rgba(255,255,255,.02)}
+.badge{display:inline-block;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:700;letter-spacing:.5px}
+.b-green{background:rgba(16,185,129,.15);color:var(--green2)}
+.b-red{background:rgba(239,68,68,.15);color:#F87171}
+.b-gold{background:rgba(212,169,74,.15);color:var(--gold)}
+.b-blue{background:rgba(74,139,245,.15);color:var(--accent)}
+.b-gray{background:rgba(90,106,136,.2);color:var(--muted)}
+.voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.voice{background:var(--card);border-radius:12px;padding:18px 20px;border-left:3px solid var(--accent)}
+.voice-role{font-size:11px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.voice-quote{font-size:13.5px;color:var(--text);line-height:1.55;font-style:italic;margin-bottom:8px}
+.voice-note{font-size:11.5px;color:var(--muted);line-height:1.45}
+.growth-list{margin-top:12px}
+.growth-item{display:flex;gap:18px;background:var(--card);border-radius:12px;padding:18px 20px;margin-bottom:12px;border:1px solid var(--border)}
+.growth-num{flex-shrink:0;width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff}
+.growth-content{flex:1}
+.growth-content h4{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+.growth-content p{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:6px}
+.growth-content .kpi{font-size:11.5px;color:var(--gold);font-weight:600}
+.agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.agent{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;transition:all .2s}
+.agent:hover{border-color:var(--accent)}
+.agent-icon{font-size:18px;margin-bottom:6px}
+.agent-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px}
+.agent-role{font-size:10.5px;color:var(--muted);line-height:1.35}
+.agent.gold{border-color:rgba(212,169,74,.35);background:linear-gradient(135deg,var(--card),rgba(212,169,74,.05))}
+.mcp-hero{background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(74,139,245,.08));border:1px solid rgba(139,92,246,.25);border-radius:16px;padding:24px 26px;margin-bottom:18px}
+.mcp-hero h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:10px}
+.mcp-hero p{font-size:13.5px;color:var(--muted);line-height:1.55}
+.mcp-hero .highlight{color:var(--purple2);font-weight:600}
+.mcp-econ{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.econ-box{background:var(--card);border-radius:10px;padding:14px 16px;text-align:center}
+.econ-val{font-size:24px;font-weight:800;line-height:1;margin-bottom:4px}
+.econ-lbl{font-size:11px;color:var(--muted);line-height:1.4}
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+.pkg{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 20px 20px;position:relative;display:flex;flex-direction:column}
+.pkg.recommend{border-color:var(--gold);background:linear-gradient(180deg,rgba(212,169,74,.08),var(--card) 60%);box-shadow:0 4px 24px rgba(212,169,74,.1)}
+.pkg-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:4px 12px;border-radius:12px;text-transform:uppercase}
+.pkg-name{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.pkg.recommend .pkg-name{color:var(--gold)}
+.pkg-tag{font-size:11px;color:var(--muted2);margin-bottom:14px}
+.pkg-price{font-size:32px;font-weight:800;color:#fff;line-height:1;margin-bottom:4px}
+.pkg-currency{font-size:16px;color:var(--muted);font-weight:500;margin-left:4px}
+.pkg-monthly{font-size:12px;color:var(--muted);margin-bottom:16px}
+.pkg-monthly strong{color:var(--text)}
+.pkg-term{font-size:11px;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.pkg-list{list-style:none;padding:0;flex:1;margin-bottom:16px}
+.pkg-list li{font-size:12px;color:var(--text);padding:5px 0;padding-left:18px;position:relative;line-height:1.4}
+.pkg-list li::before{content:'✓';position:absolute;left:0;color:var(--green2);font-weight:800}
+.pkg-list li.no{color:var(--muted2)}
+.pkg-list li.no::before{content:'—';color:var(--muted2)}
+.pkg-list li.star{color:var(--gold);font-weight:600}
+.pkg-list li.star::before{content:'★';color:var(--gold)}
+.justify-box{background:var(--card);border-radius:10px;padding:14px 16px;margin-top:16px;border-left:3px solid var(--accent)}
+.justify-box h5{font-size:12px;font-weight:700;color:#fff;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+.justify-box p{font-size:12px;color:var(--muted);line-height:1.55}
+.seo-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.seo-col{background:var(--card);border-radius:12px;padding:18px 20px;border:1px solid var(--border)}
+.seo-col.bonus{border-color:rgba(212,169,74,.4);background:linear-gradient(135deg,rgba(212,169,74,.06),var(--card))}
+.seo-col h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.seo-col ul{list-style:none;padding:0}
+.seo-col li{font-size:12.5px;color:var(--muted);padding:5px 0;padding-left:16px;position:relative;line-height:1.5}
+.seo-col li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:700}
+.seo-col li strong{color:var(--text)}
+.seo-bonus-price{background:rgba(212,169,74,.15);color:var(--gold);font-size:16px;font-weight:800;padding:10px 14px;border-radius:8px;text-align:center;margin-top:12px}
+.timeline{margin-top:16px}
+.tl-row{display:flex;gap:16px;padding-bottom:22px;position:relative}
+.tl-row:last-child{padding-bottom:0}
+.tl-marker{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;z-index:1;position:relative}
+.tl-line{position:absolute;left:16px;top:34px;bottom:0;width:2px;background:var(--border)}
+.tl-row:last-child .tl-line{display:none}
+.tl-content{flex:1;padding-top:4px}
+.tl-content h5{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
+.tl-content .tl-time{font-size:11px;color:var(--gold);font-weight:600;margin-bottom:6px}
+.tl-content p{font-size:12px;color:var(--muted);line-height:1.5}
+.cta-hero{text-align:center;padding:20px 0}
+.cta-hero h1{font-size:42px;font-weight:800;line-height:1.15;margin-bottom:14px;background:linear-gradient(135deg,#fff,#C8D4F8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cta-hero p{font-size:15px;color:var(--muted);max-width:600px;margin:0 auto 28px;line-height:1.6}
+.cta-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:900px;margin:24px auto 0}
+.cta-step{background:var(--card);border-radius:12px;padding:20px 18px;text-align:center;border:1px solid var(--border)}
+.cta-step-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.cta-step h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
+.cta-step p{font-size:12px;color:var(--muted);line-height:1.5}
+.cta-contact{margin-top:32px;padding:18px 22px;background:var(--card);border-radius:12px;text-align:center;font-size:13px;color:var(--muted)}
+.cta-contact strong{color:#fff}
+.callout{border-radius:10px;padding:12px 16px;font-size:12.5px;line-height:1.55;margin-top:14px;display:flex;gap:10px;align-items:flex-start}
+.callout-blue{background:rgba(74,139,245,.08);border:1px solid rgba(74,139,245,.2);color:var(--muted)}
+.callout-gold{background:rgba(212,169,74,.08);border:1px solid rgba(212,169,74,.2);color:var(--muted)}
+.callout-green{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:var(--muted)}
+.callout strong{color:#fff;font-weight:600}
+.callout-icon{flex-shrink:0;font-size:15px;margin-top:1px}
+@media(max-width:768px){
+  .slide{padding:24px 18px 90px}
+  h1.big{font-size:30px}
+  h2.h2{font-size:22px}
+  .subtitle{font-size:14px;margin-bottom:20px}
+  .cover h1{font-size:36px}
+  .cover p{font-size:15px}
+  .cover-meta{gap:16px;font-size:12px}
+  .cards-2,.cards-3,.cards-4,.audit-row,.pkg-grid,.seo-cols,.voice-grid,.cta-steps,.mcp-econ{grid-template-columns:1fr !important}
+  .agents-grid{grid-template-columns:repeat(2,1fr)}
+  table.data{font-size:11.5px}
+  table.data th,table.data td{padding:8px 10px}
+  .pkg-price{font-size:26px}
+  .cta-hero h1{font-size:28px}
+  .topbar{padding:0 14px;height:46px}
+  .deck{top:46px}
+  .brand-name{font-size:12px}
+  .brand-sub{font-size:10px}
+  .nav{bottom:12px;padding:6px 10px}
+  .nav-btn{width:32px;height:32px;font-size:14px}
+  .growth-item{padding:14px 16px;gap:12px}
+  .growth-num{width:34px;height:34px;font-size:15px}
+}
+.slide::-webkit-scrollbar{width:6px}
+.slide::-webkit-scrollbar-track{background:transparent}
+.slide::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-icon">C</div>
+    <div>
+      <div class="brand-name">Château × Home Project</div>
+      <div class="brand-sub">Программа трансформации</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <span class="slide-counter"><span id="cur">1</span> / 11</span>
+  </div>
+</div>
+<div class="deck" id="deck">
+<section class="slide active" data-idx="0">
+  <div class="slide-inner cover">
+    <div class="confidential-tag">Конфиденциально · Château de Vaisselle</div>
+    <div class="cover-badge">🏰 Программа трансформации · v2 · 20.07.2026</div>
+    <h1>Château de Vaisselle<br><span style="color:var(--gold);background:none;-webkit-text-fill-color:var(--gold);">компания нового поколения</span></h1>
+    <p>По результатам аудита анкеты, анализа рынка и конкурентов —<br>предметный план перехода на AI-первую операционную модель</p>
+    <div class="cover-meta">
+      <div><strong>Клиент:</strong> Château de Vaisselle</div>
+      <div><strong>Партнёр:</strong> Home Project AI Platform</div>
+      <div><strong>Формат:</strong> Живая встреча с обсуждением</div>
+    </div>
+    <div class="cover-mark">Дмитрий Печерский (владелец) · Татьяна Костина (ком.дир.) · 20.07.2026</div>
+  </div>
+</section>
+<section class="slide" data-idx="1">
+  <div class="slide-inner">
+    <div class="eyebrow">Раздел 1 · Результаты аудита</div>
+    <h2 class="h2">Что показала анкета Château</h2>
+    <p class="subtitle">По ответам от 17.07.2026. Разделили на «работает хорошо» и «точки внимания» — без приукрашивания.</p>
+    <div class="cards-4" style="margin-bottom:20px">
+      <div class="card"><div class="val" style="color:var(--gold)">2</div><div class="lbl">Шоурума в Москве</div></div>
+      <div class="card"><div class="val" style="color:var(--accent)">53k</div><div class="lbl">Клиентов в базе</div></div>
+      <div class="card"><div class="val" style="color:var(--green2)">2 млн ₽</div><div class="lbl">Средний проект</div></div>
+      <div class="card"><div class="val" style="color:var(--purple2)">3</div><div class="lbl">Дизайнера кухонь</div></div>
+    </div>
+    <div class="audit-row">
+      <div class="audit-block">
+        <h4>Сильные стороны <span class="tag tag-good">Работает</span></h4>
+        <ul>
+          <li><strong>Премиум-позиционирование</strong> в сегменте посуды и кухонных решений</li>
+          <li><strong>2 живых шоурума</strong> — важнейший актив в высоком сегменте</li>
+          <li><strong>53 000 клиентов</strong> в базе — колоссальный ресурс для реактивации</li>
+          <li><strong>Средний чек проекта 2 млн ₽</strong> — премиум-профиль подтверждён</li>
+          <li><strong>3 дизайнера кухонь</strong> — есть кому передавать AI-инструменты</li>
+        </ul>
+      </div>
+      <div class="audit-block gap">
+        <h4>Точки внимания <span class="tag tag-gap">Пробелы</span></h4>
+        <ul>
+          <li><strong>Онлайн-канал слабый</strong>: сайт не работает как инструмент продаж и подбора</li>
+          <li><strong>Реактивация базы почти не ведётся</strong>: 53k клиентов «спят»</li>
+          <li><strong>КП делаются вручную</strong>: 30 мин – 2 дня, много ошибок</li>
+          <li><strong>Соцсети и SEO не системно</strong>: канал приведения не масштабируется</li>
+          <li><strong>Нет CRM с автоматизацией</strong> follow-up и сегментации</li>
+          <li><strong>Техника не в фокусе</strong> — направление недооформлено онлайн</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout callout-gold">
+      <span class="callout-icon">💡</span>
+      <div><strong>Главный вывод аудита:</strong> у Château есть всё что нужно (клиенты, чек, шоурумы, команда), но операционка ручная и не масштабируется. Внедрение AI-первой модели даёт немедленный рост без расширения штата.</div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-idx="2">
+  <div class="slide-inner">
+    <div class="eyebrow">Раздел 2 · Рыночный контекст</div>
+    <h2 class="h2">Что делают конкуренты в премиум-сегменте</h2>
+    <p class="subtitle">Данные из конкурентного анализа 10.07.2026 — 7 ключевых игроков рынка Москва.</p>
+    <table class="data">
+      <thead>
+        <tr><th>Игрок</th><th>Онлайн-каталог</th><th>SEO</th><th>Соцсети</th><th>Email</th><th>B2B</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Hausdorf</strong></td><td><span class="badge b-green">Сильный</span></td><td><span class="badge b-green">★★★★★</span></td><td><span class="badge b-gold">Средне</span></td><td><span class="badge b-red">Нет</span></td><td><span class="badge b-gold">Непрозрачная</span></td></tr>
+        <tr><td><strong>High-Level Distribution</strong></td><td><span class="badge b-gold">Средний</span></td><td><span class="badge b-gold">★★</span></td><td><span class="badge b-red">Нет</span></td><td><span class="badge b-red">Нет</span></td><td><span class="badge b-green">Лучшая (8-15%)</span></td></tr>
+        <tr><td><strong>Mobiliere / Gaggenau.su</strong></td><td><span class="badge b-gold">Слабый</span></td><td><span class="badge b-gold">★★</span></td><td><span class="badge b-green">Есть</span></td><td><span class="badge b-green">Есть</span></td><td><span class="badge b-gold">По контакту</span></td></tr>
+        <tr><td><strong>Home Holding (Homeier)</strong></td><td><span class="badge b-gold">B2B-платформа</span></td><td><span class="badge b-gold">★★★</span></td><td><span class="badge b-red">Нет</span></td><td><span class="badge b-red">Нет</span></td><td><span class="badge b-gold">Скрытая</span></td></tr>
+        <tr><td><strong>Interior Market</strong></td><td><span class="badge b-red">Нет</span></td><td><span class="badge b-gold">★★</span></td><td><span class="badge b-red">Нет</span></td><td><span class="badge b-red">Нет</span></td><td><span class="badge b-blue">Через студии</span></td></tr>
+        <tr style="background:rgba(212,169,74,.05)"><td><strong style="color:var(--gold)">Château (сейчас)</strong></td><td><span class="badge b-red">Слабый</span></td><td><span class="badge b-red">★</span></td><td><span class="badge b-red">Не системно</span></td><td><span class="badge b-red">Нет</span></td><td><span class="badge b-red">Нет прозрачной</span></td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-blue">
+      <span class="callout-icon">📌</span>
+      <div>Никто из конкурентов <strong>не сочетает все каналы одновременно</strong>. Ни один не имеет системного email-маркетинга для дизайнеров. Ни один не работает через MCP-протокол для AI-ассистентов партнёров. <strong>Окно возможностей открыто.</strong></div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-idx="3">
+  <div class="slide-inner">
+    <div class="eyebrow">Раздел 3 · Голос рынка</div>
+    <h2 class="h2">Что хотят клиенты Château — по каналам</h2>
+    <p class="subtitle">Собрано из интервью с дизайнерами и архитекторами (база 14 000 контактов) и данных конкурентного анализа премиум-сегмента.</p>
+    <div class="voice-grid">
+      <div class="voice">
+        <div class="voice-role">🎨 Дизайнер кухонь</div>
+        <div class="voice-quote">«Хочу за 2 минуты получить подборку техники под мой проект: варианты, размеры, цены, наличие. А не звонить и ждать сутки.»</div>
+        <div class="voice-note">Château решает: AI-подбор + MCP-платформа = ответ в реальном времени прямо в его рабочем инструменте.</div>
+      </div>
+      <div class="voice">
+        <div class="voice-role">🏢 Архитектор / бюро</div>
+        <div class="voice-quote">«Мне нужны монтажные схемы, размеры врезки, спецификации — на этапе проектирования, а не потом.»</div>
+        <div class="voice-note">Château решает: полная документация в онлайн-каталоге + AI-агент отвечает 24/7.</div>
+      </div>
+      <div class="voice">
+        <div class="voice-role">🏗️ Девелопер / B2B</div>
+        <div class="voice-quote">«У меня 40 квартир на комплектацию. Не хочу обзванивать 5 поставщиков — дайте один расчёт по всем позициям.»</div>
+        <div class="voice-note">Château решает: пакетный расчёт для проектов + партнёрская программа с прозрачными условиями.</div>
+      </div>
+      <div class="voice">
+        <div class="voice-role">🛋️ Частный премиум-клиент</div>
+        <div class="voice-quote">«Устал от каталогов без цен. Хочу видеть решение с ценой и сроком сразу.»</div>
+        <div class="voice-note">Château решает: онлайн-конфигуратор + прозрачная стоимость + запись на консультацию в шоуруме.</div>
+      </div>
+    </div>
+    <div class="callout callout-green">
+      <span class="callout-icon">🎯</span>
+      <div>Все 4 сегмента ищут одно и то же: <strong>скорость + прозрачность + профессионализм</strong>. Château уже даёт профессионализм в оффлайне — задача перенести это в онлайн-каналы через AI-инфраструктуру.</div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-idx="4">
+  <div class="slide-inner">
+    <div class="eyebrow gold">Раздел 4 · Точки роста</div>
+    <h2 class="h2">5 приоритетных точек роста для Château</h2>
+    <p class="subtitle">На пересечении «что показал аудит» + «что делает рынок» + «что хотят клиенты».</p>
+    <div class="growth-list">
+      <div class="growth-item">
+        <div class="growth-num">1</div>
+        <div class="growth-content">
+          <h4>Онлайн-платформа как инструмент продаж</h4>
+          <p>Не сайт-витрина, а работающий инструмент: конфигуратор, подбор, наличие, запись в шоурум.</p>
+          <div class="kpi">Ожидаемый эффект: +30–50% онлайн-заявок / квартал</div>
+        </div>
+      </div>
+      <div class="growth-item">
+        <div class="growth-num">2</div>
+        <div class="growth-content">
+          <h4>Реактивация 53 000 «спящих» клиентов</h4>
+          <p>Умная сегментация + AI-цепочки писем: сообщение под этап жизни клиента.</p>
+          <div class="kpi">Ожидаемый эффект: 1–2% реактивации = 500–1000 сделок / год</div>
+        </div>
+      </div>
+      <div class="growth-item">
+        <div class="growth-num">3</div>
+        <div class="growth-content">
+          <h4>AI-подбор техники для 3 дизайнеров</h4>
+          <p>Каждый дизайнер тратит ~40 мин/день на поиск техники. AI-агент + MCP сокращают до 5 мин.</p>
+          <div class="kpi">Экономия: ~660 000 ₽/год времени + ускорение сделок</div>
+        </div>
+      </div>
+      <div class="growth-item">
+        <div class="growth-num">4</div>
+        <div class="growth-content">
+          <h4>B2B-канал: дизайнеры и архитекторы</h4>
+          <p>Прозрачная партнёрская программа с онлайн-регистрацией. Château — «поставщик выбора» для 500+ дизайнеров.</p>
+          <div class="kpi">Потенциал: 100–200 новых B2B-партнёров / год</div>
+        </div>
+      </div>
+      <div class="growth-item">
+        <div class="growth-num">5</div>
+        <div class="growth-content">
+          <h4>SEO + контент-хаб для профессионалов</h4>
+          <p>Экспертные материалы по встраиваемой технике, посуде, сервировке — под запросы дизайнеров.</p>
+          <div class="kpi">Ожидаемый эффект: топ-10 по 30–50 ключевым запросам за 6 мес</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-idx="5">
+  <div class="slide-inner">
+    <div class="eyebrow">Раздел 5 · Наше предложение</div>
+    <h2 class="h2">Компания нового поколения: 15 AI-агентов вместо расширения штата</h2>
+    <p class="subtitle">Мы предлагаем не «внедрить пару инструментов», а перестроить операционную модель. Каждая функция — за конкретным AI-агентом, работающим 24/7.</p>
+    <div class="agents-grid">
+      <div class="agent gold"><div class="agent-icon">🎯</div><div class="agent-name">Дизайн-агент</div><div class="agent-role">Подбор техники (MCP)</div></div>
+      <div class="agent gold"><div class="agent-icon">📋</div><div class="agent-name">КП-агент</div><div class="agent-role">Формирование КП за секунды</div></div>
+      <div class="agent"><div class="agent-icon">📞</div><div class="agent-name">Инбаунд</div><div class="agent-role">Входящие звонки и письма</div></div>
+      <div class="agent"><div class="agent-icon">💌</div><div class="agent-name">Email-маркетолог</div><div class="agent-role">Реактивация 53k базы</div></div>
+      <div class="agent"><div class="agent-icon">📱</div><div class="agent-name">SMM-агент</div><div class="agent-role">Контент для соцсетей ежедневно</div></div>
+      <div class="agent"><div class="agent-icon">🔍</div><div class="agent-name">SEO-агент</div><div class="agent-role">Контент под ключевые запросы</div></div>
+      <div class="agent"><div class="agent-icon">🎨</div><div class="agent-name">Дизайнер</div><div class="agent-role">Визуал для соцсетей и КП</div></div>
+      <div class="agent"><div class="agent-icon">📊</div><div class="agent-name">Аналитик</div><div class="agent-role">Отчёты по продажам и ROI</div></div>
+      <div class="agent"><div class="agent-icon">🤝</div><div class="agent-name">Партнёр-менеджер</div><div class="agent-role">Ведение B2B-программы</div></div>
+      <div class="agent"><div class="agent-icon">💳</div><div class="agent-name">Бухгалтер</div><div class="agent-role">Первичка, счета, акты</div></div>
+      <div class="agent"><div class="agent-icon">📝</div><div class="agent-name">Юрист</div><div class="agent-role">Договоры, документы</div></div>
+      <div class="agent"><div class="agent-icon">👥</div><div class="agent-name">HR-агент</div><div class="agent-role">Онбординг, обучение</div></div>
+      <div class="agent"><div class="agent-icon">📦</div><div class="agent-name">Каталог-агент</div><div class="agent-role">Синхронизация с поставщиками</div></div>
+      <div class="agent"><div class="agent-icon">🛠️</div><div class="agent-name">Поддержка</div><div class="agent-role">Ответы клиентам 24/7</div></div>
+      <div class="agent"><div class="agent-icon">🎓</div><div class="agent-name">Обучение</div><div class="agent-role">Материалы для дизайнеров-партнёров</div></div>
+    </div>
+    <div class="callout callout-blue" style="margin-top:20px">
+      <span class="callout-icon">🔧</span>
+      <div><strong>Реалистично:</strong> AI-агенты не заменяют людей — они забирают 30–70% рутины с каждого сотрудника. Ваши 25 человек продолжают работать, но с силой команды 40+ человек. И ваши 3 дизайнера могут вести в 2 раза больше проектов.</div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-idx="6">
+  <div class="slide-inner">
+    <div class="eyebrow" style="color:var(--purple2);background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.25)">Раздел 6 · Ключевое преимущество</div>
+    <h2 class="h2">MCP-платформа: Château — первая кухонная студия в России с этим</h2>
+    <div class="mcp-hero">
+      <h3>Что такое MCP в трёх словах</h3>
+      <p>MCP (Model Context Protocol) — <span class="highlight">открытый стандарт Anthropic</span>, который позволяет любому AI-ассистенту (Claude, GPT-4, Copilot) <span class="highlight">напрямую подключаться к каталогу Château</span> — без браузера, без копипаста, без ошибок. Дизайнер спрашивает своего AI: «духовка V-ZUG до 180 тыс, 60 см» — и AI берёт данные из вашей системы за секунды.</p>
+    </div>
+    <div class="cards-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-icon icon-red">✗</div>
+        <h4>Сегодня без MCP</h4>
+        <p>Дизайнер идёт на 3–5 сайтов, копирует данные руками, звонит уточнять наличие, ждёт КП сутки. Ошибки в подборе → переделки → потеря сделки.</p>
+      </div>
+      <div class="card" style="border-color:rgba(139,92,246,.3)">
+        <div class="card-icon icon-purple">✓</div>
+        <h4>С MCP Château</h4>
+        <p>Дизайнер спрашивает своего AI → ответ с ценами и наличием за 3 секунды. КП формируется автоматически. Château «встроен» в его рабочий процесс.</p>
+      </div>
+    </div>
+    <h4 style="font-size:14px;color:#fff;margin:20px 0 10px;font-weight:700">Экономика MCP для Château (расчёт по вашей структуре)</h4>
+    <div class="mcp-econ">
+      <div class="econ-box">
+        <div class="econ-val" style="color:var(--green2)">660 000 ₽</div>
+        <div class="econ-lbl">Экономия времени 3 дизайнеров / год<br>(40 мин × 22 дня × 12 мес × 1500 ₽/час)</div>
+      </div>
+      <div class="econ-box">
+        <div class="econ-val" style="color:var(--gold)">+2–3 млн ₽</div>
+        <div class="econ-lbl">Рост выручки от скорости<br>(конверсия +10–15% от «отвечаем за секунды»)</div>
+      </div>
+      <div class="econ-box">
+        <div class="econ-val" style="color:var(--accent)">×5–10</div>
+        <div class="econ-lbl">Больше B2B-обращений<br>(дизайнеры-партнёры «привязываются»)</div>
+      </div>
+    </div>
+    <div class="callout callout-gold" style="margin-top:16px">
+      <span class="callout-icon">🏆</span>
+      <div><strong>Конкурентное отличие:</strong> Ни Hausdorf, ни High-Level, ни Mobiliere, ни Home Holding не имеют MCP-сервера. Château станет <strong>первой и единственной студией в РФ</strong> с этим инструментом — минимум на 12–18 месяцев. Это ставит Château в отдельную категорию «AI-ready поставщик».</div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-idx="7">
+  <div class="slide-inner">
+    <div class="eyebrow gold">Раздел 7 · Пакеты внедрения</div>
+    <h2 class="h2">Три сценария под ваши цели</h2>
+    <p class="subtitle">Не «диапазон цен» — а три конкретных пакета с чётким составом. Каждый пакет решает свою задачу.</p>
+    <div class="pkg-grid">
+      <div class="pkg">
+        <div class="pkg-name">Пакет A · MVP</div>
+        <div class="pkg-tag">«Быстрый старт»</div>
+        <div class="pkg-price">2.4<span class="pkg-currency">млн ₽</span></div>
+        <div class="pkg-monthly">+ <strong>180 000 ₽/мес</strong> сопровождение</div>
+        <div class="pkg-term">Срок запуска: 3 месяца</div>
+        <ul class="pkg-list">
+          <li>Сайт: техника + кухни (базовый)</li>
+          <li>CRM: базовая настройка</li>
+          <li>5 AI-агентов (продажи, follow-up, отчёты, SMM, поддержка)</li>
+          <li>Соцсети: только настройка каналов</li>
+          <li class="no">Посуда на сайте отдельно</li>
+          <li class="no">MCP-платформа для дизайнеров</li>
+          <li class="no">SEO-стратегия и контент</li>
+          <li class="no">Кастомные агенты под Château</li>
+        </ul>
+        <div style="font-size:11px;color:var(--muted2);text-align:center">Для теста подхода без полной трансформации</div>
+      </div>
+      <div class="pkg recommend">
+        <div class="pkg-badge">Рекомендуем</div>
+        <div class="pkg-name">Пакет B · Оптимальный</div>
+        <div class="pkg-tag">«Компания нового поколения»</div>
+        <div class="pkg-price">3.8<span class="pkg-currency">млн ₽</span></div>
+        <div class="pkg-monthly">+ <strong>320 000 ₽/мес</strong> сопровождение</div>
+        <div class="pkg-term">Срок запуска: 5 месяцев</div>
+        <ul class="pkg-list">
+          <li>Всё из пакета А</li>
+          <li>Сайт: посуда + все разделы (полный охват)</li>
+          <li>15 AI-агентов (полный набор)</li>
+          <li class="star">MCP-платформа для дизайнеров (эксклюзив)</li>
+          <li>Реактивация 53k базы (сегментация + цепочки)</li>
+          <li>SMM + email-стратегия под дизайнеров</li>
+          <li class="star">SEO: 3 месяца бесплатно (бонус ~650k ₽)</li>
+          <li class="no">Кастомные агенты под Château</li>
+        </ul>
+        <div style="font-size:11px;color:var(--gold);text-align:center;font-weight:600">Оптимальное соотношение результата и инвестиции</div>
+      </div>
+      <div class="pkg">
+        <div class="pkg-name">Пакет C · Максимум</div>
+        <div class="pkg-tag">«Полная перестройка»</div>
+        <div class="pkg-price">5.4<span class="pkg-currency">млн ₽</span></div>
+        <div class="pkg-monthly">+ <strong>500 000 ₽/мес</strong> сопровождение</div>
+        <div class="pkg-term">Срок запуска: 6–7 месяцев</div>
+        <ul class="pkg-list">
+          <li>Всё из пакета B</li>
+          <li>5 кастомных агентов под специфику Château</li>
+          <li>Интеграции: сайт ↔ 1С ↔ склад ↔ логистика</li>
+          <li>Мобильное приложение для B2B-партнёров</li>
+          <li>Полный SEO-пакет на 12 месяцев</li>
+          <li>Приоритетная поддержка 24/7 (SLA)</li>
+          <li>Стратегические сессии (ежеквартально)</li>
+          <li>Roadmap развития на 18 месяцев</li>
+        </ul>
+        <div style="font-size:11px;color:var(--muted2);text-align:center">Для позиционирования как №1 в сегменте</div>
+      </div>
+    </div>
+    <div class="justify-box">
+      <h5>Почему такое обоснование цен</h5>
+      <p>Разработка интернет-магазина такого масштаба на рынке стоит <strong>900k – 2.5 млн ₽</strong> (данные Ruward / Texterra 2025). Кастомные AI-агенты — <strong>350k – 1.5 млн ₽ за агента</strong>. Ежемесячная AI-платформа — <strong>80–250k ₽/мес</strong>. Наши пакеты собраны в средней части рынка при этом с AI-ускорением сроков в 2–3×. Не самое дешёвое — но лучшее соотношение «цена / результат / срок».</p>
+    </div>
+  </div>
+</section>
+<section class="slide" data-idx="8">
+  <div class="slide-inner">
+    <div class="eyebrow green">Раздел 8 · Продвижение</div>
+    <h2 class="h2">SEO и продвижение: что нужно и что даём в бонус</h2>
+    <p class="subtitle">В v1 презентации этот блок был не раскрыт. Разбираем предметно: рыночная стоимость + наш бонус.</p>
+    <div class="seo-cols">
+      <div class="seo-col">
+        <h4>🔍 Стандартный SEO-пакет (рыночные цены)</h4>
+        <ul>
+          <li><strong>Технический SEO-аудит</strong> + первичная оптимизация — <strong>150–250 тыс ₽ разово</strong></li>
+          <li><strong>Контент-стратегия</strong> под запросы дизайнеров и премиум-клиентов — <strong>100–180 тыс ₽/мес</strong></li>
+          <li><strong>Работа со ссылками</strong> и справочниками (2ГИС, Яндекс.Карты) — <strong>30–60 тыс ₽/мес</strong></li>
+          <li><strong>Ежемесячная аналитика позиций</strong> и корректировка стратегии — <strong>15–25 тыс ₽/мес</strong></li>
+        </ul>
+        <div style="margin-top:14px;padding:10px 14px;background:var(--card2);border-radius:8px;text-align:center;font-size:12px;color:var(--muted)">
+          Разово: <strong style="color:var(--text)">150–250 тыс ₽</strong> · Ежемесячно: <strong style="color:var(--text)">150–265 тыс ₽</strong>
+        </div>
+      </div>
+      <div class="seo-col bonus">
+        <h4>🎁 Наш бонус для Château</h4>
+        <ul>
+          <li><strong>3 месяца SEO-сопровождения бесплатно</strong> — контент, статьи, работа со справочниками</li>
+          <li><strong>Первичный SEO-аудит бесплатно</strong> — в составе пакета B/C</li>
+          <li><strong>Настройка Яндекс.Метрики</strong> и целей — бесплатно</li>
+          <li><strong>Roadmap продвижения на 12 месяцев</strong> — бесплатно</li>
+        </ul>
+        <div class="seo-bonus-price">
+          Ценность бонуса: <strong>~650 000 ₽</strong>
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:var(--muted);text-align:center">Условие: заключение договора на пакет B или C до <strong style="color:var(--text)">31.08.2026</strong></div>
+      </div>
+    </div>
+    <div class="callout callout-blue">
+      <span class="callout-icon">📈</span>
+      <div><strong>Что реалистично ждать от SEO за 6 месяцев:</strong> топ-10 Яндекса и Google по 30–50 ключевым запросам («посуда премиум москва», «встраиваемая техника V-ZUG», «Küppersbusch купить», «шоурум кухонной техники»). После 6 мес — стабильный поток 200–500 органических посетителей/день, 3–5% превращаются в лиды.</div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-idx="9">
+  <div class="slide-inner">
+    <div class="eyebrow">Раздел 9 · График работ</div>
+    <h2 class="h2">Дорожная карта: 5 месяцев до полного запуска (пакет B)</h2>
+    <p class="subtitle">Этапы идут частично параллельно. Первые результаты — уже к концу 2-го месяца.</p>
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-marker" style="background:var(--accent)">0</div><div class="tl-line"></div>
+        <div class="tl-content">
+          <h5>Финальный аудит и техническое задание</h5>
+          <div class="tl-time">2 недели · включено в проект</div>
+          <p>Детальное ТЗ по каждому этапу, интеграционная схема, распределение ролей команды Château и Home Project.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-marker" style="background:var(--accent)">1</div><div class="tl-line"></div>
+        <div class="tl-content">
+          <h5>Сайт: техника + кухни (Этап 2А)</h5>
+          <div class="tl-time">Недели 1–8 · параллельно с этапом 2</div>
+          <p>Полноценный онлайн-каталог по технике и кухонным решениям. Карточки, фильтры, сравнение, наличие, запись в шоурум.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-marker" style="background:var(--purple)">2</div><div class="tl-line"></div>
+        <div class="tl-content">
+          <h5>MCP-платформа + запуск дизайн-агента</h5>
+          <div class="tl-time">Недели 3–8 · параллельно с сайтом</div>
+          <p>MCP-сервер для внешних AI-ассистентов дизайнеров. Онбординг первых 20 дизайнеров-партнёров.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-marker" style="background:var(--accent)">3</div><div class="tl-line"></div>
+        <div class="tl-content">
+          <h5>CRM + реактивация базы</h5>
+          <div class="tl-time">Недели 4–10</div>
+          <p>Настройка CRM, миграция 53k контактов, сегментация, первые email-кампании реактивации (по 3 сегментам).</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-marker" style="background:var(--accent)">4</div><div class="tl-line"></div>
+        <div class="tl-content">
+          <h5>Сайт: посуда + остальные разделы (Этапы 2Б+2В)</h5>
+          <div class="tl-time">Недели 8–16</div>
+          <p>Расширение сайта на все продуктовые направления. Полный охват ассортимента.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-marker" style="background:var(--green)">5</div><div class="tl-line"></div>
+        <div class="tl-content">
+          <h5>Все AI-агенты запущены + SEO старт</h5>
+          <div class="tl-time">Недели 12–18</div>
+          <p>Полный набор 15 агентов в работе. Запуск SEO-программы (сюда попадают 3 бесплатных месяца).</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-marker" style="background:var(--gold)">6</div>
+        <div class="tl-content">
+          <h5>Финальный запуск + передача в эксплуатацию</h5>
+          <div class="tl-time">Недели 18–20</div>
+          <p>Проверка систем, обучение команды Château, документация, старт постоянного сопровождения.</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout callout-green">
+      <span class="callout-icon">⚡</span>
+      <div><strong>Первый ощутимый эффект — на 8-й неделе</strong> (2 месяца от старта): работает базовый сайт, MCP-платформа для дизайнеров, первые реактивационные кампании. Далее — накопительный эффект каждый месяц.</div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-idx="10">
+  <div class="slide-inner cta-hero">
+    <div class="eyebrow gold">Следующий шаг</div>
+    <h1>Готовы начать трансформацию?</h1>
+    <p>Мы подготовили детальный план. Следующий шаг — согласование финального ТЗ по выбранному пакету и подписание договора.</p>
+    <div class="cta-steps">
+      <div class="cta-step">
+        <div class="cta-step-num">1</div>
+        <h4>Выбор пакета</h4>
+        <p>На встрече обсуждаем: A / B / C. Наша рекомендация — <strong style="color:var(--gold)">пакет B</strong>.</p>
+      </div>
+      <div class="cta-step">
+        <div class="cta-step-num">2</div>
+        <h4>Финальное ТЗ</h4>
+        <p>За 1 неделю готовим детальное ТЗ с фиксированной ценой (без диапазонов).</p>
+      </div>
+      <div class="cta-step">
+        <div class="cta-step-num">3</div>
+        <h4>Договор и старт</h4>
+        <p>Подписание · Kick-off команд · Первые артефакты через 2 недели.</p>
+      </div>
+    </div>
+    <div class="cta-contact">
+      <strong>Home Project AI Platform</strong><br>
+      Андрей Брагинский · Алексей · homeproject.online<br>
+      <span style="font-size:11px;color:var(--muted2);margin-top:6px;display:block">Презентация v2 · 20.07.2026 · Château de Vaisselle</span>
+    </div>
+  </div>
+</section>
+</div>
+<div class="nav">
+  <button class="nav-btn" id="prev" aria-label="prev">‹</button>
+  <div class="nav-dots" id="dots"></div>
+  <button class="nav-btn" id="next" aria-label="next">›</button>
+</div>
+<script>
+(function(){
+  var slides=document.querySelectorAll('.slide');
+  var total=slides.length;
+  var cur=0;
+  var dotsEl=document.getElementById('dots');
+  var counter=document.getElementById('cur');
+  for(var i=0;i<total;i++){
+    var d=document.createElement('div');
+    d.className='dot'+(i===0?' active':'');
+    d.setAttribute('data-i',i);
+    d.addEventListener('click',(function(idx){return function(){go(idx)}})(i));
+    dotsEl.appendChild(d);
+  }
+  function go(i){
+    if(i<0||i>=total)return;
+    slides[cur].classList.remove('active');
+    slides[i].classList.add('active');
+    slides[i].scrollTop=0;
+    cur=i;
+    counter.textContent=i+1;
+    var dots=document.querySelectorAll('.dot');
+    dots.forEach(function(d,idx){d.classList.toggle('active',idx===i)});
+    document.getElementById('prev').disabled=(i===0);
+    document.getElementById('next').disabled=(i===total-1);
+  }
+  document.getElementById('prev').addEventListener('click',function(){go(cur-1)});
+  document.getElementById('next').addEventListener('click',function(){go(cur+1)});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowLeft')go(cur-1);
+    if(e.key==='ArrowRight'||e.key===' ')go(cur+1);
+  });
+  var tX=0,tY=0;
+  document.addEventListener('touchstart',function(e){
+    tX=e.touches[0].clientX;tY=e.touches[0].clientY;
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    var dX=e.changedTouches[0].clientX-tX;
+    var dY=e.changedTouches[0].clientY-tY;
+    if(Math.abs(dX)>Math.abs(dY)*1.5&&Math.abs(dX)>50){
+      if(dX<0)go(cur+1);else go(cur-1);
+    }
+  },{passive:true});
+  go(0);
+})();
+</script>
+</body>
+</html>
