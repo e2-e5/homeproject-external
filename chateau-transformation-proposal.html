@@ -9,702 +9,443 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #06080E;
-    --card: #0C1220;
-    --mid: #121B30;
-    --accent: #4A8BF5;
-    --gold: #C9A84C;
-    --green: #0FB97A;
-    --text: #DDE3F0;
-    --muted: #7A8BA8;
-    --border: #1B2A4A;
-    --purple: #7C3AED;
-    --purple-light: #9B59D6;
-    --purple-lighter: #B07FE0;
-  }
-  html, body {
-    width: 100%; height: 100%; overflow: hidden;
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-  }
-  .deck {
-    width: 100%; height: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-  .slide {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    padding: 60px 72px;
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    overflow-y: auto;
-    background: var(--bg);
-  }
-  .slide.active {
-    opacity: 1;
-    pointer-events: all;
-  }
-  .top-stripe {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--gold));
-    z-index: 100;
-  }
-  /* Navigation */
-  .nav {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 200;
-    background: rgba(12,18,32,0.92);
-    border: 1px solid var(--border);
-    border-radius: 40px;
-    padding: 10px 20px;
-    backdrop-filter: blur(10px);
-  }
-  .nav-btn {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-  }
-  .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .nav-counter {
-    font-size: 13px;
-    color: var(--accent);
-    font-weight: 600;
-    min-width: 48px;
-    text-align: center;
-    letter-spacing: 0.5px;
-  }
-  .nav-fs {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 6px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: all 0.2s;
-    margin-left: 4px;
-  }
-  .nav-fs:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* Common typography */
-  .slide-h2 {
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--gold);
-    margin-bottom: 6px;
-    line-height: 1.2;
-  }
-  .slide-sub {
-    font-size: 15px;
-    color: var(--muted);
-    margin-bottom: 28px;
-    line-height: 1.5;
-  }
-  .slide-number {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 8px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-  /* Utility */
-  .flex { display: flex; }
-  .flex-col { flex-direction: column; }
-  .items-center { align-items: center; }
-  .justify-between { justify-content: space-between; }
-  .justify-center { justify-content: center; }
-  .text-center { text-align: center; }
-  .gap-16 { gap: 16px; }
-  .gap-12 { gap: 12px; }
-  .gap-24 { gap: 24px; }
-  .w-full { width: 100%; }
-
-  /* ======== SLIDE 1: COVER ======== */
-  #s1 {
-    background: radial-gradient(ellipse at 20% 80%, rgba(26,42,74,0.6) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(74,139,245,0.05) 0%, transparent 70%),
-                var(--bg);
-    justify-content: flex-end;
-    padding-bottom: 80px;
-  }
-  .s1-topbar {
-    position: absolute;
-    top: 32px; left: 72px; right: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .s1-brand {
-    font-size: 13px;
-    color: var(--accent);
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-  .s1-confidential {
-    font-size: 13px;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 4px 14px;
-  }
-  .s1-h1 {
-    font-size: 62px;
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.1;
-    margin-bottom: 18px;
-    letter-spacing: -1px;
-  }
-  .s1-sub {
-    font-size: 19px;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 32px;
-    max-width: 700px;
-  }
-  .s1-divider {
-    height: 1px;
-    background: var(--border);
-    margin-bottom: 24px;
-  }
-  .s1-footer {
-    font-size: 14px;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  /* ======== SLIDE 2 ======== */
-  .two-col { display: grid; grid-template-columns: 60% 40%; gap: 24px; flex: 1; }
-  .fact-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px 22px;
-    margin-bottom: 14px;
-  }
-  .fact-card-title {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-  }
-  .fact-card li {
-    list-style: none;
-    font-size: 14px;
-    color: var(--text);
-    margin-bottom: 8px;
-    line-height: 1.5;
-  }
-  .fact-card.green-left { border-left: 3px solid var(--green); }
-  .fact-card.gold-left { border-left: 3px solid var(--gold); }
-  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-content: start; }
-  .stat-box {
-    background: var(--mid);
-    border-radius: 10px;
-    padding: 22px 16px;
-    text-align: center;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-  }
-  .stat-val {
-    font-size: 36px;
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 6px;
-  }
-  .stat-label { font-size: 13px; color: var(--muted); line-height: 1.4; }
-
-  /* ======== SLIDE 3 ======== */
-  .vision-list { flex: 1; display: flex; flex-direction: column; gap: 0; }
-  .vision-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .vision-item:last-child { border-bottom: none; }
-  .vision-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
-  .vision-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .vision-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
-
-  /* ======== SLIDE 4 ======== */
-  .two-col-equal { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
-  .reason-card {
-    background: var(--card);
-    border-radius: 10px;
-    padding: 24px;
-  }
-  .reason-card.accent-left { border-left: 3px solid var(--accent); }
-  .reason-card.gold-left { border-left: 3px solid var(--gold); }
-  .reason-card-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
-  .reason-card li { list-style: none; font-size: 14px; color: var(--muted); margin-bottom: 8px; padding-left: 16px; position: relative; line-height: 1.5; }
-  .reason-card li::before { content: '–'; position: absolute; left: 0; color: var(--accent); }
-  .calc-block {
-    background: var(--mid);
-    border-radius: 8px;
-    padding: 16px;
-    margin-top: 16px;
-    border: 1px solid rgba(201,168,76,0.3);
-  }
-  .calc-line { font-size: 14px; color: var(--text); margin-bottom: 6px; line-height: 1.6; }
-  .calc-line.big { font-size: 16px; font-weight: 700; color: var(--gold); }
-  .calc-note { font-size: 12px; color: var(--muted); margin-top: 8px; }
-
-  /* ======== SLIDE 5 ======== */
-  .arch-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; flex: 1; align-content: start; }
-  .arch-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .arch-card.span-full { grid-column: 1 / -1; max-width: 33%; }
-  .arch-num {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700;
-    flex-shrink: 0;
-  }
-  .arch-num.accent-bg { background: var(--accent); color: #fff; }
-  .arch-num.gold-bg { background: var(--gold); color: #06080E; }
-  .arch-card-title { font-size: 14px; font-weight: 700; color: var(--text); }
-  .arch-card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-  .arch-note { font-size: 13px; color: var(--muted); margin-top: 8px; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; }
-
-  /* ======== SLIDE 6 ======== */
-  .concept-block {
-    background: var(--mid);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  .concept-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
-  .concept-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .concept-col-title { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-  .concept-flow { font-size: 13px; color: var(--muted); line-height: 1.8; }
-  .concept-flow span.arr { color: var(--accent); }
-  .concept-note { font-size: 13px; color: var(--text); margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
-  .stages-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0; align-items: stretch; }
-  .stage-card {
-    border-radius: 10px;
-    padding: 18px;
-    border: 1px solid;
-  }
-  .stage-card.accent-border { border-color: var(--accent); }
-  .stage-card.gold-border { border-color: var(--gold); }
-  .stage-card.green-border { border-color: var(--green); }
-  .stage-arrow {
-    display: flex; align-items: center; justify-content: center;
-    color: var(--muted); font-size: 20px; padding: 0 8px;
-  }
-  .stage-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-  .stage-label.accent { color: var(--accent); }
-  .stage-label.gold { color: var(--gold); }
-  .stage-label.green { color: var(--green); }
-  .stage-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
-  .stage-list { list-style: none; font-size: 13px; color: var(--muted); line-height: 1.7; }
-  .stage-list li::before { content: '– '; color: var(--muted); }
-  .stage-meta { font-size: 12px; color: var(--muted); margin-top: 10px; border-top: 1px solid var(--border); padding-top: 8px; }
-  .small-note { font-size: 12px; color: var(--muted); margin-top: 14px; }
-
-  /* ======== SLIDE 7 ======== */
-  .agents-wrap { flex: 1; display: flex; flex-direction: column; gap: 16px; }
-  .agent-center-row { display: flex; justify-content: center; margin-bottom: 4px; }
-  .agent-ceo {
-    background: var(--gold);
-    color: #06080E;
-    border-radius: 12px;
-    padding: 14px 28px;
-    font-size: 15px; font-weight: 800;
-    text-align: center;
-    display: inline-flex; align-items: center; gap: 10px;
-  }
-  .agents-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .agent-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px;
-  }
-  .agent-icon { font-size: 22px; margin-bottom: 6px; }
-  .agent-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .agent-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-  .agent-extra {
-    border: 1px dashed var(--gold);
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 13px;
-    color: var(--muted);
-    text-align: center;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-
-  /* ======== SLIDE 8 ======== */
-  .crm-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
-  .crm-col-title { font-size: 14px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
-  .crm-segment {
-    background: var(--card);
-    border-radius: 8px;
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  .crm-seg-title { font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .crm-seg-desc { color: var(--muted); }
-  .crm-channel { font-size: 14px; color: var(--muted); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
-  .crm-channel span.label { color: var(--text); font-weight: 600; min-width: 200px; }
-  .crm-note {
-    font-size: 13px;
-    color: var(--muted);
-    padding: 14px 16px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-top: 8px;
-    line-height: 1.6;
-  }
-
-  /* ======== SLIDE 9 ======== */
-  .social-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; flex: 1; }
-  .social-card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 22px;
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .social-card.accent-top { border-top: 3px solid var(--accent); }
-  .social-card.gold-top { border-top: 3px solid var(--gold); }
-  .social-card.green-top { border-top: 3px solid var(--green); }
-  .social-card-title { font-size: 15px; font-weight: 700; color: var(--text); }
-  .social-card li { list-style: none; font-size: 13px; color: var(--muted); margin-bottom: 8px; padding-left: 14px; position: relative; line-height: 1.5; }
-  .social-card li::before { content: '–'; position: absolute; left: 0; color: var(--muted); }
-
-  /* ======== SLIDE 10 ======== */
-  .who-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
-  .who-card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 24px;
-  }
-  .who-card.accent-left { border-left: 3px solid var(--accent); }
-  .who-card.gold-left { border-left: 3px solid var(--gold); }
-  .who-card-icon { font-size: 32px; margin-bottom: 12px; }
-  .who-card-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
-  .who-card ul { list-style: none; }
-  .who-card li { font-size: 14px; color: var(--muted); margin-bottom: 9px; padding-left: 18px; position: relative; line-height: 1.5; }
-  .who-card.accent-left li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
-  .who-card.gold-left li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
-  .who-note { font-size: 13px; color: var(--muted); padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px; margin-top: 8px; line-height: 1.6; }
-
-  /* ======== SLIDE 11: GANTT ======== */
-  .gantt-wrap { flex: 1; overflow-x: auto; }
-  .gantt-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 700px;
-  }
-  .gantt-table th {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 10px 8px;
-    border-bottom: 1px solid var(--border);
-    text-align: center;
-  }
-  .gantt-table th:first-child { text-align: left; min-width: 220px; }
-  .gantt-table td {
-    padding: 6px 4px;
-    border-bottom: 1px solid rgba(27,42,74,0.4);
-    vertical-align: middle;
-  }
-  .gantt-table td:first-child {
-    font-size: 13px;
-    color: var(--text);
-    padding-right: 12px;
-    padding-left: 0;
-    white-space: nowrap;
-  }
-  .gantt-cell { position: relative; height: 32px; }
-  .gantt-bar {
-    height: 28px;
-    border-radius: 4px;
-    width: 100%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0;
-  }
-  .gantt-note { font-size: 13px; color: var(--muted); margin-top: 16px; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; }
-
-  /* ======== SLIDE 12: PRICING ======== */
-  .pricing-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 16px;
-    font-size: 13px;
-  }
-  .pricing-table thead th {
-    background: rgba(201,168,76,0.15);
-    color: var(--gold);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    padding: 10px 12px;
-    text-align: left;
-    border-bottom: 1px solid rgba(201,168,76,0.3);
-  }
-  .pricing-table tbody td {
-    padding: 9px 12px;
-    color: var(--text);
-    line-height: 1.5;
-    border-bottom: 1px solid rgba(27,42,74,0.4);
-  }
-  .pricing-table tbody tr:nth-child(even) td { background: var(--card); }
-  .pricing-table tbody tr:nth-child(odd) td { background: var(--mid); }
-  .pricing-table .total-row td {
-    background: rgba(201,168,76,0.12) !important;
-    border: 1px solid rgba(201,168,76,0.4);
-    color: var(--gold);
-    font-weight: 700;
-    font-size: 14px;
-  }
-  .pricing-table td.price { color: var(--gold); font-weight: 600; white-space: nowrap; }
-  .pricing-table td.exec { color: var(--muted); font-size: 12px; }
-  .roi-block {
-    background: var(--mid);
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin-top: 12px;
-    border: 1px solid var(--border);
-  }
-  .roi-title { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
-  .roi-text { font-size: 13px; color: var(--muted); line-height: 1.7; }
-  .roi-note { font-size: 12px; color: var(--muted); margin-top: 6px; opacity: 0.7; }
-  .pricing-warn { font-size: 14px; color: var(--gold); margin-bottom: 16px; background: rgba(201,168,76,0.08); padding: 10px 14px; border-radius: 8px; border-left: 3px solid var(--gold); }
-
-  /* ======== SLIDE 13: CTA ======== */
-  #s13 {
-    background: radial-gradient(ellipse at 30% 60%, rgba(201,168,76,0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 30%, rgba(74,139,245,0.05) 0%, transparent 50%),
-                var(--bg);
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  .cta-brand { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 20px; }
-  .cta-h1 { font-size: 50px; font-weight: 900; color: #fff; margin-bottom: 14px; }
-  .cta-sub { font-size: 19px; color: var(--muted); margin-bottom: 36px; line-height: 1.6; }
-  .cta-steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; width: 100%; margin-bottom: 32px; }
-  .cta-step {
-    background: var(--card);
-    border-radius: 10px;
-    padding: 22px;
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .cta-step-icon { font-size: 28px; }
-  .cta-step-title { font-size: 15px; font-weight: 700; color: var(--text); }
-  .cta-step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
-  .cta-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s;
-    margin-top: 4px;
-  }
-  .cta-btn.gold-fill { background: var(--gold); color: #06080E; border: none; }
-  .cta-btn.gold-outline { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); }
-  .cta-btn.accent-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
-  .cta-btn:hover { opacity: 0.85; }
-  .cta-divider { height: 1px; background: var(--border); width: 100%; margin-bottom: 20px; }
-  .cta-contacts { font-size: 15px; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
-  .cta-legal { font-size: 13px; color: var(--muted); opacity: 0.6; border-top: 1px solid rgba(27,42,74,0.5); padding-top: 14px; line-height: 1.6; max-width: 640px; }
-
-  /* Mobile */
-  @media (max-width: 768px) {
-    .slide { padding: 40px 24px 80px; }
-    .s1-topbar { left: 24px; right: 24px; top: 24px; }
-    .s1-h1 { font-size: 38px; }
-    .two-col, .two-col-equal, .crm-cols, .who-cards { grid-template-columns: 1fr; }
-    .agents-grid { grid-template-columns: 1fr 1fr; }
-    .social-cards, .cta-steps, .stages-row { grid-template-columns: 1fr; }
-    .stage-arrow { display: none; }
-    .stages-row { display: flex; flex-direction: column; gap: 12px; }
-    .arch-grid { grid-template-columns: 1fr 1fr; }
-    .arch-card.span-full { grid-column: auto; max-width: 100%; }
-    .gantt-wrap { overflow-x: scroll; }
-    .cta-h1 { font-size: 36px; }
-    .pricing-table { display: block; overflow-x: auto; }
-    .stat-grid { grid-template-columns: 1fr 1fr; }
-  }
-
-  /* scrollbar */
-  .slide::-webkit-scrollbar { width: 4px; }
-  .slide::-webkit-scrollbar-track { background: transparent; }
-  .slide::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #06080E;
+  --card: #0C1220;
+  --mid: #121B30;
+  --accent: #4A8BF5;
+  --gold: #C9A84C;
+  --green: #0FB97A;
+  --text: #DDE3F0;
+  --muted: #7A8BA8;
+  --border: #1B2A4A;
+  --purple: #7C3AED;
+  --purple-light: #9B59D6;
+  --purple-lighter: #B07FE0;
+  --topbar-h: 52px;
+  --nav-h: 72px;
+}
+html, body {
+  width: 100%; height: 100%; overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--topbar-h);
+  background: rgba(6,8,14,0.95);
+  border-bottom: 1px solid var(--border);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  backdrop-filter: blur(10px);
+}
+.topbar-logo {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+.topbar-tag {
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 12px;
+}
+.deck {
+  position: fixed;
+  top: var(--topbar-h); left: 0; right: 0;
+  bottom: var(--nav-h);
+  overflow: hidden;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 36px 64px 20px;
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+  background: var(--bg);
+}
+.slide.active { display: flex; }
+.top-stripe {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  z-index: 400;
+}
+.nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 200;
+  background: rgba(6,8,14,0.96);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+}
+.nav-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+.nav-counter {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 700;
+  min-width: 52px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+.nav-fs {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+  margin-left: 8px;
+}
+.nav-fs:hover { border-color: var(--accent); color: var(--accent); }
+.slide-h2 { font-size: 30px; font-weight: 800; color: var(--gold); margin-bottom: 4px; line-height: 1.2; }
+.slide-sub { font-size: 14px; color: var(--muted); margin-bottom: 22px; line-height: 1.5; }
+.slide-number { font-size: 11px; color: var(--muted); margin-bottom: 6px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+#s1 {
+  background: radial-gradient(ellipse at 20% 80%, rgba(26,42,74,0.6) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
+              var(--bg);
+  justify-content: flex-end;
+  padding-bottom: 48px;
+}
+.s1-h1 { font-size: 58px; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+.s1-sub { font-size: 18px; color: var(--muted); line-height: 1.6; margin-bottom: 28px; max-width: 700px; }
+.s1-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+.s1-footer { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.two-col { display: grid; grid-template-columns: 60% 40%; gap: 20px; flex: 1; }
+.fact-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; }
+.fact-card.green-left { border-left: 3px solid var(--green); }
+.fact-card.gold-left { border-left: 3px solid var(--gold); }
+.fact-card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.fact-card li { list-style: none; font-size: 13px; color: var(--text); margin-bottom: 6px; line-height: 1.5; }
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-content: start; }
+.stat-box { background: var(--mid); border-radius: 10px; padding: 18px 14px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.stat-val { font-size: 28px; font-weight: 900; line-height: 1.1; margin-bottom: 5px; }
+.stat-label { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.vision-list { flex: 1; display: flex; flex-direction: column; gap: 0; }
+.vision-item { display: flex; align-items: flex-start; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--border); }
+.vision-item:last-child { border-bottom: none; }
+.vision-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.vision-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.vision-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.phase-note { background: rgba(15,185,122,0.08); border: 1px solid rgba(15,185,122,0.25); border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 13px; color: var(--green); }
+.two-col-equal { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; }
+.reason-card { background: var(--card); border-radius: 10px; padding: 20px; }
+.reason-card.accent-left { border-left: 3px solid var(--accent); }
+.reason-card.gold-left { border-left: 3px solid var(--gold); }
+.reason-card-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+.reason-card li { list-style: none; font-size: 13px; color: var(--muted); margin-bottom: 7px; padding-left: 14px; position: relative; line-height: 1.5; }
+.reason-card li::before { content: '–'; position: absolute; left: 0; color: var(--accent); }
+.reason-card.gold-left li::before { color: var(--gold); }
+.calc-block { background: var(--mid); border-radius: 8px; padding: 14px; margin-top: 12px; border: 1px solid rgba(201,168,76,0.3); }
+.calc-line { font-size: 13px; color: var(--text); margin-bottom: 5px; line-height: 1.6; }
+.calc-line.big { font-size: 15px; font-weight: 700; color: var(--gold); }
+.calc-note { font-size: 11px; color: var(--muted); margin-top: 6px; }
+.asset-tag { display: inline-block; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); border-radius: 6px; padding: 4px 10px; font-size: 12px; color: var(--gold); margin: 3px 3px 0 0; }
+.arch-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; flex: 1; align-content: start; }
+.arch-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.arch-card.highlight { border-color: var(--green); background: rgba(15,185,122,0.04); }
+.arch-num { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.arch-num.accent-bg { background: var(--accent); color: #fff; }
+.arch-num.gold-bg { background: var(--gold); color: #06080E; }
+.arch-num.green-bg { background: var(--green); color: #06080E; }
+.arch-card-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.arch-card-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.arch-note { font-size: 12px; color: var(--muted); margin-top: 8px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; }
+.concept-block { background: var(--mid); border-radius: 10px; padding: 18px; margin-bottom: 16px; }
+.concept-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+.concept-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.concept-col-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.concept-flow { font-size: 13px; color: var(--muted); line-height: 1.8; }
+.concept-flow span.arr { color: var(--accent); }
+.concept-note { font-size: 13px; color: var(--text); margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
+.stages-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0; align-items: stretch; flex: 1; }
+.stage-card { border-radius: 10px; padding: 16px; border: 1px solid; }
+.stage-card.accent-border { border-color: var(--accent); }
+.stage-card.gold-border { border-color: var(--gold); }
+.stage-card.green-border { border-color: var(--green); }
+.stage-arrow { display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 18px; padding: 0 6px; }
+.stage-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.stage-label.accent { color: var(--accent); }
+.stage-label.gold { color: var(--gold); }
+.stage-label.green { color: var(--green); }
+.stage-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.stage-list { list-style: none; font-size: 12px; color: var(--muted); line-height: 1.7; }
+.stage-list li::before { content: '– '; }
+.stage-meta { font-size: 11px; color: var(--muted); margin-top: 8px; border-top: 1px solid var(--border); padding-top: 6px; }
+.small-note { font-size: 11px; color: var(--muted); margin-top: 10px; }
+.max-price-note { font-size: 11px; color: var(--gold); background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2); border-radius: 6px; padding: 6px 10px; margin-top: 8px; }
+.agents-wrap { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.agent-center-row { display: flex; justify-content: center; }
+.agent-ceo { background: var(--gold); color: #06080E; border-radius: 12px; padding: 12px 26px; font-size: 14px; font-weight: 800; text-align: center; display: inline-flex; align-items: center; gap: 8px; }
+.agents-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.agent-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.agent-icon { font-size: 20px; margin-bottom: 5px; }
+.agent-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.agent-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.agent-extra { border: 1px dashed var(--gold); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: var(--muted); text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.crm-cols { display: grid; grid-template-columns: 55% 45%; gap: 20px; flex: 1; }
+.crm-col-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.crm-segment { background: var(--card); border-radius: 8px; padding: 10px 14px; margin-bottom: 7px; font-size: 12px; line-height: 1.6; }
+.crm-seg-title { font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.crm-seg-desc { color: var(--muted); }
+.crm-channel { font-size: 13px; color: var(--muted); margin-bottom: 7px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+.crm-channel span.label { color: var(--text); font-weight: 600; min-width: 160px; }
+.crm-note { font-size: 12px; color: var(--muted); padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; margin-top: 8px; line-height: 1.6; }
+.crm-strategy-box { background: rgba(74,139,245,0.06); border: 1px solid rgba(74,139,245,0.2); border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 12px; color: var(--text); line-height: 1.7; }
+.social-wrap { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.social-top { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.social-card { background: var(--card); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+.social-card.accent-top { border-top: 3px solid var(--accent); }
+.social-card.gold-top { border-top: 3px solid var(--gold); }
+.social-card-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.social-card li { list-style: none; font-size: 12px; color: var(--muted); margin-bottom: 6px; padding-left: 12px; position: relative; line-height: 1.5; }
+.social-card li::before { content: '–'; position: absolute; left: 0; }
+.seo-block { background: var(--mid); border-radius: 10px; padding: 16px 20px; border: 1px solid rgba(201,168,76,0.25); }
+.seo-title { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 10px; }
+.seo-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.seo-item { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.seo-item strong { color: var(--text); display: block; margin-bottom: 3px; font-size: 13px; }
+.zero-start { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: var(--gold); }
+.who-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; }
+.who-card { background: var(--card); border-radius: 12px; padding: 20px; }
+.who-card.accent-left { border-left: 3px solid var(--accent); }
+.who-card.gold-left { border-left: 3px solid var(--gold); }
+.who-card-icon { font-size: 28px; margin-bottom: 10px; }
+.who-card-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+.who-card ul { list-style: none; }
+.who-card li { font-size: 13px; color: var(--muted); margin-bottom: 7px; padding-left: 16px; position: relative; line-height: 1.5; }
+.who-card.accent-left li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.who-card.gold-left li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+.who-note { font-size: 12px; color: var(--muted); padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; margin-top: 10px; line-height: 1.6; }
+.guarantee-box { background: rgba(15,185,122,0.06); border: 1px solid rgba(15,185,122,0.25); border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 12px; color: var(--green); line-height: 1.7; }
+.timeline-wrap { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.timeline-phase { border-radius: 10px; padding: 14px 18px; border: 1px solid; }
+.timeline-phase.accent-border { border-color: var(--accent); background: rgba(74,139,245,0.04); }
+.timeline-phase.gold-border { border-color: var(--gold); background: rgba(201,168,76,0.04); }
+.timeline-phase.purple-border { border-color: var(--purple); background: rgba(124,58,237,0.04); }
+.timeline-phase.green-border { border-color: var(--green); background: rgba(15,185,122,0.04); }
+.tl-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.tl-period { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.tl-period.accent { color: var(--accent); }
+.tl-period.gold { color: var(--gold); }
+.tl-period.purple { color: var(--purple-light); }
+.tl-period.green { color: var(--green); }
+.tl-badge { font-size: 11px; border-radius: 20px; padding: 3px 10px; font-weight: 600; }
+.tl-badge.red { background: rgba(239,68,68,0.15); color: #EF4444; border: 1px solid rgba(239,68,68,0.3); }
+.tl-badge.amber { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+.tl-badge.green { background: rgba(15,185,122,0.15); color: var(--green); border: 1px solid rgba(15,185,122,0.3); }
+.tl-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.tl-item { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.tl-item strong { color: var(--text); display: block; font-size: 12px; margin-bottom: 1px; }
+.tl-effect { font-size: 12px; color: var(--text); margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; }
+.pricing-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 12px; }
+.pricing-table thead th { background: rgba(201,168,76,0.15); color: var(--gold); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 9px 10px; text-align: left; border-bottom: 1px solid rgba(201,168,76,0.3); }
+.pricing-table tbody td { padding: 7px 10px; color: var(--text); line-height: 1.5; border-bottom: 1px solid rgba(27,42,74,0.4); }
+.pricing-table tbody tr:nth-child(even) td { background: var(--card); }
+.pricing-table tbody tr:nth-child(odd) td { background: var(--mid); }
+.pricing-table .total-row td { background: rgba(201,168,76,0.12) !important; border: 1px solid rgba(201,168,76,0.4); color: var(--gold); font-weight: 700; font-size: 13px; }
+.pricing-table td.price { color: var(--gold); font-weight: 600; white-space: nowrap; }
+.pricing-table td.exec { color: var(--muted); font-size: 11px; }
+.pricing-warn { font-size: 13px; color: var(--gold); margin-bottom: 10px; background: rgba(201,168,76,0.08); padding: 9px 13px; border-radius: 8px; border-left: 3px solid var(--gold); }
+.market-note { font-size: 12px; color: var(--green); background: rgba(15,185,122,0.06); border: 1px solid rgba(15,185,122,0.2); border-radius: 8px; padding: 9px 13px; margin-bottom: 10px; }
+.bonus-row td { color: var(--green) !important; font-weight: 600 !important; }
+.bonus-row td { background: rgba(15,185,122,0.06) !important; }
+.roi-block { background: var(--mid); border-radius: 10px; padding: 12px 16px; margin-top: 10px; border: 1px solid var(--border); }
+.roi-title { font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+.roi-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+.summary-wrap { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-content: start; }
+.summary-block { background: var(--card); border-radius: 10px; padding: 16px 18px; }
+.summary-block.accent-top { border-top: 3px solid var(--accent); }
+.summary-block.gold-top { border-top: 3px solid var(--gold); }
+.summary-block.green-top { border-top: 3px solid var(--green); }
+.summary-block.purple-top { border-top: 3px solid var(--purple); }
+.sb-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.sb-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--muted); margin-bottom: 6px; line-height: 1.5; }
+.sb-item .sb-label { color: var(--text); font-weight: 600; min-width: 130px; flex-shrink: 0; }
+.sb-metric { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(27,42,74,0.4); font-size: 12px; }
+.sb-metric:last-child { border-bottom: none; }
+.sb-metric .metric-label { color: var(--muted); }
+.sb-metric .metric-val { color: var(--green); font-weight: 700; }
+.invest-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.invest-table td { padding: 6px 10px; border-bottom: 1px solid rgba(27,42,74,0.4); }
+.invest-table td:first-child { color: var(--muted); }
+.invest-table td:last-child { color: var(--gold); font-weight: 600; text-align: right; }
+.invest-table tr:last-child td { border-bottom: none; }
+.cta-h1 { font-size: 46px; font-weight: 900; color: #fff; margin-bottom: 12px; }
+.cta-sub { font-size: 17px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+.cta-steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; width: 100%; margin-bottom: 24px; }
+.cta-step { background: var(--card); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.cta-step-icon { font-size: 26px; }
+.cta-step-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.cta-step-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.cta-btn { display: inline-block; padding: 9px 18px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.2s; margin-top: 4px; }
+.cta-btn.gold-fill { background: var(--gold); color: #06080E; border: none; }
+.cta-btn.gold-outline { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); }
+.cta-btn.accent-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+.cta-btn:hover { opacity: 0.85; }
+.cta-divider { height: 1px; background: var(--border); width: 100%; margin-bottom: 16px; }
+.cta-contacts { font-size: 14px; color: var(--muted); margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; }
+.cta-legal { font-size: 12px; color: var(--muted); opacity: 0.6; border-top: 1px solid rgba(27,42,74,0.5); padding-top: 12px; line-height: 1.6; max-width: 640px; }
+@media (max-width: 768px) {
+  :root { --topbar-h: 46px; --nav-h: 64px; }
+  .topbar { padding: 0 20px; }
+  .topbar-logo { font-size: 11px; letter-spacing: 1.5px; }
+  .slide { padding: 20px 20px 14px; }
+  #s1 { padding-bottom: 28px; }
+  .s1-h1 { font-size: 30px; }
+  .two-col, .two-col-equal, .crm-cols, .who-cards, .summary-wrap { grid-template-columns: 1fr !important; }
+  .agents-grid { grid-template-columns: 1fr 1fr; }
+  .social-top { grid-template-columns: 1fr; }
+  .seo-cols { grid-template-columns: 1fr; }
+  .cta-steps { grid-template-columns: 1fr; }
+  .stages-row { display: flex; flex-direction: column; gap: 10px; }
+  .stage-arrow { display: none; }
+  .arch-grid { grid-template-columns: 1fr 1fr; }
+  .cta-h1 { font-size: 30px; }
+  .pricing-table { display: block; overflow-x: auto; }
+  .tl-cols { grid-template-columns: 1fr; }
+  .slide-h2 { font-size: 24px; }
+}
+.slide::-webkit-scrollbar { width: 4px; }
+.slide::-webkit-scrollbar-track { background: transparent; }
+.slide::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 </style>
 </head>
 <body>
 <div class="top-stripe"></div>
-
+<div class="topbar">
+  <div class="topbar-logo">HOME PROJECT AI PLATFORM</div>
+  <div class="topbar-tag">Конфиденциально · 2026</div>
+</div>
 <div class="deck" id="deck">
 
-  <!-- SLIDE 1: COVER -->
-  <section class="slide active" id="s1">
-    <div class="s1-topbar">
-      <div class="s1-brand">HOME PROJECT AI PLATFORM</div>
-      <div class="s1-confidential">Конфиденциально</div>
-    </div>
-    <h1 class="s1-h1">Château de Vaisselle:<br>Компания нового поколения</h1>
-    <p class="s1-sub">Видение трансформации бизнеса на основе AI-агентов.<br>Индивидуальное предложение. Москва, 2026.</p>
-    <div class="s1-divider"></div>
-    <div class="s1-footer">📍 Москва, 2026 &nbsp;·&nbsp; Подготовлено: Home Project AI Platform &nbsp;·&nbsp; info@homeproject.online</div>
-  </section>
+<!-- S1: COVER -->
+<section class="slide active" id="s1">
+  <h1 class="s1-h1">Château de Vaisselle:<br>Компания нового поколения</h1>
+  <p class="s1-sub">Видение трансформации бизнеса на основе AI-агентов.<br>Индивидуальное предложение. Москва, 2026.</p>
+  <div class="s1-divider"></div>
+  <div class="s1-footer">📍 Москва, 2026 &nbsp;·&nbsp; Home Project AI Platform &nbsp;·&nbsp; info@homeproject.online</div>
+</section>
 
-  <!-- SLIDE 2: ВЫ СЕЙЧАС -->
-  <section class="slide" id="s2">
-    <div class="slide-number">02 / 13</div>
-    <h2 class="slide-h2">Что мы узнали о вашем бизнесе</h2>
-    <p class="slide-sub">По результатам аудита (анкета + анализ)</p>
-    <div class="two-col">
-      <div>
-        <div class="fact-card green-left">
-          <div class="fact-title" style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:12px;">✅ Сильные стороны</div>
-          <ul>
-            <li>✅ 53 000 клиентов в базе — огромный актив</li>
-            <li>✅ 100+ брендов — широчайший ассортимент</li>
-            <li>✅ Кулинарный салон — уникальный формат вовлечения</li>
-            <li>✅ 3 шоурума с высоким трафиком</li>
-            <li>✅ Средний проект 2 000 000 ₽ — премиум-сегмент</li>
-          </ul>
-        </div>
-        <div class="fact-card gold-left">
-          <div class="fact-title" style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:12px;">⚡ Точки роста</div>
-          <ul>
-            <li>⚡ КП — 2 часа вручную на дизайнера каждый день</li>
-            <li>⚡ База 53К клиентов не работает (нет автоматических коммуникаций)</li>
-            <li>⚡ Мастер-классы не конвертируются в продажи системно</li>
-            <li>⚡ Нет follow-up после встречи с клиентом</li>
-            <li>⚡ Обновление каталога — ручной процесс</li>
-          </ul>
-        </div>
-      </div>
-      <div class="stat-grid">
-        <div class="stat-box">
-          <div class="stat-val" style="color:var(--gold);">53 000</div>
-          <div class="stat-label">клиентов в базе</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val" style="color:var(--accent);">100+</div>
-          <div class="stat-label">брендов</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val" style="color:var(--gold);">2 млн ₽</div>
-          <div class="stat-label">средний проект</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val" style="color:var(--accent);">3</div>
-          <div class="stat-label">шоурума</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLIDE 3: ВИДЕНИЕ -->
-  <section class="slide" id="s3">
-    <div class="slide-number">03 / 13</div>
-    <h2 class="slide-h2">Château de Vaisselle через 6 месяцев</h2>
-    <p class="slide-sub">Как будет выглядеть ваш бизнес после трансформации</p>
-    <div class="vision-list">
-      <div class="vision-item">
-        <div class="vision-icon">🌐</div>
-        <div>
-          <div class="vision-title">Сайт нового поколения</div>
-          <div class="vision-desc">Новый сайт работает на MCP-протоколе. AI-агенты Château напрямую общаются с AI-ассистентами ваших клиентов и партнёров. Каталог обновляется автоматически.</div>
-        </div>
-      </div>
-      <div class="vision-item">
-        <div class="vision-icon">🤖</div>
-        <div>
-          <div class="vision-title">AI-команда вместо рутины</div>
-          <div class="vision-desc">7–10 AI-агентов ведут продажи, маркетинг, аналитику, коммуникации. КП для клиента — за 20 секунд прямо на встрече.</div>
-        </div>
-      </div>
-      <div class="vision-item">
-        <div class="vision-icon">📧</div>
-        <div>
-          <div class="vision-title">53 000 клиентов в активной работе</div>
-          <div class="vision-desc">Автоматические цепочки по всем сегментам и каналам. Follow-up, реактивация, персональные предложения — без участия менеджеров.</div>
-        </div>
-      </div>
-      <div class="vision-item">
-        <div class="vision-icon">📱</div>
-        <div>
-          <div class="vision-title">Соц.сети на AI-агентах</div>
-          <div class="vision-desc">Контент, посты, сторис, ответы — управляются агентами. Вы задаёте стратегию, агенты реализуют.</div>
-        </div>
-      </div>
-      <div class="vision-item" style="border-bottom:none;">
-        <div class="vision-icon">📊</div>
-        <div>
-          <div class="vision-title">Аналитика в реальном времени</div>
-          <div class="vision-desc">Воронка, конверсия, популярные позиции, прогноз — всё доступно в один клик, 24/7.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLIDE 4: ПОЧЕМУ СЕЙЧАС -->
-  <section class="slide" id="s4">
-    <div class="slide-number">04 / 13</div>
-    <h2 class="slide-h2">Почему это важно сделать сейчас</h2>
-    <div class="two-col-equal">
-      <div class="reason-card accent-left">
-        <div class="reason-card-title">Ваши клиенты уже меняются</div>
+<!-- S2: АУДИТ -->
+<section class="slide" id="s2">
+  <div class="slide-number">02 / 14</div>
+  <h2 class="slide-h2">Что мы узнали о вашем бизнесе</h2>
+  <p class="slide-sub">По результатам аудита и анкетирования</p>
+  <div class="two-col">
+    <div>
+      <div class="fact-card green-left">
+        <div class="fact-card-title" style="color:var(--green);">✅ Сильные стороны</div>
         <ul>
-          <li>Дизайнеры интерьеров используют AI для подбора техники</li>
-          <li>Застройщики переходят на AI-закупки</li>
-          <li>Клиенты ждут мгновенного ответа — не завтра</li>
-          <li>Конкуренты, которые перейдут первыми, займут ваших клиентов</li>
+          <li>✅ 53 000 клиентов в базе — огромный и недоиспользованный актив</li>
+          <li>✅ Портфель 100+ брендов: техника, кухни, посуда, ножи, стекло, текстиль, декор</li>
+          <li>✅ 3 шоурума премиального уровня — <strong style="color:var(--text);">аналогов в России нет</strong> по масштабу и оформлению</li>
+          <li>✅ Кулинарный салон — уникальный формат вовлечения и конверсии клиентов</li>
+          <li>✅ Средний проект 2 000 000 ₽ — устойчивое позиционирование в премиум-сегменте</li>
+          <li>✅ Обученные сотрудники с долгим стажем — глубокое знание продукта и клиентов</li>
+          <li>✅ 3 дизайнера кухонь — экспертиза, которую AI многократно усилит</li>
         </ul>
       </div>
-      <div class="reason-card gold-left">
-        <div class="reason-card-title">Ваша база — главный актив</div>
+      <div class="fact-card gold-left">
+        <div class="fact-card-title" style="color:var(--gold);">⚡ Точки роста (по результатам анкеты)</div>
+        <ul>
+          <li>⚡ КП — до 2 часов вручную на дизайнера ежедневно = 6+ часов потерь на команду</li>
+          <li>⚡ База 53К молчит: нет email-цепочек, нет реактивации, нет сегментации</li>
+          <li>⚡ Мастер-классы не конвертируются в продажи системно — нет follow-up</li>
+          <li>⚡ Нет касания с клиентом после встречи — «остывает» без напоминания</li>
+          <li>⚡ Соцсети не велись совсем — белое пятно при мощном бренде и шоурумах</li>
+          <li>⚡ Обновление каталога — ручной процесс, задержки с ценами</li>
+          <li>⚡ SEO не использовалось — трафик только через шоурумы и сарафан</li>
+        </ul>
+      </div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-val" style="color:var(--gold);">53 000</div><div class="stat-label">клиентов в базе</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:var(--accent);">100+</div><div class="stat-label">брендов в портфеле</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:var(--gold);">2 млн ₽</div><div class="stat-label">средний проект</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:var(--accent);">3</div><div class="stat-label">шоурума без аналогов</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S3: ВИДЕНИЕ -->
+<section class="slide" id="s3">
+  <div class="slide-number">03 / 14</div>
+  <h2 class="slide-h2">Château de Vaisselle через 6 месяцев</h2>
+  <p class="slide-sub">Полная перестройка компании — реализуется поэтапно. Каждый этап даёт самостоятельный эффект. Первые результаты — уже в первые 2 месяца.</p>
+  <div class="vision-list">
+    <div class="vision-item">
+      <div class="vision-icon">🌐</div>
+      <div><div class="vision-title">Сайт нового поколения на MCP</div><div class="vision-desc">Сайт на MCP-протоколе. AI-агенты Château общаются с AI-ассистентами клиентов напрямую. Каталог обновляется автоматически. Дизайнер находит кухню через свой AI — ваш сайт отвечает мгновенно.</div></div>
+    </div>
+    <div class="vision-item">
+      <div class="vision-icon">🤖</div>
+      <div><div class="vision-title">AI-команда вместо рутины</div><div class="vision-desc">8–10 AI-агентов ведут продажи, маркетинг, аналитику, коммуникации, SEO, сервис. КП за 20 секунд на встрече. Дизайнеры занимаются клиентами — не бумагами.</div></div>
+    </div>
+    <div class="vision-item">
+      <div class="vision-icon">📧</div>
+      <div><div class="vision-title">53 000 клиентов в активной работе</div><div class="vision-desc">Умная сегментация, автоматические цепочки. Follow-up, реактивация, персональные предложения по каждому сегменту и каналу — без участия менеджеров.</div></div>
+    </div>
+    <div class="vision-item">
+      <div class="vision-icon">📱</div>
+      <div><div class="vision-title">Соц.сети + SEO — с нуля до лидерства</div><div class="vision-desc">Выходим из «белого пятна». Instagram, ВК, Telegram — системный контент AI-агентами. SEO работает на трафик. Шоурумы и мастер-классы получают постоянный поток.</div></div>
+    </div>
+    <div class="vision-item" style="border-bottom:none;">
+      <div class="vision-icon">📊</div>
+      <div><div class="vision-title">Аналитика в реальном времени</div><div class="vision-desc">Воронка, конверсия, популярные позиции, динамика по каналам — в один клик, 24/7. Управляете ростом на основе данных, а не интуиции.</div></div>
+    </div>
+  </div>
+  <div class="phase-note">⚡ 6 месяцев — это полный цикл перестройки компании по всем направлениям. При этом внедрение поэтапное: первые инструменты заработают ещё до сентябрьского сезона.</div>
+</section>
+
+<!-- S4: ПОЧЕМУ СЕЙЧАС -->
+<section class="slide" id="s4">
+  <div class="slide-number">04 / 14</div>
+  <h2 class="slide-h2">Почему это важно сделать сейчас</h2>
+  <div class="two-col-equal" style="flex:1;">
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="reason-card accent-left">
+        <div class="reason-card-title">Рынок меняется прямо сейчас</div>
+        <ul>
+          <li>Дизайнеры интерьеров используют AI для подбора техники и посуды</li>
+          <li>Застройщики переходят на AI-закупки и MCP-интеграции</li>
+          <li>Клиенты ждут мгновенного ответа — завтра уже поздно</li>
+          <li>Первые, кто перейдёт — займут позиции на долгие годы</li>
+          <li>Сентябрь 2026 — старт высокого сезона. Нужно войти с инструментами</li>
+        </ul>
+      </div>
+      <div class="reason-card accent-left">
+        <div class="reason-card-title">Потенциал базы прямо сейчас</div>
         <div class="calc-block">
           <div class="calc-line">53 000 клиентов в базе</div>
           <div class="calc-line">Реактивация 2% = 1 060 контактов</div>
@@ -712,546 +453,390 @@
           <div class="calc-line big">≈ 53 000 000 ₽ выручки</div>
           <div class="calc-note">* Ориентир, без гарантий</div>
         </div>
-        <div style="font-size:14px;color:var(--muted);margin-top:14px;line-height:1.6;">Этот потенциал сейчас не используется.</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;">Каждый месяц без системы — упущенные клиенты и деньги.</div>
       </div>
     </div>
-  </section>
-
-  <!-- SLIDE 5: АРХИТЕКТУРА -->
-  <section class="slide" id="s5">
-    <div class="slide-number">05 / 13</div>
-    <h2 class="slide-h2">Из чего состоит трансформация</h2>
-    <p class="slide-sub">Семь взаимосвязанных блоков</p>
-    <div class="arch-grid" style="flex:1;align-content:start;">
-      <div class="arch-card">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <div class="arch-num accent-bg">01</div>
-          <div class="arch-card-title">Аудит и стратегия</div>
-        </div>
-        <div class="arch-card-desc">Детальное изучение бизнеса и формирование стратегии трансформации. <span style="color:var(--green);font-weight:600;">Уже проведён ✅</span></div>
-      </div>
-      <div class="arch-card">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <div class="arch-num gold-bg">02</div>
-          <div class="arch-card-title">Новый сайт (MCP + AI)</div>
-        </div>
-        <div class="arch-card-desc">Поэтапная разработка — техника, посуда, остальные разделы.</div>
-      </div>
-      <div class="arch-card">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <div class="arch-num accent-bg">03</div>
-          <div class="arch-card-title">AI-агенты</div>
-        </div>
-        <div class="arch-card-desc">Ваша новая команда — продажи, маркетинг, аналитика, сервис.</div>
-      </div>
-      <div class="arch-card">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <div class="arch-num gold-bg">04</div>
-          <div class="arch-card-title">Синхронизация баз</div>
-        </div>
-        <div class="arch-card-desc">Единоразовая интеграция всех систем и источников данных.</div>
-      </div>
-      <div class="arch-card">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <div class="arch-num accent-bg">05</div>
-          <div class="arch-card-title">CRM + коммуникации</div>
-        </div>
-        <div class="arch-card-desc">Автоматические цепочки по базе 53К клиентов.</div>
-      </div>
-      <div class="arch-card">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <div class="arch-num gold-bg">06</div>
-          <div class="arch-card-title">Соц.сети на AI-агентах</div>
-        </div>
-        <div class="arch-card-desc">Контент, ответы, аналитика — управляются агентами.</div>
-      </div>
-      <div class="arch-card" style="grid-column:1 / 2;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <div class="arch-num accent-bg">07</div>
-          <div class="arch-card-title">Техническое сопровождение</div>
-        </div>
-        <div class="arch-card-desc">Ежемесячная поддержка платформы, обновления, отчёты.</div>
-      </div>
-    </div>
-    <div class="arch-note">Каждый блок может работать независимо. Полный эффект — при запуске всей системы.</div>
-  </section>
-
-  <!-- SLIDE 6: САЙТ MCP -->
-  <section class="slide" id="s6">
-    <div class="slide-number">06 / 13</div>
-    <h2 class="slide-h2">Сайт нового поколения на MCP</h2>
-    <p class="slide-sub">Не просто обновление — новая архитектура</p>
-    <div class="concept-block">
-      <div class="concept-title">Что такое MCP-сайт?</div>
-      <div class="concept-cols">
-        <div>
-          <div class="concept-col-title">Традиционный сайт</div>
-          <div class="concept-flow">
-            Клиент <span class="arr">→</span> браузер <span class="arr">→</span> каталог <span class="arr">→</span> менеджер <span class="arr">→</span> ответ (1–3 дня)
-          </div>
-        </div>
-        <div>
-          <div class="concept-col-title">MCP-сайт</div>
-          <div class="concept-flow">
-            AI-агент клиента <span class="arr">↔</span> MCP-сервер Château <span class="arr">↔</span> AI-агенты Château <span class="arr">→</span> мгновенный персональный ответ
-          </div>
-        </div>
-      </div>
-      <div class="concept-note">Когда дизайнер с AI-ассистентом ищет кухню — ваш сайт отвечает его AI напрямую, на языке данных.</div>
-    </div>
-    <div class="stages-row" style="flex:1;align-items:stretch;">
-      <div class="stage-card accent-border">
-        <div class="stage-label accent">ЭТАП 2А</div>
-        <div class="stage-title">Бытовая техника + Кухни</div>
-        <ul class="stage-list">
-          <li>Техника (5 брендов) + Кухни (Nolte, BEECK, Lottocento)</li>
-          <li>AI-консультант по подбору техники</li>
-          <li>Калькулятор и КП за 20 секунд</li>
-          <li>MCP-интеграция первого приоритета</li>
-        </ul>
-        <div class="stage-meta">Срок: 6–8 нед &nbsp;·&nbsp; <span style="color:var(--gold);">900 000 – 1 200 000 ₽</span></div>
-      </div>
-      <div class="stage-arrow">→</div>
-      <div class="stage-card gold-border">
-        <div class="stage-label gold">ЭТАП 2Б</div>
-        <div class="stage-title">Посуда</div>
-        <ul class="stage-list">
-          <li>Раздел посуды (ZWILLING, Le Creuset и 100+ брендов)</li>
-          <li>Фильтрация по стилю кухни</li>
-          <li>Подбор комплектов</li>
-        </ul>
-        <div class="stage-meta">Срок: 4–5 нед &nbsp;·&nbsp; <span style="color:var(--gold);">450 000 – 600 000 ₽</span></div>
-      </div>
-      <div class="stage-arrow">→</div>
-      <div class="stage-card green-border">
-        <div class="stage-label green">ЭТАП 2В</div>
-        <div class="stage-title">Все остальные разделы</div>
-        <ul class="stage-list">
-          <li>Ножи, Сервировка, Стекло, Текстиль, Декор</li>
-          <li>Унификация и AI-навигация</li>
-          <li>Виртуальный тур 2.0</li>
-        </ul>
-        <div class="stage-meta">Срок: 5–6 нед &nbsp;·&nbsp; <span style="color:var(--gold);">600 000 – 800 000 ₽</span></div>
-      </div>
-    </div>
-    <div class="small-note">* Все цифры ориентировочные. Точная стоимость — по ТЗ после аудита.</div>
-  </section>
-
-  <!-- SLIDE 7: AI-АГЕНТЫ -->
-  <section class="slide" id="s7">
-    <div class="slide-number">07 / 13</div>
-    <h2 class="slide-h2">AI-команда для Château de Vaisselle</h2>
-    <p class="slide-sub">Персональный состав агентов под ваш бизнес</p>
-    <div class="agents-wrap">
-      <div class="agent-center-row">
-        <div class="agent-ceo">⚙️ CEO-агент — координирует всю команду</div>
-      </div>
-      <div class="agents-grid">
-        <div class="agent-card">
-          <div class="agent-icon">🎯</div>
-          <div class="agent-title">Агент продаж</div>
-          <div class="agent-desc">КП за 20 сек, follow-up, ведение сделок</div>
-        </div>
-        <div class="agent-card">
-          <div class="agent-icon">📣</div>
-          <div class="agent-title">Агент маркетинга</div>
-          <div class="agent-desc">Email, соцсети, контент, кампании</div>
-        </div>
-        <div class="agent-card">
-          <div class="agent-icon">🍳</div>
-          <div class="agent-title">Агент мастер-классов</div>
-          <div class="agent-desc">Регистрации, конверсия, follow-up</div>
-        </div>
-        <div class="agent-card">
-          <div class="agent-icon">🔍</div>
-          <div class="agent-title">SEO-агент</div>
-          <div class="agent-desc">Трафик, поисковое продвижение</div>
-        </div>
-        <div class="agent-card">
-          <div class="agent-icon">📊</div>
-          <div class="agent-title">Агент аналитики</div>
-          <div class="agent-desc">Отчёты, воронка, прогноз</div>
-        </div>
-        <div class="agent-card">
-          <div class="agent-icon">💰</div>
-          <div class="agent-title">Агент финансов</div>
-          <div class="agent-desc">Счета, бюджеты, аналитика затрат</div>
-        </div>
-        <div class="agent-card">
-          <div class="agent-icon">📁</div>
-          <div class="agent-title">Агент каталога</div>
-          <div class="agent-desc">Синхронизация с поставщиками, цены</div>
-        </div>
-        <div class="agent-card">
-          <div class="agent-icon">🤝</div>
-          <div class="agent-title">Агент клиент. сервиса</div>
-          <div class="agent-desc">Запросы, жалобы, NPS</div>
-        </div>
-      </div>
-      <div class="agent-extra">
-        <span>⚙️</span>
-        <span><strong style="color:var(--gold);">+ Доп. агенты</strong> — HR, закупки, логистика (по мере роста задач)</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLIDE 8: CRM -->
-  <section class="slide" id="s8">
-    <div class="slide-number">08 / 13</div>
-    <h2 class="slide-h2">53 000 клиентов — в активную работу</h2>
-    <p class="slide-sub">Полностью управляемая коммуникация по всем сегментам</p>
-    <div class="crm-cols">
-      <div>
-        <div class="crm-col-title">Сегментация базы</div>
-        <div class="crm-segment">
-          <div class="crm-seg-title">🍳 Кулинарный клуб</div>
-          <div class="crm-seg-desc">Участники мастер-классов → цепочка: МК → подарочная карта → посуда</div>
-        </div>
-        <div class="crm-segment">
-          <div class="crm-seg-title">🛋️ Кухонные проекты</div>
-          <div class="crm-seg-desc">Клиенты дизайнеров → реактивация через доп. комплектацию техники</div>
-        </div>
-        <div class="crm-segment">
-          <div class="crm-seg-title">🎁 Разовые покупатели</div>
-          <div class="crm-seg-desc">Посуда, декор → сезонные предложения, новинки</div>
-        </div>
-        <div class="crm-segment">
-          <div class="crm-seg-title">🌟 VIP-клиенты</div>
-          <div class="crm-seg-desc">Крупные проекты → персональный агент + эксклюзивные предложения</div>
-        </div>
-      </div>
-      <div>
-        <div class="crm-col-title">Каналы автоматизации</div>
-        <div class="crm-channel">
-          <span class="label">📧 Email</span>
-          <span>цепочки, триггеры, реактивация — AI-агент</span>
-        </div>
-        <div class="crm-channel">
-          <span class="label">💬 WhatsApp / Telegram</span>
-          <span>автоответы и уведомления</span>
-        </div>
-        <div class="crm-channel">
-          <span class="label">📱 Соц.сети</span>
-          <span>ретаргетинг и контент</span>
-        </div>
-        <div class="crm-channel">
-          <span class="label">📲 SMS</span>
-          <span>критические уведомления</span>
-        </div>
-      </div>
-    </div>
-    <div class="crm-note">Все коммуникации управляются AI-агентами. Вы согласовываете стратегию — агенты выполняют.</div>
-  </section>
-
-  <!-- SLIDE 9: СОЦСЕТИ -->
-  <section class="slide" id="s9">
-    <div class="slide-number">09 / 13</div>
-    <h2 class="slide-h2">Соц.сети на AI-агентах</h2>
-    <p class="slide-sub" style="margin-bottom:20px;">Полный цикл управления контентом без ручного труда</p>
-    <div class="social-cards">
-      <div class="social-card accent-top">
-        <div class="social-card-title">📐 Стратегия</div>
+    <div>
+      <div class="reason-card gold-left" style="height:100%;">
+        <div class="reason-card-title">Ваши уникальные активы — основа роста</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">AI не создаёт бизнес с нуля — он многократно усиливает то, что уже есть. У вас есть:</div>
         <ul>
-          <li>Контент-план на месяц — создаётся агентом</li>
-          <li>Посты, рецепты, вдохновение из кухни, анонсы МК</li>
-          <li>Targeting: дизайнеры, домохозяйки, молодые семьи</li>
+          <li><strong style="color:var(--text);">53 000 клиентов</strong> — крупнейшая база в сегменте, не используется</li>
+          <li><strong style="color:var(--text);">Бренды по всем категориям</strong> — бытовая техника (15+ брендов), кухни, посуда, ножи, стекло, текстиль, декор</li>
+          <li><strong style="color:var(--text);">3 шоурума премиального уровня</strong> — уникальный формат, аналогов в России нет по масштабу и качеству оформления</li>
+          <li><strong style="color:var(--text);">Кулинарный салон</strong> — живая точка контакта, мастер-классы как воронка продаж</li>
+          <li><strong style="color:var(--text);">Обученные сотрудники</strong> — глубокое знание продукта и рынка, AI даёт им суперсилы</li>
+        </ul>
+        <div style="margin-top:14px;">
+          <span class="asset-tag">Техника 15+</span><span class="asset-tag">Кухни</span><span class="asset-tag">Посуда 100+</span><span class="asset-tag">Текстиль</span><span class="asset-tag">Декор</span><span class="asset-tag">Ножи</span><span class="asset-tag">Стекло</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S5: АРХИТЕКТУРА -->
+<section class="slide" id="s5">
+  <div class="slide-number">05 / 14</div>
+  <h2 class="slide-h2">Из чего состоит трансформация</h2>
+  <p class="slide-sub">Девять взаимосвязанных блоков — каждый работает самостоятельно, полный эффект при запуске всей системы</p>
+  <div class="arch-grid" style="flex:1;">
+    <div class="arch-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><div class="arch-num accent-bg">01</div><div class="arch-card-title">Аудит и стратегия</div></div><div class="arch-card-desc">Детальное изучение бизнеса, стратегия трансформации. <span style="color:var(--green);font-weight:600;">Уже проведён ✅</span></div></div>
+    <div class="arch-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><div class="arch-num gold-bg">02</div><div class="arch-card-title">Новый сайт (MCP + AI)</div></div><div class="arch-card-desc">Поэтапная разработка — техника, кухни, посуда, все разделы.</div></div>
+    <div class="arch-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><div class="arch-num accent-bg">03</div><div class="arch-card-title">AI-агенты (команда)</div></div><div class="arch-card-desc">8–10 агентов: продажи, маркетинг, аналитика, сервис, SEO, финансы.</div></div>
+    <div class="arch-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><div class="arch-num gold-bg">04</div><div class="arch-card-title">Синхронизация систем</div></div><div class="arch-card-desc">Интеграция: каталог, 1С, CRM, поставщики — единая экосистема.</div></div>
+    <div class="arch-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><div class="arch-num accent-bg">05</div><div class="arch-card-title">CRM + коммуникации</div></div><div class="arch-card-desc">Автоматические цепочки, сегментация, реактивация базы 53К.</div></div>
+    <div class="arch-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><div class="arch-num gold-bg">06</div><div class="arch-card-title">Соц.сети на AI-агентах</div></div><div class="arch-card-desc">Контент, публикации, ответы, аналитика — управляются агентами.</div></div>
+    <div class="arch-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><div class="arch-num accent-bg">07</div><div class="arch-card-title">SEO-продвижение</div></div><div class="arch-card-desc">Оптимизация, трафик из поиска, продвижение по брендам и категориям.</div></div>
+    <div class="arch-card highlight"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><div class="arch-num green-bg">08</div><div class="arch-card-title">Обучение команды</div></div><div class="arch-card-desc">Практические сессии с сотрудниками. Работа с AI-агентами под специфику Château.</div></div>
+    <div class="arch-card highlight"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><div class="arch-num green-bg">09</div><div class="arch-card-title">Поддержка проекта</div></div><div class="arch-card-desc">Ежемесячное сопровождение, обновления, развитие платформы вместе с вами.</div></div>
+  </div>
+  <div class="arch-note">🛡️ Мы не просто внедряем — остаёмся рядом. Вы не один на один с системой.</div>
+</section>
+
+<!-- S6: САЙТ MCP -->
+<section class="slide" id="s6">
+  <div class="slide-number">06 / 14</div>
+  <h2 class="slide-h2">Сайт нового поколения на MCP</h2>
+  <p class="slide-sub">Не просто обновление — новая архитектура взаимодействия с клиентами и партнёрами</p>
+  <div class="concept-block">
+    <div class="concept-title">Что такое MCP-сайт?</div>
+    <div class="concept-cols">
+      <div><div class="concept-col-title">Традиционный сайт</div><div class="concept-flow">Клиент <span class="arr">→</span> браузер <span class="arr">→</span> каталог <span class="arr">→</span> менеджер <span class="arr">→</span> ответ (1–3 дня)</div></div>
+      <div><div class="concept-col-title">MCP-сайт Château</div><div class="concept-flow">AI-агент клиента <span class="arr">↔</span> MCP-сервер Château <span class="arr">↔</span> AI-агенты Château <span class="arr">→</span> мгновенный ответ</div></div>
+    </div>
+    <div class="concept-note">Когда дизайнер с AI-ассистентом ищет кухню или посуду — ваш сайт отвечает его AI напрямую, на языке данных. Без ожидания. Без менеджера.</div>
+  </div>
+  <div class="stages-row">
+    <div class="stage-card accent-border">
+      <div class="stage-label accent">ЭТАП 2А</div>
+      <div class="stage-title">Бытовая техника + Кухни</div>
+      <ul class="stage-list">
+        <li>Техника (15+ брендов) + Кухни (Nolte, BEECK, Lottocento и др.)</li>
+        <li>AI-консультант по подбору под проект</li>
+        <li>Калькулятор и КП за 20 секунд</li>
+        <li>MCP-интеграция — приоритет первого этапа</li>
+      </ul>
+      <div class="stage-meta">Срок: 6–8 нед</div>
+      <div class="max-price-note">⬆ до 1 200 000 ₽ ✔</div>
+    </div>
+    <div class="stage-arrow">→</div>
+    <div class="stage-card gold-border">
+      <div class="stage-label gold">ЭТАП 2Б</div>
+      <div class="stage-title">Посуда</div>
+      <ul class="stage-list">
+        <li>ZWILLING, Le Creuset и 100+ брендов посуды</li>
+        <li>Фильтрация по стилю кухни и материалу</li>
+        <li>Подбор комплектов под проект</li>
+      </ul>
+      <div class="stage-meta">Срок: 4–5 нед</div>
+      <div class="max-price-note">⬆ до 600 000 ₽ ✔</div>
+    </div>
+    <div class="stage-arrow">→</div>
+    <div class="stage-card green-border">
+      <div class="stage-label green">ЭТАП 2В</div>
+      <div class="stage-title">Все остальные разделы</div>
+      <ul class="stage-list">
+        <li>Ножи, Сервировка, Стекло, Текстиль, Декор</li>
+        <li>Унификация и AI-навигация по всем категориям</li>
+        <li>Виртуальный тур по шоурумам 2.0</li>
+      </ul>
+      <div class="stage-meta">Срок: 5–6 нед</div>
+      <div class="max-price-note">⬆ до 800 000 ₽ ✔</div>
+    </div>
+  </div>
+  <div class="small-note">✔ Ориентировочная максимальная стоимость. Итоговая цена определяется по ТЗ и корректируется в меньшую сторону.</div>
+</section>
+
+<!-- S7: АГЕНТЫ -->
+<section class="slide" id="s7">
+  <div class="slide-number">07 / 14</div>
+  <h2 class="slide-h2">AI-команда для Château de Vaisselle</h2>
+  <p class="slide-sub">Персональный состав агентов под ваш бизнес — посуда, техника, кухни, мастер-классы</p>
+  <div class="agents-wrap">
+    <div class="agent-center-row">
+      <div class="agent-ceo">⚙️ CEO-агент — координирует всю команду, ставит задачи, контролирует результат</div>
+    </div>
+    <div class="agents-grid">
+      <div class="agent-card"><div class="agent-icon">🎯</div><div class="agent-title">Агент продаж</div><div class="agent-desc">КП за 20 сек, ведение сделок, follow-up после встречи, работа с дизайнерами</div></div>
+      <div class="agent-card"><div class="agent-icon">📣</div><div class="agent-title">Агент маркетинга</div><div class="agent-desc">Email-кампании, соцсети, контент-план, анонсы МК, работа с базой 53К</div></div>
+      <div class="agent-card"><div class="agent-icon">🍳</div><div class="agent-title">Агент мастер-классов</div><div class="agent-desc">Регистрации, напоминания, конверсия гостей МК в покупателей, follow-up</div></div>
+      <div class="agent-card"><div class="agent-icon">🔍</div><div class="agent-title">SEO-агент</div><div class="agent-desc">Поисковый трафик, оптимизация страниц по брендам и категориям каталога</div></div>
+      <div class="agent-card"><div class="agent-icon">📊</div><div class="agent-title">Агент аналитики</div><div class="agent-desc">Воронка продаж, отчёты по каналам, прогнозы, еженедельные сводки</div></div>
+      <div class="agent-card"><div class="agent-icon">💰</div><div class="agent-title">Агент финансов</div><div class="agent-desc">Счета, бюджеты, аналитика затрат, контроль платежей и отчётность</div></div>
+      <div class="agent-card"><div class="agent-icon">📁</div><div class="agent-title">Агент каталога</div><div class="agent-desc">Синхронизация с поставщиками, актуальность цен, обновления ассортимента</div></div>
+      <div class="agent-card"><div class="agent-icon">🤝</div><div class="agent-title">Агент клиент. сервиса</div><div class="agent-desc">Запросы, жалобы, NPS, обработка входящих из всех каналов</div></div>
+    </div>
+    <div class="agent-extra"><span>⚙️</span><span><strong style="color:var(--gold);">+ Агент обучения</strong> — адаптация сотрудников &nbsp;|&nbsp; <strong style="color:var(--gold);">+ Агент HR</strong>, закупки, логистика — по мере роста задач</span></div>
+  </div>
+</section>
+
+<!-- S8: CRM -->
+<section class="slide" id="s8">
+  <div class="slide-number">08 / 14</div>
+  <h2 class="slide-h2">53 000 клиентов — в активную работу</h2>
+  <p class="slide-sub">Детальная сегментация + индивидуальная коммуникационная стратегия по каждому сегменту и каналу</p>
+  <div class="crm-cols">
+    <div>
+      <div class="crm-col-title">Сегментация базы (ключевые сегменты)</div>
+      <div class="crm-segment"><div class="crm-seg-title">🍳 Кулинарный клуб</div><div class="crm-seg-desc">Участники МК → МК → подарочная карта → посуда → приглашение на следующий МК</div></div>
+      <div class="crm-segment"><div class="crm-seg-title">🛋️ Кухонные проекты</div><div class="crm-seg-desc">Клиенты дизайнеров → реактивация через доп. комплектацию техники и аксессуаров</div></div>
+      <div class="crm-segment"><div class="crm-seg-title">🏗️ Дизайнеры и архитекторы (B2B)</div><div class="crm-seg-desc">Персональный агент, быстрые КП, каталог с ценами, приоритетный follow-up по проектам</div></div>
+      <div class="crm-segment"><div class="crm-seg-title">🎁 Разовые покупатели</div><div class="crm-seg-desc">Посуда, декор → сезонные предложения, новинки, подарочные идеи</div></div>
+      <div class="crm-segment"><div class="crm-seg-title">🌟 VIP-клиенты</div><div class="crm-seg-desc">Крупные проекты → персональный агент + эксклюзивные предложения + priority access</div></div>
+    </div>
+    <div>
+      <div class="crm-col-title">Каналы + автоматизация</div>
+      <div class="crm-channel"><span class="label">📧 Email</span><span>цепочки, триггеры, реактивация, персонализация — AI-агент</span></div>
+      <div class="crm-channel"><span class="label">💬 WhatsApp / Telegram</span><span>автоответы, уведомления о МК, статус</span></div>
+      <div class="crm-channel"><span class="label">📱 Соц.сети</span><span>ретаргетинг, контент по сегментам, вовлечение</span></div>
+      <div class="crm-channel"><span class="label">📲 SMS</span><span>критические уведомления, напоминания о МК</span></div>
+      <div class="crm-strategy-box"><strong style="color:var(--accent);">Стратегия по каналам:</strong><br>Для каждого сегмента — своя стратегия. Дизайнеры получают другой контент, чем участники МК. VIP — персонального агента. Всё автоматизировано. Вы согласовываете стратегию — агенты выполняют.</div>
+      <div class="crm-note">База 53К — это капитал, который сейчас не работает. При правильной сегментации и автоматизации он становится главным активом продаж.</div>
+    </div>
+  </div>
+</section>
+
+<!-- S9: СОЦСЕТИ + SEO -->
+<section class="slide" id="s9">
+  <div class="slide-number">09 / 14</div>
+  <h2 class="slide-h2">Соц.сети + SEO: с нуля до лидерства</h2>
+  <p class="slide-sub">Два мощных канала привлечения, которые сейчас не работают совсем — это возможность, а не недостаток</p>
+  <div class="social-wrap">
+    <div class="zero-start">📌 <strong>Стартовая позиция:</strong> компания не вела соцсети — мы строим с чистого листа, правильно с первого дня. Мощный бренд + уникальные шоурумы + кулинарный салон = идеальный контентный материал.</div>
+    <div class="social-top">
+      <div class="social-card accent-top">
+        <div class="social-card-title">📐 Стратегия и контент соц.сетей</div>
+        <ul>
+          <li><strong style="color:var(--text);">Instagram / ВК:</strong> шоурум, новинки, мастер-классы, лайфстайл — 15+ постов/мес</li>
+          <li><strong style="color:var(--text);">Telegram-канал:</strong> анонсы МК + посуда + рецепты + эксклюзив подписчикам</li>
+          <li><strong style="color:var(--text);">Pinterest:</strong> вдохновение по кухням и сервировке — продажный трафик</li>
+          <li>Таргетинг: дизайнеры, молодые семьи, ценители кулинарии, B2B-партнёры</li>
+          <li>Ответы на комментарии — AI-агент в рамках стратегии</li>
+          <li>Аналитика → конверсия в шоурум и онлайн-покупку</li>
         </ul>
       </div>
       <div class="social-card gold-top">
-        <div class="social-card-title">✍️ Контент</div>
+        <div class="social-card-title">🔥 Контент, который продаёт</div>
         <ul>
-          <li>Telegram-канал: анонсы МК + посуда + рецепты</li>
-          <li>Instagram / ВК: лайфстайл-контент, шоурум, новинки</li>
-          <li>Ответы на комментарии — AI в рамках стратегии</li>
-        </ul>
-      </div>
-      <div class="social-card green-top">
-        <div class="social-card-title">📊 Аналитика</div>
-        <ul>
-          <li>Вовлечённость, охват, конверсия → в CRM</li>
-          <li>Какой контент приводит клиентов в шоурум</li>
-          <li>Еженедельный отчёт от аналитика-агента</li>
+          <li>3 шоурума = контент-машина: интерьеры, товары, атмосфера</li>
+          <li>Мастер-классы как контент: процесс, результат, отзывы, анонсы</li>
+          <li>Обзоры брендов: техника + посуда + кухни в одной экосистеме</li>
+          <li>Истории клиентов и проектов — социальное доказательство</li>
+          <li>Сезонные кампании: Новый год, 8 марта, сезон кухонь (сентябрь)</li>
+          <li>Конкурсы и вовлечение через кулинарный клуб</li>
         </ul>
       </div>
     </div>
-  </section>
-
-  <!-- SLIDE 10: КТО ДЕЛАЕТ ЧТО -->
-  <section class="slide" id="s10">
-    <div class="slide-number">10 / 13</div>
-    <h2 class="slide-h2">Кто за что отвечает</h2>
-    <p class="slide-sub">Распределение ролей в проекте</p>
-    <div class="who-cards">
-      <div class="who-card accent-left">
-        <div class="who-card-icon">🤖</div>
-        <div class="who-card-title">Home Project AI Platform</div>
-        <ul>
-          <li>Разработка и настройка AI-агентов</li>
-          <li>Стратегия коммуникаций и CRM</li>
-          <li>Email-кампании и автоматизация</li>
-          <li>Управление контентом и соц.сетями</li>
-          <li>Аналитика и отчётность</li>
-          <li>Обучение вашей команды работе с агентами</li>
-          <li>Ежемесячное сопровождение платформы</li>
-        </ul>
-      </div>
-      <div class="who-card gold-left">
-        <div class="who-card-icon">💻</div>
-        <div class="who-card-title">IT-команда (привлекается)</div>
-        <ul>
-          <li>Разработка нового сайта (frontend + backend)</li>
-          <li>MCP-сервер и техническая интеграция</li>
-          <li>Интеграция с 1С / учётной системой</li>
-          <li>API-подключение к поставщикам</li>
-          <li>Хостинг и техническая инфраструктура</li>
-          <li>Безопасность и резервное копирование</li>
-        </ul>
+    <div class="seo-block">
+      <div class="seo-title">🔍 SEO-продвижение — долгосрочный органический трафик</div>
+      <div class="seo-cols">
+        <div class="seo-item"><strong>Технический SEO</strong>Оптимизация структуры нового сайта с первого дня. 100+ брендов = 100+ SEO-страниц. Семантика по всем категориям.</div>
+        <div class="seo-item"><strong>Контентный SEO</strong>Статьи: «Как выбрать посуду», «Кухни до 2 млн», «Лучшая бытовая техника». Трафик, работающий 24/7 без рекламного бюджета.</div>
+        <div class="seo-item"><strong>Результат через 3–6 мес</strong>Органический трафик из Яндекс и Google. Позиции по брендовым и категорийным запросам. Клиенты находят вас сами.</div>
       </div>
     </div>
-    <div class="who-note">Мы координируем работу IT-команды и обеспечиваем полный результат. Вам — один ответственный контакт.</div>
-  </section>
+  </div>
+</section>
 
-  <!-- SLIDE 11: ПЛАН И СРОКИ -->
-  <section class="slide" id="s11">
-    <div class="slide-number">11 / 13</div>
-    <h2 class="slide-h2">График реализации</h2>
-    <p class="slide-sub">6 месяцев от старта до полного запуска</p>
-    <div class="gantt-wrap">
-      <table class="gantt-table">
-        <thead>
-          <tr>
-            <th>Этап</th>
-            <th>М1</th>
-            <th>М2</th>
-            <th>М3</th>
-            <th>М4</th>
-            <th>М5</th>
-            <th>М6</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1. Финальный аудит + ТЗ</td>
-            <td colspan="1"><div class="gantt-bar" style="background:var(--accent);border-radius:4px 4px 4px 4px;">&nbsp;</div></td>
-            <td></td><td></td><td></td><td></td><td></td>
-          </tr>
-          <tr>
-            <td>2. Синхронизация баз + CRM</td>
-            <td colspan="2"><div class="gantt-bar" style="background:var(--gold);border-radius:4px;">&nbsp;</div></td>
-            <td></td><td></td><td></td><td></td>
-          </tr>
-          <tr>
-            <td>3. Сайт Этап 2А (техника + кухни)</td>
-            <td colspan="3"><div class="gantt-bar" style="background:var(--purple);border-radius:4px;">&nbsp;</div></td>
-            <td></td><td></td><td></td>
-          </tr>
-          <tr>
-            <td>4. Запуск AI-агентов (ядро)</td>
-            <td></td>
-            <td colspan="1"><div class="gantt-bar" style="background:var(--green);border-radius:4px;">&nbsp;</div></td>
-            <td></td><td></td><td></td><td></td>
-          </tr>
-          <tr>
-            <td>5. Сайт Этап 2Б (посуда)</td>
-            <td></td><td></td>
-            <td colspan="2"><div class="gantt-bar" style="background:var(--purple-light);border-radius:4px;">&nbsp;</div></td>
-            <td></td><td></td>
-          </tr>
-          <tr>
-            <td>6. CRM-коммуникации (53К база)</td>
-            <td></td><td></td>
-            <td colspan="2"><div class="gantt-bar" style="background:var(--gold);border-radius:4px;opacity:0.7;">&nbsp;</div></td>
-            <td></td><td></td>
-          </tr>
-          <tr>
-            <td>7. Соц.сети AI-агенты</td>
-            <td></td><td></td><td></td>
-            <td colspan="1"><div class="gantt-bar" style="background:var(--accent);border-radius:4px;opacity:0.8;">&nbsp;</div></td>
-            <td></td><td></td>
-          </tr>
-          <tr>
-            <td>8. Сайт Этап 2В (остальное)</td>
-            <td></td><td></td><td></td>
-            <td colspan="2"><div class="gantt-bar" style="background:var(--purple-lighter);border-radius:4px;">&nbsp;</div></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>9. Обучение команды</td>
-            <td></td><td></td><td></td><td></td>
-            <td colspan="1"><div class="gantt-bar" style="background:var(--muted);border-radius:4px;">&nbsp;</div></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>10. Полный запуск + тестирование</td>
-            <td></td><td></td><td></td><td></td>
-            <td colspan="2"><div class="gantt-bar" style="background:var(--green);border-radius:4px;opacity:0.8;">&nbsp;</div></td>
-          </tr>
-        </tbody>
+<!-- S10: КТО ЗА ЧТО -->
+<section class="slide" id="s10">
+  <div class="slide-number">10 / 14</div>
+  <h2 class="slide-h2">Кто за что отвечает</h2>
+  <p class="slide-sub">Чёткое разделение ролей — вы всегда знаете, кто делает что</p>
+  <div class="who-cards">
+    <div class="who-card accent-left">
+      <div class="who-card-icon">🤖</div>
+      <div class="who-card-title">Home Project AI Platform</div>
+      <ul>
+        <li>Разработка и настройка AI-агентов под Château</li>
+        <li>Стратегия коммуникаций и CRM-сегментация</li>
+        <li>Email-кампании и автоматизация по всем каналам</li>
+        <li>Управление контентом и ведение соц.сетей</li>
+        <li>SEO-оптимизация и продвижение</li>
+        <li>Аналитика, отчётность, еженедельные встречи</li>
+        <li><strong style="color:var(--accent);">Обучение команды Château</strong> — практические сессии с каждым сотрудником</li>
+        <li><strong style="color:var(--accent);">Ежемесячная поддержка</strong> — один контакт, постоянное сопровождение</li>
+      </ul>
+    </div>
+    <div class="who-card gold-left">
+      <div class="who-card-icon">💻</div>
+      <div class="who-card-title">IT-команда (координируем мы)</div>
+      <ul>
+        <li>Разработка нового сайта (frontend + backend)</li>
+        <li>MCP-сервер и техническая интеграция</li>
+        <li>Интеграция с 1С / учётной системой Château</li>
+        <li>API-подключение к поставщикам и каталогам</li>
+        <li>Хостинг, безопасность, резервное копирование</li>
+        <li>Техническая инфраструктура (сервер, домен, SSL)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="who-note">Мы координируем IT-команду и обеспечиваем полный результат. Вам не нужно управлять несколькими подрядчиками — один ответственный контакт с нашей стороны.</div>
+  <div class="guarantee-box">🛡️ <strong>Гарантия поддержки:</strong> первые 30 дней — бесплатное обучение сотрудников и сопровождение после запуска. Мы не уходим после старта — остаёмся рядом на весь путь трансформации.</div>
+</section>
+
+<!-- S11: ГРАФИК -->
+<section class="slide" id="s11">
+  <div class="slide-number">11 / 14</div>
+  <h2 class="slide-h2">График реализации</h2>
+  <p class="slide-sub">6 месяцев — полная трансформация. Цель: войти в высокий сезон (сентябрь 2026) с работающими инструментами</p>
+  <div class="timeline-wrap">
+    <div class="timeline-phase accent-border">
+      <div class="tl-header"><div class="tl-period accent">📍 Фаза 1 — Июль–Август 2026 (М1–М2)</div><div class="tl-badge red">⚡ Срочно — до сезона</div></div>
+      <div class="tl-cols">
+        <div class="tl-item"><strong>Финальный аудит + ТЗ</strong>Согласование всех этапов, старт работ</div>
+        <div class="tl-item"><strong>CRM: сегментация + первые рассылки</strong>База 53К разбита, первые email-цепочки запущены ещё до сентября</div>
+        <div class="tl-item"><strong>Соц.сети: аккаунты + первый контент</strong>Instagram, ВК, Telegram — активны к началу сезона</div>
+      </div>
+      <div class="tl-effect">🎯 <strong style="color:var(--accent);">К сентябрю:</strong> клиентская база прогрета, соцсети активны, CRM сегментирована и работает</div>
+    </div>
+    <div class="timeline-phase gold-border">
+      <div class="tl-header"><div class="tl-period gold">🚀 Фаза 2 — Сентябрь–Декабрь 2026 (М3–М6)</div><div class="tl-badge amber">Высокий сезон</div></div>
+      <div class="tl-cols">
+        <div class="tl-item"><strong>Сайт Этап 2А (техника + кухни)</strong>Живой MCP-сайт, AI-консультант, КП за 20 сек</div>
+        <div class="tl-item"><strong>AI-агенты: ядро команды (8 агентов)</strong>Продажи, маркетинг, аналитика, сервис работают</div>
+        <div class="tl-item"><strong>Сайт Этапы 2Б + 2В</strong>Посуда, все разделы — полный каталог на MCP</div>
+      </div>
+      <div class="tl-effect">🎯 <strong style="color:var(--gold);">Первый сезон с AI-инструментами:</strong> рост конверсии, автоматические продажи, SEO набирает позиции</div>
+    </div>
+    <div class="timeline-phase purple-border">
+      <div class="tl-header"><div class="tl-period purple">📈 Фаза 3 — 2027 (Развитие)</div><div class="tl-badge green">Абонентское сопровождение</div></div>
+      <div class="tl-cols">
+        <div class="tl-item"><strong>Полная MCP-экосистема</strong>Все разделы, все категории, API поставщиков подключены</div>
+        <div class="tl-item"><strong>Расширение AI-команды</strong>Новые агенты под новые задачи — HR, логистика, обучение</div>
+        <div class="tl-item"><strong>SEO-трафик</strong>Органика из Яндекс/Google по всем брендам и категориям</div>
+      </div>
+      <div class="tl-effect">🎯 <strong style="color:var(--purple-light);">Абонентская плата стартует с первого месяца проекта</strong> — включает сопровождение, развитие, поддержку</div>
+    </div>
+    <div class="timeline-phase green-border">
+      <div class="tl-header"><div class="tl-period green">🌟 Фаза 4 — 2028 и далее (Масштабирование)</div><div class="tl-badge green">Долгосрочное партнёрство</div></div>
+      <div class="tl-cols">
+        <div class="tl-item"><strong>Новые каналы продаж</strong>B2B-партнёры, застройщики, дизайн-бюро через MCP</div>
+        <div class="tl-item"><strong>Платформенное расширение</strong>Новые функции, интеграции, агенты</div>
+        <div class="tl-item"><strong>Управление ростом по данным</strong>1+ год данных → точные прогнозы и оптимизация</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S12: СТОИМОСТЬ -->
+<section class="slide" id="s12">
+  <div class="slide-number">12 / 14</div>
+  <h2 class="slide-h2">Ориентировочная стоимость работ</h2>
+  <div class="market-note">✅ Наши цены <strong>ниже среднего по рынку</strong>. Аналогичные работы у специализированных агентств стоят в 1,5–2,5× дороже. Мы работаем в диапазоне «доступное качество премиум-класса».</div>
+  <div class="pricing-warn">⚠️ Все цифры — ориентировочная <strong>максимальная</strong> стоимость ✔. Итоговая цена определяется по ТЗ и корректируется в меньшую сторону.</div>
+  <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Единоразовые работы</div>
+  <table class="pricing-table">
+    <thead><tr><th>Работа</th><th>Исполнитель</th><th>Макс. стоимость ✔</th><th>Срок</th></tr></thead>
+    <tbody>
+      <tr><td>Финальный аудит и ТЗ</td><td class="exec">HP AI Platform</td><td class="price">Входит в проект</td><td style="color:var(--muted);font-size:11px;">2 нед</td></tr>
+      <tr><td>Сайт: техника + кухни (15+ брендов) — Этап 2А</td><td class="exec">IT + HP AI</td><td class="price">до 1 200 000 ₽</td><td style="color:var(--muted);font-size:11px;">6–8 нед</td></tr>
+      <tr><td>Сайт: посуда (100+ брендов) — Этап 2Б</td><td class="exec">IT + HP AI</td><td class="price">до 600 000 ₽</td><td style="color:var(--muted);font-size:11px;">4–5 нед</td></tr>
+      <tr><td>Сайт: все остальные разделы — Этап 2В</td><td class="exec">IT + HP AI</td><td class="price">до 800 000 ₽</td><td style="color:var(--muted);font-size:11px;">5–6 нед</td></tr>
+      <tr><td>Синхронизация баз (1С + CRM + поставщики)</td><td class="exec">IT + HP AI</td><td class="price">до 700 000 ₽</td><td style="color:var(--muted);font-size:11px;">3–4 нед</td></tr>
+      <tr><td>Запуск AI-агентов (ядро 8 агентов)</td><td class="exec">HP AI Platform</td><td class="price">до 350 000 ₽</td><td style="color:var(--muted);font-size:11px;">2–3 нед</td></tr>
+      <tr><td>CRM + коммуникации (сегменты + цепочки)</td><td class="exec">HP AI Platform</td><td class="price">до 400 000 ₽</td><td style="color:var(--muted);font-size:11px;">3–4 нед</td></tr>
+      <tr><td>Соц.сети (стратегия + настройка аккаунтов)</td><td class="exec">HP AI Platform</td><td class="price">до 250 000 ₽</td><td style="color:var(--muted);font-size:11px;">2–3 нед</td></tr>
+      <tr><td>SEO-оптимизация (техническая + семантика)</td><td class="exec">HP AI Platform</td><td class="price">до 250 000 ₽</td><td style="color:var(--muted);font-size:11px;">2–3 нед</td></tr>
+      <tr class="bonus-row"><td>🎁 Первичная настройка AI-агентов</td><td class="exec">HP AI Platform</td><td>БЕСПЛАТНО</td><td></td></tr>
+      <tr class="bonus-row"><td>🎁 30 дней обучения + сопровождения команды</td><td class="exec">HP AI Platform</td><td>БЕСПЛАТНО</td><td></td></tr>
+      <tr class="total-row"><td><strong>ИТОГО единоразово (максимум)</strong></td><td></td><td><strong>до 4 550 000 ₽ ✔</strong></td><td></td></tr>
+    </tbody>
+  </table>
+  <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;margin-top:10px;">Ежемесячные расходы</div>
+  <table class="pricing-table">
+    <thead><tr><th>Услуга</th><th>Исполнитель</th><th>Макс. стоимость/мес ✔</th></tr></thead>
+    <tbody>
+      <tr><td>AI-платформа (агенты + сопровождение + развитие)</td><td class="exec">HP AI Platform</td><td class="price">до 180 000 ₽</td></tr>
+      <tr><td>CRM-ведение + коммуникации (все каналы)</td><td class="exec">HP AI Platform</td><td class="price">до 100 000 ₽</td></tr>
+      <tr><td>Соц.сети (ведение контента + аналитика)</td><td class="exec">HP AI Platform</td><td class="price">до 80 000 ₽</td></tr>
+      <tr><td>SEO-продвижение (ежемесячно) ✔</td><td class="exec">HP AI Platform</td><td class="price">до 80 000 ₽</td></tr>
+      <tr><td>Техническая инфраструктура (хостинг, сервер)</td><td class="exec">IT-команда</td><td class="price">до 40 000 ₽</td></tr>
+      <tr class="total-row"><td><strong>ИТОГО ежемесячно (максимум)</strong></td><td></td><td><strong>до 480 000 ₽/мес ✔</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="roi-block"><div class="roi-title">Ориентировочный ROI</div><div class="roi-text">53 000 клиентов. Реактивация 2% = 1 060 покупок. При среднем чеке 50 000 ₽ = <strong style="color:var(--gold);">~53 000 000 ₽ выручки</strong>. Инвестиция окупается при реактивации менее 0,1% базы. <span style="color:var(--muted);">* Ориентир, без гарантий.</span></div></div>
+</section>
+
+<!-- S13: ИТОГ -->
+<section class="slide" id="s13">
+  <div class="slide-number">13 / 14</div>
+  <h2 class="slide-h2">Итог: что вы получаете</h2>
+  <p class="slide-sub">Компания нового поколения — конкретный план, измеримый результат, поэтапное внедрение</p>
+  <div class="summary-wrap">
+    <div class="summary-block accent-top">
+      <div class="sb-title">📅 До конца 2026 года (6 месяцев)</div>
+      <div class="sb-item"><span class="sb-label">Сайт на MCP:</span><span>техника + кухни + посуда + все разделы — живой, автоматический</span></div>
+      <div class="sb-item"><span class="sb-label">AI-команда:</span><span>8–10 агентов работают 24/7 на продажи и маркетинг</span></div>
+      <div class="sb-item"><span class="sb-label">CRM активна:</span><span>53 000 клиентов сегментированы, цепочки запущены</span></div>
+      <div class="sb-item"><span class="sb-label">Соц.сети:</span><span>Instagram, ВК, Telegram — системный контент</span></div>
+      <div class="sb-item"><span class="sb-label">SEO:</span><span>технический SEO выполнен, первые позиции в поиске</span></div>
+    </div>
+    <div class="summary-block gold-top">
+      <div class="sb-title">📈 2027–2028 (абонентское сопровождение)</div>
+      <div class="sb-item"><span class="sb-label">Полная MCP-экосистема:</span><span>сайт + агенты + CRM работают как единое целое</span></div>
+      <div class="sb-item"><span class="sb-label">SEO-трафик:</span><span>органический поток клиентов из Яндекс и Google</span></div>
+      <div class="sb-item"><span class="sb-label">B2B-каналы:</span><span>дизайнеры и застройщики подключены через MCP</span></div>
+      <div class="sb-item"><span class="sb-label">Развитие:</span><span>новые агенты, функции, интеграции по мере роста</span></div>
+    </div>
+    <div class="summary-block green-top">
+      <div class="sb-title">💰 Инвестиции клиента</div>
+      <table class="invest-table">
+        <tr><td>2026 — единоразово (макс. ✔)</td><td>до 4 550 000 ₽</td></tr>
+        <tr><td>С первого месяца — абонент (макс. ✔)</td><td>до 480 000 ₽/мес</td></tr>
+        <tr><td>Онбординг + 30 дней обучения</td><td style="color:var(--green);">БЕСПЛАТНО</td></tr>
+        <tr><td>Скидка на SEO (обсуждается ✔)</td><td style="color:var(--green);">Доп. условие</td></tr>
       </table>
     </div>
-    <div class="gantt-note">Этапы могут идти параллельно. Первые результаты — в конце 2-го месяца.</div>
-  </section>
+    <div class="summary-block purple-top">
+      <div class="sb-title">📊 Ожидаемые метрики эффективности</div>
+      <div class="sb-metric"><span class="metric-label">Время на КП (дизайнер)</span><span class="metric-val">с 2 ч → 20 сек</span></div>
+      <div class="sb-metric"><span class="metric-label">Активация клиентской базы</span><span class="metric-val">с 0% → 2–5%</span></div>
+      <div class="sb-metric"><span class="metric-label">Конверсия сайта</span><span class="metric-val">+2–3×</span></div>
+      <div class="sb-metric"><span class="metric-label">Охват соц.сетей</span><span class="metric-val">с 0 → 10 000+/мес</span></div>
+      <div class="sb-metric"><span class="metric-label">Экономия времени команды</span><span class="metric-val">130+ часов/мес</span></div>
+      <div class="sb-metric"><span class="metric-label">SEO-трафик (через 6 мес)</span><span class="metric-val">+500–1500 визитов/мес</span></div>
+    </div>
+  </div>
+</section>
 
-  <!-- SLIDE 12: СТОИМОСТЬ -->
-  <section class="slide" id="s12">
-    <div class="slide-number">12 / 13</div>
-    <h2 class="slide-h2">Ориентировочная стоимость работ</h2>
-    <div class="pricing-warn">⚠️ Все цифры — ориентировочные. Точная стоимость рассчитывается по итогам согласования ТЗ.</div>
-    <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Единоразовые работы</div>
-    <table class="pricing-table">
-      <thead>
-        <tr>
-          <th>Работа</th>
-          <th>Исполнитель</th>
-          <th>Стоимость (ориентир)</th>
-          <th>Срок</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Финальный аудит и ТЗ</td><td class="exec">HP AI Platform</td><td class="price">Входит в проект</td><td style="color:var(--muted);font-size:12px;">2 нед</td></tr>
-        <tr><td>Сайт: техника + кухни (Этап 2А)</td><td class="exec">IT + HP AI</td><td class="price">900 000 – 1 200 000 ₽</td><td style="color:var(--muted);font-size:12px;">6–8 нед</td></tr>
-        <tr><td>Сайт: посуда (Этап 2Б)</td><td class="exec">IT + HP AI</td><td class="price">450 000 – 600 000 ₽</td><td style="color:var(--muted);font-size:12px;">4–5 нед</td></tr>
-        <tr><td>Сайт: остальные разделы (Этап 2В)</td><td class="exec">IT + HP AI</td><td class="price">600 000 – 800 000 ₽</td><td style="color:var(--muted);font-size:12px;">5–6 нед</td></tr>
-        <tr><td>Синхронизация баз и систем</td><td class="exec">IT + HP AI</td><td class="price">500 000 – 700 000 ₽</td><td style="color:var(--muted);font-size:12px;">3–4 нед</td></tr>
-        <tr><td>Запуск AI-агентов</td><td class="exec">HP AI Platform</td><td class="price">200 000 – 350 000 ₽</td><td style="color:var(--muted);font-size:12px;">2–3 нед</td></tr>
-        <tr><td>CRM + коммуникации (настройка)</td><td class="exec">HP AI Platform</td><td class="price">250 000 – 400 000 ₽</td><td style="color:var(--muted);font-size:12px;">3–4 нед</td></tr>
-        <tr><td>Соц.сети (настройка + стратегия)</td><td class="exec">HP AI Platform</td><td class="price">150 000 – 250 000 ₽</td><td style="color:var(--muted);font-size:12px;">2–3 нед</td></tr>
-        <tr class="total-row"><td><strong>ИТОГО единоразово</strong></td><td></td><td><strong>3 050 000 – 4 300 000 ₽</strong></td><td></td></tr>
-      </tbody>
-    </table>
-    <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;margin-top:14px;">Ежемесячные расходы</div>
-    <table class="pricing-table">
-      <thead>
-        <tr>
-          <th>Услуга</th>
-          <th>Исполнитель</th>
-          <th>Стоимость/мес (ориентир)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>AI-платформа (агенты + сопровождение)</td><td class="exec">HP AI Platform</td><td class="price">120 000 – 180 000 ₽</td></tr>
-        <tr><td>CRM-ведение + коммуникации</td><td class="exec">HP AI Platform</td><td class="price">60 000 – 100 000 ₽</td></tr>
-        <tr><td>Соц.сети (ведение)</td><td class="exec">HP AI Platform</td><td class="price">50 000 – 80 000 ₽</td></tr>
-        <tr><td>Техническая инфраструктура</td><td class="exec">IT-команда</td><td class="price">20 000 – 40 000 ₽</td></tr>
-        <tr class="total-row"><td><strong>ИТОГО ежемесячно</strong></td><td></td><td><strong>250 000 – 400 000 ₽/мес</strong></td></tr>
-      </tbody>
-    </table>
-    <div class="roi-block">
-      <div class="roi-title">Ориентировочный ROI</div>
-      <div class="roi-text">53 000 клиентов в базе. Реактивация 2% = 1 060 дополнительных покупок. При среднем чеке 50 000 ₽ = <strong style="color:var(--gold);">~53 000 000 ₽ выручки</strong>.<br>Инвестиция в трансформацию окупается при реактивации менее 0,1% базы.</div>
-      <div class="roi-note">* Ориентировочный расчёт. Без гарантий.</div>
-    </div>
-  </section>
-
-  <!-- SLIDE 13: CTA -->
-  <section class="slide" id="s13">
-    <div class="cta-brand">HOME PROJECT AI PLATFORM</div>
-    <h1 class="cta-h1">Готовы начать?</h1>
-    <p class="cta-sub">Предлагаем следующий шаг: финализация ТЗ и согласование этапов.</p>
-    <div class="cta-steps">
-      <div class="cta-step">
-        <div class="cta-step-icon">📋</div>
-        <div class="cta-step-title">Шаг 1 — Встреча</div>
-        <div class="cta-step-desc">Обсудим детали трансформации. 60 минут. Без обязательств.</div>
-        <a class="cta-btn gold-fill" href="mailto:info@homeproject.online?subject=Château+de+Vaisselle+Трансформация" onclick="window.location.href=this.href;return false;">Назначить встречу</a>
-      </div>
-      <div class="cta-step">
-        <div class="cta-step-icon">📄</div>
-        <div class="cta-step-title">Шаг 2 — ТЗ</div>
-        <div class="cta-step-desc">Подготовим детальное техническое задание по каждому этапу и финальную стоимость.</div>
-        <a class="cta-btn gold-outline" href="mailto:info@homeproject.online" onclick="window.location.href=this.href;return false;">Обсудить ТЗ</a>
-      </div>
-      <div class="cta-step">
-        <div class="cta-step-icon">🚀</div>
-        <div class="cta-step-title">Шаг 3 — Старт</div>
-        <div class="cta-step-desc">Первые результаты — в течение 60 дней после старта.</div>
-        <a class="cta-btn accent-outline" href="mailto:info@homeproject.online" onclick="window.location.href=this.href;return false;">Начать проект</a>
-      </div>
-    </div>
-    <div class="cta-divider"></div>
-    <div class="cta-contacts">
-      <span>📧 info@homeproject.online</span>
-      <span>📱 +7 (905) 522-35-14</span>
-      <span>🌐 homeproject.online</span>
-    </div>
-    <div class="cta-legal">Все финансовые показатели носят ориентировочный характер. Точные суммы фиксируются в договоре. Конфиденциально.</div>
-  </section>
+<!-- S14: CTA -->
+<section class="slide" id="s14" style="justify-content:center;align-items:center;text-align:center;background:radial-gradient(ellipse at 30% 60%,rgba(201,168,76,.06) 0%,transparent 50%),radial-gradient(ellipse at 70% 30%,rgba(74,139,245,.05) 0%,transparent 50%),var(--bg);">
+  <div class="cta-h1">Готовы начать?</div>
+  <p class="cta-sub">Следующий шаг: финализация ТЗ и согласование этапов.<br>Первые результаты — в течение 60 дней после старта.</p>
+  <div class="cta-steps">
+    <div class="cta-step"><div class="cta-step-icon">📋</div><div class="cta-step-title">Шаг 1 — Встреча</div><div class="cta-step-desc">Обсудим детали трансформации. 60 минут. Без обязательств.</div><a class="cta-btn gold-fill" href="mailto:info@homeproject.online?subject=Château+де+Вессель+Трансформация">Назначить встречу</a></div>
+    <div class="cta-step"><div class="cta-step-icon">📄</div><div class="cta-step-title">Шаг 2 — ТЗ</div><div class="cta-step-desc">Подготовим детальное ТЗ по каждому этапу и финальную стоимость.</div><a class="cta-btn gold-outline" href="mailto:info@homeproject.online">Обсудить ТЗ</a></div>
+    <div class="cta-step"><div class="cta-step-icon">🚀</div><div class="cta-step-title">Шаг 3 — Старт</div><div class="cta-step-desc">Первые инструменты — до старта сентябрьского сезона.</div><a class="cta-btn accent-outline" href="mailto:info@homeproject.online">Начать проект</a></div>
+  </div>
+  <div class="cta-divider"></div>
+  <div class="cta-contacts"><span>📧 info@homeproject.online</span><span>📱 +7 (905) 522-35-14</span><span>🌐 homeproject.online</span></div>
+  <div class="cta-legal">Все финансовые показатели носят ориентировочный максимальный характер. Итоговые суммы фиксируются в договоре и могут быть скорректированы в меньшую сторону. Конфиденциально.</div>
+</section>
 
 </div>
 
-<!-- Navigation -->
 <div class="nav" id="nav">
-  <button class="nav-btn" id="prevBtn" title="Назад (←)">‹</button>
-  <div class="nav-counter" id="counter">1 / 13</div>
-  <button class="nav-btn" id="nextBtn" title="Вперёд (→)">›</button>
-  <button class="nav-fs" id="fsBtn" title="Полный экран (F)">⛶</button>
+  <button class="nav-btn" id="prevBtn">‹</button>
+  <div class="nav-counter" id="counter">1 / 14</div>
+  <button class="nav-btn" id="nextBtn">›</button>
+  <button class="nav-fs" id="fsBtn">⛶</button>
 </div>
 
 <script>
-(function() {
-  var slides = document.querySelectorAll('.slide');
-  var total = slides.length;
-  var current = 0;
-
-  function goTo(n) {
-    slides[current].classList.remove('active');
-    current = (n + total) % total;
-    slides[current].classList.add('active');
-    slides[current].scrollTop = 0;
-    updateNav();
-  }
-
-  function updateNav() {
-    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
-    var nav = document.getElementById('nav');
-    if (current === 0) {
-      nav.style.display = 'none';
-      // Still show nav on slide 1 but with counter hidden or different
-      nav.style.display = 'flex';
-      document.getElementById('counter').style.visibility = (current === 0) ? 'hidden' : 'visible';
-    } else {
-      nav.style.display = 'flex';
-      document.getElementById('counter').style.visibility = 'visible';
-    }
-    document.getElementById('prevBtn').style.opacity = current === 0 ? '0.3' : '1';
-    document.getElementById('nextBtn').style.opacity = current === total - 1 ? '0.3' : '1';
-  }
-
-  document.getElementById('prevBtn').addEventListener('click', function() { goTo(current - 1); });
-  document.getElementById('nextBtn').addEventListener('click', function() { goTo(current + 1); });
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
-    if (e.key === 'f' || e.key === 'F') { toggleFS(); }
-  });
-
-  document.getElementById('fsBtn').addEventListener('click', toggleFS);
-
-  function toggleFS() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
-    } else {
-      document.exitFullscreen && document.exitFullscreen();
-    }
-  }
-
-  // Swipe
-  var startX = 0;
-  var startY = 0;
-  document.addEventListener('touchstart', function(e) {
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-  }, { passive: true });
-  document.addEventListener('touchend', function(e) {
-    var dx = e.changedTouches[0].clientX - startX;
-    var dy = e.changedTouches[0].clientY - startY;
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-      if (dx < 0) goTo(current + 1);
-      else goTo(current - 1);
-    }
-  }, { passive: true });
-
+(function(){
+  var slides=document.querySelectorAll('.slide'),total=slides.length,current=0;
+  function goTo(n){slides[current].classList.remove('active');current=(n+total)%total;slides[current].classList.add('active');slides[current].scrollTop=0;updateNav();}
+  function updateNav(){document.getElementById('counter').textContent=(current+1)+' / '+total;document.getElementById('prevBtn').style.opacity=current===0?'0.3':'1';document.getElementById('nextBtn').style.opacity=current===total-1?'0.3':'1';}
+  document.getElementById('prevBtn').addEventListener('click',function(){goTo(current-1);});
+  document.getElementById('nextBtn').addEventListener('click',function(){goTo(current+1);});
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();goTo(current+1);}if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();goTo(current-1);}if(e.key==='f'||e.key==='F'){toggleFS();}});
+  document.getElementById('fsBtn').addEventListener('click',toggleFS);
+  function toggleFS(){if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}else{document.exitFullscreen&&document.exitFullscreen();}}
+  var sx=0,sy=0;
+  document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>Math.abs(dy)*1.5&&Math.abs(dx)>50){if(dx<0)goTo(current+1);else goTo(current-1);}},{passive:true});
   updateNav();
 })();
 </script>
