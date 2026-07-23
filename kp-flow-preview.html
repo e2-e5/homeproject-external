@@ -8,60 +8,50 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',-apple-system,sans-serif;background:#f0f1f4;color:#1a1a1a;min-height:100vh}
-
-/* NAV */
 .nav{display:flex;gap:0;background:#fff;border-bottom:1px solid #e2e4ea;position:sticky;top:0;z-index:100}
 .nav-btn{flex:1;padding:14px 8px;font-size:13px;font-weight:600;border:none;background:none;cursor:pointer;color:#888;border-bottom:3px solid transparent;transition:all .15s;text-align:center}
 .nav-btn.active{color:#1a1a1a;border-bottom-color:#C9A36A}
-
-/* SCREENS */
 .screen{display:none;padding:24px 16px;max-width:1000px;margin:0 auto}
 .screen.active{display:block}
 
-/* CATALOG SCREEN */
+/* CATALOG */
 .site-chrome{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08)}
 .site-header{background:#1a1a1a;color:#fff;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px}
 .site-logo{font-size:15px;font-weight:700;letter-spacing:2px}
 .site-nav-links{display:flex;gap:24px;font-size:13px;color:#ccc}
-.kp-header-btn{background:#C9A36A;color:#1a1a1a;border:none;border-radius:6px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.5px;display:flex;align-items:center;gap:6px;animation:pulse 2s infinite}
+.kp-header-btn{background:#C9A36A;color:#1a1a1a;border:none;border-radius:6px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.5px;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,163,106,.4)}50%{box-shadow:0 0 0 6px rgba(201,163,106,0)}}
-
 .filter-bar{background:#f8f9fb;border-bottom:1px solid #e8eaee;padding:12px 24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .filter-label{font-size:12px;font-weight:600;color:#888;margin-right:4px}
-.filter-chip{background:#fff;border:1px solid #d0d3da;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;transition:all .15s;color:#444}
+.filter-chip{background:#fff;border:1px solid #d0d3da;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;color:#444}
 .filter-chip.sel{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
-
 .catalog-body{padding:20px 24px}
 .catalog-title{font-size:18px;font-weight:700;margin-bottom:4px}
 .catalog-sub{font-size:13px;color:#888;margin-bottom:16px}
-.cta-banner{background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);border-radius:10px;padding:18px 22px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.cta-banner{background:linear-gradient(135deg,#1a1a1a,#2a2a2a);border-radius:10px;padding:18px 22px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .cta-text h3{color:#C9A36A;font-size:15px;font-weight:700;margin-bottom:4px}
 .cta-text p{color:#bbb;font-size:13px}
 .cta-btns{display:flex;gap:10px;flex-shrink:0}
-.cta-btn-fast{background:#C9A36A;color:#1a1a1a;border:none;border-radius:6px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
-.cta-btn-full{background:transparent;color:#C9A36A;border:2px solid #C9A36A;border-radius:6px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
-
+.cta-btn-fast{background:#C9A36A;color:#1a1a1a;border:none;border-radius:6px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer}
+.cta-btn-full{background:transparent;color:#C9A36A;border:2px solid #C9A36A;border-radius:6px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .card{background:#fff;border:1px solid #e8eaee;border-radius:10px;overflow:hidden;position:relative}
-.card-img{background:linear-gradient(135deg,#f0f1f4,#e4e6ec);height:140px;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:12px}
+.card-img{background:linear-gradient(135deg,#f0f1f4,#e4e6ec);height:140px;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:24px}
 .card-body{padding:12px}
 .card-brand{font-size:10px;font-weight:700;color:#C9A36A;letter-spacing:1px;margin-bottom:4px}
 .card-name{font-size:13px;font-weight:600;margin-bottom:2px;line-height:1.3}
 .card-sub{font-size:12px;color:#888;margin-bottom:10px}
 .card-price{font-size:15px;font-weight:700;margin-bottom:8px}
 .card-actions{display:flex;gap:8px}
-.card-btn-kp{flex:1;background:#1a1a1a;color:#fff;border:none;border-radius:6px;padding:7px;font-size:12px;font-weight:600;cursor:pointer;text-align:center}
-.card-btn-cart{background:#f0f1f4;color:#444;border:none;border-radius:6px;padding:7px 10px;font-size:12px;cursor:pointer}
-.badge-stock{position:absolute;top:8px;left:8px;background:#22c55e;color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px}
-.badge-order{position:absolute;top:8px;left:8px;background:#f59e0b;color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px}
-
-/* LABEL CALLOUTS */
+.card-btn-kp{flex:1;background:#1a1a1a;color:#fff;border:none;border-radius:6px;padding:7px;font-size:12px;font-weight:600;cursor:pointer}
+.card-btn-fav{background:#f0f1f4;color:#444;border:none;border-radius:6px;padding:7px 10px;font-size:12px;cursor:pointer}
+.badge-stk{position:absolute;top:8px;left:8px;background:#22c55e;color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px}
+.badge-ord{position:absolute;top:8px;left:8px;background:#f59e0b;color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px}
 .callout{display:flex;gap:6px;align-items:flex-start;background:#fff9ec;border:1px solid #f0d080;border-radius:8px;padding:10px 12px;margin-top:16px;font-size:12px;color:#7a5c00}
-.callout b{font-weight:700}
 
-/* FORM SCREEN */
+/* FORM */
 .form-wrap{max-width:680px;margin:0 auto}
-.form-hero{background:#1a1a1a;color:#fff;border-radius:12px 12px 0 0;padding:24px 28px;margin-bottom:0}
+.form-hero{background:#1a1a1a;color:#fff;border-radius:12px 12px 0 0;padding:24px 28px}
 .form-hero-label{font-size:11px;font-weight:700;color:#C9A36A;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
 .form-hero h1{font-size:24px;font-weight:700;margin-bottom:6px}
 .form-hero p{font-size:14px;color:#aaa;line-height:1.5}
@@ -69,10 +59,8 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f1f4;color:#1a1a
 .form-tab{flex:1;padding:14px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;color:#888;border:none;background:none;transition:all .15s}
 .form-tab.active{color:#C9A36A;border-bottom:2px solid #C9A36A;margin-bottom:-2px}
 .form-body{background:#fff;border-radius:0 0 12px 12px;padding:28px}
-
 .promise-bar{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 14px;margin-bottom:20px;font-size:13px;font-weight:600;color:#166534;display:flex;align-items:center;gap:8px}
-.promise-bar.full-promise{background:#fff9ec;border-color:#fcd34d;color:#92400e}
-
+.promise-full{background:#fff9ec;border-color:#fcd34d;color:#92400e}
 .f-label{font-size:12px;font-weight:600;color:#444;margin-bottom:6px;display:block}
 .f-req{color:#d64545}
 .f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
@@ -80,30 +68,30 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f1f4;color:#1a1a
 .f-input{width:100%;border:1px solid #d0d3da;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;outline:none;transition:border .15s}
 .f-input:focus{border-color:#1a1a1a}
 .f-section{font-size:11px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin:20px 0 10px}
+.f-select{width:100%;border:1px solid #d0d3da;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;outline:none;background:#fff;cursor:pointer}
 
 /* BRAND CHIPS */
-.brands-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:4px}
+.brands-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:6px}
 .brand-chip{padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid #d0d3da;background:#fff;color:#333;transition:all .15s;user-select:none}
-.brand-chip:hover{border-color:#999}
 .brand-chip.sel{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
 .brand-chip.sanitary{border-color:#7c3aed;color:#7c3aed}
 .brand-chip.sanitary.sel{background:#7c3aed;color:#fff;border-color:#7c3aed}
 .brand-chip.fixtures{border-color:#0891b2;color:#0891b2}
 .brand-chip.fixtures.sel{background:#0891b2;color:#fff;border-color:#0891b2}
-.brand-legend{display:flex;gap:14px;margin-top:6px;font-size:11px;color:#888}
+.brand-legend{display:flex;gap:14px;font-size:11px;color:#888}
 .legend-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:3px}
 
 /* CATEGORY CHIPS */
 .cat-chips{display:flex;flex-wrap:wrap;gap:7px}
 .cat-chip{padding:6px 13px;border-radius:20px;font-size:13px;cursor:pointer;border:1.5px solid #d0d3da;background:#fff;color:#333;transition:all .15s;user-select:none}
-.cat-chip:hover{border-color:#999}
 .cat-chip.sel{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
-.cat-chip.san-chip.sel{background:#7c3aed;color:#fff;border-color:#7c3aed}
-.cat-section-label{font-size:11px;font-weight:600;color:#999;margin:10px 0 6px;width:100%}
+.cat-chip.san-type.sel{background:#7c3aed;color:#fff;border-color:#7c3aed}
+.cat-chip.fix-type.sel{background:#0891b2;color:#fff;border-color:#0891b2}
 
-/* BUDGET */
-.f-select{width:100%;border:1px solid #d0d3da;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;outline:none;background:#fff;cursor:pointer}
-.f-select:focus{border-color:#1a1a1a}
+/* FINISH + AVAIL */
+.finish-chips{display:flex;flex-wrap:wrap;gap:7px}
+.finish-chip{padding:6px 13px;border-radius:20px;font-size:13px;cursor:pointer;border:1.5px solid #d0d3da;background:#fff;color:#333;transition:all .15s;user-select:none}
+.finish-chip.sel{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
 
 /* OPTIN */
 .optin-row{display:flex;gap:10px;align-items:flex-start;margin:18px 0}
@@ -111,12 +99,11 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f1f4;color:#1a1a
 .optin-row label{font-size:12px;color:#666;line-height:1.5}
 
 /* SUBMIT */
-.f-submit{width:100%;background:#1a1a1a;color:#fff;border:none;border-radius:8px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s;margin-top:4px}
+.f-submit{width:100%;background:#1a1a1a;color:#fff;border:none;border-radius:8px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px}
 .f-submit:hover{background:#333}
 
 /* STEPPER */
-.stepper{display:flex;gap:0;margin-bottom:24px}
-.step{flex:1;display:flex;align-items:center;gap:0}
+.stepper{display:flex;align-items:center;margin-bottom:24px}
 .step-circle{width:28px;height:28px;border-radius:50%;border:2px solid #d0d3da;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#888;flex-shrink:0;transition:all .2s}
 .step-circle.done{background:#22c55e;border-color:#22c55e;color:#fff}
 .step-circle.active{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
@@ -124,77 +111,57 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f1f4;color:#1a1a
 .step-label.active{color:#1a1a1a;font-weight:600}
 .step-line{flex:1;height:2px;background:#e2e4ea;margin:0 8px}
 .step-line.done{background:#22c55e}
-
 .step-panel{display:none}
 .step-panel.active{display:block}
 .step-nav{display:flex;gap:10px;margin-top:20px}
 .btn-back{flex:1;background:#f0f1f4;border:none;border-radius:8px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;color:#444}
 .btn-next{flex:2;background:#1a1a1a;color:#fff;border:none;border-radius:8px;padding:12px;font-size:14px;font-weight:700;cursor:pointer}
 
-/* FINISH CHIPS */
-.finish-chips{display:flex;flex-wrap:wrap;gap:7px}
-.finish-chip{padding:6px 13px;border-radius:20px;font-size:13px;cursor:pointer;border:1.5px solid #d0d3da;background:#fff;color:#333;transition:all .15s;user-select:none}
-.finish-chip:hover{border-color:#999}
-.finish-chip.sel{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
-
-/* AVAIL RADIO */
-.avail-group{display:flex;gap:10px;flex-wrap:wrap}
-.avail-radio{display:flex;align-items:center;gap:8px;padding:9px 14px;border:1.5px solid #d0d3da;border-radius:8px;cursor:pointer;font-size:13px;transition:all .15s}
-.avail-radio input{accent-color:#1a1a1a}
-.avail-radio.sel{border-color:#1a1a1a;background:#f8f9fb}
-
-/* ACCESSORIES */
+/* ACC */
 .acc-list{display:flex;flex-direction:column;gap:8px}
 .acc-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid #d0d3da;border-radius:8px;cursor:pointer;font-size:13px}
 .acc-item input{accent-color:#1a1a1a;width:16px;height:16px}
 
 /* PROGRESS */
 .progress-overlay{display:none;text-align:center;padding:32px 20px}
-.progress-bar-wrap{background:#f0f1f4;border-radius:100px;height:8px;overflow:hidden;margin:16px 0}
-.progress-bar-fill{height:100%;background:#C9A36A;border-radius:100px;width:0%;transition:width 2s ease-out}
-.progress-title{font-size:18px;font-weight:700;margin-bottom:6px}
-.progress-sub{font-size:14px;color:#888}
-.progress-steps{text-align:left;margin-top:20px}
-.p-step{font-size:13px;color:#888;padding:6px 0;display:flex;gap:8px;align-items:center}
+.pb-wrap{background:#f0f1f4;border-radius:100px;height:8px;overflow:hidden;margin:16px 0}
+.pb-fill{height:100%;background:#C9A36A;border-radius:100px;width:0;transition:width 2s ease-out}
+.p-step{font-size:13px;color:#888;padding:6px 0;display:flex;gap:8px;align-items:center;text-align:left}
 .p-step.done{color:#22c55e}
-.p-step.active{color:#1a1a1a;font-weight:600}
-.check-icon{width:16px;height:16px;border-radius:50%;border:2px solid #d0d3da;flex-shrink:0}
-.check-icon.done{background:#22c55e;border-color:#22c55e}
-.check-icon.spin{border-color:#C9A36A;border-top-color:transparent;animation:spin .7s linear infinite}
+.p-step.act{color:#1a1a1a;font-weight:600}
+.chk{width:16px;height:16px;border-radius:50%;border:2px solid #d0d3da;flex-shrink:0}
+.chk.done{background:#22c55e;border-color:#22c55e}
+.chk.spin{border-color:#C9A36A;border-top-color:transparent;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* DATA SCHEMA SCREEN */
+/* DATA SCHEMA */
 .schema-wrap{max-width:720px;margin:0 auto}
 .schema-card{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;border:1px solid #e2e4ea}
-.schema-h{font-size:16px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.schema-h .icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px}
-.flow-arrow{text-align:center;font-size:20px;color:#C9A36A;margin:8px 0}
-
-table.schema{width:100%;border-collapse:collapse;font-size:13px}
-table.schema th{background:#f8f9fb;padding:8px 12px;text-align:left;font-size:11px;font-weight:700;color:#666;letter-spacing:.5px;border-bottom:2px solid #e8eaee}
-table.schema td{padding:8px 12px;border-bottom:1px solid #f0f1f4;vertical-align:top}
-table.schema tr:last-child td{border-bottom:none}
-.tag{display:inline-block;background:#f0f1f4;border-radius:4px;padding:2px 6px;font-size:11px;font-family:monospace;color:#444}
-.tag.new{background:#dcfce7;color:#166534}
-.tag.exists{background:#dbeafe;color:#1e40af}
-.tag.fast{background:#fff9ec;color:#92400e}
-.tag.full-tag{background:#f3e8ff;color:#6b21a8}
-
-.pipeline{display:flex;flex-direction:column;gap:0}
+.schema-h{font-size:16px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.schema-icon{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.flow-arrow{text-align:center;font-size:22px;color:#C9A36A;margin:8px 0}
+table.sch{width:100%;border-collapse:collapse;font-size:13px}
+table.sch th{background:#f8f9fb;padding:8px 12px;text-align:left;font-size:11px;font-weight:700;color:#666;letter-spacing:.5px;border-bottom:2px solid #e8eaee}
+table.sch td{padding:8px 12px;border-bottom:1px solid #f0f1f4;vertical-align:top}
+table.sch tr:last-child td{border-bottom:none}
+.tag{display:inline-block;background:#f0f1f4;border-radius:4px;padding:2px 7px;font-size:11px;font-family:monospace;color:#444}
+.tag.g{background:#dcfce7;color:#166534}
+.tag.b{background:#dbeafe;color:#1e40af}
+.tag.y{background:#fff9ec;color:#92400e}
+.tag.p{background:#f3e8ff;color:#6b21a8}
+.tag.r{background:#fee2e2;color:#991b1b}
 .pipe-step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #f0f1f4}
 .pipe-step:last-child{border-bottom:none}
 .pipe-num{width:28px;height:28px;border-radius:50%;background:#1a1a1a;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
 .pipe-content h4{font-size:14px;font-weight:700;margin-bottom:4px}
 .pipe-content p{font-size:13px;color:#666;line-height:1.5}
-.pipe-time{display:inline-block;background:#f0f1f4;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;color:#444;margin-top:4px}
-.pipe-time.fast-t{background:#dcfce7;color:#166534}
-.pipe-time.full-t{background:#fff9ec;color:#92400e}
+.pipe-t{display:inline-block;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;margin-top:4px}
 
 @media(max-width:640px){
   .f-row{grid-template-columns:1fr}
   .grid{grid-template-columns:1fr 1fr}
-  .cta-btns{flex-direction:column}
   .cta-banner{flex-direction:column;align-items:flex-start}
+  .cta-btns{flex-direction:column}
   .site-nav-links{display:none}
 }
 </style>
@@ -202,178 +169,169 @@ table.schema tr:last-child td{border-bottom:none}
 <body>
 
 <div class="nav">
-  <button class="nav-btn active" onclick="showScreen('catalog')">🏬 Каталог — 3 входа в КП</button>
-  <button class="nav-btn" onclick="showScreen('form')">📋 Форма КП (быстрое / полное)</button>
-  <button class="nav-btn" onclick="showScreen('schema')">🗄️ Где хранятся данные</button>
+  <button class="nav-btn active" onclick="showScreen('catalog')">🏬 Каталог — входы в КП</button>
+  <button class="nav-btn" onclick="showScreen('form')">📋 Форма КП</button>
+  <button class="nav-btn" onclick="showScreen('schema')">🗄️ Хранение данных</button>
 </div>
 
-<!-- ═══════════════════ SCREEN 1: CATALOG ═══════════════════ -->
+<!-- ══════════════ SCREEN 1: CATALOG ══════════════ -->
 <div class="screen active" id="screen-catalog">
-  <div style="margin-bottom:14px;font-size:13px;color:#666;background:#fff;padding:10px 14px;border-radius:8px;border:1px solid #e2e4ea">
-    ⬇️ Три точки входа в форму КП: кнопка в шапке, баннер в каталоге, кнопка на карточке
+  <div style="font-size:13px;color:#666;background:#fff;padding:10px 14px;border-radius:8px;border:1px solid #e2e4ea;margin-bottom:14px">
+    💡 Три точки входа в форму КП: кнопка в шапке, баннер в каталоге, кнопка «+ В КП» на карточке
   </div>
   <div class="site-chrome">
     <div class="site-header">
       <div class="site-logo">HOMEPROJECT</div>
       <div class="site-nav-links"><span>Каталог</span><span>Бренды</span><span>Дизайнерам</span></div>
-      <button class="kp-header-btn" onclick="showScreen('form')">📄 Получить КП</button>
+      <button class="kp-header-btn" onclick="goForm('fast')">📄 Получить КП</button>
     </div>
     <div class="filter-bar">
       <span class="filter-label">Бренды:</span>
-      <span class="filter-chip sel">Küppersbusch</span><span class="filter-chip">V-ZUG</span>
-      <span class="filter-chip">BORA</span><span class="filter-chip">Liebherr</span>
-      <span class="filter-chip">Salini</span><span class="filter-chip">Paulmark</span>
-      <span style="margin-left:4px;color:#bbb">→ ещё 8</span>
+      <span class="filter-chip sel">Küppersbusch</span>
+      <span class="filter-chip">V-ZUG</span><span class="filter-chip">BORA</span>
+      <span class="filter-chip">Liebherr</span><span class="filter-chip">Salini</span>
+      <span class="filter-chip">Paulmark</span>
+      <span style="color:#bbb;font-size:12px">+8 брендов</span>
     </div>
     <div class="catalog-body">
       <div class="catalog-title">Küppersbusch — встраиваемая техника</div>
       <div class="catalog-sub">912 позиций · духовки, варочные, посудомоечные, холодильники</div>
-
       <div class="cta-banner">
         <div class="cta-text">
           <h3>Нужно КП под ваш проект?</h3>
-          <p>Выберите быстрое (20 сек) или полное с визуализацией (2 мин)</p>
+          <p>Быстрое с ценами — 20 сек. Полное с визуализацией и вариантами — 2 мин.</p>
         </div>
         <div class="cta-btns">
-          <button class="cta-btn-fast" onclick="showScreen('form');setTab('fast')">⚡ Быстрое — 20 сек</button>
-          <button class="cta-btn-full" onclick="showScreen('form');setTab('full')">📋 Полное — 2 мин</button>
+          <button class="cta-btn-fast" onclick="goForm('fast')">⚡ Быстрое — 20 сек</button>
+          <button class="cta-btn-full" onclick="goForm('full')">📋 Полное — 2 мин</button>
         </div>
       </div>
-
       <div class="grid">
         <div class="card">
-          <div class="badge-stock">В наличии</div>
-          <div class="card-img">📷 фото</div>
+          <div class="badge-stk">В наличии</div>
+          <div class="card-img">🔲</div>
           <div class="card-body">
             <div class="card-brand">KÜPPERSBUSCH</div>
             <div class="card-name">Духовой шкаф B 6350.0 S9</div>
             <div class="card-sub">60 см · нержавеющая сталь</div>
             <div class="card-price">247 000 ₽</div>
             <div class="card-actions">
-              <button class="card-btn-kp" onclick="showScreen('form');setTab('fast')">+ В КП</button>
-              <button class="card-btn-cart">♡</button>
+              <button class="card-btn-kp" onclick="goForm('fast')">+ В КП</button>
+              <button class="card-btn-fav">♡</button>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="badge-order">Под заказ</div>
-          <div class="card-img">📷 фото</div>
+          <div class="badge-ord">Под заказ</div>
+          <div class="card-img">⬛</div>
           <div class="card-body">
             <div class="card-brand">KÜPPERSBUSCH</div>
-            <div class="card-name">Варочная панель KI 6836.0 E</div>
-            <div class="card-sub">90 см · индукция BORA-style</div>
+            <div class="card-name">Варочная KI 6836.0 E</div>
+            <div class="card-sub">90 см · индукция</div>
             <div class="card-price">189 000 ₽</div>
             <div class="card-actions">
-              <button class="card-btn-kp" onclick="showScreen('form');setTab('fast')">+ В КП</button>
-              <button class="card-btn-cart">♡</button>
+              <button class="card-btn-kp" onclick="goForm('fast')">+ В КП</button>
+              <button class="card-btn-fav">♡</button>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="badge-stock">В наличии</div>
-          <div class="card-img">📷 фото</div>
+          <div class="badge-stk">В наличии</div>
+          <div class="card-img">🟫</div>
           <div class="card-body">
             <div class="card-brand">KÜPPERSBUSCH</div>
             <div class="card-name">Посудомоечная G 6860.0 V</div>
             <div class="card-sub">60 см · 14 комплектов</div>
             <div class="card-price">123 000 ₽</div>
             <div class="card-actions">
-              <button class="card-btn-kp" onclick="showScreen('form');setTab('fast')">+ В КП</button>
-              <button class="card-btn-cart">♡</button>
+              <button class="card-btn-kp" onclick="goForm('fast')">+ В КП</button>
+              <button class="card-btn-fav">♡</button>
             </div>
           </div>
         </div>
       </div>
-
       <div class="callout">
         <span>💡</span>
-        <div><b>Совет:</b> Нажмите «+ В КП» на любой карточке или «Получить КП» вверху — форма откроется с нужным брендом уже выбранным. Быстрое КП придёт на email за 20 секунд.</div>
+        <span><b>Совет:</b> Нажмите «+ В КП» на карточке — форма откроется с нужным брендом выбранным. КП придёт на email автоматически.</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════ SCREEN 2: FORM ═══════════════════ -->
+<!-- ══════════════ SCREEN 2: FORM ══════════════ -->
 <div class="screen" id="screen-form">
   <div class="form-wrap">
     <div class="form-hero">
-      <div class="form-hero-label">Home Project · 14 брендов</div>
+      <div class="form-hero-label">Home Project · 14 брендов · Кухня и ванная</div>
       <h1>Запросить коммерческое предложение</h1>
-      <p>Кухонная техника, сантехника, мойки и смесители. Быстрое КП — 20 секунд. Полное с визуализацией — 2 минуты.</p>
+      <p>Кухонная техника, сантехника, мойки. Быстрое — 20 сек. Полное с вариантами — 2 мин.</p>
     </div>
     <div class="form-tabs">
-      <button class="form-tab active" id="tab-fast" onclick="setTab('fast')">⚡ Быстрое КП <span style="color:#888;font-weight:400">— 20 сек</span></button>
-      <button class="form-tab" id="tab-full" onclick="setTab('full')">📋 Полное КП <span style="color:#888;font-weight:400">— 2 мин</span></button>
+      <button class="form-tab active" id="tab-fast" onclick="setTab('fast')">⚡ Быстрое КП <span style="color:#666;font-weight:400">20 сек</span></button>
+      <button class="form-tab" id="tab-full" onclick="setTab('full')">📋 Полное КП <span style="color:#666;font-weight:400">2 мин</span></button>
     </div>
 
-    <!-- ─── FAST KP ─── -->
+    <!-- FAST PANEL -->
     <div class="form-body" id="fast-panel">
-      <div id="fast-form-content">
-        <div class="promise-bar">⚡ КП придёт на email в течение 20 секунд — автоматически</div>
+      <div id="fast-content">
+        <div class="promise-bar">⚡ КП придёт на email в течение 20 секунд — генерируется автоматически</div>
         <div class="f-row">
-          <div class="f-field">
+          <div class="f-field" style="margin-bottom:0">
             <label class="f-label">Имя <span class="f-req">*</span></label>
             <input class="f-input" type="text" placeholder="Иван Петров">
           </div>
-          <div class="f-field">
+          <div class="f-field" style="margin-bottom:0">
             <label class="f-label">Email <span class="f-req">*</span></label>
             <input class="f-input" type="email" placeholder="you@company.ru">
           </div>
         </div>
 
         <div class="f-section">Бренд</div>
-        <div class="brands-grid" id="fast-brands">
-          <!-- Кухонная техника -->
-          <span class="brand-chip" data-brand="Küppersbusch" data-type="kitchen" onclick="toggleBrand(this,'fast')">Küppersbusch</span>
-          <span class="brand-chip" data-brand="De Dietrich" data-type="kitchen" onclick="toggleBrand(this,'fast')">De Dietrich</span>
-          <span class="brand-chip" data-brand="GRAUDE" data-type="kitchen" onclick="toggleBrand(this,'fast')">GRAUDE</span>
-          <span class="brand-chip" data-brand="V-ZUG" data-type="kitchen" onclick="toggleBrand(this,'fast')">V-ZUG</span>
-          <span class="brand-chip" data-brand="BORA" data-type="kitchen" onclick="toggleBrand(this,'fast')">BORA</span>
-          <span class="brand-chip" data-brand="ILVE" data-type="kitchen" onclick="toggleBrand(this,'fast')">ILVE</span>
-          <span class="brand-chip" data-brand="Bertazzoni" data-type="kitchen" onclick="toggleBrand(this,'fast')">Bertazzoni</span>
-          <span class="brand-chip" data-brand="Brandt" data-type="kitchen" onclick="toggleBrand(this,'fast')">Brandt</span>
-          <span class="brand-chip" data-brand="SKS" data-type="kitchen" onclick="toggleBrand(this,'fast')">SKS</span>
-          <span class="brand-chip" data-brand="Schulthess" data-type="kitchen" onclick="toggleBrand(this,'fast')">Schulthess</span>
-          <!-- Холодильная -->
-          <span class="brand-chip" data-brand="Fhiaba" data-type="kitchen" onclick="toggleBrand(this,'fast')">Fhiaba</span>
-          <span class="brand-chip" data-brand="Liebherr" data-type="kitchen" onclick="toggleBrand(this,'fast')">Liebherr</span>
-          <!-- Сантехника -->
-          <span class="brand-chip sanitary" data-brand="Salini" data-type="sanitary" onclick="toggleBrand(this,'fast')">Salini</span>
-          <span class="brand-chip fixtures" data-brand="Paulmark" data-type="fixtures" onclick="toggleBrand(this,'fast')">Paulmark</span>
+        <div class="brands-grid" id="f-brands">
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">Küppersbusch</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">De Dietrich</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">GRAUDE</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">V-ZUG</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">BORA</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">ILVE</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">Bertazzoni</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">Brandt</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">SKS</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">Schulthess</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">Fhiaba</span>
+          <span class="brand-chip" data-t="k" onclick="toggleB(this,'f')">Liebherr</span>
+          <span class="brand-chip sanitary" data-t="s" onclick="toggleB(this,'f')">Salini</span>
+          <span class="brand-chip fixtures" data-t="x" onclick="toggleB(this,'f')">Paulmark</span>
         </div>
-        <div class="brand-legend">
-          <span><span class="legend-dot" style="background:#1a1a1a"></span>Кухонная техника</span>
-          <span><span class="legend-dot" style="background:#7c3aed"></span>Сантехника (Salini)</span>
-          <span><span class="legend-dot" style="background:#0891b2"></span>Мойки и смесители (Paulmark)</span>
+        <div class="brand-legend" style="margin-bottom:2px">
+          <span><span class="legend-dot" style="background:#1a1a1a"></span>Кухня / холодильники / стирка</span>
+          <span><span class="legend-dot" style="background:#7c3aed"></span>Сантехника</span>
+          <span><span class="legend-dot" style="background:#0891b2"></span>Мойки / смесители</span>
         </div>
 
-        <div class="f-section">Что интересует <span style="font-size:10px;color:#bbb;text-transform:none;font-weight:400;letter-spacing:0">(адаптируется по выбранному бренду)</span></div>
-        <div class="cat-chips" id="fast-cats">
-          <!-- Kitchen categories (default shown) -->
-          <span class="cat-chip kitchen-cat" onclick="this.classList.toggle('sel')">Кухня целиком</span>
-          <span class="cat-chip kitchen-cat" onclick="this.classList.toggle('sel')">Духовой шкаф</span>
-          <span class="cat-chip kitchen-cat" onclick="this.classList.toggle('sel')">Варочная панель</span>
-          <span class="cat-chip kitchen-cat" onclick="this.classList.toggle('sel')">Холодильник / Морозильник</span>
-          <span class="cat-chip kitchen-cat" onclick="this.classList.toggle('sel')">Посудомоечная</span>
-          <span class="cat-chip kitchen-cat" onclick="this.classList.toggle('sel')">Стиральная / Сушка</span>
-          <span class="cat-chip kitchen-cat" onclick="this.classList.toggle('sel')">Вытяжка</span>
-          <span class="cat-chip kitchen-cat" onclick="this.classList.toggle('sel')">Кофемашина</span>
-          <!-- Sanitary categories (initially hidden) -->
-          <span class="cat-chip san-chip" style="display:none" onclick="this.classList.toggle('sel')">Ванна / Поддон</span>
-          <span class="cat-chip san-chip" style="display:none" onclick="this.classList.toggle('sel')">Раковина</span>
-          <span class="cat-chip san-chip" style="display:none" onclick="this.classList.toggle('sel')">Душевая система</span>
-          <span class="cat-chip san-chip" style="display:none" onclick="this.classList.toggle('sel')">Мебель для ванной</span>
-          <!-- Fixtures (initially hidden) -->
-          <span class="cat-chip fix-chip" style="display:none" onclick="this.classList.toggle('sel')">Кухонная мойка</span>
-          <span class="cat-chip fix-chip" style="display:none" onclick="this.classList.toggle('sel')">Смеситель</span>
-          <!-- Always visible -->
+        <div class="f-section">Что интересует</div>
+        <div class="cat-chips" id="f-cats">
+          <span class="cat-chip k-cat" onclick="this.classList.toggle('sel')">Кухня целиком</span>
+          <span class="cat-chip k-cat" onclick="this.classList.toggle('sel')">Духовой шкаф</span>
+          <span class="cat-chip k-cat" onclick="this.classList.toggle('sel')">Варочная панель</span>
+          <span class="cat-chip k-cat" onclick="this.classList.toggle('sel')">Холодильник / Морозильник</span>
+          <span class="cat-chip k-cat" onclick="this.classList.toggle('sel')">Посудомоечная</span>
+          <span class="cat-chip k-cat" onclick="this.classList.toggle('sel')">Стиральная / Сушка</span>
+          <span class="cat-chip k-cat" onclick="this.classList.toggle('sel')">Вытяжка</span>
+          <span class="cat-chip k-cat" onclick="this.classList.toggle('sel')">Кофемашина</span>
+          <span class="cat-chip san-type" style="display:none" onclick="this.classList.toggle('sel')">Ванна / Поддон</span>
+          <span class="cat-chip san-type" style="display:none" onclick="this.classList.toggle('sel')">Раковина</span>
+          <span class="cat-chip san-type" style="display:none" onclick="this.classList.toggle('sel')">Душевая система</span>
+          <span class="cat-chip san-type" style="display:none" onclick="this.classList.toggle('sel')">Мебель для ванной</span>
+          <span class="cat-chip fix-type" style="display:none" onclick="this.classList.toggle('sel')">Кухонная мойка</span>
+          <span class="cat-chip fix-type" style="display:none" onclick="this.classList.toggle('sel')">Смеситель</span>
           <span class="cat-chip" onclick="this.classList.toggle('sel')">Другое</span>
         </div>
 
         <div class="f-field" style="margin-top:18px">
           <label class="f-label">Бюджет (ориентировочно)</label>
           <select class="f-select">
-            <option value="">Не указываю</option>
+            <option>Не указываю</option>
             <option>до 150 000 ₽</option>
             <option>150 000 – 500 000 ₽</option>
             <option>500 000 – 1 500 000 ₽</option>
@@ -383,112 +341,104 @@ table.schema tr:last-child td{border-bottom:none}
         </div>
 
         <div class="optin-row">
-          <input type="checkbox" id="optin-fast" checked>
-          <label for="optin-fast">Согласен на обработку персональных данных и получение КП на email. <a href="/ru/page/privacy" style="color:#1a1a1a">Политика</a></label>
+          <input type="checkbox" id="oi1" checked>
+          <label for="oi1">Согласен на обработку персональных данных и получение КП на email. <a href="/ru/page/privacy" style="color:#1a1a1a">Политика</a></label>
         </div>
-        <button class="f-submit" onclick="submitForm('fast')">⚡ Получить КП за 20 секунд →</button>
+        <button class="f-submit" onclick="startProgress('fast')">⚡ Получить КП за 20 секунд →</button>
       </div>
-      <div class="progress-overlay" id="fast-progress">
-        <div style="font-size:32px;margin-bottom:12px">⚡</div>
-        <div class="progress-title">Генерируем КП…</div>
-        <div class="progress-sub">Обычно занимает 15–25 секунд</div>
-        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="fast-bar"></div></div>
-        <div class="progress-steps" id="fast-steps">
-          <div class="p-step done"><span class="check-icon done"></span>Запрос получен</div>
-          <div class="p-step active"><span class="check-icon spin"></span>Подбираем позиции из каталога</div>
-          <div class="p-step"><span class="check-icon"></span>Генерируем текст и цены</div>
-          <div class="p-step"><span class="check-icon"></span>Отправляем на email</div>
+      <div class="progress-overlay" id="fast-prog">
+        <div style="font-size:36px;margin-bottom:12px">⚡</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:6px" id="fp-title">Генерируем КП…</div>
+        <div style="font-size:14px;color:#888" id="fp-sub">Обычно 15–25 секунд</div>
+        <div class="pb-wrap"><div class="pb-fill" id="fp-bar"></div></div>
+        <div style="text-align:left">
+          <div class="p-step done"><span class="chk done"></span>Запрос получен, email сохранён</div>
+          <div class="p-step act" id="fp2"><span class="chk spin"></span>Подбираем позиции из каталога</div>
+          <div class="p-step" id="fp3"><span class="chk"></span>Составляем цены и текст КП</div>
+          <div class="p-step" id="fp4"><span class="chk"></span>Отправляем на email</div>
         </div>
       </div>
     </div>
 
-    <!-- ─── FULL KP ─── -->
+    <!-- FULL PANEL -->
     <div class="form-body" id="full-panel" style="display:none">
-      <div id="full-form-content">
-        <div class="promise-bar full-promise">📋 Полное КП с визуалами и вариантами — придёт на email в течение 2 минут</div>
+      <div id="full-content">
+        <div class="promise-bar promise-full">📋 Полное КП с вариантами A/B, визуалами и схемами — 2 минуты</div>
 
         <div class="stepper">
-          <div class="step">
-            <div class="step-circle active" id="sc1">1</div>
-            <div class="step-label active" id="sl1">Контакт</div>
-          </div>
-          <div class="step-line" id="line1"></div>
-          <div class="step">
-            <div class="step-circle" id="sc2">2</div>
-            <div class="step-label" id="sl2">Техника</div>
-          </div>
-          <div class="step-line" id="line2"></div>
-          <div class="step">
-            <div class="step-circle" id="sc3">3</div>
-            <div class="step-label" id="sl3">Проект</div>
-          </div>
+          <div class="step-circle active" id="sc1">1</div>
+          <span class="step-label active" id="sl1">Контакт</span>
+          <div class="step-line" id="ln1"></div>
+          <div class="step-circle" id="sc2">2</div>
+          <span class="step-label" id="sl2">Техника</span>
+          <div class="step-line" id="ln2"></div>
+          <div class="step-circle" id="sc3">3</div>
+          <span class="step-label" id="sl3">Проект</span>
         </div>
 
-        <!-- STEP 1 -->
         <div class="step-panel active" id="sp1">
           <div class="f-row">
-            <div class="f-field">
+            <div class="f-field" style="margin-bottom:0">
               <label class="f-label">Имя <span class="f-req">*</span></label>
               <input class="f-input" type="text" placeholder="Иван Петров">
             </div>
-            <div class="f-field">
+            <div class="f-field" style="margin-bottom:0">
               <label class="f-label">Email <span class="f-req">*</span></label>
               <input class="f-input" type="email" placeholder="you@company.ru">
             </div>
           </div>
-          <div class="f-field">
+          <div class="f-field" style="margin-top:14px">
             <label class="f-label">Студия / компания</label>
-            <input class="f-input" type="text" placeholder="Архитектурное бюро, ИП, частный заказчик…">
+            <input class="f-input" type="text" placeholder="Архитектурное бюро, частный заказчик…">
           </div>
           <div class="step-nav">
             <button class="btn-next" onclick="goStep(2)">Далее: выбор техники →</button>
           </div>
         </div>
 
-        <!-- STEP 2 -->
         <div class="step-panel" id="sp2">
-          <div class="f-section">Бренды</div>
-          <div class="brands-grid" id="full-brands">
-            <span class="brand-chip" data-brand="Küppersbusch" data-type="kitchen" onclick="toggleBrand(this,'full')">Küppersbusch</span>
-            <span class="brand-chip" data-brand="De Dietrich" data-type="kitchen" onclick="toggleBrand(this,'full')">De Dietrich</span>
-            <span class="brand-chip" data-brand="GRAUDE" data-type="kitchen" onclick="toggleBrand(this,'full')">GRAUDE</span>
-            <span class="brand-chip" data-brand="V-ZUG" data-type="kitchen" onclick="toggleBrand(this,'full')">V-ZUG</span>
-            <span class="brand-chip" data-brand="BORA" data-type="kitchen" onclick="toggleBrand(this,'full')">BORA</span>
-            <span class="brand-chip" data-brand="ILVE" data-type="kitchen" onclick="toggleBrand(this,'full')">ILVE</span>
-            <span class="brand-chip" data-brand="Bertazzoni" data-type="kitchen" onclick="toggleBrand(this,'full')">Bertazzoni</span>
-            <span class="brand-chip" data-brand="Brandt" data-type="kitchen" onclick="toggleBrand(this,'full')">Brandt</span>
-            <span class="brand-chip" data-brand="SKS" data-type="kitchen" onclick="toggleBrand(this,'full')">SKS</span>
-            <span class="brand-chip" data-brand="Schulthess" data-type="kitchen" onclick="toggleBrand(this,'full')">Schulthess</span>
-            <span class="brand-chip" data-brand="Fhiaba" data-type="kitchen" onclick="toggleBrand(this,'full')">Fhiaba</span>
-            <span class="brand-chip" data-brand="Liebherr" data-type="kitchen" onclick="toggleBrand(this,'full')">Liebherr</span>
-            <span class="brand-chip sanitary" data-brand="Salini" data-type="sanitary" onclick="toggleBrand(this,'full')">Salini</span>
-            <span class="brand-chip fixtures" data-brand="Paulmark" data-type="fixtures" onclick="toggleBrand(this,'full')">Paulmark</span>
+          <div class="f-section">Бренды (можно несколько)</div>
+          <div class="brands-grid" id="g-brands">
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">Küppersbusch</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">De Dietrich</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">GRAUDE</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">V-ZUG</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">BORA</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">ILVE</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">Bertazzoni</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">Brandt</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">SKS</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">Schulthess</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">Fhiaba</span>
+            <span class="brand-chip" data-t="k" onclick="toggleB(this,'g')">Liebherr</span>
+            <span class="brand-chip sanitary" data-t="s" onclick="toggleB(this,'g')">Salini</span>
+            <span class="brand-chip fixtures" data-t="x" onclick="toggleB(this,'g')">Paulmark</span>
           </div>
-          <div class="brand-legend" style="margin-bottom:14px">
-            <span><span class="legend-dot" style="background:#1a1a1a"></span>Кухонная техника · холодильники · стирка</span>
+          <div class="brand-legend" style="margin-bottom:6px">
+            <span><span class="legend-dot" style="background:#1a1a1a"></span>Кухня / холодильники / стирка</span>
             <span><span class="legend-dot" style="background:#7c3aed"></span>Сантехника</span>
             <span><span class="legend-dot" style="background:#0891b2"></span>Мойки / смесители</span>
           </div>
 
-          <div class="f-section">Категории техники</div>
-          <div class="cat-chips" id="full-cats">
-            <span class="cat-chip kitchen-cat-full" onclick="this.classList.toggle('sel')">Кухня целиком</span>
-            <span class="cat-chip kitchen-cat-full" onclick="this.classList.toggle('sel')">Духовой шкаф</span>
-            <span class="cat-chip kitchen-cat-full" onclick="this.classList.toggle('sel')">Варочная панель</span>
-            <span class="cat-chip kitchen-cat-full" onclick="this.classList.toggle('sel')">Холодильник / Морозильник</span>
-            <span class="cat-chip kitchen-cat-full" onclick="this.classList.toggle('sel')">Посудомоечная</span>
-            <span class="cat-chip kitchen-cat-full" onclick="this.classList.toggle('sel')">Стиральная / Сушка</span>
-            <span class="cat-chip kitchen-cat-full" onclick="this.classList.toggle('sel')">Вытяжка</span>
-            <span class="cat-chip kitchen-cat-full" onclick="this.classList.toggle('sel')">Кофемашина</span>
-            <span class="cat-chip kitchen-cat-full" onclick="this.classList.toggle('sel')">Пароварка</span>
-            <span class="cat-chip kitchen-cat-full" onclick="this.classList.toggle('sel')">Микроволновая</span>
-            <span class="cat-chip san-chip-full" style="display:none" onclick="this.classList.toggle('sel')">Ванна / Поддон</span>
-            <span class="cat-chip san-chip-full" style="display:none" onclick="this.classList.toggle('sel')">Раковина</span>
-            <span class="cat-chip san-chip-full" style="display:none" onclick="this.classList.toggle('sel')">Душевая система</span>
-            <span class="cat-chip san-chip-full" style="display:none" onclick="this.classList.toggle('sel')">Мебель для ванной</span>
-            <span class="cat-chip san-chip-full" style="display:none" onclick="this.classList.toggle('sel')">Смеситель для ванны</span>
-            <span class="cat-chip fix-chip-full" style="display:none" onclick="this.classList.toggle('sel')">Кухонная мойка</span>
-            <span class="cat-chip fix-chip-full" style="display:none" onclick="this.classList.toggle('sel')">Смеситель на кухню</span>
+          <div class="f-section">Категории</div>
+          <div class="cat-chips" id="g-cats">
+            <span class="cat-chip gk-cat" onclick="this.classList.toggle('sel')">Кухня целиком</span>
+            <span class="cat-chip gk-cat" onclick="this.classList.toggle('sel')">Духовой шкаф</span>
+            <span class="cat-chip gk-cat" onclick="this.classList.toggle('sel')">Варочная панель</span>
+            <span class="cat-chip gk-cat" onclick="this.classList.toggle('sel')">Холодильник / Морозильник</span>
+            <span class="cat-chip gk-cat" onclick="this.classList.toggle('sel')">Посудомоечная</span>
+            <span class="cat-chip gk-cat" onclick="this.classList.toggle('sel')">Стиральная / Сушка</span>
+            <span class="cat-chip gk-cat" onclick="this.classList.toggle('sel')">Вытяжка</span>
+            <span class="cat-chip gk-cat" onclick="this.classList.toggle('sel')">Кофемашина</span>
+            <span class="cat-chip gk-cat" onclick="this.classList.toggle('sel')">Пароварка</span>
+            <span class="cat-chip gk-cat" onclick="this.classList.toggle('sel')">Микроволновая</span>
+            <span class="cat-chip san-type gs-cat" style="display:none" onclick="this.classList.toggle('sel')">Ванна / Поддон</span>
+            <span class="cat-chip san-type gs-cat" style="display:none" onclick="this.classList.toggle('sel')">Раковина</span>
+            <span class="cat-chip san-type gs-cat" style="display:none" onclick="this.classList.toggle('sel')">Душевая система</span>
+            <span class="cat-chip san-type gs-cat" style="display:none" onclick="this.classList.toggle('sel')">Мебель для ванной</span>
+            <span class="cat-chip san-type gs-cat" style="display:none" onclick="this.classList.toggle('sel')">Смеситель для ванны</span>
+            <span class="cat-chip fix-type gx-cat" style="display:none" onclick="this.classList.toggle('sel')">Кухонная мойка</span>
+            <span class="cat-chip fix-type gx-cat" style="display:none" onclick="this.classList.toggle('sel')">Смеситель на кухню</span>
             <span class="cat-chip" onclick="this.classList.toggle('sel')">Другое</span>
           </div>
 
@@ -497,16 +447,16 @@ table.schema tr:last-child td{border-bottom:none}
             <span class="finish-chip" onclick="this.classList.toggle('sel')">⬜ Белый</span>
             <span class="finish-chip" onclick="this.classList.toggle('sel')">⬛ Чёрный</span>
             <span class="finish-chip" onclick="this.classList.toggle('sel')">🔲 Нержавеющая сталь</span>
-            <span class="finish-chip" onclick="this.classList.toggle('sel')">◻️ Антрацит / Графит</span>
+            <span class="finish-chip" onclick="this.classList.toggle('sel')">◼ Антрацит / Графит</span>
             <span class="finish-chip" onclick="this.classList.toggle('sel')">🟡 Латунь / Золото</span>
             <span class="finish-chip" onclick="this.classList.toggle('sel')">🟤 Медь / Бронза</span>
-            <span class="finish-chip" onclick="this.classList.toggle('sel')">🎨 Цвет по RAL / Кастом</span>
+            <span class="finish-chip" onclick="this.classList.toggle('sel')">🎨 По RAL / Кастом</span>
             <span class="finish-chip" onclick="this.classList.toggle('sel')">Не важно</span>
           </div>
 
           <div class="f-row" style="margin-top:18px">
-            <div class="f-field">
-              <label class="f-label">Бюджет (ориентировочно)</label>
+            <div class="f-field" style="margin-bottom:0">
+              <label class="f-label">Бюджет</label>
               <select class="f-select">
                 <option>Не указываю</option>
                 <option>до 150 000 ₽</option>
@@ -516,12 +466,12 @@ table.schema tr:last-child td{border-bottom:none}
                 <option>более 5 000 000 ₽</option>
               </select>
             </div>
-            <div class="f-field">
+            <div class="f-field" style="margin-bottom:0">
               <label class="f-label">Предпочтение по наличию</label>
               <select class="f-select">
                 <option>Из наличия — нужно быстро</option>
                 <option>Под заказ — готов ждать</option>
-                <option>Любое — подберите лучший вариант</option>
+                <option>Любое — подберите лучшее</option>
               </select>
             </div>
           </div>
@@ -532,195 +482,190 @@ table.schema tr:last-child td{border-bottom:none}
           </div>
         </div>
 
-        <!-- STEP 3 -->
         <div class="step-panel" id="sp3">
           <div class="f-row">
-            <div class="f-field">
+            <div class="f-field" style="margin-bottom:0">
               <label class="f-label">Тип объекта</label>
               <select class="f-select">
                 <option>Квартира</option>
                 <option>Частный дом / коттедж</option>
                 <option>Апартаменты</option>
                 <option>Коммерческое помещение</option>
-                <option>Гостиница / хостел</option>
+                <option>Гостиница</option>
                 <option>Другое</option>
               </select>
             </div>
-            <div class="f-field">
+            <div class="f-field" style="margin-bottom:0">
               <label class="f-label">Срок поставки</label>
               <select class="f-select">
                 <option>Срочно (до 2 недель)</option>
                 <option>1–2 месяца</option>
                 <option>2–4 месяца</option>
-                <option>Более 4 месяцев / не горит</option>
+                <option>Более 4 месяцев</option>
                 <option>Пока не знаю</option>
               </select>
             </div>
           </div>
 
-          <div class="f-field">
-            <label class="f-label">Дополнительно (аксессуары)</label>
+          <div class="f-field" style="margin-top:14px">
+            <label class="f-label">Дополнительно</label>
             <div class="acc-list">
               <label class="acc-item"><input type="checkbox"> Монтажные рамки и крепёж</label>
-              <label class="acc-item"><input type="checkbox"> Расходные материалы (фильтры, таблетки)</label>
-              <label class="acc-item"><input type="checkbox"> Не нужны — только техника</label>
+              <label class="acc-item"><input type="checkbox"> Расходники (фильтры, соль, таблетки)</label>
+              <label class="acc-item"><input type="checkbox"> Только техника — аксессуары не нужны</label>
             </div>
           </div>
 
-          <div class="f-field">
+          <div class="f-field" style="margin-top:14px">
             <label class="f-label">Описание проекта</label>
-            <textarea class="f-input" rows="3" placeholder="Модели из каталога, пожелания по комплектации, адрес объекта, контакт дизайнера — любая деталь ускорит подготовку КП"></textarea>
+            <textarea class="f-input" rows="3" style="resize:vertical" placeholder="Модели из каталога, пожелания по комплектации, адрес объекта, контакт дизайнера — любая деталь ускорит подготовку"></textarea>
           </div>
 
           <div class="optin-row">
-            <input type="checkbox" id="optin-full" checked>
-            <label for="optin-full">Согласен на обработку персональных данных и получение материалов Home Project. <a href="/ru/page/privacy" style="color:#1a1a1a">Политика конфиденциальности</a></label>
+            <input type="checkbox" id="oi2" checked>
+            <label for="oi2">Согласен на обработку персональных данных и получение материалов Home Project. <a href="/ru/page/privacy" style="color:#1a1a1a">Политика</a></label>
           </div>
-
           <div class="step-nav">
             <button class="btn-back" onclick="goStep(2)">← Назад</button>
-            <button class="btn-next" onclick="submitForm('full')">📋 Получить полное КП →</button>
+            <button class="btn-next" onclick="startProgress('full')">📋 Получить полное КП →</button>
           </div>
         </div>
       </div>
-      <div class="progress-overlay" id="full-progress">
-        <div style="font-size:32px;margin-bottom:12px">📋</div>
-        <div class="progress-title">Готовим полное КП…</div>
-        <div class="progress-sub">С визуалами, вариантами A/B и схемами. ~2 минуты</div>
-        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="full-bar"></div></div>
-        <div class="progress-steps">
-          <div class="p-step done"><span class="check-icon done"></span>Контакт сохранён в CRM</div>
-          <div class="p-step active"><span class="check-icon spin"></span>Подбираем позиции и варианты A/B</div>
-          <div class="p-step"><span class="check-icon"></span>Генерируем визуальные карточки</div>
-          <div class="p-step"><span class="check-icon"></span>Составляем описания и рекомендации</div>
-          <div class="p-step"><span class="check-icon"></span>Отправляем на email</div>
+
+      <div class="progress-overlay" id="full-prog">
+        <div style="font-size:36px;margin-bottom:12px">📋</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:6px">Готовим полное КП…</div>
+        <div style="font-size:14px;color:#888">С вариантами A/B, визуалами и схемами. ~2 минуты</div>
+        <div class="pb-wrap"><div class="pb-fill" id="gp-bar"></div></div>
+        <div style="text-align:left">
+          <div class="p-step done"><span class="chk done"></span>Контакт сохранён в CRM</div>
+          <div class="p-step act"><span class="chk spin"></span>Подбираем позиции и варианты A/B</div>
+          <div class="p-step"><span class="chk"></span>Генерируем визуальные карточки</div>
+          <div class="p-step"><span class="chk"></span>Составляем описания и рекомендации</div>
+          <div class="p-step"><span class="chk"></span>Отправляем на email</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════ SCREEN 3: DATA SCHEMA ═══════════════════ -->
+<!-- ══════════════ SCREEN 3: SCHEMA ══════════════ -->
 <div class="screen" id="screen-schema">
   <div class="schema-wrap">
 
     <div class="schema-card">
-      <div class="schema-h"><div class="icon" style="background:#dcfce7">📥</div>Шаг 1 — форма отправлена: POST /api/kp-request</div>
-      <table class="schema">
-        <tr><th>Поле из формы</th><th>Тип данных</th><th>Быстрое КП</th><th>Полное КП</th></tr>
-        <tr><td><span class="tag">name</span></td><td>string</td><td>✅</td><td>✅</td></tr>
-        <tr><td><span class="tag">email</span></td><td>string</td><td>✅</td><td>✅</td></tr>
-        <tr><td><span class="tag">company</span></td><td>string?</td><td>—</td><td>✅</td></tr>
-        <tr><td><span class="tag">brands</span></td><td>string[]</td><td>✅</td><td>✅</td></tr>
-        <tr><td><span class="tag">categories</span></td><td>string[]</td><td>✅</td><td>✅</td></tr>
-        <tr><td><span class="tag">budget</span></td><td>string?</td><td>✅</td><td>✅</td></tr>
-        <tr><td><span class="tag">finish</span></td><td>string[]?</td><td>—</td><td>✅ шаг 2</td></tr>
+      <div class="schema-h"><div class="schema-icon" style="background:#dcfce7">📥</div>Шаг 1 — форма отправлена → POST /api/kp-request</div>
+      <table class="sch">
+        <tr><th>Поле</th><th>Тип</th><th>⚡ Быстрое</th><th>📋 Полное</th></tr>
+        <tr><td><span class="tag">name</span>, <span class="tag">email</span></td><td>string</td><td>✅ шаг 1</td><td>✅ шаг 1</td></tr>
+        <tr><td><span class="tag">company</span></td><td>string?</td><td>—</td><td>✅ шаг 1</td></tr>
+        <tr><td><span class="tag">brands[]</span></td><td>string[]</td><td>✅</td><td>✅ шаг 2</td></tr>
+        <tr><td><span class="tag">categories[]</span></td><td>string[]</td><td>✅</td><td>✅ шаг 2</td></tr>
+        <tr><td><span class="tag">budget</span></td><td>string?</td><td>✅</td><td>✅ шаг 2</td></tr>
+        <tr><td><span class="tag">finish[]</span></td><td>string[]?</td><td>—</td><td>✅ шаг 2</td></tr>
         <tr><td><span class="tag">availability</span></td><td>string?</td><td>—</td><td>✅ шаг 2</td></tr>
         <tr><td><span class="tag">objectType</span></td><td>string?</td><td>—</td><td>✅ шаг 3</td></tr>
         <tr><td><span class="tag">deliveryTimeframe</span></td><td>string?</td><td>—</td><td>✅ шаг 3</td></tr>
-        <tr><td><span class="tag">accessories</span></td><td>string[]?</td><td>—</td><td>✅ шаг 3</td></tr>
+        <tr><td><span class="tag">accessories[]</span></td><td>string[]?</td><td>—</td><td>✅ шаг 3</td></tr>
         <tr><td><span class="tag">description</span></td><td>string?</td><td>—</td><td>✅ шаг 3</td></tr>
-        <tr><td><span class="tag">formType</span></td><td>'fast'|'full'</td><td><span class="tag fast">fast</span></td><td><span class="tag full-tag">full</span></td></tr>
-        <tr><td><span class="tag">optIn</span></td><td>boolean</td><td>✅</td><td>✅</td></tr>
+        <tr><td><span class="tag">formType</span></td><td>enum</td><td><span class="tag y">fast</span></td><td><span class="tag p">full</span></td></tr>
+        <tr><td><span class="tag">optIn</span></td><td>boolean</td><td>✅ — нужно для Unisender</td><td>✅</td></tr>
       </table>
     </div>
 
     <div class="flow-arrow">↓</div>
 
     <div class="schema-card">
-      <div class="schema-h"><div class="icon" style="background:#dbeafe">👤</div>Шаг 2 — таблица <code style="background:#f0f1f4;padding:2px 6px;border-radius:4px;font-size:13px">contacts</code> (CRM)</div>
-      <table class="schema">
-        <tr><th>Поле</th><th>Откуда</th><th>Действие</th></tr>
-        <tr><td><span class="tag">id</span></td><td>auto</td><td><span class="tag new">CREATE или FIND</span> по email</td></tr>
-        <tr><td><span class="tag">name</span></td><td>форма</td><td>Сохраняем / обновляем</td></tr>
-        <tr><td><span class="tag">email</span></td><td>форма</td><td>Ключ поиска</td></tr>
-        <tr><td><span class="tag">company</span></td><td>форма</td><td>Если новый — записываем</td></tr>
-        <tr><td><span class="tag">source</span></td><td>system</td><td><span class="tag fast">kp-form-fast</span> или <span class="tag full-tag">kp-form-full</span></td></tr>
-        <tr><td><span class="tag">optIn</span></td><td>чекбокс</td><td>✅ Записывается — нужно для Unisender</td></tr>
-        <tr><td><span class="tag">createdAt</span></td><td>system</td><td>Только если контакт новый</td></tr>
+      <div class="schema-h"><div class="schema-icon" style="background:#dbeafe">👤</div>Шаг 2 — таблица <code style="background:#f0f1f4;padding:2px 6px;border-radius:4px;font-size:13px">contacts</code> (CRM)</div>
+      <table class="sch">
+        <tr><th>Действие</th><th>Логика</th></tr>
+        <tr><td><span class="tag b">FIND by email</span></td><td>Ищем контакт по email — дублей нет</td></tr>
+        <tr><td><span class="tag g">CREATE if new</span></td><td>Новый контакт: name, email, company, source=<span class="tag y">kp-form</span></td></tr>
+        <tr><td><span class="tag">optIn = true</span></td><td>Записывается всегда — основание для Unisender рассылок</td></tr>
+        <tr><td><span class="tag">contactId</span></td><td>ID передаётся в KpInput и kp_requests — связь сквозная</td></tr>
       </table>
-      <div style="font-size:12px;color:#888;margin-top:10px">Если контакт уже есть по email — ID берётся из базы, новая запись не создаётся. Дублей нет.</div>
     </div>
 
     <div class="flow-arrow">↓</div>
 
     <div class="schema-card">
-      <div class="schema-h"><div class="icon" style="background:#f3e8ff">📄</div>Шаг 3 — таблица <code style="background:#f0f1f4;padding:2px 6px;border-radius:4px;font-size:13px">kp_requests</code> (новая, нужна инженеру)</div>
-      <table class="schema">
+      <div class="schema-h"><div class="schema-icon" style="background:#f3e8ff">📄</div>Шаг 3 — таблица <code style="background:#f0f1f4;padding:2px 6px;border-radius:4px;font-size:13px">kp_requests</code> <span style="font-size:12px;background:#fee2e2;color:#991b1b;padding:2px 8px;border-radius:4px;font-weight:600;margin-left:6px">Нужна инженеру</span></div>
+      <table class="sch">
         <tr><th>Поле</th><th>Тип</th><th>Описание</th></tr>
-        <tr><td><span class="tag">id</span></td><td>uuid</td><td>Уникальный ID заявки</td></tr>
-        <tr><td><span class="tag">contactId</span></td><td>FK → contacts</td><td>Связь с CRM</td></tr>
-        <tr><td><span class="tag">formType</span></td><td>'fast'|'full'</td><td>Тип КП</td></tr>
-        <tr><td><span class="tag">brands</span></td><td>jsonb[]</td><td>Выбранные бренды</td></tr>
-        <tr><td><span class="tag">categories</span></td><td>jsonb[]</td><td>Категории техники</td></tr>
-        <tr><td><span class="tag">budget</span></td><td>string?</td><td>Бюджет клиента</td></tr>
-        <tr><td><span class="tag">briefStructured</span></td><td>jsonb?</td><td>finish, availability, objectType, timeframe, accessories, description</td></tr>
+        <tr><td><span class="tag">id</span></td><td>uuid PK</td><td>Уникальный ID заявки</td></tr>
+        <tr><td><span class="tag">contactId</span></td><td>FK contacts</td><td>Связь с CRM контактом</td></tr>
+        <tr><td><span class="tag">formType</span></td><td>'fast'|'full'</td><td>Тип запрошенного КП</td></tr>
+        <tr><td><span class="tag">brands</span></td><td>jsonb</td><td>["Küppersbusch","Salini"] — выбранные бренды</td></tr>
+        <tr><td><span class="tag">categories</span></td><td>jsonb</td><td>["Духовой шкаф","Ванна"] — категории техники</td></tr>
+        <tr><td><span class="tag">budget</span></td><td>text?</td><td>"500 000 – 1 500 000 ₽"</td></tr>
+        <tr><td><span class="tag">briefStructured</span></td><td>jsonb?</td><td>{finish, availability, objectType, timeframe, accessories, description}</td></tr>
         <tr><td><span class="tag">status</span></td><td>enum</td><td>new → generating → sent → archived</td></tr>
-        <tr><td><span class="tag">kpId</span></td><td>string?</td><td>ID сгенерированного КП (после готовности)</td></tr>
-        <tr><td><span class="tag">kpUrl</span></td><td>string?</td><td>Ссылка на HTML-версию КП</td></tr>
+        <tr><td><span class="tag">kpId</span></td><td>text?</td><td>ID сгенерированного КП (после готовности)</td></tr>
+        <tr><td><span class="tag">kpUrl</span></td><td>text?</td><td>Ссылка на HTML КП для отправки клиенту</td></tr>
         <tr><td><span class="tag">createdAt</span></td><td>timestamp</td><td>Авто</td></tr>
-        <tr><td><span class="tag">sentAt</span></td><td>timestamp?</td><td>Когда отправлено клиенту</td></tr>
+        <tr><td><span class="tag">sentAt</span></td><td>timestamp?</td><td>Когда КП отправлено клиенту</td></tr>
       </table>
     </div>
 
     <div class="flow-arrow">↓</div>
 
     <div class="schema-card">
-      <div class="schema-h"><div class="icon" style="background:#fff9ec">🤖</div>Шаг 4 — proposal-writer агент генерирует КП</div>
-      <div class="pipeline">
+      <div class="schema-h"><div class="schema-icon" style="background:#fff9ec">🤖</div>Шаг 4 — proposal-writer агент генерирует и отправляет КП</div>
+      <div>
         <div class="pipe-step">
           <div class="pipe-num">1</div>
           <div class="pipe-content">
             <h4>Сборка KpInput из kp_requests</h4>
-            <p>contactId + brands[0] → brand, categories → brief, budget → briefStructured.budget, description → brief текст</p>
-            <span class="pipe-time fast-t">~1 сек</span>
+            <p>contactId + brands[0] → brand; categories + description → brief; budget, finish → briefStructured</p>
+            <span class="pipe-t" style="background:#dcfce7;color:#166534">~1 сек</span>
           </div>
         </div>
         <div class="pipe-step">
           <div class="pipe-num">2</div>
           <div class="pipe-content">
-            <h4>Поиск SKU в Medusa по категориям и бренду</h4>
-            <p>GET /store/products?brand=Küppersbusch&q=духовой → топ-3 SKU → variants[].items[]</p>
-            <span class="pipe-time fast-t">~3–5 сек</span>
+            <h4>Поиск SKU в Medusa по бренду + категориям</h4>
+            <p>GET /store/products?brand=Küppersbusch&q=духовой → топ-3 SKU → variants[].items[]<br>Если SKU не найден точно → fuzzy-поиск по названию (нужен инженеру P0)</p>
+            <span class="pipe-t" style="background:#dcfce7;color:#166534">~3–5 сек</span>
           </div>
         </div>
         <div class="pipe-step">
           <div class="pipe-num">3</div>
           <div class="pipe-content">
             <h4>Генерация текста (LLM)</h4>
-            <p><span class="tag fast">Быстрое</span> — 2 поля: introTitle + introText. <span class="tag full-tag">Полное</span> — ~25 полей: brief, варианты A/B, визуальные карточки, рекомендации</p>
-            <span class="pipe-time fast-t">Быстрое: ~15 сек</span>
-            <span class="pipe-time full-t" style="margin-left:6px">Полное: ~80 сек</span>
+            <p><span class="tag y">Быстрое</span>: 2 поля — introTitle + introText (writeProse format=fast)<br>
+            <span class="tag p">Полное</span>: ~25 полей — brief, варианты A/B, визуальные карточки, рекомендация</p>
+            <span class="pipe-t" style="background:#fff9ec;color:#92400e">Быстрое: ~15 сек</span>
+            <span class="pipe-t" style="background:#f3e8ff;color:#6b21a8;margin-left:6px">Полное: ~80 сек</span>
           </div>
         </div>
         <div class="pipe-step">
           <div class="pipe-num">4</div>
           <div class="pipe-content">
-            <h4>Рендеринг HTML + отправка</h4>
-            <p>kp-render-simple.ts или kp-render-full.ts → HTML → email клиенту + уведомление менеджеру</p>
-            <span class="pipe-time fast-t">~2 сек</span>
+            <h4>Рендеринг HTML → отправка клиенту</h4>
+            <p>kp-render-simple.ts или kp-render-full.ts → HTML → email + уведомление менеджеру</p>
+            <span class="pipe-t" style="background:#dcfce7;color:#166534">~2 сек</span>
           </div>
         </div>
         <div class="pipe-step">
           <div class="pipe-num">5</div>
           <div class="pipe-content">
-            <h4>Обновление статуса</h4>
-            <p>kp_requests.status = 'sent', kpId = id, kpUrl = ссылка, sentAt = now()</p>
-            <span class="pipe-time fast-t">~1 сек</span>
+            <h4>Обновление статуса в kp_requests</h4>
+            <p>status = 'sent', kpId, kpUrl, sentAt = now()</p>
+            <span class="pipe-t" style="background:#dcfce7;color:#166534">~1 сек</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="schema-card" style="background:#f8f9fb">
-      <div class="schema-h"><div class="icon" style="background:#fef3c7">📌</div>Что нужно от инженера (блокеры)</div>
-      <table class="schema">
+    <div class="schema-card" style="background:#fef9f0;border-color:#fde68a">
+      <div class="schema-h"><div class="schema-icon" style="background:#fef3c7">📌</div>Что нужно от инженера для запуска</div>
+      <table class="sch">
         <tr><th>#</th><th>Задача</th><th>Приоритет</th></tr>
-        <tr><td>1</td><td>Создать таблицу <span class="tag">kp_requests</span> в PostgreSQL (schema + migration)</td><td>🔴 P0</td></tr>
-        <tr><td>2</td><td>POST <span class="tag">/api/kp-request</span> — принять форму, сохранить в contacts + kp_requests, тригернуть агента</td><td>🔴 P0</td></tr>
-        <tr><td>3</td><td>Fuzzy SKU lookup: если getProductBySku=null → поиск по q= в Medusa</td><td>🔴 P0</td></tr>
-        <tr><td>4</td><td>writeProse(format='fast') — только 2 поля, без полного набора LLM</td><td>🟡 P1</td></tr>
-        <tr><td>5</td><td>Страница <span class="tag">/ru/page/kp-request</span> на сайте — встроить форму или iframe</td><td>🟡 P1</td></tr>
+        <tr><td>1</td><td>Создать таблицу <span class="tag">kp_requests</span> в PostgreSQL (schema + migration)</td><td><span class="tag r">P0 блокер</span></td></tr>
+        <tr><td>2</td><td>Endpoint <span class="tag">POST /api/kp-request</span>: принять форму → contacts + kp_requests → тригернуть proposal-writer</td><td><span class="tag r">P0 блокер</span></td></tr>
+        <tr><td>3</td><td>Fuzzy SKU lookup в Medusa: если getProductBySku=null → поиск по ?q=</td><td><span class="tag r">P0 блокер</span></td></tr>
+        <tr><td>4</td><td><span class="tag">writeProse(format='fast')</span> — только 2 поля вместо 25, ускоряет с 80 до 15 сек</td><td><span class="tag y">P1</span></td></tr>
+        <tr><td>5</td><td>Страница <span class="tag">/ru/page/kp-request</span> на сайте — встроить форму</td><td><span class="tag y">P1</span></td></tr>
       </table>
     </div>
 
@@ -728,83 +673,106 @@ table.schema tr:last-child td{border-bottom:none}
 </div>
 
 <script>
+var curStep=1;
+
 function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
   document.getElementById('screen-'+id).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach((b,i)=>{
+  document.querySelectorAll('.nav-btn').forEach(function(b,i){
     b.classList.remove('active');
     if(['catalog','form','schema'][i]===id) b.classList.add('active');
   });
 }
 
-let currentStep=1;
-function goStep(n){
-  document.getElementById('sp'+currentStep).classList.remove('active');
-  document.getElementById('sc'+currentStep).classList.remove('active');
-  document.getElementById('sl'+currentStep).classList.remove('active');
-  if(n>currentStep){
-    document.getElementById('sc'+currentStep).classList.add('done');
-    document.getElementById('sc'+currentStep).textContent='✓';
-    if(currentStep<3) document.getElementById('line'+currentStep).classList.add('done');
-  }
-  currentStep=n;
-  document.getElementById('sp'+n).classList.add('active');
-  document.getElementById('sc'+n).classList.add('active');
-  document.getElementById('sl'+n).classList.add('active');
+function goForm(t){
+  showScreen('form');
+  setTab(t);
 }
 
 function setTab(t){
-  showScreen('form');
   document.getElementById('fast-panel').style.display=t==='fast'?'block':'none';
   document.getElementById('full-panel').style.display=t==='full'?'block':'none';
   document.getElementById('tab-fast').classList.toggle('active',t==='fast');
   document.getElementById('tab-full').classList.toggle('active',t==='full');
 }
-document.getElementById('tab-fast').addEventListener('click',()=>setTab('fast'));
-document.getElementById('tab-full').addEventListener('click',()=>setTab('full'));
+document.getElementById('tab-fast').addEventListener('click',function(){setTab('fast')});
+document.getElementById('tab-full').addEventListener('click',function(){setTab('full')});
 
-function toggleBrand(el,mode){
+function toggleB(el,prefix){
   el.classList.toggle('sel');
-  updateCategories(mode);
-}
-
-function updateCategories(mode){
-  const prefix=mode==='fast'?'fast':'full';
-  const brands=document.querySelectorAll('#'+prefix+'-brands .brand-chip.sel');
-  let hasSanitary=false,hasFixtures=false;
-  brands.forEach(b=>{
-    if(b.dataset.type==='sanitary') hasSanitary=true;
-    if(b.dataset.type==='fixtures') hasFixtures=true;
+  var hasSan=false, hasFix=false;
+  var container=document.getElementById(prefix+'-brands');
+  container.querySelectorAll('.brand-chip.sel').forEach(function(b){
+    if(b.dataset.t==='s') hasSan=true;
+    if(b.dataset.t==='x') hasFix=true;
   });
-  const sanClass=mode==='fast'?'.san-chip':'.san-chip-full';
-  const fixClass=mode==='fast'?'.fix-chip':'.fix-chip-full';
-  document.querySelectorAll('#'+prefix+'-cats '+sanClass).forEach(c=>{
-    c.style.display=hasSanitary?'inline-block':'none';
-  });
-  document.querySelectorAll('#'+prefix+'-cats '+fixClass).forEach(c=>{
-    c.style.display=hasFixtures?'inline-block':'none';
-  });
-}
-
-function submitForm(type){
-  const formContent=document.getElementById(type===?'fast':'full-form-content');
-  const progress=document.getElementById(type+'-progress');
-  if(type==='fast'){
-    document.getElementById('fast-form-content').style.display='none';
+  var cats=document.getElementById(prefix+'-cats');
+  if(!cats) return;
+  var sanSel=prefix==='f'?'.san-type:not(.gs-cat)':'.gs-cat';
+  var fixSel=prefix==='f'?'.fix-type:not(.gx-cat)':'.gx-cat';
+  if(prefix==='f'){
+    cats.querySelectorAll('.san-type').forEach(function(c){c.style.display=hasSan?'inline-flex':'none'});
+    cats.querySelectorAll('.fix-type').forEach(function(c){c.style.display=hasFix?'inline-flex':'none'});
   } else {
-    document.getElementById('full-form-content').style.display='none';
+    cats.querySelectorAll('.gs-cat').forEach(function(c){c.style.display=hasSan?'inline-flex':'none'});
+    cats.querySelectorAll('.gx-cat').forEach(function(c){c.style.display=hasFix?'inline-flex':'none'});
   }
-  progress.style.display='block';
-  const bar=document.getElementById(type+'-bar');
-  setTimeout(()=>{bar.style.width='30%'},100);
-  setTimeout(()=>{bar.style.width='65%'},800);
-  setTimeout(()=>{bar.style.width='90%'},1600);
-  setTimeout(()=>{bar.style.width='100%'},2400);
+}
+
+function goStep(n){
+  document.getElementById('sp'+curStep).classList.remove('active');
+  document.getElementById('sc'+curStep).classList.remove('active');
+  document.getElementById('sl'+curStep).classList.remove('active');
+  if(n>curStep){
+    document.getElementById('sc'+curStep).classList.remove('active');
+    document.getElementById('sc'+curStep).classList.add('done');
+    document.getElementById('sc'+curStep).textContent='✓';
+    if(curStep<3){document.getElementById('ln'+curStep).classList.add('done');}
+  }
+  curStep=n;
+  document.getElementById('sp'+n).classList.add('active');
+  document.getElementById('sc'+n).classList.add('active');
+  document.getElementById('sl'+n).classList.add('active');
+}
+
+function startProgress(type){
   if(type==='fast'){
-    const steps=document.querySelectorAll('#fast-steps .p-step');
-    setTimeout(()=>{steps[1].querySelector('.check-icon').classList.remove('spin');steps[1].querySelector('.check-icon').classList.add('done');steps[1].classList.remove('active');steps[1].classList.add('done');steps[2].classList.add('active');steps[2].querySelector('.check-icon').classList.add('spin')},800);
-    setTimeout(()=>{steps[2].querySelector('.check-icon').classList.remove('spin');steps[2].querySelector('.check-icon').classList.add('done');steps[2].classList.remove('active');steps[2].classList.add('done');steps[3].classList.add('active');steps[3].querySelector('.check-icon').classList.add('spin')},1800);
-    setTimeout(()=>{steps[3].querySelector('.check-icon').classList.remove('spin');steps[3].querySelector('.check-icon').classList.add('done');steps[3].classList.remove('active');steps[3].classList.add('done');document.querySelector('#fast-progress .progress-title').textContent='✅ КП отправлено!';document.querySelector('#fast-progress .progress-sub').textContent='Проверьте почту — письмо уже там.'},2800);
+    document.getElementById('fast-content').style.display='none';
+    var prog=document.getElementById('fast-prog');
+    prog.style.display='block';
+    var bar=document.getElementById('fp-bar');
+    setTimeout(function(){bar.style.width='30%'},100);
+    setTimeout(function(){bar.style.width='65%'},800);
+    setTimeout(function(){bar.style.width='90%'},1800);
+    setTimeout(function(){bar.style.width='100%'},2600);
+    var s2=document.getElementById('fp2');
+    var s3=document.getElementById('fp3');
+    var s4=document.getElementById('fp4');
+    setTimeout(function(){
+      s2.querySelector('.chk').classList.remove('spin');s2.querySelector('.chk').classList.add('done');
+      s2.classList.remove('act');s2.classList.add('done');
+      s3.classList.add('act');s3.querySelector('.chk').classList.add('spin');
+    },900);
+    setTimeout(function(){
+      s3.querySelector('.chk').classList.remove('spin');s3.querySelector('.chk').classList.add('done');
+      s3.classList.remove('act');s3.classList.add('done');
+      s4.classList.add('act');s4.querySelector('.chk').classList.add('spin');
+    },1900);
+    setTimeout(function(){
+      s4.querySelector('.chk').classList.remove('spin');s4.querySelector('.chk').classList.add('done');
+      s4.classList.remove('act');s4.classList.add('done');
+      document.querySelector('#fast-prog div:nth-child(2)').textContent='✅ КП отправлено!';
+      document.querySelector('#fast-prog div:nth-child(3)').textContent='Проверьте почту — письмо уже там.';
+    },2800);
+  } else {
+    document.getElementById('full-content').style.display='none';
+    var prog=document.getElementById('full-prog');
+    prog.style.display='block';
+    var bar=document.getElementById('gp-bar');
+    setTimeout(function(){bar.style.width='20%'},100);
+    setTimeout(function(){bar.style.width='55%'},1200);
+    setTimeout(function(){bar.style.width='80%'},2400);
+    setTimeout(function(){bar.style.width='100%'},3500);
   }
 }
 </script>
