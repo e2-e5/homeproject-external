@@ -3,598 +3,551 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Превью КП — Home Project</title>
+<title>Форма КП v2 — Home Project</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Montserrat',sans-serif;background:#f2f2f2;color:#1a1a1a}
 
-/* ─── ШАГИ ─── */
-.step-bar{background:#1a1a1a;padding:10px 20px;display:flex;align-items:center;gap:0;position:sticky;top:0;z-index:999}
-.step{flex:1;text-align:center;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#555;padding:6px 0;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s}
-.step.active{color:#C9A36A;border-bottom-color:#C9A36A}
-.step-arrow{color:#444;font-size:12px;padding:0 8px}
-.step-hint{font-size:10px;color:#666;padding:8px 20px;background:#111;text-align:center;letter-spacing:0.04em}
-.step-hint em{color:#C9A36A;font-style:normal}
+/* ─── ШАГ-ТАБЫ ─── */
+.nav-bar{background:#1a1a1a;padding:10px 20px;display:flex;align-items:center;gap:0;position:sticky;top:0;z-index:999}
+.nav-tab{flex:1;text-align:center;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#555;padding:6px 0;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s}
+.nav-tab.active{color:#C9A36A;border-bottom-color:#C9A36A}
+.nav-arrow{color:#444;font-size:12px;padding:0 8px}
+.nav-hint{font-size:10px;color:#666;padding:7px 20px;background:#111;text-align:center;letter-spacing:.04em}
+.nav-hint em{color:#C9A36A;font-style:normal}
 
-/* ─── ЭКРАН 1: СТРАНИЦА КАТАЛОГА ─── */
-#screen1{display:block}
-#screen2{display:none}
+#sc1{display:block}#sc2{display:none}
 
-/* ШАПКА САЙТА */
-.site-header{background:#fff;border-bottom:1px solid #e8e8e8;position:sticky;top:52px;z-index:100}
-.header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;gap:32px}
-.logo{font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;white-space:nowrap}
-.site-nav{display:flex;gap:24px;flex:1}
-.site-nav a{font-size:12px;color:#555;text-decoration:none;letter-spacing:0.04em}
-.site-nav a:hover{color:#1a1a1a}
-.header-actions{display:flex;align-items:center;gap:12px}
-.btn-kp-header{background:#C9A36A;color:#fff;border:none;padding:9px 18px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;white-space:nowrap;transition:opacity .2s;position:relative}
-.btn-kp-header:hover{opacity:.88}
-.pulse-label{position:absolute;top:-8px;right:-8px;background:#E53935;color:#fff;font-size:8px;font-weight:700;border-radius:10px;padding:2px 5px;letter-spacing:0;text-transform:none;white-space:nowrap}
-.btn-search{background:none;border:1px solid #e0e0e0;border-radius:3px;padding:8px 14px;font-size:11px;color:#888;cursor:pointer}
+/* ─── ЭКРАН 1: КАТАЛОГ ─── */
+.s-header{background:#fff;border-bottom:1px solid #e8e8e8;position:sticky;top:52px;z-index:100}
+.s-header-in{max-width:1200px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;gap:32px}
+.s-logo{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.s-nav{display:flex;gap:24px;flex:1}
+.s-nav a{font-size:12px;color:#555;text-decoration:none;letter-spacing:.04em}
+.s-acts{display:flex;align-items:center;gap:10px}
+.s-btn-kp{background:#C9A36A;color:#fff;border:none;padding:9px 18px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;white-space:nowrap;position:relative;animation:glow 2s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(201,163,106,.5)}60%{box-shadow:0 0 0 7px rgba(201,163,106,0)}}
+.s-btn-kp .lbl{position:absolute;top:-7px;right:-7px;background:#E53935;color:#fff;font-size:8px;font-weight:700;border-radius:10px;padding:2px 5px;white-space:nowrap}
 
-/* BREADCRUMB */
-.breadcrumb{background:#fafafa;border-bottom:1px solid #f0f0f0;padding:10px 24px;font-size:11px;color:#999;max-width:1200px;margin:0 auto}
-.breadcrumb span{color:#C9A36A}
+.s-bc{background:#fafafa;border-bottom:1px solid #f0f0f0;padding:10px 0}
+.s-bc-in{max-width:1200px;margin:0 auto;padding:0 24px;font-size:11px;color:#999}
+.s-bc-in span{color:#C9A36A}
 
-/* CATEGORY HEADER */
-.cat-header{max-width:1200px;margin:0 auto;padding:28px 24px 20px;display:flex;align-items:flex-end;justify-content:space-between}
-.cat-title{font-size:26px;font-weight:300;letter-spacing:0.02em}
-.cat-count{font-size:12px;color:#999;margin-top:4px}
-.cat-filters{display:flex;gap:8px}
-.filter-chip{border:1px solid #e0e0e0;border-radius:20px;padding:6px 14px;font-size:11px;color:#777;cursor:pointer}
-.filter-chip.active{border-color:#1a1a1a;color:#1a1a1a;font-weight:600}
+.s-cat{max-width:1200px;margin:0 auto;padding:24px 24px 16px;display:flex;align-items:flex-end;justify-content:space-between}
+.s-cat-title{font-size:24px;font-weight:300}
+.s-cat-count{font-size:11px;color:#999;margin-top:3px}
+.s-filters{display:flex;gap:7px}
+.s-fc{border:1px solid #e0e0e0;border-radius:20px;padding:5px 13px;font-size:11px;color:#777;cursor:pointer}
+.s-fc.on{border-color:#1a1a1a;color:#1a1a1a;font-weight:600}
 
-/* GRID */
-.product-grid{max-width:1200px;margin:0 auto;padding:0 24px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.s-grid{max-width:1200px;margin:0 auto;padding:0 24px 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pc{background:#fff;border:1px solid #f0f0f0;border-radius:4px;overflow:hidden;cursor:pointer;transition:box-shadow .2s}
+.pc:hover{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.pc-img{aspect-ratio:4/3;background:#f8f8f8;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pc-img img{max-width:80%;max-height:80%;object-fit:contain}
+.pc-badge{position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:2px}
+.b-stock{background:#E8F5E9;color:#388E3C}
+.b-order{background:#FFF8E1;color:#F57C00}
+.pc-body{padding:13px}
+.pc-brand{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A36A;margin-bottom:3px}
+.pc-name{font-size:12px;font-weight:500;line-height:1.4;margin-bottom:6px;min-height:34px}
+.pc-model{font-size:10px;color:#bbb;margin-bottom:10px}
+.pc-acts{display:flex;gap:5px}
+.btn-inkp{flex:1;border:1px solid #C9A36A;color:#C9A36A;background:#fff;padding:7px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s}
+.btn-inkp:hover{background:#C9A36A;color:#fff}
+.btn-go{border:1px solid #e0e0e0;color:#bbb;background:#fff;padding:7px 10px;font-size:10px;cursor:pointer;border-radius:2px}
 
-/* CARD */
-.pcard{background:#fff;border:1px solid #f0f0f0;border-radius:4px;overflow:hidden;transition:box-shadow .2s;cursor:pointer}
-.pcard:hover{box-shadow:0 4px 20px rgba(0,0,0,0.08)}
-.pcard-img{aspect-ratio:4/3;background:#f8f8f8;overflow:hidden;position:relative}
-.pcard-img img{width:100%;height:100%;object-fit:contain;padding:16px}
-.pcard-badge{position:absolute;top:10px;left:10px;font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
-.badge-stock{background:#E8F5E9;color:#388E3C}
-.badge-order{background:#FFF8E1;color:#F57C00}
-.pcard-body{padding:14px}
-.pcard-brand{font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#C9A36A;margin-bottom:4px}
-.pcard-name{font-size:12px;font-weight:500;color:#1a1a1a;line-height:1.4;margin-bottom:8px;min-height:36px}
-.pcard-model{font-size:10px;color:#aaa;margin-bottom:12px}
-.pcard-actions{display:flex;gap:6px}
-.btn-add-kp{flex:1;border:1px solid #C9A36A;color:#C9A36A;background:#fff;padding:7px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s}
-.btn-add-kp:hover{background:#C9A36A;color:#fff}
-.btn-detail{border:1px solid #e0e0e0;color:#999;background:#fff;padding:7px 10px;font-size:9px;cursor:pointer;border-radius:2px}
+.s-cta{background:#1a1a1a;padding:36px 24px;margin-bottom:0}
+.s-cta-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.s-cta-ey{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C9A36A;margin-bottom:7px}
+.s-cta-title{font-size:20px;font-weight:300;color:#fff;line-height:1.3;margin-bottom:5px}
+.s-cta-sub{font-size:12px;color:#666}
+.s-cta-btns{display:flex;gap:10px;flex-shrink:0}
+.btn-cf{background:#C9A36A;color:#1a1a1a;border:none;padding:13px 22px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;white-space:nowrap}
+.btn-cp{background:transparent;color:#fff;border:1px solid #444;padding:13px 22px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:3px;white-space:nowrap}
 
-/* CTA BANNER */
-.cta-banner{background:#1a1a1a;margin:0 0 40px;padding:40px 24px}
-.cta-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.cta-text{}
-.cta-eyebrow{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A36A;margin-bottom:8px}
-.cta-title{font-size:22px;font-weight:300;color:#fff;line-height:1.3;margin-bottom:6px}
-.cta-sub{font-size:12px;color:#888}
-.cta-btns{display:flex;gap:10px;flex-shrink:0}
-.btn-fast{background:#C9A36A;color:#1a1a1a;border:none;padding:13px 24px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;white-space:nowrap}
-.btn-full{background:transparent;color:#fff;border:1px solid #444;padding:13px 24px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:3px;white-space:nowrap}
+/* ─── ЭКРАН 2: ФОРМА ─── */
+.fp{background:#fff;min-height:100vh}
+.fp-hero{background:#1a1a1a;padding:44px 24px 60px;text-align:center;position:relative}
+.fp-hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:32px;background:#fff;clip-path:ellipse(50% 100% at 50% 100%)}
+.fp-ey{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#C9A36A;margin-bottom:12px}
+.fp-title{font-size:30px;font-weight:300;color:#fff;letter-spacing:.02em;line-height:1.2;margin-bottom:8px}
+.fp-sub{font-size:13px;color:rgba(255,255,255,.45);max-width:420px;margin:0 auto}
 
-/* ANNOTATION ARROWS */
-.anno{position:relative}
-.anno-tag{position:absolute;background:#E53935;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:3px;white-space:nowrap;z-index:50}
-.anno-tag::after{content:'';position:absolute;border:5px solid transparent}
+.fp-body{max-width:600px;margin:0 auto;padding:28px 24px 60px}
 
-/* ─── ЭКРАН 2: ФОРМА КП ─── */
-.form-page{background:#fff;min-height:100vh}
-.fp-hero{background:#1a1a1a;padding:52px 24px 64px;text-align:center;position:relative}
-.fp-hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:36px;background:#fff;clip-path:ellipse(52% 100% at 50% 100%)}
-.fp-eyebrow{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#C9A36A;margin-bottom:14px}
-.fp-title{font-size:34px;font-weight:300;color:#fff;letter-spacing:0.02em;line-height:1.2;margin-bottom:10px}
-.fp-sub{font-size:13px;color:rgba(255,255,255,.5);max-width:440px;margin:0 auto}
-
-.fp-body{max-width:600px;margin:0 auto;padding:36px 24px 64px}
-
-/* Modes */
-.fp-modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
-.fp-mode{border:2px solid #ebebeb;border-radius:8px;padding:22px 18px;cursor:pointer;transition:all .2s;background:#fafafa;text-align:center}
-.fp-mode:hover,.fp-mode.active{border-color:#C9A36A;background:#fffef9;box-shadow:0 2px 16px rgba(201,163,106,.12)}
-.fp-mode-badge{font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#C9A36A;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:5px}
+/* Режимы */
+.fp-modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.fp-mode{border:2px solid #ebebeb;border-radius:8px;padding:18px 16px;cursor:pointer;transition:all .2s;background:#fafafa;text-align:center}
+.fp-mode:hover,.fp-mode.act{border-color:#C9A36A;background:#fffef9;box-shadow:0 2px 14px rgba(201,163,106,.1)}
+.fp-mode-ey{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A36A;margin-bottom:7px;display:flex;align-items:center;justify-content:center;gap:4px}
 .fp-dot{width:5px;height:5px;border-radius:50%;background:#4CAF7D;display:inline-block}
-.fp-mode-label{font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
-.fp-mode-time{font-size:30px;font-weight:700;color:#C9A36A;letter-spacing:-1px;line-height:1;margin-bottom:6px}
-.fp-mode-desc{font-size:11px;color:#aaa;line-height:1.5}
-.fp-mode.active .fp-mode-desc{color:#777}
+.fp-mode-label{font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:3px}
+.fp-mode-time{font-size:26px;font-weight:700;color:#C9A36A;letter-spacing:-1px;line-height:1;margin-bottom:5px}
+.fp-mode-desc{font-size:11px;color:#bbb;line-height:1.5}
+.fp-mode.act .fp-mode-desc{color:#777}
 
-/* Fields */
+/* Степпер */
+.stepper{display:flex;align-items:center;margin-bottom:24px;padding:0}
+.st-item{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.04em}
+.st-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all .3s}
+.st-num.done{background:#C9A36A;color:#fff}
+.st-num.curr{background:#1a1a1a;color:#fff}
+.st-num.next{background:#f0f0f0;color:#bbb}
+.st-label{color:#999;transition:all .3s}
+.st-label.curr{color:#1a1a1a}
+.st-label.done{color:#C9A36A}
+.st-line{flex:1;height:1px;background:#e8e8e8;margin:0 8px}
+
+/* Поля */
 .fp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-.fp-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
-.fp-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#bbb}
-.fp-label em{color:#C9A36A;font-style:normal}
-.fp-input{border:1.5px solid #ebebeb;border-radius:5px;padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:13px;color:#1a1a1a;outline:none;transition:border .2s;background:#fff;width:100%}
-.fp-input:focus{border-color:#C9A36A}
-.fp-input::placeholder{color:#ccc}
-select.fp-input{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23bbb' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-textarea.fp-input{min-height:90px;resize:vertical}
+.fp-f{display:flex;flex-direction:column;gap:5px;margin-bottom:16px}
+.fp-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#bbb}
+.fp-lbl em{color:#C9A36A;font-style:normal}
+.fp-in{border:1.5px solid #ebebeb;border-radius:5px;padding:11px 13px;font-family:'Montserrat',sans-serif;font-size:13px;color:#1a1a1a;outline:none;transition:border .2s;background:#fff;width:100%}
+.fp-in:focus{border-color:#C9A36A}
+.fp-in::placeholder{color:#ccc}
+select.fp-in{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23bbb' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+textarea.fp-in{min-height:90px;resize:vertical}
 
 .fp-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 .fp-chip{font-size:11px;padding:5px 13px;border:1.5px solid #ebebeb;border-radius:20px;cursor:pointer;color:#888;transition:all .15s;user-select:none}
 .fp-chip:hover,.fp-chip.on{border-color:#C9A36A;color:#C9A36A;background:#fffef9}
 
-.fp-consent{display:flex;align-items:flex-start;gap:10px;margin:18px 0;padding-top:18px;border-top:1px solid #f5f5f5}
-.fp-check{width:18px;height:18px;min-width:18px;border:1.5px solid #ddd;border-radius:3px;margin-top:1px;cursor:pointer;appearance:none;background:#fff;position:relative;transition:all .2s}
-.fp-check:checked{background:#C9A36A;border-color:#C9A36A}
-.fp-check:checked::after{content:'';position:absolute;left:4px;top:1px;width:6px;height:10px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg)}
-.fp-consent-txt{font-size:11px;color:#aaa;line-height:1.6}
-.fp-consent-txt a{color:#C9A36A;text-decoration:none;border-bottom:1px solid rgba(201,163,106,.3)}
+/* Радио */
+.fp-radio{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.fp-radio-item{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:#777;padding:6px 12px;border:1.5px solid #ebebeb;border-radius:5px;transition:all .15s}
+.fp-radio-item:hover{border-color:#C9A36A}
+.fp-radio-item.on{border-color:#C9A36A;color:#C9A36A;background:#fffef9}
+.fp-radio-item input{display:none}
 
-.fp-submit{width:100%;background:#1a1a1a;color:#fff;border:none;border-radius:5px;padding:16px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all .2s}
-.fp-submit:hover{background:#333}
+/* Чекбокс аксессуары */
+.fp-cb-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.fp-cb-item{display:flex;align-items:center;gap:9px;font-size:12px;color:#777;cursor:pointer}
+.fp-cb-item input{width:16px;height:16px;accent-color:#C9A36A;cursor:pointer}
 
-.fp-promise{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:12px;color:#4CAF7D;font-weight:500}
+/* Секция */
+.fp-section-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1a1a1a;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #f5f5f5}
+
+/* Consent */
+.fp-consent{display:flex;align-items:flex-start;gap:10px;margin:16px 0;padding-top:16px;border-top:1px solid #f5f5f5}
+.fp-ck{width:18px;height:18px;min-width:18px;border:1.5px solid #ddd;border-radius:3px;margin-top:1px;cursor:pointer;appearance:none;background:#fff;position:relative;transition:all .2s}
+.fp-ck:checked{background:#C9A36A;border-color:#C9A36A}
+.fp-ck:checked::after{content:'';position:absolute;left:4px;top:1px;width:6px;height:10px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg)}
+.fp-ct{font-size:11px;color:#aaa;line-height:1.6}
+.fp-ct a{color:#C9A36A;text-decoration:none;border-bottom:1px solid rgba(201,163,106,.3)}
+
+/* Кнопки */
+.fp-nav-btns{display:flex;gap:10px;margin-top:4px}
+.btn-next{flex:1;background:#1a1a1a;color:#fff;border:none;border-radius:5px;padding:14px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.btn-next:hover{background:#333}
+.btn-back-step{background:#fff;color:#888;border:1.5px solid #ebebeb;border-radius:5px;padding:14px 20px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-back-step:hover{border-color:#C9A36A;color:#C9A36A}
+
+/* Промис */
+.fp-promise{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:12px;font-size:12px;color:#4CAF7D;font-weight:500}
 
 /* Success */
-.fp-success{display:none;text-align:center;padding:48px 24px}
-.fp-success-icon{font-size:48px;margin-bottom:16px}
-.fp-success-title{font-size:22px;font-weight:500;margin-bottom:12px}
-.fp-success-badge{display:inline-block;background:#E8F5E9;color:#388E3C;font-size:12px;font-weight:700;padding:6px 18px;border-radius:20px;margin-bottom:16px}
-.fp-success-txt{font-size:13px;color:#888;line-height:1.7}
-.fp-progress{margin:24px 0 8px;height:3px;background:#f0f0f0;border-radius:2px;overflow:hidden}
-.fp-bar{height:100%;width:0;background:#C9A36A;border-radius:2px;transition:width linear}
-.fp-progress-lbl{font-size:10px;color:#ccc;margin-top:6px}
+.fp-ok{display:none;text-align:center;padding:52px 20px}
+.fp-ok-icon{font-size:52px;margin-bottom:18px}
+.fp-ok-title{font-size:22px;font-weight:400;margin-bottom:12px}
+.fp-ok-badge{display:inline-block;background:#E8F5E9;color:#388E3C;font-size:12px;font-weight:700;padding:6px 18px;border-radius:20px;margin-bottom:18px}
+.fp-ok-txt{font-size:13px;color:#999;line-height:1.7}
+.fp-prog{margin:22px 0 6px;height:3px;background:#f0f0f0;border-radius:2px;overflow:hidden}
+.fp-bar{height:100%;width:0;background:#C9A36A;border-radius:2px}
+.fp-prog-lbl{font-size:10px;color:#ccc;margin-top:5px}
 
-.fp-alt{margin-top:40px;padding-top:28px;border-top:1px solid #f5f5f5;text-align:center}
-.fp-alt-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#ccc;margin-bottom:14px}
-.fp-channels{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.fp-ch{display:flex;align-items:center;gap:8px;border:1px solid #ebebeb;border-radius:5px;padding:10px 18px;text-decoration:none;color:#666;font-size:12px;transition:border .2s}
+.fp-alt{margin-top:36px;padding-top:24px;border-top:1px solid #f5f5f5;text-align:center}
+.fp-alt-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#ccc;margin-bottom:12px}
+.fp-chs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.fp-ch{display:flex;align-items:center;gap:7px;border:1px solid #ebebeb;border-radius:5px;padding:9px 16px;text-decoration:none;color:#666;font-size:12px;transition:border .2s}
 .fp-ch:hover{border-color:#C9A36A}
 
-/* Back button */
-.back-btn{background:none;border:none;color:#C9A36A;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;padding:12px 24px;display:flex;align-items:center;gap:6px}
-
-@media(max-width:680px){
-  .product-grid{grid-template-columns:1fr 1fr}
+@media(max-width:640px){
+  .s-grid{grid-template-columns:1fr 1fr}
+  .s-nav{display:none}
+  .s-cta-in{flex-direction:column;text-align:center}
+  .s-cta-btns{justify-content:center;width:100%}
   .fp-modes,.fp-row{grid-template-columns:1fr}
-  .cta-inner{flex-direction:column;text-align:center}
-  .cta-btns{justify-content:center}
   .fp-title{font-size:24px}
-  .cat-header{flex-direction:column;align-items:flex-start;gap:12px}
-  .site-nav{display:none}
+  .stepper .st-label{display:none}
 }
 </style>
 </head>
 <body>
 
-<!-- ─── ШАГИ ─── -->
-<div class="step-bar">
-  <div class="step active" id="step1" onclick="goTo(1)">① Страница каталога</div>
-  <div class="step-arrow">→</div>
-  <div class="step" id="step2" onclick="goTo(2)">② Форма КП</div>
+<!-- НАВИГАЦИЯ -->
+<div class="nav-bar">
+  <div class="nav-tab active" id="nt1" onclick="scr(1)">① Каталог</div>
+  <div class="nav-arrow">→</div>
+  <div class="nav-tab" id="nt2" onclick="scr(2)">② Форма КП</div>
 </div>
-<div class="step-hint" id="hint1">Кликни на золотую кнопку <em>«Получить КП»</em> в шапке или на баннер внизу — перейдёшь на шаг 2</div>
-<div class="step-hint" id="hint2" style="display:none">Так выглядит страница куда попадает клиент · <span style="color:#C9A36A;cursor:pointer" onclick="goTo(1)">← вернуться</span></div>
+<div class="nav-hint" id="nh1">Нажми золотую кнопку <em>«Получить КП»</em> в шапке или на баннер — переключишься на форму</div>
+<div class="nav-hint" id="nh2" style="display:none">Так видит клиент · <span style="color:#C9A36A;cursor:pointer" onclick="scr(1)">← назад</span></div>
 
-<!-- ══════════════════════════════════════
-     ЭКРАН 1: КАТАЛОГ
-══════════════════════════════════════ -->
-<div id="screen1">
-
-  <!-- Шапка -->
-  <div class="site-header">
-    <div class="header-inner">
-      <div class="logo">Home Project</div>
-      <nav class="site-nav">
+<!-- ══════ КАТАЛОГ ══════ -->
+<div id="sc1">
+  <div class="s-header">
+    <div class="s-header-in">
+      <div class="s-logo">Home Project</div>
+      <nav class="s-nav">
         <a href="#">Каталог</a>
         <a href="#" style="color:#1a1a1a;font-weight:600">Küppersbusch</a>
-        <a href="#">V-ZUG</a>
-        <a href="#">BORA</a>
-        <a href="#">Дизайнерам</a>
-        <a href="#">О нас</a>
+        <a href="#">V-ZUG</a><a href="#">BORA</a><a href="#">Дизайнерам</a>
       </nav>
-      <div class="header-actions">
-        <button class="btn-search">🔍 Поиск</button>
-        <button class="btn-kp-header" onclick="goTo(2)">
-          Получить КП
-          <span class="pulse-label">Новое</span>
-        </button>
+      <div class="s-acts">
+        <div class="s-btn-kp" onclick="scr(2)">Получить КП<span class="lbl">Новое</span></div>
       </div>
     </div>
   </div>
-
-  <!-- Хлебные крошки -->
-  <div style="background:#fafafa;border-bottom:1px solid #f0f0f0;padding:10px 0">
-    <div class="breadcrumb">Главная / Каталог / <span>Küppersbusch</span></div>
-  </div>
-
-  <!-- Заголовок категории -->
-  <div class="cat-header">
-    <div>
-      <div class="cat-title">Küppersbusch</div>
-      <div class="cat-count">912 товаров · 281 в наличии</div>
-    </div>
-    <div class="cat-filters">
-      <div class="filter-chip active">Все</div>
-      <div class="filter-chip">В наличии</div>
-      <div class="filter-chip">Духовые шкафы</div>
-      <div class="filter-chip">Варочные панели</div>
+  <div class="s-bc"><div class="s-bc-in">Главная / Каталог / <span>Küppersbusch</span></div></div>
+  <div class="s-cat">
+    <div><div class="s-cat-title">Küppersbusch</div><div class="s-cat-count">912 товаров · 281 в наличии</div></div>
+    <div class="s-filters">
+      <div class="s-fc on">Все</div><div class="s-fc">В наличии</div><div class="s-fc">Духовые</div><div class="s-fc">Варочные</div>
     </div>
   </div>
-
-  <!-- Карточки товаров -->
-  <div class="product-grid">
-
-    <div class="pcard">
-      <div class="pcard-img">
-        <img src="https://homeproject.online/cdn/r/U5dR3WUC0-s/rs%3Afit%3A500%3A0%3A1/q%3A100/plain/files/1/323/42540283/original/EEB6546-0-W.jpg@jpg" onerror="this.src='https://via.placeholder.com/300x225/f8f8f8/ccc?text=Küppersbusch'"/>
-        <div class="pcard-badge badge-stock">В наличии</div>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-brand">Küppersbusch</div>
-        <div class="pcard-name">Духовой шкаф встраиваемый</div>
-        <div class="pcard-model">EEB 6546.0 W</div>
-        <div class="pcard-actions">
-          <button class="btn-add-kp" onclick="goTo(2)">+ В КП</button>
-          <button class="btn-detail">→</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-img">
-        <img src="https://homeproject.online/cdn/r/abc/plain/files/1/323/42540283/original/EEB6546.jpg@jpg" onerror="this.src='https://via.placeholder.com/300x225/f8f8f8/ccc?text=Küppersbusch'"/>
-        <div class="pcard-badge badge-order">Под заказ</div>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-brand">Küppersbusch</div>
-        <div class="pcard-name">Варочная панель индукционная 90 см</div>
-        <div class="pcard-model">KI 9840.0 E</div>
-        <div class="pcard-actions">
-          <button class="btn-add-kp" onclick="goTo(2)">+ В КП</button>
-          <button class="btn-detail">→</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-img">
-        <img src="https://via.placeholder.com/300x225/f8f8f8/ccc?text=Küppersbusch"/>
-        <div class="pcard-badge badge-stock">В наличии</div>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-brand">Küppersbusch</div>
-        <div class="pcard-name">Посудомоечная машина 45 см</div>
-        <div class="pcard-model">SCVs 6800.0 S</div>
-        <div class="pcard-actions">
-          <button class="btn-add-kp" onclick="goTo(2)">+ В КП</button>
-          <button class="btn-detail">→</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-img">
-        <img src="https://via.placeholder.com/300x225/f8f8f8/ccc?text=Küppersbusch"/>
-        <div class="pcard-badge badge-order">Под заказ</div>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-brand">Küppersbusch</div>
-        <div class="pcard-name">Холодильник двухкамерный</div>
-        <div class="pcard-model">KG 7570.0 J</div>
-        <div class="pcard-actions">
-          <button class="btn-add-kp" onclick="goTo(2)">+ В КП</button>
-          <button class="btn-detail">→</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-img">
-        <img src="https://via.placeholder.com/300x225/f8f8f8/ccc?text=Küppersbusch"/>
-        <div class="pcard-badge badge-stock">В наличии</div>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-brand">Küppersbusch</div>
-        <div class="pcard-name">Микроволновая печь встраиваемая</div>
-        <div class="pcard-model">EMW 6550.0 S</div>
-        <div class="pcard-actions">
-          <button class="btn-add-kp" onclick="goTo(2)">+ В КП</button>
-          <button class="btn-detail">→</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-img">
-        <img src="https://via.placeholder.com/300x225/f8f8f8/ccc?text=Küppersbusch"/>
-        <div class="pcard-badge badge-stock">В наличии</div>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-brand">Küppersbusch</div>
-        <div class="pcard-name">Вытяжка наклонная 60 см</div>
-        <div class="pcard-model">DWK 6140.0 E</div>
-        <div class="pcard-actions">
-          <button class="btn-add-kp" onclick="goTo(2)">+ В КП</button>
-          <button class="btn-detail">→</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-img">
-        <img src="https://via.placeholder.com/300x225/f8f8f8/ccc?text=Küppersbusch"/>
-        <div class="pcard-badge badge-order">Под заказ</div>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-brand">Küppersbusch</div>
-        <div class="pcard-name">Стиральная машина встраиваемая</div>
-        <div class="pcard-model">IWT 1408.0 W</div>
-        <div class="pcard-actions">
-          <button class="btn-add-kp" onclick="goTo(2)">+ В КП</button>
-          <button class="btn-detail">→</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-img">
-        <img src="https://via.placeholder.com/300x225/f8f8f8/ccc?text=Küppersbusch"/>
-        <div class="pcard-badge badge-stock">В наличии</div>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-brand">Küppersbusch</div>
-        <div class="pcard-name">Духовой шкаф с паром</div>
-        <div class="pcard-model">EKDM 6550.0 J</div>
-        <div class="pcard-actions">
-          <button class="btn-add-kp" onclick="goTo(2)">+ В КП</button>
-          <button class="btn-detail">→</button>
-        </div>
-      </div>
-    </div>
-
+  <div class="s-grid">
+    <div class="pc"><div class="pc-img"><img src="https://via.placeholder.com/240x180/f8f8f8/ddd?text=EEB+6546" onerror="this.src='https://via.placeholder.com/240x180/f8f8f8/ddd?text=Photo'"/><span class="pc-badge b-stock">В наличии</span></div><div class="pc-body"><div class="pc-brand">Küppersbusch</div><div class="pc-name">Духовой шкаф встраиваемый</div><div class="pc-model">EEB 6546.0 W</div><div class="pc-acts"><button class="btn-inkp" onclick="scr(2,'fast')">+ В КП</button><button class="btn-go">→</button></div></div></div>
+    <div class="pc"><div class="pc-img"><img src="https://via.placeholder.com/240x180/f8f8f8/ddd?text=KI+9840" onerror="this.src='https://via.placeholder.com/240x180/f8f8f8/ddd?text=Photo'"/><span class="pc-badge b-order">Под заказ</span></div><div class="pc-body"><div class="pc-brand">Küppersbusch</div><div class="pc-name">Варочная панель индукционная 90 см</div><div class="pc-model">KI 9840.0 E</div><div class="pc-acts"><button class="btn-inkp" onclick="scr(2,'fast')">+ В КП</button><button class="btn-go">→</button></div></div></div>
+    <div class="pc"><div class="pc-img"><img src="https://via.placeholder.com/240x180/f8f8f8/ddd?text=SCVs+6800" onerror="this.src='https://via.placeholder.com/240x180/f8f8f8/ddd?text=Photo'"/><span class="pc-badge b-stock">В наличии</span></div><div class="pc-body"><div class="pc-brand">Küppersbusch</div><div class="pc-name">Посудомоечная машина 45 см</div><div class="pc-model">SCVs 6800.0 S</div><div class="pc-acts"><button class="btn-inkp" onclick="scr(2,'fast')">+ В КП</button><button class="btn-go">→</button></div></div></div>
+    <div class="pc"><div class="pc-img"><img src="https://via.placeholder.com/240x180/f8f8f8/ddd?text=KG+7570" onerror="this.src='https://via.placeholder.com/240x180/f8f8f8/ddd?text=Photo'"/><span class="pc-badge b-order">Под заказ</span></div><div class="pc-body"><div class="pc-brand">Küppersbusch</div><div class="pc-name">Холодильник двухкамерный</div><div class="pc-model">KG 7570.0 J</div><div class="pc-acts"><button class="btn-inkp" onclick="scr(2,'fast')">+ В КП</button><button class="btn-go">→</button></div></div></div>
+    <div class="pc"><div class="pc-img"><img src="https://via.placeholder.com/240x180/f8f8f8/ddd?text=EMW+6550" onerror="this.src='https://via.placeholder.com/240x180/f8f8f8/ddd?text=Photo'"/><span class="pc-badge b-stock">В наличии</span></div><div class="pc-body"><div class="pc-brand">Küppersbusch</div><div class="pc-name">Микроволновая печь встраиваемая</div><div class="pc-model">EMW 6550.0 S</div><div class="pc-acts"><button class="btn-inkp" onclick="scr(2,'fast')">+ В КП</button><button class="btn-go">→</button></div></div></div>
+    <div class="pc"><div class="pc-img"><img src="https://via.placeholder.com/240x180/f8f8f8/ddd?text=DWK+6140" onerror="this.src='https://via.placeholder.com/240x180/f8f8f8/ddd?text=Photo'"/><span class="pc-badge b-stock">В наличии</span></div><div class="pc-body"><div class="pc-brand">Küppersbusch</div><div class="pc-name">Вытяжка наклонная 60 см</div><div class="pc-model">DWK 6140.0 E</div><div class="pc-acts"><button class="btn-inkp" onclick="scr(2,'fast')">+ В КП</button><button class="btn-go">→</button></div></div></div>
+    <div class="pc"><div class="pc-img"><img src="https://via.placeholder.com/240x180/f8f8f8/ddd?text=IWT+1408" onerror="this.src='https://via.placeholder.com/240x180/f8f8f8/ddd?text=Photo'"/><span class="pc-badge b-order">Под заказ</span></div><div class="pc-body"><div class="pc-brand">Küppersbusch</div><div class="pc-name">Стиральная машина встраиваемая</div><div class="pc-model">IWT 1408.0 W</div><div class="pc-acts"><button class="btn-inkp" onclick="scr(2,'full')">+ В КП</button><button class="btn-go">→</button></div></div></div>
+    <div class="pc"><div class="pc-img"><img src="https://via.placeholder.com/240x180/f8f8f8/ddd?text=EKDM+6550" onerror="this.src='https://via.placeholder.com/240x180/f8f8f8/ddd?text=Photo'"/><span class="pc-badge b-stock">В наличии</span></div><div class="pc-body"><div class="pc-brand">Küppersbusch</div><div class="pc-name">Духовой шкаф с паром</div><div class="pc-model">EKDM 6550.0 J</div><div class="pc-acts"><button class="btn-inkp" onclick="scr(2,'full')">+ В КП</button><button class="btn-go">→</button></div></div></div>
   </div>
-
-  <!-- CTA баннер -->
-  <div class="cta-banner">
-    <div class="cta-inner">
-      <div class="cta-text">
-        <div class="cta-eyebrow">AI-сервис · Без звонков</div>
-        <div class="cta-title">Нужно КП по нескольким<br>позициям или целой кухне?</div>
-        <div class="cta-sub">Опишите проект — AI подберёт и сформирует предложение автоматически</div>
-      </div>
-      <div class="cta-btns">
-        <button class="btn-fast" onclick="goTo(2,'fast')">Быстрое КП — 20 сек</button>
-        <button class="btn-full" onclick="goTo(2,'full')">Полное КП — 2 мин</button>
-      </div>
+  <div class="s-cta">
+    <div class="s-cta-in">
+      <div><div class="s-cta-ey">AI-сервис · Без звонков</div><div class="s-cta-title">Нужно КП по нескольким<br>позициям или целой кухне?</div><div class="s-cta-sub">Опишите проект — AI подберёт и сформирует предложение автоматически</div></div>
+      <div class="s-cta-btns"><button class="btn-cf" onclick="scr(2,'fast')">Быстрое КП — 20 сек</button><button class="btn-cp" onclick="scr(2,'full')">Полное КП — 2 мин</button></div>
     </div>
   </div>
-
 </div>
 
-<!-- ══════════════════════════════════════
-     ЭКРАН 2: ФОРМА КП
-══════════════════════════════════════ -->
-<div id="screen2">
-  <div class="form-page">
-
-    <!-- Hero -->
-    <div class="fp-hero">
-      <div class="fp-eyebrow">Home Project · AI-сервис</div>
-      <div class="fp-title">Запросить коммерческое<br>предложение</div>
-      <div class="fp-sub">Выберите формат — AI сформирует и пришлёт КП на ваш email без звонков и ожидания</div>
-    </div>
-
-    <div class="fp-body">
-
-      <!-- Режимы -->
-      <div class="fp-modes">
-        <div class="fp-mode active" id="fm-fast" onclick="fpMode('fast')">
-          <div class="fp-mode-badge"><span class="fp-dot"></span>Мгновенно</div>
-          <div class="fp-mode-label">Быстрое КП</div>
-          <div class="fp-mode-time">20 сек</div>
-          <div class="fp-mode-desc">Цены, наличие, позиции под запрос</div>
-        </div>
-        <div class="fp-mode" id="fm-full" onclick="fpMode('full')">
-          <div class="fp-mode-badge"><span class="fp-dot"></span>Расширенный</div>
-          <div class="fp-mode-label">Полное КП</div>
-          <div class="fp-mode-time">2 мин</div>
-          <div class="fp-mode-desc">+ условия, гарантии, варианты</div>
-        </div>
-      </div>
-
-      <div id="fp-form-wrap">
-        <div class="fp-row">
-          <div class="fp-field">
-            <div class="fp-label">Имя <em>*</em></div>
-            <input class="fp-input" placeholder="Александра"/>
-          </div>
-          <div class="fp-field">
-            <div class="fp-label">Email <em>*</em></div>
-            <input class="fp-input" type="email" id="fp-email" placeholder="you@studio.ru"/>
-          </div>
-        </div>
-
-        <!-- Fast fields -->
-        <div id="fp-fast-fields">
-          <div class="fp-field">
-            <div class="fp-label">Что нужно <em>*</em></div>
-            <div class="fp-chips">
-              <span class="fp-chip on" onclick="this.classList.toggle('on')">Кухня целиком</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">Варочная / духовка</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">Холодильник</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">Стирка / сушка</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">Винный шкаф</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">Другое</span>
-            </div>
-          </div>
-          <div class="fp-field">
-            <div class="fp-label">Бренд</div>
-            <div class="fp-chips">
-              <span class="fp-chip on" onclick="this.classList.toggle('on')">Küppersbusch</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">V-ZUG</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">BORA</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">Fhiaba</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">GRAUDE</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">SKS</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">ILVE</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">Не знаю — подберите</span>
-            </div>
-          </div>
-          <div class="fp-field">
-            <div class="fp-label">Бюджет (ориентир)</div>
-            <select class="fp-input">
-              <option>Не указывать</option>
-              <option>До 500 000 ₽</option>
-              <option>500 000 — 1 500 000 ₽</option>
-              <option>1 500 000 — 3 000 000 ₽</option>
-              <option>Свыше 3 000 000 ₽</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Full fields -->
-        <div id="fp-full-fields" style="display:none">
-          <div class="fp-row">
-            <div class="fp-field">
-              <div class="fp-label">Студия / компания</div>
-              <input class="fp-input" placeholder="Название студии"/>
-            </div>
-            <div class="fp-field">
-              <div class="fp-label">Тип объекта</div>
-              <select class="fp-input">
-                <option>Квартира / апартаменты</option>
-                <option>Частный дом</option>
-                <option>Офис / ресторан</option>
-                <option>Несколько юнитов</option>
-              </select>
-            </div>
-          </div>
-          <div class="fp-field">
-            <div class="fp-label">Бренды</div>
-            <div class="fp-chips">
-              <span class="fp-chip on" onclick="this.classList.toggle('on')">Küppersbusch</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">V-ZUG</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">BORA</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">Fhiaba</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">GRAUDE</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">SKS</span>
-              <span class="fp-chip" onclick="this.classList.toggle('on')">ILVE</span>
-            </div>
-          </div>
-          <div class="fp-row">
-            <div class="fp-field">
-              <div class="fp-label">Сроки</div>
-              <select class="fp-input">
-                <option>До 1 месяца</option>
-                <option>1–3 месяца</option>
-                <option>3–6 месяцев</option>
-                <option>Более 6 месяцев</option>
-              </select>
-            </div>
-            <div class="fp-field">
-              <div class="fp-label">Бюджет</div>
-              <select class="fp-input">
-                <option>Не указывать</option>
-                <option>До 500 000 ₽</option>
-                <option>500 000 — 1 500 000 ₽</option>
-                <option>1 500 000 — 3 000 000 ₽</option>
-                <option>Свыше 3 000 000 ₽</option>
-              </select>
-            </div>
-          </div>
-          <div class="fp-field">
-            <div class="fp-label">Описание проекта <em>*</em></div>
-            <textarea class="fp-input" placeholder="Планировка, список позиций, особые пожелания — чем больше деталей, тем точнее КП"></textarea>
-          </div>
-        </div>
-
-        <!-- Consent -->
-        <div class="fp-consent">
-          <input type="checkbox" class="fp-check" id="fp-consent" checked/>
-          <label for="fp-consent" class="fp-consent-txt">
-            Даю согласие на обработку персональных данных согласно
-            <a href="https://homeproject.online/ru/page/privacy-policy" target="_blank">Политике конфиденциальности</a>
-            и соглашаюсь на получение КП от Home Project
-          </label>
-        </div>
-
-        <button class="fp-submit" id="fp-btn" onclick="fpSubmit()">Сформировать быстрое КП →</button>
-
-        <div class="fp-promise" id="fp-promise">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4CAF7D" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          КП придёт на ваш email в течение <strong style="margin:0 4px" id="fp-promise-time">20 секунд</strong>
-        </div>
-      </div>
-
-      <!-- Success -->
-      <div class="fp-success" id="fp-success">
-        <div class="fp-success-icon">✓</div>
-        <div class="fp-success-title">КП формируется</div>
-        <div class="fp-success-badge" id="fp-success-badge">Ожидайте письмо — 20 секунд</div>
-        <div class="fp-progress"><div class="fp-bar" id="fp-bar"></div></div>
-        <div class="fp-progress-lbl" id="fp-progress-lbl">AI подбирает позиции и рассчитывает...</div>
-        <div class="fp-success-txt" style="margin-top:20px">
-          КП отправлено на <strong id="fp-success-email">your@email.ru</strong><br><br>
-          Вопросы — сразу в Telegram:<br>
-          <a href="https://t.me/homeproject_ai_bot" style="color:#C9A36A;font-weight:600">@homeproject_ai_bot</a>
-        </div>
-      </div>
-
-      <!-- Alt channels -->
-      <div class="fp-alt">
-        <div class="fp-alt-lbl">Или напишите напрямую</div>
-        <div class="fp-channels">
-          <a class="fp-ch" href="https://t.me/homeproject_ai_bot" target="_blank">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#26A5E4"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686l-1.74 8.2c-.13.577-.466.718-.943.446l-2.6-1.916-1.254 1.207c-.138.138-.255.255-.524.255l.187-2.656 4.833-4.366c.21-.187-.046-.29-.325-.103L7.77 14.357l-2.54-.793c-.552-.172-.562-.552.116-.818l9.92-3.824c.46-.167.863.113.664.764z"/></svg>
-            Telegram-бот
-          </a>
-          <a class="fp-ch" href="mailto:info@homeproject.online">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#C9A36A" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
-            info@homeproject.online
-          </a>
-        </div>
-      </div>
-
-    </div>
+<!-- ══════ ФОРМА ══════ -->
+<div id="sc2">
+<div class="fp">
+  <div class="fp-hero">
+    <div class="fp-ey">Home Project · AI-сервис</div>
+    <div class="fp-title">Запросить коммерческое<br>предложение</div>
+    <div class="fp-sub">AI сформирует и пришлёт КП на ваш email — без звонков и ожидания менеджера</div>
   </div>
+
+  <div class="fp-body">
+
+    <!-- Режимы -->
+    <div class="fp-modes">
+      <div class="fp-mode act" id="m-fast" onclick="setMode('fast')">
+        <div class="fp-mode-ey"><span class="fp-dot"></span>1 шаг · Мгновенно</div>
+        <div class="fp-mode-label">Быстрое КП</div>
+        <div class="fp-mode-time">20 сек</div>
+        <div class="fp-mode-desc">Цены и наличие — список под ваш запрос</div>
+      </div>
+      <div class="fp-mode" id="m-full" onclick="setMode('full')">
+        <div class="fp-mode-ey"><span class="fp-dot"></span>3 шага · Подробно</div>
+        <div class="fp-mode-label">Полное КП</div>
+        <div class="fp-mode-time">2 мин</div>
+        <div class="fp-mode-desc">+ варианты A/B, визуалы, условия, монтаж</div>
+      </div>
+    </div>
+
+    <!-- Степпер (только для полного) -->
+    <div id="fp-stepper" style="display:none;margin-bottom:22px">
+      <div class="stepper">
+        <div class="st-item"><div class="st-num curr" id="sn1">1</div><div class="st-label curr" id="sl1">Контакт</div></div>
+        <div class="st-line"></div>
+        <div class="st-item"><div class="st-num next" id="sn2">2</div><div class="st-label" id="sl2">Техника</div></div>
+        <div class="st-line"></div>
+        <div class="st-item"><div class="st-num next" id="sn3">3</div><div class="st-label" id="sl3">Проект</div></div>
+      </div>
+    </div>
+
+    <!-- === БЫСТРАЯ ФОРМА === -->
+    <div id="fast-form">
+      <div class="fp-section-title">Контакт и запрос</div>
+      <div class="fp-row">
+        <div class="fp-f"><div class="fp-lbl">Имя <em>*</em></div><input class="fp-in" placeholder="Александра"/></div>
+        <div class="fp-f"><div class="fp-lbl">Email <em>*</em></div><input class="fp-in" type="email" id="fe-email" placeholder="you@studio.ru"/></div>
+      </div>
+      <div class="fp-f">
+        <div class="fp-lbl">Бренд <em>*</em></div>
+        <div class="fp-chips">
+          <span class="fp-chip on" onclick="t(this)">Küppersbusch</span>
+          <span class="fp-chip" onclick="t(this)">V-ZUG</span>
+          <span class="fp-chip" onclick="t(this)">BORA</span>
+          <span class="fp-chip" onclick="t(this)">Fhiaba</span>
+          <span class="fp-chip" onclick="t(this)">GRAUDE</span>
+          <span class="fp-chip" onclick="t(this)">Schulthess</span>
+          <span class="fp-chip" onclick="t(this)">SKS</span>
+          <span class="fp-chip" onclick="t(this)">ILVE</span>
+          <span class="fp-chip" onclick="t(this)">Подберите сами</span>
+        </div>
+      </div>
+      <div class="fp-f">
+        <div class="fp-lbl">Что нужно <em>*</em></div>
+        <div class="fp-chips">
+          <span class="fp-chip on" onclick="t(this)">Кухня целиком</span>
+          <span class="fp-chip" onclick="t(this)">Духовой шкаф</span>
+          <span class="fp-chip" onclick="t(this)">Варочная панель</span>
+          <span class="fp-chip" onclick="t(this)">Холодильник / винный</span>
+          <span class="fp-chip" onclick="t(this)">Стирка / сушка</span>
+          <span class="fp-chip" onclick="t(this)">Посудомоечная</span>
+          <span class="fp-chip" onclick="t(this)">Вытяжка</span>
+          <span class="fp-chip" onclick="t(this)">Другое</span>
+        </div>
+      </div>
+      <div class="fp-f">
+        <div class="fp-lbl">Бюджет (ориентир)</div>
+        <select class="fp-in">
+          <option>Не указывать</option>
+          <option>До 500 000 ₽</option>
+          <option>500 000 — 1 500 000 ₽</option>
+          <option>1 500 000 — 3 000 000 ₽</option>
+          <option>Свыше 3 000 000 ₽</option>
+        </select>
+      </div>
+      <div class="fp-consent">
+        <input type="checkbox" class="fp-ck" id="fc" checked/>
+        <label for="fc" class="fp-ct">Даю согласие на обработку персональных данных согласно <a href="https://homeproject.online/ru/page/privacy-policy" target="_blank">Политике конфиденциальности</a> и соглашаюсь на получение КП от Home Project</label>
+      </div>
+      <button class="btn-next" onclick="submit('fast')">Сформировать быстрое КП →</button>
+      <div class="fp-promise">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4CAF7D" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        КП придёт на email в течение <strong style="margin:0 3px">20 секунд</strong>
+      </div>
+    </div>
+
+    <!-- === ПОЛНАЯ ФОРМА: шаг 1 === -->
+    <div id="full-s1" style="display:none">
+      <div class="fp-section-title">Шаг 1 из 3 — Ваши контакты</div>
+      <div class="fp-row">
+        <div class="fp-f"><div class="fp-lbl">Имя <em>*</em></div><input class="fp-in" placeholder="Александра"/></div>
+        <div class="fp-f"><div class="fp-lbl">Email <em>*</em></div><input class="fp-in" type="email" id="ffe-email" placeholder="you@studio.ru"/></div>
+      </div>
+      <div class="fp-f"><div class="fp-lbl">Студия / компания</div><input class="fp-in" placeholder="Название студии или проекта"/></div>
+      <button class="btn-next" onclick="fullStep(2)">Далее — Техника →</button>
+    </div>
+
+    <!-- === ПОЛНАЯ ФОРМА: шаг 2 === -->
+    <div id="full-s2" style="display:none">
+      <div class="fp-section-title">Шаг 2 из 3 — Что нужно</div>
+      <div class="fp-f">
+        <div class="fp-lbl">Бренд <em>*</em></div>
+        <div class="fp-chips">
+          <span class="fp-chip" onclick="t(this)">V-ZUG</span>
+          <span class="fp-chip on" onclick="t(this)">Küppersbusch</span>
+          <span class="fp-chip" onclick="t(this)">BORA</span>
+          <span class="fp-chip" onclick="t(this)">Fhiaba</span>
+          <span class="fp-chip" onclick="t(this)">GRAUDE</span>
+          <span class="fp-chip" onclick="t(this)">Schulthess</span>
+          <span class="fp-chip" onclick="t(this)">SKS</span>
+          <span class="fp-chip" onclick="t(this)">ILVE</span>
+          <span class="fp-chip" onclick="t(this)">Подберите сами</span>
+        </div>
+      </div>
+      <div class="fp-f">
+        <div class="fp-lbl">Категории техники <em>*</em></div>
+        <div class="fp-chips">
+          <span class="fp-chip on" onclick="t(this)">Духовой шкаф</span>
+          <span class="fp-chip on" onclick="t(this)">Варочная панель</span>
+          <span class="fp-chip" onclick="t(this)">Холодильник</span>
+          <span class="fp-chip" onclick="t(this)">Винный шкаф</span>
+          <span class="fp-chip" onclick="t(this)">Стиральная машина</span>
+          <span class="fp-chip" onclick="t(this)">Сушильная машина</span>
+          <span class="fp-chip" onclick="t(this)">Посудомоечная</span>
+          <span class="fp-chip" onclick="t(this)">Вытяжка</span>
+          <span class="fp-chip" onclick="t(this)">Микроволновая печь</span>
+          <span class="fp-chip" onclick="t(this)">Кофемашина</span>
+          <span class="fp-chip" onclick="t(this)">Пароварка</span>
+          <span class="fp-chip" onclick="t(this)">Вся кухня</span>
+        </div>
+      </div>
+      <div class="fp-f">
+        <div class="fp-lbl">Цветовое решение / финиш</div>
+        <div class="fp-chips">
+          <span class="fp-chip on" onclick="t(this)">Нержавеющая сталь</span>
+          <span class="fp-chip" onclick="t(this)">Чёрный</span>
+          <span class="fp-chip" onclick="t(this)">Белый</span>
+          <span class="fp-chip" onclick="t(this)">Антрацит</span>
+          <span class="fp-chip" onclick="t(this)">Латунь / золото</span>
+          <span class="fp-chip" onclick="t(this)">Медь</span>
+          <span class="fp-chip" onclick="t(this)">Не важно</span>
+        </div>
+      </div>
+      <div class="fp-row">
+        <div class="fp-f">
+          <div class="fp-lbl">Бюджет</div>
+          <select class="fp-in">
+            <option>Не указывать</option>
+            <option>До 500 000 ₽</option>
+            <option selected>500 000 — 1 500 000 ₽</option>
+            <option>1 500 000 — 3 000 000 ₽</option>
+            <option>Свыше 3 000 000 ₽</option>
+          </select>
+        </div>
+        <div class="fp-f">
+          <div class="fp-lbl">Предпочтение по наличию</div>
+          <div class="fp-radio">
+            <label class="fp-radio-item on"><input type="radio" name="stock" checked/>Из наличия</label>
+            <label class="fp-radio-item"><input type="radio" name="stock"/>Под заказ</label>
+            <label class="fp-radio-item"><input type="radio" name="stock"/>Любое</label>
+          </div>
+        </div>
+      </div>
+      <div class="fp-nav-btns">
+        <button class="btn-back-step" onclick="fullStep(1)">← Назад</button>
+        <button class="btn-next" onclick="fullStep(3)">Далее — Детали проекта →</button>
+      </div>
+    </div>
+
+    <!-- === ПОЛНАЯ ФОРМА: шаг 3 === -->
+    <div id="full-s3" style="display:none">
+      <div class="fp-section-title">Шаг 3 из 3 — Детали проекта</div>
+      <div class="fp-row">
+        <div class="fp-f">
+          <div class="fp-lbl">Тип объекта</div>
+          <select class="fp-in">
+            <option>Квартира / апартаменты</option>
+            <option>Частный дом / коттедж</option>
+            <option>Офис / ресторан</option>
+            <option>Несколько юнитов (застройщик)</option>
+            <option>Другое</option>
+          </select>
+        </div>
+        <div class="fp-f">
+          <div class="fp-lbl">Сроки поставки</div>
+          <select class="fp-in">
+            <option>Срочно — до 1 месяца</option>
+            <option selected>1–3 месяца</option>
+            <option>3–6 месяцев</option>
+            <option>Проектирование (6+ мес.)</option>
+          </select>
+        </div>
+      </div>
+      <div class="fp-f">
+        <div class="fp-lbl">Нужны аксессуары?</div>
+        <div class="fp-cb-list">
+          <label class="fp-cb-item"><input type="checkbox" checked/> Монтажные рамки и доборные элементы</label>
+          <label class="fp-cb-item"><input type="checkbox"/> Чистящие средства и расходники</label>
+          <label class="fp-cb-item"><input type="checkbox"/> Не нужны</label>
+        </div>
+      </div>
+      <div class="fp-f">
+        <div class="fp-lbl">Пожелания и описание проекта</div>
+        <textarea class="fp-in" placeholder="Расскажите о проекте — планировка, стиль интерьера, особые пожелания по технике, конкретные модели или артикулы если знаете. Чем больше деталей — тем точнее КП."></textarea>
+      </div>
+      <div class="fp-consent">
+        <input type="checkbox" class="fp-ck" id="ffc" checked/>
+        <label for="ffc" class="fp-ct">Даю согласие на обработку персональных данных согласно <a href="https://homeproject.online/ru/page/privacy-policy" target="_blank">Политике конфиденциальности</a> и соглашаюсь на получение КП от Home Project</label>
+      </div>
+      <div class="fp-nav-btns">
+        <button class="btn-back-step" onclick="fullStep(2)">← Назад</button>
+        <button class="btn-next" onclick="submit('full')">Сформировать полное КП →</button>
+      </div>
+      <div class="fp-promise">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4CAF7D" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        КП придёт на email в течение <strong style="margin:0 3px">2 минут</strong>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="fp-ok" id="fp-ok">
+      <div class="fp-ok-icon">✓</div>
+      <div class="fp-ok-title">КП формируется</div>
+      <div class="fp-ok-badge" id="ok-badge">Ожидайте письмо — 20 секунд</div>
+      <div class="fp-prog"><div class="fp-bar" id="fp-bar"></div></div>
+      <div class="fp-prog-lbl" id="fp-prog-lbl">AI подбирает позиции и рассчитывает...</div>
+      <div class="fp-ok-txt" style="margin-top:20px">
+        КП отправлено на <strong id="ok-email">your@email.ru</strong><br><br>
+        Вопросы прямо сейчас:<br>
+        <a href="https://t.me/homeproject_ai_bot" style="color:#C9A36A;font-weight:600">@homeproject_ai_bot в Telegram</a>
+      </div>
+    </div>
+
+    <div class="fp-alt">
+      <div class="fp-alt-lbl">Или напишите напрямую</div>
+      <div class="fp-chs">
+        <a class="fp-ch" href="https://t.me/homeproject_ai_bot" target="_blank">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="#26A5E4"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686l-1.74 8.2c-.13.577-.466.718-.943.446l-2.6-1.916-1.254 1.207c-.138.138-.255.255-.524.255l.187-2.656 4.833-4.366c.21-.187-.046-.29-.325-.103L7.77 14.357l-2.54-.793c-.552-.172-.562-.552.116-.818l9.92-3.824c.46-.167.863.113.664.764z"/></svg>
+          Telegram-бот
+        </a>
+        <a class="fp-ch" href="mailto:info@homeproject.online">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#C9A36A" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+          info@homeproject.online
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
 </div>
 
 <script>
-let currentMode = 'fast';
+let curMode='fast', curStep=1;
 
-function goTo(n, mode) {
-  document.getElementById('screen1').style.display = n===1?'block':'none';
-  document.getElementById('screen2').style.display = n===2?'block':'none';
-  document.getElementById('step1').classList.toggle('active', n===1);
-  document.getElementById('step2').classList.toggle('active', n===2);
-  document.getElementById('hint1').style.display = n===1?'block':'none';
-  document.getElementById('hint2').style.display = n===2?'block':'none';
-  if (n===2) { window.scrollTo(0,0); if(mode) fpMode(mode); }
+function t(el){el.classList.toggle('on')}
+
+function scr(n,mode){
+  document.getElementById('sc1').style.display=n===1?'block':'none';
+  document.getElementById('sc2').style.display=n===2?'block':'none';
+  document.getElementById('nt1').classList.toggle('active',n===1);
+  document.getElementById('nt2').classList.toggle('active',n===2);
+  document.getElementById('nh1').style.display=n===1?'block':'none';
+  document.getElementById('nh2').style.display=n===2?'block':'none';
+  if(n===2){window.scrollTo(0,0);if(mode)setMode(mode);}
 }
 
-function fpMode(m) {
-  currentMode = m;
-  document.getElementById('fm-fast').classList.toggle('active', m==='fast');
-  document.getElementById('fm-full').classList.toggle('active', m==='full');
-  document.getElementById('fp-fast-fields').style.display = m==='fast'?'block':'none';
-  document.getElementById('fp-full-fields').style.display = m==='full'?'block':'none';
-  document.getElementById('fp-btn').textContent = m==='fast'?'Сформировать быстрое КП →':'Сформировать полное КП →';
-  document.getElementById('fp-promise-time').textContent = m==='fast'?'20 секунд':'2 минуты';
+function setMode(m){
+  curMode=m;
+  document.getElementById('m-fast').classList.toggle('act',m==='fast');
+  document.getElementById('m-full').classList.toggle('act',m==='full');
+  document.getElementById('fast-form').style.display=m==='fast'?'block':'none';
+  document.getElementById('fp-stepper').style.display=m==='full'?'flex':'none';
+  if(m==='full'){fullStep(1);}
+  else{
+    document.getElementById('full-s1').style.display='none';
+    document.getElementById('full-s2').style.display='none';
+    document.getElementById('full-s3').style.display='none';
+  }
+  document.getElementById('fp-ok').style.display='none';
 }
 
-function fpSubmit() {
-  const email = document.getElementById('fp-email').value || 'your@email.ru';
-  const btn = document.getElementById('fp-btn');
-  btn.textContent = 'Отправляем...'; btn.disabled = true;
-  setTimeout(() => {
-    document.getElementById('fp-form-wrap').style.display = 'none';
-    const s = document.getElementById('fp-success');
-    s.style.display = 'block';
-    document.getElementById('fp-success-email').textContent = email;
-    const isFull = currentMode === 'full';
-    document.getElementById('fp-success-badge').textContent = isFull ? 'Ожидайте письмо — 2 минуты' : 'Ожидайте письмо — 20 секунд';
-    document.getElementById('fp-progress-lbl').textContent = isFull ? 'AI собирает полное КП с условиями и гарантиями...' : 'AI подбирает позиции и рассчитывает...';
-    const bar = document.getElementById('fp-bar');
-    const dur = isFull ? 120 : 20;
-    bar.style.transition = `width ${dur}s linear`;
-    setTimeout(() => { bar.style.width = '100%'; }, 50);
-  }, 700);
+function updStepper(s){
+  for(let i=1;i<=3;i++){
+    const n=document.getElementById('sn'+i);
+    const l=document.getElementById('sl'+i);
+    n.className='st-num '+(i<s?'done':i===s?'curr':'next');
+    l.className='st-label '+(i<s?'done':i===s?'curr':'');
+    if(i<s)n.textContent='✓'; else n.textContent=i;
+  }
+}
+
+function fullStep(s){
+  curStep=s;
+  document.getElementById('full-s1').style.display=s===1?'block':'none';
+  document.getElementById('full-s2').style.display=s===2?'block':'none';
+  document.getElementById('full-s3').style.display=s===3?'block':'none';
+  updStepper(s);
+  window.scrollTo(0,0);
+}
+
+function submit(mode){
+  const email=(mode==='fast'?document.getElementById('fe-email'):document.getElementById('ffe-email')).value||'your@email.ru';
+  ['fast-form','full-s1','full-s2','full-s3'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  document.getElementById('fp-stepper').style.display='none';
+  const ok=document.getElementById('fp-ok');
+  ok.style.display='block';
+  document.getElementById('ok-email').textContent=email;
+  const isFull=mode==='full';
+  document.getElementById('ok-badge').textContent=isFull?'Ожидайте письмо — 2 минуты':'Ожидайте письмо — 20 секунд';
+  document.getElementById('fp-prog-lbl').textContent=isFull?'AI собирает полное КП с вариантами и визуалами...':'AI подбирает позиции и рассчитывает...';
+  const bar=document.getElementById('fp-bar');
+  const dur=isFull?120:20;
+  bar.style.transition=`width ${dur}s linear`;
+  setTimeout(()=>{bar.style.width='100%';},100);
+  window.scrollTo(0,0);
 }
 </script>
 </body>
