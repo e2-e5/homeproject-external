@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Форма КП — расположение и дизайн</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',sans-serif;background:#f0f0f0;color:#1a1a1a}
+
+/* ── NAV ── */
+.nav-label{background:#1a1a1a;color:#fff;text-align:center;padding:10px;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase}
+.tabs{display:flex;border-bottom:2px solid #e0e0e0;background:#fff;position:sticky;top:0;z-index:100}
+.tab{flex:1;padding:14px;text-align:center;font-size:12px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;color:#999;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab.active{color:#1a1a1a;border-bottom-color:#C9A36A}
+.panel{display:none}.panel.active{display:block}
+
+/* ══════════════════════
+   ПАНЕЛЬ 1: СХЕМА САЙТА
+══════════════════════ */
+.schema-wrap{background:#f4f4f4;padding:32px 16px}
+.schema-title{text-align:center;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#666;margin-bottom:24px}
+
+.site-mockup{max-width:800px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.12)}
+
+/* Header */
+.m-header{background:#fff;border-bottom:1px solid #eee;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.m-logo{font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase}
+.m-nav{display:flex;gap:20px;font-size:11px;color:#666}
+.m-nav span{cursor:pointer}
+.m-cta-header{background:#C9A36A;color:#fff;padding:8px 16px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;position:relative;cursor:pointer;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,163,106,0.4)}50%{box-shadow:0 0 0 6px rgba(201,163,106,0)}}
+.m-cta-header .tooltip{position:absolute;top:110%;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:10px;white-space:nowrap;padding:5px 10px;border-radius:3px;pointer-events:none}
+.m-cta-header .tooltip::before{content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-bottom-color:#1a1a1a}
+
+/* Hero */
+.m-hero{height:120px;background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:#fff}
+.m-hero-title{font-size:16px;font-weight:300;letter-spacing:0.04em}
+.m-hero-sub{font-size:10px;color:#C9A36A;letter-spacing:0.1em;text-transform:uppercase}
+
+/* Nav blocks */
+.m-sections{padding:20px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.m-section{background:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:12px 8px;text-align:center;font-size:10px;color:#666}
+.m-section strong{display:block;font-size:11px;color:#1a1a1a;margin-bottom:3px}
+
+/* Designers блок */
+.m-designers{padding:0 24px 20px}
+.m-block-label{font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#C9A36A;margin-bottom:6px}
+.m-block{background:#f5f3ef;border:1px solid #e8e4dc;border-radius:4px;padding:14px 16px;font-size:10px;color:#555;line-height:1.7}
+
+/* KP entry points */
+.m-kp-points{padding:0 24px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.m-kp-point{border:2px dashed #C9A36A;border-radius:6px;padding:10px;text-align:center;background:#fffdf7}
+.m-kp-point .arrow{font-size:18px;color:#C9A36A;margin-bottom:4px}
+.m-kp-point .pt-label{font-size:9px;font-weight:700;color:#C9A36A;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px}
+.m-kp-point .pt-desc{font-size:10px;color:#888;line-height:1.4}
+
+/* KP page */
+.m-kp-page{margin:0 24px 24px;border:2px solid #C9A36A;border-radius:6px;overflow:hidden}
+.m-kp-header{background:#C9A36A;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.m-kp-header-left{font-size:10px;color:#fff;font-weight:600;letter-spacing:0.06em;text-transform:uppercase}
+.m-kp-url{font-size:9px;color:rgba(255,255,255,0.7);font-family:monospace}
+.m-kp-body{background:#fff;padding:16px;font-size:10px;color:#888;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.m-kp-card{background:#f9f9f9;border:1px solid #eee;border-radius:4px;padding:10px}
+.m-kp-card-title{font-size:11px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
+.m-kp-card-time{font-size:18px;font-weight:700;color:#C9A36A;margin-bottom:4px}
+.m-kp-card-desc{font-size:9px;color:#888;line-height:1.4}
+
+/* Footer */
+.m-footer{background:#1a1a1a;height:40px;display:flex;align-items:center;justify-content:center}
+.m-footer span{font-size:9px;color:#555;letter-spacing:0.08em;text-transform:uppercase}
+
+/* Legend */
+.legend{max-width:800px;margin:20px auto 0;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#555}
+.leg-dot{width:10px;height:10px;border-radius:50%}
+.leg-dot.gold{background:#C9A36A}
+.leg-dot.dash{background:none;border:2px dashed #C9A36A;border-radius:50%}
+
+/* ══════════════════════
+   ПАНЕЛЬ 2: ФОРМА СВЕТЛАЯ
+══════════════════════ */
+.light-form-wrap{background:#fff;padding:0}
+
+/* Hero формы */
+.lf-hero{background:#1a1a1a;padding:48px 24px 56px;text-align:center;position:relative;overflow:hidden}
+.lf-hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:32px;background:#fff;clip-path:ellipse(55% 100% at 50% 100%)}
+.lf-hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#C9A36A;margin-bottom:14px}
+.lf-hero-title{font-size:32px;font-weight:300;color:#fff;letter-spacing:0.02em;line-height:1.2;margin-bottom:10px}
+.lf-hero-sub{font-size:13px;color:rgba(255,255,255,0.55);max-width:420px;margin:0 auto}
+
+/* Form body */
+.lf-body{max-width:580px;margin:0 auto;padding:32px 24px 64px}
+
+/* Mode */
+.lf-modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.lf-mode{border:2px solid #e8e8e8;border-radius:8px;padding:20px 16px;cursor:pointer;transition:all .2s;background:#fafafa;text-align:center}
+.lf-mode:hover{border-color:#C9A36A;background:#fffdf8}
+.lf-mode.active{border-color:#C9A36A;background:#fffdf8;box-shadow:0 2px 12px rgba(201,163,106,0.15)}
+.lf-mode-badge{font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#C9A36A;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:5px}
+.lf-mode-dot{width:5px;height:5px;border-radius:50%;background:#4CAF7D;display:inline-block}
+.lf-mode-title{font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
+.lf-mode-time{font-size:28px;font-weight:700;color:#C9A36A;letter-spacing:-1px;margin-bottom:4px}
+.lf-mode-desc{font-size:11px;color:#999;line-height:1.5}
+.lf-mode.active .lf-mode-desc{color:#666}
+
+/* Fields */
+.lf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.lf-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.lf-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#999}
+.lf-label span{color:#C9A36A}
+.lf-input{border:1.5px solid #e5e5e5;border-radius:5px;padding:11px 13px;font-family:'Montserrat',sans-serif;font-size:13px;color:#1a1a1a;outline:none;transition:border .2s;background:#fff}
+.lf-input:focus{border-color:#C9A36A}
+.lf-input::placeholder{color:#ccc}
+textarea.lf-input{min-height:90px;resize:vertical}
+select.lf-input{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23999' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+
+/* Chips */
+.lf-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.lf-chip{font-size:11px;padding:5px 12px;border:1.5px solid #e5e5e5;border-radius:20px;cursor:pointer;color:#777;transition:all .15s;user-select:none}
+.lf-chip:hover{border-color:#C9A36A;color:#C9A36A}
+.lf-chip.on{border-color:#C9A36A;color:#C9A36A;background:#fffdf8}
+
+/* Consent */
+.lf-consent{display:flex;align-items:flex-start;gap:10px;margin:18px 0;padding-top:18px;border-top:1px solid #f0f0f0}
+.lf-checkbox{width:18px;height:18px;min-width:18px;border:1.5px solid #ddd;border-radius:3px;margin-top:1px;cursor:pointer;appearance:none;background:#fff;position:relative;transition:all .2s}
+.lf-checkbox:checked{background:#C9A36A;border-color:#C9A36A}
+.lf-checkbox:checked::after{content:'';position:absolute;left:4px;top:1px;width:6px;height:10px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg)}
+.lf-consent-text{font-size:11px;color:#999;line-height:1.6}
+.lf-consent-text a{color:#C9A36A;text-decoration:none;border-bottom:1px solid rgba(201,163,106,0.3)}
+
+/* Submit */
+.lf-submit{width:100%;background:#1a1a1a;color:#fff;border:none;border-radius:5px;padding:15px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-top:4px}
+.lf-submit:hover{background:#333}
+
+/* Promise */
+.lf-promise{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:12px;color:#4CAF7D;font-weight:500}
+.lf-promise svg{flex-shrink:0}
+
+/* Channels */
+.lf-alt{margin-top:40px;padding-top:32px;border-top:1px solid #f0f0f0}
+.lf-alt-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#ccc;margin-bottom:14px;text-align:center}
+.lf-channels{display:flex;gap:10px;justify-content:center}
+.lf-channel{display:flex;align-items:center;gap:8px;border:1px solid #eee;border-radius:5px;padding:10px 16px;text-decoration:none;color:#555;font-size:12px;transition:border .2s}
+.lf-channel:hover{border-color:#C9A36A}
+.lf-channel svg{width:16px;height:16px;flex-shrink:0}
+
+@media(max-width:560px){
+  .lf-row{grid-template-columns:1fr}
+  .m-kp-points{grid-template-columns:1fr}
+  .m-sections{grid-template-columns:1fr 1fr}
+  .lf-modes{grid-template-columns:1fr}
+  .lf-hero-title{font-size:24px}
+  .lf-channels{flex-direction:column}
+  .m-nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="nav-label">Превью — форма КП · Home Project</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="show('schema')">📍 Где на сайте</div>
+  <div class="tab" onclick="show('lightform')">🎨 Светлый вариант</div>
+</div>
+
+<!-- ══════════ ПАНЕЛЬ 1: СХЕМА ══════════ -->
+<div class="panel active" id="schema">
+<div class="schema-wrap">
+  <div class="schema-title">Так выглядит сайт homeproject.online — отмечены точки входа в форму КП</div>
+
+  <div class="site-mockup">
+
+    <!-- Header -->
+    <div class="m-header">
+      <div class="m-logo">Home Project</div>
+      <div class="m-nav">
+        <span>Каталог</span>
+        <span>Бренды</span>
+        <span>Дизайнерам</span>
+        <span>О нас</span>
+      </div>
+      <div class="m-cta-header">
+        Получить КП
+        <div class="tooltip">① Кнопка в шапке<br>на всех страницах</div>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="m-hero">
+      <div class="m-hero-sub">Премиальная техника · 9 брендов</div>
+      <div class="m-hero-title">Подберём технику для вашего проекта</div>
+    </div>
+
+    <!-- Sections -->
+    <div class="m-sections">
+      <div class="m-section"><strong>V-ZUG</strong>каталог</div>
+      <div class="m-section"><strong>BORA</strong>каталог</div>
+      <div class="m-section"><strong>Fhiaba</strong>каталог</div>
+      <div class="m-section"><strong>Küppersbusch</strong>каталог</div>
+    </div>
+
+    <!-- Designers block -->
+    <div class="m-designers">
+      <div class="m-block-label">Страница /designers — раздел «Как получить КП»</div>
+      <div class="m-block">
+        <strong style="color:#1a1a1a">Способ 01 · Через каталог</strong> — добавь товары → «Оформить КП» → <em>20 секунд</em><br>
+        <strong style="color:#1a1a1a">Способ 02 · Через запрос</strong> — email или Telegram, AI подбирает<br>
+        <strong style="color:#C9A36A">Способ 03 · Форма КП ↓</strong> — опиши проект → получи на email автоматически ② <em>(добавляем)</em>
+      </div>
+    </div>
+
+    <!-- Entry points -->
+    <div style="padding:0 24px 10px;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#C9A36A">Точки входа в форму КП (куда ведут кнопки)</div>
+    <div class="m-kp-points">
+      <div class="m-kp-point">
+        <div class="arrow">①</div>
+        <div class="pt-label">Шапка сайта</div>
+        <div class="pt-desc">Кнопка «Получить КП» — видна на <strong>всех страницах</strong></div>
+      </div>
+      <div class="m-kp-point">
+        <div class="arrow">②</div>
+        <div class="pt-label">Страница /designers</div>
+        <div class="pt-desc">Способ 03 в блоке «Как получить КП за 20 сек»</div>
+      </div>
+      <div class="m-kp-point">
+        <div class="arrow">③</div>
+        <div class="pt-label">Карточка товара</div>
+        <div class="pt-desc">CTA под «Добавить в КП» для тех, кто не знает что брать</div>
+      </div>
+    </div>
+
+    <!-- KP page mockup -->
+    <div class="m-kp-page">
+      <div class="m-kp-header">
+        <div class="m-kp-header-left">↓ Страница куда попадает клиент</div>
+        <div class="m-kp-url">homeproject.online/ru/page/kp-request</div>
+      </div>
+      <div class="m-kp-body">
+        <div class="m-kp-card" style="border:2px solid #C9A36A">
+          <div class="m-kp-card-title">Быстрое КП</div>
+          <div class="m-kp-card-time">20 сек</div>
+          <div class="m-kp-card-desc">Email + категория + бренд + бюджет → КП на почту мгновенно</div>
+        </div>
+        <div class="m-kp-card">
+          <div class="m-kp-card-title">Полное КП</div>
+          <div class="m-kp-card-time">2 мин</div>
+          <div class="m-kp-card-desc">Описание проекта → несколько вариантов + условия + гарантии</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="m-footer"><span>Home Project · homeproject.online</span></div>
+  </div>
+
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot gold"></div> Золотые кнопки — точки входа в форму КП</div>
+    <div class="leg-item"><div class="leg-dot dash"></div> Пунктирные блоки — новые элементы</div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ ПАНЕЛЬ 2: СВЕТЛАЯ ФОРМА ══════════ -->
+<div class="panel" id="lightform">
+<div class="light-form-wrap">
+
+  <!-- Hero -->
+  <div class="lf-hero">
+    <div class="lf-hero-eyebrow">Home Project · AI-сервис</div>
+    <div class="lf-hero-title">Запросить<br>коммерческое предложение</div>
+    <div class="lf-hero-sub">Выберите формат — AI сформирует КП и пришлёт на ваш email без звонков</div>
+  </div>
+
+  <div class="lf-body">
+
+    <!-- Modes -->
+    <div class="lf-modes">
+      <div class="lf-mode active" id="lf-fast" onclick="lfMode('fast')">
+        <div class="lf-mode-badge"><span class="lf-mode-dot"></span> Мгновенно</div>
+        <div class="lf-mode-title">Быстрое КП</div>
+        <div class="lf-mode-time">20 сек</div>
+        <div class="lf-mode-desc">Цены, наличие, позиции под запрос</div>
+      </div>
+      <div class="lf-mode" id="lf-full" onclick="lfMode('full')">
+        <div class="lf-mode-badge"><span class="lf-mode-dot"></span> Расширенный</div>
+        <div class="lf-mode-title">Полное КП</div>
+        <div class="lf-mode-time">2 мин</div>
+        <div class="lf-mode-desc">+ условия, гарантии, варианты</div>
+      </div>
+    </div>
+
+    <form onsubmit="lfSubmit(event)">
+
+      <div class="lf-row">
+        <div class="lf-field">
+          <div class="lf-label">Имя <span>*</span></div>
+          <input class="lf-input" placeholder="Александра" required/>
+        </div>
+        <div class="lf-field">
+          <div class="lf-label">Email <span>*</span></div>
+          <input class="lf-input" type="email" id="lf-email" placeholder="you@studio.ru" required/>
+        </div>
+      </div>
+
+      <!-- Fast fields -->
+      <div id="lf-fast-fields">
+        <div class="lf-field">
+          <div class="lf-label">Что нужно <span>*</span></div>
+          <div class="lf-chips">
+            <span class="lf-chip on" onclick="this.classList.toggle('on')">Кухня целиком</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Варочная / духовка</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Холодильник</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Стирка / сушка</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Винный шкаф</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Другое</span>
+          </div>
+        </div>
+        <div class="lf-field">
+          <div class="lf-label">Бренд</div>
+          <div class="lf-chips">
+            <span class="lf-chip" onclick="this.classList.toggle('on')">V-ZUG</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">BORA</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Fhiaba</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Küppersbusch</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Schulthess</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">GRAUDE</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">SKS</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">ILVE</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Не знаю — подберите</span>
+          </div>
+        </div>
+        <div class="lf-field">
+          <div class="lf-label">Бюджет (ориентир)</div>
+          <select class="lf-input">
+            <option>Не указывать</option>
+            <option>До 500 000 ₽</option>
+            <option>500 000 — 1 500 000 ₽</option>
+            <option>1 500 000 — 3 000 000 ₽</option>
+            <option>Свыше 3 000 000 ₽</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Full fields -->
+      <div id="lf-full-fields" style="display:none">
+        <div class="lf-row">
+          <div class="lf-field">
+            <div class="lf-label">Студия / компания</div>
+            <input class="lf-input" placeholder="Название студии"/>
+          </div>
+          <div class="lf-field">
+            <div class="lf-label">Тип объекта</div>
+            <select class="lf-input">
+              <option>Квартира / апартаменты</option>
+              <option>Частный дом</option>
+              <option>Офис / ресторан</option>
+              <option>Несколько юнитов</option>
+            </select>
+          </div>
+        </div>
+        <div class="lf-field">
+          <div class="lf-label">Бренды</div>
+          <div class="lf-chips">
+            <span class="lf-chip" onclick="this.classList.toggle('on')">V-ZUG</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">BORA</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Fhiaba</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Küppersbusch</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">Schulthess</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">GRAUDE</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">SKS</span>
+            <span class="lf-chip" onclick="this.classList.toggle('on')">ILVE</span>
+          </div>
+        </div>
+        <div class="lf-row">
+          <div class="lf-field">
+            <div class="lf-label">Сроки</div>
+            <select class="lf-input">
+              <option>До 1 месяца</option>
+              <option>1–3 месяца</option>
+              <option>3–6 месяцев</option>
+              <option>Более 6 месяцев</option>
+            </select>
+          </div>
+          <div class="lf-field">
+            <div class="lf-label">Бюджет</div>
+            <select class="lf-input">
+              <option>Не указывать</option>
+              <option>До 500 000 ₽</option>
+              <option>500 000 — 1 500 000 ₽</option>
+              <option>1 500 000 — 3 000 000 ₽</option>
+              <option>Свыше 3 000 000 ₽</option>
+            </select>
+          </div>
+        </div>
+        <div class="lf-field">
+          <div class="lf-label">Описание проекта <span>*</span></div>
+          <textarea class="lf-input" placeholder="Планировка, список позиций, особые пожелания — чем больше деталей, тем точнее КП"></textarea>
+        </div>
+      </div>
+
+      <!-- Consent -->
+      <div class="lf-consent">
+        <input type="checkbox" class="lf-checkbox" id="lf-consent" required/>
+        <label for="lf-consent" class="lf-consent-text">
+          Даю согласие на обработку персональных данных согласно
+          <a href="https://homeproject.online/ru/page/privacy-policy" target="_blank">Политике конфиденциальности</a>
+          и соглашаюсь на получение КП от Home Project
+        </label>
+      </div>
+
+      <button type="submit" class="lf-submit" id="lf-btn">Сформировать быстрое КП →</button>
+
+      <div class="lf-promise" id="lf-promise">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4CAF7D" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        КП придёт на ваш email в течение <strong style="margin:0 4px" id="lf-promise-time">20 секунд</strong>
+      </div>
+    </form>
+
+    <!-- Alt -->
+    <div class="lf-alt">
+      <div class="lf-alt-label">Или напишите напрямую</div>
+      <div class="lf-channels">
+        <a href="https://t.me/homeproject_ai_bot" class="lf-channel" target="_blank">
+          <svg viewBox="0 0 24 24" fill="#26A5E4"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686l-1.74 8.2c-.13.577-.466.718-.943.446l-2.6-1.916-1.254 1.207c-.138.138-.255.255-.524.255l.187-2.656 4.833-4.366c.21-.187-.046-.29-.325-.103L7.77 14.357l-2.54-.793c-.552-.172-.562-.552.116-.818l9.92-3.824c.46-.167.863.113.664.764z"/></svg>
+          Telegram-бот
+        </a>
+        <a href="mailto:info@homeproject.online" class="lf-channel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A36A" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+          info@homeproject.online
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['schema','lightform'][i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function lfMode(m){
+  document.getElementById('lf-fast').classList.toggle('active',m==='fast');
+  document.getElementById('lf-full').classList.toggle('active',m==='full');
+  document.getElementById('lf-fast-fields').style.display=m==='fast'?'block':'none';
+  document.getElementById('lf-full-fields').style.display=m==='full'?'block':'none';
+  document.getElementById('lf-btn').textContent=m==='fast'?'Сформировать быстрое КП →':'Сформировать полное КП →';
+  document.getElementById('lf-promise-time').textContent=m==='fast'?'20 секунд':'2 минуты';
+}
+
+function lfSubmit(e){
+  e.preventDefault();
+  const btn=document.getElementById('lf-btn');
+  btn.textContent='Отправляем...';btn.disabled=true;
+  setTimeout(()=>{
+    btn.textContent='✓ КП формируется — проверьте почту';
+    btn.style.background='#4CAF7D';
+  },800);
+}
+</script>
+</body>
+</html>
