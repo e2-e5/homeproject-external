@@ -1,419 +1,494 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Получить КП — Home Project</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#181A20;
-  --card:#1F2129;
-  --card2:#252830;
-  --border:#2A2D38;
-  --accent:#C8A96E;
-  --text:#F0F0F0;
-  --text-s:#9CA3AF;
-  --text-m:#6B7280;
-  --r:4px;
-}
-body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:56px 20px 80px}
-.wrap{width:100%;max-width:560px}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Запросить КП — Home Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #181A20;
+      --card: #1F2129;
+      --card2: #252830;
+      --border: #2A2D38;
+      --accent: #C8A96E;
+      --text: #F0F0F0;
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+      --radius: 4px;
+      --green: #4CAF7D;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 60px 20px 80px;
+    }
+    .container { width: 100%; max-width: 560px; }
+    .brand { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
+    .page-title { font-size: 28px; font-weight: 300; letter-spacing: 0.02em; line-height: 1.25; margin-bottom: 10px; }
+    .page-sub { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 36px; }
+    .page-sub em { color: var(--accent); font-style: normal; font-weight: 600; }
 
-/* Header */
-.brand{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
-.page-title{font-size:30px;font-weight:300;line-height:1.25;margin-bottom:10px;letter-spacing:.01em}
-.page-sub{font-size:14px;color:var(--text-s);line-height:1.65;margin-bottom:36px}
-.page-sub em{color:var(--accent);font-style:normal;font-weight:500}
+    /* Mode toggle */
+    .mode-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .mode-btn {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .mode-btn.active {
+      border-color: var(--accent);
+      background: rgba(200,169,110,0.06);
+    }
+    .mode-btn__badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mode-btn.active .mode-btn__badge { color: var(--accent); }
+    .mode-btn__dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      display: inline-block;
+    }
+    .mode-btn.active .mode-btn__dot { background: var(--green); }
+    .mode-btn__title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .mode-btn__time {
+      font-size: 22px; font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    .mode-btn__desc { font-size: 11px; color: var(--text-muted); line-height: 1.55; }
+    .mode-btn.active .mode-btn__desc { color: var(--text-secondary); }
 
-/* Mode toggle */
-.mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:6px;overflow:hidden;margin-bottom:24px}
-.mode-btn{
-  background:var(--card);border:none;padding:16px 12px;cursor:pointer;
-  font-family:'Montserrat',sans-serif;color:var(--text-s);text-align:left;
-  transition:background .2s,color .2s;
-}
-.mode-btn.active{background:var(--card2);color:var(--text)}
-.mode-btn__tag{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
-.mode-btn__title{font-size:15px;font-weight:600;display:block;margin-bottom:4px}
-.mode-btn__desc{font-size:12px;color:var(--text-m);display:block;line-height:1.45}
-.mode-btn.active .mode-btn__desc{color:var(--text-s)}
+    /* Form card */
+    .form-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px 28px;
+      margin-bottom: 16px;
+    }
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .field:last-of-type { margin-bottom: 0; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .field-label {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .field-label span { color: var(--accent); margin-left: 2px; }
+    input, textarea, select {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    input::placeholder, textarea::placeholder { color: var(--text-muted); }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; cursor: pointer; }
+    select option { background: #1F2129; }
+    textarea { resize: vertical; min-height: 100px; }
 
-/* Card */
-.form-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:32px 28px;margin-bottom:16px}
+    /* Chips */
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .chip {
+      font-size: 11px; font-weight: 500;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .chip.selected { border-color: var(--accent); color: var(--accent); background: rgba(200,169,110,0.08); }
 
-/* Fields */
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.field:last-of-type{margin-bottom:0}
-.field-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-m)}
-.field-label span{color:var(--accent);margin-left:2px}
-input,textarea,select{
-  background:transparent;border:1px solid var(--border);border-radius:var(--r);
-  padding:11px 14px;font-family:'Montserrat',sans-serif;font-size:14px;color:var(--text);
-  outline:none;transition:border-color .2s;width:100%;
-}
-input::placeholder,textarea::placeholder{color:var(--text-m)}
-input:focus,textarea:focus,select:focus{border-color:var(--accent)}
-select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-select option{background:#1F2129}
-textarea{resize:vertical;min-height:100px}
+    /* Fast-only / Full-only fields */
+    .fields-fast { }
+    .fields-full { display: none; }
+    .show-full .fields-fast { display: none; }
+    .show-full .fields-full { display: block; }
 
-/* Chips */
-.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
-.chip{
-  border:1px solid var(--border);border-radius:20px;padding:7px 13px;font-size:12px;
-  font-family:'Montserrat',sans-serif;color:var(--text-s);cursor:pointer;
-  background:transparent;transition:all .15s;font-weight:500;
-}
-.chip:hover{border-color:var(--accent);color:var(--text)}
-.chip.active{background:var(--accent);border-color:var(--accent);color:#181A20;font-weight:600}
+    /* Consent */
+    .consent-block { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .consent-label { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+    .consent-checkbox {
+      appearance: none; -webkit-appearance: none;
+      width: 18px; height: 18px; min-width: 18px;
+      border: 1px solid var(--border); border-radius: 3px;
+      background: transparent; cursor: pointer;
+      margin-top: 1px; position: relative;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .consent-checkbox:checked { background: var(--accent); border-color: var(--accent); }
+    .consent-checkbox:checked::after {
+      content: ''; position: absolute;
+      left: 4px; top: 1px; width: 6px; height: 10px;
+      border: 2px solid #181A20; border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .consent-text { font-size: 11px; color: var(--text-muted); line-height: 1.6; }
+    .consent-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(200,169,110,0.3); }
 
-/* Consent */
-.consent-block{margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
-.consent-label{display:flex;align-items:flex-start;gap:12px;cursor:pointer}
-.consent-cb{
-  appearance:none;-webkit-appearance:none;width:18px;height:18px;min-width:18px;
-  border:1px solid var(--border);border-radius:3px;background:transparent;cursor:pointer;
-  margin-top:1px;position:relative;transition:border-color .2s,background .2s;
-}
-.consent-cb:checked{background:var(--accent);border-color:var(--accent)}
-.consent-cb:checked::after{
-  content:'';position:absolute;left:4px;top:1px;width:6px;height:10px;
-  border:2px solid #181A20;border-top:none;border-left:none;transform:rotate(45deg);
-}
-.consent-text{font-size:12px;color:var(--text-m);line-height:1.6}
-.consent-text a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(200,169,110,.3)}
+    /* Submit */
+    .btn-submit {
+      width: 100%; background: var(--accent); color: #181A20;
+      border: none; border-radius: var(--radius);
+      padding: 15px 24px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+      margin-top: 20px; display: block;
+    }
+    .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
 
-/* Submit */
-.btn-submit{
-  width:100%;background:var(--accent);color:#181A20;border:none;border-radius:var(--r);
-  padding:15px 24px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
-  transition:opacity .2s,transform .15s;margin-top:20px;display:block;
-}
-.btn-submit:hover{opacity:.9;transform:translateY(-1px)}
-.btn-submit:active{transform:translateY(0)}
+    /* Promise bar */
+    .promise-bar {
+      background: rgba(76,175,125,0.08);
+      border: 1px solid rgba(76,175,125,0.25);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #81C995;
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .promise-bar svg { flex-shrink: 0; }
 
-/* Promise bar */
-.promise{
-  display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 16px;
-  border:1px solid rgba(200,169,110,.2);border-radius:6px;
-  font-size:12px;color:var(--text-s);
-}
-.promise-icon{font-size:20px;flex-shrink:0}
-.promise strong{color:var(--accent)}
+    /* Success */
+    .success-msg {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 48px 32px;
+      text-align: center;
+    }
+    .success-icon { font-size: 40px; margin-bottom: 16px; }
+    .success-title { font-size: 20px; font-weight: 500; margin-bottom: 10px; }
+    .success-time {
+      display: inline-block;
+      font-size: 13px; font-weight: 700;
+      color: var(--accent);
+      background: rgba(200,169,110,0.1);
+      border-radius: 20px;
+      padding: 6px 16px;
+      margin-bottom: 16px;
+    }
+    .success-text { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .progress-wrap { margin: 24px 0 8px; }
+    .progress-bar {
+      height: 3px; background: var(--border);
+      border-radius: 2px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; width: 0; background: var(--accent);
+      border-radius: 2px;
+      animation: fill 20s linear forwards;
+    }
+    .progress-fill.full { animation-duration: 120s; }
+    @keyframes fill { to { width: 100%; } }
+    .progress-label { font-size: 10px; color: var(--text-muted); margin-top: 6px; text-align: center; }
 
-/* Section divider */
-.section-label{
-  font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--text-m);margin-bottom:14px;margin-top:24px;padding-bottom:10px;
-  border-bottom:1px solid var(--border);
-}
+    /* Note */
+    .form-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 12px; }
+    .preview-badge {
+      background: rgba(200,169,110,0.15);
+      border: 1px solid rgba(200,169,110,0.3);
+      color: var(--accent);
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 3px;
+      display: inline-block; margin-bottom: 20px;
+    }
 
-/* Success */
-.success-msg{
-  display:none;background:var(--card);border:1px solid var(--accent);border-radius:8px;
-  padding:48px 32px;text-align:center;margin-bottom:16px;
-}
-.success-icon{font-size:36px;margin-bottom:18px}
-.success-title{font-size:20px;font-weight:500;margin-bottom:10px}
-.success-text{font-size:14px;color:var(--text-s);line-height:1.65}
-.progress-bar{height:3px;background:var(--border);border-radius:2px;margin:20px 0;overflow:hidden}
-.progress-fill{height:100%;background:var(--accent);border-radius:2px;width:0;transition:width linear}
-
-/* Alternative channels */
-.alt-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-m);margin-bottom:12px;padding-left:2px}
-.channel-list{display:flex;flex-direction:column;gap:8px}
-.channel-item{
-  display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);
-  border-radius:6px;padding:13px 16px;text-decoration:none;color:var(--text);transition:border-color .2s;
-}
-.channel-item:hover{border-color:rgba(200,169,110,.4)}
-.ch-icon{width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ch-icon svg{width:18px;height:18px}
-.ch-info{flex:1}
-.ch-name{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
-.ch-badge{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-m);background:var(--border);border-radius:3px;padding:2px 6px}
-.ch-handle{font-size:11px;color:var(--text-m);margin-top:2px}
-.ch-arrow{color:var(--text-m)}
-
-/* Panels */
-.panel{display:none}
-.panel.active{display:block}
-
-@media(max-width:480px){
-  body{padding:36px 14px 60px}
-  .form-card{padding:24px 18px}
-  .field-row{grid-template-columns:1fr}
-  .page-title{font-size:24px}
-  .mode-btn{padding:13px 10px}
-}
-</style>
+    @media (max-width: 500px) {
+      body { padding: 36px 14px 60px; }
+      .form-card { padding: 24px 18px; }
+      .field-row { grid-template-columns: 1fr; }
+      .mode-btn__time { font-size: 18px; }
+    }
+  </style>
 </head>
 <body>
-<div class="wrap">
-
+<div class="container">
+  <div class="preview-badge">Превью — на согласовании</div>
   <div class="brand">Home Project</div>
-  <h1 class="page-title">Получить КП онлайн</h1>
-  <p class="page-sub">Никаких звонков — <em>AI формирует КП автоматически</em> и отправляет на ваш email.</p>
+  <h1 class="page-title">Получите КП<br>прямо сейчас</h1>
+  <p class="page-sub">Выберите формат — AI сформирует предложение и пришлёт на&nbsp;ваш&nbsp;email. <em>Без звонков и ожидания.</em></p>
 
   <!-- Mode toggle -->
   <div class="mode-toggle">
-    <button class="mode-btn active" onclick="switchMode('fast')" id="btn-fast">
-      <span class="mode-btn__tag">⚡ За 20 секунд</span>
-      <span class="mode-btn__title">Быстрое КП</span>
-      <span class="mode-btn__desc">Список позиций и цены — без лишних полей</span>
+    <button class="mode-btn active" id="btnFast" onclick="setMode('fast')">
+      <div class="mode-btn__badge"><span class="mode-btn__dot"></span> Онлайн, мгновенно</div>
+      <div class="mode-btn__title">Быстрое КП</div>
+      <div class="mode-btn__time">20 сек</div>
+      <div class="mode-btn__desc">Цены, наличие и позиции — список под ваш запрос</div>
     </button>
-    <button class="mode-btn" onclick="switchMode('full')" id="btn-full">
-      <span class="mode-btn__tag">📋 За 2 минуты</span>
-      <span class="mode-btn__title">Полное КП</span>
-      <span class="mode-btn__desc">Условия, гарантии, сроки поставки</span>
+    <button class="mode-btn" id="btnFull" onclick="setMode('full')">
+      <div class="mode-btn__badge"><span class="mode-btn__dot"></span> Расширенный формат</div>
+      <div class="mode-btn__title">Полное КП</div>
+      <div class="mode-btn__time">2 мин</div>
+      <div class="mode-btn__desc">+ условия, гарантии, сроки поставки, сравнение вариантов</div>
     </button>
   </div>
 
-  <!-- Form card -->
+  <!-- Form -->
   <div class="form-card" id="formCard">
     <form id="kpForm" novalidate>
 
-      <!-- Common fields -->
       <div class="field-row">
         <div class="field">
           <label class="field-label" for="name">Имя<span>*</span></label>
-          <input type="text" id="name" name="name" placeholder="Александра" required/>
+          <input type="text" id="name" placeholder="Александра" required />
         </div>
         <div class="field">
           <label class="field-label" for="email">Email<span>*</span></label>
-          <input type="email" id="email" name="email" placeholder="you@studio.ru" required/>
+          <input type="email" id="email" placeholder="you@studio.ru" required />
         </div>
       </div>
 
-      <!-- FAST mode panel -->
-      <div class="panel active" id="panel-fast">
-        <div class="section-label">Что нужно</div>
-
+      <!-- FAST mode fields -->
+      <div class="fields-fast" id="fastFields">
         <div class="field">
-          <label class="field-label">Категория техники<span>*</span></label>
-          <div class="chips" id="chips-cat">
-            <button type="button" class="chip active" data-val="kitchen">Кухня целиком</button>
-            <button type="button" class="chip" data-val="cooking">Варочная / духовка</button>
-            <button type="button" class="chip" data-val="fridge">Холодильник</button>
-            <button type="button" class="chip" data-val="laundry">Стиральная / сушка</button>
-            <button type="button" class="chip" data-val="wine">Винный шкаф</button>
-            <button type="button" class="chip" data-val="dishwasher">Посудомоечная</button>
-            <button type="button" class="chip" data-val="other">Другое</button>
+          <label class="field-label">Что нужно<span>*</span></label>
+          <div class="chips" id="categoryChips">
+            <span class="chip selected" data-val="kitchen">Кухня целиком</span>
+            <span class="chip" data-val="cooking">Варочная / духовка</span>
+            <span class="chip" data-val="fridge">Холодильник</span>
+            <span class="chip" data-val="laundry">Стирка / сушка</span>
+            <span class="chip" data-val="wine">Винный шкаф</span>
+            <span class="chip" data-val="other">Другое</span>
           </div>
         </div>
-
-        <div class="field" style="margin-top:16px">
-          <label class="field-label" for="brand">Предпочтительный бренд</label>
-          <select id="brand" name="brand">
-            <option value="">Не знаю — подберите сами</option>
-            <option>V-ZUG</option>
-            <option>BORA</option>
-            <option>Fhiaba</option>
-            <option>Küppersbusch</option>
-            <option>Schulthess</option>
-            <option>De Dietrich</option>
-            <option>GRAUDE</option>
-            <option>SKS</option>
-            <option>ILVE</option>
-          </select>
-        </div>
-
         <div class="field">
-          <label class="field-label" for="budget">Бюджет</label>
-          <select id="budget" name="budget">
+          <label class="field-label">Бренд (если знаете)</label>
+          <div class="chips" id="brandChips">
+            <span class="chip" data-val="vzug">V-ZUG</span>
+            <span class="chip" data-val="bora">BORA</span>
+            <span class="chip" data-val="fhiaba">Fhiaba</span>
+            <span class="chip" data-val="kupp">Küppersbusch</span>
+            <span class="chip" data-val="schulthess">Schulthess</span>
+            <span class="chip" data-val="graude">GRAUDE</span>
+            <span class="chip" data-val="sks">SKS</span>
+            <span class="chip" data-val="ilve">ILVE</span>
+            <span class="chip" data-val="any">Любой / не знаю</span>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label class="field-label">Бюджет (ориентировочно)</label>
+          <select>
             <option value="">Не указывать</option>
             <option>До 500 000 ₽</option>
-            <option>500 000 – 1 000 000 ₽</option>
-            <option>1 000 000 – 3 000 000 ₽</option>
-            <option>Более 3 000 000 ₽</option>
+            <option>500 000 — 1 500 000 ₽</option>
+            <option>1 500 000 — 3 000 000 ₽</option>
+            <option>Свыше 3 000 000 ₽</option>
           </select>
         </div>
       </div>
 
-      <!-- FULL mode panel -->
-      <div class="panel" id="panel-full">
-        <div class="section-label">О проекте</div>
-
+      <!-- FULL mode fields -->
+      <div class="fields-full" id="fullFields">
         <div class="field">
-          <label class="field-label" for="project-type">Тип проекта</label>
-          <select id="project-type" name="project_type">
-            <option value="">Выберите</option>
-            <option>Квартира</option>
+          <label class="field-label" for="company">Студия / компания</label>
+          <input type="text" id="company" placeholder="Название студии или проекта" />
+        </div>
+        <div class="field">
+          <label class="field-label">Тип объекта</label>
+          <select>
+            <option>Квартира / апартаменты</option>
             <option>Частный дом / коттедж</option>
-            <option>Коммерческий объект</option>
-            <option>Загородный комплекс</option>
+            <option>Офис / ресторан</option>
+            <option>Застройщик / несколько юнитов</option>
+            <option>Другое</option>
           </select>
         </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label class="field-label" for="area">Площадь кухни, м²</label>
-            <input type="text" id="area" name="area" placeholder="Например: 24"/>
-          </div>
-          <div class="field">
-            <label class="field-label" for="deadline">Срок реализации</label>
-            <input type="text" id="deadline" name="deadline" placeholder="Например: октябрь 2026"/>
-          </div>
-        </div>
-
         <div class="field">
-          <label class="field-label" for="brands-full">Бренды (можно несколько)</label>
-          <div class="chips" id="chips-brand">
-            <button type="button" class="chip" data-val="vzug">V-ZUG</button>
-            <button type="button" class="chip" data-val="bora">BORA</button>
-            <button type="button" class="chip" data-val="fhiaba">Fhiaba</button>
-            <button type="button" class="chip" data-val="kupp">Küppersbusch</button>
-            <button type="button" class="chip" data-val="schulthess">Schulthess</button>
-            <button type="button" class="chip" data-val="dedietrich">De Dietrich</button>
-            <button type="button" class="chip" data-val="graude">GRAUDE</button>
-            <button type="button" class="chip" data-val="sks">SKS</button>
-            <button type="button" class="chip" data-val="ilve">ILVE</button>
-            <button type="button" class="chip" data-val="any">Подберите сами</button>
+          <label class="field-label">Бренды (интересующие)</label>
+          <div class="chips" id="brandChipsFull">
+            <span class="chip" data-val="vzug">V-ZUG</span>
+            <span class="chip" data-val="bora">BORA</span>
+            <span class="chip" data-val="fhiaba">Fhiaba</span>
+            <span class="chip" data-val="kupp">Küppersbusch</span>
+            <span class="chip" data-val="schulthess">Schulthess</span>
+            <span class="chip" data-val="graude">GRAUDE</span>
+            <span class="chip" data-val="sks">SKS</span>
+            <span class="chip" data-val="ilve">ILVE</span>
           </div>
         </div>
-
-        <div class="field" style="margin-top:16px">
-          <label class="field-label" for="comment">Комментарий</label>
-          <textarea id="comment" name="comment" placeholder="Список позиций, особые требования к монтажу, наличие и сроки — любая деталь поможет подготовить точное КП"></textarea>
+        <div class="field">
+          <label class="field-label">Сроки проекта</label>
+          <select>
+            <option>Срочно (до 1 месяца)</option>
+            <option>1–3 месяца</option>
+            <option>3–6 месяцев</option>
+            <option>Более 6 месяцев / проектирование</option>
+          </select>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label class="field-label" for="comment">Описание проекта<span>*</span></label>
+          <textarea id="comment" placeholder="Планировка, список позиций, особые требования — чем больше деталей, тем точнее КП"></textarea>
         </div>
       </div>
 
       <!-- Consent -->
       <div class="consent-block">
         <label class="consent-label">
-          <input type="checkbox" class="consent-cb" id="consent" required/>
+          <input type="checkbox" class="consent-checkbox" id="consent" required />
           <span class="consent-text">
-            Согласен на обработку персональных данных и получение писем от Home Project.
-            <a href="https://homeproject.online/ru/page/privacy-policy" target="_blank">Политика конфиденциальности</a>
+            Я даю согласие на обработку персональных данных в соответствии
+            с <a href="https://homeproject.online/ru/page/privacy-policy" target="_blank">Политикой конфиденциальности</a>
+            и соглашаюсь на получение КП и материалов от Home Project.
           </span>
         </label>
       </div>
 
-      <button type="submit" class="btn-submit" id="submitBtn">⚡ Получить быстрое КП</button>
+      <button type="submit" class="btn-submit" id="submitBtn">Сформировать быстрое КП →</button>
 
-      <div class="promise" id="promiseBar">
-        <span class="promise-icon">⏱</span>
-        <span>КП придёт на email <strong>в течение 20 секунд</strong> — без звонков и ожидания</span>
+      <div class="promise-bar" id="promiseBar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4CAF7D" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+        КП придёт на ваш email в течение <strong id="promiseTime" style="margin: 0 4px;">20 секунд</strong>
       </div>
 
+      <p class="form-note" id="formNote">AI формирует предложение автоматически — без менеджера</p>
     </form>
   </div>
 
   <!-- Success -->
   <div class="success-msg" id="successMsg">
     <div class="success-icon">✓</div>
-    <div class="success-title" id="successTitle">КП формируется</div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-    <p class="success-text" id="successText">AI-ассистент обрабатывает запрос.<br>Через <strong id="countdown">20</strong> сек КП придёт на <strong id="successEmail"></strong></p>
-  </div>
-
-  <!-- Alt channels -->
-  <p class="alt-label">Или напишите напрямую</p>
-  <div class="channel-list">
-    <a href="https://t.me/homeproject_ai_bot" target="_blank" class="channel-item">
-      <div class="ch-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686l-1.74 8.2c-.13.577-.466.718-.943.446l-2.6-1.916-1.254 1.207c-.138.138-.255.255-.524.255l.187-2.656 4.833-4.366c.21-.187-.046-.29-.325-.103L7.77 14.357l-2.54-.793c-.552-.172-.562-.552.116-.818l9.92-3.824c.46-.167.863.113.664.764z" fill="#26A5E4"/></svg></div>
-      <div class="ch-info">
-        <div class="ch-name">Telegram-бот <span class="ch-badge">Мгновенно</span></div>
-        <div class="ch-handle">@homeproject_ai_bot</div>
-      </div>
-      <div class="ch-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
-    </a>
-    <a href="mailto:info@homeproject.online" class="channel-item">
-      <div class="ch-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></div>
-      <div class="ch-info">
-        <div class="ch-name">Email</div>
-        <div class="ch-handle">info@homeproject.online</div>
-      </div>
-      <div class="ch-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
-    </a>
+    <div class="success-title">Формируем ваше КП</div>
+    <div class="success-time" id="successTime">Ожидайте письмо — 20 секунд</div>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label" id="progressLabel">AI подбирает позиции и рассчитывает...</div>
+    </div>
+    <p class="success-text">
+      КП отправлено на <strong id="successEmail"></strong><br><br>
+      Вопросы — в Telegram-боте мгновенно:<br>
+      <a href="https://t.me/homeproject_ai_bot" style="color: var(--accent); font-weight: 600;">@homeproject_ai_bot</a>
+    </p>
   </div>
 
 </div>
 
 <script>
-// Chip toggle (multi)
-document.querySelectorAll('.chips').forEach(function(group){
-  var multi = group.id === 'chips-brand';
-  group.querySelectorAll('.chip').forEach(function(chip){
-    chip.addEventListener('click',function(){
-      if(multi){
-        chip.classList.toggle('active');
-      } else {
-        group.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active')});
-        chip.classList.add('active');
-      }
+  let currentMode = 'fast';
+
+  function setMode(mode) {
+    currentMode = mode;
+    const formCard = document.getElementById('formCard');
+    const fastFields = document.getElementById('fastFields');
+    const fullFields = document.getElementById('fullFields');
+    const btnFast = document.getElementById('btnFast');
+    const btnFull = document.getElementById('btnFull');
+    const submitBtn = document.getElementById('submitBtn');
+    const promiseTime = document.getElementById('promiseTime');
+    const progressFill = document.getElementById('progressFill');
+
+    if (mode === 'fast') {
+      btnFast.classList.add('active');
+      btnFull.classList.remove('active');
+      formCard.classList.remove('show-full');
+      submitBtn.textContent = 'Сформировать быстрое КП →';
+      promiseTime.textContent = '20 секунд';
+    } else {
+      btnFull.classList.add('active');
+      btnFast.classList.remove('active');
+      formCard.classList.add('show-full');
+      submitBtn.textContent = 'Сформировать полное КП →';
+      promiseTime.textContent = '2 минуты';
+    }
+  }
+
+  // Chips toggle
+  document.querySelectorAll('.chips').forEach(group => {
+    group.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        chip.classList.toggle('selected');
+      });
     });
   });
-});
 
-var currentMode = 'fast';
+  // Submit
+  document.getElementById('kpForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-function switchMode(mode){
-  currentMode = mode;
-  document.getElementById('btn-fast').classList.toggle('active', mode==='fast');
-  document.getElementById('btn-full').classList.toggle('active', mode==='full');
-  document.getElementById('panel-fast').classList.toggle('active', mode==='fast');
-  document.getElementById('panel-full').classList.toggle('active', mode==='full');
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const consent = document.getElementById('consent');
+    let valid = true;
 
-  if(mode==='fast'){
-    document.getElementById('submitBtn').textContent = '⚡ Получить быстрое КП';
-    document.getElementById('promiseBar').innerHTML = '<span class="promise-icon">⏱</span><span>КП придёт на email <strong>в течение 20 секунд</strong> — без звонков и ожидания</span>';
-  } else {
-    document.getElementById('submitBtn').textContent = '📋 Получить полное КП';
-    document.getElementById('promiseBar').innerHTML = '<span class="promise-icon">⏱</span><span>Полное КП с условиями и гарантиями придёт на email <strong>в течение 2 минут</strong></span>';
-  }
-}
-
-// Form submit demo
-document.getElementById('kpForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  var email = document.getElementById('email').value.trim();
-  var name = document.getElementById('name').value.trim();
-  var consent = document.getElementById('consent');
-  var valid = true;
-
-  [document.getElementById('name'), document.getElementById('email')].forEach(function(el){
-    if(!el.value.trim()){ el.style.borderColor='#E57373'; valid=false; setTimeout(function(){el.style.borderColor=''},2000); }
-  });
-  if(!consent.checked){ consent.style.borderColor='#E57373'; valid=false; setTimeout(function(){consent.style.borderColor=''},2000); }
-  if(!valid) return;
-
-  var btn = document.getElementById('submitBtn');
-  btn.textContent = 'Отправляем...';
-  btn.disabled = true;
-
-  var secs = currentMode === 'fast' ? 20 : 120;
-  var duration = currentMode === 'fast' ? 20 : 120;
-
-  setTimeout(function(){
-    document.getElementById('formCard').style.display='none';
-    var sm = document.getElementById('successMsg');
-    sm.style.display='block';
-    document.getElementById('successTitle').textContent = currentMode==='fast' ? 'КП формируется...' : 'Полное КП формируется...';
-    document.getElementById('successEmail').textContent = email || 'ваш email';
-    document.getElementById('countdown').textContent = secs;
-
-    // Progress bar
-    var fill = document.getElementById('progressFill');
-    fill.style.transition = 'width '+duration+'s linear';
-    setTimeout(function(){ fill.style.width='100%'; }, 50);
-
-    // Countdown
-    var timer = setInterval(function(){
-      secs--;
-      document.getElementById('countdown').textContent = secs;
-      if(secs <= 0){
-        clearInterval(timer);
-        document.getElementById('successTitle').textContent = '✓ КП отправлено!';
-        document.getElementById('successText').innerHTML = 'Проверьте email <strong>'+( email || 'ваш email')+'</strong><br><span style="color:var(--text-m);font-size:13px">Не пришло? Напишите в Telegram-бот ↓</span>';
+    [name, email].forEach(el => {
+      if (!el.value.trim()) {
+        el.style.borderColor = '#E57373';
+        valid = false;
+        setTimeout(() => { el.style.borderColor = ''; }, 2000);
       }
-    }, 1000);
-  }, 600);
-});
+    });
+    if (!consent.checked) {
+      consent.style.borderColor = '#E57373';
+      valid = false;
+      setTimeout(() => { consent.style.borderColor = ''; }, 2000);
+    }
+    if (!valid) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Отправляем...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      document.getElementById('formCard').style.display = 'none';
+      const success = document.getElementById('successMsg');
+      success.style.display = 'block';
+
+      document.getElementById('successEmail').textContent = email.value;
+
+      if (currentMode === 'full') {
+        document.getElementById('successTime').textContent = 'Ожидайте письмо — 2 минуты';
+        document.getElementById('progressFill').classList.add('full');
+        document.getElementById('progressLabel').textContent = 'AI собирает полное КП с условиями и гарантиями...';
+      } else {
+        document.getElementById('progressLabel').textContent = 'AI подбирает позиции и рассчитывает...';
+      }
+    }, 600);
+  });
 </script>
 </body>
 </html>
