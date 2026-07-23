@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Коммерческое предложение — Küppersbusch | Home Project</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f4f4f0; color: #1a1a1a; }
+
+  .header {
+    background: #1a1a1a;
+    color: white;
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header-brand { font-size: 22px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; }
+  .header-meta { text-align: right; font-size: 13px; color: #aaa; line-height: 1.8; }
+  .header-meta strong { color: white; font-size: 14px; }
+
+  .hero {
+    background: linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 100%);
+    color: white;
+    padding: 60px;
+    text-align: center;
+  }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #c8a96e; margin-bottom: 16px; }
+  .hero h1 { font-size: 38px; font-weight: 200; letter-spacing: 1px; margin-bottom: 12px; }
+  .hero-subtitle { font-size: 16px; color: #ccc; font-weight: 300; margin-bottom: 30px; }
+  .hero-tags { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .tag {
+    background: rgba(200,169,110,0.15);
+    border: 1px solid rgba(200,169,110,0.4);
+    color: #c8a96e;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .section { padding: 50px 60px; max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #c8a96e;
+    margin-bottom: 8px;
+  }
+  .section-heading {
+    font-size: 26px;
+    font-weight: 300;
+    color: #1a1a1a;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .brief-box {
+    background: white;
+    border-left: 4px solid #c8a96e;
+    padding: 24px 30px;
+    border-radius: 0 8px 8px 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .brief-params {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .brief-param {
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+  .brief-param-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .brief-param-value { font-size: 15px; font-weight: 500; color: #1a1a1a; }
+
+  .variants-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .variant-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e8e8e8;
+  }
+  .variant-card.recommended { border: 2px solid #c8a96e; }
+  .variant-header {
+    padding: 20px 24px;
+    background: #f8f8f6;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .variant-card.recommended .variant-header { background: linear-gradient(135deg, #2c2c2c, #4a4a4a); }
+  .variant-label { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .variant-card.recommended .variant-label { color: #c8a96e; }
+  .variant-name { font-size: 18px; font-weight: 300; margin-top: 2px; }
+  .variant-card.recommended .variant-name { color: white; }
+  .rec-badge {
+    background: #c8a96e;
+    color: white;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+  .variant-body { padding: 24px; }
+
+  .product-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: flex-start;
+  }
+  .product-item:last-child { border-bottom: none; }
+  .product-img-placeholder {
+    width: 90px;
+    height: 90px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #e8e8e8, #d0d0d0);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .product-info { flex: 1; }
+  .product-category { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #c8a96e; margin-bottom: 4px; }
+  .product-title { font-size: 14px; font-weight: 500; line-height: 1.4; margin-bottom: 6px; }
+  .product-sku { font-size: 11px; color: #999; margin-bottom: 8px; font-family: monospace; }
+  .product-features { font-size: 12px; color: #666; line-height: 1.6; }
+  .product-price { text-align: right; flex-shrink: 0; }
+  .product-price-value { font-size: 18px; font-weight: 600; color: #1a1a1a; white-space: nowrap; }
+  .product-price-note { font-size: 10px; color: #aaa; margin-top: 2px; }
+
+  .variant-total {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: #f8f8f6;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .variant-card.recommended .variant-total { background: #1a1a1a; }
+  .variant-total-label { font-size: 13px; color: #666; }
+  .variant-card.recommended .variant-total-label { color: #aaa; }
+  .variant-total-value { font-size: 24px; font-weight: 700; color: #1a1a1a; }
+  .variant-card.recommended .variant-total-value { color: #c8a96e; }
+
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .why-card {
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .why-icon { font-size: 28px; margin-bottom: 12px; }
+  .why-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .why-text { font-size: 13px; color: #666; line-height: 1.6; }
+
+  .recommendation-box {
+    background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+    color: white;
+    border-radius: 12px;
+    padding: 36px 40px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .rec-icon { font-size: 48px; flex-shrink: 0; }
+  .rec-eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c8a96e; margin-bottom: 8px; }
+  .rec-heading { font-size: 22px; font-weight: 300; margin-bottom: 14px; }
+  .rec-text { font-size: 14px; color: #ccc; line-height: 1.7; }
+
+  .terms-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .term-card {
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  .term-icon { font-size: 24px; margin-bottom: 8px; }
+  .term-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .term-value { font-size: 12px; color: #666; line-height: 1.5; }
+
+  .footer {
+    background: #1a1a1a;
+    color: #aaa;
+    padding: 40px 60px;
+    margin-top: 40px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; max-width: 1100px; margin: 0 auto; }
+  .footer-brand { font-size: 18px; letter-spacing: 3px; color: white; text-transform: uppercase; margin-bottom: 8px; }
+  .footer-tagline { font-size: 12px; color: #666; }
+  .footer-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c8a96e; margin-bottom: 8px; }
+  .footer-contact { font-size: 13px; line-height: 1.8; }
+  .footer-disclaimer { font-size: 11px; color: #555; line-height: 1.6; margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; max-width: 1100px; margin-left: auto; margin-right: auto; }
+
+  @media (max-width: 768px) {
+    .header { flex-direction: column; gap: 16px; padding: 30px 24px; }
+    .hero { padding: 40px 24px; }
+    .section { padding: 30px 24px; }
+    .variants-grid { grid-template-columns: 1fr; }
+    .brief-params { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .terms-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    .footer { padding: 30px 24px; }
+    .recommendation-box { flex-direction: column; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-brand">Home Project</div>
+    <div style="font-size:12px;color:#666;margin-top:4px;">Премиальная встраиваемая техника</div>
+  </div>
+  <div class="header-meta">
+    <div><strong>Коммерческое предложение</strong></div>
+    <div>Для: Андрей Ботив</div>
+    <div>Дата: 23 июля 2026 г.</div>
+    <div>№ КП: HP-2026-0723-KB</div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Küppersbusch · Кухонный комплект</div>
+  <h1>Кухня под ключ<br>в нержавеющей стали</h1>
+  <div class="hero-subtitle">Два варианта под ваш проект — базовый и расширенный</div>
+  <div class="hero-tags">
+    <span class="tag">Духовой шкаф</span>
+    <span class="tag">Варочная панель</span>
+    <span class="tag">Нержавеющая сталь</span>
+    <span class="tag">Квартира · Москва</span>
+    <span class="tag">Наличие + под заказ</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Запрос клиента</div>
+  <div class="section-heading">Бриф проекта</div>
+  <div class="brief-box">
+    «Тестовый запрос. Кухня под ключ Küppersbusch: духовой шкаф + варочная панель. Нержавеющая сталь. Квартира в Москве. Интересует как наличие, так и под заказ. Нужны варианты A/B с разным бюджетом.»
+  </div>
+  <div class="brief-params">
+    <div class="brief-param">
+      <div class="brief-param-label">Бренд</div>
+      <div class="brief-param-value">Küppersbusch</div>
+    </div>
+    <div class="brief-param">
+      <div class="brief-param-label">Отделка</div>
+      <div class="brief-param-value">Нержавеющая сталь</div>
+    </div>
+    <div class="brief-param">
+      <div class="brief-param-label">Бюджет</div>
+      <div class="brief-param-value">500 000 – 1 500 000 ₽</div>
+    </div>
+    <div class="brief-param">
+      <div class="brief-param-label">Тип объекта</div>
+      <div class="brief-param-value">Квартира</div>
+    </div>
+    <div class="brief-param">
+      <div class="brief-param-label">Категории</div>
+      <div class="brief-param-value">Духовой шкаф + Варочная панель</div>
+    </div>
+    <div class="brief-param">
+      <div class="brief-param-label">Поставка</div>
+      <div class="brief-param-value">Наличие / под заказ</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Подбор техники</div>
+  <div class="section-heading">Варианты A и B</div>
+  <div class="variants-grid">
+
+    <div class="variant-card">
+      <div class="variant-header">
+        <div>
+          <div class="variant-label">Вариант A</div>
+          <div class="variant-name">Базовый комплект</div>
+        </div>
+      </div>
+      <div class="variant-body">
+        <div class="product-item">
+          <div class="product-img-placeholder">🔥</div>
+          <div class="product-info">
+            <div class="product-category">Духовой шкаф</div>
+            <div class="product-title">Kuppersbusch BP 6350.0. S3 Silver Chrome</div>
+            <div class="product-sku">INSALES-459532971-763664880</div>
+            <div class="product-features">60 см · Пиролиз · 71 л · 10 режимов<br>Нержавеющая сталь / Silver Chrome<br>Класс A+ · TFT-дисплей</div>
+          </div>
+          <div class="product-price">
+            <div class="product-price-value">245 990 ₽</div>
+            <div class="product-price-note">РРЦ</div>
+          </div>
+        </div>
+        <div class="product-item">
+          <div class="product-img-placeholder">⚡</div>
+          <div class="product-info">
+            <div class="product-category">Варочная панель</div>
+            <div class="product-title">Kuppersbusch KE 8350.0 SR</div>
+            <div class="product-sku">INSALES-459533488-763665397</div>
+            <div class="product-features">80 см · Электрическая · 4 зоны<br>Нержавеющая рамка SR<br>Сенсорное управление</div>
+          </div>
+          <div class="product-price">
+            <div class="product-price-value">160 990 ₽</div>
+            <div class="product-price-note">РРЦ</div>
+          </div>
+        </div>
+        <div class="variant-total">
+          <div class="variant-total-label">Итого вариант A</div>
+          <div class="variant-total-value">406 980 ₽</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="variant-card recommended">
+      <div class="variant-header">
+        <div>
+          <div class="variant-label">Вариант B</div>
+          <div class="variant-name" style="color:white;">Расширенный комплект</div>
+        </div>
+        <div class="rec-badge">⭐ Рекомендуем</div>
+      </div>
+      <div class="variant-body">
+        <div class="product-item">
+          <div class="product-img-placeholder">🔥</div>
+          <div class="product-info">
+            <div class="product-category">Духовой шкаф</div>
+            <div class="product-title">Kuppersbusch BP 6550.0 S3 Silver Chrome</div>
+            <div class="product-sku">INSALES-459532947-763664856</div>
+            <div class="product-features">60 см · Пиролиз + AirFry · 71 л · 14 режимов<br>Нержавеющая сталь / Silver Chrome<br>Класс A+ · WLAN / Home Connect</div>
+          </div>
+          <div class="product-price">
+            <div class="product-price-value">288 990 ₽</div>
+            <div class="product-price-note">РРЦ</div>
+          </div>
+        </div>
+        <div class="product-item">
+          <div class="product-img-placeholder">⚡</div>
+          <div class="product-info">
+            <div class="product-category">Варочная панель</div>
+            <div class="product-title">Kuppersbusch KE 9350.0 SR</div>
+            <div class="product-sku">INSALES-459533489-763665398</div>
+            <div class="product-features">90 см · Электрическая · 5 зон<br>Нержавеющая рамка SR<br>Расширенная рабочая поверхность</div>
+          </div>
+          <div class="product-price">
+            <div class="product-price-value">203 990 ₽</div>
+            <div class="product-price-note">РРЦ</div>
+          </div>
+        </div>
+        <div class="variant-total">
+          <div class="variant-total-label">Итого вариант B</div>
+          <div class="variant-total-value">492 980 ₽</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="background: white; margin: 0; max-width: 100%; padding: 50px 0;">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 60px;">
+    <div class="section-title">О бренде</div>
+    <div class="section-heading">Почему Küppersbusch</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🇩🇪</div>
+        <div class="why-title">Немецкое производство</div>
+        <div class="why-text">Завод в Гельзенкирхене с 1875 года. Техника для тех, кто ценит подлинное качество и не идёт на компромисс.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎨</div>
+        <div class="why-title">Система дизайна Design Kit</div>
+        <div class="why-text">8 цветовых решений — от классической нержавейки до Black Velvet и Copper. Интегрируется в любой интерьер.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔧</div>
+        <div class="why-title">Гарантия и сервис</div>
+        <div class="why-text">Официальная гарантия 2 года. Сервисные центры в Москве. Запчасти на складе — без ожидания из Европы.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Рекомендация менеджера</div>
+  <div class="section-heading">Наш выбор для вашего проекта</div>
+  <div class="recommendation-box">
+    <div class="rec-icon">💡</div>
+    <div>
+      <div class="rec-eyebrow">Рекомендация Арии</div>
+      <div class="rec-heading">Вариант B — оптимальное соотношение возможностей и стоимости</div>
+      <div class="rec-text">
+        Для квартиры в Москве рекомендую <strong style="color:#c8a96e;">Вариант B</strong>: BP 6550.0 S3 + KE 9350.0 SR за 492 980 ₽.
+        Духовка BP 6550.0 — флагман серии с функцией AirFry и подключением к Wi-Fi, что оценят те, кто готовит часто и разнообразно.
+        Панель 90 см даёт 5 зон — максимальный комфорт при готовке на семью.
+        Оба прибора в отделке Silver Chrome идеально совпадают и выглядят как единый комплект.<br><br>
+        Вариант A также отличный выбор, если важно уложиться в более жёсткий бюджет — духовка BP 6350.0 тоже с пиролизом и надёжной электроникой.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="background: white; margin: 0; max-width: 100%; padding: 50px 0;">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 60px;">
+    <div class="section-title">Условия</div>
+    <div class="section-heading">Работа с Home Project</div>
+    <div class="terms-grid">
+      <div class="term-card">
+        <div class="term-icon">📦</div>
+        <div class="term-title">Наличие и сроки</div>
+        <div class="term-value">Модели в наличии — 3–5 рабочих дней. Под заказ — 4–6 недель из Германии.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-icon">🚚</div>
+        <div class="term-title">Доставка</div>
+        <div class="term-value">Бережная доставка по Москве. Подъём на этаж. Распаковка и первичный осмотр.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-icon">🤝</div>
+        <div class="term-title">Партнёрская программа</div>
+        <div class="term-value">Для архитекторов и дизайнеров — приоритетные условия. Спросите менеджера.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-icon">📞</div>
+        <div class="term-title">Поддержка</div>
+        <div class="term-value">Персональный менеджер для каждого проекта. Помогаем с выбором и монтажом.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Home Project</div>
+      <div class="footer-tagline">Дистрибуция премиальной встраиваемой техники</div>
+    </div>
+    <div>
+      <div class="footer-label">Контакт</div>
+      <div class="footer-contact">
+        Ария — менеджер Home Project<br>
+        info@homeproject.online<br>
+        homeproject.online
+      </div>
+    </div>
+    <div>
+      <div class="footer-label">Действие КП</div>
+      <div class="footer-contact">
+        Цены действительны 14 дней<br>
+        с даты выставления<br>
+        до 6 августа 2026 г.
+      </div>
+    </div>
+  </div>
+  <div class="footer-disclaimer">
+    Данное коммерческое предложение носит информационный характер. Цены указаны в рублях с НДС, действительны на дату выставления и могут быть изменены без предварительного уведомления. Наличие уточняйте у менеджера. Настоящее КП подготовлено с использованием AI-ассистента Ария (Home Project). Ария — AI-ассистент, а не человек-менеджер.
+  </div>
+</div>
+
+</body>
+</html>
