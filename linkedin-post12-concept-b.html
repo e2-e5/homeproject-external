@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Два мира — Home Project LinkedIn Post</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1200px; height: 628px; overflow: hidden; background: #030210; font-family: 'Arial Black', Arial, sans-serif; }
+  #canvas { position: relative; width: 1200px; height: 628px; overflow: hidden; }
+  #bg-svg { position: absolute; top: 0; left: 0; width: 1200px; height: 628px; z-index: 1; }
+  #trex-container { position: absolute; bottom: 0; left: -30px; width: 480px; height: 628px; overflow: hidden; z-index: 4; }
+  #trex-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.40) contrast(1.3) saturate(0.35) sepia(0.15); display: block; }
+  .trex-fade { position: absolute; pointer-events: none; }
+  #fade-left { top:0;left:0;width:100%;height:100%;background:linear-gradient(to right,#030210 0%,#030210 10%,transparent 100%); }
+  #fade-bottom { bottom:0;left:0;width:100%;height:45%;background:linear-gradient(to top,#030210 0%,transparent 100%); }
+  #fade-right { top:0;right:0;width:50%;height:100%;background:linear-gradient(to left,rgba(5,3,18,0.97) 0%,transparent 100%); }
+  #fade-top { top:0;left:0;width:100%;height:20%;background:linear-gradient(to bottom,#030210 0%,transparent 100%); }
+  #blue-overlay { top:0;left:0;width:100%;height:100%;background:rgba(3,2,20,0.25);mix-blend-mode:multiply; }
+  #text-layer { position: absolute; top: 62px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 10; white-space: nowrap; }
+  #main-title { font-family: 'Arial Black', Arial, sans-serif; font-size: 82px; font-weight: 900; line-height: 0.95; color: #FFFFFF; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 25px rgba(255,100,0,0.7), 0 0 60px rgba(100,0,255,0.4), 2px 2px 5px rgba(0,0,0,0.9); }
+  #sub-title { margin-top: 14px; font-size: 22px; font-weight: 400; color: #D0C0FF; letter-spacing: 0.5px; text-shadow: 0 0 15px rgba(150,50,255,0.5); font-family: Arial, sans-serif; }
+  #brand-block { position: absolute; bottom: 28px; left: 28px; z-index: 20; }
+  #brand-name { font-size: 18px; font-weight: 700; color: #FFFFFF; letter-spacing: 3px; text-transform: uppercase; }
+  #brand-sub { font-size: 11px; color: rgba(200,180,255,0.75); margin-top: 4px; font-family: Arial, sans-serif; }
+  #badge { position: absolute; bottom: 28px; right: 28px; z-index: 20; border: 1.5px solid #AA00FF; background: rgba(5,3,18,0.88); box-shadow: 0 0 18px rgba(150,0,255,0.5); padding: 8px 16px; border-radius: 6px; }
+  #badge-text { font-size: 14px; font-weight: 700; color: #BB55FF; }
+  @keyframes particleFloat { 0%{transform:translateY(0);opacity:0.8} 100%{transform:translateY(-80px);opacity:0} }
+  @keyframes windowFlicker { 0%,100%{opacity:0.85} 50%{opacity:0.55} }
+  @keyframes antennaBlink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  @keyframes fireballPulse { 0%,100%{opacity:0.9} 50%{opacity:1} }
+  .particle { animation: particleFloat 3s ease-out infinite; }
+  .p2 { animation-delay:1s; animation-duration:2.5s; }
+  .p3 { animation-delay:2s; animation-duration:3.5s; }
+  .p4 { animation-delay:0.5s; animation-duration:2.8s; }
+  .win-flicker { animation: windowFlicker 4s ease-in-out infinite; }
+  .antenna-blink { animation: antennaBlink 1.2s step-end infinite; }
+  .fireball { animation: fireballPulse 2.2s ease-in-out infinite; }
+</style>
+</head>
+<body>
+<div id="canvas">
+  <svg id="bg-svg" viewBox="0 0 1200 628" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="leftSky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#030210"/><stop offset="60%" stop-color="#060318"/><stop offset="100%" stop-color="#0A0520"/>
+      </linearGradient>
+      <linearGradient id="rightSky" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#080328"/><stop offset="50%" stop-color="#120845"/><stop offset="100%" stop-color="#1A0A60"/>
+      </linearGradient>
+      <radialGradient id="techGlow" cx="100%" cy="50%" r="60%">
+        <stop offset="0%" stop-color="#3300FF" stop-opacity="0.18"/><stop offset="100%" stop-color="#1100AA" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="meteorCore" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/><stop offset="20%" stop-color="#FFFAEE" stop-opacity="1"/>
+        <stop offset="45%" stop-color="#FFB800" stop-opacity="1"/><stop offset="70%" stop-color="#FF4400" stop-opacity="0.8"/>
+        <stop offset="100%" stop-color="#CC0000" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="meteorTail" x1="850" y1="140" x2="550" y2="380" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/><stop offset="20%" stop-color="#FF9900" stop-opacity="0.7"/>
+        <stop offset="55%" stop-color="#FF4400" stop-opacity="0.4"/><stop offset="100%" stop-color="#CC0000" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="diagGlow" x1="700" y1="0" x2="500" y2="628" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#FF6600" stop-opacity="0.15"/><stop offset="50%" stop-color="#FF4400" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="#FF2200" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#050315" stop-opacity="0.4"/><stop offset="100%" stop-color="#020110" stop-opacity="1"/>
+      </linearGradient>
+      <clipPath id="rightWorldClip"><polygon points="620,0 1200,0 1200,628 480,628"/></clipPath>
+      <filter id="blur25" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="25"/></filter>
+      <filter id="blur15" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="15"/></filter>
+      <filter id="blur8" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+      <filter id="blur4" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+      <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="4" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <rect width="1200" height="628" fill="url(#leftSky)"/>
+    <g clip-path="url(#rightWorldClip)">
+      <rect width="1200" height="628" fill="url(#rightSky)"/>
+      <rect width="1200" height="628" fill="url(#techGlow)"/>
+      <line x1="480" y1="540" x2="1200" y2="540" stroke="#4400FF" stroke-width="0.5" opacity="0.12"/>
+      <line x1="480" y1="558" x2="1200" y2="558" stroke="#4400FF" stroke-width="0.5" opacity="0.08"/>
+      <line x1="700" y1="500" x2="700" y2="628" stroke="#3300CC" stroke-width="0.5" opacity="0.10"/>
+      <line x1="860" y1="480" x2="860" y2="628" stroke="#3300CC" stroke-width="0.5" opacity="0.10"/>
+      <line x1="1020" y1="460" x2="1020" y2="628" stroke="#3300CC" stroke-width="0.5" opacity="0.10"/>
+      <circle cx="750" cy="30" r="1.2" fill="#AA88FF" opacity="0.7"><animate attributeName="opacity" values="0.7;0.2;0.7" dur="2.8s" repeatCount="indefinite"/></circle>
+      <circle cx="900" cy="18" r="1.0" fill="#CC99FF" opacity="0.6"><animate attributeName="opacity" values="0.6;0.15;0.6" dur="3.4s" repeatCount="indefinite"/></circle>
+      <circle cx="1050" cy="40" r="1.4" fill="#9966FF" opacity="0.75"><animate attributeName="opacity" values="0.75;0.2;0.75" dur="2.2s" repeatCount="indefinite"/></circle>
+      <circle cx="1150" cy="22" r="0.9" fill="#BB88FF" opacity="0.65"><animate attributeName="opacity" values="0.65;0.15;0.65" dur="3.8s" repeatCount="indefinite"/></circle>
+      <!-- Buildings -->
+      <rect x="650" y="260" width="52" height="368" fill="#060318"/>
+      <rect x="650" y="260" width="52" height="368" fill="none" stroke="#5500CC" stroke-width="0.8" opacity="0.4"/>
+      <rect x="718" y="310" width="38" height="318" fill="#060218"/>
+      <rect x="718" y="310" width="38" height="318" fill="none" stroke="#4400BB" stroke-width="0.8" opacity="0.35"/>
+      <rect x="775" y="330" width="62" height="298" fill="#060318"/>
+      <rect x="775" y="330" width="62" height="298" fill="none" stroke="#5500CC" stroke-width="0.8" opacity="0.4"/>
+      <rect x="858" y="265" width="48" height="363" fill="#050215"/>
+      <rect x="858" y="265" width="48" height="363" fill="none" stroke="#6600DD" stroke-width="1" opacity="0.5"/>
+      <line x1="882" y1="265" x2="882" y2="235" stroke="#5500AA" stroke-width="2" opacity="0.6"/>
+      <circle class="antenna-blink" cx="882" cy="233" r="3" fill="#FF2244" opacity="0.9" filter="url(#neonGlow)"/>
+      <rect x="862" y="290" width="40" height="14" fill="#00FFCC" opacity="0.06" rx="2"/>
+      <text x="882" y="301" font-size="9" fill="#00FFCC" opacity="0.75" text-anchor="middle" font-family="Arial" letter-spacing="2" font-weight="700">AI</text>
+      <rect x="924" y="345" width="68" height="283" fill="#060318"/>
+      <rect x="924" y="345" width="68" height="283" fill="none" stroke="#4400BB" stroke-width="0.8" opacity="0.35"/>
+      <rect x="1006" y="375" width="78" height="253" fill="#050215"/>
+      <rect x="1006" y="375" width="78" height="253" fill="none" stroke="#5500CC" stroke-width="0.8" opacity="0.4"/>
+      <rect x="1102" y="395" width="98" height="233" fill="#060218"/>
+      <rect x="1102" y="395" width="98" height="233" fill="none" stroke="#4400BB" stroke-width="0.8" opacity="0.35"/>
+      <!-- Neon windows B1 -->
+      <rect x="656" y="272" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.85" filter="url(#neonGlow)"/>
+      <rect x="670" y="272" width="8" height="5" rx="1" fill="#AA00FF" opacity="0.75" filter="url(#neonGlow)"/>
+      <rect x="684" y="272" width="8" height="5" rx="1" fill="#00AAFF" opacity="0.80"/>
+      <rect x="656" y="287" width="8" height="5" rx="1" fill="#AA00FF" opacity="0.70"/>
+      <rect x="684" y="287" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.80"/>
+      <rect x="656" y="302" width="8" height="5" rx="1" fill="#00AAFF" opacity="0.75"/>
+      <rect x="670" y="302" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.85" class="win-flicker"/>
+      <rect x="684" y="302" width="8" height="5" rx="1" fill="#AA00FF" opacity="0.70"/>
+      <rect x="656" y="318" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.80"/>
+      <rect x="684" y="318" width="8" height="5" rx="1" fill="#00AAFF" opacity="0.75"/>
+      <rect x="656" y="334" width="8" height="5" rx="1" fill="#AA00FF" opacity="0.75"/>
+      <rect x="670" y="334" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="656" y="350" width="8" height="5" rx="1" fill="#00AAFF" opacity="0.70"/>
+      <rect x="684" y="350" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.80"/>
+      <!-- Windows B4 tallest -->
+      <rect x="864" y="278" width="7" height="5" rx="1" fill="#00FFCC" opacity="0.90" filter="url(#neonGlow)"/>
+      <rect x="876" y="278" width="7" height="5" rx="1" fill="#AA00FF" opacity="0.80" filter="url(#neonGlow)"/>
+      <rect x="888" y="278" width="7" height="5" rx="1" fill="#00AAFF" opacity="0.85"/>
+      <rect x="864" y="293" width="7" height="5" rx="1" fill="#AA00FF" opacity="0.75"/>
+      <rect x="888" y="293" width="7" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="864" y="308" width="7" height="5" rx="1" fill="#00AAFF" opacity="0.80"/>
+      <rect x="876" y="308" width="7" height="5" rx="1" fill="#00FFCC" opacity="0.90" class="win-flicker"/>
+      <rect x="888" y="308" width="7" height="5" rx="1" fill="#AA00FF" opacity="0.75"/>
+      <rect x="864" y="323" width="7" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="876" y="338" width="7" height="5" rx="1" fill="#00AAFF" opacity="0.80"/>
+      <rect x="888" y="353" width="7" height="5" rx="1" fill="#00FFCC" opacity="0.80"/>
+      <rect x="864" y="368" width="7" height="5" rx="1" fill="#AA00FF" opacity="0.75"/>
+      <rect x="876" y="383" width="7" height="5" rx="1" fill="#00FFCC" opacity="0.80"/>
+      <rect x="864" y="398" width="7" height="5" rx="1" fill="#00AAFF" opacity="0.75"/>
+      <rect x="876" y="413" width="7" height="5" rx="1" fill="#AA00FF" opacity="0.80"/>
+      <!-- Windows B5 -->
+      <rect x="930" y="358" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="944" y="358" width="8" height="5" rx="1" fill="#AA00FF" opacity="0.75" filter="url(#neonGlow)"/>
+      <rect x="958" y="358" width="8" height="5" rx="1" fill="#00AAFF" opacity="0.80"/>
+      <rect x="972" y="358" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="930" y="373" width="8" height="5" rx="1" fill="#AA00FF" opacity="0.70"/>
+      <rect x="958" y="373" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.80" class="win-flicker"/>
+      <rect x="972" y="373" width="8" height="5" rx="1" fill="#00AAFF" opacity="0.75"/>
+      <rect x="930" y="388" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="944" y="388" width="8" height="5" rx="1" fill="#00AAFF" opacity="0.80"/>
+      <rect x="972" y="388" width="8" height="5" rx="1" fill="#AA00FF" opacity="0.75"/>
+      <rect x="930" y="404" width="8" height="5" rx="1" fill="#00AAFF" opacity="0.80"/>
+      <rect x="958" y="404" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="930" y="420" width="8" height="5" rx="1" fill="#AA00FF" opacity="0.70"/>
+      <rect x="944" y="420" width="8" height="5" rx="1" fill="#00FFCC" opacity="0.80"/>
+      <!-- Windows B6+7 -->
+      <rect x="1012" y="388" width="9" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="1028" y="388" width="9" height="5" rx="1" fill="#AA00FF" opacity="0.80" filter="url(#neonGlow)"/>
+      <rect x="1048" y="388" width="9" height="5" rx="1" fill="#00AAFF" opacity="0.75"/>
+      <rect x="1068" y="388" width="9" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="1012" y="404" width="9" height="5" rx="1" fill="#AA00FF" opacity="0.70"/>
+      <rect x="1048" y="404" width="9" height="5" rx="1" fill="#00FFCC" opacity="0.80" class="win-flicker"/>
+      <rect x="1012" y="420" width="9" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="1028" y="420" width="9" height="5" rx="1" fill="#00AAFF" opacity="0.80"/>
+      <rect x="1108" y="408" width="10" height="5" rx="1" fill="#00FFCC" opacity="0.85" filter="url(#neonGlow)"/>
+      <rect x="1124" y="408" width="10" height="5" rx="1" fill="#AA00FF" opacity="0.80"/>
+      <rect x="1140" y="408" width="10" height="5" rx="1" fill="#00AAFF" opacity="0.75"/>
+      <rect x="1160" y="408" width="10" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="1108" y="424" width="10" height="5" rx="1" fill="#AA00FF" opacity="0.70" class="win-flicker"/>
+      <rect x="1140" y="424" width="10" height="5" rx="1" fill="#00FFCC" opacity="0.80"/>
+      <rect x="1108" y="440" width="10" height="5" rx="1" fill="#00FFCC" opacity="0.85"/>
+      <rect x="1124" y="440" width="10" height="5" rx="1" fill="#00AAFF" opacity="0.80"/>
+      <rect x="1160" y="440" width="10" height="5" rx="1" fill="#AA00FF" opacity="0.75"/>
+      <ellipse cx="950" cy="530" rx="350" ry="25" fill="#3300FF" opacity="0.08"/>
+    </g>
+    <!-- Diagonal glow -->
+    <polygon points="590,0 660,0 520,628 450,628" fill="url(#diagGlow)" opacity="0.8"/>
+    <polygon points="640,0 680,0 540,628 510,628" fill="#FF6600" opacity="0.04"/>
+    <!-- METEOR along diagonal -->
+    <polygon points="862,125 910,155 560,390 510,400" fill="url(#meteorTail)" opacity="0.60" class="fireball"/>
+    <polygon points="868,133 902,148 575,378 555,382" fill="url(#meteorTail)" opacity="0.78"/>
+    <polygon points="874,138 895,142 588,365 578,366" fill="#FFE080" opacity="0.35"/>
+    <circle cx="885" cy="145" r="85" fill="#FF3300" opacity="0.08" filter="url(#blur25)"/>
+    <circle cx="885" cy="145" r="60" fill="#FF5500" opacity="0.14" filter="url(#blur15)"/>
+    <circle cx="885" cy="145" r="40" fill="#FF7700" opacity="0.28" filter="url(#blur8)"/>
+    <circle cx="885" cy="145" r="26" fill="#FFAA00" opacity="0.60" filter="url(#blur4)" class="fireball"/>
+    <circle cx="885" cy="145" r="18" fill="url(#meteorCore)" opacity="0.98"/>
+    <circle cx="885" cy="145" r="8" fill="#FFFAEE" opacity="0.98"/>
+    <circle cx="885" cy="145" r="4" fill="#FFFFFF" opacity="1.0"/>
+    <ellipse cx="730" cy="268" rx="200" ry="45" fill="#FF4400" opacity="0.05" transform="rotate(-32 730 268)" filter="url(#blur15)"/>
+    <circle cx="840" cy="168" r="2.5" fill="#FF8800" opacity="0.75"><animate attributeName="opacity" values="0.75;0.2;0.75" dur="1.1s" repeatCount="indefinite"/></circle>
+    <circle cx="798" cy="198" r="2" fill="#FF6600" opacity="0.65"><animate attributeName="opacity" values="0.65;0.15;0.65" dur="1.5s" repeatCount="indefinite"/></circle>
+    <circle cx="758" cy="228" r="1.5" fill="#FF9900" opacity="0.55"><animate attributeName="opacity" values="0.55;0.1;0.55" dur="0.9s" repeatCount="indefinite"/></circle>
+    <circle cx="720" cy="258" r="2" fill="#FF7700" opacity="0.60"><animate attributeName="opacity" values="0.60;0.15;0.60" dur="1.3s" repeatCount="indefinite"/></circle>
+    <rect x="0" y="522" width="1200" height="106" fill="url(#groundGrad)"/>
+    <line x1="0" y1="522" x2="1200" y2="522" stroke="#1A0A50" stroke-width="0.8" opacity="0.5"/>
+    <!-- Floating data particles -->
+    <circle class="particle" cx="690" cy="480" r="2" fill="#00FFCC" opacity="0.7"/>
+    <circle class="particle p2" cx="780" cy="490" r="1.5" fill="#AA00FF" opacity="0.7"/>
+    <circle class="particle p3" cx="900" cy="470" r="2" fill="#00AAFF" opacity="0.7"/>
+    <circle class="particle p4" cx="1050" cy="485" r="1.5" fill="#00FFCC" opacity="0.65"/>
+  </svg>
+  <div id="trex-container">
+    <img id="trex-img" src="https://new.homeproject.online/static/1784901464413-1784901432941-_________1.jpg" alt="T-Rex"/>
+    <div class="trex-fade" id="fade-left"></div>
+    <div class="trex-fade" id="fade-bottom"></div>
+    <div class="trex-fade" id="fade-right"></div>
+    <div class="trex-fade" id="fade-top"></div>
+    <div class="trex-fade" id="blue-overlay"></div>
+  </div>
+  <div id="text-layer">
+    <div id="main-title">МЕТЕОРИТ<br>УЖЕ ЛЕТИТ.</div>
+    <div id="sub-title">У вас ещё есть время трансформироваться.</div>
+  </div>
+  <div id="brand-block"><div id="brand-name">Home Project</div><div id="brand-sub">AI-агенты в дистрибуции</div></div>
+  <div id="badge"><div id="badge-text">Happy Friday 🔥</div></div>
+</div>
+</body>
+</html>
