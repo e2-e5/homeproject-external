@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>LinkedIn Post — Метеорит уже летит</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 628px;
+    overflow: hidden;
+    background: #0D0D2B;
+    font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  .canvas {
+    position: relative;
+    width: 1200px;
+    height: 628px;
+    overflow: hidden;
+    background: linear-gradient(160deg, #0D0D2B 0%, #12103A 30%, #1A1A4E 70%, #0F1535 100%);
+  }
+
+  .meteor-glow {
+    position: absolute;
+    top: -60px;
+    right: 80px;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,140,0,0.22) 0%, rgba(255,70,0,0.10) 40%, transparent 70%);
+    filter: blur(30px);
+    pointer-events: none;
+  }
+
+  .ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 1200px;
+    height: 60px;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,10,40,0.8) 100%);
+  }
+
+  .headline {
+    position: absolute;
+    top: 68px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    white-space: nowrap;
+  }
+
+  .headline-main {
+    display: block;
+    font-size: 86px;
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.0;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow:
+      0 0 20px rgba(255,120,0,0.9),
+      0 0 50px rgba(255,80,0,0.6),
+      0 0 90px rgba(255,60,0,0.35),
+      2px 2px 4px rgba(0,0,0,0.8);
+  }
+
+  .headline-sub {
+    display: block;
+    margin-top: 12px;
+    font-size: 25px;
+    font-weight: 400;
+    color: #A8C8FF;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 18px rgba(0,200,255,0.5), 1px 1px 3px rgba(0,0,0,0.7);
+  }
+
+  .brand {
+    position: absolute;
+    bottom: 28px;
+    left: 36px;
+    z-index: 20;
+  }
+
+  .brand-name {
+    font-size: 18px;
+    font-weight: 900;
+    color: #FFFFFF;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  }
+
+  .brand-tagline {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(168,200,255,0.75);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .friday-badge {
+    position: absolute;
+    bottom: 28px;
+    right: 36px;
+    z-index: 20;
+    border: 2px solid #FF6B00;
+    border-radius: 8px;
+    padding: 8px 18px;
+    background: rgba(10,8,30,0.85);
+    box-shadow: 0 0 12px rgba(255,107,0,0.7), inset 0 0 10px rgba(255,107,0,0.08);
+  }
+
+  .friday-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FF8C42;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 10px rgba(255,107,0,0.9), 0 0 20px rgba(255,107,0,0.5);
+    text-transform: uppercase;
+  }
+
+  .scene-svg {
+    position: absolute;
+    inset: 0;
+    width: 1200px;
+    height: 628px;
+  }
+
+  @keyframes meteor-drift {
+    0%   { transform: translate(0px, 0px); }
+    100% { transform: translate(-8px, 8px); }
+  }
+  @keyframes tail-pulse {
+    0%, 100% { opacity: 0.85; }
+    50%       { opacity: 1; }
+  }
+  @keyframes star-twinkle {
+    0%, 100% { opacity: 0.6; }
+    50%       { opacity: 1; }
+  }
+  @keyframes city-glow {
+    0%, 100% { opacity: 0.7; }
+    50%       { opacity: 1; }
+  }
+
+  .meteor-group { animation: meteor-drift 3s ease-in-out infinite alternate; transform-origin: 980px 80px; }
+  .meteor-tail  { animation: tail-pulse 2s ease-in-out infinite; }
+  .city-windows { animation: city-glow 3.5s ease-in-out infinite; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <svg class="scene-svg" viewBox="0 0 1200 628" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0D0D2B"/>
+        <stop offset="60%" stop-color="#13124A"/>
+        <stop offset="100%" stop-color="#1A1A4E"/>
+      </linearGradient>
+      <radialGradient id="meteorCore" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"  stop-color="#FFFFFF" stop-opacity="1"/>
+        <stop offset="25%" stop-color="#FFF0CC" stop-opacity="1"/>
+        <stop offset="55%" stop-color="#FF8C00" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="#FF4400" stop-opacity="0.5"/>
+      </radialGradient>
+      <linearGradient id="tailGrad" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#FFFFFF"  stop-opacity="0.9"/>
+        <stop offset="15%" stop-color="#FFD580"  stop-opacity="0.8"/>
+        <stop offset="40%" stop-color="#FF6B00"  stop-opacity="0.6"/>
+        <stop offset="70%" stop-color="#CC2200"  stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#880000" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="tailGrad2" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#FF9900"  stop-opacity="0.5"/>
+        <stop offset="50%" stop-color="#FF4400"  stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#FF0000" stop-opacity="0"/>
+      </linearGradient>
+      <filter id="meteorGlow" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur stdDeviation="12" result="blur1"/>
+        <feGaussianBlur stdDeviation="5"  result="blur2" in="SourceGraphic"/>
+        <feMerge><feMergeNode in="blur1"/><feMergeNode in="blur2"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="8" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="windowGlow" x="-100%" y="-100%" width="300%" height="300%">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <radialGradient id="impactLight" cx="75%" cy="0%" r="80%">
+        <stop offset="0%"  stop-color="#FF6600" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#FF6600" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#050A1E" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#030710" stop-opacity="1"/>
+      </linearGradient>
+      <filter id="dinoGlow" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+
+    <rect width="1200" height="628" fill="url(#skyGrad)"/>
+    <rect width="1200" height="628" fill="url(#impactLight)"/>
+
+    <!-- Stars -->
+    <circle cx="45"  cy="22"  r="1.8" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="123" cy="58"  r="1.4" fill="#CCE8FF" opacity="0.85"/>
+    <circle cx="210" cy="14"  r="1.6" fill="#FFFFFF" opacity="0.90"/>
+    <circle cx="305" cy="42"  r="1.2" fill="#E0F0FF" opacity="0.80"/>
+    <circle cx="388" cy="18"  r="2.0" fill="#FFFFFF" opacity="1.0"/>
+    <circle cx="550" cy="8"   r="1.7" fill="#FFFFFF" opacity="0.92"/>
+    <circle cx="700" cy="25"  r="1.3" fill="#FFFFFF" opacity="0.80"/>
+    <circle cx="820" cy="18"  r="1.0" fill="#FFFFFF" opacity="0.72"/>
+    <circle cx="190" cy="45"  r="1.5" fill="#FFFFFF" opacity="0.9" style="animation: star-twinkle 2.1s ease-in-out infinite;"/>
+    <circle cx="502" cy="30"  r="1.6" fill="#CCE8FF" opacity="0.85" style="animation: star-twinkle 3.3s ease-in-out infinite 0.7s;"/>
+    <circle cx="355" cy="20"  r="1.2" fill="#FFFFFF" opacity="0.80" style="animation: star-twinkle 2.7s ease-in-out infinite 1.4s;"/>
+
+    <!-- Meteor -->
+    <g class="meteor-group">
+      <polygon class="meteor-tail" points="968,62 978,72 480,340 440,300" fill="url(#tailGrad2)" opacity="0.5"/>
+      <polygon class="meteor-tail" points="970,65 977,70 530,310 515,295" fill="url(#tailGrad)" opacity="0.88"/>
+      <polygon class="meteor-tail" points="972,67 975,70 555,298 548,290" fill="url(#tailGrad)" opacity="0.6"/>
+      <line x1="960" y1="68" x2="620" y2="240" stroke="#FFD580" stroke-width="1" opacity="0.4"/>
+      <circle cx="980" cy="68" r="42" fill="#FF6B00" opacity="0.25" filter="url(#meteorGlow)"/>
+      <circle cx="980" cy="68" r="30" fill="#FF8800" opacity="0.40" filter="url(#softGlow)"/>
+      <circle cx="980" cy="68" r="22" fill="url(#meteorCore)" filter="url(#meteorGlow)"/>
+      <circle cx="977" cy="65" r="9"  fill="#FFFFFF" opacity="0.95"/>
+      <circle cx="975" cy="63" r="4"  fill="#FFFFFF" opacity="1.0"/>
+      <circle cx="945" cy="90"  r="3" fill="#FF9900" opacity="0.7" filter="url(#softGlow)"/>
+      <circle cx="920" cy="108" r="2" fill="#FFB800" opacity="0.55"/>
+      <circle cx="900" cy="122" r="1.5" fill="#FF6600" opacity="0.45"/>
+    </g>
+
+    <!-- Ground -->
+    <rect x="0" y="525" width="1200" height="103" fill="url(#groundGrad)"/>
+    <line x1="0" y1="526" x2="1200" y2="526" stroke="#1A2060" stroke-width="1" opacity="0.6"/>
+
+    <!-- City -->
+    <rect x="830" y="360" width="60" height="168" fill="#0C1235" rx="1"/>
+    <rect x="830" y="355" width="60" height="8"   fill="#111840" rx="1"/>
+    <line x1="860" y1="355" x2="860" y2="320" stroke="#1A2468" stroke-width="2"/>
+    <circle cx="860" cy="318" r="3" fill="#FF3333" opacity="0.9" style="animation: star-twinkle 1.2s ease-in-out infinite;"/>
+    <rect x="905" y="400" width="75" height="128" fill="#091030" rx="1"/>
+    <rect x="990" y="428" width="100" height="100" fill="#0A1230" rx="1"/>
+    <rect x="775" y="415" width="45"  height="113" fill="#0B1133" rx="1"/>
+    <rect x="1095" y="450" width="80" height="78"  fill="#080E28" rx="1"/>
+    <rect x="730" y="440" width="38"  height="88"  fill="#0C1235" rx="1"/>
+
+    <g class="city-windows" filter="url(#windowGlow)">
+      <rect x="837" y="370" width="10" height="8" fill="#00D4FF" opacity="0.9" rx="1"/>
+      <rect x="852" y="370" width="10" height="8" fill="#00D4FF" opacity="0.6" rx="1"/>
+      <rect x="868" y="370" width="10" height="8" fill="#4488FF" opacity="0.8" rx="1"/>
+      <rect x="837" y="390" width="10" height="8" fill="#00D4FF" opacity="0.7" rx="1"/>
+      <rect x="852" y="390" width="10" height="8" fill="#4488FF" opacity="0.5" rx="1"/>
+      <rect x="868" y="390" width="10" height="8" fill="#00D4FF" opacity="0.9" rx="1"/>
+      <rect x="837" y="415" width="10" height="8" fill="#00D4FF" opacity="0.7" rx="1"/>
+      <rect x="868" y="415" width="10" height="8" fill="#00D4FF" opacity="0.9" rx="1"/>
+      <rect x="837" y="440" width="10" height="8" fill="#88BBFF" opacity="0.8" rx="1"/>
+      <rect x="852" y="440" width="10" height="8" fill="#4488FF" opacity="0.6" rx="1"/>
+      <rect x="913" y="410" width="12" height="8" fill="#00D4FF" opacity="0.85" rx="1"/>
+      <rect x="930" y="410" width="12" height="8" fill="#4488FF" opacity="0.60" rx="1"/>
+      <rect x="948" y="410" width="12" height="8" fill="#00D4FF" opacity="0.90" rx="1"/>
+      <rect x="913" y="430" width="12" height="8" fill="#4488FF" opacity="0.70" rx="1"/>
+      <rect x="930" y="430" width="12" height="8" fill="#00D4FF" opacity="0.45" rx="1"/>
+      <rect x="948" y="430" width="12" height="8" fill="#00D4FF" opacity="0.80" rx="1"/>
+      <rect x="998" y="440" width="14" height="9" fill="#00D4FF" opacity="0.80" rx="1"/>
+      <rect x="1016" y="440" width="14" height="9" fill="#00FFCC" opacity="0.60" rx="1"/>
+      <rect x="1034" y="440" width="14" height="9" fill="#00D4FF" opacity="0.85" rx="1"/>
+      <rect x="998" y="458" width="14" height="9" fill="#4488FF" opacity="0.65" rx="1"/>
+      <rect x="1016" y="458" width="14" height="9" fill="#00D4FF" opacity="0.90" rx="1"/>
+      <rect x="1034" y="458" width="14" height="9" fill="#88BBFF" opacity="0.45" rx="1"/>
+      <rect x="1015" y="422" width="50" height="14" fill="#00D4FF" opacity="0.18" rx="2"/>
+      <text x="1040" y="433" font-size="9" fill="#00D4FF" opacity="0.9" text-anchor="middle" font-family="Arial" letter-spacing="1">DIGITAL</text>
+      <rect x="781" y="422" width="9" height="7" fill="#00D4FF" opacity="0.75" rx="1"/>
+      <rect x="794" y="422" width="9" height="7" fill="#4488FF" opacity="0.55" rx="1"/>
+      <rect x="781" y="448" width="9" height="7" fill="#00D4FF" opacity="0.85" rx="1"/>
+      <rect x="794" y="448" width="9" height="7" fill="#4488FF" opacity="0.45" rx="1"/>
+      <rect x="1103" y="460" width="11" height="7" fill="#00D4FF" opacity="0.80" rx="1"/>
+      <rect x="1118" y="460" width="11" height="7" fill="#4488FF" opacity="0.55" rx="1"/>
+      <rect x="736" y="448" width="8" height="6" fill="#00D4FF" opacity="0.70" rx="1"/>
+      <rect x="748" y="460" width="8" height="6" fill="#00D4FF" opacity="0.80" rx="1"/>
+    </g>
+    <ellipse cx="900" cy="530" rx="280" ry="30" fill="#003366" opacity="0.25"/>
+
+    <!-- T-Rex silhouette -->
+    <g filter="url(#dinoGlow)">
+      <g fill="#0A0814">
+        <path d="M 148 440 C 120 450, 90 462, 65 472 C 45 480, 28 485, 18 488 C 10 490, 5 489, 8 487 C 18 483, 38 476, 58 468 C 80 459, 108 448, 135 438 Z"/>
+        <path d="M 148 440 C 155 435, 165 428, 170 420 C 175 412, 174 404, 170 398 C 165 390, 158 385, 152 382 C 158 378, 168 374, 175 370 L 185 368 C 192 368, 198 372, 200 378 C 205 388, 204 400, 200 412 C 196 424, 190 435, 185 445 Z"/>
+        <path d="M 185 445 C 195 450, 210 452, 225 450 C 240 448, 252 442, 260 435 C 268 428, 272 418, 270 408 C 268 398, 260 390, 250 385 C 240 380, 228 378, 218 378 C 210 378, 202 380, 198 384 C 194 388, 192 394, 190 400 C 188 410, 187 428, 185 445 Z"/>
+        <path d="M 218 378 C 228 375, 238 372, 245 368 C 255 362, 262 355, 265 348 C 268 340, 266 332, 260 326 C 254 320, 246 317, 238 317 C 232 317, 226 320, 222 325 C 216 332, 215 342, 216 352 C 217 360, 218 370, 218 378 Z"/>
+        <path d="M 238 317 C 248 314, 258 308, 265 300 C 272 292, 275 282, 272 272 C 270 264, 264 258, 258 256 C 252 254, 246 256, 242 260 C 236 266, 234 274, 234 282 C 234 292, 236 305, 238 317 Z"/>
+        <path d="M 258 256 C 266 250, 276 244, 288 238 C 300 232, 314 228, 325 225 C 338 222, 350 222, 358 226 C 366 230, 370 238, 368 246 C 366 254, 358 260, 348 263 C 338 266, 325 265, 312 262 C 300 259, 288 254, 278 252 C 270 250, 263 252, 258 256 Z"/>
+        <path d="M 260 258 C 268 260, 280 264, 294 268 C 308 272, 322 274, 334 272 C 346 270, 354 264, 356 258 C 354 265, 346 272, 334 276 C 322 280, 308 280, 294 278 C 280 276, 268 270, 260 264 Z"/>
+        <circle cx="342" cy="237" r="5" fill="#1A0A00"/>
+        <circle cx="343" cy="236" r="2" fill="#FF6600" opacity="0.7"/>
+        <path d="M 228 365 C 235 360, 245 355, 252 352 C 258 349, 262 350, 260 354 C 258 358, 252 362, 245 365 C 240 368, 232 370, 228 365 Z"/>
+        <path d="M 155 445 C 152 458, 150 472, 150 488 C 150 500, 152 512, 154 520 C 156 526, 158 528, 160 528 L 170 528 C 168 524, 166 518, 165 510 C 164 500, 165 488, 166 476 C 168 462, 170 450, 170 445 Z"/>
+        <path d="M 154 520 C 148 522, 135 524, 125 526 C 118 527, 112 526, 113 524 C 116 521, 128 520, 140 520 L 154 520 Z"/>
+        <path d="M 210 450 C 208 465, 206 480, 205 496 C 204 508, 205 518, 207 524 C 208 527, 210 528, 213 528 L 228 528 C 225 524, 222 516, 222 504 C 222 490, 224 475, 226 460 C 228 448, 230 442, 228 440 C 224 438, 216 443, 210 450 Z"/>
+        <path d="M 206 524 C 198 526, 182 527, 172 527 C 166 527, 163 525, 165 523 C 170 521, 185 521, 200 523 L 206 524 Z"/>
+        <path d="M 213 526 C 220 528, 232 528, 242 526 C 248 524, 250 522, 247 521 C 242 520, 232 521, 222 524 Z"/>
+      </g>
+      <g fill="none" stroke="#FF4400" stroke-width="1.5" opacity="0.22">
+        <path d="M 258 256 C 266 250, 276 244, 288 238 C 300 232, 314 228, 325 225"/>
+        <path d="M 234 282 C 234 292, 236 305, 238 317"/>
+      </g>
+    </g>
+
+    <ellipse cx="215" cy="527" rx="105" ry="6" fill="#000000" opacity="0.5"/>
+    <ellipse cx="620" cy="528" rx="400" ry="18" fill="#FF4400" opacity="0.06"/>
+  </svg>
+
+  <div class="headline">
+    <span class="headline-main">МЕТЕОРИТ<br>УЖЕ ЛЕТИТ.</span>
+    <span class="headline-sub">У вас ещё есть время трансформироваться.</span>
+  </div>
+
+  <div class="brand">
+    <div class="brand-name">Home Project</div>
+    <div class="brand-tagline">AI-агенты в дистрибуции</div>
+  </div>
+
+  <div class="friday-badge">
+    <span class="friday-text">Happy Friday 🔥</span>
+  </div>
+
+</div>
+</body>
+</html>
