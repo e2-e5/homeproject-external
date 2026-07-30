@@ -22,6 +22,7 @@ ym(110362997,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
   --border:#E5E2DA;--text:#1A1A1A;--text-2:#5A5A5A;
   --muted:#8A8276;--accent:#B0A48A;
   --ai:#4F46E5;--ai-light:#EEF2FF;--ai-border:#C7D2FE;
+  --green:#15803D;--green-bg:#F0FDF4;--green-border:#86EFAC;
 }
 body{font-family:'Mulish',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
 a{color:var(--ai);text-decoration:none}
@@ -116,7 +117,6 @@ hr.div{border:none;border-top:1px solid var(--border);margin:24px 0}
 .btn-sub:disabled{opacity:0.4;cursor:not-allowed}
 
 .msg{padding:14px 16px;border-radius:8px;font-size:13px;margin-top:14px;display:none;text-align:center;font-weight:500;line-height:1.5}
-.msg.ok{background:#F0FDF4;border:1px solid #86EFAC;color:#15803D}
 .msg.err{background:#FFF7ED;border:1px solid #FDBA74;color:#C2410C}
 .msg.show{display:block}
 
@@ -125,6 +125,64 @@ hr.div{border:none;border-top:1px solid var(--border);margin:24px 0}
 
 footer{background:var(--surface);border-top:1px solid var(--border);padding:20px;text-align:center;color:var(--muted);font-size:12px}
 footer a{color:var(--text-2)}
+
+/* ─── Экран успеха ─── */
+#successScreen{display:none}
+#successScreen.show{display:block}
+.success-hero{
+  background:var(--green-bg);border-bottom:1px solid var(--green-border);
+  padding:56px 24px 48px;text-align:center;
+}
+.success-icon{font-size:48px;margin-bottom:16px;line-height:1}
+.success-hero h2{
+  font-size:clamp(22px,4vw,32px);font-weight:800;color:var(--text);
+  line-height:1.2;margin-bottom:10px;letter-spacing:-0.5px;
+}
+.success-hero .sub{font-size:15px;color:var(--text-2);max-width:420px;margin:0 auto}
+.success-body{max-width:540px;margin:0 auto;padding:36px 16px 80px}
+.success-card{
+  background:var(--bg);border:1px solid var(--border);border-radius:12px;
+  padding:28px;margin-bottom:16px;
+}
+.success-row{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 0;border-bottom:1px solid var(--border);
+}
+.success-row:last-child{border-bottom:none;padding-bottom:0}
+.step-num{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--text);color:var(--bg);
+  font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.step-text{font-size:14px;color:var(--text-2);line-height:1.5}
+.step-text b{color:var(--text);display:block;margin-bottom:2px}
+.email-box{
+  background:var(--surface);border:1.5px solid var(--green-border);
+  border-radius:8px;padding:10px 14px;margin:10px 0 0;
+  font-size:13px;color:var(--green);font-weight:700;
+  display:inline-block;word-break:break-all;
+}
+.btn-catalog{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;background:var(--text);color:var(--bg);
+  border:none;border-radius:8px;padding:14px;
+  font-size:14px;font-weight:700;font-family:'Mulish',sans-serif;
+  text-decoration:none;margin-top:4px;transition:opacity 0.2s;
+}
+.btn-catalog:hover{opacity:0.85;text-decoration:none;color:var(--bg)}
+.btn-outline{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;background:transparent;color:var(--text);
+  border:1.5px solid var(--border);border-radius:8px;padding:13px;
+  font-size:14px;font-weight:600;font-family:'Mulish',sans-serif;
+  text-decoration:none;margin-top:10px;transition:border-color 0.2s;
+}
+.btn-outline:hover{border-color:var(--accent);text-decoration:none;color:var(--text)}
+.success-note{
+  text-align:center;font-size:12px;color:var(--muted);
+  margin-top:20px;line-height:1.6;
+}
 </style>
 </head>
 <body>
@@ -136,124 +194,172 @@ footer a{color:var(--text-2)}
   <a href="https://homeproject.online/ru/catalog" class="back-link">← Каталог</a>
 </header>
 
-<section class="hero">
-  <div class="ai-badge"><span>✦</span> AI-подбор</div>
-  <h1>Коммерческое предложение<br>за 15 минут</h1>
-  <p class="hero-sub">Выберите бренды и задачу — AI подберёт модели и отправит персональное КП на ваш email.</p>
-  <div class="promise-row">
-    <div class="chip">⏱ 15 минут</div>
-    <div class="chip">🏷 Актуальные цены</div>
-    <div class="chip">📋 Несколько вариантов</div>
-    <div class="chip">✦ AI-подбор</div>
-  </div>
-</section>
+<!-- ─── ФОРМА (показывается по умолчанию) ─── -->
+<div id="formSection">
+  <section class="hero">
+    <div class="ai-badge"><span>✦</span> AI-подбор</div>
+    <h1>Коммерческое предложение<br>за 15 минут</h1>
+    <p class="hero-sub">Выберите бренды и задачу — AI подберёт модели и отправит персональное КП на ваш email.</p>
+    <div class="promise-row">
+      <div class="chip">⏱ 15 минут</div>
+      <div class="chip">🏷 Актуальные цены</div>
+      <div class="chip">📋 Несколько вариантов</div>
+      <div class="chip">✦ AI-подбор</div>
+    </div>
+  </section>
 
-<div class="page-body">
-<form id="kpForm">
+  <div class="page-body">
+  <form id="kpForm">
 
-  <div class="card">
-    <div class="sec">Контактные данные</div>
-    <div class="r3">
-      <div class="f">
-        <label>Имя *</label>
-        <input type="text" id="name" placeholder="Алексей" required>
+    <div class="card">
+      <div class="sec">Контактные данные</div>
+      <div class="r3">
+        <div class="f">
+          <label>Имя *</label>
+          <input type="text" id="name" placeholder="Алексей" required>
+        </div>
+        <div class="f">
+          <label>Email *</label>
+          <input type="email" id="email" placeholder="alex@studio.ru" required>
+        </div>
+        <div class="f">
+          <label>Телефон <span class="opt">(необяз.)</span></label>
+          <input type="tel" id="phone" placeholder="+7 (999) 000-00-00">
+        </div>
       </div>
-      <div class="f">
-        <label>Email *</label>
-        <input type="email" id="email" placeholder="alex@studio.ru" required>
+    </div>
+
+    <div class="card">
+      <div class="sec">Интересующие бренды</div>
+      <div class="tg-grid" id="brandGrid">
+        <div class="tg" data-v="V-ZUG">V-ZUG</div>
+        <div class="tg" data-v="BORA">BORA</div>
+        <div class="tg" data-v="Fhiaba">Fhiaba</div>
+        <div class="tg" data-v="Küppersbusch">Küppersbusch</div>
+        <div class="tg" data-v="De Dietrich">De Dietrich</div>
+        <div class="tg" data-v="Graude">Graude</div>
+        <div class="tg" data-v="Schulthess">Schulthess</div>
+        <div class="tg" data-v="ILVE">ILVE</div>
+        <div class="tg" data-v="SKS">SKS</div>
+        <div class="tg" data-v="Bertazzoni">Bertazzoni</div>
+        <div class="tg" data-v="Liebherr">Liebherr</div>
+        <div class="tg" data-v="Salini">Salini</div>
+        <div class="tg" data-v="Brandt">Brandt</div>
+        <div class="tg" data-v="Paulmark">Paulmark</div>
       </div>
-      <div class="f">
-        <label>Телефон <span class="opt">(необяз.)</span></label>
-        <input type="tel" id="phone" placeholder="+7 (999) 000-00-00">
+    </div>
+
+    <div class="card">
+      <div class="sec">Категории техники</div>
+      <div class="tg-grid" id="catGrid">
+        <div class="tg" data-v="Духовые шкафы">Духовые шкафы</div>
+        <div class="tg" data-v="Варочные панели">Варочные панели</div>
+        <div class="tg" data-v="Вытяжки">Вытяжки</div>
+        <div class="tg" data-v="Холодильники">Холодильники</div>
+        <div class="tg" data-v="Посудомоечные машины">Посудомоечные</div>
+        <div class="tg" data-v="Стиральные машины">Стиральные машины</div>
+        <div class="tg" data-v="Сантехника">Сантехника</div>
+        <div class="tg" data-v="Вся кухня (комплект)">Вся кухня</div>
       </div>
     </div>
+
+    <div class="card">
+      <div class="sec">Ориентировочный бюджет</div>
+      <div class="bg-grid" id="budgetGrid">
+        <div class="bo" data-v="до 200 тыс. ₽">до 200 тыс. ₽</div>
+        <div class="bo" data-v="200–500 тыс. ₽">200–500 тыс. ₽</div>
+        <div class="bo" data-v="500 тыс.–1 млн. ₽">500 тыс. – 1 млн. ₽</div>
+        <div class="bo" data-v="более 1 млн. ₽">более 1 млн. ₽</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="f" style="margin-bottom:20px">
+        <div class="sec">Пожелания <span style="color:var(--muted);text-transform:none;font-size:11px;letter-spacing:0;font-weight:400">(необязательно)</span></div>
+        <textarea id="comment" placeholder="Например: кухня 12 кв.м., встраиваемая техника, белая отделка, ввод через 3 месяца..."></textarea>
+      </div>
+
+      <div class="ai-hint">
+        <span style="font-size:15px;flex-shrink:0;margin-top:1px">✦</span>
+        <span>AI проанализирует запрос, подберёт подходящие модели из каталога и пришлёт персональное КП. Время подготовки — <b>до 15 минут</b>.</span>
+      </div>
+
+      <div class="cr">
+        <input type="checkbox" id="consent" required>
+        <label for="consent" class="ct">
+          Согласен на обработку персональных данных и получение КП на email.
+          <a href="https://homeproject.online/ru/page/privacy-policy" target="_blank">Политика</a>.
+        </label>
+      </div>
+
+      <button type="submit" class="btn-sub" id="submitBtn">
+        <span style="color:#a5b4fc;font-size:16px">✦</span>
+        <span>Получить персональное КП</span>
+      </button>
+
+      <div class="msg err" id="msgErr">
+        Ошибка отправки. Напишите напрямую: <a href="mailto:info@homeproject.online">info@homeproject.online</a>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="trust">
+    <b>14 брендов · 2 000+ моделей</b><br>
+    V-ZUG · BORA · Fhiaba · Küppersbusch · De Dietrich · Graude · Schulthess · ILVE · SKS · Bertazzoni · Liebherr · Salini · Brandt · Paulmark<br>
+    Официальный поставщик · Москва
+  </div>
+  </div>
+</div><!-- /formSection -->
+
+
+<!-- ─── ЭКРАН УСПЕХА (скрыт до отправки) ─── -->
+<div id="successScreen">
+  <div class="success-hero">
+    <div class="success-icon">✦</div>
+    <h2>КП готовится,<br><span id="successName">уважаемый клиент</span>!</h2>
+    <p class="sub">Запрос принят. Наш AI-менеджер уже подбирает подходящие модели из каталога.</p>
   </div>
 
-  <div class="card">
-    <div class="sec">Интересующие бренды</div>
-    <div class="tg-grid" id="brandGrid">
-      <div class="tg" data-v="V-ZUG">V-ZUG</div>
-      <div class="tg" data-v="BORA">BORA</div>
-      <div class="tg" data-v="Fhiaba">Fhiaba</div>
-      <div class="tg" data-v="Küppersbusch">Küppersbusch</div>
-      <div class="tg" data-v="De Dietrich">De Dietrich</div>
-      <div class="tg" data-v="Graude">Graude</div>
-      <div class="tg" data-v="Schulthess">Schulthess</div>
-      <div class="tg" data-v="ILVE">ILVE</div>
-      <div class="tg" data-v="SKS">SKS</div>
-      <div class="tg" data-v="Bertazzoni">Bertazzoni</div>
-      <div class="tg" data-v="Liebherr">Liebherr</div>
-      <div class="tg" data-v="Salini">Salini</div>
-      <div class="tg" data-v="Brandt">Brandt</div>
-      <div class="tg" data-v="Paulmark">Paulmark</div>
+  <div class="success-body">
+    <div class="success-card">
+      <div class="success-row">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <b>КП отправлено на ваш email</b>
+          Ожидайте письмо в течение 15 минут на:
+          <div class="email-box" id="successEmail">ваш@email.com</div>
+        </div>
+      </div>
+      <div class="success-row">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <b>Проверьте папку «Спам»</b>
+          Если письмо не пришло через 15 минут — проверьте спам или напишите нам напрямую
+        </div>
+      </div>
+      <div class="success-row">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <b>Хотите что-то уточнить?</b>
+          Напишите на <a href="mailto:info@homeproject.online">info@homeproject.online</a> — ответим в течение рабочего дня
+        </div>
+      </div>
     </div>
+
+    <a href="https://homeproject.online/ru/catalog" class="btn-catalog">
+      ← Посмотреть каталог
+    </a>
+    <a href="https://e2-e5.github.io/homeproject-external/kp-request.html" class="btn-outline">
+      Отправить ещё один запрос
+    </a>
+
+    <p class="success-note">
+      Home Project · Официальный поставщик 14 европейских брендов · Москва
+    </p>
   </div>
+</div><!-- /successScreen -->
 
-  <div class="card">
-    <div class="sec">Категории техники</div>
-    <div class="tg-grid" id="catGrid">
-      <div class="tg" data-v="Духовые шкафы">Духовые шкафы</div>
-      <div class="tg" data-v="Варочные панели">Варочные панели</div>
-      <div class="tg" data-v="Вытяжки">Вытяжки</div>
-      <div class="tg" data-v="Холодильники">Холодильники</div>
-      <div class="tg" data-v="Посудомоечные машины">Посудомоечные</div>
-      <div class="tg" data-v="Стиральные машины">Стиральные машины</div>
-      <div class="tg" data-v="Сантехника">Сантехника</div>
-      <div class="tg" data-v="Вся кухня (комплект)">Вся кухня</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="sec">Ориентировочный бюджет</div>
-    <div class="bg-grid" id="budgetGrid">
-      <div class="bo" data-v="до 200 тыс. ₽">до 200 тыс. ₽</div>
-      <div class="bo" data-v="200–500 тыс. ₽">200–500 тыс. ₽</div>
-      <div class="bo" data-v="500 тыс.–1 млн. ₽">500 тыс. – 1 млн. ₽</div>
-      <div class="bo" data-v="более 1 млн. ₽">более 1 млн. ₽</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="f" style="margin-bottom:20px">
-      <div class="sec">Пожелания <span style="color:var(--muted);text-transform:none;font-size:11px;letter-spacing:0;font-weight:400">(необязательно)</span></div>
-      <textarea id="comment" placeholder="Например: кухня 12 кв.м., встраиваемая техника, белая отделка, ввод через 3 месяца..."></textarea>
-    </div>
-
-    <div class="ai-hint">
-      <span style="font-size:15px;flex-shrink:0;margin-top:1px">✦</span>
-      <span>AI проанализирует запрос, подберёт подходящие модели из каталога и пришлёт персональное КП. Время подготовки — <b>до 15 минут</b>.</span>
-    </div>
-
-    <div class="cr">
-      <input type="checkbox" id="consent" required>
-      <label for="consent" class="ct">
-        Согласен на обработку персональных данных и получение КП на email.
-        <a href="https://homeproject.online/ru/page/privacy-policy" target="_blank">Политика</a>.
-      </label>
-    </div>
-
-    <button type="submit" class="btn-sub" id="submitBtn">
-      <span style="color:#a5b4fc;font-size:16px">✦</span>
-      <span>Получить персональное КП</span>
-    </button>
-
-    <div class="msg ok" id="msgOk">
-      ✅ Заявка принята. КП придёт на email в течение 15 минут.<br>
-      <small style="opacity:0.75">Проверьте также папку «Спам».</small>
-    </div>
-    <div class="msg err" id="msgErr">
-      Ошибка отправки. Напишите напрямую: <a href="mailto:info@homeproject.online">info@homeproject.online</a>
-    </div>
-  </div>
-
-</form>
-
-<div class="trust">
-  <b>14 брендов · 2 000+ моделей</b><br>
-  V-ZUG · BORA · Fhiaba · Küppersbusch · De Dietrich · Graude · Schulthess · ILVE · SKS · Bertazzoni · Liebherr · Salini · Brandt · Paulmark<br>
-  Официальный поставщик · Москва
-</div>
-</div>
 
 <footer>
   <a href="https://homeproject.online">homeproject.online</a> · Премиальная техника для дома
@@ -296,7 +402,7 @@ document.getElementById('kpForm').addEventListener('submit',async function(e){
 
   const btn=document.getElementById('submitBtn');
   btn.disabled=true;
-  btn.innerHTML='<span style="color:#a5b4fc;font-size:16px">✦</span><span>Готовим КП...</span>';
+  btn.innerHTML='<span style="color:#a5b4fc;font-size:16px">✦</span><span>Отправляем запрос...</span>';
 
   try{
     const res=await fetch('https://80.91.86.53.nip.io/api/contact',{
@@ -304,8 +410,14 @@ document.getElementById('kpForm').addEventListener('submit',async function(e){
       body:JSON.stringify({name,phone,email,message:parts.join('\n'),consent:true,optin:true})
     });
     if(res.ok){
-      document.getElementById('kpForm').style.display='none';
-      document.getElementById('msgOk').classList.add('show');
+      // Персонализируем экран успеха
+      const firstName=name.split(' ')[0];
+      document.getElementById('successName').textContent=firstName;
+      document.getElementById('successEmail').textContent=email;
+      // Скрываем форму, показываем экран успеха
+      document.getElementById('formSection').style.display='none';
+      document.getElementById('successScreen').classList.add('show');
+      window.scrollTo({top:0,behavior:'smooth'});
       if(typeof ym!=='undefined') ym(110362997,'reachGoal','kp_form_submit');
     } else {throw new Error('HTTP '+res.status);}
   }catch(err){
