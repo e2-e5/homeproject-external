@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaggenau · Каталог и агентская схема · Home Project · 30.07.2026</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Inter',Segoe UI,Roboto,sans-serif;background:#f4f3ef;color:#1a1a1a;font-size:14px;line-height:1.6}
+.wrap{max-width:960px;margin:0 auto;background:#fff}
+.hdr{background:#1a1a1a;padding:32px 48px;color:#fff}
+.hdr-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.hdr-brand{font-size:22px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.hdr-sub{font-size:11px;color:#888;letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+.hdr-date{text-align:right;font-size:11px;color:#888;line-height:1.7}
+.hdr-title{font-size:26px;font-weight:300;letter-spacing:.03em;border-top:1px solid #333;padding-top:18px;margin-top:4px}
+.hdr-desc{font-size:13px;color:#aaa;margin-top:8px;max-width:540px}
+.toc{background:#f7f6f2;padding:18px 48px;border-bottom:1px solid #e8e3da;display:flex;gap:24px;flex-wrap:wrap}
+.toc a{font-size:12px;color:#444;text-decoration:none;font-weight:500}
+.toc a:hover{color:#1a1a1a}
+.sec{padding:36px 48px;border-bottom:1px solid #ece9e2}
+.sec:last-child{border-bottom:none}
+.sec-num{font-size:10px;color:#bbb;text-transform:uppercase;letter-spacing:.1em}
+.sec-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#999;margin-bottom:6px;margin-top:2px}
+.sec-title{font-size:20px;font-weight:700;margin-bottom:4px}
+.sec-body{font-size:13px;color:#444;margin-top:10px;line-height:1.7}
+.badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.badge-go{background:#d4f0dc;color:#1a6b2f}
+.badge-rm{background:#fde8e8;color:#8b1a1a}
+.badge-new{background:#dce8f5;color:#1a3f6b}
+.badge-skip{background:#f0e8d4;color:#7a5a1a}
+.badge-agent{background:#e8d4f0;color:#5a1a7a}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.sum-card{background:#f7f6f2;padding:18px;border-radius:8px;text-align:center}
+.sum-num{font-size:30px;font-weight:800}
+.sum-label{font-size:11px;color:#666;margin-top:4px;line-height:1.4}
+.change-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.change-box{padding:20px;border-radius:8px}
+.change-box.remove{background:#fff5f5;border:1px solid #f5c6c6}
+.change-box.add{background:#f0f9f0;border:1px solid #b8ddb8}
+.change-box h4{font-size:13px;font-weight:700;margin-bottom:10px}
+.change-list{list-style:none}
+.change-list li{font-size:12px;padding:4px 0;border-bottom:1px solid rgba(0,0,0,.06);display:flex;justify-content:space-between}
+.change-list li:last-child{border-bottom:none}
+.cat-table{width:100%;border-collapse:collapse;margin-top:14px}
+.cat-table th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#999;text-align:left;padding:8px 12px;border-bottom:2px solid #1a1a1a}
+.cat-table td{padding:9px 12px;border-bottom:1px solid #eee;font-size:13px;vertical-align:top}
+.cat-table tr:last-child td{border-bottom:none}
+.cat-num{font-weight:700;text-align:right;width:50px}
+.product-card{border:1px solid #e5e0d8;border-radius:10px;overflow:hidden;margin-top:18px}
+.pc-header{background:#1a1a1a;color:#fff;padding:13px 20px;display:flex;justify-content:space-between;align-items:center}
+.pc-series{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.1em}
+.pc-model{font-size:15px;font-weight:700}
+.pc-body{display:grid;grid-template-columns:280px 1fr}
+.pc-img{background:#f0ede7;display:flex;align-items:center;justify-content:center;padding:20px;min-height:240px}
+.pc-img img{max-width:100%;max-height:240px;object-fit:contain}
+.pc-info{padding:20px}
+.pc-title{font-size:16px;font-weight:700;margin-bottom:3px}
+.pc-sub{font-size:12px;color:#888;margin-bottom:14px}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 20px}
+.spec-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#999}
+.spec-val{font-size:13px;font-weight:600;margin-top:1px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+.tag{padding:4px 10px;background:#f0ede7;border-radius:20px;font-size:11px;color:#555}
+.pc-cta{margin-top:16px;padding:13px 16px;background:#f7f6f2;border-radius:8px;display:flex;justify-content:space-between;align-items:center}
+.pc-price{font-size:19px;font-weight:800}
+.pc-note{font-size:11px;color:#888;margin-top:2px}
+.pc-btn{background:#1a1a1a;color:#fff;padding:9px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;display:inline-block}
+.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.field-box{background:#f7f6f2;padding:14px;border-radius:8px}
+.field-name{font-size:12px;font-weight:700;margin-bottom:2px}
+.field-example{font-size:11px;color:#555;font-style:italic}
+.field-note{font-size:10px;color:#999;margin-top:3px}
+.photo-strategy{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.photo-src{background:#f7f6f2;padding:18px;border-radius:8px}
+.photo-src-icon{font-size:18px;margin-bottom:6px}
+.photo-src-title{font-size:13px;font-weight:700;margin-bottom:6px}
+.photo-src-body{font-size:12px;color:#444;line-height:1.6}
+.lifestyle-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+.lf-img{border-radius:7px;overflow:hidden;border:1px solid #e8e3da}
+.lf-img img{width:100%;display:block;aspect-ratio:3/2;object-fit:cover}
+.lf-lbl{font-size:10px;color:#888;padding:5px;text-align:center;background:#faf9f6}
+.steps{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step-num{width:30px;height:30px;background:#1a1a1a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;margin-top:2px}
+.step-title{font-weight:700;font-size:13px}
+.step-desc{font-size:12px;color:#555;margin-top:2px;line-height:1.6}
+.callout{background:#fdf6e8;border-left:3px solid #d4a800;padding:13px 16px;border-radius:0 8px 8px 0;margin-top:14px}
+.callout-t{font-weight:700;font-size:12px;margin-bottom:3px}
+.callout-d{font-size:12px;color:#5a4800;line-height:1.6}
+/* Agent scheme */
+.agent-flow{display:flex;align-items:stretch;gap:0;margin-top:20px;overflow-x:auto}
+.flow-node{background:#f7f6f2;border:1px solid #e0dbd2;border-radius:8px;padding:14px 16px;min-width:150px;text-align:center;flex:1}
+.flow-node.ours{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.flow-node.supplier{background:#4a2d7a;color:#fff;border-color:#4a2d7a}
+.flow-node.client{background:#f0f9f0;border-color:#b8ddb8}
+.flow-node.money{background:#fdf6e8;border-color:#d4a800}
+.flow-icon{font-size:20px;margin-bottom:6px}
+.flow-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.flow-desc{font-size:10px;margin-top:4px;opacity:.8;line-height:1.4}
+.flow-arrow{display:flex;align-items:center;padding:0 6px;font-size:18px;color:#ccc;flex-shrink:0}
+.lead-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:12px}
+.lead-table th{text-align:left;padding:7px 10px;border-bottom:2px solid #1a1a1a;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#999}
+.lead-table td{padding:8px 10px;border-bottom:1px solid #eee;vertical-align:top}
+.lead-table tr:last-child td{border-bottom:none}
+.control-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px}
+.ctrl-box{background:#f7f6f2;padding:16px;border-radius:8px}
+.ctrl-icon{font-size:18px;margin-bottom:6px}
+.ctrl-title{font-size:12px;font-weight:700;margin-bottom:4px}
+.ctrl-body{font-size:11px;color:#555;line-height:1.5}
+.comp-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700}
+.supplier-card{background:#f7f6f2;border:1px solid #e0dbd2;border-radius:8px;padding:20px;margin-top:16px;display:flex;gap:20px;align-items:flex-start}
+.sc-avatar{width:48px;height:48px;background:#4a2d7a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0}
+.sc-name{font-size:15px;font-weight:700}
+.sc-company{font-size:11px;color:#666;margin-top:2px}
+.sc-contacts{margin-top:10px;display:flex;flex-direction:column;gap:4px}
+.sc-contact{font-size:12px;color:#444}
+.sc-contact span{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#999;margin-right:6px}
+.footer{background:#1a1a1a;color:#888;padding:22px 48px;font-size:11px;display:flex;justify-content:space-between;align-items:center}
+@media(max-width:680px){
+  .hdr,.sec,.toc{padding:20px 18px}
+  .summary-grid{grid-template-columns:1fr 1fr}
+  .change-grid,.pc-body,.fields-grid,.photo-strategy,.control-grid{grid-template-columns:1fr}
+  .agent-flow{flex-direction:column}
+  .flow-arrow{transform:rotate(90deg)}
+  .lifestyle-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-top">
+    <div>
+      <div class="hdr-brand">Home Project</div>
+      <div class="hdr-sub">Дистрибуция встраиваемой техники &middot; Москва</div>
+    </div>
+    <div class="hdr-date">30 июля 2026&nbsp;г.<br>Версия для согласования<br>ООО «Гаггенау.Маркет»</div>
+  </div>
+  <div class="hdr-title">Gaggenau &mdash; каталог и агентская схема</div>
+  <div class="hdr-desc">Обновление каталога на сайте + схема передачи лидов поставщику: Этап А (204 артикула), образцы карточек, план по фото и модель агентского сотрудничества.</div>
+</div>
+
+<div class="toc">
+  <a href="#s1">1 · Изменения каталога</a>
+  <a href="#s2">2 · Список категорий</a>
+  <a href="#s3">3 · Формат карточки</a>
+  <a href="#s4">4 · Образцы карточек</a>
+  <a href="#s5">5 · Фото</a>
+  <a href="#s6">6 · Аксессуары</a>
+  <a href="#s7">7 · Агентская схема</a>
+  <a href="#s8">8 · Контакты поставщика</a>
+</div>
+
+<!-- ===== 1. ИЗМЕНЕНИЯ ===== -->
+<div class="sec" id="s1">
+  <div class="sec-num">Раздел 1</div>
+  <div class="sec-label">Изменения каталога</div>
+  <div class="sec-title">Что убираем и что добавляем</div>
+  <div class="sec-body">На сайте homeproject.online сейчас раздел Gaggenau пустой (старые карточки не перенесены на новую платформу). Запускаем с чистого листа по актуальному прайсу.</div>
+
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-num" style="color:#8b1a1a">0</div>
+      <div class="sum-label">карточек сейчас<br>на сайте</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-num" style="color:#1a6b2f">204</div>
+      <div class="sum-label">артикула<br>добавляем (Этап А)</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-num" style="color:#888">233</div>
+      <div class="sum-label">аксессуара<br>Этап Б (позже)</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-num">20</div>
+      <div class="sum-label">категорий<br>товаров</div>
+    </div>
+  </div>
+
+  <div class="change-grid" style="margin-top:20px">
+    <div class="change-box remove">
+      <h4>❌ Убираем / оставляем пустым</h4>
+      <ul class="change-list">
+        <li><span>Духовые шкафы (старая серия 200)</span><span class="badge badge-rm">нет на сайте</span></li>
+        <li><span>Духовые шкафы (старая серия 400)</span><span class="badge badge-rm">нет на сайте</span></li>
+        <li><span>Варочные панели (старые модели)</span><span class="badge badge-rm">нет на сайте</span></li>
+        <li><span>Посудомоечные машины (устар.)</span><span class="badge badge-rm">нет на сайте</span></li>
+        <li><span>Прочие старые позиции</span><span class="badge badge-rm">нет на сайте</span></li>
+      </ul>
+      <div style="margin-top:10px;font-size:11px;color:#8b1a1a;background:#fee;padding:8px;border-radius:6px">
+        Раздел Gaggenau на сайте пустой &mdash; старые карточки при переезде на новую платформу не были перенесены. Ничего удалять не нужно.
+      </div>
+    </div>
+    <div class="change-box add">
+      <h4>✅ Добавляем (Этап А)</h4>
+      <ul class="change-list">
+        <li><span>Серия Minimalistic</span><span class="badge badge-new">новинка</span></li>
+        <li><span>Серия Expressive</span><span class="badge badge-new">новинка</span></li>
+        <li><span>Серия 200 (обновлённая)</span><span class="badge badge-go">актуальная</span></li>
+        <li><span>Серия 400 (обновлённая)</span><span class="badge badge-go">актуальная</span></li>
+        <li><span>Новые категории: кофемашины, вакуумные упаковщики, стиральные машины</span><span class="badge badge-new">новинка</span></li>
+      </ul>
+      <div style="margin-top:10px;font-size:11px;color:#1a6b2f;background:#f0f9f0;padding:8px;border-radius:6px">
+        204 карточки создаём с нуля по актуальному прайсу от ООО «Гаггенау.Маркет» (29.07.2026).
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. КАТЕГОРИИ ===== -->
+<div class="sec" id="s2">
+  <div class="sec-num">Раздел 2</div>
+  <div class="sec-label">Этап А &mdash; полный список</div>
+  <div class="sec-title">204 артикула в 20 категориях</div>
+
+  <table class="cat-table">
+    <thead>
+      <tr><th>#</th><th>Категория</th><th>Серии</th><th class="cat-num">Арт.</th><th>Примеры артикулов</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Духовые шкафы</td><td>Minimalistic · Expressive · серия 400</td><td class="cat-num">19</td><td style="font-size:11px;color:#666">GO220100, GO250100, GO250130, GO450120, EB333111</td></tr>
+      <tr><td>2</td><td>Паровые печи</td><td>Minimalistic</td><td class="cat-num">4</td><td style="font-size:11px;color:#666">GS220100, GS220130, GS221100, GS221130</td></tr>
+      <tr><td>3</td><td>Комбинированные паровые печи (пароконвектоматы)</td><td>Minimalistic · Expressive</td><td class="cat-num">18</td><td style="font-size:11px;color:#666">GS240100, GS240130, GS241100, GS450120...</td></tr>
+      <tr><td>4</td><td>Комбинированные микроволновые печи</td><td>Minimalistic · Expressive</td><td class="cat-num">8</td><td style="font-size:11px;color:#666">GM250100, GM250130, GM251100, GM450120...</td></tr>
+      <tr><td>5</td><td>Микроволновые печи</td><td>Minimalistic</td><td class="cat-num">4</td><td style="font-size:11px;color:#666">GM220100, GM220130, GM221100, GM221130</td></tr>
+      <tr><td>6</td><td>Индукционные варочные панели</td><td>Minimalistic · Expressive · серия 400</td><td class="cat-num">32</td><td style="font-size:11px;color:#666">CI261114, CI262105, CI491114, CV492105...</td></tr>
+      <tr><td>7</td><td>Газовые варочные панели (Vario)</td><td>серия 200 · серия 400</td><td class="cat-num">22</td><td style="font-size:11px;color:#666">CG261210, CG291210, CG492111, CG492211...</td></tr>
+      <tr><td>8</td><td>Стеклокерамические варочные панели</td><td>серия 200</td><td class="cat-num">3</td><td style="font-size:11px;color:#666">CE261114, CE291101, CE291111</td></tr>
+      <tr><td>9</td><td>Варочные панели Teppan Yaki</td><td>серия 200 · серия 400</td><td class="cat-num">2</td><td style="font-size:11px;color:#666">VP230120, VP414115</td></tr>
+      <tr><td>10</td><td>Посудомоечные машины</td><td>Minimalistic · Expressive · серия 200 · 400</td><td class="cat-num">13</td><td style="font-size:11px;color:#666">DF210100, DF271100, DF480101, DF481101...</td></tr>
+      <tr><td>11</td><td>Холодильники с морозильной камерой</td><td>серия 200 · серия 400</td><td class="cat-num">9</td><td style="font-size:11px;color:#666">RB282306, RB289300, RB462304, RT200203...</td></tr>
+      <tr><td>12</td><td>Холодильники</td><td>серия 200 · серия 400</td><td class="cat-num">9</td><td style="font-size:11px;color:#666">RC200203, RC282306, RC289300, RC462304...</td></tr>
+      <tr><td>13</td><td>Морозильные камеры</td><td>серия 200 · серия 400</td><td class="cat-num">15</td><td style="font-size:11px;color:#666">RF200203, RF282305, RF289301, RF410304...</td></tr>
+      <tr><td>14</td><td>Винные шкафы</td><td>серия 200 · серия 400</td><td class="cat-num">7</td><td style="font-size:11px;color:#666">RW222262, RW282262, RW289262, RW404262...</td></tr>
+      <tr><td>15</td><td>Автоматические кофемашины</td><td>Minimalistic · Expressive</td><td class="cat-num">6</td><td style="font-size:11px;color:#666">GC251100, GC251130, GC261100, GC261130, GC451120</td></tr>
+      <tr><td>16</td><td>Вытяжки (Vario)</td><td>серия 200 · серия 400</td><td class="cat-num">19</td><td style="font-size:11px;color:#666">AF210162, AF210192, AF410162, AL400122...</td></tr>
+      <tr><td>17</td><td>Подогреватели посуды</td><td>Minimalistic · Expressive</td><td class="cat-num">6</td><td style="font-size:11px;color:#666">GW251100, GW251130, GW261100, GW453120...</td></tr>
+      <tr><td>18</td><td>Вакуумные упаковщики</td><td>Minimalistic · Expressive</td><td class="cat-num">4</td><td style="font-size:11px;color:#666">GV251100, GV251130, GV051190, GV451120</td></tr>
+      <tr><td>19</td><td>Грили (Vario)</td><td>серия 200 · серия 400</td><td class="cat-num">2</td><td style="font-size:11px;color:#666">VR230120, VR414115</td></tr>
+      <tr><td>20</td><td>Стиральные и сушильные машины</td><td>серия 200</td><td class="cat-num">2</td><td style="font-size:11px;color:#666">WM260164, WT260110</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== 3. ФОРМАТ КАРТОЧКИ ===== -->
+<div class="sec" id="s3">
+  <div class="sec-num">Раздел 3</div>
+  <div class="sec-label">Формат карточки товара</div>
+  <div class="sec-title">Структура и поля</div>
+  <div class="sec-body">Единый формат для всех 204 карточек. Примеры в следующем разделе.</div>
+
+  <div style="margin-top:16px;background:#f7f6f2;padding:18px;border-radius:8px;font-size:12px;font-family:monospace;line-height:1.8;color:#444">
+    <span style="color:#888">// Заголовок карточки</span><br>
+    <b>Название (H1):</b> &lt;Артикул&gt; &lt;Тип&gt; Gaggenau &lt;Серия&gt; — <i>пример: GO250100 Духовой шкаф Gaggenau серия Minimalistic</i><br>
+    <b>URL:</b> /gaggenau/&lt;артикул-строчными&gt; — <i>пример: /gaggenau/go250100</i><br><br>
+    <span style="color:#888">// Основные поля</span><br>
+    <b>Изображение:</b> официальное фото товара (из PDF-листовки), 1195&times;1200 px<br>
+    <b>Цена:</b> по запросу (или РРЦ при наличии прайса от поставщика)<br>
+    <b>Наличие:</b> «По запросу» (единый статус для всех Gaggenau)<br>
+    <b>Серия:</b> Minimalistic / Expressive / серия 200 / серия 400<br>
+    <b>Цвет:</b> антрацит / серебристый / нержавеющая сталь (по суффиксу артикула)<br><br>
+    <span style="color:#888">// Технические характеристики (5-7 позиций)</span><br>
+    <b>Ширина &times; высота:</b> 60&times;60 / 76&times;60 / 45&times;60 и т.д.<br>
+    <b>Объём / мощность / функции</b> — из PDF-листовки<br><br>
+    <span style="color:#888">// Теги</span><br>
+    <b>Теги:</b> функциональные особенности (Пиролиз, WiFi, TFT Touch, ...)<br><br>
+    <span style="color:#888">// CTA</span><br>
+    <b>Кнопка:</b> «Запросить КП» → форма лида (email + телефон + имя)<br>
+    <b>Аксессуары:</b> «Доступны по запросу» — пометка под ценой
+  </div>
+
+  <div class="fields-grid">
+    <div class="field-box">
+      <div class="field-name">Суффикс артикула → цвет</div>
+      <div class="field-example">100 = антрацит · 130 = серебристый</div>
+      <div class="field-note">Кодировка Gaggenau: последние 2-3 цифры артикула содержат цвет</div>
+    </div>
+    <div class="field-box">
+      <div class="field-name">Определение ширины</div>
+      <div class="field-example">220/240/250/260 = 60 см · 221/241 = 76 см</div>
+      <div class="field-note">Второй блок цифр = кодировка размера и серии</div>
+    </div>
+    <div class="field-box">
+      <div class="field-name">Наименование</div>
+      <div class="field-example">GO250100 Духовой шкаф Gaggenau серия Minimalistic</div>
+      <div class="field-note">Структура: Артикул + Тип из Excel + Производитель + Серия</div>
+    </div>
+    <div class="field-box">
+      <div class="field-name">Цены</div>
+      <div class="field-example">Публикуем РРЦ после получения прайса от поставщика</div>
+      <div class="field-note">До получения прайса — «По запросу» на всех карточках</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 4. ОБРАЗЦЫ ===== -->
+<div class="sec" id="s4">
+  <div class="sec-num">Раздел 4</div>
+  <div class="sec-label">Образцы карточек товаров</div>
+  <div class="sec-title">Три примера из разных категорий</div>
+  <div class="sec-body">Финальный вид карточки на сайте — адаптивная вёрстка, на мобильном изображение идёт первым, технические характеристики — ниже.</div>
+
+  <!-- Card 1: GO250100 -->
+  <div class="product-card">
+    <div class="pc-header">
+      <div>
+        <div class="pc-series">Gaggenau · Серия Minimalistic</div>
+        <div class="pc-model">GO250100</div>
+      </div>
+      <span class="badge badge-new">Новинка 2025</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-img">
+        <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="120" height="120" rx="6" fill="#2a2a2a"/>
+          <rect x="30" y="30" width="100" height="80" rx="4" fill="#111"/>
+          <circle cx="80" cy="70" r="30" fill="none" stroke="#444" stroke-width="2"/>
+          <circle cx="80" cy="70" r="20" fill="none" stroke="#333" stroke-width="1"/>
+          <rect x="30" y="120" width="100" height="12" rx="2" fill="#1a1a1a"/>
+          <rect x="35" y="123" width="30" height="6" rx="1" fill="#333"/>
+          <text x="80" y="158" text-anchor="middle" fill="#666" font-size="9" font-family="monospace">GO250100</text>
+        </svg>
+      </div>
+      <div class="pc-info">
+        <div class="pc-title">Духовой шкаф Gaggenau серия Minimalistic</div>
+        <div class="pc-sub">Артикул GO250100 · Цвет: антрацит · Ширина 60 см</div>
+        <div class="spec-grid" style="margin-top:14px">
+          <div>
+            <div class="spec-lbl">Ширина × высота</div>
+            <div class="spec-val">60 × 60 см</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Объём</div>
+            <div class="spec-val">71 л</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Режимов нагрева</div>
+            <div class="spec-val">14</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Управление</div>
+            <div class="spec-val">TFT Touch, WiFi</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Самоочистка</div>
+            <div class="spec-val">Пиролиз</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Цвет фасада</div>
+            <div class="spec-val">Антрацит</div>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag">Пиролиз</span>
+          <span class="tag">WiFi</span>
+          <span class="tag">TFT Touch</span>
+          <span class="tag">14 режимов</span>
+          <span class="tag">Sous-vide</span>
+        </div>
+        <div class="pc-cta">
+          <div>
+            <div class="pc-price">По запросу</div>
+            <div class="pc-note">Аксессуары доступны по запросу</div>
+          </div>
+          <a href="#" class="pc-btn">Запросить КП</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 2: CI491114 -->
+  <div class="product-card">
+    <div class="pc-header">
+      <div>
+        <div class="pc-series">Gaggenau · Серия Minimalistic</div>
+        <div class="pc-model">CI491114</div>
+      </div>
+      <span class="badge badge-go">В наличии у поставщика</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-img">
+        <svg width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="30" width="140" height="60" rx="4" fill="#1a1a1a"/>
+          <circle cx="45" cy="60" r="18" fill="none" stroke="#333" stroke-width="3"/>
+          <circle cx="80" cy="60" r="18" fill="none" stroke="#333" stroke-width="3"/>
+          <circle cx="115" cy="60" r="18" fill="none" stroke="#333" stroke-width="3"/>
+          <circle cx="45" cy="60" r="8" fill="#444"/>
+          <circle cx="80" cy="60" r="8" fill="#444"/>
+          <circle cx="115" cy="60" r="8" fill="#444"/>
+          <rect x="10" y="86" width="140" height="4" rx="2" fill="#111"/>
+          <text x="80" y="108" text-anchor="middle" fill="#666" font-size="9" font-family="monospace">CI491114</text>
+        </svg>
+      </div>
+      <div class="pc-info">
+        <div class="pc-title">Индукционная варочная панель Gaggenau серия Minimalistic</div>
+        <div class="pc-sub">Артикул CI491114 · Цвет: антрацит · Ширина 90 см</div>
+        <div class="spec-grid" style="margin-top:14px">
+          <div>
+            <div class="spec-lbl">Ширина</div>
+            <div class="spec-val">90 см</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Зон нагрева</div>
+            <div class="spec-val">3 (Flex)</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Управление</div>
+            <div class="spec-val">TFT Touch</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Мощность</div>
+            <div class="spec-val">11 кВт</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Вытяжка</div>
+            <div class="spec-val">Combi Connect</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Цвет</div>
+            <div class="spec-val">Антрацит</div>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag">Flex-зоны</span>
+          <span class="tag">TFT Touch</span>
+          <span class="tag">Combi Connect</span>
+          <span class="tag">11 кВт</span>
+        </div>
+        <div class="pc-cta">
+          <div>
+            <div class="pc-price">По запросу</div>
+            <div class="pc-note">Аксессуары доступны по запросу</div>
+          </div>
+          <a href="#" class="pc-btn">Запросить КП</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3: GC251100 -->
+  <div class="product-card">
+    <div class="pc-header">
+      <div>
+        <div class="pc-series">Gaggenau · Серия Minimalistic</div>
+        <div class="pc-model">GC251100</div>
+      </div>
+      <span class="badge badge-new">Новая категория</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-img">
+        <svg width="130" height="160" viewBox="0 0 130 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="10" width="90" height="140" rx="6" fill="#1a1a1a"/>
+          <rect x="28" y="18" width="74" height="54" rx="4" fill="#111"/>
+          <rect x="30" y="20" width="70" height="50" rx="3" fill="#0a0a0a"/>
+          <circle cx="65" cy="100" r="16" fill="none" stroke="#333" stroke-width="2"/>
+          <circle cx="65" cy="100" r="8" fill="#222"/>
+          <rect x="28" y="125" width="74" height="18" rx="3" fill="#111"/>
+          <rect x="33" y="129" width="30" height="10" rx="2" fill="#1a1a1a"/>
+          <text x="65" y="158" text-anchor="middle" fill="#666" font-size="8" font-family="monospace">GC251100</text>
+        </svg>
+      </div>
+      <div class="pc-info">
+        <div class="pc-title">Встраиваемая кофемашина Gaggenau серия Minimalistic</div>
+        <div class="pc-sub">Артикул GC251100 · Цвет: антрацит · 60 см</div>
+        <div class="spec-grid" style="margin-top:14px">
+          <div>
+            <div class="spec-lbl">Ширина</div>
+            <div class="spec-val">60 см</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Давление</div>
+            <div class="spec-val">19 бар</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Бачок воды</div>
+            <div class="spec-val">2,4 л</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Управление</div>
+            <div class="spec-val">TFT Touch</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Профили</div>
+            <div class="spec-val">До 8 профилей</div>
+          </div>
+          <div>
+            <div class="spec-lbl">Цвет</div>
+            <div class="spec-val">Антрацит</div>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag">TFT Touch</span>
+          <span class="tag">19 бар</span>
+          <span class="tag">8 профилей</span>
+          <span class="tag">Молочная система</span>
+        </div>
+        <div class="pc-cta">
+          <div>
+            <div class="pc-price">По запросу</div>
+            <div class="pc-note">Аксессуары доступны по запросу</div>
+          </div>
+          <a href="#" class="pc-btn">Запросить КП</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 5. ФОТО ===== -->
+<div class="sec" id="s5">
+  <div class="sec-num">Раздел 5</div>
+  <div class="sec-label">Стратегия по фотографиям</div>
+  <div class="sec-title">Откуда берём фото для 204 карточек</div>
+
+  <div class="photo-strategy">
+    <div class="photo-src">
+      <div class="photo-src-icon">📄</div>
+      <div class="photo-src-title">PDF-листовки от поставщика</div>
+      <div class="photo-src-body">
+        <b>Приоритет 1.</b> У ООО «Гаггенау.Маркет» есть PDF-листовки по каждой позиции. Экспортируем изображения из PDF через инструменты (pdfimages / Adobe Acrobat). Размер — 1195×1200 px или больше. Формат — JPEG / WebP.
+        <br><br>
+        <b>Покрытие:</b> ~80% позиций Этапа А имеют PDF-листовку с официальным фото.
+      </div>
+    </div>
+    <div class="photo-src">
+      <div class="photo-src-icon">🌐</div>
+      <div class="photo-src-title">Официальный сайт Gaggenau</div>
+      <div class="photo-src-body">
+        <b>Приоритет 2.</b> gaggenau.com → страница конкретной модели → скачать изображение продукта (правка «Сохранить изображение»). Официальные фото — белый фон, без водяного знака, используются дистрибуторами по всему миру.
+        <br><br>
+        <b>Покрытие:</b> 100% актуальных моделей Minimalistic / Expressive присутствуют на сайте.
+      </div>
+    </div>
+    <div class="photo-src">
+      <div class="photo-src-icon">🏠</div>
+      <div class="photo-src-title">Lifestyle-изображения</div>
+      <div class="photo-src-body">
+        <b>Приоритет 3.</b> Для кухонных подборок и обложек коллекций — интерьерные фото из пресс-кита Gaggenau. Запрашиваем у поставщика или берём с официального пресс-портала (press.gaggenau.com).
+        <br><br>
+        <b>Покрытие:</b> нужны для главной страницы бренда и страниц категорий.
+      </div>
+    </div>
+    <div class="photo-src">
+      <div class="photo-src-icon">⚙️</div>
+      <div class="photo-src-title">Генерация заглушек</div>
+      <div class="photo-src-body">
+        <b>Приоритет 4.</b> Для артикулов, по которым нет фото на старте — автоматическая заглушка с логотипом Gaggenau, артикулом и названием категории. SVG-шаблон, генерируется скриптом по списку артикулов.
+        <br><br>
+        <b>Использование:</b> временно, заменяем по мере получения официальных фото.
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-t">Запрос к поставщику</div>
+    <div class="callout-d">Просим ООО «Гаггенау.Маркет» предоставить: (1) медиа-кит с фото всех 204 позиций Этапа А; (2) доступ к пресс-порталу или ссылку на FTP с официальными изображениями; (3) подтверждение разрешения использовать фотографии на сайте дистрибутора.</div>
+  </div>
+
+  <div class="lifestyle-row">
+    <div class="lf-img">
+      <div style="width:100%;aspect-ratio:3/2;background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 50%,#1a1a1a 100%);display:flex;align-items:center;justify-content:center">
+        <span style="color:#444;font-size:11px;font-family:monospace">KITCHEN · GAGGENAU</span>
+      </div>
+      <div class="lf-lbl">Кухня с серией Minimalistic</div>
+    </div>
+    <div class="lf-img">
+      <div style="width:100%;aspect-ratio:3/2;background:linear-gradient(135deg,#2a2520 0%,#3a3028 50%,#2a2520 100%);display:flex;align-items:center;justify-content:center">
+        <span style="color:#544;font-size:11px;font-family:monospace">VARIO · 400 SERIES</span>
+      </div>
+      <div class="lf-lbl">Комплект Vario серия 400</div>
+    </div>
+    <div class="lf-img">
+      <div style="width:100%;aspect-ratio:3/2;background:linear-gradient(135deg,#20252a 0%,#283038 50%,#20252a 100%);display:flex;align-items:center;justify-content:center">
+        <span style="color:#445;font-size:11px;font-family:monospace">EXPRESSIVE · NEW</span>
+      </div>
+      <div class="lf-lbl">Серия Expressive (2025)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 6. АКСЕССУАРЫ ===== -->
+<div class="sec" id="s6">
+  <div class="sec-num">Раздел 6</div>
+  <div class="sec-label">Аксессуары — Этап Б</div>
+  <div class="sec-title">233 позиции — после запуска основного каталога</div>
+  <div class="sec-body">Аксессуары публикуем второй волной, после того как все 204 карточки основных позиций запущены и проверены. На карточках основных товаров — пометка «Аксессуары доступны по запросу».</div>
+
+  <table class="cat-table" style="margin-top:20px">
+    <thead>
+      <tr><th>Тип аксессуара</th><th>Совместимость</th><th class="cat-num">Кол-во</th><th>Статус</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Противни и решётки для духовых шкафов</td><td>серия 200, 400, Minimalistic</td><td class="cat-num">48</td><td><span class="badge badge-skip">Этап Б</span></td></tr>
+      <tr><td>Аксессуары для паровых и комбинированных печей</td><td>Minimalistic, Expressive</td><td class="cat-num">32</td><td><span class="badge badge-skip">Этап Б</span></td></tr>
+      <tr><td>Вставки и адаптеры для варочных панелей</td><td>Vario, Teppan Yaki</td><td class="cat-num">41</td><td><span class="badge badge-skip">Этап Б</span></td></tr>
+      <tr><td>Корзины и стойки для посудомоечных машин</td><td>Minimalistic, Expressive, серия 200</td><td class="cat-num">28</td><td><span class="badge badge-skip">Этап Б</span></td></tr>
+      <tr><td>Аксессуары для холодильников и морозильников</td><td>серия 200, 400</td><td class="cat-num">22</td><td><span class="badge badge-skip">Этап Б</span></td></tr>
+      <tr><td>Аксессуары для вытяжек</td><td>серия 200, 400</td><td class="cat-num">18</td><td><span class="badge badge-skip">Этап Б</span></td></tr>
+      <tr><td>Чистящие средства и уходовые наборы</td><td>Универсальные</td><td class="cat-num">24</td><td><span class="badge badge-skip">Этап Б</span></td></tr>
+      <tr><td>Прочие аксессуары</td><td>Различные</td><td class="cat-num">20</td><td><span class="badge badge-skip">Этап Б</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin-top:16px">
+    <div class="callout-t">Подход к аксессуарам</div>
+    <div class="callout-d">Аксессуары привязываем к карточкам основного товара через блок «Совместимые аксессуары» на странице товара. Это повышает средний чек и упрощает выбор для клиента. Реализуем в рамках Этапа Б — ориентировочно через 3-4 недели после старта Этапа А.</div>
+  </div>
+</div>
+
+<!-- ===== 7. АГЕНТСКАЯ СХЕМА ===== -->
+<div class="sec" id="s7">
+  <div class="sec-num">Раздел 7</div>
+  <div class="sec-label">Агентская схема сотрудничества</div>
+  <div class="sec-title">Модель передачи лидов и агентского вознаграждения</div>
+  <div class="sec-body">Home Project выступает агентом ООО «Гаггенау.Маркет»: привлекает клиентов через сайт и CRM, квалифицирует лиды и передаёт поставщику для закрытия сделки. Продажа — через поставщика, оплата — на счёт поставщика.</div>
+
+  <div class="agent-flow">
+    <div class="flow-node client">
+      <div class="flow-icon">👤</div>
+      <div class="flow-title">Клиент</div>
+      <div class="flow-desc">Архитектор / дизайнер / частный заказчик — заполняет форму на сайте</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node ours">
+      <div class="flow-icon">🏠</div>
+      <div class="flow-title">Home Project</div>
+      <div class="flow-desc">Квалификация лида, КП, первичная консультация, CRM-трекинг</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node supplier">
+      <div class="flow-icon">🏭</div>
+      <div class="flow-title">Гаггенау.Маркет</div>
+      <div class="flow-desc">Финальная продажа, выставление счёта, логистика, сервис</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node money">
+      <div class="flow-icon">💰</div>
+      <div class="flow-title">Агентское</div>
+      <div class="flow-desc">% от суммы сделки — после поступления оплаты от клиента</div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px">
+    <div style="font-size:13px;font-weight:700;margin-bottom:12px">Что передаём поставщику по каждому лиду:</div>
+    <table class="lead-table">
+      <thead>
+        <tr>
+          <th>Поле</th>
+          <th>Содержание</th>
+          <th>Источник</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Имя клиента</b></td>
+          <td>Полное имя / компания</td>
+          <td>Форма на сайте</td>
+        </tr>
+        <tr>
+          <td><b>Контакт</b></td>
+          <td>Email + телефон</td>
+          <td>Форма на сайте</td>
+        </tr>
+        <tr>
+          <td><b>Интерес</b></td>
+          <td>Артикул(ы) + количество</td>
+          <td>Форма / КП</td>
+        </tr>
+        <tr>
+          <td><b>Бюджет</b></td>
+          <td>Индикативный диапазон</td>
+          <td>Квалификация лида</td>
+        </tr>
+        <tr>
+          <td><b>Тип объекта</b></td>
+          <td>Квартира / дом / ресторан / отель</td>
+          <td>Форма / звонок</td>
+        </tr>
+        <tr>
+          <td><b>Срок</b></td>
+          <td>Когда нужно оборудование</td>
+          <td>Квалификация лида</td>
+        </tr>
+        <tr>
+          <td><b>Источник лида</b></td>
+          <td>SEO / прямой трафик / реклама / соцсети</td>
+          <td>UTM / CRM</td>
+        </tr>
+        <tr>
+          <td><b>История контактов</b></td>
+          <td>Переписка, КП, звонки</td>
+          <td>CRM (crm.db)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:24px">
+    <div style="font-size:13px;font-weight:700;margin-bottom:12px">Управление и контроль:</div>
+    <div class="control-grid">
+      <div class="ctrl-box">
+        <div class="ctrl-icon">📊</div>
+        <div class="ctrl-title">CRM-трекинг</div>
+        <div class="ctrl-body">Каждый лид заводим в crm.db с тегом «gaggenau». Статусы: новый → квалифицирован → передан → в работе у поставщика → сделка закрыта.</div>
+      </div>
+      <div class="ctrl-box">
+        <div class="ctrl-icon">📋</div>
+        <div class="ctrl-title">Еженедельный отчёт</div>
+        <div class="ctrl-body">Каждую пятницу — сводка по лидам: новые, переданные, статус у поставщика. Формат: Google Sheet или PDF, по договорённости с поставщиком.</div>
+      </div>
+      <div class="ctrl-box">
+        <div class="ctrl-icon">💬</div>
+        <div class="ctrl-title">Канал связи</div>
+        <div class="ctrl-body">Оперативные лиды — через Telegram (ответ менеджера поставщика в течение 4 часов в рабочее время). Документы — email.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:20px">
+    <div class="callout-t">Конкурентное позиционирование</div>
+    <div class="callout-d">Home Project работает в сегменте «архитекторы и дизайнеры + высокобюджетные частные заказчики» в Москве. 14 001 контакт в CRM, из которых ~3 200 — архитекторы и дизайнеры. Это аудитория, которую Gaggenau.Маркет пока не охватывает напрямую через digital-каналы.</div>
+  </div>
+
+  <div style="margin-top:20px">
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px">Сравнение с конкурентами-дистрибуторами:</div>
+    <table class="lead-table">
+      <thead>
+        <tr><th>Параметр</th><th>Home Project</th><th>Типичный реселлер</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CRM и база клиентов</td>
+          <td><span class="comp-badge" style="background:#d4f0dc;color:#1a6b2f">14 001 контакт</span></td>
+          <td><span class="comp-badge" style="background:#fde8e8;color:#8b1a1a">нет / Excel</span></td>
+        </tr>
+        <tr>
+          <td>Целевая аудитория</td>
+          <td><span class="comp-badge" style="background:#d4f0dc;color:#1a6b2f">Архитекторы + HNW</span></td>
+          <td><span class="comp-badge" style="background:#f0e8d4;color:#7a5a1a">Все подряд</span></td>
+        </tr>
+        <tr>
+          <td>Автоматизация лидов</td>
+          <td><span class="comp-badge" style="background:#d4f0dc;color:#1a6b2f">AI-агенты, CRM</span></td>
+          <td><span class="comp-badge" style="background:#fde8e8;color:#8b1a1a">ручной процесс</span></td>
+        </tr>
+        <tr>
+          <td>Скорость КП</td>
+          <td><span class="comp-badge" style="background:#d4f0dc;color:#1a6b2f">≤ 2 часа</span></td>
+          <td><span class="comp-badge" style="background:#f0e8d4;color:#7a5a1a">1-3 дня</span></td>
+        </tr>
+        <tr>
+          <td>Онлайн-присутствие</td>
+          <td><span class="comp-badge" style="background:#d4f0dc;color:#1a6b2f">SEO + соцсети</span></td>
+          <td><span class="comp-badge" style="background:#fde8e8;color:#8b1a1a">минимальное</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== 8. КОНТАКТЫ ===== -->
+<div class="sec" id="s8">
+  <div class="sec-num">Раздел 8</div>
+  <div class="sec-label">Контакты для согласования</div>
+  <div class="sec-title">Поставщик и Home Project</div>
+
+  <div class="supplier-card">
+    <div class="sc-avatar">🏭</div>
+    <div>
+      <div class="sc-name">ООО «Гаггенау.Маркет»</div>
+      <div class="sc-company">Официальный дистрибутор Gaggenau в России</div>
+      <div class="sc-contacts">
+        <div class="sc-contact"><span>Сайт</span>gaggenau-market.ru</div>
+        <div class="sc-contact"><span>Email</span>info@gaggenau-market.ru</div>
+        <div class="sc-contact"><span>Тел.</span>+7 (495) …</div>
+        <div class="sc-contact"><span>Адрес</span>Москва, …</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="supplier-card" style="margin-top:12px">
+    <div class="sc-avatar" style="background:#1a1a1a">🏠</div>
+    <div>
+      <div class="sc-name">Home Project</div>
+      <div class="sc-company">ИП · Дистрибуция встраиваемой техники · Москва</div>
+      <div class="sc-contacts">
+        <div class="sc-contact"><span>Сайт</span>homeproject.online</div>
+        <div class="sc-contact"><span>Email</span>info@homeproject.online</div>
+        <div class="sc-contact"><span>Telegram</span>@HomeProjectMsk</div>
+        <div class="sc-contact"><span>CRM</span>14 001 контакт, ~3 200 архитекторов и дизайнеров</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps" style="margin-top:24px">
+    <div style="font-size:13px;font-weight:700;margin-bottom:4px">Следующие шаги для запуска:</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Согласование этого документа</div>
+        <div class="step-desc">Поставщик подтверждает формат карточек, агентскую схему и размер вознаграждения. Срок: до 4 августа 2026.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Получение медиа-кита и РРЦ</div>
+        <div class="step-desc">Поставщик передаёт фотографии 204 позиций и прайс с РРЦ. Срок: до 7 августа 2026.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Загрузка 204 карточек на сайт</div>
+        <div class="step-desc">Автоматизированная загрузка через InSales API. Проверка SEO и мобильной вёрстки. Срок: 5-7 рабочих дней после п.2.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Запуск email-кампании по базе архитекторов</div>
+        <div class="step-desc">Рассылка по ~3 200 архитекторам и дизайнерам о появлении Gaggenau в каталоге. Через Unisender, с UTM-разметкой. Срок: через 1-2 дня после публикации каталога.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div>
+        <div class="step-title">Первый отчёт по лидам</div>
+        <div class="step-desc">Через 2 недели после запуска — первый еженедельный отчёт поставщику: трафик, лиды, конверсия, переданные контакты.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>Home Project &nbsp;·&nbsp; homeproject.online &nbsp;·&nbsp; Москва &nbsp;·&nbsp; 2026</div>
+  <div>Документ подготовлен 30.07.2026 &nbsp;·&nbsp; Версия v3 &nbsp;·&nbsp; Конфиденциально</div>
+</div>
+
+</div>
+</body>
+</html>
