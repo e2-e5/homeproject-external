@@ -189,10 +189,10 @@ footer a{color:var(--text-2)}
 <body>
 
 <header class="site-header">
-  <a href="https://homeproject.online">
+  <a href="https://homeproject.online/ru">
     <img src="https://homeproject.online/hp/logo.png" alt="Home Project" class="logo-img">
   </a>
-  <a href="https://homeproject.online/ru/catalog" class="back-link">← Каталог</a>
+  <a href="https://homeproject.online/ru/store" class="back-link">← Каталог</a>
 </header>
 
 <!-- ─── ФОРМА (показывается по умолчанию) ─── -->
@@ -351,8 +351,8 @@ footer a{color:var(--text-2)}
       </div>
     </div>
 
-    <a href="https://homeproject.online/ru/catalog" class="btn-catalog">
-      ← Посмотреть каталог
+    <a href="https://homeproject.online/ru/store" class="btn-catalog">
+      ← Вернуться в каталог
     </a>
     <a href="https://e2-e5.github.io/homeproject-external/kp-request.html" class="btn-outline">
       Отправить ещё один запрос
@@ -366,7 +366,7 @@ footer a{color:var(--text-2)}
 
 
 <footer>
-  <a href="https://homeproject.online">homeproject.online</a> · Премиальная техника для дома
+  <a href="https://homeproject.online/ru">homeproject.online</a> · Премиальная техника для дома
 </footer>
 
 <script>
@@ -389,16 +389,12 @@ async function submitKpRequest(payload){
   for(let attempt=0;attempt<2;attempt++){
     try{
       if(attempt>0){
-        // Пауза 2 сек перед повторной попыткой
         await new Promise(r=>setTimeout(r,2000));
       }
       const res=await fetch(url,opts);
       if(res.ok) return true;
-      // 4xx — не ретраим (клиентская ошибка)
       if(res.status>=400&&res.status<500) return false;
-      // 5xx — попробуем ещё раз
     }catch(e){
-      // Сетевая ошибка — попробуем ещё раз
       if(attempt===1) return false;
     }
   }
