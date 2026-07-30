@@ -116,9 +116,10 @@ hr.div{border:none;border-top:1px solid var(--border);margin:24px 0}
 .btn-sub:hover{opacity:0.85}
 .btn-sub:disabled{opacity:0.4;cursor:not-allowed}
 
-.msg{padding:14px 16px;border-radius:8px;font-size:13px;margin-top:14px;display:none;text-align:center;font-weight:500;line-height:1.5}
+.msg{padding:14px 16px;border-radius:8px;font-size:13px;margin-top:14px;display:none;text-align:center;font-weight:500;line-height:1.6}
 .msg.err{background:#FFF7ED;border:1px solid #FDBA74;color:#C2410C}
 .msg.show{display:block}
+.msg.err a{color:#9A3412;font-weight:700}
 
 .trust{text-align:center;margin-top:28px;color:var(--muted);font-size:11px;line-height:2}
 .trust b{color:var(--text-2);font-weight:600}
@@ -298,7 +299,10 @@ footer a{color:var(--text-2)}
       </button>
 
       <div class="msg err" id="msgErr">
-        Ошибка отправки. Напишите напрямую: <a href="mailto:info@homeproject.online">info@homeproject.online</a>
+        Не удалось отправить запрос. Напишите напрямую:<br>
+        <a href="mailto:info@homeproject.online">info@homeproject.online</a>
+        &nbsp;·&nbsp;
+        <a href="https://t.me/HomeProjectMsk" target="_blank">Telegram</a>
       </div>
     </div>
 
@@ -378,6 +382,29 @@ document.getElementById('budgetGrid').addEventListener('click',function(e){
   b.classList.add('on');
 });
 
+// Отправка с retry: 2 попытки, пауза 2 сек между ними
+async function submitKpRequest(payload){
+  const opts={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)};
+  const url='https://80.91.86.53.nip.io/api/contact';
+  for(let attempt=0;attempt<2;attempt++){
+    try{
+      if(attempt>0){
+        // Пауза 2 сек перед повторной попыткой
+        await new Promise(r=>setTimeout(r,2000));
+      }
+      const res=await fetch(url,opts);
+      if(res.ok) return true;
+      // 4xx — не ретраим (клиентская ошибка)
+      if(res.status>=400&&res.status<500) return false;
+      // 5xx — попробуем ещё раз
+    }catch(e){
+      // Сетевая ошибка — попробуем ещё раз
+      if(attempt===1) return false;
+    }
+  }
+  return false;
+}
+
 document.getElementById('kpForm').addEventListener('submit',async function(e){
   e.preventDefault();
   const name=document.getElementById('name').value.trim();
@@ -401,27 +428,23 @@ document.getElementById('kpForm').addEventListener('submit',async function(e){
   if(comment) parts.push('Комментарий: '+comment);
 
   const btn=document.getElementById('submitBtn');
+  const errDiv=document.getElementById('msgErr');
   btn.disabled=true;
+  errDiv.classList.remove('show');
   btn.innerHTML='<span style="color:#a5b4fc;font-size:16px">✦</span><span>Отправляем запрос...</span>';
 
-  try{
-    const res=await fetch('https://80.91.86.53.nip.io/api/contact',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name,phone,email,message:parts.join('\n'),consent:true,optin:true})
-    });
-    if(res.ok){
-      // Персонализируем экран успеха
-      const firstName=name.split(' ')[0];
-      document.getElementById('successName').textContent=firstName;
-      document.getElementById('successEmail').textContent=email;
-      // Скрываем форму, показываем экран успеха
-      document.getElementById('formSection').style.display='none';
-      document.getElementById('successScreen').classList.add('show');
-      window.scrollTo({top:0,behavior:'smooth'});
-      if(typeof ym!=='undefined') ym(110362997,'reachGoal','kp_form_submit');
-    } else {throw new Error('HTTP '+res.status);}
-  }catch(err){
-    document.getElementById('msgErr').classList.add('show');
+  const ok=await submitKpRequest({name,phone,email,message:parts.join('\n'),consent:true,optin:true});
+
+  if(ok){
+    const firstName=name.split(' ')[0];
+    document.getElementById('successName').textContent=firstName;
+    document.getElementById('successEmail').textContent=email;
+    document.getElementById('formSection').style.display='none';
+    document.getElementById('successScreen').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+    if(typeof ym!=='undefined') ym(110362997,'reachGoal','kp_form_submit');
+  } else {
+    errDiv.classList.add('show');
     btn.disabled=false;
     btn.innerHTML='<span style="color:#a5b4fc;font-size:16px">✦</span><span>Получить персональное КП</span>';
   }
