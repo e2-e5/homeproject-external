@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Отчёт по UTM-меткам и целям · Home Project · 01.08.2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card2: #20243a;
+    --border: #2a2d3e;
+    --accent: #6366f1;
+    --accent2: #10b981;
+    --accent3: #f59e0b;
+    --accent4: #ef4444;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --green: #10b981;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+  /* Header */
+  .header { background: linear-gradient(135deg, #1e1b4b 0%, #1a1d27 50%, #0f172a 100%); border-bottom: 1px solid var(--border); padding: 32px 0 28px; margin-bottom: 32px; }
+  .header .container { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .header h1 { font-size: 22px; font-weight: 700; color: #fff; }
+  .header .meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .header .meta span { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 3px 10px; margin-right: 6px; display: inline-block; margin-top: 4px; }
+  .badge-update { background: linear-gradient(90deg, #6366f1, #8b5cf6) !important; color: #fff !important; border: none !important; }
+
+  /* Section */
+  .section-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .section-title .icon { font-size: 18px; }
+  .section { margin-bottom: 36px; }
+
+  /* KPI Grid */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 12px; }
+  .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; position: relative; overflow: hidden; }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent-color, var(--accent)); }
+  .kpi-label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .kpi-value { font-size: 26px; font-weight: 800; color: #fff; line-height: 1; }
+  .kpi-sub { color: var(--muted); font-size: 11px; margin-top: 4px; }
+  .kpi-delta { font-size: 11px; margin-top: 4px; }
+  .delta-up { color: var(--green); }
+  .delta-down { color: var(--red); }
+
+  /* Table */
+  .table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: var(--card2); color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 14px; text-align: left; font-weight: 600; }
+  td { padding: 10px 14px; border-top: 1px solid var(--border); color: var(--text); font-size: 13px; vertical-align: middle; }
+  tr:hover td { background: rgba(99,102,241,0.05); }
+  .td-num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* Status badges */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: rgba(16,185,129,0.15); color: var(--green); }
+  .badge-yellow { background: rgba(245,158,11,0.15); color: var(--yellow); }
+  .badge-red { background: rgba(239,68,68,0.15); color: var(--red); }
+  .badge-blue { background: rgba(99,102,241,0.15); color: #818cf8; }
+
+  /* Charts */
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .chart-grid { grid-template-columns: 1fr; } }
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+  .chart-title { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+  .chart-wrap { position: relative; height: 200px; }
+
+  /* UTM tags */
+  .utm-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .utm-tag { background: var(--card2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-family: 'Courier New', monospace; color: #a5b4fc; }
+
+  /* Goals */
+  .goal-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .goal-row:last-child { border-bottom: none; }
+  .goal-name { font-size: 13px; color: var(--text); flex: 1; }
+  .goal-bar-wrap { flex: 0 0 120px; margin: 0 16px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .goal-bar { height: 100%; border-radius: 3px; background: var(--accent); }
+  .goal-count { font-size: 14px; font-weight: 700; color: #fff; min-width: 30px; text-align: right; }
+
+  /* Insights */
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 600px) { .insight-grid { grid-template-columns: 1fr; } }
+  .insight-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .insight-card.green { border-left: 3px solid var(--green); }
+  .insight-card.yellow { border-left: 3px solid var(--yellow); }
+  .insight-card.red { border-left: 3px solid var(--red); }
+  .insight-card.blue { border-left: 3px solid var(--accent); }
+  .insight-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .insight-title.green { color: var(--green); }
+  .insight-title.yellow { color: var(--yellow); }
+  .insight-title.red { color: var(--red); }
+  .insight-title.blue { color: #818cf8; }
+  .insight-card p { color: var(--muted); font-size: 12px; line-height: 1.7; }
+  .insight-card strong { color: var(--text); }
+
+  /* Footer */
+  .footer { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px; color: var(--muted); font-size: 11px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  /* ab test winner */
+  .winner-row td { background: rgba(16,185,129,0.07); }
+  .star { color: #f59e0b; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div>
+      <h1>📊 Отчёт по UTM-меткам, целям и email-кампаниям</h1>
+      <div class="meta">
+        <span>Home Project</span>
+        <span>homeproject.online</span>
+        <span>Счётчик #110362997</span>
+        <span class="badge-update">🔄 Обновлено 01.08.2026</span>
+      </div>
+    </div>
+    <div style="text-align:right; color: var(--muted); font-size:12px;">
+      <div>Период: июнь – июль 2026</div>
+      <div style="margin-top:4px;">vs. отчёт от 30.07.2026</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ═══ 1. ТРАФИК ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🌐</span> Трафик Яндекс.Метрика</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card" style="--accent-color:#6366f1">
+        <div class="kpi-label">Визиты (30д)</div>
+        <div class="kpi-value">311</div>
+        <div class="kpi-sub">≈10.4 в день</div>
+        <div class="kpi-delta delta-up">стабильно</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#10b981">
+        <div class="kpi-label">Уникальных (30д)</div>
+        <div class="kpi-value">169</div>
+        <div class="kpi-sub">55% новые</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#f59e0b">
+        <div class="kpi-label">Отказы (7д)</div>
+        <div class="kpi-value">21%</div>
+        <div class="kpi-delta delta-up">⬇ −45% vs 30д</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#10b981">
+        <div class="kpi-label">Глубина (7д)</div>
+        <div class="kpi-value">3.6</div>
+        <div class="kpi-sub">стр./визит</div>
+        <div class="kpi-delta delta-up">⬆ +71% vs 30д</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#8b5cf6">
+        <div class="kpi-label">Время (7д)</div>
+        <div class="kpi-value">8:24</div>
+        <div class="kpi-sub">мин:сек</div>
+        <div class="kpi-delta delta-up">⬆ +73% vs 30д</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#ec4899">
+        <div class="kpi-label">Email-трафик</div>
+        <div class="kpi-value">58</div>
+        <div class="kpi-sub">визитов, 19% всего</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-title">Источники трафика (30 дней)</div>
+        <div class="chart-wrap">
+          <canvas id="trafficChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Устройства</div>
+        <div class="chart-wrap">
+          <canvas id="devicesChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 2. UTM-МЕТКИ ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔖</span> UTM-метки — структура и кампании</div>
+
+    <div class="table-wrap" style="margin-bottom:20px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Параметр</th>
+            <th>Значения (email)</th>
+            <th>Значения (соцсети)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code style="color:#a5b4fc">utm_source</code></td>
+            <td><span class="badge badge-blue">unisender</span> <span class="badge badge-blue">unisender_go</span> <span class="badge badge-blue">unisender_classic</span></td>
+            <td><span class="badge badge-blue">linkedin</span> <span class="badge badge-blue">telegram</span></td>
+          </tr>
+          <tr>
+            <td><code style="color:#a5b4fc">utm_medium</code></td>
+            <td><span class="badge badge-blue">email</span></td>
+            <td><span class="badge badge-blue">post</span> <span class="badge badge-blue">social</span></td>
+          </tr>
+          <tr>
+            <td><code style="color:#a5b4fc">utm_campaign</code></td>
+            <td>welcome-designer-ab-a/b/c/d/e · welcome-santech · welcome-kitchen-studio · welcome-b2b-dealer · nurture-designer-w2/w3/w4/m1</td>
+            <td>day8_email_rules · day9_first_lead · day10_return</td>
+          </tr>
+          <tr>
+            <td><code style="color:#a5b4fc">utm_content</code></td>
+            <td>hero · cta · footer · telegram · ai-consultant · brand-v-zug · brand-bora · brand-kuppersbusch · brand-graude · brand-ilve · …(14 брендов)</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-bottom:12px; color:var(--muted); font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Топ UTM-источники по визитам в Метрике</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>utm_source / utm_campaign</th>
+            <th class="td-num">Визиты</th>
+            <th class="td-num">Доля</th>
+            <th>Тип</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>unisender / welcome-santech-2026-07-08</td>
+            <td class="td-num">13</td>
+            <td class="td-num">22%</td>
+            <td><span class="badge badge-blue">email</span></td>
+          </tr>
+          <tr>
+            <td>unisender_classic / welcome_santech</td>
+            <td class="td-num">11</td>
+            <td class="td-num">19%</td>
+            <td><span class="badge badge-blue">email</span></td>
+          </tr>
+          <tr>
+            <td>unisender / welcome-b2b-dealer-2026-07-08</td>
+            <td class="td-num">7</td>
+            <td class="td-num">12%</td>
+            <td><span class="badge badge-blue">email</span></td>
+          </tr>
+          <tr>
+            <td>linkedin / day8_email_rules</td>
+            <td class="td-num">4</td>
+            <td class="td-num">7%</td>
+            <td><span class="badge badge-yellow">соцсети</span></td>
+          </tr>
+          <tr>
+            <td>unisender / welcome-kitchen-studio-2026</td>
+            <td class="td-num">4</td>
+            <td class="td-num">7%</td>
+            <td><span class="badge badge-blue">email</span></td>
+          </tr>
+          <tr>
+            <td>Прочие email-кампании</td>
+            <td class="td-num">19</td>
+            <td class="td-num">33%</td>
+            <td><span class="badge badge-blue">email</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ 3. EMAIL-КАМПАНИИ ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📧</span> Email-кампании (июль 2026)</div>
+
+    <div class="kpi-grid" style="margin-bottom:20px;">
+      <div class="kpi-card" style="--accent-color:#6366f1">
+        <div class="kpi-label">Всего отправлено</div>
+        <div class="kpi-value">744</div>
+        <div class="kpi-sub">mass campaigns</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#10b981">
+        <div class="kpi-label">Лучший open rate</div>
+        <div class="kpi-value">44.6%</div>
+        <div class="kpi-sub">AI-сервис (09.07)</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#f59e0b">
+        <div class="kpi-label">Лучший CTR</div>
+        <div class="kpi-value">3.2%</div>
+        <div class="kpi-sub">кухонные студии</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#ef4444">
+        <div class="kpi-label">Bounce (max)</div>
+        <div class="kpi-value">8.5%</div>
+        <div class="kpi-sub">тест 06.07 ⚠️</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#8b5cf6">
+        <div class="kpi-label">Daily батчи</div>
+        <div class="kpi-value">~791</div>
+        <div class="kpi-sub">за W29 (07–13.07)</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#10b981">
+        <div class="kpi-label">A/B победитель OR</div>
+        <div class="kpi-value">34.1%</div>
+        <div class="kpi-sub">B2B-дилеры</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Кампания / сегмент</th>
+            <th>Дата</th>
+            <th class="td-num">Отпр.</th>
+            <th class="td-num">Доставлено</th>
+            <th class="td-num">Open rate</th>
+            <th class="td-num">CTR</th>
+            <th class="td-num">Bounce</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Тест santech-designers</td>
+            <td>06.07</td>
+            <td class="td-num">51</td>
+            <td class="td-num">47 (92%)</td>
+            <td class="td-num">29.8%</td>
+            <td class="td-num">0%</td>
+            <td class="td-num" style="color:var(--red)">8.5% ⚠</td>
+            <td><span class="badge badge-yellow">тест</span></td>
+          </tr>
+          <tr>
+            <td>AI-сервис для архитекторов</td>
+            <td>09.07</td>
+            <td class="td-num">100</td>
+            <td class="td-num">56 (56%)</td>
+            <td class="td-num" style="color:var(--green)"><strong>44.6%</strong></td>
+            <td class="td-num">1.8%</td>
+            <td class="td-num">—</td>
+            <td><span class="badge badge-green">✅ best OR</span></td>
+          </tr>
+          <tr>
+            <td>Santech-дизайнеры</td>
+            <td>10.07</td>
+            <td class="td-num">197</td>
+            <td class="td-num">135 (69%)</td>
+            <td class="td-num">27.4%</td>
+            <td class="td-num">0%</td>
+            <td class="td-num">—</td>
+            <td><span class="badge badge-blue">done</span></td>
+          </tr>
+          <tr>
+            <td>Кухонные студии</td>
+            <td>10.07</td>
+            <td class="td-num">199</td>
+            <td class="td-num">124 (62%)</td>
+            <td class="td-num">25.0%</td>
+            <td class="td-num" style="color:var(--green)"><strong>3.2%</strong></td>
+            <td class="td-num">—</td>
+            <td><span class="badge badge-green">✅ best CTR</span></td>
+          </tr>
+          <tr class="winner-row">
+            <td><span class="star">★</span> B2B-дилеры <small style="color:var(--green)">(A/B победитель)</small></td>
+            <td>10.07</td>
+            <td class="td-num">197</td>
+            <td class="td-num">123 (62%)</td>
+            <td class="td-num" style="color:var(--green)"><strong>34.1%</strong></td>
+            <td class="td-num">1.6%</td>
+            <td class="td-num">—</td>
+            <td><span class="badge badge-green">🏆 A/B WIN</span></td>
+          </tr>
+          <tr>
+            <td>Retry Go (designer-bt)</td>
+            <td>10.07</td>
+            <td class="td-num">99</td>
+            <td class="td-num">89 (90%)</td>
+            <td class="td-num">—</td>
+            <td class="td-num">—</td>
+            <td class="td-num">—</td>
+            <td><span class="badge badge-blue">retry</span></td>
+          </tr>
+          <tr>
+            <td>A/B тест (5 вариантов × 10)</td>
+            <td>11.07</td>
+            <td class="td-num">50</td>
+            <td class="td-num">50 (100%)</td>
+            <td class="td-num">—</td>
+            <td class="td-num">—</td>
+            <td class="td-num" style="color:var(--green)">0%</td>
+            <td><span class="badge badge-green">✅ пилот</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-grid" style="margin-top:16px;">
+      <div class="chart-card">
+        <div class="chart-title">Open rate по кампаниям (%)</div>
+        <div class="chart-wrap">
+          <canvas id="openRateChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Доставляемость по кампаниям (%)</div>
+        <div class="chart-wrap">
+          <canvas id="deliveryChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 4. ЦЕЛИ МЕТРИКИ ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🎯</span> Цели Яндекс.Метрика (22 цели)</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <div>
+        <div style="color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Конверсионные цели</div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
+          <div class="goal-row">
+            <span class="goal-name">Заявка на КП (JS-событие)</span>
+            <div class="goal-bar-wrap"><div class="goal-bar" style="width:100%;background:#6366f1"></div></div>
+            <span class="goal-count" style="color:#818cf8">7</span>
+          </div>
+          <div class="goal-row">
+            <span class="goal-name">Предоставил контакт</span>
+            <div class="goal-bar-wrap"><div class="goal-bar" style="width:93%;background:#10b981"></div></div>
+            <span class="goal-count" style="color:#10b981">13</span>
+          </div>
+          <div class="goal-row">
+            <span class="goal-name">Отправка форм (авто)</span>
+            <div class="goal-bar-wrap"><div class="goal-bar" style="width:100%;background:#f59e0b"></div></div>
+            <span class="goal-count" style="color:#f59e0b">26</span>
+          </div>
+          <div class="goal-row">
+            <span class="goal-name">КП-запрос (URL-цель)</span>
+            <div class="goal-bar-wrap"><div class="goal-bar" style="width:28%;background:#ef4444"></div></div>
+            <span class="goal-count" style="color:#ef4444">2</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Вовлечённость и разделы</div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
+          <div class="goal-row">
+            <span class="goal-name">Долгий визит</span>
+            <div class="goal-bar-wrap"><div class="goal-bar" style="width:69%;background:#8b5cf6"></div></div>
+            <span class="goal-count" style="color:#a78bfa">18</span>
+          </div>
+          <div class="goal-row">
+            <span class="goal-name">Страница дизайнеров</span>
+            <div class="goal-bar-wrap"><div class="goal-bar" style="width:69%;background:#8b5cf6"></div></div>
+            <span class="goal-count" style="color:#a78bfa">18</span>
+          </div>
+          <div class="goal-row">
+            <span class="goal-name">Глубокий просмотр (5+)</span>
+            <div class="goal-bar-wrap"><div class="goal-bar" style="width:35%;background:#06b6d4"></div></div>
+            <span class="goal-count" style="color:#67e8f9">9</span>
+          </div>
+          <div class="goal-row">
+            <span class="goal-name">Карточка товара</span>
+            <div class="goal-bar-wrap"><div class="goal-bar" style="width:31%;background:#06b6d4"></div></div>
+            <span class="goal-count" style="color:#67e8f9">8</span>
+          </div>
+          <div class="goal-row">
+            <span class="goal-name">Каталог</span>
+            <div class="goal-bar-wrap"><div class="goal-bar" style="width:23%;background:#06b6d4"></div></div>
+            <span class="goal-count" style="color:#67e8f9">6</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 5. A/B ТЕСТ ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🧪</span> A/B тест: Welcome-серия (июль 2026)</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Вариант</th>
+            <th>Особенность</th>
+            <th class="td-num">Open rate</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="winner-row">
+            <td><span class="star">★</span> <strong>Вариант E — B2B-дилеры</strong></td>
+            <td>Акцент на дилерские условия</td>
+            <td class="td-num" style="color:var(--green)"><strong>34.1%</strong></td>
+            <td><span class="badge badge-green">🏆 ПОБЕДИТЕЛЬ</span></td>
+          </tr>
+          <tr>
+            <td>Вариант B — AI-сервис</td>
+            <td>«КП за 20 секунд»</td>
+            <td class="td-num" style="color:var(--green)"><strong>44.6%</strong></td>
+            <td><span class="badge badge-blue">best OR</span></td>
+          </tr>
+          <tr>
+            <td>Вариант A — santech</td>
+            <td>Техника + сантехника</td>
+            <td class="td-num">29.8%</td>
+            <td><span class="badge badge-yellow">норм</span></td>
+          </tr>
+          <tr>
+            <td>Вариант C — кухни</td>
+            <td>Кухонные студии</td>
+            <td class="td-num">25.0%</td>
+            <td><span class="badge badge-yellow">норм</span></td>
+          </tr>
+          <tr>
+            <td>Вариант D — santech 2</td>
+            <td>Сегмент santech v2</td>
+            <td class="td-num">27.4%</td>
+            <td><span class="badge badge-yellow">норм</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;color:var(--muted);margin-top:8px;">
+      💡 <strong style="color:var(--text)">Вывод A/B:</strong> Вариант E (B2B-дилеры) — устойчивый победитель по OR (+6.7 п.п. vs среднего). Вариант B показал самый высокий OR (44.6%), но только на узкой выборке. Рекомендация: rolling-кампании строить на основе E, тему AI-сервиса тестировать отдельно на сегменте premium.
+    </div>
+  </div>
+
+  <!-- ═══ 6. НОРМЫ ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🚦</span> Состояние каналов — светофор</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Метрика</th>
+            <th>Норма</th>
+            <th>Текущее (лучшее)</th>
+            <th>Текущее (худшее)</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Open rate</td>
+            <td>15–25%</td>
+            <td style="color:var(--green)">44.6%</td>
+            <td>25.0%</td>
+            <td><span class="badge badge-green">✅ Выше нормы</span></td>
+          </tr>
+          <tr>
+            <td>CTR</td>
+            <td>2–5%</td>
+            <td style="color:var(--green)">3.2%</td>
+            <td>0%</td>
+            <td><span class="badge badge-yellow">⚠ На границе</span></td>
+          </tr>
+          <tr>
+            <td>Delivery rate</td>
+            <td>≥95%</td>
+            <td style="color:var(--green)">92%</td>
+            <td style="color:var(--red)">56%</td>
+            <td><span class="badge badge-red">🔴 Низко</span></td>
+          </tr>
+          <tr>
+            <td>Bounce rate</td>
+            <td>≤3%</td>
+            <td style="color:var(--green)">0%</td>
+            <td style="color:var(--red)">8.5%</td>
+            <td><span class="badge badge-red">🔴 Критично (06.07)</span></td>
+          </tr>
+          <tr>
+            <td>Spam жалобы</td>
+            <td>≤0.1%</td>
+            <td>0%</td>
+            <td style="color:var(--yellow)">0.8% (2 за неделю)</td>
+            <td><span class="badge badge-yellow">⚠ Граница</span></td>
+          </tr>
+          <tr>
+            <td>Email → трафик</td>
+            <td>—</td>
+            <td>58 визитов</td>
+            <td>19% от всего</td>
+            <td><span class="badge badge-green">✅ 2-й источник</span></td>
+          </tr>
+          <tr>
+            <td>Unisender отправка</td>
+            <td>активна</td>
+            <td>—</td>
+            <td style="color:var(--red)">ЗАБЛОКИРОВАН</td>
+            <td><span class="badge badge-red">🔴 Требует действий</span></td>
+          </tr>
+          <tr>
+            <td>reg.ru SMTP</td>
+            <td>активна</td>
+            <td style="color:var(--green)">Настроен</td>
+            <td>—</td>
+            <td><span class="badge badge-blue">⏳ В процессе</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ 7. ИНСАЙТЫ ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💡</span> Ключевые выводы и рекомендации</div>
+
+    <div class="insight-grid">
+      <div class="insight-card green">
+        <div class="insight-title green">✅ Работает хорошо</div>
+        <p>
+          <strong>Open rate выше нормы</strong> во всех кампаниях (25–44%). Email — 2-й источник трафика (19%). Вовлечённость растёт: отказы снизились с 38% до 21%, время на сайте +73% за неделю. Страница дизайнеров — самый посещаемый раздел (18 целей).
+        </p>
+      </div>
+      <div class="insight-card red">
+        <div class="insight-title red">🔴 Критичные проблемы</div>
+        <p>
+          <strong>Unisender полностью заблокирован</strong> — письма КП не доходят. Delivery rate 56–68% вместо 95%+ — база содержит много «мёртвых» адресов. Bounce 8.5% в тестовой кампании превышает норму в 2.8×. Требуется срочная очистка базы.
+        </p>
+      </div>
+      <div class="insight-card yellow">
+        <div class="insight-title yellow">⚠ Требует внимания</div>
+        <p>
+          <strong>CTR нулевой</strong> в 3 из 5 кампаний — CTA-кнопки не кликаются. SEO-трафик 3.5% — сайт фактически не виден в поиске. Контакты (email, телефон) — 0 кликов. LinkedIn приносит трафик, но соцсети в целом только 0.6%.
+        </p>
+      </div>
+      <div class="insight-card blue">
+        <div class="insight-title blue">🎯 Действия</div>
+        <p>
+          1. Переключить КП-письма на <strong>reg.ru SMTP</strong> (в работе).<br/>
+          2. Очистить базу от hard bounce адресов (удалить ~8% списка).<br/>
+          3. Переработать CTA в письмах — одна чёткая кнопка.<br/>
+          4. Запустить nurture-серию для дизайнеров (недели 2–4).<br/>
+          5. Настроить SEO-базис: мета-теги, структура страниц.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 8. БАЗА ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">👥</span> База контактов (CRM)</div>
+    <div class="kpi-grid">
+      <div class="kpi-card" style="--accent-color:#6366f1">
+        <div class="kpi-label">Всего в базе</div>
+        <div class="kpi-value">14 001</div>
+        <div class="kpi-sub">контактов</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#8b5cf6">
+        <div class="kpi-label">Дизайнеры / арх.</div>
+        <div class="kpi-value">7 571</div>
+        <div class="kpi-sub">54% базы</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#10b981">
+        <div class="kpi-label">Кухонные студии</div>
+        <div class="kpi-value">1 893</div>
+        <div class="kpi-sub">14% базы</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#f59e0b">
+        <div class="kpi-label">Санте́хника / стройка</div>
+        <div class="kpi-value">2 478</div>
+        <div class="kpi-sub">18% базы</div>
+      </div>
+      <div class="kpi-card" style="--accent-color:#64748b">
+        <div class="kpi-label">Прочие</div>
+        <div class="kpi-value">2 059</div>
+        <div class="kpi-sub">15% базы</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Home Project · homeproject.online · Счётчик Яндекс.Метрика #110362997</span>
+    <span>Данные: июнь–июль 2026 · Обновлено: 01.08.2026</span>
+  </div>
+
+</div>
+
+<script>
+const chartDefaults = {
+  plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
+  scales: {
+    x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#2a2d3e' } },
+    y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#2a2d3e' } }
+  }
+};
+
+// Traffic sources (doughnut)
+new Chart(document.getElementById('trafficChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Прямые', 'Email', 'Внутренний', 'Ссылки', 'Поиск', 'Соцсети'],
+    datasets: [{
+      data: [155, 58, 44, 36, 11, 2],
+      backgroundColor: ['#6366f1','#10b981','#f59e0b','#06b6d4','#8b5cf6','#ec4899'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 11 }, padding: 10 } } },
+    cutout: '65%'
+  }
+});
+
+// Devices
+new Chart(document.getElementById('devicesChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['ПК', 'Смартфоны'],
+    datasets: [{
+      data: [239, 72],
+      backgroundColor: ['#6366f1','#10b981'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 11 }, padding: 10 } } },
+    cutout: '65%'
+  }
+});
+
+// Open rate
+new Chart(document.getElementById('openRateChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Тест\n06.07', 'AI-сервис\n09.07', 'Santech\n10.07', 'Кухни\n10.07', 'B2B\n10.07'],
+    datasets: [{
+      label: 'Open rate %',
+      data: [29.8, 44.6, 27.4, 25.0, 34.1],
+      backgroundColor: ['#6366f1','#10b981','#6366f1','#6366f1','#f59e0b'],
+      borderRadius: 4
+    }, {
+      label: 'Норма (25%)',
+      data: [25, 25, 25, 25, 25],
+      type: 'line',
+      borderColor: '#ef4444',
+      borderDash: [4,4],
+      pointRadius: 0,
+      borderWidth: 1.5,
+      fill: false
+    }]
+  },
+  options: { ...chartDefaults, plugins: { ...chartDefaults.plugins } }
+});
+
+// Delivery rate
+new Chart(document.getElementById('deliveryChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Тест\n06.07', 'AI-сервис\n09.07', 'Santech\n10.07', 'Кухни\n10.07', 'B2B\n10.07', 'Retry Go\n10.07'],
+    datasets: [{
+      label: 'Delivery rate %',
+      data: [92.2, 56.0, 68.5, 62.3, 62.4, 89.9],
+      backgroundColor: [
+        '#10b981','#ef4444','#f59e0b','#f59e0b','#f59e0b','#10b981'
+      ],
+      borderRadius: 4
+    }, {
+      label: 'Норма (95%)',
+      data: [95,95,95,95,95,95],
+      type: 'line',
+      borderColor: '#10b981',
+      borderDash: [4,4],
+      pointRadius: 0,
+      borderWidth: 1.5,
+      fill: false
+    }]
+  },
+  options: { ...chartDefaults, scales: { ...chartDefaults.scales, y: { ...chartDefaults.scales.y, min: 40, max: 100 } } }
+});
+</script>
+
+</body>
+</html>
