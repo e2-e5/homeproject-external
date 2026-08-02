@@ -2,49 +2,38 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Скачать базу — Home Project</title>
+<title>База для Coldy — Home Project</title>
 <style>
-  body{font-family:-apple-system,sans-serif;background:#0f1117;color:#e0e0e0;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
-  .box{background:#1a1d27;border-radius:16px;padding:48px;text-align:center;max-width:420px;border:1px solid #2a2d3a}
-  h2{color:#fff;margin:0 0 8px;font-size:20px}
-  p{color:#888;font-size:13px;margin:0 0 28px;line-height:1.7}
-  .btn{background:#4f8ef7;color:#fff;border:none;padding:14px 36px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;display:inline-block}
-  .btn:hover{background:#3a7de0}
-  #msg{margin-top:14px;font-size:12px;color:#888;min-height:18px}
-  .alt{margin-top:24px;padding-top:20px;border-top:1px solid #2a2d3a;font-size:11px;color:#555;line-height:1.7}
+  body { font-family: -apple-system, sans-serif; background: #0f1117; color: #e0e0e0; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+  .box { background: #1a1d27; border-radius: 16px; padding: 48px 40px; text-align: center; border: 1px solid #2a2d3a; max-width: 440px; width: 90%; }
+  h1 { font-size: 22px; color: #fff; margin: 0 0 12px; }
+  p { color: #888; font-size: 13px; margin: 0 0 32px; line-height: 1.7; }
+  .btn { background: #4f8ef7; color: #fff; border: none; padding: 16px 40px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; }
+  .btn:hover { background: #3a7de0; }
+  .note { color: #555; font-size: 11px; margin-top: 20px; line-height: 1.6; }
+  .badge { background: #0d2e1c; color: #4caf82; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 16px; }
 </style>
 </head>
 <body>
 <div class="box">
-  <h2>📋 База для Coldy</h2>
-  <p><strong style="color:#ccc">warm-contacts-aug26.csv</strong><br>746 контактов · дизайнеры<br>получали письма в июле 2026</p>
-  <button class="btn" onclick="dl()">⬇&nbsp; Скачать CSV</button>
-  <div id="msg"></div>
-  <div class="alt">
-    Если кнопка не сработала:<br>
-    Открой <a href="https://80.91.86.53.nip.io/api/file?path=docs/marketing/email-campaigns/cold-outreach/warm-contacts-aug26.csv" style="color:#4f8ef7">эту ссылку</a> → нажми Ctrl+A, Ctrl+C → открой Блокнот → Ctrl+V → Сохранить как → имя файла: warm-contacts-aug26.csv → тип файла: Все файлы
-  </div>
+  <div class="badge">✓ 746 контактов</div>
+  <h1>База для Coldy</h1>
+  <p><strong>warm-contacts-aug26.csv</strong><br>Дизайнеры и архитекторы — получали письма в июле 2026, не отписались.<br>Готово для загрузки в кампанию «Re-engage Aug26».</p>
+  <button class="btn" onclick="dl()">⬇ Скачать CSV</button>
+  <div class="note">После скачивания: Coldy → Кампания → «Загрузить базу» → выбери этот файл</div>
 </div>
 <script>
-async function dl(){
-  var m=document.getElementById('msg');
-  m.textContent='Загружаю файл...';
-  try{
-    var r=await fetch('https://80.91.86.53.nip.io/api/file?path=docs/marketing/email-campaigns/cold-outreach/warm-contacts-aug26.csv');
-    var t=await r.text();
-    var b=new Blob([t],{type:'text/csv;charset=utf-8'});
-    var a=document.createElement('a');
-    a.href=URL.createObjectURL(b);
-    a.download='warm-contacts-aug26.csv';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    m.style.color='#4caf82';
-    m.textContent='✓ Файл скачан — проверь папку Загрузки';
-  }catch(e){
-    m.style.color='#e05a5a';
-    m.textContent='Ошибка: воспользуйся инструкцией ниже';
-  }
+function dl(){
+  var b="PLACEHOLDER_B64";
+  var bin=atob(b), arr=new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+  var blob=new Blob([arr],{type:"text/csv;charset=utf-8;"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="warm-contacts-aug26.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 </script>
 </body>
