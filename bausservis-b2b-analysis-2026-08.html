@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анализ B2B-портала LAPARET | А.Ботьев | Август 2026</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d2e;
+    --card2: #141624;
+    --accent: #5b6af5;
+    --accent2: #8b5cf6;
+    --green: #22c55e;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #2d3748;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .hero {
+    background: linear-gradient(135deg, #1a1d2e 0%, #0f1117 50%, #1a1d2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(91,106,245,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(91,106,245,0.15);
+    color: #818cf8;
+    border: 1px solid rgba(91,106,245,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #e2e8f0, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 30px;
+    max-width: 600px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-meta-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+  .hero-meta-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 50px 30px; }
+
+  /* Alert box */
+  .alert {
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .alert-red { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); }
+  .alert-yellow { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); }
+  .alert-green { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25); }
+  .alert-blue { background: rgba(91,106,245,0.1); border: 1px solid rgba(91,106,245,0.25); }
+  .alert-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .alert-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .alert-red .alert-title { color: #f87171; }
+  .alert-yellow .alert-title { color: #fbbf24; }
+  .alert-green .alert-title { color: #4ade80; }
+  .alert-blue .alert-title { color: #818cf8; }
+  .alert-text { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* Section */
+  .section { margin-bottom: 50px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-number {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 22px; font-weight: 700; }
+  .section-subtitle { font-size: 14px; color: var(--muted); margin-top: 2px; }
+
+  /* Status matrix */
+  .status-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .status-table th {
+    text-align: left;
+    padding: 10px 16px;
+    background: var(--card2);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+  }
+  .status-table th:first-child { border-radius: 10px 0 0 0; }
+  .status-table th:last-child { border-radius: 0 10px 0 0; }
+  .status-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(45,55,72,0.5);
+    vertical-align: top;
+  }
+  .status-table tr:last-child td { border-bottom: none; }
+  .status-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .status-table tr td:first-child { font-weight: 600; color: var(--text); }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-green { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+  .badge-yellow { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+  .badge-red { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .badge-blue { background: rgba(91,106,245,0.12); color: #818cf8; border: 1px solid rgba(91,106,245,0.2); }
+  .badge-gray { background: rgba(148,163,184,0.1); color: #94a3b8; border: 1px solid rgba(148,163,184,0.15); }
+
+  /* Cards grid */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 10px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(91,106,245,0.3); }
+  .card-icon { font-size: 28px; margin-bottom: 12px; }
+  .card-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .card-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .card-tag {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 24px; }
+  .timeline-dot {
+    position: absolute;
+    left: -25px;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid;
+    background: var(--bg);
+  }
+  .dot-done { border-color: var(--green); background: rgba(34,197,94,0.2); }
+  .dot-partial { border-color: var(--yellow); background: rgba(245,158,11,0.2); }
+  .dot-miss { border-color: var(--red); background: rgba(239,68,68,0.2); }
+  .timeline-date { font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+  .timeline-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .timeline-desc { font-size: 13px; color: var(--muted); }
+
+  /* Innovation block */
+  .innovation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .innovation-grid { grid-template-columns: 1fr; } }
+  .innov-card {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .innov-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .innov-card.hot::before { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+  .innov-card.hot2::before { background: linear-gradient(90deg, #22c55e, #0ea5e9); }
+  .innov-rank {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .innov-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  .innov-text { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
+  .innov-impact {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .impact-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(91,106,245,0.15);
+    color: #818cf8;
+    font-weight: 600;
+  }
+  .impact-tag.biz { background: rgba(34,197,94,0.12); color: #4ade80; }
+  .impact-tag.ai { background: rgba(139,92,246,0.15); color: #c084fc; }
+
+  /* Score bar */
+  .score-row { margin-bottom: 14px; }
+  .score-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
+  .score-label span:first-child { color: var(--text); font-weight: 500; }
+  .score-label span:last-child { color: var(--muted); }
+  .score-bar-bg { height: 8px; background: var(--card2); border-radius: 4px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+  .fill-green { background: linear-gradient(90deg, #22c55e, #16a34a); }
+  .fill-yellow { background: linear-gradient(90deg, #f59e0b, #d97706); }
+  .fill-red { background: linear-gradient(90deg, #ef4444, #dc2626); }
+  .fill-blue { background: linear-gradient(90deg, #5b6af5, #8b5cf6); }
+
+  /* MCP section */
+  .mcp-block {
+    background: linear-gradient(135deg, rgba(91,106,245,0.08), rgba(139,92,246,0.08));
+    border: 1px solid rgba(91,106,245,0.2);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .mcp-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: #818cf8; }
+  .mcp-text { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+
+  /* Recommendations */
+  .rec-list { list-style: none; }
+  .rec-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(45,55,72,0.5);
+  }
+  .rec-list li:last-child { border-bottom: none; }
+  .rec-num {
+    width: 28px; height: 28px;
+    background: rgba(91,106,245,0.15);
+    color: #818cf8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .rec-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .rec-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .rec-horizon {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-top: 6px;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 60px;
+    padding: 30px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .footer strong { color: var(--text); }
+
+  p { margin-bottom: 12px; }
+  ul.body-list { margin: 10px 0 14px 20px; }
+  ul.body-list li { margin-bottom: 6px; font-size: 14px; color: var(--muted); }
+  ul.body-list li strong { color: var(--text); }
+
+  .text-red { color: #f87171; }
+  .text-yellow { color: #fbbf24; }
+  .text-green { color: #4ade80; }
+  .text-blue { color: #818cf8; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Конфиденциально · Для внутреннего использования</div>
+  <h1>Анализ B2B-портала LAPARET<br>и экосистемы ViHome</h1>
+  <p class="hero-sub">Оценка текущего состояния, исполнения ТЗ, предложения по инновациям и MCP-интеграции. Подготовлено для руководства ООО «Баусервис».</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Автор</span>
+      <span class="hero-meta-value">А.Ботьев</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Дата</span>
+      <span class="hero-meta-value">Август 2026</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Объект анализа</span>
+      <span class="hero-meta-value">b2b.laparet.ru</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Статус проекта</span>
+      <span class="hero-meta-value text-yellow">⚠ Просрочка 17+ мес.</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Executive summary -->
+  <div class="alert alert-red" style="margin-bottom:40px;">
+    <div class="alert-icon">🚨</div>
+    <div>
+      <div class="alert-title">Главный вывод: критическая просрочка при хорошем техническом фундаменте</div>
+      <div class="alert-text">По ТЗ (октябрь 2025 → финальный релиз 25.03.2025) портал просрочен на 17+ месяцев. При этом анализ исходного кода живого приложения на b2b.laparet.ru показывает, что <strong>ядро системы реализовано</strong>: авторизация, заказы, каталог, аналитика, ценообразование, возвраты, претензии, счета, файлообменник, программа лояльности — все есть в бандле. Критически недоделаны: Академия (обучение), полноценный модуль доставки, управление пользователями, API тонко заполнен. ViHome 2.0 содержит ряд очень сильных идей, но большинство из них — пожелания без приоритизации.</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Timeline -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div>
+        <div class="section-title">График vs реальность</div>
+        <div class="section-subtitle">ТЗ октябрь 2025 г., финальный релиз — 25 марта 2025 г.</div>
+      </div>
+    </div>
+
+    <div class="alert alert-yellow" style="margin-bottom:24px;">
+      <div class="alert-icon">📅</div>
+      <div>
+        <div class="alert-title">Обратите внимание на даты в ТЗ</div>
+        <div class="alert-text">ТЗ датировано октябрём 2025 г., а финальный релиз в нём установлен на 25 марта 2025 г. — т.е. за 7 месяцев ДО составления ТЗ. Вероятно, дата составления ТЗ — октябрь 2024 г. (опечатка), а реальная просрочка составляет 17+ месяцев к августу 2026 г.</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot dot-done"></div>
+        <div class="timeline-date">Октябрь 2024 (предполагаемая фактическая дата)</div>
+        <div class="timeline-title">Подписание ТЗ</div>
+        <div class="timeline-desc">Утверждена архитектура: Bitrix CMS + Vue.js, REST API, Kafka + 1С ERP, PostgreSQL. Роли: Руководитель, Закупщик, Продавец.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot dot-miss"></div>
+        <div class="timeline-date">15 декабря 2024 — <span class="text-red">Дедлайн Этап 1</span></div>
+        <div class="timeline-title">Анализ и проектирование</div>
+        <div class="timeline-desc">Статус неизвестен. Судя по наличию живого приложения — этап завершён, но с задержкой.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot dot-miss"></div>
+        <div class="timeline-date">1 марта 2025 — <span class="text-red">Дедлайн Beta</span></div>
+        <div class="timeline-title">Разработка и интеграция с 1С</div>
+        <div class="timeline-desc text-red">Пропущен. По состоянию на август 2026 г. интеграция с 1С через Kafka, двухфакторная аутентификация и ряд модулей находятся под вопросом.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot dot-miss"></div>
+        <div class="timeline-date">25 марта 2025 — <span class="text-red">Финальный релиз</span></div>
+        <div class="timeline-title">Производственный запуск</div>
+        <div class="timeline-desc text-red">Пропущен. Портал существует на b2b.laparet.ru, но имеет признаки незавершённости (см. раздел 2).</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot dot-partial"></div>
+        <div class="timeline-date">Август 2026 — Текущая точка</div>
+        <div class="timeline-title">Состояние портала: 65–70% готовности</div>
+        <div class="timeline-desc">Ядро работает. Критические gap'ы: Академия, полная доставка, 2FA, управление пользователями.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Implementation Status -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div>
+        <div class="section-title">Статус реализации функционала ТЗ</div>
+        <div class="section-subtitle">Анализ живого JS-бандла b2b.laparet.ru — какие модули фактически собраны</div>
+      </div>
+    </div>
+
+    <div class="alert alert-blue" style="margin-bottom:20px;">
+      <div class="alert-icon">🔍</div>
+      <div>
+        <div class="alert-title">Методология анализа</div>
+        <div class="alert-text">Прямой доступ к порталу с тестовыми учётными данными не удался (учётные данные требуют обновления). Вместо этого был извлечён и проанализирован Vue.js бандл (854 KB) с полным списком роутов, компонентов и API-эндпоинтов. Это даёт объективную картину того, что <em>реально разработано</em>, в отличие от слов подрядчика.</div>
+      </div>
+    </div>
+
+    <table class="status-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Модуль по ТЗ</th>
+          <th style="width:15%">Статус</th>
+          <th style="width:15%">Маршрут в портале</th>
+          <th>Комментарий</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Авторизация / 2FA</td>
+          <td><span class="badge badge-yellow">⚡ Частично</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/auth</code></td>
+          <td style="font-size:13px; color:var(--muted)">Базовая авторизация есть. 2FA из ТЗ (нефункциональные требования) — не обнаружена в бандле.</td>
+        </tr>
+        <tr>
+          <td>Главный экран / Дашборд</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/</code></td>
+          <td style="font-size:13px; color:var(--muted)">API: sales-metrics, orders-summary, finances, training-events, documents — всё подключено.</td>
+        </tr>
+        <tr>
+          <td>Личный кабинет / Профиль</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/user, /company</code></td>
+          <td style="font-size:13px; color:var(--muted)">API /profile/me и /profile/counterparty есть. Рейтинг компании, финансы — на дашборде.</td>
+        </tr>
+        <tr>
+          <td>Заказы — монитор, детали</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/orders</code></td>
+          <td style="font-size:13px; color:var(--muted)">Полный журнал заказов с фильтрами, детали, структура подчинённости — присутствуют в бандле.</td>
+        </tr>
+        <tr>
+          <td>Каталог товаров</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/catalog, /product</code></td>
+          <td style="font-size:13px; color:var(--muted)">Каталог, поиск (/search), избранное (/favorites), сканирование QR — всё есть.</td>
+        </tr>
+        <tr>
+          <td>Корзина и оформление заказа</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/cart, /checkout</code></td>
+          <td style="font-size:13px; color:var(--muted)">API корзины (/api/v1/basket/) полный: добавление, просмотр по складам, оформление.</td>
+        </tr>
+        <tr>
+          <td>Журнал возвратов / Создание возврата</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/returns</code></td>
+          <td style="font-size:13px; color:var(--muted)">Роут и write-off подроут присутствуют.</td>
+        </tr>
+        <tr>
+          <td>Журнал претензий / Создание претензии</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/claims</code></td>
+          <td style="font-size:13px; color:var(--muted)">Полная реализация согласно ТЗ: журнал + форма создания с вложениями.</td>
+        </tr>
+        <tr>
+          <td>Счета (создание, журнал)</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/invoices</code></td>
+          <td style="font-size:13px; color:var(--muted)">Журнал счетов реализован. Создание, шаблоны, печать — в бандле.</td>
+        </tr>
+        <tr>
+          <td>Доставка (выбор, оформление, маршруты)</td>
+          <td><span class="badge badge-yellow">⚡ Частично</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">внутри /cart</code></td>
+          <td style="font-size:13px; color:var(--muted)">Отдельного роута /delivery нет. В бандле есть delivery-cart-raw — базовый функционал внутри оформления. Полный модуль доставки с маршрутами льготных доставок — не обнаружен.</td>
+        </tr>
+        <tr>
+          <td>Ценообразование (расчёт, ценники, прайс)</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/pricing, /pricing-design, /pricing-print, /pricing-tags</code></td>
+          <td style="font-size:13px; color:var(--muted)">Один из самых полных модулей — 4 субраздела. Алгоритм расчёта цен, дизайн и печать ценников.</td>
+        </tr>
+        <tr>
+          <td>Академия (обучение)</td>
+          <td><span class="badge badge-red">❌ Отсутствует</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">—</code></td>
+          <td style="font-size:13px; color:var(--muted)">Нет роута /academy. На дашборде есть API training-events (загрузка событий), но полноценный модуль с курсами, тестами, сертификатами и баусами за обучение — не реализован. Критический gap для программы лояльности.</td>
+        </tr>
+        <tr>
+          <td>Файлообменник</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/file-sharing</code></td>
+          <td style="font-size:13px; color:var(--muted)">Полный модуль включая автообработку заказов интернет-магазина.</td>
+        </tr>
+        <tr>
+          <td>Комплексные продажи (КП)</td>
+          <td><span class="badge badge-yellow">⚡ Частично</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/collection</code></td>
+          <td style="font-size:13px; color:var(--muted)">Роут /collection есть, вероятно это и есть КП. Интеграция с ViHome3D для визуализации — статус неизвестен без авторизованного доступа.</td>
+        </tr>
+        <tr>
+          <td>Аналитика (ведомости, графики)</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/analytics</code></td>
+          <td style="font-size:13px; color:var(--muted)">Ведомости, график платежей, комплексность продаж, отчёты по ТТ — присутствуют.</td>
+        </tr>
+        <tr>
+          <td>Инструкции</td>
+          <td><span class="badge badge-gray">? Неизвестно</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">—</code></td>
+          <td style="font-size:13px; color:var(--muted)">Отдельного роута нет. Возможно, реализованы как статические страницы в Bitrix.</td>
+        </tr>
+        <tr>
+          <td>Настройки / Управление пользователями</td>
+          <td><span class="badge badge-red">❌ Отсутствует</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">—</code></td>
+          <td style="font-size:13px; color:var(--muted)">Нет роута /settings. Блок-списки Руководитель/Закупщик/Продавец, добавление/удаление пользователей, смена ролей — не обнаружены во фронтенде.</td>
+        </tr>
+        <tr>
+          <td>Уведомления</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/notifications</code></td>
+          <td style="font-size:13px; color:var(--muted)">Полный API: получение, отметка прочитанными, счётчик непрочитанных.</td>
+        </tr>
+        <tr>
+          <td>Программа лояльности (Баусы)</td>
+          <td><span class="badge badge-yellow">⚡ Частично</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/loyalty</code></td>
+          <td style="font-size:13px; color:var(--muted)">Роут есть. Но без Академии программа лояльности работает лишь наполовину — нет баусов за обучение, фотоотчёты, задания.</td>
+        </tr>
+        <tr>
+          <td>Поддержка / Чат</td>
+          <td><span class="badge badge-green">✅ Реализован</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">/support</code></td>
+          <td style="font-size:13px; color:var(--muted)">Раздел обратной связи с вложениями реализован согласно ТЗ.</td>
+        </tr>
+        <tr>
+          <td>Интеграция с 1С через Kafka</td>
+          <td><span class="badge badge-gray">? Неизвестно</span></td>
+          <td><code style="font-size:11px; color:#94a3b8">бэкенд</code></td>
+          <td style="font-size:13px; color:var(--muted)">Внешний анализ не позволяет оценить работу Kafka. Требует тестирования внутри: синхронность данных заказов/бонусов с 1С.</td>
+        </tr>
+        <tr>
+          <td>2FA / RBAC / Логирование</td>
+          <td><span class="badge badge-red">❌ Отсутствует</span></td>
+          <td>—</td>
+          <td style="font-size:13px; color:var(--muted)">Нефункциональные требования ТЗ п.7 — двухфакторная аутентификация, логирование действий — не обнаружены. Критично для B2B безопасности.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 3: Readiness Score -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div>
+        <div class="section-title">Оценка готовности по направлениям</div>
+        <div class="section-subtitle">На основе анализа кода и документации</div>
+      </div>
+    </div>
+
+    <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px;">
+      <div class="score-row">
+        <div class="score-label"><span>Основные транзакции (заказы, каталог, счета)</span><span>90%</span></div>
+        <div class="score-bar-bg"><div class="score-bar-fill fill-green" style="width:90%"></div></div>
+      </div>
+      <div class="score-row">
+        <div class="score-label"><span>Ценообразование и документооборот</span><span>85%</span></div>
+        <div class="score-bar-bg"><div class="score-bar-fill fill-green" style="width:85%"></div></div>
+      </div>
+      <div class="score-row">
+        <div class="score-label"><span>Аналитика и отчётность</span><span>75%</span></div>
+        <div class="score-bar-bg"><div class="score-bar-fill fill-green" style="width:75%"></div></div>
+      </div>
+      <div class="score-row">
+        <div class="score-label"><span>Программа лояльности (Баусы)</span><span>50%</span></div>
+        <div class="score-bar-bg"><div class="score-bar-fill fill-yellow" style="width:50%"></div></div>
+      </div>
+      <div class="score-row">
+        <div class="score-label"><span>Управление пользователями / RBAC</span><span>30%</span></div>
+        <div class="score-bar-bg"><div class="score-bar-fill fill-red" style="width:30%"></div></div>
+      </div>
+      <div class="score-row">
+        <div class="score-label"><span>Академия / Обучение</span><span>10%</span></div>
+        <div class="score-bar-bg"><div class="score-bar-fill fill-red" style="width:10%"></div></div>
+      </div>
+      <div class="score-row">
+        <div class="score-label"><span>Безопасность (2FA, логирование)</span><span>25%</span></div>
+        <div class="score-bar-bg"><div class="score-bar-fill fill-red" style="width:25%"></div></div>
+      </div>
+      <div class="score-row" style="margin-bottom:0">
+        <div class="score-label"><span><strong>ИТОГОВАЯ ГОТОВНОСТЬ</strong></span><span><strong>65%</strong></span></div>
+        <div class="score-bar-bg"><div class="score-bar-fill fill-blue" style="width:65%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: ViHome 2.0 Assessment -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div>
+        <div class="section-title">Оценка идей ViHome 2.0</div>
+        <div class="section-subtitle">Критический разбор 24 предложенных фич — что имеет ценность, а что — перегруз</div>
+      </div>
+    </div>
+
+    <p style="font-size:14px; color:var(--muted); margin-bottom:24px;">Документ ViHome 2.0 содержит 24 направления развития. Многие из них инновационны и реализуемы. Ниже — честная приоритизация по критериям: влияние на продажи, реализуемость за разумный срок, уникальность на рынке B2B плитки.</p>
+
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px;">🔥 ВЫСОКАЯ ЦЕННОСТЬ — реализовывать в первую очередь</div>
+      <div class="innovation-grid">
+
+        <div class="innov-card hot">
+          <div class="innov-rank">Приоритет 1</div>
+          <div class="innov-title">AI-ассистент продавца<br>(поиск аналогов, upsell)</div>
+          <div class="innov-text">Продавец описывает запрос клиента — AI за секунды находит 3 подходящих позиции + аналоги + сопутствующие товары. Прямое влияние на конверсию и средний чек. Реализуется через LLM + векторный поиск по каталогу. Аналогов у конкурентов-дистрибьюторов плитки пока нет.</div>
+          <div class="innov-impact">
+            <span class="impact-tag ai">AI</span>
+            <span class="impact-tag biz">+Revenue</span>
+            <span class="impact-tag">3-4 мес</span>
+          </div>
+        </div>
+
+        <div class="innov-card hot">
+          <div class="innov-rank">Приоритет 2</div>
+          <div class="innov-title">AI поиск аналога<br>по фото конкурента</div>
+          <div class="innov-text">Продавец фотографирует образец у конкурента — AI ищет аналог в ассортименте Laparet. Killer feature для торгового зала. Технически: мультимодальная модель (CLIP или GPT-4V) + каталог с изображениями. Даёт конкретное конкурентное преимущество на точке продаж.</div>
+          <div class="innov-impact">
+            <span class="impact-tag ai">AI + Vision</span>
+            <span class="impact-tag biz">Конкурентное преимущество</span>
+            <span class="impact-tag">4-6 мес</span>
+          </div>
+        </div>
+
+        <div class="innov-card">
+          <div class="innov-rank">Приоритет 3</div>
+          <div class="innov-title">AI-прогнозирование спроса<br>для автозаказа</div>
+          <div class="innov-text">На основе истории ТТ, сезонности и региональных трендов — AI формирует готовый черновик заказа для закупщика. Снижает неликвид и дефициты. Реализуется на ML-модели временных рядов. Прямая экономия денег клиента = лояльность.</div>
+          <div class="innov-impact">
+            <span class="impact-tag ai">AI/ML</span>
+            <span class="impact-tag biz">Снижение неликвида</span>
+            <span class="impact-tag">5-7 мес</span>
+          </div>
+        </div>
+
+        <div class="innov-card">
+          <div class="innov-rank">Приоритет 4</div>
+          <div class="innov-title">AI-сбор отзывов из<br>2ГИС и Яндекс.Карт</div>
+          <div class="innov-text">Автоматический мониторинг репутации ТТ: AI анализирует тональность, выделяет темы (доставка, консультация, качество) и формирует дашборд болей. Руководитель ТТ видит приоритеты. Дешёво реализовать через парсинг + LLM, огромная ценность для операционного управления сетью.</div>
+          <div class="innov-impact">
+            <span class="impact-tag ai">AI + NLP</span>
+            <span class="impact-tag biz">Управление качеством</span>
+            <span class="impact-tag">2-3 мес</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px;">⚡ СРЕДНЯЯ ЦЕННОСТЬ — реализовывать во второй волне</div>
+      <div class="innovation-grid">
+
+        <div class="innov-card hot2">
+          <div class="innov-rank">Приоритет 5</div>
+          <div class="innov-title">Интеграция с дизайнерами<br>и архитекторами (агенты)</div>
+          <div class="innov-text">Отдельный ЛК для архитекторов: подбор материалов, экспорт спецификации, бронирование образцов, учёт баусов как внешнего агента. Расширяет охват за пределы прямых партнёров. Хорошая идея, но требует отдельной юридической и операционной проработки.</div>
+          <div class="innov-impact">
+            <span class="impact-tag biz">Новый канал</span>
+            <span class="impact-tag">6-9 мес</span>
+          </div>
+        </div>
+
+        <div class="innov-card hot2">
+          <div class="innov-rank">Приоритет 6</div>
+          <div class="innov-title">AI-генерация SMM-контента<br>для торговых точек</div>
+          <div class="innov-text">Продавец выбирает коллекцию → AI генерирует пост для Instagram/ВКонтакте в фирменном стиле Laparet с персонализацией. Снимает маркетинговую нагрузку с ТТ и повышает однородность позиционирования бренда. Быстро реализуемо.</div>
+          <div class="innov-impact">
+            <span class="impact-tag ai">AI-генерация</span>
+            <span class="impact-tag biz">Маркетинг ТТ</span>
+            <span class="impact-tag">2-3 мес</span>
+          </div>
+        </div>
+
+        <div class="innov-card">
+          <div class="innov-rank">Приоритет 7</div>
+          <div class="innov-title">AI статус партнёра<br>и путь до следующего уровня</div>
+          <div class="innov-text">В ЛК руководителя ТТ — блок «Мой статус»: текущий уровень (Серебро/Золото/Платина), сколько нужно докупить, AI-рекомендация «добавьте коллекцию X — даст +110% к нужной сумме». Мотивирует к увеличению закупок. Хорошая геймификация для B2B.</div>
+          <div class="innov-impact">
+            <span class="impact-tag ai">AI рекомендации</span>
+            <span class="impact-tag biz">+Оборот</span>
+            <span class="impact-tag">3-4 мес</span>
+          </div>
+        </div>
+
+        <div class="innov-card">
+          <div class="innov-rank">Приоритет 8</div>
+          <div class="innov-title">Автозаявка на образцы<br>по триггерам планограммы</div>
+          <div class="innov-text">Продавец отмечает освободившееся место → AI формирует новую планограмму и заявку на образцы. Автоматизирует рутину по ЗВУ. Реализуемо, но требует интеграции с модулем управления выкладкой.</div>
+          <div class="innov-impact">
+            <span class="impact-tag biz">Мерчандайзинг</span>
+            <span class="impact-tag">4-5 мес</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-bottom:10px;">
+      <div style="font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px;">⚠️ НИЗКАЯ ЦЕННОСТЬ — не реализовывать сейчас</div>
+      <div class="alert alert-yellow">
+        <div class="alert-icon">⚠️</div>
+        <div>
+          <div class="alert-title">Фичи, которые стоит отложить или переосмыслить</div>
+          <div class="alert-text">
+            <strong>«AI Болмат-эксперт» (видеоаватар)</strong> — синтезированный видеоаватар конкретного человека создаёт юридические и репутационные риски. Вместо него достаточно текстового/голосового AI-ассистента без привязки к личности.<br><br>
+            <strong>Хит-парад конкурентов</strong> — хорошая идея для сбора рыночной разведки, но продавцы не будут это делать добровольно. Нужно встроить в более естественный процесс.<br><br>
+            <strong>Электронные чеки</strong> — регуляторный вопрос в России, требует отдельной проработки с юристами.<br><br>
+            <strong>ViHome3D/VR-интеграция как основной фокус</strong> — мощный инструмент, но сначала нужно закрыть базовый функционал портала. ViHome3D — это на следующий этап.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: New AI Innovations -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div>
+        <div class="section-title">Новые инновации: чего нет в ViHome 2.0</div>
+        <div class="section-subtitle">Предложения А.Ботьева по выходу за пределы документа ViHome 2.0</div>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <div class="card-title">AI-переговорщик по цене</div>
+        <div class="card-text">Клиент запрашивает скидку → AI анализирует историю закупок, сезонность, загрузку склада и предлагает продавцу оптимальное встречное предложение с обоснованием. Не заменяет продавца, но даёт ему «шпаргалку» за 3 секунды. Прямое влияние на маржу.</div>
+        <div class="card-tag">→ AI + CRM</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <div class="card-title">Предиктивный ABC-XYZ для ТТ</div>
+        <div class="card-text">Не просто ABC-XYZ по прошлым продажам, а прогнозный: AI предсказывает, какие позиции перейдут из C в B через 60 дней (растущий спрос, региональный тренд). Закупщик видит «горящие» позиции заранее, до появления дефицита.</div>
+        <div class="card-tag">→ Predictive Analytics</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <div class="card-title">WhatsApp/Telegram-бот для закупщика</div>
+        <div class="card-text">Закупщик пишет в мессенджер: «Что у меня заканчивается?» — бот отвечает по остаткам, выставляет счёт и формирует черновик заказа прямо в чате. Интеграция с порталом через API. 80% рутинных закупок — через мессенджер без входа в портал.</div>
+        <div class="card-tag">→ Messaging AI</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <div class="card-title">MCP-протокол для партнёров</div>
+        <div class="card-text">Открытый MCP-эндпоинт для AI-агентов партнёров: агент закупщика может автономно запрашивать остатки, цены и создавать заказы без UI. Для крупных ТТ со своими IT-командами — революционный шаг вперёд. Подробнее — в разделе 6.</div>
+        <div class="card-tag">→ AI-Native B2B</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🌡️</div>
+        <div class="card-title">Тепловая карта выкладки (CV)</div>
+        <div class="card-text">Камера над торговым залом → AI отслеживает, к каким стендам подходят чаще, и коррелирует это с продажами. Баусервис видит реальную эффективность каждого стенда в сети. Данные помогают принимать решения о выкладке на основе факта, а не интуиции.</div>
+        <div class="card-tag">→ Computer Vision</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📬</div>
+        <div class="card-title">AI-генерация персональных<br>коммерческих предложений</div>
+        <div class="card-text">Продавец выбирает клиента (история покупок) → AI автоматически генерирует КП с релевантными новинками, аналогами к ранее купленному и персональным текстом. Время создания КП: с 20 мин до 60 секунд. Увеличивает количество исходящих предложений в разы.</div>
+        <div class="card-tag">→ Generative AI + CRM</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 6: MCP Integration -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <div>
+        <div class="section-title">MCP-интеграция: потенциал обмена данными</div>
+        <div class="section-subtitle">Model Context Protocol — следующий рубеж B2B-автоматизации</div>
+      </div>
+    </div>
+
+    <div class="mcp-block">
+      <div class="mcp-title">🔌 Что такое MCP применительно к LAPARET B2B</div>
+      <div class="mcp-text">MCP (Model Context Protocol, стандарт Anthropic 2024) — открытый протокол для подключения AI-агентов к внешним системам. Проще говоря: любой AI-агент — у партнёра, у Баусервиса или у внешнего разработчика — может подключиться к порталу через стандартизированный интерфейс и автономно выполнять действия: запрашивать остатки, цены, создавать заказы, получать аналитику.</div>
+      <div class="mcp-text">Это не просто API — это AI-native интеграция. Разница: обычный API требует разработки коннектора под каждую систему. MCP — это стандарт, как HTTP: один раз реализовал сервер, и любой AI-клиент подключается по протоколу.</div>
+    </div>
+
+    <div class="cards-grid">
+
+      <div class="card">
+        <div class="card-icon">🏪</div>
+        <div class="card-title">MCP-сервер для партнёров</div>
+        <div class="card-text">Крупные ТТ с IT-командами или AI-агентами получают MCP-доступ к порталу. Агент закупщика автономно: мониторит остатки, создаёт черновики заказов при снижении запасов ниже порога, запрашивает прайс с учётом персональных условий. Без UI, без ручного труда.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <div class="card-title">MCP-клиент внутри Баусервис</div>
+        <div class="card-text">Внутренний AI-агент Баусервиса подключается через MCP к 1С, CRM и порталу. Автоматически: отслеживает просроченную дебиторку, формирует коллекционные предложения, уведомляет менеджеров о рисках — без ручного сбора данных из разных систем.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📦</div>
+        <div class="card-title">MCP-хаб для поставщиков</div>
+        <div class="card-text">Поставщики (бренды плитки) подключаются через MCP и видят агрегированные данные о продажах их SKU в сети, дефицитах, прогнозах. Это принципиально меняет партнёрские отношения — данные о спросе в реальном времени вместо ежемесячных отчётов.</div>
+      </div>
+
+    </div>
+
+    <div class="alert alert-blue" style="margin-top:20px;">
+      <div class="alert-icon">💡</div>
+      <div>
+        <div class="alert-title">Реализация MCP: что нужно</div>
+        <div class="alert-text">
+          1. <strong>MCP-сервер поверх существующего REST API</strong> — это тонкий адаптерный слой, не переписывание. 2-3 недели разработки при наличии документированного API.<br><br>
+          2. <strong>OAuth 2.0 + scope-based permissions</strong> — партнёр авторизует своего AI-агента как отдельную сущность с ограниченными правами (только заказы, только чтение и т.д.).<br><br>
+          3. <strong>Tool-манифест</strong> — описание доступных инструментов: get_stock, create_order, get_prices, get_analytics. Любой LLM-агент с поддержкой MCP подключается автоматически.<br><br>
+          <strong>Важно:</strong> первыми в российском рынке B2B стройматериалов, внедрившими MCP, получат огромное конкурентное преимущество в привлечении технологически продвинутых партнёров.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 7: Recommendations -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <div>
+        <div class="section-title">Рекомендации и план действий</div>
+        <div class="section-subtitle">Что делать прямо сейчас, чтобы закрыть долг и выйти вперёд рынка</div>
+      </div>
+    </div>
+
+    <ul class="rec-list">
+
+      <li>
+        <div class="rec-num">1</div>
+        <div>
+          <div class="rec-title">Немедленно: актуализировать тестовые данные и провести полный аудит с доступом</div>
+          <div class="rec-text">Тестовые учётные данные (Anton/Anton1 и др.) не работают. Необходимо: получить рабочие credentials от подрядчика → пройти портал под каждой из 3 ролей → составить полный список работающих и сломанных функций. Без этого любая приёмка — вслепую.</div>
+          <span class="rec-horizon">→ Горизонт: 1–2 дня</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="rec-num">2</div>
+        <div>
+          <div class="rec-title">Критически: провести приёмочное тестирование по чек-листу ТЗ</div>
+          <div class="rec-text">По каждому пункту раздела 5 ТЗ («В рамках первого релиза реализуются») — формальная проверка с фиксацией: работает / не работает / частично. Особое внимание: синхронность данных заказов с 1С через Kafka, корректность расчёта бонусов, разграничение прав по ролям (RBAC). Результат — акт приёмки с перечнем дефектов.</div>
+          <span class="rec-horizon">→ Горизонт: 1 неделя</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="rec-num">3</div>
+        <div>
+          <div class="rec-title">Срочно: закрыть критические gap'ы перед боевым запуском</div>
+          <div class="rec-text">Три обязательных блока к боевому запуску: (а) Управление пользователями — без этого Руководитель не может создавать/удалять сотрудников самостоятельно; (б) Безопасность — хотя бы двухфакторная аутентификация для роли Руководитель; (в) Академия — минимальная версия (5–10 курсов, тест, баусы за прохождение). Без Академии программа лояльности работает вполсилы.</div>
+          <span class="rec-horizon">→ Горизонт: 4–6 недель</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="rec-num">4</div>
+        <div>
+          <div class="rec-title">Среднесрочно: запустить AI-ассистента продавца как первую AI-фичу</div>
+          <div class="rec-text">Это наиболее реализуемая и наиболее ценная AI-инновация из ViHome 2.0. Архитектура: векторная база данных каталога + LLM с system prompt о продуктах Laparet + интерфейс в мобильном приложении. Срок разработки: 3–4 месяца при наличии хорошего подрядчика. Метрики успеха: увеличение среднего чека в ТТ, сокращение времени подбора товара.</div>
+          <span class="rec-horizon">→ Горизонт: 3–4 месяца</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="rec-num">5</div>
+        <div>
+          <div class="rec-title">Среднесрочно: AI-мониторинг отзывов из геосервисов</div>
+          <div class="rec-text">Быстрая победа с высокой ценностью для руководителей сети ТТ. Техническая реализация простая: парсинг 2ГИС/Яндекс.Карт + LLM-анализ тональности → дашборд в существующем разделе аналитики. Примерный срок: 2–3 месяца. Немедленно даёт ценность для управления качеством сети.</div>
+          <span class="rec-horizon">→ Горизонт: 2–3 месяца</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="rec-num">6</div>
+        <div>
+          <div class="rec-title">Стратегически: спроектировать MCP-сервер поверх B2B API</div>
+          <div class="rec-text">Начать с прototипа: подключить внутреннего AI-агента Баусервиса к порталу через MCP. Показать руководству, как агент автономно создаёт черновик заказа по данным из 1С. Это демо станет сильнейшим аргументом для крупных партнёров и позиционирует Баусервис как технологического лидера рынка. Затем — открытый MCP-доступ для партнёров.</div>
+          <span class="rec-horizon">→ Горизонт: 6–9 месяцев</span>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- Section 8: What to ask the developer -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">8</div>
+      <div>
+        <div class="section-title">Контрольные вопросы подрядчику</div>
+        <div class="section-subtitle">Список вопросов для встречи по статусу проекта</div>
+      </div>
+    </div>
+
+    <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px;">
+      <ul class="body-list">
+        <li><strong>Kafka + 1С:</strong> покажите в живом режиме создание заказа на портале и отображение его в 1С в течение 30 секунд. Это приёмочный критерий №2 из ТЗ.</li>
+        <li><strong>RBAC:</strong> создайте нового пользователя роли «Продавец» под логином Руководителя и убедитесь, что он не видит финансовые данные Руководителя.</li>
+        <li><strong>Данные:</strong> проверьте совпадение суммы трёх последних заказов в 1С и в портале — есть ли расхождение?</li>
+        <li><strong>Академия:</strong> есть ли хоть один завершённый курс с тестом и начислением баусов?</li>
+        <li><strong>Производительность:</strong> ТЗ требует отклик ≤2 сек. Есть ли результаты нагрузочного тестирования? При какой нагрузке (кол-ве одновременных пользователей)?</li>
+        <li><strong>Безопасность:</strong> есть ли лог пользовательских действий (кто, когда, что изменил)? Это требование ТЗ п.7.</li>
+        <li><strong>Доставка:</strong> реализован ли полный модуль доставки с маршрутами льготных доставок и предварительным набором?</li>
+        <li><strong>Управление пользователями:</strong> может ли Руководитель самостоятельно создать нового Продавца прямо в портале, без обращения к администратору?</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Подготовлено: <strong>А.Ботьев</strong> · Август 2026 г. · Конфиденциально<br>
+  <span style="font-size:12px; margin-top:6px; display:block;">Анализ основан на изучении технической документации (ТЗ, WEB/PWA spec, ViHome 2.0), исходного JS-кода портала b2b.laparet.ru и материалов ViHome экосистемы. Тестовый доступ под учётными данными потребует актуализации credentials.</span>
+</div>
+
+</body>
+</html>
