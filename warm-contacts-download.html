@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Скачать базу — Home Project</title>
+<style>
+  body { font-family: -apple-system, sans-serif; background: #0f1117; color: #e0e0e0; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+  .box { background: #1a1d27; border-radius: 16px; padding: 40px; text-align: center; border: 1px solid #2a2d3a; max-width: 420px; }
+  h1 { font-size: 20px; color: #fff; margin: 0 0 8px; }
+  p { color: #888; font-size: 13px; margin: 0 0 28px; line-height: 1.6; }
+  .btn { background: #4f8ef7; color: #fff; border: none; padding: 14px 32px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn:hover { background: #3a7de0; }
+  .note { color: #555; font-size: 11px; margin-top: 16px; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>📋 База для Coldy</h1>
+  <p>Файл: <strong>warm-contacts-aug26.csv</strong><br>746 контактов · Re-engage Aug26<br>Дизайнеры, получали письма в июле 2026</p>
+  <button class="btn" onclick="download()">⬇ Скачать CSV</button>
+  <div class="note">После скачивания — загрузи в Coldy через «Загрузить базу»</div>
+</div>
+<script>
+function download() {
+  var b64 = "PLACEHOLDER_B64";
+  var binary = atob(b64);
+  var bytes = new Uint8Array(binary.length);
+  for (var i = 0; i < binary.length; i++) { bytes[i] = binary.charCodeAt(i); }
+  var blob = new Blob([bytes], {type: "text/csv;charset=utf-8;"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "warm-contacts-aug26.csv";
+  a.click();
+}
+</script>
+</body>
+</html>
