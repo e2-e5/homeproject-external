@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новая модель продаж на основе AR · Концепция</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<style>
+:root{
+  --graphite:#211E1E; --graphite2:#2C2827;
+  --beige:#D4B79B; --terra:#AA7B62; --cream:#EEE8E0;
+  --gold:#EBBC5A; --taupe:#C6B8B7; --brown:#C09978;
+  --ink:#211E1E; --muted:#6B615C;
+}
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+
+.reveal{font-family:'Manrope',sans-serif;font-size:30px;color:var(--ink);font-weight:400;}
+.reveal .slides section{text-align:left;top:0!important;padding:44px 60px;box-sizing:border-box;height:100%;}
+.reveal h1,.reveal h2,.reveal h3{font-family:'Cormorant Garamond',serif;color:var(--graphite);font-weight:700;letter-spacing:.3px;text-transform:none;line-height:1.08;margin:0 0 .35em;}
+.reveal h1{font-size:2.15em;}
+.reveal h2{font-size:1.55em;}
+.reveal h3{font-size:1.15em;color:var(--terra);}
+.reveal p,.reveal li{font-weight:400;line-height:1.4;}
+.reveal strong{color:var(--terra);font-weight:600;}
+.reveal em{color:var(--muted);font-style:normal;}
+.reveal ul,.reveal ol{margin-left:.2em;}
+.reveal li{margin:.34em 0;}
+.reveal section{background:var(--cream);}
+
+/* backgrounds via data-background-color */
+.reveal .slides{}
+.kicker{font-family:'Manrope';font-size:.5em;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--terra);margin-bottom:.8em;}
+.brandmark{font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.5em;font-size:.62em;color:var(--graphite);}
+.rule{width:70px;height:3px;background:var(--gold);margin:.5em 0 .9em;border:none;}
+.foot{position:absolute;bottom:22px;left:60px;font-size:.44em;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+.pageno{position:absolute;bottom:22px;right:60px;font-size:.44em;color:var(--muted);font-weight:600;}
+
+/* dark section dividers */
+section.dark{background:var(--graphite);}
+section.dark h1,section.dark h2,section.dark h3{color:var(--cream);}
+section.dark p,section.dark li{color:var(--taupe);}
+section.dark strong{color:var(--gold);}
+section.dark .kicker{color:var(--beige);}
+section.dark .brandmark{color:var(--beige);}
+section.dark .foot,section.dark .pageno{color:#6E6560;}
+
+/* two-column */
+.cols{display:flex;gap:44px;align-items:flex-start;}
+.col{flex:1;}
+
+/* cards */
+.card{background:#fff;border-radius:14px;padding:22px 24px;box-shadow:0 8px 24px rgba(33,30,30,.08);border-top:4px solid var(--terra);}
+.card h3{margin-top:0;}
+section.dark .card{background:var(--graphite2);border-top-color:var(--gold);}
+
+/* table */
+.reveal table{font-size:.7em;border-collapse:collapse;width:100%;margin-top:.4em;}
+.reveal table th{background:var(--graphite);color:var(--cream);font-family:'Manrope';font-weight:600;text-align:left;padding:12px 14px;font-size:.92em;}
+.reveal table td{padding:11px 14px;border-bottom:1px solid #ddd3c9;vertical-align:top;}
+.reveal table tr:nth-child(even) td{background:#f6efe6;}
+.tag{display:inline-block;background:var(--beige);color:var(--graphite);border-radius:20px;padding:3px 14px;font-size:.6em;font-weight:600;letter-spacing:.05em;margin:3px 5px 3px 0;}
+.tag.g{background:var(--gold);}
+.tag.t{background:var(--terra);color:#fff;}
+
+.big{font-size:2.6em;font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--terra);line-height:1;}
+.metriclabel{font-size:.6em;color:var(--muted);font-weight:600;letter-spacing:.04em;}
+.flow{display:flex;gap:0;align-items:stretch;margin-top:.3em;}
+.step{flex:1;background:#fff;border-radius:10px;padding:16px 14px;margin-right:10px;box-shadow:0 6px 18px rgba(33,30,30,.07);position:relative;}
+.step:last-child{margin-right:0;}
+.stepn{font-family:'Cormorant Garamond';font-size:1.5em;font-weight:700;color:var(--beige);line-height:1;}
+.step h4{margin:.2em 0 .25em;font-size:.66em;font-family:'Manrope';font-weight:700;color:var(--graphite);}
+.step p{font-size:.52em;color:var(--muted);margin:0;line-height:1.35;}
+.wave{background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 6px 18px rgba(33,30,30,.07);border-left:5px solid var(--gold);margin-bottom:14px;}
+.wave h3{margin:0 0 .2em;color:var(--graphite);}
+.wave span{color:var(--terra);font-weight:600;font-size:.62em;letter-spacing:.05em;}
+.reveal .slides section .small{font-size:.66em;line-height:1.35;}
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<!-- 1 TITLE -->
+<section class="dark" data-background-color="#211E1E">
+  <div style="margin-top:8%">
+    <div class="brandmark">L A P A R E T</div>
+    <hr class="rule">
+    <div class="kicker">Стратегическая концепция · 2026</div>
+    <h1 style="color:var(--cream);max-width:16em">Новая модель продаж на основе AR и пространственных технологий</h1>
+    <p style="color:var(--beige);font-size:.8em;max-width:24em;margin-top:.6em">
+      Как очки дополненной реальности и «агенты влияния» переносят точку продажи
+      на объект клиента — и превращают показ материала в готовый проект.</p>
+  </div>
+  <div class="foot">Концепция развития B2B-платформы</div>
+</section>
+
+<!-- 2 CONTEXT -->
+<section data-background-color="#EEE8E0">
+  <div class="kicker">Технологический сдвиг</div>
+  <h2>Что изменилось в 2026 году</h2>
+  <hr class="rule">
+  <div class="cols">
+    <div class="col">
+      <div class="card">
+        <h3>AR выходит на массовый рынок</h3>
+        <p class="small">Google представила платформу <strong>Android XR</strong> и очки
+        дополненной реальности (Project Aura): 90 г, поле обзора 70°, автономный чип,
+        встроенный ИИ Gemini. Комплекты разработчика — с лета 2026.</p>
+      </div>
+      <div class="card" style="margin-top:18px;border-top-color:var(--gold)">
+        <h3>Пространственная разработка</h3>
+        <p class="small">Сканирование помещения в 3D (OpenUSD) прямо с устройства.
+        Любую поверхность можно распознать, измерить и «перекрасить» материалом
+        в реальном масштабе <strong>1:1</strong>.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card" style="border-top-color:var(--beige)">
+        <h3>ИИ становится продавцом-консультантом</h3>
+        <p class="small">Мультимодальные модели понимают фото, размеры и речь.
+        Подбор коллекции, аналога и расчёт сметы — за секунды, голосом, на объекте.</p>
+      </div>
+      <div style="margin-top:26px;padding-left:6px">
+        <p style="font-family:'Cormorant Garamond';font-size:1.15em;color:var(--terra);line-height:1.25;font-weight:600">
+        «Витрина» перестаёт быть местом. Продажа происходит там,<br>где клиент принимает решение — на его объекте.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">02</div>
+</section>
+
+<!-- 3 CURRENT TECH -->
+<section data-background-color="#EEE8E0">
+  <div class="kicker">Точка отсчёта</div>
+  <h2>Где мы сейчас: текущая технология</h2>
+  <hr class="rule">
+  <div class="cols">
+    <div class="col">
+      <h3>Как продаём сегодня</h3>
+      <ul class="small">
+        <li>2D-каталог: фото коллекций, характеристики, цены</li>
+        <li>Подбор вручную — по опыту продавца в салоне</li>
+        <li>Статичный рендер интерьера из готовых сцен</li>
+        <li>Клиент приносит размеры / дизайн-проект <em>в салон</em></li>
+        <li>Расчёт метража, коробок, сметы — отдельным шагом</li>
+        <li>КП формируется <em>после</em> визита, с задержкой</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Что это ограничивает</h3>
+      <ul class="small">
+        <li><strong>Клиент не видит результат</strong> в своём пространстве — решение откладывается</li>
+        <li>Спрос формируется в салоне, а <strong>не на объекте</strong>, где рождается потребность</li>
+        <li>Длинный цикл: замер → салон → расчёт → КП → согласование</li>
+        <li>Смежные группы (сантехника, свет, мебель) продаются <strong>другими</strong> игроками</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">03</div>
+</section>
+
+<!-- 4 WHAT AR GIVES -->
+<section data-background-color="#EEE8E0">
+  <div class="kicker">Новая технология</div>
+  <h2>Что даёт AR и пространственный ИИ</h2>
+  <hr class="rule">
+  <div class="cols">
+    <div class="col">
+      <div class="card"><h3>Скан помещения</h3><p class="small">3D-модель комнаты за минуту прямо на объекте. Автоматический замер площадей и геометрии.</p></div>
+      <div class="card" style="margin-top:14px;border-top-color:var(--gold)"><h3>Примерка 1:1</h3><p class="small">Наложение плитки и материалов на реальные стены и пол в натуральном масштабе, при живом освещении.</p></div>
+    </div>
+    <div class="col">
+      <div class="card" style="border-top-color:var(--beige)"><h3>Мгновенный проект</h3><p class="small">Готовая визуализация интерьера на месте. Клиент видит и утверждает результат сразу.</p></div>
+      <div class="card" style="margin-top:14px"><h3>Авто-расчёт</h3><p class="small">Метраж, число коробок, вес, подрезка, смета и КП — считаются автоматически из скана.</p></div>
+    </div>
+  </div>
+  <p style="font-family:'Cormorant Garamond';font-size:1.05em;color:var(--terra);font-weight:600;margin-top:.5em">
+    Показ материала → готовый проект и КП. За один визит, без возврата в салон.</p>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">04</div>
+</section>
+
+<!-- 5 BEFORE / AFTER TABLE -->
+<section data-background-color="#EEE8E0">
+  <div class="kicker">Соотнесение</div>
+  <h2>Было → станет</h2>
+  <hr class="rule">
+  <table>
+    <tr><th style="width:26%">Этап</th><th style="width:37%">Текущая технология</th><th style="width:37%">AR-модель</th></tr>
+    <tr><td>Место продажи</td><td>Салон / шоурум</td><td><strong>Объект клиента</strong></td></tr>
+    <tr><td>Подбор</td><td>Вручную, по памяти продавца</td><td>ИИ-подбор + аналог по фото</td></tr>
+    <tr><td>Визуализация</td><td>Статичная сцена из шаблона</td><td>Примерка 1:1 в реальном помещении</td></tr>
+    <tr><td>Замер и смета</td><td>Отдельный шаг, вручную</td><td>Автоматически из 3D-скана</td></tr>
+    <tr><td>КП</td><td>После визита, с задержкой</td><td><strong>На месте, за минуты</strong></td></tr>
+    <tr><td>Цикл сделки</td><td>Дни — недели</td><td><strong>Один визит</strong></td></tr>
+    <tr><td>Портфель</td><td>Плитка</td><td>Плитка + смежные группы в одном проекте</td></tr>
+  </table>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">05</div>
+</section>
+
+<!-- 6 AGENT MODEL divider -->
+<section class="dark" data-background-color="#211E1E">
+  <div style="margin-top:6%">
+    <div class="kicker">Часть II</div>
+    <h1 style="color:var(--cream)">Агентная схема:<br>«агенты влияния»</h1>
+    <hr class="rule">
+    <p style="color:var(--beige);max-width:22em;font-size:.85em">
+      Технология без канала — это витрина без продавца. Агентная модель превращает
+      AR-инструмент в <strong>сеть влияния</strong> в точке принятия решения.</p>
+  </div>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">06</div>
+</section>
+
+<!-- 7 WHO ARE AGENTS -->
+<section data-background-color="#EEE8E0">
+  <div class="kicker">Два контура</div>
+  <h2>Кто такие «агенты влияния»</h2>
+  <hr class="rule">
+  <div class="cols">
+    <div class="col">
+      <div class="card" style="border-top-color:var(--terra)">
+        <h3>Внешний контур</h3>
+        <p class="small"><strong>Архитекторы и дизайнеры</strong> — те, кто формирует решение клиента ещё до салона.</p>
+        <ul class="small" style="margin-top:.3em">
+          <li>Личный кабинет агента: подбор, спецификации, брони</li>
+          <li>AR-инструмент в их руках на объекте заказчика</li>
+          <li>Вознаграждение / баусы за проведённый проект</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card" style="border-top-color:var(--gold)">
+        <h3>Внутренний контур</h3>
+        <p class="small"><strong>Специально обученные сотрудники-агенты</strong> с AR-оборудованием.</p>
+        <ul class="small" style="margin-top:.3em">
+          <li>Выезжают на объект клиента</li>
+          <li>Формируют потребность и проект на месте</li>
+          <li>Закрывают сделку и КП за один визит</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p class="small" style="margin-top:.6em;color:var(--muted)">
+    Оба контура работают на одной платформе: единый каталог, единый расчёт, единая воронка.</p>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">07</div>
+</section>
+
+<!-- 8 SCENARIO -->
+<section data-background-color="#EEE8E0">
+  <div class="kicker">Сценарий на объекте</div>
+  <h2>Как работает агент за один визит</h2>
+  <hr class="rule">
+  <div class="flow">
+    <div class="step"><div class="stepn">1</div><h4>Скан</h4><p>Агент сканирует помещение в AR — 3D-модель и замеры за минуту.</p></div>
+    <div class="step"><div class="stepn">2</div><h4>Примерка</h4><p>Накладывает коллекции на реальные стены 1:1, клиент выбирает вживую.</p></div>
+    <div class="step"><div class="stepn">3</div><h4>Проект</h4><p>ИИ собирает интерьер и добавляет смежные группы товаров.</p></div>
+    <div class="step"><div class="stepn">4</div><h4>Расчёт</h4><p>Метраж, коробки, вес, смета — автоматически из скана.</p></div>
+    <div class="step"><div class="stepn">5</div><h4>КП и бронь</h4><p>Готовое КП на месте, бронь остатка, оформление заказа.</p></div>
+  </div>
+  <p style="font-family:'Cormorant Garamond';font-size:1.05em;color:var(--terra);font-weight:600;margin-top:.9em">
+    От «посмотреть материал» до подписанного КП — в рамках одной встречи.</p>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">08</div>
+</section>
+
+<!-- 9 WHAT AGENT SCHEME GIVES -->
+<section data-background-color="#EEE8E0">
+  <div class="kicker">Ценность модели</div>
+  <h2>Что даёт агентная схема</h2>
+  <hr class="rule">
+  <div class="cols">
+    <div class="col">
+      <ul class="small">
+        <li><strong>Спрос формируется у источника</strong> — на объекте, где рождается потребность, а не в салоне</li>
+        <li><strong>Контроль воронки</strong> — платформа видит проект от скана до заказа</li>
+        <li><strong>Влияние на выбор</strong> — агент задаёт материал ещё на стадии проекта</li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="small">
+        <li><strong>Лояльность канала</strong> — баусы и бонусы агента привязывают дизайнеров к бренду</li>
+        <li><strong>Средний чек ↑</strong> — смежные группы в одном проекте</li>
+        <li><strong>Цикл сделки ↓</strong> — решение и КП за один визит</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cols" style="margin-top:.7em">
+    <div class="col" style="text-align:center"><div class="big">×</div><div class="metriclabel">точка продажи → объект клиента</div></div>
+    <div class="col" style="text-align:center"><div class="big">1</div><div class="metriclabel">визит на сделку</div></div>
+    <div class="col" style="text-align:center"><div class="big">2</div><div class="metriclabel">контура влияния</div></div>
+  </div>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">09</div>
+</section>
+
+<!-- 10 PORTFOLIO -->
+<section data-background-color="#EEE8E0">
+  <div class="kicker">Расширение портфеля</div>
+  <h2>От плитки — к проекту целиком</h2>
+  <hr class="rule">
+  <p class="small" style="max-width:30em">AR-проект помещения естественно включает не только отделку. В едином скане клиенту предлагается комплекс:</p>
+  <div style="margin-top:.6em">
+    <span class="tag t">Керамогранит и плитка · ядро</span>
+    <span class="tag">Сантехника</span>
+    <span class="tag">Светотехника</span>
+    <span class="tag">Бытовая техника</span>
+    <span class="tag">Мебель</span>
+    <span class="tag g">Décor и текстиль</span>
+  </div>
+  <div class="cols" style="margin-top:1em">
+    <div class="col"><div class="card" style="border-top-color:var(--terra)"><h3>Почему это работает</h3><p class="small">Клиент в AR видит комнату целиком — логично доукомплектовать её на месте. Один агент = один проект = несколько товарных групп.</p></div></div>
+    <div class="col"><div class="card" style="border-top-color:var(--gold)"><h3>Что даёт бизнесу</h3><p class="small">Рост среднего чека, выход в смежные рынки, удержание маржи на всём проекте, а не на одной позиции.</p></div></div>
+  </div>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">10</div>
+</section>
+
+<!-- 11 MARKET -->
+<section data-background-color="#EEE8E0">
+  <div class="kicker">Оценка эффекта</div>
+  <h2>Рынок и потенциал</h2>
+  <hr class="rule">
+  <div class="cols">
+    <div class="col">
+      <h3>Рынок РФ</h3>
+      <ul class="small">
+        <li>Дизайнеры и архитекторы — сложившийся, но слабо оцифрованный канал влияния</li>
+        <li>AR-примерка отделки — ниша ещё <strong>свободна</strong> у большинства игроков</li>
+        <li>Ранний вход = позиция технологического лидера категории</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Международный рынок</h3>
+      <ul class="small">
+        <li>Android XR — глобальная платформа, единый инструмент под любую страну</li>
+        <li>Модель тиражируема: каталог + агенты + AR масштабируются на новые регионы</li>
+        <li>Digital-first дилер выглядит убедительнее локальных конкурентов</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cols" style="margin-top:.6em">
+    <div class="col" style="text-align:center"><div class="big">↑ чек</div><div class="metriclabel">смежные группы в проекте</div></div>
+    <div class="col" style="text-align:center"><div class="big">↑ конв.</div><div class="metriclabel">клиент видит результат</div></div>
+    <div class="col" style="text-align:center"><div class="big">↓ цикл</div><div class="metriclabel">сделка за один визит</div></div>
+  </div>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">11</div>
+</section>
+
+<!-- 12 ROADMAP -->
+<section data-background-color="#EEE8E0">
+  <div class="kicker">Внедрение</div>
+  <h2>Дорожная карта — 3 волны</h2>
+  <hr class="rule">
+  <div class="wave"><span>ВОЛНА 1 · 0–6 мес</span><h3>Пространственный фундамент</h3><p class="small">AR-примерка и скан помещения на смартфоне, авто-расчёт метража и КП. Интеграция с каталогом и остатками.</p></div>
+  <div class="wave" style="border-left-color:var(--terra)"><span>ВОЛНА 2 · 6–12 мес</span><h3>Агентский контур</h3><p class="small">ЛК для дизайнеров/архитекторов, программа баусов агента, обучение внутренних агентов, выезды на объект.</p></div>
+  <div class="wave" style="border-left-color:var(--beige)"><span>ВОЛНА 3 · 12+ мес</span><h3>Очки и расширение портфеля</h3><p class="small">Переход на AR-очки (Android XR), смежные товарные группы в проекте, международное тиражирование.</p></div>
+  <div class="foot">L A P A R E T · AR-модель</div><div class="pageno">12</div>
+</section>
+
+<!-- 13 VERDICT -->
+<section class="dark" data-background-color="#211E1E">
+  <div style="margin-top:4%">
+    <div class="kicker">Вердикт</div>
+    <h2 style="color:var(--cream)">Почему это стоит делать</h2>
+    <hr class="rule">
+    <div class="cols">
+      <div class="col">
+        <ul class="small" style="color:var(--taupe)">
+          <li><strong>Технология созрела</strong> — AR и пространственный ИИ выходят на массовый рынок в 2026</li>
+          <li><strong>Модель переносит продажу</strong> в точку принятия решения — на объект клиента</li>
+          <li><strong>Агенты влияния</strong> дают управляемый канал и лояльность дизайнеров</li>
+        </ul>
+      </div>
+      <div class="col">
+        <ul class="small" style="color:var(--taupe)">
+          <li><strong>Портфель расширяется</strong> естественно — от плитки к проекту целиком</li>
+          <li><strong>Масштабируется</strong> на РФ и международные рынки без переработки</li>
+          <li><strong>Окно возможностей открыто</strong> — ниша ещё не занята конкурентами</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-family:'Cormorant Garamond';font-size:1.25em;color:var(--gold);font-weight:600;margin-top:.7em">
+      Следующий шаг — пилот Волны 1 на смартфоне и обкатка агентского сценария на реальном объекте.</p>
+  </div>
+  <div class="brandmark" style="position:absolute;bottom:26px;left:60px">L A P A R E T</div>
+  <div class="pageno">13</div>
+</section>
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({hash:true, controls:true, progress:true, slideNumber:false,
+  transition:'fade', width:1280, height:720, margin:0.04});
+</script>
+</body>
+</html>
