@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BCI Central / Specification Intelligence — Анализ платформы и инициатива · Баусервис 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+:root{--g:#211E1E;--beige:#D4B79B;--terra:#AA7B62;--cream:#EEE8E0;--gold:#EBBC5A;--taupe:#C6B8B7;--ink:#2A2323;--muted:#7A6E6A;--card:#fff;--border:#E0D5CC;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:'Manrope',sans-serif;color:var(--ink);font-size:15px;line-height:1.65;}
+header{background:var(--g);padding:60px 40px 50px;text-align:center;}
+header .brand{font-family:'Cormorant Garamond';font-weight:700;letter-spacing:.55em;font-size:.85em;color:var(--beige);margin-bottom:20px;}
+header h1{font-family:'Cormorant Garamond';font-size:2.5em;color:var(--cream);font-weight:700;line-height:1.08;max-width:700px;margin:0 auto .4em;}
+header p{color:var(--taupe);font-size:.9em;max-width:560px;margin:0 auto;}
+header .rule{width:60px;height:3px;background:var(--gold);margin:24px auto 20px;}
+.container{max-width:960px;margin:0 auto;padding:0 24px;}
+section{padding:54px 0 44px;}
+h2{font-family:'Cormorant Garamond';font-size:1.9em;font-weight:700;color:var(--g);margin-bottom:8px;}
+h3{font-family:'Manrope';font-weight:700;font-size:1.05em;color:var(--terra);margin:22px 0 6px;}
+.rule-s{width:48px;height:3px;background:var(--gold);margin:8px 0 20px;border:none;}
+p{margin:.55em 0;}
+ul,ol{padding-left:1.4em;margin:.4em 0;}
+li{margin:.3em 0;}
+strong{color:var(--terra);font-weight:700;}
+em{color:var(--muted);font-style:normal;}
+a{color:var(--terra);text-decoration:none;}
+
+/* cards */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:22px 0;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin:22px 0;}
+.card{background:var(--card);border-radius:12px;padding:22px 24px;box-shadow:0 6px 24px rgba(33,30,30,.07);border-top:4px solid var(--terra);}
+.card.gold{border-top-color:var(--gold);}
+.card.beige{border-top-color:var(--beige);}
+.card h3{margin-top:0;font-size:.96em;}
+.card p,.card li{font-size:.88em;color:#4A4040;}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:.85em;margin:18px 0;}
+th{background:var(--g);color:var(--cream);text-align:left;padding:11px 14px;font-family:'Manrope';font-weight:700;}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:nth-child(even) td{background:#f8f3ee;}
+.tag{display:inline-block;border-radius:20px;padding:3px 12px;font-size:.75em;font-weight:700;letter-spacing:.04em;white-space:nowrap;}
+.tag.g{background:#d4edda;color:#1a6334;}
+.tag.y{background:#fff3cd;color:#856404;}
+.tag.r{background:#f8d7da;color:#842029;}
+.tag.b{background:#cfe2ff;color:#084298;}
+
+/* metric blocks */
+.metrics{display:flex;gap:16px;margin:22px 0;flex-wrap:wrap;}
+.metric{background:var(--card);border-radius:10px;padding:18px 22px;flex:1;min-width:150px;box-shadow:0 4px 14px rgba(33,30,30,.07);border-bottom:3px solid var(--gold);}
+.metric .num{font-family:'Cormorant Garamond';font-size:2.2em;font-weight:700;color:var(--terra);line-height:1;}
+.metric .lbl{font-size:.7em;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:4px;}
+
+/* divider */
+.divider{background:var(--g);padding:40px;margin:0;text-align:center;}
+.divider h2{color:var(--cream);}
+.divider p{color:var(--taupe);font-size:.9em;max-width:560px;margin:.6em auto 0;}
+.divider .rule{width:50px;height:3px;background:var(--gold);margin:12px auto;}
+
+/* verdict box */
+.verdict{background:var(--g);border-radius:16px;padding:34px 36px;margin:28px 0;color:var(--taupe);}
+.verdict h2{color:var(--cream);font-size:1.5em;margin-bottom:8px;}
+.verdict .rule{width:48px;height:3px;background:var(--gold);margin:8px 0 18px;border:none;}
+.verdict strong{color:var(--gold);}
+.verdict ul li{margin:.35em 0;}
+
+/* wave */
+.wave{background:var(--card);border-radius:12px;padding:18px 24px 18px 20px;box-shadow:0 4px 14px rgba(33,30,30,.06);border-left:5px solid var(--gold);margin-bottom:14px;}
+.wave.t{border-left-color:var(--terra);}
+.wave.b{border-left-color:var(--beige);}
+.wave .wlabel{font-size:.7em;font-weight:700;color:var(--terra);letter-spacing:.1em;text-transform:uppercase;}
+.wave h3{margin:.2em 0 .3em;color:var(--g);font-size:1em;}
+.wave p{font-size:.85em;color:#5A4E4A;}
+
+footer{background:var(--g);padding:32px;text-align:center;font-size:.75em;color:#6E6560;letter-spacing:.1em;font-weight:600;}
+@media(max-width:680px){.grid2,.grid3{grid-template-columns:1fr;}.metrics{flex-direction:column;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">L A P A R E T &nbsp;·&nbsp; B 2 B</div>
+  <hr class="rule">
+  <h1>BCI Central / Specification Intelligence: анализ платформы и инициатива</h1>
+  <p>Подготовлено А.Ботьевым · август 2026 · для внутреннего использования</p>
+</header>
+
+<div class="container">
+
+<!-- BLOCK 1: BCI Central -->
+<section>
+  <h2>Что такое BCI Central / Hubexo</h2>
+  <hr class="rule-s">
+  <p>BCI Central — австралийская платформа сбора и дистрибуции строительных данных, основана в 1998 году в Сиднее. В октябре 2021 года куплена шведской группой Byggfakta (основана в 1936 г.), в 2024–2025 гг. полностью переименована в <strong>Hubexo</strong> — глобальный бренд для всех 50+ компаний группы.</p>
+  <p>Суть: <strong>платформа объединяет трёх участников строительной цепочки</strong> — поставщиков материалов (производители, дистрибьюторы), архитекторов/проектировщиков и застройщиков/генподрядчиков. Ценность в том, что платформа работает <em>на ранней стадии проекта</em> — до тендера, до закупки.</p>
+
+  <div class="metrics">
+    <div class="metric"><div class="num">2 500</div><div class="lbl">сотрудников глобально</div></div>
+    <div class="metric"><div class="num">50 000</div><div class="lbl">клиентов</div></div>
+    <div class="metric"><div class="num">25</div><div class="lbl">стран</div></div>
+    <div class="metric"><div class="num">40 000+</div><div class="lbl">проектов отслеживается ежемесячно</div></div>
+    <div class="metric"><div class="num">200+</div><div class="lbl">исследователей</div></div>
+    <div class="metric"><div class="num">1936</div><div class="lbl">год основания группы</div></div>
+  </div>
+
+  <h3>Продуктовая линейка</h3>
+  <div class="grid2">
+    <div class="card"><h3>LeadManager</h3><p>База строительных проектов на ранней стадии. Поставщик видит «кто строит что и где» за 6–18 месяцев до закупки. Позволяет выйти на архитектора/застройщика до тендера.</p></div>
+    <div class="card gold"><h3>Archify / Specification</h3><p>Поставщик загружает каталог продуктов → архитекторы используют их в спецификациях проектов. <strong>Ключевой продукт</strong> — читайте раздел «Spec-in» ниже.</p></div>
+    <div class="card beige"><h3>TenderSearch</h3><p>Мониторинг тендеров в реальном времени: уведомления по типу проекта, географии, стоимости. Помогает не пропустить момент закупки.</p></div>
+    <div class="card"><h3>eProcure</h3><p>Электронное тендерование и закупки. Застройщики приглашают поставщиков через платформу, управляют предложениями и контрактами.</p></div>
+    <div class="card gold"><h3>Analytix</h3><p>Аналитика рынка: доли брендов в спецификациях, типы проектов, региональная активность. BI-дашборды для маркетинга производителей.</p></div>
+    <div class="card beige"><h3>NBS Chorus (UK)</h3><p>Облачная платформа спецификаций для проектировщиков. Интеграция с Autodesk Revit: продукты из спецификации → прямо в BIM-модель.</p></div>
+  </div>
+
+  <h3>География присутствия</h3>
+  <table>
+    <tr><th>Регион</th><th>Страны / рынки</th><th>Продукты</th></tr>
+    <tr><td>Азиатско-Тихоокеанский</td><td>Австралия, Нов. Зеландия, Малайзия, Сингапур, Таиланд, Индонезия, Вьетнам</td><td>LeadManager, Archify, TenderSearch</td></tr>
+    <tr><td>Северо-Восточная Европа</td><td>Швеция, Норвегия, Финляндия, Дания, страны Балтии</td><td>Byggfakta (стройданные), Anbud365 (тендеры)</td></tr>
+    <tr><td>Великобритания и Ирландия</td><td>Великобритания, Ирландия</td><td>NBS Chorus, LeadManager, Glenigan (проекты)</td></tr>
+    <tr><td>Западная Европа</td><td>Германия, Нидерланды, Бельгия, Франция, Испания</td><td>Стройданные, тендеры</td></tr>
+    <tr><td>Северная Америка</td><td>США, Канада</td><td>BuildCentral (лиды), Construct Connect</td></tr>
+    <tr><td><strong>Россия / СНГ</strong></td><td colspan="2"><strong>Отсутствует</strong> — рынок не охвачен</td></tr>
+  </table>
+
+  <h3>Масштаб проектной базы (Австралия — пример)</h3>
+  <ul>
+    <li>Многоквартирный сектор: <strong>10 026 активных проектов</strong> общей стоимостью 276 млрд AUD</li>
+    <li>Топ-50 строителей 2023: 793 проекта на 36,1 млрд AUD</li>
+    <li>Крупнейшие проекты: Aurora Green Offshore Wind — 4,5 млрд AUD; Western Sydney Hydro — 3 млрд AUD</li>
+  </ul>
+</section>
+
+<!-- BLOCK 2: Механика Spec-in -->
+<div class="divider">
+  <h2>Ключевая механика: Specification Selling («Spec-in»)</h2>
+  <hr class="rule">
+  <p>Это самый важный концепт. Именно здесь скрыт основной потенциал для Баусервис.</p>
+</div>
+
+<section>
+  <h2>Что такое «Spec-in» и почему это меняет всё</h2>
+  <hr class="rule-s">
+  <p>В строительном цикле есть <strong>критический момент</strong>: когда архитектор или проектировщик составляет техническое задание на материалы — спецификацию. Продукт, попавший в спецификацию, как правило <strong>не меняется при закупке</strong>.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Традиционные продажи</h3>
+      <ul>
+        <li>Поставщик узнаёт о проекте на стадии тендера/закупки</li>
+        <li>Конкурирует с 5–15 аналогами по цене</li>
+        <li>Win rate: <strong>15–25%</strong></li>
+        <li>Цикл: месяцы переговоров</li>
+        <li>Маржа давится ценовой конкуренцией</li>
+      </ul>
+    </div>
+    <div class="card gold">
+      <h3>Spec-in продажи</h3>
+      <ul>
+        <li>Поставщик работает с архитектором <strong>до проекта</strong></li>
+        <li>Продукт попадает в спецификацию на стадии проектирования</li>
+        <li>Win rate при тендере: <strong>70–85%</strong></li>
+        <li>Цикл: быстрый, решение уже принято</li>
+        <li>Маржа сохранена — заменить продукт сложно</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Почему это работает</h3>
+  <p>Архитекторы и дизайнеры контролируют <strong>~17% строительного бюджета</strong> через решения о выборе материалов. Если конкретный бренд плитки зафиксирован в проекте — заменить его на стадии тендера крайне сложно: это смена спецификации, согласования с клиентом, пересмотр сметы. Подрядчик идёт на рынок уже с «установленной» маркой.</p>
+  <p>Платформы типа BCI/Hubexo (Archify) и BIMobject монетизируют именно этот момент: <strong>они помогают поставщикам попасть в спецификацию</strong>, а архитекторам — удобно находить и использовать продукты в проектах.</p>
+</section>
+
+<!-- BLOCK 3: Глобальные аналоги -->
+<section style="background:#F8F3EE;padding-left:24px;padding-right:24px;border-radius:16px;">
+  <h2>Глобальные аналоги BCI Central</h2>
+  <hr class="rule-s">
+  <table>
+    <tr><th>Платформа</th><th>Страна</th><th>Специализация</th><th>Для плитки/отделки</th><th>Доступность</th></tr>
+    <tr><td><strong>BIMobject</strong></td><td>Швеция (биржа Стокгольм)</td><td>BIM-объекты производителей; 6 млн+ архитекторов</td><td><span class="tag g">✓ да</span> Casalgrande, RAK, Mirage, Revigres уже на платформе</td><td>Глобально, включая РФ-архитекторов</td></tr>
+    <tr><td><strong>Archiproducts</strong></td><td>Италия</td><td>Дизайн-продукты для архитекторов; акцент ЮгЕвропа</td><td><span class="tag g">✓ да</span> плитка, паркет, сантехника</td><td>Европа, мировая аудитория</td></tr>
+    <tr><td><strong>NBS Source/Chorus</strong></td><td>Великобритания (Hubexo)</td><td>Облачная спецификация; интеграция Revit</td><td><span class="tag y">частично</span> только UK-проекты</td><td>Великобритания</td></tr>
+    <tr><td><strong>SpecifiedBy</strong></td><td>Великобритания</td><td>Продукт-информация для архитекторов/проектировщиков</td><td><span class="tag g">✓ да</span></td><td>UK + Ирландия</td></tr>
+    <tr><td><strong>BuildingRadar</strong></td><td>Германия</td><td>AI-лиды: ранняя идентификация проектов в Европе</td><td><span class="tag y">лиды</span> без spec-in</td><td>Европа</td></tr>
+    <tr><td><strong>Construct Connect</strong></td><td>США</td><td>Проектные лиды + тендеры, Сев.Америка</td><td><span class="tag b">косвенно</span></td><td>США, Канада</td></tr>
+    <tr><td><strong>Hubexo/Archify (APAC)</strong></td><td>Австралия/Сингапур</td><td>Spec-in + проектные лиды, AsiaPac</td><td><span class="tag g">✓ да</span></td><td>APAC, без РФ</td></tr>
+  </table>
+</section>
+
+<!-- BLOCK 4: Россия -->
+<section>
+  <h2>Российский рынок: аналоги и разрыв</h2>
+  <hr class="rule-s">
+  <div class="grid2">
+    <div class="card">
+      <h3>Что есть в России</h3>
+      <ul>
+        <li><strong>РосТендер / Zakupki.gov</strong> — тендерные агрегаторы. Поздняя стадия: конкурент уже определён в спецификации до публикации.</li>
+        <li><strong>ROOF.RU (ТЕХНОНИКОЛЬ)</strong> — биржа строительных подрядов. Не охватывает отделочные материалы.</li>
+        <li><strong>TenderGuru</strong> — аналитика по тендерам. Данные, не spec-in.</li>
+        <li><strong>Платформа.ДОМ.РФ</strong> — госплатформа, запущена нояб. 2025. Только жилое строительство, только открытые данные.</li>
+        <li><strong>NOSTROY.RU</strong> — карта поставщиков стройматериалов. Справочник, не B2B-платформа.</li>
+        <li><strong>MosBuild</strong> — ежегодная выставка. Не цифровая платформа.</li>
+      </ul>
+    </div>
+    <div class="card gold">
+      <h3>Чего нет — РАЗРЫВ</h3>
+      <ul>
+        <li><strong>Нет платформы, которая системно соединяет производителей/дистрибьюторов отделочных материалов с архитекторами и проектировщиками</strong> на стадии спецификации</li>
+        <li>Нет российских BIM-объектов для плитки от отечественных дистрибьюторов</li>
+        <li>Нет «spec-in» механики ни у одного игрока рынка керамогранита в РФ</li>
+        <li>Нет ЛК архитектора с инструментами подбора + спецификации + КП от одного дистрибьютора</li>
+      </ul>
+      <p style="margin-top:10px;font-weight:700;color:var(--terra)">Это окно возможностей — ниша пустая.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 5: Релевантность для Баусервис -->
+<div class="divider">
+  <h2>Как это применимо к Баусервис / LAPARET</h2>
+  <hr class="rule">
+  <p>Два трека с разными горизонтами внедрения и стоимостью.</p>
+</div>
+
+<section>
+  <h2>Трек A: Быстрый выход — BIM-платформы (0–3 мес)</h2>
+  <hr class="rule-s">
+  <p>Загрузить продукты LAPARET как BIM-объекты на <strong>BIMobject</strong> и <strong>Archiproducts</strong>. Это немедленно делает бренд видимым для 6 млн+ архитекторов по всему миру, включая тех, кто работает в России.</p>
+
+  <div class="grid3">
+    <div class="card">
+      <h3>Что требуется</h3>
+      <ul>
+        <li>Аккаунт поставщика на BIMobject (~€5–8k/год с аналитикой)</li>
+        <li>BIM-объекты коллекций LAPARET (Revit-файлы) — 2–4 нед. работы</li>
+        <li>Контент: описания, теххарактеристики, сертификаты EN</li>
+      </ul>
+    </div>
+    <div class="card gold">
+      <h3>Что получаем</h3>
+      <ul>
+        <li>Архитекторы по всему миру видят LAPARET при поиске «ceramic tile BIM»</li>
+        <li>Каждая загрузка = потенциальная спецификация в проект</li>
+        <li>Аналитика: кто скачал, из какой страны, тип проекта</li>
+        <li>Готовый канал при выходе на международный рынок</li>
+      </ul>
+    </div>
+    <div class="card beige">
+      <h3>Кейс-аналог</h3>
+      <p>Испанский производитель Tejas Borja разместил BIM-объекты на BIMobject → получает спецификации из Европы, Австралии, Ближнего Востока без прямых продаж в этих странах.</p>
+    </div>
+  </div>
+
+  <h2 style="margin-top:40px">Трек B: Стратегический — Specification Hub в портале (3–12 мес)</h2>
+  <hr class="rule-s">
+  <p>Встроить spec-in механику в B2B-портал: отдельный ЛК архитектора, где он может составить спецификацию из продуктов LAPARET прямо внутри портала, получить расчёт метражей и автоматически сформировать КП/заявку.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Функциональность Specification Hub</h3>
+      <ul>
+        <li>Архитектор регистрируется как «агент» (не как торговая точка)</li>
+        <li>Создаёт «Проект»: помещения, параметры, зоны применения</li>
+        <li>Подбирает коллекции LAPARET → система рассчитывает метраж, кол-во упаковок, вес</li>
+        <li>Спецификация экспортируется в PDF/Excel (для включения в проектную документацию)</li>
+        <li>Заявка на бронирование/КП — одна кнопка</li>
+        <li>Баусы за завершённый спецификационный проект</li>
+      </ul>
+    </div>
+    <div class="card gold">
+      <h3>Почему это = Spec-in</h3>
+      <ul>
+        <li>Архитектор формирует спецификацию <strong>внутри Баусервис-портала</strong> → LAPARET уже вписана</li>
+        <li>Заказчик получает от архитектора документ с позициями LAPARET → закупка идёт к Баусервис</li>
+        <li>Конкурент не знает о сделке, пока она не готова</li>
+        <li>Каждый проект архитектора = будущий заказ без тендерной конкуренции</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 6: Экономический эффект -->
+<section style="background:#F8F3EE;padding-left:24px;padding-right:24px;border-radius:16px;">
+  <h2>Экономический эффект</h2>
+  <hr class="rule-s">
+
+  <h3>Базовые параметры модели</h3>
+  <table>
+    <tr><th>Параметр</th><th>Консервативно</th><th>Базово</th><th>Оптимистично</th></tr>
+    <tr><td>Активные архитекторы в программе</td><td>50</td><td>150</td><td>400</td></tr>
+    <tr><td>Проектов/год на архитектора (со спецификацией LAPARET)</td><td>3</td><td>6</td><td>10</td></tr>
+    <tr><td>Конверсия спецификации в заказ</td><td>25%</td><td>40%</td><td>60%</td></tr>
+    <tr><td>Средний чек заказа (1 проект)</td><td>400 000 ₽</td><td>800 000 ₽</td><td>1 500 000 ₽</td></tr>
+    <tr><td><strong>Выручка / год от канала архитекторов</strong></td><td><strong>15 млн ₽</strong></td><td><strong>288 млн ₽</strong></td><td><strong>3,6 млрд ₽</strong></td></tr>
+  </table>
+
+  <h3>Стоимость внедрения</h3>
+  <div class="grid3">
+    <div class="card">
+      <h3>Трек A: BIMobject</h3>
+      <ul>
+        <li>Подписка BIMobject: ~€6 000/год</li>
+        <li>Создание BIM-объектов: ~200 000 ₽ (разово)</li>
+        <li>Контент (описания, сертификаты): ~100 000 ₽</li>
+        <li><strong>Итого старт: ~700 000 ₽</strong></li>
+      </ul>
+    </div>
+    <div class="card gold">
+      <h3>Трек B: Specification Hub</h3>
+      <ul>
+        <li>Разработка ЛК архитектора + spec-механика: ~2–3 мес. команды</li>
+        <li>Ориентировочно: ~1,5–2,5 млн ₽</li>
+        <li>Маркетинг онбординга архитекторов: ~500 000 ₽/год</li>
+        <li><strong>Итого: ~2–3 млн ₽ за год</strong></li>
+      </ul>
+    </div>
+    <div class="card beige">
+      <h3>ROI</h3>
+      <ul>
+        <li>Базовый сценарий: вложения ~3,5 млн ₽</li>
+        <li>Выручка год 1: 288 млн ₽ (база)</li>
+        <li><strong>ROI &gt; 80x в базовом сценарии</strong></li>
+        <li>Даже консерватив: 15 млн ÷ 3,5 млн = 4,3x</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Дополнительные эффекты</h3>
+  <ul>
+    <li><strong>Win rate при тендере: 15–25% → 70–85%</strong> для специфицированных продуктов — маржа сохраняется, нет ценовой войны</li>
+    <li>Международный рынок через BIMobject: спецификации из Европы, ОАЭ, Казахстана без прямых продаж</li>
+    <li>Данные о спецификациях → аналитика: где строят, кто строит, что выбирают — инструмент для ценообразования и маркетинга</li>
+    <li>Синергия с AR-моделью: архитектор специфицирует в портале, агент визуализирует на объекте в AR — замкнутая экосистема</li>
+  </ul>
+</section>
+
+<!-- BLOCK 7: Дорожная карта -->
+<section>
+  <h2>Дорожная карта внедрения</h2>
+  <hr class="rule-s">
+
+  <div class="wave">
+    <div class="wlabel">Волна 0 · 0–1 мес · Стоимость: ~700 000 ₽</div>
+    <h3>BIMobject: быстрый выход</h3>
+    <p>Создать аккаунт поставщика на BIMobject + Archiproducts. Загрузить BIM-объекты для топ-20 коллекций LAPARET. Первые скачивания архитекторами — через 2–4 нед. после публикации.</p>
+  </div>
+  <div class="wave t">
+    <div class="wlabel">Волна 1 · 1–6 мес · Стоимость: ~1,5–2 млн ₽</div>
+    <h3>Specification Hub в портале</h3>
+    <p>Разработать ЛК архитектора с механикой создания спецификации, расчётом метражей и экспортом документа. Программа баусов за проекты. Набор первых 50 архитекторов (Москва + онлайн).</p>
+  </div>
+  <div class="wave b">
+    <div class="wlabel">Волна 2 · 6–18 мес · Масштабирование</div>
+    <h3>Specification Intelligence (данные)</h3>
+    <p>Аналитика спецификаций: дашборд «кто нас выбирает, в каких проектах, в каких регионах». Интеграция с LeadManager (Hubexo) для раннего обнаружения проектов. Выход на регионы РФ и СНГ.</p>
+  </div>
+</section>
+
+<!-- VERDICT -->
+<section>
+  <div class="verdict">
+    <h2>Вердикт</h2>
+    <hr class="rule">
+    <p>Это <strong>крайне выгодная инициатива</strong> по следующим причинам:</p>
+    <ul>
+      <li>Ниша в России абсолютно пустая — нет ни одного игрока в сегменте керамогранита с системным spec-in каналом через архитекторов</li>
+      <li>Эффект механики доказан глобально: win rate при спецификации 70–85% vs 15–25% при тендерных продажах</li>
+      <li>Стоимость входа минимальная (Трек A — ~700 тыс ₽), результат — глобальное присутствие на BIMobject</li>
+      <li>Прямая синергия с уже запланированным ЛК архитектора (инициатива 24.3), AR-моделью и агентской схемой</li>
+      <li>Международный потенциал: LAPARET на BIMobject — видимость для архитекторов в 25 странах без затрат на маркетинг</li>
+    </ul>
+    <p style="margin-top:14px"><strong>Рекомендация: добавить как инициативу Н9 в B2B-roadmap с приоритетом «Высокий», стартовать с Трека A (BIMobject) немедленно.</strong></p>
+  </div>
+</section>
+
+</div>
+<footer>LAPARET · Баусервис B2B · Подготовлено А.Ботьевым · Август 2026 · Конфиденциально</footer>
+</body>
+</html>
