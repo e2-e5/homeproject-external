@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snaidero × Home Project — к обсуждению раздела</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --w:#fff;--ow:#F8F6F3;--cr:#EDE9E2;--st:#D4CFC7;--wg:#918D87;
+  --dk:#1B1917;--ch:#2D2B28;--ac:#8B6F4E;--al:#C9A97D;
+  --fs:'Cormorant Garamond',Georgia,serif;--fn:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--fn);color:var(--dk);background:var(--ow);overflow-x:hidden;min-height:100vh}
+
+/* TOP BAR */
+.topbar{background:var(--dk);padding:14px 48px;display:flex;align-items:center;justify-content:space-between}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.topbar-hp{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+.topbar-sep{width:1px;height:16px;background:rgba(255,255,255,.2)}
+.topbar-brand{font-family:var(--fs);font-size:18px;font-weight:400;color:var(--al);letter-spacing:.06em}
+.topbar-badge{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);padding:5px 12px;border:1px solid rgba(255,255,255,.12)}
+
+/* HERO */
+.hero{background:var(--dk);padding:64px 48px 56px;border-bottom:1px solid rgba(255,255,255,.06)}
+.hero-tag{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--al);margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.hero-tag::before{content:'';display:block;width:32px;height:1px;background:var(--al)}
+.hero-h1{font-family:var(--fs);font-size:clamp(36px,5vw,60px);font-weight:300;color:#fff;line-height:1.08;margin-bottom:18px}
+.hero-h1 em{font-style:italic}
+.hero-p{font-size:14px;font-weight:300;line-height:1.75;color:rgba(255,255,255,.6);max-width:620px;margin-bottom:28px}
+.hero-cta-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.btn-demo{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;background:var(--ac);color:#fff;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .2s}
+.btn-demo:hover{background:#7a5f3e}
+.btn-demo svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+.hero-note{font-size:12px;color:rgba(255,255,255,.35);font-style:italic}
+
+/* MAIN LAYOUT */
+.main{max-width:900px;margin:0 auto;padding:56px 48px 80px}
+
+/* INTRO CARD */
+.intro-card{background:var(--w);border-left:4px solid var(--ac);padding:24px 28px;margin-bottom:48px}
+.intro-card p{font-size:13px;font-weight:300;line-height:1.75;color:var(--ch)}
+.intro-card strong{font-weight:600;color:var(--dk)}
+
+/* SECTION */
+.q-section{margin-bottom:44px}
+.q-section-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px}
+.q-num{font-family:var(--fs);font-size:48px;font-weight:300;color:var(--al);line-height:1;flex-shrink:0;width:56px}
+.q-title-wrap{}
+.q-tag{font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.q-title{font-family:var(--fs);font-size:24px;font-weight:400;color:var(--dk);line-height:1.15}
+.q-divider{width:100%;height:1px;background:var(--st);margin-bottom:20px}
+.q-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.q-list li{display:flex;gap:12px;font-size:13px;font-weight:300;line-height:1.65;color:var(--ch)}
+.q-list li::before{content:'→';color:var(--ac);font-size:13px;flex-shrink:0;margin-top:1px}
+
+/* IMPORTANCE BADGE */
+.badge-critical{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:var(--ac);color:#fff;padding:3px 8px;margin-left:8px;vertical-align:middle}
+.badge-internal{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:var(--dk);color:rgba(255,255,255,.7);padding:3px 8px;margin-left:8px;vertical-align:middle}
+
+/* DEMO BANNER */
+.demo-banner{background:var(--cr);padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-top:48px;border-left:4px solid var(--ac)}
+.demo-banner-left .label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);margin-bottom:8px;font-weight:500}
+.demo-banner-left .title{font-family:var(--fs);font-size:24px;font-weight:300;line-height:1.2;color:var(--dk)}
+.demo-banner-left .title em{font-style:italic}
+.demo-banner-left .sub{font-size:12px;font-weight:300;color:var(--wg);margin-top:8px;line-height:1.6}
+
+/* FOOTER */
+.footer{background:var(--dk);padding:32px 48px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.footer p{font-size:11px;color:rgba(255,255,255,.3)}
+.footer-brand{font-family:var(--fs);font-size:18px;font-weight:300;color:var(--al)}
+
+@media(max-width:768px){
+  .topbar,.main,.footer{padding-left:20px;padding-right:20px}
+  .hero{padding:40px 20px 36px}
+  .q-section-header{gap:12px}
+  .q-num{font-size:36px;width:44px}
+  .demo-banner{padding:24px 20px;flex-direction:column}
+  .hero-cta-row{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-hp">Home Project</span>
+    <span class="topbar-sep"></span>
+    <span class="topbar-brand">Snaidero</span>
+  </div>
+  <span class="topbar-badge">К обсуждению</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Рабочий документ</div>
+  <h1 class="hero-h1">Раздел кухонь<br><em>Snaidero</em> на нашем сайте</h1>
+  <p class="hero-p">Мы подготовили макет раздела — по аналогии с сайтом Snaidero, на русском, с крупными кадрами, каталогом серий и формами захвата заявок. Ниже — вопросы, без ответов на которые полноценный запуск невозможен.</p>
+  <div class="hero-cta-row">
+    <a href="https://e2-e5.github.io/homeproject-external/snaidero.html" class="btn-demo" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Смотреть макет раздела
+    </a>
+    <span class="hero-note">Открывается без регистрации · Так будет выглядеть раздел на нашем сайте</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="intro-card">
+    <p>Этот документ — рабочий список вопросов, которые нам нужно согласовать до запуска живого раздела. <strong>Блокирующие вопросы выделены.</strong> Без них не можем двигаться дальше: ни контент не поставить, ни корректно позиционировать себя на сайте.</p>
+  </div>
+
+  <!-- 1 -->
+  <div class="q-section">
+    <div class="q-section-header">
+      <div class="q-num">1</div>
+      <div class="q-title-wrap">
+        <div class="q-tag">Позиционирование</div>
+        <div class="q-title">Наш статус<span class="badge-critical">Блокирующий</span></div>
+      </div>
+    </div>
+    <div class="q-divider"></div>
+    <ul class="q-list">
+      <li>Как нам корректно указать статус на сайте? Можем ли писать «официальный партнёр Snaidero в Москве» / «официальный представитель»?</li>
+      <li>На какое соглашение мы опираемся — есть ли документ, который подтверждает право представлять бренд?</li>
+      <li>Есть ли у Snaidero требования к оформлению (brand guidelines) — логотип, название, цвета?</li>
+    </ul>
+  </div>
+
+  <!-- 2 -->
+  <div class="q-section">
+    <div class="q-section-header">
+      <div class="q-num">2</div>
+      <div class="q-title-wrap">
+        <div class="q-tag">Каталог</div>
+        <div class="q-title">Ассортимент для РФ<span class="badge-critical">Блокирующий</span></div>
+      </div>
+    </div>
+    <div class="q-divider"></div>
+    <ul class="q-list">
+      <li>Какие серии реально доступны для поставки в Россию прямо сейчас? На сайте Snaidero актуальны: <strong>Sistema</strong> (Elementi, Quadra, Way, Frame, Orbita, Opera, Folio, Link, Principio), <strong>Icone</strong> (Ola, Vision — Pininfarina), <strong>Living</strong>.</li>
+      <li>Есть ли снятые с производства или недоступные для заказа модели, которые не стоит показывать?</li>
+      <li>Есть ли приоритетные серии, которые продвигаем в первую очередь?</li>
+    </ul>
+  </div>
+
+  <!-- 3 -->
+  <div class="q-section">
+    <div class="q-section-header">
+      <div class="q-num">3</div>
+      <div class="q-title-wrap">
+        <div class="q-tag">Медиа</div>
+        <div class="q-title">Фото и видео<span class="badge-critical">Блокирующий</span></div>
+      </div>
+    </div>
+    <div class="q-divider"></div>
+    <ul class="q-list">
+      <li>Есть ли доступ к официальному медиа-банку Snaidero — hi-res фото, видео, рендеры по каждой серии?</li>
+      <li>Можем ли мы легально размещать эти материалы на нашем сайте?</li>
+      <li>Есть ли официальные видео по коллекциям (для видео-блоков в разделе — именно это отличает раздел Snaidero от остальных брендов)?</li>
+    </ul>
+  </div>
+
+  <!-- 4 -->
+  <div class="q-section">
+    <div class="q-section-header">
+      <div class="q-num">4</div>
+      <div class="q-title-wrap">
+        <div class="q-tag">Контент</div>
+        <div class="q-title">Описания, материалы, PDF</div>
+      </div>
+    </div>
+    <div class="q-divider"></div>
+    <ul class="q-list">
+      <li>Есть ли готовые описания серий по-русски (или только итальянский/английский — тогда мы переведём)?</li>
+      <li>Имена дизайнеров по каждой серии — можем ли указывать (Frame → Iosa Ghini, Ola/Vision → Pininfarina)?</li>
+      <li>Материалы, фасады, отделки — есть ли актуальные каталоги PDF с вариантами финишей?</li>
+    </ul>
+  </div>
+
+  <!-- 5 -->
+  <div class="q-section">
+    <div class="q-section-header">
+      <div class="q-num">5</div>
+      <div class="q-title-wrap">
+        <div class="q-tag">Ценообразование</div>
+        <div class="q-title">Цены и расчёт</div>
+      </div>
+    </div>
+    <div class="q-divider"></div>
+    <ul class="q-list">
+      <li>Как показываем цены на сайте — «по запросу» или даём ориентировочный диапазон (например, «от €X»)?</li>
+      <li>Кто делает расчёт кухни под конкретный проект? Какие сроки расчёта?</li>
+    </ul>
+  </div>
+
+  <!-- 6 -->
+  <div class="q-section">
+    <div class="q-section-header">
+      <div class="q-num">6</div>
+      <div class="q-title-wrap">
+        <div class="q-tag">Процесс</div>
+        <div class="q-title">Как работаем с заявками</div>
+      </div>
+    </div>
+    <div class="q-divider"></div>
+    <ul class="q-list">
+      <li>Куда передаём заявки с нашего сайта — вам напрямую? В каком виде (email, Telegram)?</li>
+      <li>Кто ведёт клиента после заявки: первый звонок, замер, расчёт, договор?</li>
+      <li>Сроки производства и поставки в Москву?</li>
+      <li>Условия: предоплата, гарантия, кто отвечает за доставку и установку?</li>
+    </ul>
+  </div>
+
+  <!-- 7 — internal -->
+  <div class="q-section">
+    <div class="q-section-header">
+      <div class="q-num">7</div>
+      <div class="q-title-wrap">
+        <div class="q-tag">Коммерческое</div>
+        <div class="q-title">Условия сотрудничества<span class="badge-internal">Внутреннее</span></div>
+      </div>
+    </div>
+    <div class="q-divider"></div>
+    <ul class="q-list">
+      <li>На каких условиях мы продвигаем и передаём лиды — модель вознаграждения?</li>
+      <li>Есть ли эксклюзив по Москве?</li>
+    </ul>
+  </div>
+
+  <!-- DEMO BANNER -->
+  <div class="demo-banner">
+    <div class="demo-banner-left">
+      <div class="label">Макет готов</div>
+      <div class="title">Так будет выглядеть<br><em>раздел Snaidero</em> на нашем сайте</div>
+      <div class="sub">Полноценный интерактивный прототип — все 11 серий, страницы коллекций, видео-блок, форма заявки. Открывается по ссылке ниже без регистрации.</div>
+    </div>
+    <a href="https://e2-e5.github.io/homeproject-external/snaidero.html" class="btn-demo" target="_blank" style="flex-shrink:0">
+      <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Открыть макет
+    </a>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <span class="footer-brand">Home Project × Snaidero</span>
+  <p>Рабочий документ · Для внутреннего обсуждения</p>
+</footer>
+
+</body>
+</html>
