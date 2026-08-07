@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кухни Snaidero — Home Project | Официальный партнёр в Москве</title>
+<meta name="description" content="Итальянские кухни Snaidero в Москве. Все коллекции, индивидуальный проект, бесплатная консультация. Home Project — официальный партнёр.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --w:#fff;--ow:#F8F6F3;--cr:#EDE9E2;--st:#D4CFC7;--wg:#918D87;
+  --dk:#1B1917;--ch:#2D2B28;--ac:#8B6F4E;--al:#C9A97D;--al2:#E8D5B8;
+  --fs:'Cormorant Garamond',Georgia,serif;--fn:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--fn);color:var(--dk);background:var(--w);overflow-x:hidden}
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);transition:all .3s}
+.nav-left{display:flex;align-items:center;gap:0}
+.nav-hp{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--dk);text-decoration:none}
+.nav-sep{width:1px;height:18px;background:var(--st);margin:0 16px}
+.nav-brand{font-family:var(--fs);font-size:20px;font-weight:400;color:var(--ac);letter-spacing:.06em;cursor:pointer}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-link{font-size:11px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--ch);text-decoration:none;opacity:.7;transition:opacity .2s;cursor:pointer;background:none;border:none;font-family:var(--fn)}
+.nav-link:hover,.nav-link.active{opacity:1}
+.nav-cta{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--w);background:var(--dk);padding:11px 24px;text-decoration:none;border:none;cursor:pointer;font-family:var(--fn);transition:background .25s}
+.nav-cta:hover{background:var(--ac)}
+.view{display:none}.view.active{display:block}
+.hero{height:100vh;min-height:680px;position:relative;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(27,25,23,.85) 0%,rgba(27,25,23,.2) 50%,transparent 100%)}
+.hero-content{position:relative;padding:0 72px 90px;max-width:760px}
+.hero-eyebrow{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--al);margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.hero-eyebrow::before{content:'';display:block;width:36px;height:1px;background:var(--al)}
+.hero-h1{font-family:var(--fs);font-size:clamp(52px,7vw,96px);font-weight:300;line-height:1.02;color:var(--w);letter-spacing:-.02em;margin-bottom:22px}
+.hero-h1 em{font-style:italic}
+.hero-p{font-size:15px;font-weight:300;line-height:1.7;color:rgba(255,255,255,.75);margin-bottom:40px;max-width:520px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-w{padding:14px 34px;background:var(--w);color:var(--dk);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--w);cursor:pointer;font-family:var(--fn);transition:all .25s}
+.btn-w:hover{background:var(--ac);border-color:var(--ac);color:var(--w)}
+.btn-gl{padding:14px 34px;background:transparent;color:var(--w);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,.4);cursor:pointer;font-family:var(--fn);transition:all .25s}
+.btn-gl:hover{border-color:var(--w)}
+.hero-scroll{position:absolute;bottom:32px;right:48px;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.5);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.hero-scroll-line{width:40px;height:1px;background:rgba(255,255,255,.3)}
+.numbers{display:grid;grid-template-columns:repeat(4,1fr);background:var(--dk)}
+.num-item{padding:40px 48px;border-right:1px solid rgba(255,255,255,.07)}
+.num-item:last-child{border:none}
+.num-val{font-family:var(--fs);font-size:44px;font-weight:300;color:var(--al);line-height:1;margin-bottom:6px}
+.num-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.intro{padding:110px 72px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.intro-text .sec-tag{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.intro-text h2{font-family:var(--fs);font-size:clamp(36px,4vw,58px);font-weight:300;line-height:1.12;margin-bottom:22px}
+.intro-text h2 em{font-style:italic}
+.intro-text p{font-size:14px;font-weight:300;line-height:1.85;color:var(--wg);margin-bottom:20px}
+.intro-text .badge{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;background:var(--cr);border-left:3px solid var(--ac);font-size:12px;color:var(--ch);line-height:1.5}
+.intro-text .badge strong{font-weight:600}
+.intro-img-wrap{position:relative}
+.intro-img{width:100%;height:520px;object-fit:cover}
+.intro-img-badge{position:absolute;bottom:24px;left:-24px;background:var(--w);padding:20px 24px;border-left:3px solid var(--ac);min-width:200px}
+.intro-img-badge .ib-num{font-family:var(--fs);font-size:34px;font-weight:300;color:var(--ac)}
+.intro-img-badge .ib-txt{font-size:11px;color:var(--wg);letter-spacing:.06em}
+.lines{background:var(--ow);padding:100px 72px}
+.lines-header{text-align:center;margin-bottom:60px}
+.lines-header .sec-tag{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ac);margin-bottom:12px}
+.lines-header h2{font-family:var(--fs);font-size:clamp(34px,4vw,54px);font-weight:300;line-height:1.12}
+.lines-header h2 em{font-style:italic}
+.lines-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.line-card{position:relative;overflow:hidden;cursor:pointer}
+.line-card:first-child{aspect-ratio:auto;min-height:560px}
+.line-card:nth-child(2),.line-card:nth-child(3){aspect-ratio:3/4}
+.line-img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.25,.46,.45,.94);display:block}
+.line-card:hover .line-img{transform:scale(1.04)}
+.line-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(27,25,23,.75) 0%,rgba(27,25,23,.1) 55%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:36px}
+.line-name{font-family:var(--fs);font-size:36px;font-weight:300;color:var(--w);margin-bottom:6px}
+.line-count{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:14px}
+.line-desc{font-size:13px;font-weight:300;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:20px;max-width:320px}
+.line-arrow{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--al);transition:gap .2s}
+.line-card:hover .line-arrow{gap:14px}
+.catalog{padding:100px 72px}
+.catalog-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;gap:40px}
+.catalog-header h2{font-family:var(--fs);font-size:clamp(34px,3.5vw,50px);font-weight:300;line-height:1.12}
+.catalog-header h2 em{font-style:italic}
+.cat-filter{display:flex;gap:4px;margin-bottom:40px;flex-wrap:wrap}
+.cat-btn{padding:8px 18px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--st);background:transparent;color:var(--wg);cursor:pointer;font-family:var(--fn);transition:all .2s}
+.cat-btn.on{background:var(--dk);border-color:var(--dk);color:var(--w)}
+.cat-btn:hover:not(.on){border-color:var(--ch);color:var(--ch)}
+.catalog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+.cat-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4}
+.cat-card-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.cat-card:hover .cat-card-img{transform:scale(1.05)}
+.cat-card-info{position:absolute;inset:0;background:linear-gradient(to top,rgba(27,25,23,.75) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px;opacity:0;transition:opacity .35s}
+.cat-card:hover .cat-card-info,.cat-card-info.always{opacity:1}
+.cat-card-name{font-family:var(--fs);font-size:24px;font-weight:400;color:var(--w);margin-bottom:2px}
+.cat-card-line{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.cat-card-cta{margin-top:12px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--al);display:flex;align-items:center;gap:6px}
+.cat-label{position:absolute;top:14px;right:14px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;font-weight:600}
+.cat-label.sistema{background:var(--ac);color:var(--w)}
+.cat-label.icone{background:var(--dk);color:var(--w)}
+.cat-label.living{background:var(--ch);color:rgba(255,255,255,.7)}
+.cta-band{background:var(--ac);padding:80px 72px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.cta-band h2{font-family:var(--fs);font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--w);line-height:1.12}
+.cta-band h2 em{font-style:italic}
+.cta-band p{font-size:14px;font-weight:300;color:rgba(255,255,255,.75);line-height:1.75}
+.cta-band-right{display:flex;flex-direction:column;gap:14px}
+.btn-wh{padding:16px 36px;background:var(--w);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--fn);transition:all .25s}
+.btn-wh:hover{background:var(--dk);color:var(--w)}
+.btn-tr{padding:16px 36px;background:transparent;color:var(--w);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,.4);cursor:pointer;font-family:var(--fn);transition:all .25s}
+.btn-tr:hover{border-color:var(--w)}
+.cta-contacts{display:flex;gap:32px;margin-top:8px}
+.cta-contact-item .lbl{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px}
+.cta-contact-item .val{font-size:13px;color:var(--w)}
+.back-nav{padding:110px 72px 0;display:flex;align-items:center;gap:8px}
+.back-btn{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--wg);border:none;background:none;cursor:pointer;font-family:var(--fn);display:flex;align-items:center;gap:6px;transition:color .2s}
+.back-btn:hover{color:var(--ac)}
+.series-hero{position:relative;height:90vh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
+.series-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.series-hero-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(27,25,23,.8) 0%,rgba(27,25,23,.1) 60%,transparent 100%)}
+.series-hero-content{position:relative;padding:0 72px 80px;max-width:800px}
+.series-line-badge{display:inline-block;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--al);margin-bottom:16px;border:1px solid rgba(255,255,255,.2);padding:5px 14px}
+.series-h1{font-family:var(--fs);font-size:clamp(64px,9vw,120px);font-weight:300;line-height:.95;color:var(--w);letter-spacing:-.02em;margin-bottom:20px}
+.series-h1 em{font-style:italic}
+.series-concept{font-size:14px;font-weight:300;color:rgba(255,255,255,.6);letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px}
+.series-hero-cta{display:flex;gap:12px}
+.series-intro{padding:90px 72px;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start}
+.series-intro-left .sec-tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.series-intro-left h2{font-family:var(--fs);font-size:clamp(32px,4vw,50px);font-weight:300;line-height:1.12;margin-bottom:18px}
+.series-intro-left h2 em{font-style:italic}
+.series-intro-left p{font-size:14px;font-weight:300;line-height:1.85;color:var(--wg);margin-bottom:16px}
+.series-designer{display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid var(--cr);margin-top:12px}
+.designer-icon{width:40px;height:40px;background:var(--cr);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.designer-info .d-name{font-size:12px;font-weight:600;color:var(--dk)}
+.designer-info .d-role{font-size:11px;color:var(--wg)}
+.series-intro-right{display:grid;gap:3px}
+.series-g2{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.si-img{width:100%;object-fit:cover;display:block}
+.series-gallery{padding:0 72px 80px}
+.gallery-scroll{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.gal-img{width:100%;height:380px;object-fit:cover;display:block;cursor:zoom-in;transition:opacity .3s}
+.gal-img:hover{opacity:.9}
+.series-materials{background:var(--ow);padding:80px 72px}
+.materials-header{margin-bottom:48px}
+.materials-header .sec-tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.materials-header h2{font-family:var(--fs);font-size:38px;font-weight:300}
+.materials-header h2 em{font-style:italic}
+.materials-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.mat-item{cursor:pointer}
+.mat-swatch{width:100%;aspect-ratio:1;margin-bottom:10px;transition:transform .2s}
+.mat-item:hover .mat-swatch{transform:scale(.97)}
+.mat-name{font-size:12px;font-weight:500;color:var(--dk);margin-bottom:2px}
+.mat-type{font-size:10px;color:var(--wg);letter-spacing:.06em;text-transform:uppercase}
+.series-components{padding:80px 72px;background:var(--dk)}
+.comp-header{margin-bottom:48px}
+.comp-header .sec-tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--al);margin-bottom:10px}
+.comp-header h2{font-family:var(--fs);font-size:38px;font-weight:300;color:var(--w)}
+.comp-header h2 em{font-style:italic}
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.05)}
+.comp-item{background:var(--dk);padding:32px;border-top:1px solid rgba(255,255,255,.06)}
+.comp-num{font-family:var(--fs);font-size:32px;font-weight:300;color:var(--al);margin-bottom:8px}
+.comp-name{font-size:13px;font-weight:500;color:var(--w);margin-bottom:6px}
+.comp-desc{font-size:12px;font-weight:300;color:rgba(255,255,255,.45);line-height:1.65}
+.series-cta{padding:100px 72px;background:var(--cr);display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:center}
+.scta-left .sec-tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.scta-left h2{font-family:var(--fs);font-size:clamp(32px,4vw,50px);font-weight:300;line-height:1.12;margin-bottom:18px}
+.scta-left h2 em{font-style:italic}
+.scta-left p{font-size:14px;font-weight:300;color:var(--wg);line-height:1.75}
+.scta-right{background:var(--w);padding:48px}
+.form-title{font-family:var(--fs);font-size:26px;font-weight:300;margin-bottom:28px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.flbl{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--wg)}
+.fin{background:var(--ow);border:1px solid var(--st);color:var(--dk);padding:11px 14px;font-size:13px;font-family:var(--fn);outline:none;transition:border-color .2s;width:100%}
+.fin:focus{border-color:var(--ac)}
+.fin::placeholder{color:var(--st)}
+.fsel{background:var(--ow);border:1px solid var(--st);color:var(--dk);padding:11px 14px;font-size:13px;font-family:var(--fn);outline:none;width:100%;appearance:none}
+.fta{background:var(--ow);border:1px solid var(--st);color:var(--dk);padding:11px 14px;font-size:13px;font-family:var(--fn);outline:none;resize:vertical;min-height:90px;width:100%}
+.fta:focus{border-color:var(--ac)}
+.fdiscl{font-size:11px;color:var(--wg);line-height:1.6;margin-bottom:18px}
+.btn-sub{width:100%;padding:15px;background:var(--dk);color:var(--w);border:none;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:var(--fn);transition:background .25s}
+.btn-sub:hover{background:var(--ac)}
+.related{padding:80px 72px;background:var(--ow)}
+.related h3{font-family:var(--fs);font-size:34px;font-weight:300;margin-bottom:36px}
+.related h3 em{font-style:italic}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.rel-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3}
+.rel-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.rel-card:hover .rel-img{transform:scale(1.04)}
+.rel-info{position:absolute;inset:0;background:linear-gradient(to top,rgba(27,25,23,.65) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
+.rel-name{font-family:var(--fs);font-size:22px;font-weight:400;color:var(--w)}
+.rel-sub{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.sticky{position:fixed;bottom:28px;right:28px;z-index:150;background:var(--ac);color:var(--w);padding:13px 22px;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--fn);display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(0,0,0,.18);transition:all .25s}
+.sticky:hover{background:var(--dk);transform:translateY(-2px)}
+.sticky svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(27,25,23,.65);z-index:300;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--w);max-width:560px;width:92%;padding:52px;position:relative;max-height:90vh;overflow-y:auto}
+.modal-x{position:absolute;top:18px;right:18px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--wg);font-family:var(--fn);line-height:1}
+.modal-x:hover{color:var(--dk)}
+.modal-series-tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.modal-h{font-family:var(--fs);font-size:32px;font-weight:300;margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--wg);margin-bottom:28px}
+.footer{background:var(--dk);padding:60px 72px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.footer-left p{font-size:12px;color:rgba(255,255,255,.35);margin-top:6px}
+.footer-logo{font-family:var(--fs);font-size:22px;font-weight:300;color:var(--al);letter-spacing:.06em}
+.footer-right{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.footer-link{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s;cursor:pointer;background:none;border:none;font-family:var(--fn)}
+.footer-link:hover{color:var(--al)}
+.sec-tag{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.sec-h2{font-family:var(--fs);font-size:clamp(34px,4vw,52px);font-weight:300;line-height:1.12}
+.sec-h2 em{font-style:italic}
+.cinema{position:relative;height:70vh;min-height:500px;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.cinema-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.cinema:hover .cinema-bg{transform:scale(1.04)}
+.cinema-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(27,25,23,.72),rgba(27,25,23,.28))}
+.cinema-content{position:relative;text-align:center;max-width:640px;padding:0 24px}
+.cinema-tag{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--al);margin-bottom:16px}
+.cinema-h2{font-family:var(--fs);font-size:clamp(38px,5vw,68px);font-weight:300;color:var(--w);line-height:1.05;margin-bottom:18px}
+.cinema-h2 em{font-style:italic}
+.cinema-p{font-size:14px;font-weight:300;line-height:1.7;color:rgba(255,255,255,.82);margin-bottom:32px}
+.cinema-play{display:inline-flex;align-items:center;gap:12px;padding:14px 30px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.5);color:var(--w);font-family:var(--fn);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:all .25s;backdrop-filter:blur(6px)}
+.cinema-play:hover{background:var(--w);color:var(--dk);border-color:var(--w)}
+.cinema-play svg{width:15px;height:15px;fill:currentColor;stroke:none}
+@media(max-width:1024px){
+  .nav{padding:14px 24px}.nav-links{display:none}
+  .hero-content,.series-hero-content{padding:0 24px 60px}
+  .numbers{grid-template-columns:repeat(2,1fr)}
+  .intro,.series-intro,.lines-grid,.cta-band,.series-cta{grid-template-columns:1fr}
+  .catalog-grid,.comp-grid,.related-grid{grid-template-columns:repeat(2,1fr)}
+  .materials-grid,.gallery-scroll{grid-template-columns:repeat(2,1fr)}
+  .catalog,.lines,.intro,.series-intro,.series-gallery,.series-materials,.series-components,.series-cta,.related,.footer,.back-nav,.cta-band{padding-left:24px;padding-right:24px}
+  .frow{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <a href="https://homeproject.online" class="nav-hp">Home Project</a>
+    <div class="nav-sep"></div>
+    <span class="nav-brand" onclick="showView('home')">Snaidero</span>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showView('home');setActive(this)">Главная</button>
+    <button class="nav-link" onclick="showCatalog();setActive(this)">Коллекции</button>
+    <button class="nav-link" onclick="scrollToEl('consultation');setActive(this)">Консультация</button>
+  </div>
+  <button class="nav-cta" onclick="openModal()">Запросить КП</button>
+</nav>
+<div id="view-home" class="view active">
+  <div class="hero">
+    <img class="hero-bg" src="https://admin.snaidero.com/media/fv5jdkf1/01-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" alt="Snaidero Frame"/>
+    <div class="hero-grad"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Официальный партнёр · Москва · с 1954 года</div>
+      <h1 class="hero-h1">Кухни<br><em>Snaidero</em><br>в Москве.</h1>
+      <p class="hero-p">Итальянский дизайн, авторские серии, индивидуальный проект. Home Project — официальный партнёр Snaidero в Москве. Бесплатная консультация и подбор коллекции.</p>
+      <div class="hero-btns">
+        <button class="btn-w" onclick="showCatalog()">Смотреть коллекции</button>
+        <button class="btn-gl" onclick="openModal()">Получить консультацию</button>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>Листать</span><div class="hero-scroll-line"></div></div>
+  </div>
+  <div class="numbers">
+    <div class="num-item"><div class="num-val">70+</div><div class="num-lbl">лет итальянского мастерства</div></div>
+    <div class="num-item"><div class="num-val">16</div><div class="num-lbl">актуальных коллекций</div></div>
+    <div class="num-item"><div class="num-val">120</div><div class="num-lbl">стран присутствия</div></div>
+    <div class="num-item"><div class="num-val">∞</div><div class="num-lbl">конфигураций под проект</div></div>
+  </div>
+  <div class="intro">
+    <div class="intro-text">
+      <div class="sec-tag">О бренде</div>
+      <h2 class="sec-h2">Дизайн,<br>исследование,<br><em>красота</em></h2>
+      <p>Snaidero — итальянский производитель авторских кухонь премиум-класса, основанный в 1954 году в Клаутана (Фриули). На протяжении 70 лет бренд формирует язык современного кухонного пространства, сотрудничая с ведущими дизайнерами мира — Pininfarina, Iosa Ghini, Michele Marcon.</p>
+      <p>Каждая коллекция Snaidero — самостоятельная дизайн-система с уникальным характером, фасадами и возможностью создать кухню, которая становится архитектурным высказыванием.</p>
+      <div class="badge"><strong>Home Project</strong>&nbsp;— официальный партнёр Snaidero в Москве. Бесплатный подбор коллекции и сопровождение проекта.</div>
+    </div>
+    <div class="intro-img-wrap">
+      <img class="intro-img" src="https://admin.snaidero.com/media/10-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" onerror="this.src='https://admin.snaidero.com/media/vq2hoeqo/07-sistema-snaidero-frame-ispirazioni-haute-couture.jpg'" alt="Snaidero Studio"/>
+      <div class="intro-img-badge"><div class="ib-num">1954</div><div class="ib-txt">Год основания, Клаутана</div></div>
+    </div>
+  </div>
+  <div class="cinema" onclick="openModal()">
+    <img class="cinema-bg" src="https://admin.snaidero.com/media/csgmaeii/media_3.jpg" onerror="this.src='https://admin.snaidero.com/media/r00pxvnc/hero_1.jpg'" alt="Snaidero — фильм о коллекции"/>
+    <div class="cinema-grad"></div>
+    <div class="cinema-content">
+      <div class="cinema-tag">Фильм о коллекциях</div>
+      <h2 class="cinema-h2">Кухня как <em>кинокадр</em></h2>
+      <p class="cinema-p">Атмосферные фильмы Snaidero о каждой коллекции — материалы, свет и детали в движении.</p>
+      <button class="cinema-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg><span>Смотреть фильм</span></button>
+    </div>
+  </div>
+  <div class="lines" id="lines">
+    <div class="lines-header">
+      <div class="sec-tag">Продуктовые линии</div>
+      <h2 class="sec-h2">Три мира <em>Snaidero</em></h2>
+    </div>
+    <div class="lines-grid">
+      <div class="line-card" onclick="filterCatalog('sistema')">
+        <img class="line-img" src="https://admin.snaidero.com/media/pxrad3de/03-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" alt="Sistema"/>
+        <div class="line-overlay">
+          <div class="line-name">Sistema</div>
+          <div class="line-count">14 коллекций</div>
+          <div class="line-desc">Современные кухонные системы — от минималистских до роскошных. Бесконечная конфигурируемость: фасады, острова, компоненты хранения.</div>
+          <div class="line-arrow">Смотреть коллекции →</div>
+        </div>
+      </div>
+      <div class="line-card" onclick="filterCatalog('icone')">
+        <img class="line-img" src="https://admin.snaidero.com/media/csgmaeii/media_3.jpg" alt="Icone"/>
+        <div class="line-overlay">
+          <div class="line-name">Icone</div>
+          <div class="line-count">2 легендарные серии</div>
+          <div class="line-desc">Ola и Vision — авторский дизайн Pininfarina. Культовые изгибы и безвременная элегантность, ставшие символом итальянской кухни.</div>
+          <div class="line-arrow">Смотреть Icone →</div>
+        </div>
+      </div>
+      <div class="line-card" onclick="filterCatalog('living')">
+        <img class="line-img" src="https://admin.snaidero.com/media/nhnbwvel/12-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" alt="Living"/>
+        <div class="line-overlay">
+          <div class="line-name">Living</div>
+          <div class="line-count">Интеграция кухни и гостиной</div>
+          <div class="line-desc">Модули, которые выходят за рамки кухни — связывают пространство, создают открытый план и философию совместного быта.</div>
+          <div class="line-arrow">Смотреть Living →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="catalog" id="catalog-home">
+    <div class="catalog-header">
+      <div>
+        <div class="sec-tag">Все коллекции</div>
+        <h2 class="sec-h2"><em>Актуальный</em><br>каталог 2025–2026</h2>
+      </div>
+      <p style="font-size:13px;font-weight:300;color:var(--wg);line-height:1.7">Каждая серия — отдельный дизайн-мир с уникальными фасадами, материалами и философией.</p>
+    </div>
+    <div class="catalog-grid" id="home-grid">
+      <div class="cat-card" onclick="showSeries('frame')"><img class="cat-card-img" src="https://admin.snaidero.com/media/pxrad3de/03-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" alt="Frame"/><div class="cat-card-info always"><div class="cat-card-name">Frame</div><div class="cat-card-line">Sistema · Iosa Ghini</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label sistema">Sistema</span></div>
+      <div class="cat-card" onclick="showSeries('way')"><img class="cat-card-img" src="https://admin.snaidero.com/media/2bxnwazi/05-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" alt="Way"/><div class="cat-card-info always"><div class="cat-card-name">Way</div><div class="cat-card-line">Sistema · Wabi-sabi</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label sistema">Sistema</span></div>
+      <div class="cat-card" onclick="showSeries('orbita')"><img class="cat-card-img" src="https://admin.snaidero.com/media/irhnud2e/04-sistema-snaidero-orbita-lincanto-del-nord.jpg" alt="Orbita"/><div class="cat-card-info always"><div class="cat-card-name">Orbita</div><div class="cat-card-line">Sistema · Скруглённые модули</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label sistema">Sistema</span></div>
+      <div class="cat-card" onclick="showSeries('ola')"><img class="cat-card-img" src="https://admin.snaidero.com/media/r00pxvnc/hero_1.jpg" alt="Ola"/><div class="cat-card-info always"><div class="cat-card-name">Ola</div><div class="cat-card-line">Icone · Pininfarina</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label icone">Icone</span></div>
+      <div class="cat-card" onclick="showSeries('quadra')"><img class="cat-card-img" src="https://admin.snaidero.com/media/oeonng2y/07-sistema-snaidero-quadra-oasi-nel-deserto.jpg" alt="Quadra"/><div class="cat-card-info always"><div class="cat-card-name">Quadra</div><div class="cat-card-line">Sistema · Без ручек</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label sistema">Sistema</span></div>
+      <div class="cat-card" onclick="showSeries('elementi')"><img class="cat-card-img" src="https://admin.snaidero.com/media/rc2apsls/05-sistema-snaidero-elementi-nella-quiete-del-paesaggio.jpg" alt="Elementi"/><div class="cat-card-info always"><div class="cat-card-name">Elementi</div><div class="cat-card-line">Sistema · Металл + дерево</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label sistema">Sistema</span></div>
+      <div class="cat-card" onclick="showSeries('principio')"><img class="cat-card-img" src="https://admin.snaidero.com/media/esvlkgq0/03-sistema-snaidero-principio-skyline-al-tramonto.jpg" alt="Principio"/><div class="cat-card-info always"><div class="cat-card-name">Principio</div><div class="cat-card-line">Sistema · Компактная</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label sistema">Sistema</span></div>
+      <div class="cat-card" onclick="showSeries('folio')"><img class="cat-card-img" src="https://admin.snaidero.com/media/2nlbsxiv/06-sistema-snaidero-folio-un-loft-sul-canale.jpg" alt="Folio"/><div class="cat-card-info always"><div class="cat-card-name">Folio</div><div class="cat-card-line">Sistema · Лофт</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label sistema">Sistema</span></div>
+      <div class="cat-card" onclick="showSeries('opera')"><img class="cat-card-img" src="https://admin.snaidero.com/media/eh2fwqgb/07-sistema-snaidero-opera-casa-di-ringhiera.jpg" alt="Opera"/><div class="cat-card-info always"><div class="cat-card-name">Opera</div><div class="cat-card-line">Sistema · Современная</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label sistema">Sistema</span></div>
+      <div class="cat-card" onclick="showSeries('link')"><img class="cat-card-img" src="https://admin.snaidero.com/media/bhqlpmwa/13-sistema-snaidero-link-opera-arizona-dream.jpg" alt="Link"/><div class="cat-card-info always"><div class="cat-card-name">Link</div><div class="cat-card-line">Sistema · Метрополия</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label sistema">Sistema</span></div>
+      <div class="cat-card" onclick="showSeries('vision')"><img class="cat-card-img" src="https://admin.snaidero.com/media/24hnzj3p/focus_1.jpg" alt="Vision"/><div class="cat-card-info always"><div class="cat-card-name">Vision</div><div class="cat-card-line">Icone · Pininfarina</div><div class="cat-card-cta">Подробнее →</div></div><span class="cat-label icone">Icone</span></div>
+      <div class="cat-card" onclick="openModal()"><img class="cat-card-img" src="https://admin.snaidero.com/media/zffgjtuq/15-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" alt="Living"/><div class="cat-card-info always"><div class="cat-card-name">+ Ещё серии</div><div class="cat-card-line">Opera, Folio, Link и другие</div><div class="cat-card-cta">Запросить полный каталог →</div></div><span class="cat-label living">Living</span></div>
+    </div>
+  </div>
+  <div class="cta-band" id="consultation">
+    <div>
+      <h2 class="sec-h2" style="color:var(--w)">Подберём<br><em>вашу кухню</em><br>бесплатно</h2>
+      <p style="font-size:14px;font-weight:300;color:rgba(255,255,255,.7);line-height:1.75;margin-top:18px">Расскажите о вашем проекте — мы подберём подходящую коллекцию, согласуем конфигурацию и передадим в производство. Первая консультация и расчёт бесплатны.</p>
+      <div class="cta-contacts" style="margin-top:28px">
+        <div class="cta-contact-item"><div class="lbl">Telegram</div><div class="val">@homeproject_bot</div></div>
+        <div class="cta-contact-item"><div class="lbl">Email</div><div class="val">info@homeproject.online</div></div>
+      </div>
+    </div>
+    <div class="cta-band-right">
+      <button class="btn-wh" onclick="openModal()">Запросить консультацию</button>
+      <button class="btn-tr" onclick="openModal()">Получить каталог PDF</button>
+      <button class="btn-tr" onclick="openModal()">Записаться в шоурум</button>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-left"><div class="footer-logo">Snaidero × Home Project</div><p>© 2026 Home Project · Официальный партнёр Snaidero в Москве</p></div>
+    <div class="footer-right"><a class="footer-link" href="https://homeproject.online">homeproject.online</a><a class="footer-link" href="https://www.snaidero.com">snaidero.com</a><button class="footer-link" onclick="openModal()">Контакты</button></div>
+  </footer>
+</div>
+<div id="view-series" class="view"><div id="series-content"></div></div>
+<button class="sticky" onclick="openModal()"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Консультация</button>
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-x" onclick="closeModal()">×</button>
+    <div class="modal-series-tag" id="modal-tag">Кухни Snaidero</div>
+    <div class="modal-h" id="modal-h">Запросить консультацию</div>
+    <div class="modal-sub">Свяжемся в течение одного рабочего дня</div>
+    <div style="margin-top:24px">
+      <div class="frow">
+        <div class="fg"><label class="flbl">Имя</label><input class="fin" type="text" placeholder="Ваше имя"/></div>
+        <div class="fg"><label class="flbl">Телефон</label><input class="fin" type="tel" placeholder="+7 (___) ___-__-__"/></div>
+      </div>
+      <div class="fg"><label class="flbl">Email</label><input class="fin" type="email" placeholder="email@example.com"/></div>
+      <div class="fg"><label class="flbl">Интересующая серия</label>
+        <select class="fsel" id="modal-series-select">
+          <option>Frame — Haute Couture</option><option>Way — Wabi-sabi</option><option>Orbita — Скруглённые модули</option>
+          <option>Ola — Pininfarina (Icone)</option><option>Vision — Pininfarina (Icone)</option><option>Quadra — Без ручек</option>
+          <option>Elementi — Металл и дерево</option><option>Principio — Компактная</option><option>Folio — Лофт</option>
+          <option>Opera — Современная</option><option>Link — Метрополия</option><option>Ещё не определился(-ась)</option>
+        </select>
+      </div>
+      <div class="fg"><label class="flbl">Площадь и пожелания</label><textarea class="fta" placeholder="Площадь кухни, стиль интерьера, бюджет, сроки..."></textarea></div>
+      <p class="fdiscl">Нажимая «Отправить», вы соглашаетесь с политикой обработки персональных данных Home Project.</p>
+      <button class="btn-sub">Отправить заявку</button>
+    </div>
+  </div>
+</div>
+<script>
+const CDN='https://admin.snaidero.com/media/';
+function showView(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById('view-'+v).classList.add('active');window.scrollTo(0,0);}
+function showCatalog(){showView('home');setTimeout(()=>{document.getElementById('catalog-home').scrollIntoView({behavior:'smooth'})},100)}
+function scrollToEl(id){showView('home');setTimeout(()=>{const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})},100);}
+function setActive(btn){document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));btn.classList.add('active');}
+const SERIES={
+  frame:{line:'Sistema',concept:'Haute Couture',designer:'Iosa Ghini Design',hero:CDN+'fv5jdkf1/01-sistema-snaidero-frame-ispirazioni-haute-couture.jpg',
+    desc:`<p>Frame — кухня-манифест современного итальянского дизайна. Фасады с фирменным обрамлением объединяют строгий геометрический язык с тёплой материальностью. Центральный остров с интегрированным круглым столом Plana превращает кухню в архитектурный центр дома.</p><p>Без ручек, без компромиссов. Только чистые плоскости, скрытые механизмы и безупречные пропорции.</p>`,
+    imgs:[CDN+'pxrad3de/03-sistema-snaidero-frame-ispirazioni-haute-couture.jpg',CDN+'nh0dqv2q/06-sistema-snaidero-frame-ispirazioni-haute-couture.jpg',CDN+'1v5dphxc/04-sistema-snaidero-frame-ispirazioni-haute-couture.jpg',CDN+'vq2hoeqo/07-sistema-snaidero-frame-ispirazioni-haute-couture.jpg',CDN+'iiujqbph/12-sistema-snaidero-frame-ispirazioni-haute-couture.jpg',CDN+'2afdyeqt/02-sistema-snaidero-frame-ispirazioni-haute-couture.jpg'],
+    materials:[{name:'Rosso Cinqueterre',type:'Матовый лак',color:'#BF2E25'},{name:'Nero Assoluto',type:'Матовый лак',color:'#2A2826'},{name:'Grigio Carso',type:'Матовый лак',color:'#5A5855'},{name:'Bianco Assoluto',type:'Матовый лак',color:'#F0ECE7'},{name:'Rovere Tabacco',type:'Шпон дуба',color:'#7A5F3C'},{name:'Kvarц Interstellar',type:'Столешница',color:'#9E9A95'},{name:'Eucalyptus Oxidized',type:'Шпон',color:'#8B7B6A'},{name:'Bronzo',type:'Металл, вытяжка',color:'#8B6914'}],
+    components:[{num:'01',name:'Ante Frame',desc:'Фасады с обрамлением 10 мм. Без ручек, с интегрированным профилем.'},{num:'02',name:'Piano Plana',desc:'Круглый стол-остров из шпона эвкалипта. Центральный элемент композиции.'},{num:'03',name:'Vista Shelving',desc:'Открытые полки с встроенной подсветкой. Шпон эвкалипта.'},{num:'04',name:'Pegaso',desc:'Вытяжка в отделке бронза. Подчёркивает вертикаль.'},{num:'05',name:'Modula',desc:'Базовые модули с гибкой конфигурацией и вариантами отделки.'},{num:'06',name:'Rialto',desc:'Витринные шкафы с дымчатым стеклом для хранения и экспозиции.'}],
+    related:['way','orbita','quadra']},
+  way:{line:'Sistema',concept:'Interni Wabi-sabi',designer:'Философия Wabi-sabi',hero:CDN+'2l3mmj3x/hero-hd-2.jpg',
+    desc:`<p>Way воплощает японскую философию Wabi-sabi в итальянском исполнении. Гармоничные пропорции, натуральные материалы и осознанная непостоянность природных фактур создают пространство, наполненное смыслом.</p><p>Матовые лакированные фасады Way сочетаются с алюминиевыми дверцами Elementi — диалог рукотворного и индустриального.</p>`,
+    imgs:[CDN+'zpmnhba1/09-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg',CDN+'w2ida1uf/03-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg',CDN+'2bxnwazi/05-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg',CDN+'xfdm3v04/10-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg',CDN+'zffgjtuq/15-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg',CDN+'434c1fqx/18-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg'],
+    materials:[{name:'Grigio Carso',type:'Матовый лак',color:'#5A5855'},{name:'Alluminio Diamante Grigio',type:'Алюминий фасад',color:'#A8A8A4'},{name:'Calce Bianco',type:'Керамика, столешница',color:'#E8E0D4'},{name:'Rovere Spacco',type:'Шпон дуба, стол',color:'#7A6A58'},{name:'Nero Grafite',type:'Матовый лак',color:'#2A2826'},{name:'Sabbia',type:'Матовый лак',color:'#C8B89A'},{name:'Rovere Naturale',type:'Шпон',color:'#B0946A'},{name:'Кварц Terra',type:'Столешница',color:'#9A8070'}],
+    components:[{num:'01',name:'Anta Way',desc:'Матовые лакированные фасады с тонким обрамлением. Основа японской эстетики.'},{num:'02',name:'Anta Elementi',desc:'Алюминиевые фасады Diamante Grigio. Индустриальный акцент.'},{num:'03',name:'Regolo Table',desc:'Интегрированный стол из дуба Spacco. Связывает остров с жилым пространством.'},{num:'04',name:'Piano Ceramica',desc:'Столешница Calce Bianco. Воплощение натуральной фактуры.'},{num:'05',name:'Domina Hood',desc:'Вытяжка большого формата — центральный элемент острова.'},{num:'06',name:'Segno Panel',desc:'Деревянные панели-перегородки. Разделяют зоны и создают ритм.'}],
+    related:['frame','elementi','orbita']},
+  orbita:{line:'Sistema',concept:"L'incanto del Nord",designer:'Sistema Snaidero',hero:CDN+'h3ydarw0/01-sistema-snaidero-orbita-lincanto-del-nord.jpg',
+    desc:`<p>Orbita — революционный компонент с поворотом секций на 20°, создающий плавные переходы между функциональными зонами. «Форма следует жесту» — базы, колонны и острова адаптируются к движениям человека, а не наоборот.</p><p>Вдохновлённая скандинавским минимализмом коллекция сочетает tech-отделку Magnolia с натуральной керамикой Pietra Avorio.</p>`,
+    imgs:[CDN+'iqsl12ew/11-sistema-snaidero-orbita-lincanto-del-nord.jpg',CDN+'irhnud2e/04-sistema-snaidero-orbita-lincanto-del-nord.jpg',CDN+'1flhea2w/02-sistema-snaidero-orbita-lincanto-del-nord.jpg',CDN+'ic1dtcxe/06-sistema-snaidero-orbita-lincanto-del-nord.jpg',CDN+'xncpcrqj/10-sistema-snaidero-orbita-lincanto-del-nord.jpg',CDN+'fh0ane1q/03-sistema-snaidero-orbita-lincanto-del-nord.jpg'],
+    materials:[{name:'Magnolia',type:'Tech Natural отделка',color:'#E8E2D8'},{name:'Pietra Avorio',type:'Керамика',color:'#D8CFC0'},{name:'Rovere Spacco',type:'Шпон дуба',color:'#8B7355'},{name:'Nero Metal',type:'Металлический профиль',color:'#2A2826'},{name:'Bianco Latte',type:'Матовый лак',color:'#F4F0E8'},{name:'Grigio Nebbia',type:'Матовый лак',color:'#8C8880'},{name:'Kwarц Naturale',type:'Столешница',color:'#C8C0B4'},{name:'Vetro Fumé',type:'Стекло витрины',color:'#6A6860'}],
+    components:[{num:'01',name:'Orbita 20°',desc:'Модули с наклоном 20°. Ключевой элемент — скруглённый переход на острове и колоннах.'},{num:'02',name:'Folio Door',desc:'Дверцы с тонким профилем. Продолжают линию Orbita.'},{num:'03',name:'Vista Open',desc:'Открытые полки без фасадов. Экспозиция и хранение.'},{num:'04',name:'Regolo Dining',desc:'Интегрированный обеденный стол. Шпон Rovere Spacco.'},{num:'05',name:'Modula Base',desc:'Базовые модули с вариантами конфигурации под любую планировку.'},{num:'06',name:'Rialto Vetrina',desc:'Витринные шкафы с дымчатым стеклом для аксессуаров.'}],
+    related:['frame','way','quadra']},
+  ola:{line:'Icone',concept:'Morbidezza del Segno Curvo',designer:'Pininfarina',hero:CDN+'r00pxvnc/hero_1.jpg',
+    desc:`<p>Ola — культовая кухня, рождённая из 30-летнего партнёрства Snaidero и Pininfarina. «Мягкость изгибов как синтез жизни и движения» — каждая линия Ola сказывает об элегантности без усилий, о красоте как естественном состоянии.</p><p>Икона итальянского дизайна. Кухня, которая не следует трендам, потому что сама является их источником.</p>`,
+    imgs:[CDN+'csgmaeii/media_3.jpg',CDN+'k5dhj5nl/media_2.jpg',CDN+'ghgnlrf1/carosello_1.jpg',CDN+'wwtc45lz/carosello_2.jpg',CDN+'s5abybvu/hero_2.jpg',CDN+'24hnzj3p/focus_1.jpg'],
+    materials:[{name:'Bianco Assoluto',type:'Матовый лак',color:'#F4F0E8'},{name:'Grigio Perla',type:'Матовый лак',color:'#C8C4BC'},{name:'Nero Opaco',type:'Матовый лак',color:'#2A2826'},{name:'Rosso Fuoco',type:'Глянцевый лак',color:'#CC2020'},{name:'Rovere Chiaro',type:'Шпон дуба',color:'#C8A878'},{name:'Kwarц Bianco',type:'Столешница',color:'#F0ECE6'},{name:'Acciaio',type:'Нержавеющая сталь',color:'#B8B4B0'},{name:'Vetro Bianco',type:'Стеклянный фасад',color:'#E8EAE8'}],
+    components:[{num:'01',name:'Ante Ola',desc:'Фасады с фирменным скруглённым силуэтом Pininfarina. Иконический элемент.'},{num:'02',name:'Curved Island',desc:'Остров с плавными изгибами. Скульптурный центр кухонного пространства.'},{num:'03',name:'Piano Inox',desc:'Столешница из нержавеющей стали с интегрированной мойкой.'},{num:'04',name:'Pensili Ola',desc:'Навесные шкафы с повторением изгиба фасадов.'},{num:'05',name:'Colonne Alte',desc:'Высокие колонны-пеналы для техники и хранения.'},{num:'06',name:'Maniglia integrata',desc:'Интегрированная скрытая ручка — принцип Pininfarina «чистой линии».'}],
+    related:['vision','frame','quadra']},
+};
+const SERIES_MINIMAL={
+  quadra:{line:'Sistema',concept:'Oasi nel Deserto',designer:'Sistema Snaidero',hero:CDN+'oeonng2y/07-sistema-snaidero-quadra-oasi-nel-deserto.jpg',imgs:[CDN+'oeonng2y/07-sistema-snaidero-quadra-oasi-nel-deserto.jpg'],desc:'<p>Quadra — кухня с рамочным фасадом 10 мм без ручек. Остров с двумя центральными колоннами создаёт театральный эффект. Отделки: лак Золотой Бронзат, шпон Дуба Terra, керамика Porfido Marrone.</p>',materials:[{name:'Oro Bronzato',type:'Лак',color:'#C8A030'},{name:'Terra Oak',type:'Шпон',color:'#8B6A38'},{name:'Porfido Marrone',type:'Керамика',color:'#6A5048'}],components:[],related:['frame','orbita','ola']},
+  elementi:{line:'Sistema',concept:'Nella Quiete del Paesaggio',designer:'Sistema Snaidero',hero:CDN+'rc2apsls/05-sistema-snaidero-elementi-nella-quiete-del-paesaggio.jpg',imgs:[CDN+'rc2apsls/05-sistema-snaidero-elementi-nella-quiete-del-paesaggio.jpg'],desc:'<p>Elementi — кухня с алюминиевыми фасадами в зеркальном PVD-исполнении Ossidiana. Материальность металла и природные текстуры.</p>',materials:[{name:'Ossidiana Mirror PVD',type:'Алюминий',color:'#2A2A28'},{name:'Grigio Lime',type:'Отделка',color:'#8A8878'}],components:[],related:['way','link','frame']},
+  principio:{line:'Sistema',concept:'Skyline al Tramonto',designer:'Sistema Snaidero',hero:CDN+'esvlkgq0/03-sistema-snaidero-principio-skyline-al-tramonto.jpg',imgs:[CDN+'esvlkgq0/03-sistema-snaidero-principio-skyline-al-tramonto.jpg'],desc:'<p>Principio — компактная кухонная система с высоким прилавком острова. Идеальна для открытых планировок. Отделки: Grigio Cashmere tech sense, Castagno Vapore Piallato.</p>',materials:[{name:'Grigio Cashmere',type:'Tech Sense',color:'#A8A49A'},{name:'Castagno Vapore',type:'Шпон каштана',color:'#7A6048'}],components:[],related:['frame','quadra','way']},
+  folio:{line:'Sistema',concept:'Un Loft sul Canale',designer:'Sistema Snaidero',hero:CDN+'2nlbsxiv/06-sistema-snaidero-folio-un-loft-sul-canale.jpg',imgs:[CDN+'2nlbsxiv/06-sistema-snaidero-folio-un-loft-sul-canale.jpg'],desc:'<p>Folio — кухня в духе индустриального лофта. Тонкие открытые фасады, строгие вертикали, минимум декора.</p>',materials:[{name:'Nero Grafite',type:'Матовый лак',color:'#2A2826'},{name:'Rovere Grigio',type:'Шпон',color:'#7A7868'}],components:[],related:['opera','link','way']},
+  opera:{line:'Sistema',concept:'Casa di Ringhiera',designer:'Sistema Snaidero',hero:CDN+'eh2fwqgb/07-sistema-snaidero-opera-casa-di-ringhiera.jpg',imgs:[CDN+'eh2fwqgb/07-sistema-snaidero-opera-casa-di-ringhiera.jpg'],desc:'<p>Opera — чистая современная кухня с выраженными горизонталями. Социальная архитектура быта.</p>',materials:[{name:'Bianco Seta',type:'Матовый лак',color:'#F0EDE6'},{name:'Rovere Naturale',type:'Шпон',color:'#B09068'}],components:[],related:['folio','link','principio']},
+  link:{line:'Sistema',concept:'Arizona Dream',designer:'Sistema Snaidero',hero:CDN+'bhqlpmwa/13-sistema-snaidero-link-opera-arizona-dream.jpg',imgs:[CDN+'bhqlpmwa/13-sistema-snaidero-link-opera-arizona-dream.jpg'],desc:'<p>Link — кухня, связывающая пространства. Тёплые землистые тона, натуральные фактуры, безбарьерный переход между кухней и гостиной.</p>',materials:[{name:'Terracotta',type:'Матовый лак',color:'#A85A38'},{name:'Dolomiti Oak',type:'Шпон',color:'#C8B090'}],components:[],related:['elementi','opera','principio']},
+  vision:{line:'Icone',concept:'Eleganza in Movimento',designer:'Pininfarina',hero:CDN+'24hnzj3p/focus_1.jpg',imgs:[CDN+'24hnzj3p/focus_1.jpg',CDN+'s5abybvu/hero_2.jpg'],desc:'<p>Vision — сестра Ola в линейке Icone. Тот же DNA Pininfarina, другое прочтение: более угловатое, более технологичное.</p>',materials:[{name:'Grigio Platino',type:'Матовый лак',color:'#A0A0A0'},{name:'Bianco Ghiaccio',type:'Лак',color:'#EEF0EE'}],components:[],related:['ola','frame','quadra']},
+};
+const ALL_SERIES={...SERIES,...SERIES_MINIMAL};
+function showSeries(key){
+  const s=ALL_SERIES[key];if(!s){openModal();return;}
+  let imgsMd=s.imgs.slice(0,6).map(u=>`<img class="gal-img" src="${u}" alt="${key}" loading="lazy"/>`).join('');
+  let mats=(s.materials||[]).map(m=>`<div class="mat-item"><div class="mat-swatch" style="background:${m.color};border:1px solid rgba(0,0,0,.1)"></div><div class="mat-name">${m.name}</div><div class="mat-type">${m.type}</div></div>`).join('');
+  let comps=(s.components||[]).map(c=>`<div class="comp-item"><div class="comp-num">${c.num}</div><div class="comp-name">${c.name}</div><div class="comp-desc">${c.desc}</div></div>`).join('');
+  let relCards=(s.related||[]).slice(0,3).map(rk=>{const r=ALL_SERIES[rk];if(!r)return'';return`<div class="rel-card" onclick="showSeries('${rk}')"><img class="rel-img" src="${r.hero}" alt="${rk}" loading="lazy"/><div class="rel-info"><div class="rel-name">${rk.charAt(0).toUpperCase()+rk.slice(1)}</div><div class="rel-sub">${r.line}</div></div></div>`;}).join('');
+  const cap=k=>k.charAt(0).toUpperCase()+k.slice(1);
+  document.getElementById('series-content').innerHTML=`
+    <div class="back-nav"><button class="back-btn" onclick="showView('home')">← Все коллекции</button></div>
+    <div class="series-hero"><img class="series-hero-img" src="${s.hero}" alt="${key}"/><div class="series-hero-grad"></div>
+      <div class="series-hero-content"><div class="series-line-badge">${s.line}</div><h1 class="series-h1"><em>${cap(key)}</em></h1><div class="series-concept">${s.concept}</div>
+        <div class="series-hero-cta"><button class="btn-w" onclick="openModal('${key}')">Запросить консультацию</button><button class="btn-gl" onclick="openModal('${key}')">Получить КП</button></div>
+      </div></div>
+    <div class="series-intro">
+      <div class="series-intro-left"><div class="sec-tag">${s.line} · ${s.concept}</div>
+        <h2 style="font-family:var(--fs);font-size:clamp(30px,3.5vw,46px);font-weight:300;line-height:1.12;margin-bottom:18px"><em>${cap(key)}</em></h2>
+        <div style="font-size:14px;font-weight:300;line-height:1.85;color:var(--wg)">${s.desc}</div>
+        <div class="series-designer"><div class="designer-icon"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:var(--ac);stroke-width:2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+          <div class="designer-info"><div class="d-name">${s.designer}</div><div class="d-role">Дизайн коллекции</div></div></div></div>
+      <div class="series-intro-right">${s.imgs[0]?`<img class="si-img" src="${s.imgs[0]}" loading="lazy" style="height:340px;object-fit:cover"/>`:''}
+        <div class="series-g2">${s.imgs[1]?`<img class="si-img" src="${s.imgs[1]}" loading="lazy" style="height:200px;object-fit:cover"/>`:''}${s.imgs[2]?`<img class="si-img" src="${s.imgs[2]}" loading="lazy" style="height:200px;object-fit:cover"/>`:''}</div></div></div>
+    ${s.imgs.length>2?`<div class="series-gallery"><div class="gallery-scroll">${imgsMd}</div></div>`:''}
+    ${mats?`<div class="series-materials"><div class="materials-header"><div class="sec-tag">Отделки</div><h2 style="font-family:var(--fs);font-size:36px;font-weight:300"><em>Материалы</em> и финиши</h2></div><div class="materials-grid">${mats}</div></div>`:''}
+    ${comps?`<div class="series-components"><div class="comp-header"><div class="sec-tag" style="color:var(--al)">Состав системы</div><h2 style="font-family:var(--fs);font-size:36px;font-weight:300;color:var(--w)"><em>Компоненты</em></h2></div><div class="comp-grid">${comps}</div></div>`:''}
+    <div class="series-cta"><div class="scta-left"><div class="sec-tag">Ваш проект</div>
+        <h2 style="font-family:var(--fs);font-size:clamp(32px,4vw,48px);font-weight:300;line-height:1.12;margin-bottom:18px">Хотите <em>${cap(key)}</em><br>в вашем доме?</h2>
+        <p style="font-size:14px;font-weight:300;color:var(--wg);line-height:1.75">Оставьте заявку — мы свяжемся в течение одного рабочего дня. Бесплатно подберём конфигурацию, согласуем отделки и подготовим расчёт.</p></div>
+      <div class="scta-right"><div class="form-title">Заявка на ${cap(key)}</div>
+        <div class="frow"><div class="fg"><label class="flbl">Имя</label><input class="fin" type="text" placeholder="Ваше имя"/></div><div class="fg"><label class="flbl">Телефон</label><input class="fin" type="tel" placeholder="+7 (___) ___-__-__"/></div></div>
+        <div class="fg"><label class="flbl">Email</label><input class="fin" type="email" placeholder="email@example.com"/></div>
+        <div class="fg"><label class="flbl">Площадь кухни и пожелания</label><textarea class="fta" placeholder="Площадь, планировка, стиль, бюджет..."></textarea></div>
+        <p class="fdiscl">Согласие на обработку персональных данных.</p>
+        <button class="btn-sub">Отправить заявку по ${cap(key)}</button></div></div>
+    ${relCards?`<div class="related"><h3><em>Другие</em> коллекции</h3><div class="related-grid">${relCards}</div></div>`:''}
+    <footer class="footer"><div class="footer-left"><div class="footer-logo">Snaidero × Home Project</div><p>© 2026 Home Project · Москва</p></div>
+      <div class="footer-right"><a class="footer-link" href="https://homeproject.online">homeproject.online</a><button class="footer-link" onclick="openModal()">Консультация</button></div></footer>`;
+  showView('series');
+  const sel=document.getElementById('modal-series-select');
+  if(sel){const name=cap(key);for(let o of sel.options){if(o.text.startsWith(name)){o.selected=true;break;}}}
+}
+function filterCatalog(line){showView('home');setTimeout(()=>{document.getElementById('catalog-home').scrollIntoView({behavior:'smooth'})},100);}
+function openModal(series){
+  if(series){document.getElementById('modal-tag').textContent='Серия '+(series.charAt(0).toUpperCase()+series.slice(1));document.getElementById('modal-h').textContent='Запрос КП · Snaidero '+(series.charAt(0).toUpperCase()+series.slice(1));}
+  else{document.getElementById('modal-tag').textContent='Кухни Snaidero';document.getElementById('modal-h').textContent='Запросить консультацию';}
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeModal(){document.getElementById('modal-bg').classList.remove('open')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+</script>
+</body>
+</html>
