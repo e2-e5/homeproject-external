@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>HomeProject — Preview главной страницы</title>
+  <style>
+    :root{--bg:#181A20;--card:#1F2129;--sidebar:#13151B;--border:#2A2D38;--gold:#C8A96E;--text:#E8E8E8;--muted:#777;--red:#CC0000;--blue:#00B4FF;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+    a{text-decoration:none;color:inherit;}
+
+    /* PREVIEW BANNER */
+    .preview-bar{background:#FF6B00;color:#fff;text-align:center;padding:8px;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;position:sticky;top:0;z-index:200;}
+
+    /* HEADER */
+    .header{background:var(--sidebar);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;padding:0 32px;gap:0;position:sticky;top:33px;z-index:100;}
+    .logo{font-size:16px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;margin-right:48px;white-space:nowrap;}
+    .logo em{font-style:normal;color:var(--gold);}
+    nav{display:flex;flex:1;height:100%;}
+    .nav-a{height:100%;display:flex;align-items:center;padding:0 16px;font-size:13px;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;cursor:pointer;gap:6px;}
+    .nav-a:hover{color:var(--text);border-bottom-color:var(--gold);}
+    .nav-new{color:var(--gold);border-bottom-color:rgba(200,169,110,0.3);}
+    .nav-badge{font-size:9px;background:var(--gold);color:#000;padding:2px 5px;border-radius:2px;font-weight:800;letter-spacing:0.05em;vertical-align:middle;}
+    .header-cta{margin-left:auto;background:var(--gold);color:#000;padding:9px 22px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:0.05em;white-space:nowrap;cursor:pointer;}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,var(--sidebar) 0%,#1C1F27 100%);border-bottom:1px solid var(--border);padding:80px 48px;display:flex;align-items:center;gap:64px;}
+    .hero-text{flex:1;max-width:600px;}
+    .hero-eyebrow{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+    .hero-title{font-size:clamp(34px,4vw,52px);font-weight:800;line-height:1.15;margin-bottom:20px;}
+    .hero-title em{font-style:normal;color:var(--gold);}
+    .hero-sub{font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:36px;max-width:480px;}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-gold{background:var(--gold);color:#000;padding:14px 32px;border-radius:4px;font-weight:700;font-size:14px;cursor:pointer;}
+    .btn-ghost{border:1px solid var(--border);color:var(--text);padding:14px 32px;border-radius:4px;font-size:14px;cursor:pointer;background:transparent;}
+    .hero-aside{display:flex;flex-direction:column;gap:12px;flex-shrink:0;}
+    .h-stat{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:18px 28px;text-align:center;}
+    .h-stat-n{font-size:38px;font-weight:800;color:var(--gold);line-height:1;}
+    .h-stat-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;}
+
+    /* LABEL */
+    .sec-label{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+    .sec-title{font-size:clamp(22px,3vw,34px);font-weight:700;margin-bottom:8px;}
+    .sec-sub{font-size:14px;color:var(--muted);margin-bottom:36px;line-height:1.6;}
+    .section{max-width:1200px;margin:0 auto;padding:72px 32px;}
+    .annotation{display:inline-block;background:rgba(255,107,0,0.15);border:1px dashed #FF6B00;color:#FF6B00;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:600;margin-left:10px;vertical-align:middle;}
+
+    /* SPOTLIGHT — 3 new categories */
+    .spot-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+    .spot-card{border-radius:6px;overflow:hidden;height:400px;position:relative;cursor:pointer;transition:transform .25s;}
+    .spot-card:hover{transform:translateY(-5px);}
+    .spot-inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:32px;}
+    /* Snaidero */
+    .sp-snaidero{background:linear-gradient(160deg,#1A0E00 0%,#3D2200 45%,#6B3C0A 100%);}
+    /* Miele */
+    .sp-miele{background:linear-gradient(160deg,#080000 0%,#1A0000 50%,#280000 100%);}
+    /* TV */
+    .sp-tv{background:linear-gradient(160deg,#03060F 0%,#05101A 50%,#071525 100%);}
+
+    .spot-big-letter{position:absolute;top:20px;right:20px;font-size:90px;font-weight:900;opacity:.09;letter-spacing:0;line-height:1;}
+    .spot-screen{position:absolute;top:24px;left:24px;right:24px;height:140px;border:1px solid rgba(0,180,255,0.15);border-radius:3px;background:rgba(0,50,100,0.12);display:flex;align-items:center;justify-content:center;}
+    .spot-screen-inner{font-size:48px;opacity:.3;}
+
+    .spot-tag{display:inline-block;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:4px 10px;border-radius:2px;margin-bottom:12px;font-weight:700;width:fit-content;}
+    .spot-name{font-size:24px;font-weight:700;margin-bottom:8px;line-height:1.2;}
+    .spot-desc{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:20px;}
+    .spot-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:3px;font-size:13px;font-weight:700;letter-spacing:0.04em;transition:opacity .2s;width:fit-content;}
+    .spot-cta:hover{opacity:.85;}
+    .spot-arrow{transition:transform .2s;}
+    .spot-card:hover .spot-arrow{transform:translateX(5px);}
+
+    /* EXISTING BRANDS */
+    .brands-bg{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+    .brands-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+    .brand-tile{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:18px 12px;text-align:center;cursor:pointer;transition:border-color .2s;}
+    .brand-tile:hover{border-color:var(--gold);}
+    .b-icon{font-size:24px;margin-bottom:8px;}
+    .b-name{font-size:13px;font-weight:700;margin-bottom:3px;}
+    .b-type{font-size:11px;color:var(--muted);}
+
+    /* USER JOURNEY */
+    .journey-bg{background:var(--sidebar);border-top:1px solid var(--border);}
+    .journey-steps{display:flex;align-items:flex-start;gap:0;margin-top:44px;}
+    .j-step{flex:1;text-align:center;padding:0 12px;position:relative;}
+    .j-step:not(:last-child)::after{content:'→';position:absolute;right:-14px;top:14px;font-size:20px;color:var(--gold);}
+    .j-num{width:44px;height:44px;border-radius:50%;background:var(--gold);color:#000;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+    .j-title{font-size:14px;font-weight:600;margin-bottom:6px;}
+    .j-desc{font-size:12px;color:var(--muted);line-height:1.65;}
+
+    /* WIRE ANNOTATION */
+    .wire-note{background:rgba(255,107,0,0.08);border:1px dashed #FF6B00;border-radius:6px;padding:16px 20px;margin-top:16px;font-size:13px;color:#FF9B50;line-height:1.6;}
+    .wire-note strong{color:#FF6B00;}
+
+    /* BOTTOM CTA */
+    .bottom-cta{padding:80px 32px;text-align:center;background:linear-gradient(135deg,#11131A 0%,#181A20 100%);border-top:1px solid var(--border);}
+
+    /* FOOTER */
+    footer{background:var(--sidebar);border-top:1px solid var(--border);padding:28px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .f-logo{font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;}
+    .f-logo em{font-style:normal;color:var(--gold);}
+    .f-note{font-size:11px;color:var(--muted);}
+    .f-links{display:flex;gap:20px;}
+    .f-link{font-size:12px;color:var(--muted);}
+    .f-link:hover{color:var(--gold);}
+
+    @media(max-width:900px){
+      .spot-grid{grid-template-columns:1fr;}
+      .spot-card{height:280px;}
+      .brands-grid{grid-template-columns:repeat(3,1fr);}
+      .hero{flex-direction:column;padding:48px 24px;}
+      .hero-aside{flex-direction:row;}
+      .journey-steps{flex-direction:column;gap:28px;align-items:center;}
+      .j-step:not(:last-child)::after{content:'↓';right:auto;left:50%;transform:translateX(-50%);top:auto;bottom:-22px;}
+      nav{display:none;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- PREVIEW BANNER -->
+<div class="preview-bar">⚠️ Макет главной страницы homeproject.online — для согласования структуры. Не публичная версия.</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">Home<em>Project</em></div>
+  <nav>
+    <a class="nav-a nav-new" href="https://e2-e5.github.io/homeproject-external/snaidero-kuchni.html" target="_blank">Кухни Snaidero <span class="nav-badge">NEW</span></a>
+    <a class="nav-a nav-new" href="https://e2-e5.github.io/homeproject-external/miele-brand.html" target="_blank">Техника Miele <span class="nav-badge">NEW</span></a>
+    <a class="nav-a nav-new" href="https://e2-e5.github.io/homeproject-external/premium-tv-brand.html" target="_blank">ТВ Premium <span class="nav-badge">NEW</span></a>
+    <a class="nav-a" href="#">Все бренды</a>
+    <a class="nav-a" href="#">О компании</a>
+    <a class="nav-a" href="#">Контакты</a>
+  </nav>
+  <div class="header-cta">Получить КП</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Дистрибуция премиальной техники · Москва · 2026</div>
+    <h1 class="hero-title">Три новых раздела —<br><em>одно место</em></h1>
+    <p class="hero-sub">Кухни Snaidero, техника Miele и премиальные телевизоры теперь доступны на HomeProject. 12 брендов для вашего интерьера — от встраиваемой техники до luxury TV.</p>
+    <div class="hero-btns">
+      <div class="btn-gold">Смотреть каталог ↓</div>
+      <div class="btn-ghost">Получить консультацию</div>
+    </div>
+  </div>
+  <div class="hero-aside">
+    <div class="h-stat"><div class="h-stat-n">12+</div><div class="h-stat-l">брендов</div></div>
+    <div class="h-stat"><div class="h-stat-n">3</div><div class="h-stat-l">новых раздела</div></div>
+    <div class="h-stat"><div class="h-stat-n">24ч</div><div class="h-stat-l">ответ на запрос</div></div>
+  </div>
+</section>
+
+<!-- ═══ SPOTLIGHT: 3 NEW CATEGORIES ═══ -->
+<section>
+  <div class="section">
+    <div class="sec-label">Новые разделы 2026</div>
+    <h2 class="sec-title">Три новых направления <span class="annotation">Первый блок после шапки</span></h2>
+    <p class="sec-sub">Посетитель видит эти три карточки сразу — ещё до скролла. Каждая ведёт на раздел бренда с описаниями, моделями и формой запроса.</p>
+
+    <div class="spot-grid">
+
+      <!-- SNAIDERO -->
+      <a class="spot-card" href="https://e2-e5.github.io/homeproject-external/snaidero-kuchni.html" target="_blank">
+        <div class="spot-inner sp-snaidero">
+          <div class="spot-big-letter" style="color:#C8A96E;">S</div>
+          <span class="spot-tag" style="background:rgba(200,169,110,0.18);color:#C8A96E;">Кухонные системы</span>
+          <div class="spot-name">Кухни Snaidero</div>
+          <div class="spot-desc">Итальянское мастерство с 1949 года. Opera, Code, Oxygen, Ola — авторские кухонные системы для резиденций.</div>
+          <div class="spot-cta" style="background:#C8A96E;color:#000;">Открыть раздел <span class="spot-arrow">→</span></div>
+        </div>
+      </a>
+
+      <!-- MIELE -->
+      <a class="spot-card" href="https://e2-e5.github.io/homeproject-external/miele-brand.html" target="_blank">
+        <div class="spot-inner sp-miele">
+          <div class="spot-big-letter" style="color:#CC0000;">M</div>
+          <span class="spot-tag" style="background:rgba(204,0,0,0.18);color:#FF6666;">Встраиваемая техника</span>
+          <div class="spot-name">Техника Miele</div>
+          <div class="spot-desc">125 лет немецкого качества. 7 категорий: духовые, паровые, посудомоечные, варочные, холодильники, стирка, пылесосы.</div>
+          <div class="spot-cta" style="background:#CC0000;color:#fff;">Открыть раздел <span class="spot-arrow">→</span></div>
+        </div>
+      </a>
+
+      <!-- PREMIUM TV -->
+      <a class="spot-card" href="https://e2-e5.github.io/homeproject-external/premium-tv-brand.html" target="_blank">
+        <div class="spot-inner sp-tv">
+          <div class="spot-screen"><div class="spot-screen-inner">📺</div></div>
+          <span class="spot-tag" style="background:rgba(0,180,255,0.15);color:#00B4FF;">Телевизоры и аудио</span>
+          <div class="spot-name">Телевизоры Premium</div>
+          <div class="spot-desc">Samsung The Frame, LG OLED Gallery, Sony Bravia Master, Loewe. OLED, MicroLED и Lifestyle TV от 55" до 292".</div>
+          <div class="spot-cta" style="background:#00B4FF;color:#000;">Открыть раздел <span class="spot-arrow">→</span></div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="wire-note">
+      <strong>📌 Замечание по макету:</strong> Эти три карточки будут первым контентным блоком главной страницы после навигации. Клик на любую → соответствующая страница бренда. Кухни Snaidero и Miele — уже живые ссылки. Premium TV откроется сегодня.
+    </div>
+  </div>
+</section>
+
+<!-- EXISTING BRANDS -->
+<div class="brands-bg">
+  <div class="section">
+    <div class="sec-label">Встраиваемая техника</div>
+    <h2 class="sec-title">Все бренды <span class="annotation">Ниже — существующие разделы</span></h2>
+    <p class="sec-sub">9 брендов встраиваемой техники — по клику ведут в карточки каталога</p>
+    <div class="brands-grid">
+      <div class="brand-tile"><div class="b-icon">🇨🇭</div><div class="b-name">V-ZUG</div><div class="b-type">Швейцария · Встройка</div></div>
+      <div class="brand-tile"><div class="b-icon">🔥</div><div class="b-name">BORA</div><div class="b-type">Германия · Варочные</div></div>
+      <div class="brand-tile"><div class="b-icon">❄️</div><div class="b-name">Fhiaba</div><div class="b-type">Италия · Холодильники</div></div>
+      <div class="brand-tile"><div class="b-icon">🏆</div><div class="b-name">Küppersbusch</div><div class="b-type">Германия · Встройка</div></div>
+      <div class="brand-tile"><div class="b-icon">⚜️</div><div class="b-name">De Dietrich</div><div class="b-type">Франция · Встройка</div></div>
+      <div class="brand-tile"><div class="b-icon">⭐</div><div class="b-name">Graude</div><div class="b-type">Германия · Встройка</div></div>
+      <div class="brand-tile"><div class="b-icon">🌊</div><div class="b-name">Schulthess</div><div class="b-type">Швейцария · Стирка</div></div>
+      <div class="brand-tile"><div class="b-icon">🔧</div><div class="b-name">SKS</div><div class="b-type">Германия · Встройка</div></div>
+      <div class="brand-tile"><div class="b-icon">🇮🇹</div><div class="b-name">ILVE</div><div class="b-type">Италия · Плиты</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- USER JOURNEY -->
+<div class="journey-bg">
+  <div class="section">
+    <div class="sec-label">Навигация посетителя</div>
+    <h2 class="sec-title">Как клиент находит нужный раздел</h2>
+    <p class="sec-sub">Два способа входа — через главные карточки или через пункты меню (с пометкой NEW)</p>
+    <div class="journey-steps">
+      <div class="j-step">
+        <div class="j-num">1</div>
+        <div class="j-title">Главная страница</div>
+        <div class="j-desc">Видит три яркие карточки сразу — Snaidero, Miele, Premium TV</div>
+      </div>
+      <div class="j-step">
+        <div class="j-num">2</div>
+        <div class="j-title">Или навигация</div>
+        <div class="j-desc">В меню — «Кухни Snaidero», «Техника Miele», «ТВ Premium» с меткой NEW</div>
+      </div>
+      <div class="j-step">
+        <div class="j-num">3</div>
+        <div class="j-title">Раздел бренда</div>
+        <div class="j-desc">Видит категории товаров, технологии, флагманские модели</div>
+      </div>
+      <div class="j-step">
+        <div class="j-num">4</div>
+        <div class="j-title">Карточка модели</div>
+        <div class="j-desc">Читает описание, характеристики, жмёт «Запросить цену»</div>
+      </div>
+      <div class="j-step">
+        <div class="j-num">5</div>
+        <div class="j-title">Лид → Telegram / Email</div>
+        <div class="j-desc">Получаем контакт. Отвечаем за 24 ч. Контакт попадает в CRM.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div style="font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Три раздела — готовы к запуску</div>
+  <h2 style="font-size:40px;font-weight:800;margin-bottom:14px;">Всё это — уже живое</h2>
+  <p style="font-size:16px;color:var(--muted);max-width:480px;margin:0 auto 40px;line-height:1.7;">Snaidero и Miele — страницы уже работают. Premium TV — в финальной доработке.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="https://e2-e5.github.io/homeproject-external/snaidero-kuchni.html" target="_blank" style="background:#C8A96E;color:#000;padding:14px 32px;border-radius:4px;font-weight:700;font-size:14px;">Snaidero →</a>
+    <a href="https://e2-e5.github.io/homeproject-external/miele-brand.html" target="_blank" style="background:#CC0000;color:#fff;padding:14px 32px;border-radius:4px;font-weight:700;font-size:14px;">Miele →</a>
+    <a href="https://e2-e5.github.io/homeproject-external/premium-tv-brand.html" target="_blank" style="background:#00B4FF;color:#000;padding:14px 32px;border-radius:4px;font-weight:700;font-size:14px;">Premium TV →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-logo">Home<em>Project</em></div>
+    <div class="f-note" style="margin-top:4px;">Макет главной страницы · Для внутреннего согласования · Не публично</div>
+  </div>
+  <div class="f-links">
+    <a class="f-link" href="https://homeproject.online" target="_blank">homeproject.online</a>
+    <a class="f-link" href="https://t.me/HomeProjectMsk" target="_blank">@HomeProjectMsk</a>
+    <span class="f-link">info@homeproject.online</span>
+  </div>
+</footer>
+
+</body>
+</html>
