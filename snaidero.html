@@ -641,7 +641,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 </footer>
 
 <!-- MODAL -->
-<div id="modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,8,6,.92);display:none;align-items:center;justify-content:center;padding:24px">
+<div id="modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,8,6,.92);align-items:center;justify-content:center;padding:24px">
   <div style="background:var(--card);border:1px solid var(--border);max-width:560px;width:100%;padding:48px 40px;position:relative">
     <button onclick="closeModal()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer">✕</button>
     <div class="label" style="margin-bottom:12px">Запрос</div>
@@ -773,7 +773,7 @@ var seriesData = {
       {color:'#B8B4AE',name:'Grigio Nuvola',desc:'Лак матовый'},
       {color:'#585450',name:'Grigio Scuro',desc:'Лак матовый'},
       {color:'#181614',name:'Nero',desc:'Лак матовый'},
-      {color:'#C8BC A8',name:'Rovere 3D',desc:'Шпон дуба 3D'}
+      {color:'#C8BCA8',name:'Rovere 3D',desc:'Шпон дуба 3D'}
     ]
   },
   link: {
@@ -886,19 +886,15 @@ function showSeries(id){
   document.getElementById('detail-text').innerHTML=d.text;
   var photo=document.getElementById('series-hero-photo');
   photo.src=d.img; photo.alt=d.name;
-  // specs
   document.getElementById('detail-specs').innerHTML=d.specs.map(function(s){return'<li>'+s+'</li>';}).join('');
   document.getElementById('detail-finishes').innerHTML=d.finishes.map(function(s){return'<li>'+s+'</li>';}).join('');
-  // materials
   document.getElementById('detail-materials').innerHTML=d.materials.map(function(m){
     return'<div class="mat-item"><div class="mat-swatch" style="background:'+m.color+'"></div><div class="mat-name">'+m.name+'</div><div class="mat-desc">'+m.desc+'</div></div>';
   }).join('');
-  // show view
   document.getElementById('view-home').style.display='none';
   document.getElementById('view-series').style.display='block';
   document.getElementById('back-btn').classList.add('visible');
   window.scrollTo({top:0,behavior:'instant'});
-  // update series-select in form
   var sel=document.getElementById('series-select');
   if(sel) for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===d.name){sel.selectedIndex=i;break;}}
 }
@@ -945,3 +941,5 @@ document.getElementById('modal-form').addEventListener('submit',function(e){
   setTimeout(closeModal,2500);
 });
 </script>
+</body>
+</html>
