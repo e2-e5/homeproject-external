@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOME PROJECT — превью главной (светлая концепция)</title>
+<style>
+:root{
+  --bg:#FFFFFF;
+  --bg-warm:#FAF8F4;
+  --bg-soft:#F3F1EC;
+  --ink:#1C1C1A;
+  --ink-soft:#5A5A54;
+  --line:#E6E2D9;
+  --gold:#B8975A;
+  --gold-deep:#9A7C43;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+a{text-decoration:none;color:inherit}
+.note{background:var(--bg-soft);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--ink-soft);text-align:center;padding:8px 20px;letter-spacing:.02em}
+.note b{color:var(--gold-deep)}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hrow{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{font-weight:700;font-size:19px;letter-spacing:.14em}
+.logo span{color:var(--gold)}
+nav{display:flex;gap:30px;font-size:14px;color:var(--ink-soft)}
+nav a{position:relative;padding:4px 0;transition:color .2s}
+nav a:hover{color:var(--ink)}
+.badge{position:absolute;top:-9px;right:-24px;background:var(--gold);color:#fff;font-size:8.5px;font-weight:700;padding:2px 5px;border-radius:8px;letter-spacing:.05em}
+.cart{font-size:13px;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
+.hero{padding:74px 0 60px;text-align:center;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff 0%,var(--bg-warm) 100%)}
+.eyebrow{font-size:12px;letter-spacing:.32em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:20px}
+.hero h1{font-size:46px;font-weight:300;letter-spacing:.01em;line-height:1.12;margin-bottom:20px}
+.hero h1 b{font-weight:600}
+.hero p{max-width:560px;margin:0 auto;color:var(--ink-soft);font-size:16px}
+.sec{padding:64px 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:32px}
+.sec-head h2{font-size:13px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--ink)}
+.sec-head h2 i{color:var(--gold);font-style:normal;margin-right:8px}
+.sec-head a{font-size:13px;color:var(--ink-soft)}
+.spot{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(30,28,20,.08)}
+.card .top{height:186px;display:flex;align-items:flex-end;padding:20px;position:relative}
+.card .kbadge{position:absolute;top:16px;left:16px;background:#fff;color:var(--ink);font-size:10px;font-weight:700;letter-spacing:.08em;padding:5px 10px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.card .kbadge.new{background:var(--gold);color:#fff}
+.card .ktitle{color:#fff;font-size:23px;font-weight:600;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.card .ksub{color:rgba(255,255,255,.85);font-size:12.5px;text-shadow:0 1px 8px rgba(0,0,0,.3);margin-top:2px}
+.card .body{padding:20px 20px 22px;flex:1;display:flex;flex-direction:column}
+.card .body p{color:var(--ink-soft);font-size:13.5px;line-height:1.55;flex:1}
+.card .cta{margin-top:16px;font-size:13px;font-weight:600;color:var(--gold-deep);display:flex;align-items:center;gap:8px}
+.g-snaidero{background:linear-gradient(135deg,#8B6F4E 0%,#6B5238 100%)}
+.g-miele{background:linear-gradient(135deg,#C9CDD2 0%,#9BA1A8 55%,#7C828A 100%)}
+.g-tv{background:linear-gradient(135deg,#3E4A5C 0%,#2A3340 100%)}
+.brands{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.brand{border:1px solid var(--line);border-radius:11px;background:var(--bg-warm);padding:26px 20px;text-align:center;transition:.2s}
+.brand:hover{background:#fff;border-color:var(--gold);box-shadow:0 8px 22px rgba(30,28,20,.06)}
+.brand b{font-size:16px;letter-spacing:.06em;font-weight:600}
+.brand span{display:block;font-size:11.5px;color:var(--ink-soft);margin-top:5px}
+.journey{background:var(--bg-warm);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:60px 0}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:30px}
+.step{text-align:center;position:relative}
+.step .n{width:38px;height:38px;border-radius:50%;background:#fff;border:1.5px solid var(--gold);color:var(--gold-deep);font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:15px}
+.step h4{font-size:13.5px;font-weight:600;margin-bottom:6px}
+.step p{font-size:12px;color:var(--ink-soft);line-height:1.45}
+.step:not(:last-child)::after{content:'';position:absolute;top:19px;right:-8px;width:16px;height:1px;background:var(--line)}
+footer{padding:44px 0;text-align:center;color:var(--ink-soft);font-size:12px;border-top:1px solid var(--line)}
+footer b{color:var(--ink)}
+@media(max-width:900px){
+  nav{display:none}
+  .spot{grid-template-columns:1fr}
+  .brands{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:1fr 1fr;gap:24px}
+  .step:not(:last-child)::after{display:none}
+  .hero h1{font-size:34px}
+}
+</style>
+</head>
+<body>
+<div class="note">Превью концепции · светлая гамма под текущий сайт homeproject.online · <b>это макет, не рабочая страница</b></div>
+<header>
+  <div class="wrap hrow">
+    <div class="logo">HOME<span>·</span>PROJECT</div>
+    <nav>
+      <a href="#">Бренды</a>
+      <a href="#">Кухни<span class="badge">NEW</span></a>
+      <a href="#">Техника Miele<span class="badge">NEW</span></a>
+      <a href="#">Телевизоры<span class="badge">SOON</span></a>
+      <a href="#">Outlet</a>
+    </nav>
+    <div class="cart">✦ Корзина</div>
+  </div>
+</header>
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Премиальные решения для дома</div>
+    <h1>Техника, кухни и медиа<br><b>уровня архитектурного проекта</b></h1>
+    <p>Официальная дистрибуция. Подбор под проект, консультация и расчёт для дизайнеров и частных клиентов.</p>
+  </div>
+</section>
+<section class="sec wrap">
+  <div class="sec-head">
+    <h2><i>✦</i>Новые направления</h2>
+    <a href="#">все категории →</a>
+  </div>
+  <div class="spot">
+    <a class="card" href="#">
+      <div class="top g-snaidero">
+        <div class="kbadge new">NEW</div>
+        <div>
+          <div class="ktitle">Кухни Snaidero</div>
+          <div class="ksub">Италия · дизайн Pininfarina</div>
+        </div>
+      </div>
+      <div class="body">
+        <p>Официальный партнёр SNAIDERO в РФ. Флагман ICONE OLA и все коллекции Sistema. Расчёт проекта, каталоги и визуализация — по запросу.</p>
+        <div class="cta">Смотреть коллекции →</div>
+      </div>
+    </a>
+    <a class="card" href="#">
+      <div class="top g-miele">
+        <div class="kbadge new">NEW</div>
+        <div>
+          <div class="ktitle">Техника Miele</div>
+          <div class="ksub">Германия · Immer Besser</div>
+        </div>
+      </div>
+      <div class="body">
+        <p>Встраиваемая техника премиум-класса: духовые шкафы, паровые, варочные, посудомоечные, холод и стирка. Подбор под проект.</p>
+        <div class="cta">Открыть каталог →</div>
+      </div>
+    </a>
+    <a class="card" href="#">
+      <div class="top g-tv">
+        <div class="kbadge">В РАЗРАБОТКЕ</div>
+        <div>
+          <div class="ktitle">Телевизоры</div>
+          <div class="ksub">Высокий сегмент · OLED / The Frame</div>
+        </div>
+      </div>
+      <div class="body">
+        <p>Формируем направление медиа-техники высокого класса. Раздел в статусе разработки — можно оставить предзаявку на консультацию.</p>
+        <div class="cta">Узнать подробнее →</div>
+      </div>
+    </a>
+  </div>
+</section>
+<section class="sec wrap" style="padding-top:0">
+  <div class="sec-head">
+    <h2><i>✦</i>Бренды техники</h2>
+    <a href="#">все бренды →</a>
+  </div>
+  <div class="brands">
+    <div class="brand"><b>V-ZUG</b><span>Швейцария</span></div>
+    <div class="brand"><b>BORA</b><span>Германия</span></div>
+    <div class="brand"><b>Fhiaba</b><span>Италия</span></div>
+    <div class="brand"><b>Küppersbusch</b><span>Германия</span></div>
+    <div class="brand"><b>De Dietrich</b><span>Франция</span></div>
+    <div class="brand"><b>Graude</b><span>Германия</span></div>
+    <div class="brand"><b>Schulthess</b><span>Швейцария</span></div>
+    <div class="brand"><b>SKS</b><span>Германия</span></div>
+    <div class="brand"><b>ILVE</b><span>Италия</span></div>
+  </div>
+</section>
+<section class="journey">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:0">
+      <h2><i>✦</i>Как посетитель находит и проходит путь</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h4>Главная</h4><p>Три новых направления вынесены в блок «Новые направления» + бейджи NEW в меню</p></div>
+      <div class="step"><div class="n">2</div><h4>Раздел</h4><p>Клик по карточке ведёт на страницу направления в единой светлой гамме</p></div>
+      <div class="step"><div class="n">3</div><h4>Коллекция / серия</h4><p>Галерея, описания, дизайнеры, финиши — без цен, премиум-подача</p></div>
+      <div class="step"><div class="n">4</div><h4>Заявка</h4><p>Кнопки: расчёт проекта · каталог · визуализация. Лид уходит партнёру</p></div>
+      <div class="step"><div class="n">5</div><h4>Ведение</h4><p>Партнёр подхватывает заявку, готовит расчёт и КП под проект</p></div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <b>HOME PROJECT</b> · Премиальная бытовая техника и кухни · Москва<br>
+    <span style="opacity:.7">Цены не являются публичной офертой. Макет-превью светлой концепции для согласования.</span>
+  </div>
+</footer>
+</body>
+</html>
