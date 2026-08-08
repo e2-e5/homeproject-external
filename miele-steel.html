@@ -3,209 +3,446 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Miele — техника премиум-класса | HOME PROJECT</title>
+<title>Miele — встраиваемая техника премиум-класса | HOME PROJECT</title>
 <style>
+/* ── MIELE DESIGN LANGUAGE ──
+   Белый/светло-стальной фон · красный только акцентом ·
+   много воздуха · фото на первом плане · «(новинка)» — встроенная метка,
+   не яркий бейдж · CTA — текстовые ссылки стиля «Узнать подробнее».
+   Источник: наблюдения с miele.com */
+
 :root{
-  --steel-1:#F4F5F6;
-  --steel-2:#E7E9EC;
-  --steel-3:#D3D7DC;
-  --steel-4:#B4BAC1;
-  --ink:#22252A;
-  --ink-soft:#5E646C;
-  --line:#D8DCE1;
-  --red:#B4121A;
-  --red-deep:#8E0E14;
+  --bg:#FFFFFF;
+  --bg-panel:#F6F7F8;   /* нейтральная светло-стальная панель */
+  --bg-dark:#1C1F24;    /* тёмный блок для технологий — контраст */
+  --ink:#1C1F24;
+  --ink-soft:#6A6F78;
+  --ink-muted:#9EA4AE;
+  --line:#E2E5EA;
+  --red:#CC1111;        /* Miele canonical red */
+  --red-deep:#A50D0D;
+  --steel-light:#F0F2F4;
+  --steel-mid:#D5D9DE;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:var(--steel-1);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
-.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
-a{text-decoration:none;color:inherit}
-.crumb{background:var(--steel-2);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--ink-soft);padding:9px 0}
-.crumb .wrap{display:flex;gap:8px;align-items:center}
-.crumb b{color:var(--ink)}
-header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(244,245,246,.95),rgba(231,233,236,.92));backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.hrow{display:flex;align-items:center;justify-content:space-between;height:62px}
-.brandlogo{font-weight:700;font-size:20px;letter-spacing:.22em;color:var(--red)}
-.hp{font-size:12px;letter-spacing:.14em;color:var(--ink-soft)}
-.hero{position:relative;padding:80px 0 66px;border-bottom:1px solid var(--line);
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* ─ breadcrumb */
+.crumb{background:var(--bg-panel);border-bottom:1px solid var(--line);font-size:12px;color:var(--ink-soft);padding:10px 0}
+.crumb .wrap{display:flex;align-items:center;gap:6px}
+.crumb span{opacity:.5}
+
+/* ─ header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hrow{display:flex;align-items:center;justify-content:space-between;height:64px}
+.miele-logo{display:flex;align-items:center;gap:12px}
+.miele-logo .wordmark{font-weight:800;font-size:22px;letter-spacing:.28em;color:var(--red)}
+.miele-logo .divider{width:1px;height:22px;background:var(--line)}
+.miele-logo .partner{font-size:11px;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase}
+.hnav{display:flex;gap:26px;font-size:13px;color:var(--ink-soft)}
+.hnav a:hover{color:var(--red)}
+
+/* ─ HERO — miele.com style: large feature banner */
+.hero{position:relative;background:var(--steel-light);border-bottom:2px solid var(--red);overflow:hidden;min-height:420px;display:flex;align-items:center}
+.hero-bg{position:absolute;inset:0;
   background:
-   linear-gradient(105deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,0) 40%),
-   repeating-linear-gradient(90deg,var(--steel-2) 0px,var(--steel-1) 2px,var(--steel-2) 4px),
-   linear-gradient(135deg,var(--steel-3) 0%,var(--steel-1) 45%,var(--steel-2) 100%);
+    radial-gradient(ellipse at 80% 50%, rgba(200,205,212,.6) 0%, transparent 60%),
+    repeating-linear-gradient(96deg, rgba(255,255,255,.7) 0px, rgba(240,242,244,.7) 1px, rgba(255,255,255,.7) 2px),
+    linear-gradient(120deg, #E8EAED 0%, #F6F7F8 40%, #EAECEF 100%);
 }
-.hero .eyebrow{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--red-deep);margin-bottom:18px}
-.hero h1{font-size:52px;font-weight:300;letter-spacing:.02em;line-height:1.08;margin-bottom:8px}
-.hero h1 b{font-weight:700}
-.hero .slogan{font-size:16px;font-style:italic;color:var(--ink-soft);margin-bottom:22px}
-.hero p{max-width:600px;color:var(--ink-soft);font-size:16px}
-.hero .meta{display:flex;gap:34px;margin-top:34px;flex-wrap:wrap}
-.hero .meta div{border-left:2px solid var(--red);padding-left:14px}
-.hero .meta b{display:block;font-size:22px;font-weight:700}
-.hero .meta span{font-size:12px;color:var(--ink-soft)}
-.sec{padding:66px 0}
-.sec-head{margin-bottom:34px}
-.sec-head h2{font-size:13px;letter-spacing:.28em;text-transform:uppercase;font-weight:700}
-.sec-head h2 i{color:var(--red);font-style:normal;margin-right:9px}
-.sec-head p{color:var(--ink-soft);font-size:15px;margin-top:8px;max-width:640px}
-.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.cat{background:linear-gradient(160deg,#fff 0%,var(--steel-2) 100%);border:1px solid var(--line);border-radius:13px;padding:24px 22px;transition:.24s;position:relative;overflow:hidden}
-.cat:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(34,37,42,.10);border-color:var(--steel-4)}
-.cat::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--red),transparent)}
-.cat h3{font-size:17px;font-weight:600;margin-bottom:7px}
-.cat span{font-size:12.5px;color:var(--red-deep);font-weight:600;letter-spacing:.04em}
-.cat p{font-size:13px;color:var(--ink-soft);margin-top:10px;line-height:1.55}
-.prods{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.prod{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.24s;display:flex;flex-direction:column}
-.prod:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(34,37,42,.10)}
-.prod .img{height:172px;background:
-   linear-gradient(115deg,rgba(255,255,255,.65),transparent 50%),
-   linear-gradient(150deg,var(--steel-3),var(--steel-2));
-   display:flex;align-items:center;justify-content:center;position:relative;border-bottom:1px solid var(--line)}
-.prod .img .ph{font-size:12px;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase;opacity:.7}
-.prod .cls{position:absolute;top:12px;right:12px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:4px 9px;border-radius:20px;color:#fff}
-.cls.d{background:#3A3F46}.cls.p{background:#7C828A}.cls.g{background:var(--red)}
-.prod .b{padding:18px 18px 20px;flex:1;display:flex;flex-direction:column}
-.prod .b .cat-tag{font-size:11px;color:var(--red-deep);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
-.prod .b h4{font-size:16px;font-weight:700;margin:6px 0 4px}
-.prod .b .mod{font-size:12.5px;color:var(--ink-soft);font-family:'SF Mono',monospace;letter-spacing:.02em}
-.prod .b p{font-size:12.5px;color:var(--ink-soft);margin-top:10px;line-height:1.5;flex:1}
-.prod .b .req{margin-top:14px;font-size:12.5px;font-weight:600;color:var(--red-deep)}
-.tech{background:linear-gradient(135deg,var(--steel-4),var(--steel-3));border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:56px 0}
-.tech .sec-head h2,.tech .sec-head p{color:#fff}
-.tech .sec-head h2 i{color:#fff}
-.techgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.t{background:rgba(255,255,255,.85);border-radius:11px;padding:18px 16px;backdrop-filter:blur(4px)}
-.t b{font-size:14px;display:block;margin-bottom:5px}
-.t span{font-size:11.5px;color:var(--ink-soft);line-height:1.45;display:block}
-.lead{padding:66px 0;text-align:center}
-.lead h2{font-size:30px;font-weight:300;margin-bottom:12px}
-.lead h2 b{font-weight:700}
-.lead p{color:var(--ink-soft);max-width:520px;margin:0 auto 28px}
-.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.btn{padding:15px 30px;border-radius:30px;font-size:14px;font-weight:600;transition:.2s;border:1.5px solid transparent}
-.btn.red{background:var(--red);color:#fff}
-.btn.red:hover{background:var(--red-deep)}
-.btn.ghost{background:#fff;color:var(--ink);border-color:var(--steel-4)}
-.btn.ghost:hover{border-color:var(--red);color:var(--red-deep)}
-footer{padding:40px 0;text-align:center;color:var(--ink-soft);font-size:12px;border-top:1px solid var(--line);background:var(--steel-2)}
-footer b{color:var(--ink)}
-@media(max-width:900px){
-  .cats,.prods{grid-template-columns:1fr}
-  .techgrid{grid-template-columns:1fr 1fr}
+.hero-content{position:relative;z-index:2;padding:70px 0}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:20px;font-weight:700}
+.hero-tag::before{content:'';width:24px;height:2px;background:var(--red)}
+.hero h1{font-size:54px;font-weight:300;line-height:1.06;letter-spacing:-.01em;margin-bottom:10px}
+.hero h1 strong{font-weight:800}
+.hero-sub{font-size:17px;font-style:italic;color:var(--ink-soft);margin-bottom:18px;letter-spacing:.02em}
+.hero-tagline{font-size:13.5px;color:var(--ink-soft);margin-bottom:36px;max-width:520px}
+.hero-meta{display:flex;gap:48px;flex-wrap:wrap}
+.hero-meta-item{border-left:2px solid var(--red);padding-left:14px}
+.hero-meta-item strong{display:block;font-size:28px;font-weight:700;line-height:1;margin-bottom:2px}
+.hero-meta-item span{font-size:11px;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
+
+/* ─ NOVELTY BANNER — miele.com: feature carousel tile style */
+.novelty{background:#fff;border-bottom:1px solid var(--line);padding:56px 0}
+.novelty-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}
+.section-label{font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--ink)}
+.section-label i{color:var(--red);font-style:normal;margin-right:10px}
+.text-link{font-size:13px;color:var(--red);display:flex;align-items:center;gap:6px;transition:.2s}
+.text-link:hover{color:var(--red-deep)}
+.novelty-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2px;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.nov-card{position:relative;overflow:hidden;cursor:pointer}
+.nov-card .img{height:280px;display:flex;align-items:flex-end;padding:24px;position:relative}
+.nov-card.main .img{height:380px}
+.nov-bg-gen7{background:linear-gradient(145deg,#C9CDD4 0%,#9EA5AD 60%,#7A8290 100%)}
+.nov-bg-triflex{background:linear-gradient(145deg,#B8BCC4 0%,#8E949E 100%)}
+.nov-bg-dgc{background:linear-gradient(145deg,#CDD0D5 0%,#A4AAB2 100%)}
+.nov-card .img::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,24,30,.45) 0%,transparent 55%)}
+.nov-card .inner{position:relative;z-index:1}
+.nov-card .new-tag{display:inline-block;background:var(--red);color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.1em;padding:3px 8px;text-transform:uppercase;margin-bottom:8px}
+.nov-card h3{font-size:22px;font-weight:600;color:#fff;line-height:1.1;margin-bottom:3px;text-shadow:0 1px 8px rgba(0,0,0,.2)}
+.nov-card.main h3{font-size:30px}
+.nov-card p{color:rgba(255,255,255,.82);font-size:12.5px;text-shadow:0 1px 4px rgba(0,0,0,.2)}
+.nov-card:hover .img{transform:scale(1.02);transition:.4s ease}
+.nov-card .lm{position:absolute;top:20px;right:20px;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:11.5px;padding:7px 14px;border-radius:2px;letter-spacing:.04em;font-weight:500;transition:.2s}
+.nov-card:hover .lm{background:rgba(255,255,255,.30)}
+
+/* ─ CATEGORIES */
+.categories{padding:64px 0;border-bottom:1px solid var(--line)}
+.cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--line)}
+.cat-tile{padding:28px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;transition:.18s;cursor:pointer}
+.cat-tile:hover{background:var(--bg-panel)}
+.cat-tile:last-child{border-right:none}
+.cat-tile .ico{font-size:28px;margin-bottom:12px;display:block;opacity:.75}
+.cat-tile h4{font-size:13px;font-weight:600;line-height:1.3;color:var(--ink)}
+.cat-tile span{font-size:11px;color:var(--ink-soft);display:block;margin-top:4px}
+
+/* ─ FLAGSHIP PRODUCTS — image-first, miele.com card style */
+.products{padding:64px 0;border-bottom:1px solid var(--line)}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid var(--line);background:var(--line)}
+.prod-card{background:#fff;display:flex;flex-direction:column;transition:.2s}
+.prod-card:hover{box-shadow:0 8px 28px rgba(28,31,36,.10);z-index:1;position:relative}
+.prod-img{height:220px;background:var(--steel-light);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.prod-img::after{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(105deg,rgba(255,255,255,.55) 0px,rgba(240,242,244,.55) 1px,rgba(255,255,255,.55) 3px);
+}
+.prod-img span{position:relative;z-index:1;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted)}
+.prod-cls{position:absolute;top:14px;left:14px;z-index:2;font-size:9.5px;font-weight:800;letter-spacing:.08em;padding:4px 10px;text-transform:uppercase}
+.cls-diamond{background:var(--ink);color:#fff}
+.cls-platinum{background:var(--steel-mid);color:var(--ink)}
+.cls-gold{background:var(--red);color:#fff}
+.prod-body{padding:22px 22px 24px;flex:1;display:flex;flex-direction:column}
+.prod-cat{font-size:11px;color:var(--red);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.prod-body h4{font-size:18px;font-weight:700;margin-bottom:2px;line-height:1.2}
+.prod-model{font-size:12px;color:var(--ink-soft);font-family:'SF Mono','Courier New',monospace;margin-bottom:10px}
+.prod-body p{font-size:13px;color:var(--ink-soft);line-height:1.55;flex:1}
+.prod-cta{margin-top:18px;font-size:13px;color:var(--red);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.prod-cta:hover{color:var(--red-deep)}
+.prod-cta::after{content:'→';transition:transform .2s}
+.prod-card:hover .prod-cta::after{transform:translateX(4px)}
+
+/* ─ TECHNOLOGIES — dark block, like miele.com contrast section */
+.tech{background:var(--bg-dark);color:#fff;padding:72px 0}
+.tech .section-label{color:rgba(255,255,255,.5)}
+.tech .section-label i{color:#fff}
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08);margin-top:36px}
+.tech-item{background:var(--bg-dark);padding:28px 24px;border:none;transition:.2s}
+.tech-item:hover{background:rgba(255,255,255,.04)}
+.tech-item .t-name{font-size:14.5px;font-weight:700;margin-bottom:8px;color:#fff}
+.tech-item .t-desc{font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.55}
+.tech-item .t-mark{display:inline-block;width:20px;height:2px;background:var(--red);margin-bottom:14px}
+
+/* ─ ARCHITECTS block — miele.com has dedicated architects section */
+.arch{background:var(--bg-panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:52px 0}
+.arch-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.arch h2{font-size:32px;font-weight:300;margin-bottom:14px;line-height:1.2}
+.arch h2 strong{font-weight:700}
+.arch p{color:var(--ink-soft);font-size:15px;line-height:1.6}
+.arch-features{display:flex;flex-direction:column;gap:16px}
+.arch-feat{display:flex;align-items:flex-start;gap:14px}
+.arch-feat .dot{width:6px;height:6px;border-radius:50%;background:var(--red);margin-top:7px;flex-shrink:0}
+.arch-feat p{font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+
+/* ─ LEAD */
+.lead{padding:72px 0;text-align:center}
+.lead h2{font-size:36px;font-weight:300;margin-bottom:12px}
+.lead h2 strong{font-weight:800}
+.lead p{max-width:540px;margin:0 auto 32px;color:var(--ink-soft);font-size:16px}
+.lead-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--red);color:#fff;font-size:13.5px;font-weight:600;padding:14px 32px;border-radius:2px;transition:.2s;letter-spacing:.02em}
+.btn-primary:hover{background:var(--red-deep)}
+.btn-outline{border:1.5px solid var(--line);color:var(--ink);font-size:13.5px;font-weight:500;padding:14px 32px;border-radius:2px;transition:.2s}
+.btn-outline:hover{border-color:var(--red);color:var(--red)}
+
+/* ─ footer */
+footer{background:var(--bg-panel);border-top:1px solid var(--line);padding:40px 0}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.foot-brand{font-weight:700;letter-spacing:.16em;color:var(--red);font-size:16px}
+.foot-links{display:flex;gap:22px;font-size:12px;color:var(--ink-soft)}
+.foot-note{font-size:11px;color:var(--ink-muted);margin-top:14px}
+
+a{text-decoration:none;color:inherit}
+
+@media(max-width:1024px){
+  .novelty-grid{grid-template-columns:1fr 1fr}
+  .nov-card.main .img{height:280px}
+  .cat-grid{grid-template-columns:repeat(3,1fr)}
+  .prod-grid{grid-template-columns:1fr 1fr}
+  .tech-grid{grid-template-columns:repeat(2,1fr)}
+  .arch-inner{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  .novelty-grid,.prod-grid,.cat-grid,.tech-grid{grid-template-columns:1fr}
   .hero h1{font-size:38px}
+  .lead h2{font-size:28px}
+  .foot-inner{flex-direction:column;text-align:center}
 }
 </style>
 </head>
 <body>
-<div class="crumb"><div class="wrap">HOME PROJECT <span>/</span> Бренды <span>/</span> <b>Miele</b> <span style="margin-left:auto;color:#8E0E14">стальной вариант оформления</span></div></div>
+
+<div class="crumb">
+  <div class="wrap">HOME PROJECT <span>/</span> Бренды <span>/</span> <strong>Miele</strong> <span>—</span> <span style="color:var(--red)">стальной вариант v2 · дизайн по miele.com</span></div>
+</div>
+
 <header>
   <div class="wrap hrow">
-    <div class="brandlogo">Miele</div>
-    <div class="hp">HOME · PROJECT</div>
+    <div class="miele-logo">
+      <span class="wordmark">Miele</span>
+      <span class="divider"></span>
+      <span class="partner">HOME PROJECT · официальная дистрибуция</span>
+    </div>
+    <nav class="hnav">
+      <a href="#">Продукция</a>
+      <a href="#">Новинки</a>
+      <a href="#">Технологии</a>
+      <a href="#">Архитекторам</a>
+    </nav>
   </div>
 </header>
+
+<!-- HERO -->
 <section class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-content">
+    <div class="hero-tag">Официальная дистрибуция · Германия · 1899</div>
+    <h1>Miele.<br><strong>Immer Besser.</strong></h1>
+    <p class="hero-sub">«Всегда лучше» — Quality Ahead of its Time</p>
+    <p class="hero-tagline">Встраиваемая техника премиум-класса. Каждая серия тестируется на ресурс, эквивалентный 20 годам эксплуатации. Подбор и расчёт под проект — для архитекторов, дизайнеров и частных клиентов.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>7</strong><span>товарных групп</span></div>
+      <div class="hero-meta-item"><strong>20 лет</strong><span>ресурс-тест</span></div>
+      <div class="hero-meta-item"><strong>1899</strong><span>год основания</span></div>
+      <div class="hero-meta-item"><strong>Diamond</strong><span>высший класс</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- НОВИНКИ — featured banner style как у miele.com -->
+<section class="novelty">
   <div class="wrap">
-    <div class="eyebrow">Официальная дистрибуция · Германия · с 1899</div>
-    <h1>Miele. <b>Immer&nbsp;Besser.</b></h1>
-    <div class="slogan">«Всегда лучше» — с 1899 года</div>
-    <p>Встраиваемая техника премиум-класса, проверенная эквивалентом 20 лет эксплуатации. Подбор под архитектурный проект, консультация и расчёт — для дизайнеров и частных клиентов.</p>
-    <div class="meta">
-      <div><b>7</b><span>товарных групп</span></div>
-      <div><b>20&nbsp;лет</b><span>ресурс-тест каждой серии</span></div>
-      <div><b>Diamond</b><span>высший класс качества</span></div>
+    <div class="novelty-head">
+      <span class="section-label"><i>—</i>Новинки Miele</span>
+      <a href="#" class="text-link">Все новинки → </a>
+    </div>
+    <div class="novelty-grid">
+      <!-- главный featured banner — как miele.com карусель -->
+      <div class="nov-card main">
+        <div class="img nov-bg-gen7" style="position:relative">
+          <div class="inner">
+            <span class="new-tag">новинка</span>
+            <h3>Generation 7000</h3>
+            <p>Новое поколение встраиваемой техники Miele. Интуитивное управление, экономичность, премиальный дизайн.</p>
+          </div>
+          <a href="mailto:info@homeproject.online?subject=Miele%20Gen7000%20—%20узнать%20подробнее" class="lm">Узнать подробнее</a>
+        </div>
+      </div>
+      <!-- правая колонка — 2 плитки -->
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div class="nov-card">
+          <div class="img nov-bg-triflex">
+            <div class="inner">
+              <span class="new-tag">новинка</span>
+              <h3>Triflex HX2</h3>
+              <p>Беспроводной пылесос 3-в-1. До 60 минут автономной работы.</p>
+            </div>
+            <a href="mailto:info@homeproject.online?subject=Miele%20Triflex%20HX2%20—%20узнать%20подробнее" class="lm">Узнать подробнее</a>
+          </div>
+        </div>
+        <div class="nov-card">
+          <div class="img nov-bg-dgc">
+            <div class="inner">
+              <span class="new-tag">новинка</span>
+              <h3>DGC 7460 HC</h3>
+              <p>Combi-Steam. Пар и конвекция в одном шкафу — флагман паровой линейки.</p>
+            </div>
+            <a href="mailto:info@homeproject.online?subject=Miele%20DGC%207460%20—%20узнать%20подробнее" class="lm">Узнать подробнее</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-<section class="sec wrap">
-  <div class="sec-head">
-    <h2><i>✦</i>Товарные группы</h2>
-    <p>Полная линейка встраиваемой техники Miele — от духовых шкафов до систем стирки поколения W1/T1.</p>
-  </div>
-  <div class="cats">
-    <div class="cat"><h3>Духовые шкафы</h3><span>Серия H 7000</span><p>H 7260 / 7264 / 7460 / 7464 BP. Пиролиз, автопрограммы, TasteControl.</p></div>
-    <div class="cat"><h3>Паровые и Combi-Steam</h3><span>DGC 7000</span><p>DGC 7460 / 7440 HC. Приготовление паром и комбинированные режимы.</p></div>
-    <div class="cat"><h3>Варочные панели</h3><span>TwoInOne</span><p>KM 8895 / 8885 FL — индукция со встроенной вытяжкой.</p></div>
-    <div class="cat"><h3>Посудомоечные</h3><span>G 7000</span><p>G 7673 / 7293 / 7130. AutoDos, PowerDisk, автоматика.</p></div>
-    <div class="cat"><h3>Холод и винные шкафы</h3><span>MasterCool</span><p>Встраиваемые холодильники и винотеки с точным климатом.</p></div>
-    <div class="cat"><h3>Стирка и сушка</h3><span>W1 / T1</span><p>TwinDos, PowerWash, деликатный уход премиум-класса.</p></div>
-  </div>
-</section>
-<section class="sec wrap" style="padding-top:0">
-  <div class="sec-head">
-    <h2><i>✦</i>Флагманские модели</h2>
-    <p>Витрина ключевых позиций. Цены — под конкретный проект, по запросу.</p>
-  </div>
-  <div class="prods">
-    <div class="prod">
-      <div class="img"><span class="cls d">Diamond</span><span class="ph">Miele H 7464 BP</span></div>
-      <div class="b"><div class="cat-tag">Духовой шкаф</div><h4>H 7464 BP</h4><div class="mod">Серия H 7000 · пиролиз</div>
-        <p>Флагман линейки: TasteControl, автоматические программы, полностью выдвижная система.</p>
-        <div class="req">Узнать стоимость →</div></div>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="wrap">
+    <div class="novelty-head" style="margin-bottom:32px">
+      <span class="section-label"><i>—</i>Товарные группы</span>
     </div>
-    <div class="prod">
-      <div class="img"><span class="cls d">Diamond</span><span class="ph">Miele DGC 7460 HC</span></div>
-      <div class="b"><div class="cat-tag">Combi-Steam</div><h4>DGC 7460 HC</h4><div class="mod">Пар + конвекция</div>
-        <p>Комбинированный пароварочный шкаф: приготовление паром, выпечка, MultiSteam.</p>
-        <div class="req">Узнать стоимость →</div></div>
-    </div>
-    <div class="prod">
-      <div class="img"><span class="cls p">Platinum</span><span class="ph">Miele KM 8895 FL</span></div>
-      <div class="b"><div class="cat-tag">Варочная панель</div><h4>KM 8895 FL</h4><div class="mod">TwoInOne · индукция + вытяжка</div>
-        <p>Индукция со встроенной вытяжкой — чистая линия столешницы без верхнего короба.</p>
-        <div class="req">Узнать стоимость →</div></div>
-    </div>
-    <div class="prod">
-      <div class="img"><span class="cls p">Platinum</span><span class="ph">Miele G 7673 SCVi</span></div>
-      <div class="b"><div class="cat-tag">Посудомоечная</div><h4>G 7673 SCVi</h4><div class="mod">AutoDos · полновстраиваемая</div>
-        <p>Автоматическое дозирование PowerDisk, программа AutoDos, полная интеграция в мебель.</p>
-        <div class="req">Узнать стоимость →</div></div>
-    </div>
-    <div class="prod">
-      <div class="img"><span class="cls g">Gold</span><span class="ph">Miele H 7260 BP</span></div>
-      <div class="b"><div class="cat-tag">Духовой шкаф</div><h4>H 7260 BP</h4><div class="mod">Серия H 7000</div>
-        <p>Базовый духовой шкаф линейки H 7000: точный нагрев, автопрограммы, чистый дизайн.</p>
-        <div class="req">Узнать стоимость →</div></div>
-    </div>
-    <div class="prod">
-      <div class="img"><span class="cls p">Platinum</span><span class="ph">Miele Triflex HX2 Pro</span></div>
-      <div class="b"><div class="cat-tag">Уход за домом</div><h4>Triflex HX2 Pro</h4><div class="mod">Беспроводной пылесос</div>
-        <p>Модульная система 3-в-1, автономность до 60 мин, флагман беспроводной линейки.</p>
-        <div class="req">Узнать стоимость →</div></div>
+    <div class="cat-grid">
+      <div class="cat-tile"><span class="ico">♨</span><h4>Духовые шкафы</h4><span>H 7000</span></div>
+      <div class="cat-tile"><span class="ico">♒</span><h4>Паровые / Combi</h4><span>DGC 7000</span></div>
+      <div class="cat-tile"><span class="ico">⊞</span><h4>Варочные панели</h4><span>TwoInOne</span></div>
+      <div class="cat-tile"><span class="ico">🍽</span><h4>Посудомоечные</h4><span>G 7000</span></div>
+      <div class="cat-tile"><span class="ico">❄</span><h4>Холод и вино</h4><span>MasterCool</span></div>
+      <div class="cat-tile"><span class="ico">◎</span><h4>Стирка</h4><span>W1 Generation</span></div>
+      <div class="cat-tile"><span class="ico">◑</span><h4>Сушка</h4><span>T1 Generation</span></div>
+      <div class="cat-tile"><span class="ico">⊕</span><h4>Кофемашины</h4><span>CM Series</span></div>
+      <div class="cat-tile"><span class="ico">〜</span><h4>Пылесосы</h4><span>Triflex</span></div>
+      <div class="cat-tile"><span class="ico">✦</span><h4>Аксессуары</h4><span>Miele оригинал</span></div>
     </div>
   </div>
 </section>
+
+<!-- FLAGSHIP PRODUCTS -->
+<section class="products">
+  <div class="wrap">
+    <div class="novelty-head" style="margin-bottom:36px">
+      <span class="section-label"><i>—</i>Флагманские модели</span>
+      <a href="mailto:info@homeproject.online?subject=Miele%20—%20полный%20каталог" class="text-link">Запросить полный каталог →</a>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-cls cls-diamond">Diamond</span>
+          <span>H 7464 BP</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Духовой шкаф</div>
+          <h4>H 7464 BP</h4>
+          <p class="prod-model">Серия H 7000 · пиролиз</p>
+          <p>TasteControl, автоматические программы, полностью выдвижная направляющая система.</p>
+          <a href="mailto:info@homeproject.online?subject=Miele%20H7464BP%20—%20запрос" class="prod-cta">Узнать подробнее</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-cls cls-diamond">Diamond</span>
+          <span>DGC 7460 HC</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Combi-Steam</div>
+          <h4>DGC 7460 HC</h4>
+          <p class="prod-model">Пар + конвекция</p>
+          <p>Комбинированный пароварочный шкаф: MultiSteam, точный нагрев, профессиональные режимы.</p>
+          <a href="mailto:info@homeproject.online?subject=Miele%20DGC7460%20—%20запрос" class="prod-cta">Узнать подробнее</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-cls cls-platinum">Platinum</span>
+          <span>KM 8895 FL</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Варочная панель</div>
+          <h4>KM 8895 FL</h4>
+          <p class="prod-model">TwoInOne · индукция + вытяжка</p>
+          <p>Индукционная панель со встроенной вытяжкой — чистая столешница без вытяжного короба.</p>
+          <a href="mailto:info@homeproject.online?subject=Miele%20KM8895%20—%20запрос" class="prod-cta">Узнать подробнее</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-cls cls-platinum">Platinum</span>
+          <span>G 7673 SCVi</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Посудомоечная</div>
+          <h4>G 7673 SCVi</h4>
+          <p class="prod-model">AutoDos · полновстраиваемая</p>
+          <p>Автоматическое дозирование PowerDisk, программа AutoDos, полная интеграция в мебель.</p>
+          <a href="mailto:info@homeproject.online?subject=Miele%20G7673%20—%20запрос" class="prod-cta">Узнать подробнее</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-cls cls-gold">Gold</span>
+          <span>H 7260 BP</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Духовой шкаф</div>
+          <h4>H 7260 BP</h4>
+          <p class="prod-model">Серия H 7000</p>
+          <p>Чёткий дизайн серии H 7000, автопрограммы, идеальный нагрев — точка входа в линейку.</p>
+          <a href="mailto:info@homeproject.online?subject=Miele%20H7260%20—%20запрос" class="prod-cta">Узнать подробнее</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-cls cls-platinum">Platinum</span>
+          <span>Triflex HX2 Pro</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Уход за домом</div>
+          <h4>Triflex HX2 Pro</h4>
+          <p class="prod-model">Беспроводной · 3-в-1</p>
+          <p>Модульная система: вертикальный, горизонтальный или мини-режим. До 60 минут автономно.</p>
+          <a href="mailto:info@homeproject.online?subject=Miele%20Triflex%20—%20запрос" class="prod-cta">Узнать подробнее</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGIES — тёмный контрастный блок -->
 <section class="tech">
   <div class="wrap">
-    <div class="sec-head">
-      <h2><i>✦</i>Технологии Miele</h2>
-      <p>За что премиум-сегмент выбирает бренд.</p>
+    <div class="novelty-head" style="margin-bottom:0">
+      <span class="section-label"><i>—</i>Технологии Miele</span>
     </div>
-    <div class="techgrid">
-      <div class="t"><b>TasteControl</b><span>Точное завершение приготовления без пересушивания</span></div>
-      <div class="t"><b>TwinDos</b><span>Автоматическое дозирование моющих средств в стирке</span></div>
-      <div class="t"><b>AutoDos + PowerDisk</b><span>Автозагрузка средства в посудомоечных машинах</span></div>
-      <div class="t"><b>PowerWash / PowerDry</b><span>Экономичная и быстрая стирка и сушка</span></div>
-      <div class="t"><b>MultiSteam</b><span>Равномерный пар за секунды в паровых шкафах</span></div>
-      <div class="t"><b>MasterCool</b><span>Точный климат для холодильников и винотек</span></div>
-      <div class="t"><b>DirectSensor</b><span>Сенсорное управление уровня flagship</span></div>
-      <div class="t"><b>20-летний тест</b><span>Ресурс, эквивалентный 20 годам эксплуатации</span></div>
+    <div class="tech-grid">
+      <div class="tech-item"><span class="t-mark"></span><div class="t-name">TasteControl</div><div class="t-desc">Завершение приготовления в точный момент — без пересушивания, без пережаривания</div></div>
+      <div class="tech-item"><span class="t-mark"></span><div class="t-name">TwinDos</div><div class="t-desc">Автоматическое дозирование двух моющих средств в каждом цикле стирки</div></div>
+      <div class="tech-item"><span class="t-mark"></span><div class="t-name">AutoDos + PowerDisk</div><div class="t-desc">Посудомоечные: картридж-диск автоматически дозирует средство на 20+ циклов</div></div>
+      <div class="tech-item"><span class="t-mark"></span><div class="t-name">MultiSteam</div><div class="t-desc">Паровые шкафы: равномерный горячий пар за секунды, без потери питательных веществ</div></div>
+      <div class="tech-item"><span class="t-mark"></span><div class="t-name">TwoInOne</div><div class="t-desc">Индукционная панель со встроенной вытяжкой — единый прибор вместо двух</div></div>
+      <div class="tech-item"><span class="t-mark"></span><div class="t-name">MasterCool</div><div class="t-desc">Холодильники и винотеки: точный климат-контроль без компромиссов</div></div>
+      <div class="tech-item"><span class="t-mark"></span><div class="t-name">DirectSensor</div><div class="t-desc">Сенсорный интерфейс уровня флагман — управление одним касанием</div></div>
+      <div class="tech-item"><span class="t-mark"></span><div class="t-name">20-летний ресурс-тест</div><div class="t-desc">Каждая серия тестируется на износостойкость, эквивалентную 20 годам нормальной эксплуатации</div></div>
     </div>
   </div>
 </section>
-<section class="lead wrap">
-  <h2>Подберём технику Miele <b>под ваш проект</b></h2>
-  <p>Оставьте заявку — рассчитаем комплект под кухню или интерьер, подготовим предложение и условия.</p>
-  <div class="btns">
-    <a class="btn red" href="mailto:info@homeproject.online?subject=Miele%20—%20запрос%20подбора&body=Здравствуйте!%20Интересует%20техника%20Miele.%20Опишите%20проект%3A">Запросить подбор</a>
-    <a class="btn ghost" href="mailto:info@homeproject.online?subject=Miele%20—%20консультация">Консультация</a>
+
+<!-- АРХИТЕКТОРАМ — как раздел miele.com Architects & Builders -->
+<section class="arch">
+  <div class="wrap">
+    <div class="arch-inner">
+      <div>
+        <div class="section-label" style="margin-bottom:20px"><i>—</i>Архитекторам и дизайнерам</div>
+        <h2>Техника Miele <strong>в составе интерьерного проекта</strong></h2>
+        <p>Помогаем проектировщикам подобрать и спланировать комплект встраиваемой техники Miele с учётом планировки, мебельного ряда и задач клиента.</p>
+      </div>
+      <div class="arch-features">
+        <div class="arch-feat"><div class="dot"></div><p>Подбор комплекта под проект с учётом размеров встраивания</p></div>
+        <div class="arch-feat"><div class="dot"></div><p>Спецификация под чертёж — технические характеристики, зазоры, электрика</p></div>
+        <div class="arch-feat"><div class="dot"></div><p>Расчёт и коммерческое предложение для проектной документации</p></div>
+        <div class="arch-feat"><div class="dot"></div><p>Консультация на всех этапах: от концепции до сдачи объекта</p></div>
+        <div style="margin-top:24px">
+          <a href="mailto:info@homeproject.online?subject=Miele%20—%20для%20архитектора%20и%20дизайнера&body=Добрый%20день!%20Я%20архитектор%2Fдизайнер%20интерьеров.%20Прошу%20рассчитать%20комплект%20Miele%20под%20проект%3A" class="text-link" style="font-size:14px;font-weight:600">Отправить запрос →</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- LEAD -->
+<section class="lead">
+  <div class="wrap">
+    <h2>Подберём технику Miele<br><strong>под ваш проект</strong></h2>
+    <p>Рассчитаем комплект под кухню или объект. Цены — под конкретный проект, по запросу. Без публичных прайсов.</p>
+    <div class="lead-btns">
+      <a class="btn-primary" href="mailto:info@homeproject.online?subject=Miele%20—%20запрос%20подбора&body=Добрый%20день!%20Хочу%20подобрать%20технику%20Miele.%20Опишите%20мой%20проект%3A">Запросить подбор</a>
+      <a class="btn-outline" href="mailto:info@homeproject.online?subject=Miele%20—%20консультация">Консультация</a>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
-    <b>HOME PROJECT</b> · Официальная дистрибуция Miele · Москва<br>
-    <span style="opacity:.7">Цены не являются публичной офертой. Стальной вариант оформления — макет для согласования.</span>
+    <div class="foot-inner">
+      <span class="foot-brand">Miele</span>
+      <div class="foot-links">
+        <a href="#">Продукция</a>
+        <a href="#">Архитекторам</a>
+        <a href="#">Новинки</a>
+        <a href="mailto:info@homeproject.online">Контакты</a>
+      </div>
+    </div>
+    <p class="foot-note">HOME PROJECT · Официальная дистрибуция Miele · Москва · info@homeproject.online · Цены не являются публичной офертой. Стоимость рассчитывается под конкретный проект. Стальной вариант v2 — макет для согласования по дизайн-языку miele.com.</p>
   </div>
 </footer>
+
 </body>
 </html>
