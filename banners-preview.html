@@ -3,264 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Превью баннеров — HOME PROJECT</title>
+<title>Баннеры карусели — Home Project</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#F5F3EE;-webkit-font-smoothing:antialiased}
-a{text-decoration:none;color:inherit}
-
-/* ── Шапка как на сайте ── */
-.site-header{background:#fff;border-bottom:1px solid #E8E4DC;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
-.site-logo{font-size:13px;font-weight:700;letter-spacing:.12em;display:flex;align-items:center;gap:10px}
-.site-logo svg{width:36px;height:36px}
-.site-kp{background:#2C2C2A;color:#fff;font-size:11px;font-weight:700;letter-spacing:.12em;padding:9px 18px;border-radius:22px}
-
-/* ── Аннотация ── */
-.note{background:#fff;border:1.5px solid #B8975A;border-radius:10px;padding:14px 18px;margin:16px;font-size:13px;color:#5A5650;line-height:1.5}
-.note b{color:#1C1C18}
-.note .tag{display:inline-block;background:#B8975A;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-right:6px;letter-spacing:.04em}
-
-/* ── Секция баннера ── */
-.banner-section{margin:0 0 32px}
-.banner-label{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#9A7C43;padding:20px 16px 10px;display:flex;align-items:center;gap:10px}
-.banner-label span{flex:1;height:1px;background:#E8E4DC}
-
-/* ══ БАННЕР — точный формат сайта ══ */
-.banner{position:relative;background:#0C0C0A;border-radius:8px;overflow:hidden;margin:0 16px;display:flex;min-height:168px;max-height:200px}
-
-/* Левая часть — фото-зона */
-.b-img{width:38%;position:relative;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.b-img::after{content:'';position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(to right,transparent,#0C0C0A)}
-
-/* Правая часть — текст */
-.b-text{flex:1;padding:22px 20px 22px 16px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
-.b-pipe{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
-.b-pipe::before{content:'';width:2px;background:#B8975A;align-self:stretch;min-height:14px;flex-shrink:0}
-.b-headline{font-size:15px;font-weight:800;letter-spacing:.04em;color:#fff;line-height:1.2;text-transform:uppercase}
-.b-sub{font-size:11px;color:rgba(255,255,255,.6);line-height:1.5;margin-bottom:12px;letter-spacing:.01em}
-.b-cta{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B8975A}
-.b-price{font-size:20px;font-weight:800;color:#E05544;line-height:1}
-.b-old{font-size:11px;color:rgba(255,255,255,.35);text-decoration:line-through;margin-top:2px}
-.b-badge{display:inline-block;background:#B8975A;color:#fff;font-size:9px;font-weight:800;letter-spacing:.08em;padding:3px 8px;border-radius:3px;margin-bottom:8px;text-transform:uppercase}
-.b-badge.new{background:#2A6B3F}
-.b-badge.soon{background:#3A4560}
-
-/* Точки-навигация под баннером (имитация каруселя) */
-.b-dots{display:flex;justify-content:center;gap:6px;padding:10px 0 4px}
-.dot{width:22px;height:3px;border-radius:2px;background:#D4C9B0}
-.dot.active{background:#B8975A}
-
-/* ── Фоны имитации фото для каждого баннера ── */
-/* Snaidero — тёплый дерево+итальянский */
-.img-snaidero{
-  background:
-    linear-gradient(135deg,rgba(12,12,10,.3) 0%,rgba(12,12,10,.6) 100%),
-    linear-gradient(160deg,#5C3D20 0%,#3D2610 40%,#2A1A0E 100%);
-}
-.img-snaidero .ph{color:rgba(255,255,255,.18);font-size:9px;letter-spacing:.15em;text-transform:uppercase;position:relative;z-index:1}
-/* Декор — имитация фасада кухни */
-.img-snaidero::before{
-  content:'';position:absolute;left:8px;top:50%;transform:translateY(-50%);
-  width:calc(100% - 16px);height:70%;
-  background:linear-gradient(180deg,#7A5535 0%,#5C3D22 50%,#3D2814 100%);
-  border-radius:3px;border-left:2px solid rgba(255,255,255,.12);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),2px 0 8px rgba(0,0,0,.4);
-}
-.img-snaidero::after{
-  content:'';position:absolute;right:0;top:0;bottom:0;width:50px;
-  background:linear-gradient(to right,transparent,#0C0C0A);
-  z-index:2;
-}
-
-/* Miele — сталь + красный акцент */
-.img-miele{
-  background:linear-gradient(160deg,#C8CDD4 0%,#9BA3AC 40%,#6E7880 100%);
-}
-.img-miele::before{
-  content:'';position:absolute;left:10px;top:50%;transform:translateY(-50%);
-  width:calc(100% - 20px);height:75%;
-  background:linear-gradient(135deg,#D8DADE 0%,#A8B0B8 40%,#8A9098 100%);
-  border-radius:4px;
-  border:1px solid rgba(255,255,255,.3);
-  box-shadow:0 4px 20px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.4);
-}
-.img-miele::after{
-  content:'';position:absolute;right:0;top:0;bottom:0;width:50px;
-  background:linear-gradient(to right,transparent,#0C0C0A);
-  z-index:2;
-}
-
-/* TV — экран */
-.img-tv{
-  background:linear-gradient(160deg,#0A1628 0%,#0E1E3A 50%,#060E1C 100%);
-}
-.img-tv::before{
-  content:'';position:absolute;left:6px;top:50%;transform:translateY(-50%);
-  width:calc(100% - 12px);height:72%;
-  background:linear-gradient(135deg,#0A1F3D 0%,#061428 60%,#030A18 100%);
-  border-radius:4px 4px 6px 6px;
-  border:1.5px solid rgba(47,109,176,.4);
-  box-shadow:0 0 20px rgba(47,109,176,.2),inset 0 0 30px rgba(0,50,120,.3);
-}
-.img-tv::after{
-  content:'';position:absolute;right:0;top:0;bottom:0;width:50px;
-  background:linear-gradient(to right,transparent,#0C0C0A);
-  z-index:2;
-}
-
-/* ── Подсказки для верстальщика ── */
-.impl{background:#fff;margin:8px 16px 0;border-radius:6px;border:1px solid #E8E4DC;padding:12px 14px;font-size:11.5px;color:#6A6860;line-height:1.55}
-.impl b{color:#2C2C2A}
-
-/* ── Сравнение ── */
-.compare{margin:24px 16px;background:#fff;border-radius:10px;padding:16px;border:1px solid #E8E4DC}
-.compare h3{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9A7C43;margin-bottom:14px}
-.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.compare-item{font-size:12px;color:#5A5650}
-.compare-item b{display:block;color:#1C1C18;margin-bottom:3px}
-
-/* Responsive */
-@media(max-width:480px){
-  .b-headline{font-size:13px}
-  .b-text{padding:16px 14px 16px 12px}
-  .b-price{font-size:17px}
-}
+  body { margin: 0; background: #0C0C0A; font-family: Arial, sans-serif; color: #fff; padding: 20px; }
+  h1 { color: #B8975A; text-align: center; margin-bottom: 30px; font-size: 18px; letter-spacing: 3px; }
+  .banner-wrap { margin-bottom: 30px; }
+  .banner-wrap h2 { color: #7A96B0; font-size: 12px; letter-spacing: 2px; margin-bottom: 8px; }
+  .banner-wrap img { width: 100%; max-width: 1000px; display: block; border: 1px solid #1A2A3A; }
+  .badge { display: inline-block; background: #2A3A4A; color: #7AABDA; font-size: 10px; padding: 2px 8px; margin-top: 6px; letter-spacing: 1px; }
+  .ok { background: #1A3A2A; color: #4AD890; }
 </style>
 </head>
 <body>
+<h1>КАРУСЕЛЬ БАННЕРОВ — HOMEPROJECT.ONLINE</h1>
 
-<!-- Имитация шапки сайта -->
-<div class="site-header">
-  <div class="site-logo">
-    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M18 4L4 16V32H14V22H22V32H32V16L18 4Z" stroke="#1C1C18" stroke-width="1.5" fill="none"/>
-    </svg>
-    <div><div style="font-size:11px;letter-spacing:.18em">HOME</div><div style="font-size:11px;letter-spacing:.18em;opacity:.5">PROJECT</div></div>
-  </div>
-  <div class="site-kp">+ ПОЛУЧИТЬ КП</div>
+<div class="banner-wrap">
+  <h2>СЛАЙД 1 — KÜPPERSBUSCH</h2>
+  <img src="https://homeproject.online/hp/promo-1.jpg" alt="Küppersbusch">
+  <div class="badge ok">✓ ОРИГИНАЛЬНЫЙ</div>
 </div>
 
-<div class="note">
-  <span class="tag">ПРЕВЬЮ</span>
-  <b>Три новых баннера для карусели на главной.</b><br>
-  Оформлены в стиле существующих баннеров сайта — тёмный фон, фото слева, текст справа. После согласования добавим в карусель рядом с текущими двумя.
+<div class="banner-wrap">
+  <h2>СЛАЙД 2 — СТИРАЛЬНЫЕ МАШИНЫ</h2>
+  <img src="https://homeproject.online/hp/promo-2.jpg" alt="Стиральные машины">
+  <div class="badge ok">✓ ОРИГИНАЛЬНЫЙ</div>
 </div>
 
-<!-- ═══════════════════════════════════ -->
-<!-- БАННЕР 1 — SNAIDERO -->
-<!-- ═══════════════════════════════════ -->
-<div class="banner-section">
-  <div class="banner-label">Баннер 1 из 3 <span></span> Кухни Snaidero</div>
-
-  <div class="banner">
-    <div class="b-img img-snaidero">
-      <span class="ph">фото кухни</span>
-    </div>
-    <div class="b-text">
-      <span class="b-badge new">НОВЫЙ РАЗДЕЛ</span>
-      <div class="b-pipe">
-        <div>
-          <div class="b-headline">КУХНИ SNAIDERO</div>
-        </div>
-      </div>
-      <div class="b-sub">ОФИЦИАЛЬНЫЙ ПАРТНЁР В РФ · ДИЗАЙН PININFARINA<br>ICONE OLA · SISTEMA · LIVING — ВСЕ СЕРИИ</div>
-      <div class="b-cta">СМОТРЕТЬ КОЛЛЕКЦИИ →</div>
-    </div>
-  </div>
-  <div class="b-dots">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
-
-  <div class="impl">
-    <b>Ссылка баннера:</b> на страницу раздела Snaidero<br>
-    <b>Фото:</b> флагман ICONE OLA (запросить у Константина из медиа-банка) — до получения используем градиентную подложку
-  </div>
+<div class="banner-wrap">
+  <h2>СЛАЙД 3 — SNAIDERO</h2>
+  <img src="https://homeproject.online/hp/banner-snaidero.jpg" alt="Snaidero">
+  <div class="badge ok">✓ ОБНОВЛЁН 08.08 — КНОПКА ВЫРОВНЕНА</div>
 </div>
 
-<!-- ═══════════════════════════════════ -->
-<!-- БАННЕР 2 — MIELE -->
-<!-- ═══════════════════════════════════ -->
-<div class="banner-section">
-  <div class="banner-label">Баннер 2 из 3 <span></span> Техника Miele</div>
-
-  <div class="banner">
-    <div class="b-img img-miele"></div>
-    <div class="b-text">
-      <span class="b-badge new">НОВЫЙ РАЗДЕЛ</span>
-      <div class="b-pipe">
-        <div>
-          <div class="b-headline">ТЕХНИКА MIELE</div>
-        </div>
-      </div>
-      <div class="b-sub">IMMER BESSER · ГЕРМАНИЯ · С 1899<br>ВСТРАИВАЕМАЯ ТЕХНИКА PREMIUM-КЛАССА</div>
-      <div class="b-cta">ОТКРЫТЬ КАТАЛОГ →</div>
-    </div>
-  </div>
-  <div class="b-dots">
-    <div class="dot"></div>
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
-
-  <div class="impl">
-    <b>Ссылка баннера:</b> на страницу раздела Miele<br>
-    <b>Фото:</b> духовой шкаф H 7000 или комплект техники — взять с miele.com после согласования
-  </div>
+<div class="banner-wrap">
+  <h2>СЛАЙД 4 — MIELE</h2>
+  <img src="https://homeproject.online/hp/banner-miele.jpg" alt="Miele">
+  <div class="badge ok">✓ ИСПРАВЛЕН 09.08 — ПРОДУКТ ТЕПЕРЬ ВИДЕН</div>
 </div>
 
-<!-- ═══════════════════════════════════ -->
-<!-- БАННЕР 3 — ТЕЛЕВИЗОРЫ -->
-<!-- ═══════════════════════════════════ -->
-<div class="banner-section">
-  <div class="banner-label">Баннер 3 из 3 <span></span> Телевизоры</div>
-
-  <div class="banner">
-    <div class="b-img img-tv"></div>
-    <div class="b-text">
-      <span class="b-badge soon">СКОРО</span>
-      <div class="b-pipe">
-        <div>
-          <div class="b-headline">ТЕЛЕВИЗОРЫ</div>
-        </div>
-      </div>
-      <div class="b-sub">НОВОЕ НАПРАВЛЕНИЕ · OLED · THE FRAME · MICROLED<br>ВЫСОКИЙ СЕГМЕНТ ДЛЯ ИНТЕРЬЕРНЫХ ПРОЕКТОВ</div>
-      <div class="b-cta">УЗНАТЬ ПОДРОБНЕЕ →</div>
-    </div>
-  </div>
-  <div class="b-dots">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
-
-  <div class="impl">
-    <b>Ссылка баннера:</b> на страницу-заглушку телевизоры (уже готова)<br>
-    <b>Фото:</b> галерейный OLED Samsung Frame или LG Gallery — можно взять с сайтов брендов
-  </div>
+<div class="banner-wrap">
+  <h2>СЛАЙД 5 — ПРЕМИАЛЬНЫЕ ДИСПЛЕИ</h2>
+  <img src="https://homeproject.online/hp/banner-tv.jpg" alt="ТВ">
+  <div class="badge ok">✓ ОБНОВЛЁН 08.08 — КНОПКА ВЫРОВНЕНА</div>
 </div>
 
-<!-- ═══════════════════════════════════ -->
-<!-- Сравнение: было / станет -->
-<!-- ═══════════════════════════════════ -->
-<div class="compare">
-  <h3>Карусель: было → станет</h3>
-  <div class="compare-grid">
-    <div class="compare-item"><b>Сейчас (2 баннера)</b>Готовьте со вкусом! (CBD+CSV Küppersbusch)<br>+ ещё один существующий</div>
-    <div class="compare-item"><b>После (5 баннеров)</b>Те же 2 + Snaidero + Miele + Телевизоры<br>Карусель: ← 1 · 2 · 3 · 4 · 5 →</div>
-  </div>
+<div class="banner-wrap">
+  <h2>СЛАЙД 6 — GAGGENAU</h2>
+  <img src="https://homeproject.online/hp/banner-gaggenau.jpg" alt="Gaggenau">
+  <div class="badge ok">✓ ОРИГИНАЛЬНЫЙ</div>
 </div>
 
-<div style="padding:20px 16px 40px;text-align:center;font-size:12px;color:#9A8C78">
-  Превью для согласования · HOME PROJECT · После «ок» добавим баннеры в карусель сайта
-</div>
-
+<p style="text-align:center; color:#3A5A7A; font-size:11px; margin-top:40px;">Все 6 слайдов карусели homeproject.online · 09.08.2026</p>
 </body>
 </html>
