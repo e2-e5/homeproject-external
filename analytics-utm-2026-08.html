@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Аналитика · Home Project · 09.08.2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0a0c12;--card:#13151f;--card2:#1a1d2b;--border:#252838;--accent:#6366f1;--green:#10b981;--yellow:#f59e0b;--red:#ef4444;--cyan:#06b6d4;--text:#e2e8f0;--muted:#64748b;--muted2:#94a3b8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.6}
+.topbar{background:linear-gradient(135deg,#1e1b4b,#13151f);border-bottom:1px solid var(--border);padding:24px 0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.topbar-inner{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.logo{font-size:16px;font-weight:800;color:#fff}.logo span{color:#818cf8}
+h1{font-size:22px;font-weight:800;color:#fff;margin-top:6px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:var(--card2);color:var(--muted2)}
+.chip.live{background:rgba(16,185,129,.15);border-color:#10b981;color:#10b981}
+.section{margin:28px 0}
+.sec-title{font-size:12px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+/* KPI */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--kc,var(--accent))}
+.kpi-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.kpi-val{font-size:28px;font-weight:800;color:#fff;line-height:1}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.kpi-delta{font-size:12px;font-weight:700;margin-top:5px}
+.up{color:var(--green)}.down{color:var(--red)}.flat{color:var(--muted)}
+/* Charts */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:680px){.charts{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px}
+.chart-title{font-size:12px;font-weight:600;color:var(--muted2);margin-bottom:14px}
+.chart-wrap{position:relative;height:200px}
+/* Table */
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px}
+table{width:100%;border-collapse:collapse}
+th{background:var(--card2);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:10px 14px;border-top:1px solid var(--border);font-size:13px}
+tr:hover td{background:rgba(99,102,241,.04)}
+.td-num{text-align:right;font-variant-numeric:tabular-nums}
+.bar-bg{background:var(--border);border-radius:3px;height:4px;margin-top:4px;overflow:hidden}
+.bar-fill{height:4px;border-radius:3px;background:var(--accent)}
+/* Badges */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.b-green{background:rgba(16,185,129,.15);color:var(--green)}
+.b-yellow{background:rgba(245,158,11,.15);color:var(--yellow)}
+.b-red{background:rgba(239,68,68,.15);color:var(--red)}
+.b-blue{background:rgba(99,102,241,.15);color:#818cf8}
+.b-gray{background:rgba(100,116,139,.15);color:var(--muted2)}
+/* Insights */
+.insights{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.insights{grid-template-columns:1fr}}
+.ins{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.ins.g{border-left:3px solid var(--green)}.ins.y{border-left:3px solid var(--yellow)}.ins.r{border-left:3px solid var(--red)}.ins.b{border-left:3px solid var(--accent)}
+.ins-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.ins.g .ins-title{color:var(--green)}.ins.y .ins-title{color:var(--yellow)}.ins.r .ins-title{color:var(--red)}.ins.b .ins-title{color:#818cf8}
+.ins p{font-size:12px;color:var(--muted2);line-height:1.7}
+/* UTM status table */
+.utm-status{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.utm-tag{background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;font-family:monospace;color:#a5b4fc}
+.utm-tag.ok{border-color:var(--green);color:var(--green)}
+.utm-tag.miss{border-color:var(--red);color:var(--red)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar-inner">
+      <div>
+        <div class="logo">HOME<span>PROJECT</span></div>
+        <h1>Аналитика сайта + UTM</h1>
+        <div class="meta">
+          <span class="chip live">● ДАННЫЕ СВЕЖИЕ</span>
+          <span class="chip">Яндекс.Метрика #110362997</span>
+          <span class="chip">10 июля — 9 августа 2026</span>
+          <span class="chip">Обновлено 09.08.2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" style="padding-top:24px;padding-bottom:40px">
+
+  <!-- KPI -->
+  <div class="section">
+    <div class="sec-title">Ключевые метрики — последние 30 дней</div>
+    <div class="kpi-row">
+      <div class="kpi" style="--kc:#6366f1">
+        <div class="kpi-lbl">Визиты</div>
+        <div class="kpi-val">292</div>
+        <div class="kpi-sub">уникальных сессий</div>
+      </div>
+      <div class="kpi" style="--kc:#10b981">
+        <div class="kpi-lbl">Пользователи</div>
+        <div class="kpi-val">138</div>
+        <div class="kpi-sub">уникальных</div>
+      </div>
+      <div class="kpi" style="--kc:#06b6d4">
+        <div class="kpi-lbl">Просмотры</div>
+        <div class="kpi-val">827</div>
+        <div class="kpi-sub">страниц</div>
+      </div>
+      <div class="kpi" style="--kc:#10b981">
+        <div class="kpi-lbl">Отказы</div>
+        <div class="kpi-val">32,9%</div>
+        <div class="kpi-sub" style="color:var(--green)">↓ хороший показатель</div>
+      </div>
+      <div class="kpi" style="--kc:#f59e0b">
+        <div class="kpi-lbl">Глубина</div>
+        <div class="kpi-val">2,83</div>
+        <div class="kpi-sub">стр./сессия</div>
+      </div>
+      <div class="kpi" style="--kc:#8b5cf6">
+        <div class="kpi-lbl">Время</div>
+        <div class="kpi-val">6:37</div>
+        <div class="kpi-sub">сред. сессия</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="section">
+    <div class="sec-title">Трафик по источникам и страницы</div>
+    <div class="charts">
+      <div class="chart-card">
+        <div class="chart-title">Источники трафика (292 визита)</div>
+        <div class="chart-wrap">
+          <canvas id="srcChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Топ страниц по просмотрам (827 всего)</div>
+        <div class="chart-wrap">
+          <canvas id="pagesChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top pages table -->
+  <div class="section">
+    <div class="sec-title">Топ страниц (30 дней)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Страница</th><th>Просмотры</th><th>Доля</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><code>/ru</code> — Главная</td><td class="td-num">310</td><td><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div></td></tr>
+          <tr><td>2</td><td><code>/ru/page/designers</code> — Архитекторам&nbsp;&amp;&nbsp;дизайнерам ⭐</td><td class="td-num">114</td><td><div class="bar-bg"><div class="bar-fill" style="width:37%"></div></div></td></tr>
+          <tr><td>3</td><td><code>/ru/store</code> — Каталог</td><td class="td-num">104</td><td><div class="bar-bg"><div class="bar-fill" style="width:34%"></div></div></td></tr>
+          <tr><td>4</td><td><code>/ru/page/brand-gaggenau</code> — Gaggenau 🆕</td><td class="td-num">32</td><td><div class="bar-bg"><div class="bar-fill" style="width:10%;background:var(--cyan)"></div></div></td></tr>
+          <tr><td>5</td><td><code>/homeproject-external/kp-request.html</code> — КП</td><td class="td-num">28</td><td><div class="bar-bg"><div class="bar-fill" style="width:9%;background:var(--green)"></div></div></td></tr>
+          <tr><td>6</td><td><code>/ru/products/kuppersbusch-ki-68000-sr-utsenka</code></td><td class="td-num">20</td><td><div class="bar-bg"><div class="bar-fill" style="width:6%;background:var(--yellow)"></div></div></td></tr>
+          <tr><td>7</td><td><code>/ru/page/utsenka</code> — Уценённые товары</td><td class="td-num">18</td><td><div class="bar-bg"><div class="bar-fill" style="width:6%;background:var(--yellow)"></div></div></td></tr>
+          <tr><td>8</td><td><code>/ru/page/about-us</code> — О компании</td><td class="td-num">17</td><td><div class="bar-bg"><div class="bar-fill" style="width:5%"></div></div></td></tr>
+          <tr><td>9</td><td><code>/ru/page/sertificaty-2</code> — Сертификаты</td><td class="td-num">14</td><td><div class="bar-bg"><div class="bar-fill" style="width:5%"></div></div></td></tr>
+          <tr><td>10</td><td><code>/ru/page/contacts</code> — Контакты</td><td class="td-num">12</td><td><div class="bar-bg"><div class="bar-fill" style="width:4%"></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- UTM -->
+  <div class="section">
+    <div class="sec-title">UTM-трафик (только размеченные сессии)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>utm_source</th><th>utm_medium</th><th>Визиты</th><th>Статус</th></tr></thead>
+        <tbody>
+          <tr><td><code>unisender</code></td><td>email</td><td class="td-num">40</td><td><span class="badge b-green">✓ Работает</span></td></tr>
+          <tr><td><code>unisender-classic</code></td><td>email</td><td class="td-num">3</td><td><span class="badge b-blue">Классика</span></td></tr>
+          <tr><td><code>linkedin</code></td><td>post</td><td class="td-num">2</td><td><span class="badge b-yellow">Слабо</span></td></tr>
+          <tr><td><code>email</code> (без source)</td><td>email</td><td class="td-num">1</td><td><span class="badge b-gray">Неверный формат</span></td></tr>
+          <tr><td colspan="2" style="color:var(--muted)">Прямой / без UTM (неотслеживаемый)</td><td class="td-num" style="color:var(--yellow)">~246</td><td><span class="badge b-red">⚠ Слепая зона</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:16px">⚠ <strong style="color:var(--yellow)">84% трафика без UTM</strong> — переходы из Telegram, WhatsApp, email без меток не видны. Исправлено сегодня: UTM добавлены на 5 бренд-страниц.</p>
+
+    <div class="sec-title" style="margin-top:20px">Статус UTM-разметки страниц</div>
+    <div class="utm-status">
+      <span class="utm-tag ok">✓ snaidero.html</span>
+      <span class="utm-tag ok">✓ snaidero-kitchens.html</span>
+      <span class="utm-tag ok">✓ gaggenau-brand.html</span>
+      <span class="utm-tag ok">✓ brand-gaggenau.html</span>
+      <span class="utm-tag ok">✓ premium-displays.html</span>
+      <span class="utm-tag ok">✓ premium-tv.html</span>
+      <span class="utm-tag ok">✓ ContactForm.tsx (согласия)</span>
+      <span class="utm-tag ok">✓ kp-button.tsx (согласия)</span>
+      <span class="utm-tag">? miele-brand.html (нет ссылок на сайт)</span>
+      <span class="utm-tag">? snaidero-brand.html (нет прямых ссылок)</span>
+    </div>
+  </div>
+
+  <!-- Consent checkboxes status -->
+  <div class="section">
+    <div class="sec-title">Статус галочек согласия — выполнено сегодня</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Страница / форма</th><th>ПД *</th><th>Рассылка</th></tr></thead>
+        <tbody>
+          <tr><td>homeproject.online/ru/page/contacts (ContactForm.tsx)</td><td><span class="badge b-green">✓</span></td><td><span class="badge b-green">✓</span></td></tr>
+          <tr><td>Кнопка «Получить КП» (kp-button.tsx)</td><td><span class="badge b-green">✓</span></td><td><span class="badge b-green">✓</span></td></tr>
+          <tr><td>premium-tv.html</td><td><span class="badge b-green">✓ уже было</span></td><td><span class="badge b-green">✓ уже было</span></td></tr>
+          <tr><td>snaidero.html</td><td><span class="badge b-green">✓ добавлено</span></td><td><span class="badge b-green">✓ добавлено</span></td></tr>
+          <tr><td>snaidero-brand.html</td><td><span class="badge b-green">✓ добавлено</span></td><td><span class="badge b-green">✓ добавлено</span></td></tr>
+          <tr><td>snaidero-kitchens.html (основная + модальная)</td><td><span class="badge b-green">✓ добавлено ×2</span></td><td><span class="badge b-green">✓ добавлено ×2</span></td></tr>
+          <tr><td>gaggenau-brand.html (основная + модальная)</td><td><span class="badge b-green">✓ добавлено ×2</span></td><td><span class="badge b-green">✓ добавлено ×2</span></td></tr>
+          <tr><td>brand-gaggenau.html (основная + модальная)</td><td><span class="badge b-green">✓ добавлено ×2</span></td><td><span class="badge b-green">✓ добавлено ×2</span></td></tr>
+          <tr><td>premium-displays.html</td><td><span class="badge b-green">✓ добавлено</span></td><td><span class="badge b-green">✓ добавлено</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Insights -->
+  <div class="section">
+    <div class="sec-title">Выводы и рекомендации</div>
+    <div class="insights">
+      <div class="ins g">
+        <div class="ins-title">✅ Хорошо</div>
+        <p>Отказы 32,9% — ниже нормы для B2B. Люди остаются, читают. Среднее время на сайте 6:37 — очень сильный показатель для премиального сегмента.</p>
+      </div>
+      <div class="ins y">
+        <div class="ins-title">⚠ Внимание</div>
+        <p>Страница «Архитекторам и дизайнерам» — 2-е место по просмотрам (114). Это ключевая аудитория. Нужно усилить CTA и форму захвата именно там.</p>
+      </div>
+      <div class="ins r">
+        <div class="ins-title">🔴 Критично</div>
+        <p>84% трафика без UTM — невидимая зона. Поиск всего 12 визитов — сайт не индексируется. Email-рассылки дают 15% трафика — самый эффективный канал прямо сейчас.</p>
+      </div>
+      <div class="ins b">
+        <div class="ins-title">📌 Следующие шаги</div>
+        <p>1. Добавить UTM во все Telegram-посты.<br>2. Настроить цели в Метрике (отправка формы, клик по телефону).<br>3. Усилить страницу дизайнеров — там живая аудитория.<br>4. Запустить SEO-оптимизацию главных страниц.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Источники трафика
+new Chart(document.getElementById('srcChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Прямые (50%)', 'Внутр. переходы (18%)', 'Email-рассылки (15%)', 'Реферальные (11%)', 'Поиск (4%)', 'Мессенджеры'],
+    datasets: [{
+      data: [145, 52, 44, 32, 12, 7],
+      backgroundColor: ['#6366f1','#8b5cf6','#10b981','#06b6d4','#f59e0b','#ef4444'],
+      borderWidth: 0,
+      hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position:'bottom', labels:{ color:'#94a3b8', font:{size:10}, padding:8, boxWidth:10 } }
+    }
+  }
+});
+
+// Топ страниц
+new Chart(document.getElementById('pagesChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Главная /ru','Дизайнеры','Каталог','Gaggenau','КП-запрос','Уценка','О нас','Контакты'],
+    datasets: [{
+      data: [310, 114, 104, 32, 28, 18, 17, 12],
+      backgroundColor: ['#6366f1','#8b5cf6','#06b6d4','#10b981','#10b981','#f59e0b','#64748b','#64748b'],
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks:{ color:'#64748b', font:{size:10} }, grid:{ color:'#252838' } },
+      y: { ticks:{ color:'#94a3b8', font:{size:10} }, grid:{ display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
