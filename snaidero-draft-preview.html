@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЧЕРНОВИК · Кухни Snaidero — Home Project</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(109998802,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true});</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--white:#FFFFFF;--off-white:#F7F5F2;--cream:#EDE9E3;--stone:#D4CFC8;--warm-grey:#8C8880;--dark:#1C1A18;--charcoal:#2E2C2A;--accent:#8B6F4E;--accent-light:#C4A882;--fs:'Cormorant Garamond',Georgia,serif;--fn:'Inter',sans-serif}
+html{scroll-behavior:smooth}body{font-family:var(--fn);color:var(--dark);background:var(--white);overflow-x:hidden}
+
+/* DRAFT BANNER */
+.draft-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:#c0392b;color:#fff;text-align:center;padding:8px 16px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+
+/* NAV */
+.nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.06)}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-hp{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dark)}
+.nav-div{width:1px;height:20px;background:var(--stone)}
+.nav-brand{font-family:var(--fs);font-size:18px;font-weight:400;letter-spacing:.08em;color:var(--accent)}
+.nav-cta{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--white);background:var(--dark);padding:10px 22px;border:none;cursor:pointer;font-family:var(--fn);transition:background .25s;text-decoration:none}
+.nav-cta:hover{background:var(--accent)}
+
+/* HERO */
+.hero{height:100vh;min-height:700px;position:relative;display:flex;align-items:flex-end;overflow:hidden;margin-top:36px}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,26,24,.8) 0%,rgba(28,26,24,.2) 55%,transparent 100%)}
+.hero-content{position:relative;padding:0 72px 88px;max-width:720px}
+.hero-label{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-light);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.hero-label::before{content:'';display:block;width:32px;height:1px;background:var(--accent-light)}
+.hero-title{font-family:var(--fs);font-size:clamp(52px,7vw,90px);font-weight:300;line-height:1.02;color:var(--white);margin-bottom:20px;letter-spacing:-.02em}
+.hero-title em{font-style:italic}
+.hero-sub{font-size:15px;font-weight:300;line-height:1.7;color:rgba(255,255,255,.8);margin-bottom:38px;max-width:520px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-w{padding:14px 34px;background:var(--white);color:var(--dark);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--white);cursor:pointer;font-family:var(--fn);transition:all .25s;text-decoration:none}
+.btn-w:hover{background:var(--accent);border-color:var(--accent);color:var(--white)}
+.btn-gl{padding:14px 34px;background:transparent;color:var(--white);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,.4);cursor:pointer;font-family:var(--fn);transition:all .25s;text-decoration:none}
+.btn-gl:hover{border-color:var(--white)}
+
+/* STRIP */
+.strip{background:var(--dark);display:grid;grid-template-columns:repeat(4,1fr)}
+.strip-item{padding:36px 40px;border-right:1px solid rgba(255,255,255,.07)}
+.strip-item:last-child{border:none}
+.strip-num{font-family:var(--fs);font-size:40px;font-weight:300;color:var(--accent-light);line-height:1;margin-bottom:6px}
+.strip-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+/* INTRO */
+.intro{padding:100px 72px}
+.sec-tag{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.sec-title{font-family:var(--fs);font-size:clamp(34px,4vw,56px);font-weight:300;line-height:1.12;margin-bottom:18px}
+.sec-title em{font-style:italic}
+.sec-body{font-size:15px;font-weight:300;line-height:1.75;color:var(--warm-grey);max-width:620px}
+.badge{display:inline-flex;align-items:center;gap:12px;margin-top:26px;padding:14px 20px;background:var(--cream);border-left:3px solid var(--accent);font-size:13px;color:var(--charcoal)}
+.badge strong{font-weight:600}
+
+/* COLLECTIONS */
+.colls{background:var(--off-white);padding:100px 72px}
+.colls-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:40px}
+.colls-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-bottom:24px}
+.coll{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer}
+.coll.lg{grid-column:span 2;aspect-ratio:auto;min-height:480px}
+.coll-img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94);display:block}
+.coll:hover .coll-img{transform:scale(1.04)}
+.coll-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,26,24,.7) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px}
+.coll-name{font-family:var(--fs);font-size:24px;font-weight:400;color:var(--white);margin-bottom:4px}
+.coll-sub{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.coll-bdg{position:absolute;top:16px;left:16px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px}
+.coll-bdg.flagship{background:var(--charcoal);color:var(--white)}
+.coll-bdg.new{background:var(--accent);color:var(--white)}
+
+/* MORE GRID */
+.more-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 72px 80px;background:var(--off-white)}
+.more-card{padding:24px;background:var(--white);border:1px solid var(--cream)}
+.more-tag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.more-name{font-family:var(--fs);font-size:24px;font-weight:300;color:var(--dark);margin-bottom:6px}
+.more-desc{font-size:12px;color:var(--warm-grey);margin-bottom:16px;line-height:1.5}
+.more-btn{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:none;border:none;cursor:pointer;font-family:var(--fn);padding:0;display:flex;align-items:center;gap:6px}
+.more-btn::after{content:'→'}
+
+/* MODEL CARDS */
+.models{padding:120px 72px;background:var(--white)}
+.mc{margin-bottom:110px}
+.mc:last-child{margin-bottom:0}
+.mc-inner{display:grid;align-items:stretch}
+.mc.left .mc-inner{grid-template-columns:1.1fr 1fr}
+.mc.right .mc-inner{grid-template-columns:1fr 1.1fr;direction:rtl}
+.mc.right .mc-inner>*{direction:ltr}
+.mc-gal{position:relative;overflow:hidden}
+.mc-img{width:100%;height:100%;min-height:560px;object-fit:cover;display:block;transition:transform .7s ease}
+.mc-gal:hover .mc-img{transform:scale(1.03)}
+.mc-thumbs{position:absolute;bottom:16px;left:16px;display:flex;gap:6px}
+.mc-thumb{width:56px;height:56px;object-fit:cover;cursor:pointer;opacity:.65;transition:opacity .2s;border:2px solid transparent}
+.mc-thumb:hover,.mc-thumb.active{opacity:1;border-color:var(--white)}
+.mc-info{background:var(--off-white);padding:60px 52px;display:flex;flex-direction:column;justify-content:center}
+.mc-tag{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.mc-tag::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
+.mc-name{font-family:var(--fs);font-size:54px;font-weight:300;line-height:1;margin-bottom:8px;color:var(--dark)}
+.mc-name em{font-style:italic}
+.mc-designer{font-size:12px;color:var(--warm-grey);margin-bottom:24px;letter-spacing:.04em}
+.mc-div{width:40px;height:1px;background:var(--accent);margin-bottom:24px}
+.mc-desc{font-size:14px;font-weight:300;line-height:1.8;color:var(--charcoal);margin-bottom:28px}
+.mc-specs{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;margin-bottom:28px}
+.spec-l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-grey);margin-bottom:3px}
+.spec-v{font-size:13px;font-weight:500;color:var(--dark)}
+.finishes-l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-grey);margin-bottom:10px}
+.swatches{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:28px}
+.sw{width:30px;height:30px;border-radius:50%;border:1px solid var(--stone);cursor:pointer;transition:transform .2s}
+.sw:hover{transform:scale(1.2)}
+.mc-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-dk{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;background:var(--dark);color:var(--white);padding:13px 22px;border:1px solid var(--dark);transition:all .25s;cursor:pointer;font-family:var(--fn)}
+.btn-dk:hover{background:var(--accent);border-color:var(--accent)}
+.btn-st{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--dark);padding:13px 22px;border:1px solid var(--stone);transition:all .25s;cursor:pointer;font-family:var(--fn)}
+.btn-st:hover{border-color:var(--dark)}
+.btn-ac{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;background:var(--accent);color:var(--white);padding:13px 22px;border:1px solid var(--accent);transition:all .25s;cursor:pointer;font-family:var(--fn)}
+.btn-ac:hover{background:var(--dark);border-color:var(--dark)}
+
+/* FORM */
+.form-sec{background:var(--dark);color:var(--white);padding:100px 72px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.fl .sec-tag{color:var(--accent-light)}
+.fl .sec-title{color:var(--white)}
+.fl .sec-body{color:rgba(255,255,255,.6);margin-bottom:32px}
+.process{display:grid;gap:18px}
+.proc-item{display:flex;gap:14px;align-items:flex-start}
+.proc-n{font-family:var(--fs);font-size:24px;color:var(--accent-light);line-height:1;flex-shrink:0;width:26px}
+.proc-t{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6}
+.proc-t strong{color:rgba(255,255,255,.9);display:block;margin-bottom:2px}
+.fr{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:44px}
+.f-title{font-family:var(--fs);font-size:24px;font-weight:300;color:var(--white);margin-bottom:26px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.f-grp{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.f-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.f-in{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--white);padding:11px 15px;font-size:14px;font-family:var(--fn);outline:none;transition:border-color .2s;width:100%}
+.f-in::placeholder{color:rgba(255,255,255,.25)}
+.f-in:focus{border-color:var(--accent-light)}
+.f-sel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);padding:11px 15px;font-size:14px;font-family:var(--fn);outline:none;appearance:none;width:100%}
+.f-sel option{background:var(--dark)}
+.f-ta{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--white);padding:11px 15px;font-size:14px;font-family:var(--fn);outline:none;resize:vertical;min-height:75px;width:100%}
+.chk-row{display:flex;align-items:flex-start;gap:9px;margin-bottom:10px}
+.chk-row input{width:15px;height:15px;margin-top:2px;flex-shrink:0;cursor:pointer;accent-color:var(--accent-light)}
+.chk-row label{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5}
+.chk-row label a{color:rgba(255,255,255,.6);text-decoration:underline}
+.btn-sub{width:100%;padding:15px;background:var(--accent);color:var(--white);border:none;font-family:var(--fn);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .25s;margin-top:6px}
+.btn-sub:hover{background:#7a5f3e}
+.f-ok{display:none;text-align:center;padding:40px 20px}
+.f-ok h3{font-family:var(--fs);font-size:28px;font-weight:300;color:var(--white);margin-bottom:10px}
+.f-ok p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6}
+
+/* ABOUT */
+.about{background:var(--cream);padding:80px 72px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-img{width:100%;height:420px;object-fit:cover}
+
+/* STICKY */
+.sticky{position:fixed;bottom:28px;right:28px;z-index:99;background:var(--accent);color:var(--white);padding:13px 20px;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:9px;box-shadow:0 8px 28px rgba(0,0,0,.22);transition:all .25s;cursor:pointer;border:none;font-family:var(--fn)}
+.sticky:hover{background:var(--dark);transform:translateY(-2px)}
+
+/* FOOTER */
+.footer{padding:26px 72px;border-top:1px solid var(--cream);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.footer p{font-size:11px;color:var(--warm-grey)}
+.footer a{font-size:11px;color:var(--accent);text-decoration:none}
+
+/* MODAL */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(28,26,24,.72);z-index:200;align-items:center;justify-content:center}
+.modal-ov.open{display:flex}
+.modal{background:var(--off-white);max-width:500px;width:90%;padding:40px;position:relative}
+.modal-x{position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--warm-grey);line-height:1}
+
+/* MOBILE */
+@media(max-width:1024px){
+  .nav{padding:16px 24px;top:36px}
+  .hero-content{padding:0 24px 60px}
+  .intro,.colls,.models,.form-sec,.about,.footer{padding:60px 24px}
+  .strip{grid-template-columns:repeat(2,1fr)}
+  .colls-grid{grid-template-columns:repeat(2,1fr)}
+  .coll.lg{grid-column:span 2}
+  .mc-inner{grid-template-columns:1fr!important;direction:ltr!important}
+  .mc-inner>*{direction:ltr!important}
+  .form-sec,.about{grid-template-columns:1fr}
+  .f-row{grid-template-columns:1fr}
+  .more-grid{grid-template-columns:repeat(2,1fr);padding:0 24px 60px}
+  .mc-actions{flex-direction:column}
+}
+@media(max-width:600px){
+  .strip{grid-template-columns:1fr 1fr}
+  .more-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="draft-banner">⚠ ЧЕРНОВИК ДЛЯ СОГЛАСОВАНИЯ — не финальная версия · фото OLA будут заменены на медиабанк Константина</div>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <span class="nav-hp">Home Project</span>
+    <span class="nav-div"></span>
+    <span class="nav-brand">Snaidero</span>
+  </a>
+  <button class="nav-cta" onclick="goForm()">Запросить консультацию</button>
+</nav>
+
+<!-- HERO: ICONE OLA — флагман, Pininfarina -->
+<section class="hero">
+  <img class="hero-img" src="https://admin.snaidero.com/media/fv5jdkf1/01-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" alt="Snaidero ICONE OLA — Pininfarina" loading="eager" />
+  <!-- TODO: заменить на финальное фото ICONE OLA из медиабанка Константина -->
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">Icone Collection · Pininfarina Design · с 1990 года</div>
+    <h1 class="hero-title">Snaidero<br><em>ICONE OLA.</em></h1>
+    <p class="hero-sub">Визитная карточка бренда — кухня, по которой узнают Snaidero во всём мире. Авторские волнообразные линии Pininfarina, итальянское производство, индивидуальный проект для вашего пространства.</p>
+    <div class="hero-actions">
+      <button class="btn-w" onclick="goForm()">Узнать стоимость</button>
+      <a href="#collections" class="btn-gl">Смотреть коллекции</a>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><div class="strip-num">70+</div><div class="strip-label">лет итальянского мастерства</div></div>
+  <div class="strip-item"><div class="strip-num">11</div><div class="strip-label">коллекций доступны в России</div></div>
+  <div class="strip-item"><div class="strip-num">120</div><div class="strip-label">стран присутствия</div></div>
+  <div class="strip-item"><div class="strip-num">1–3 дн</div><div class="strip-label">расчёт под ваш проект</div></div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="sec-tag">О бренде</div>
+  <h2 class="sec-title">Кухня как<br><em>архитектурное высказывание</em></h2>
+  <p class="sec-body">Snaidero — итальянский производитель кухонь премиального сегмента, основанный в 1954 году в Клаутана (Фриули). Бренд сотрудничает с ведущими дизайнерами мира — Pininfarina, Iosa Ghini — и создаёт кухни, которые становятся смысловыми центрами пространства.<br><br>В отличие от бытовой техники, кухня Snaidero — это прежде всего архитектурный проект. Каждый расчёт стоимости строго индивидуален: он зависит от конфигурации, выбранных финишей и размеров пространства.</p>
+  <div class="badge"><strong>Официальный партнёр SNAIDERO на территории РФ</strong>&nbsp;·&nbsp;Дилерское соглашение</div>
+</section>
+
+<!-- COLLECTIONS -->
+<section class="colls" id="collections">
+  <div class="colls-hdr">
+    <div>
+      <div class="sec-tag">Коллекции</div>
+      <h2 class="sec-title" style="margin-bottom:0">Актуальные<br><em>модели</em></h2>
+    </div>
+    <p class="sec-body" style="max-width:360px">Все серии доступны для заказа в России. Стоимость — только под конкретный проект, цены не публикуем.</p>
+  </div>
+  <div class="colls-grid">
+    <!-- OLA — ФЛАГМАН -->
+    <div class="coll lg" onclick="openFor('OLA','cost')">
+      <img class="coll-img" src="https://admin.snaidero.com/media/434c1fqx/18-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" alt="ICONE OLA" />
+      <div class="coll-ov"><span class="coll-name">Ola</span><span class="coll-sub">Pininfarina Design · Icone · Визитная карточка бренда</span></div>
+      <span class="coll-bdg flagship">Флагман</span>
+    </div>
+    <div class="coll" onclick="openFor('Frame','cost')">
+      <img class="coll-img" src="https://admin.snaidero.com/media/2afdyeqt/02-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" alt="Frame" />
+      <div class="coll-ov"><span class="coll-name">Frame</span><span class="coll-sub">Iosa Ghini Design · Sistema</span></div>
+      <span class="coll-bdg new">Новинка</span>
+    </div>
+    <div class="coll" onclick="openFor('Way','cost')">
+      <img class="coll-img" src="https://admin.snaidero.com/media/2bxnwazi/05-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" alt="Way" />
+      <div class="coll-ov"><span class="coll-name">Way</span><span class="coll-sub">Sistema · Wabi-sabi</span></div>
+    </div>
+    <div class="coll" onclick="openFor('Elementi','cost')">
+      <img class="coll-img" src="https://admin.snaidero.com/media/xfdm3v04/10-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" alt="Elementi" />
+      <div class="coll-ov"><span class="coll-name">Elementi</span><span class="coll-sub">Sistema · Металл и дерево</span></div>
+    </div>
+    <div class="coll" onclick="openFor('Orbita','cost')">
+      <img class="coll-img" src="https://admin.snaidero.com/media/zffgjtuq/15-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" alt="Orbita" />
+      <div class="coll-ov"><span class="coll-name">Orbita</span><span class="coll-sub">Sistema · Скруглённые формы</span></div>
+    </div>
+    <div class="coll" onclick="openFor('Vision','cost')">
+      <img class="coll-img" src="https://admin.snaidero.com/media/nhnbwvel/12-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" alt="Vision" />
+      <div class="coll-ov"><span class="coll-name">Vision</span><span class="coll-sub">Pininfarina Design · Icone</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MORE COLLECTIONS -->
+<div class="more-grid">
+  <div class="more-card"><div class="more-tag">Sistema</div><div class="more-name">Quadra</div><div class="more-desc">Строгая геометрия, лаконичные линии</div><button class="more-btn" onclick="openFor('Quadra','cost')">Запросить</button></div>
+  <div class="more-card"><div class="more-tag">Sistema</div><div class="more-name">Opera</div><div class="more-desc">Гармония классики и современности</div><button class="more-btn" onclick="openFor('Opera','cost')">Запросить</button></div>
+  <div class="more-card"><div class="more-tag">Sistema</div><div class="more-name">Folio · Principio</div><div class="more-desc">Тонкие профили, визуальная лёгкость</div><button class="more-btn" onclick="openFor('Folio','cost')">Запросить</button></div>
+  <div class="more-card"><div class="more-tag">Living</div><div class="more-name">Link</div><div class="more-desc">Интеграция кухни и жилого пространства</div><button class="more-btn" onclick="openFor('Link','cost')">Запросить</button></div>
+</div>
+
+<!-- MODEL CARDS -->
+<section class="models" id="models">
+
+  <!-- OLA -->
+  <div class="mc left">
+    <div class="mc-inner">
+      <div class="mc-gal">
+        <img class="mc-img" id="ola-m" src="https://admin.snaidero.com/media/434c1fqx/18-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" alt="ICONE OLA" />
+        <div class="mc-thumbs">
+          <img class="mc-thumb active" src="https://admin.snaidero.com/media/434c1fqx/18-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" onclick="sw('ola-m',this)" />
+          <img class="mc-thumb" src="https://admin.snaidero.com/media/zffgjtuq/15-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" onclick="sw('ola-m',this)" />
+          <img class="mc-thumb" src="https://admin.snaidero.com/media/xfdm3v04/10-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" onclick="sw('ola-m',this)" />
+        </div>
+      </div>
+      <div class="mc-info">
+        <div class="mc-tag">Icone Collection</div>
+        <div class="mc-name"><em>OLA</em></div>
+        <div class="mc-designer">Дизайн: Pininfarina · с 1990 года</div>
+        <div class="mc-div"></div>
+        <p class="mc-desc">OLA — самая узнаваемая кухня Snaidero. Плавные волнообразные линии фасадов, созданные легендарным Pininfarina, превращают кухню в скульптурный объект. Более 30 лет OLA остаётся эталоном итальянского кухонного дизайна.<br><br>Широкая палитра финишей: матовый лак, натуральный шпон, металлические акценты.</p>
+        <div class="mc-specs">
+          <div><div class="spec-l">Коллекция</div><div class="spec-v">Icone</div></div>
+          <div><div class="spec-l">Дизайнер</div><div class="spec-v">Pininfarina</div></div>
+          <div><div class="spec-l">С 1990 года</div><div class="spec-v">Более 30 лет на рынке</div></div>
+          <div><div class="spec-l">Расчёт с чертежом</div><div class="spec-v">1 сутки</div></div>
+        </div>
+        <div class="finishes-l">Финиши (примеры — по каталогу)</div>
+        <div class="swatches">
+          <div class="sw" style="background:#F5F2EE" title="Белый матовый"></div>
+          <div class="sw" style="background:#2C2825" title="Чёрный матовый"></div>
+          <div class="sw" style="background:#8B7355" title="Табак"></div>
+          <div class="sw" style="background:#C4A882" title="Кашемир"></div>
+          <div class="sw" style="background:#C8B89A" title="Светлый шпон"></div>
+          <div class="sw" style="background:#6B6B6B" title="Антрацит"></div>
+        </div>
+        <div class="mc-actions">
+          <button class="btn-dk" onclick="openFor('OLA','cost')">Узнать стоимость</button>
+          <button class="btn-st" onclick="openFor('OLA','catalog')">Скачать каталог</button>
+          <button class="btn-ac" onclick="openFor('OLA','viz')">Запросить визуализацию</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRAME -->
+  <div class="mc right">
+    <div class="mc-inner">
+      <div class="mc-gal">
+        <img class="mc-img" id="fr-m" src="https://admin.snaidero.com/media/pxrad3de/03-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" alt="Frame" />
+        <div class="mc-thumbs">
+          <img class="mc-thumb active" src="https://admin.snaidero.com/media/pxrad3de/03-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" onclick="sw('fr-m',this)" />
+          <img class="mc-thumb" src="https://admin.snaidero.com/media/nh0dqv2q/06-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" onclick="sw('fr-m',this)" />
+          <img class="mc-thumb" src="https://admin.snaidero.com/media/1v5dphxc/04-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" onclick="sw('fr-m',this)" />
+          <img class="mc-thumb" src="https://admin.snaidero.com/media/vq2hoeqo/07-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" onclick="sw('fr-m',this)" />
+        </div>
+      </div>
+      <div class="mc-info">
+        <div class="mc-tag">Sistema Collection</div>
+        <div class="mc-name"><em>Frame</em></div>
+        <div class="mc-designer">Дизайн: Iosa Ghini Design</div>
+        <div class="mc-div"></div>
+        <p class="mc-desc">Frame — кухня в стиле haute couture. Профилированная рамка фасада создаёт эффект ювелирного изделия. Дизайн Massimo Iosa Ghini переосмысляет классические итальянские пропорции в современном ключе.</p>
+        <div class="mc-specs">
+          <div><div class="spec-l">Коллекция</div><div class="spec-v">Sistema</div></div>
+          <div><div class="spec-l">Дизайнер</div><div class="spec-v">Iosa Ghini</div></div>
+          <div><div class="spec-l">Стиль</div><div class="spec-v">Haute Couture</div></div>
+          <div><div class="spec-l">Поставка в МСК</div><div class="spec-v">3,5–4,5 месяца</div></div>
+        </div>
+        <div class="finishes-l">Финиши (примеры)</div>
+        <div class="swatches">
+          <div class="sw" style="background:#F0EBE3" title="Крем"></div>
+          <div class="sw" style="background:#1A1816" title="Эспрессо"></div>
+          <div class="sw" style="background:#8B7A66" title="Какао"></div>
+          <div class="sw" style="background:#D4C4AE" title="Песок"></div>
+          <div class="sw" style="background:#B8A898" title="Сланец"></div>
+        </div>
+        <div class="mc-actions">
+          <button class="btn-dk" onclick="openFor('Frame','cost')">Узнать стоимость</button>
+          <button class="btn-st" onclick="openFor('Frame','catalog')">Скачать каталог</button>
+          <button class="btn-ac" onclick="openFor('Frame','viz')">Запросить визуализацию</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WAY -->
+  <div class="mc left">
+    <div class="mc-inner">
+      <div class="mc-gal">
+        <img class="mc-img" id="way-m" src="https://admin.snaidero.com/media/2bxnwazi/05-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" alt="Way" />
+        <div class="mc-thumbs">
+          <img class="mc-thumb active" src="https://admin.snaidero.com/media/2bxnwazi/05-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" onclick="sw('way-m',this)" />
+          <img class="mc-thumb" src="https://admin.snaidero.com/media/xfdm3v04/10-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg" onclick="sw('way-m',this)" />
+        </div>
+      </div>
+      <div class="mc-info">
+        <div class="mc-tag">Sistema Collection</div>
+        <div class="mc-name"><em>Way</em></div>
+        <div class="mc-designer">Wabi-sabi · Природные материалы</div>
+        <div class="mc-div"></div>
+        <p class="mc-desc">Way — кухня в эстетике wabi-sabi. Натуральные фактуры, приглушённая палитра, органические формы. Для интерьеров, где ценится подлинность материала и тихая красота повседневного.</p>
+        <div class="mc-specs">
+          <div><div class="spec-l">Коллекция</div><div class="spec-v">Sistema</div></div>
+          <div><div class="spec-l">Стиль</div><div class="spec-v">Wabi-sabi</div></div>
+          <div><div class="spec-l">Материалы</div><div class="spec-v">Дерево, камень, металл</div></div>
+          <div><div class="spec-l">Поставка в МСК</div><div class="spec-v">3,5–4,5 месяца</div></div>
+        </div>
+        <div class="finishes-l">Финиши (примеры)</div>
+        <div class="swatches">
+          <div class="sw" style="background:#C8B89A" title="Светлый дуб"></div>
+          <div class="sw" style="background:#8B7A60" title="Орех"></div>
+          <div class="sw" style="background:#6B5E4E" title="Смоки"></div>
+          <div class="sw" style="background:#E8E2D8" title="Льняной"></div>
+          <div class="sw" style="background:#A8A09A" title="Серый камень"></div>
+        </div>
+        <div class="mc-actions">
+          <button class="btn-dk" onclick="openFor('Way','cost')">Узнать стоимость</button>
+          <button class="btn-st" onclick="openFor('Way','catalog')">Скачать каталог</button>
+          <button class="btn-ac" onclick="openFor('Way','viz')">Запросить визуализацию</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- FORM -->
+<section class="form-sec" id="consultation">
+  <div class="fl">
+    <div class="sec-tag">Начать проект</div>
+    <h2 class="sec-title">Расчёт<br><em>за 1–3 дня</em></h2>
+    <p class="sec-body">Оставьте заявку — специалист Анна Чаяускене свяжется в течение рабочего дня. Расчёт при наличии чертежа: 1 сутки. С нуля: 2–3 дня.</p>
+    <div class="process">
+      <div class="proc-item"><div class="proc-n">1</div><div class="proc-t"><strong>Заявка</strong>Описываете проект, оставляете контакт</div></div>
+      <div class="proc-item"><div class="proc-n">2</div><div class="proc-t"><strong>Расчёт</strong>Специалист готовит индивидуальное КП</div></div>
+      <div class="proc-item"><div class="proc-n">3</div><div class="proc-t"><strong>Производство</strong>3,5–4,5 мес., поставка в Москву</div></div>
+    </div>
+  </div>
+  <div class="fr">
+    <div id="fwrap">
+      <div class="f-title">Запросить консультацию</div>
+      <form id="lf" onsubmit="doSubmit(event)">
+        <div class="f-row">
+          <div class="f-grp"><label class="f-lbl">Имя</label><input class="f-in" type="text" name="name" placeholder="Ваше имя" required /></div>
+          <div class="f-grp"><label class="f-lbl">Телефон / Email</label><input class="f-in" type="text" name="contact" placeholder="+7 или email" required /></div>
+        </div>
+        <div class="f-grp">
+          <label class="f-lbl">Коллекция</label>
+          <select class="f-sel" name="collection">
+            <option value="">— Выбрать или не определились —</option>
+            <option>OLA (Icone · Pininfarina) — флагман</option>
+            <option>Vision (Icone · Pininfarina)</option>
+            <option>Frame (Sistema · Iosa Ghini)</option>
+            <option>Way (Sistema · Wabi-sabi)</option>
+            <option>Elementi (Sistema)</option>
+            <option>Quadra (Sistema)</option>
+            <option>Orbita (Sistema)</option>
+            <option>Opera (Sistema)</option>
+            <option>Folio (Sistema)</option>
+            <option>Link / Principio / Living</option>
+            <option>Помогите выбрать</option>
+          </select>
+        </div>
+        <div class="f-grp">
+          <label class="f-lbl">Тип запроса</label>
+          <select class="f-sel" name="req">
+            <option value="">— Выбрать —</option>
+            <option value="cost">Узнать стоимость / расчёт проекта</option>
+            <option value="catalog">Скачать каталог коллекции</option>
+            <option value="viz">Запросить визуализацию для архитектора</option>
+            <option value="consult">Общая консультация</option>
+          </select>
+        </div>
+        <div class="f-row">
+          <div class="f-grp"><label class="f-lbl">Город</label><input class="f-in" type="text" name="city" placeholder="Москва" /></div>
+          <div class="f-grp"><label class="f-lbl">Площадь кухни, м²</label><input class="f-in" type="text" name="area" placeholder="примерно" /></div>
+        </div>
+        <div class="f-grp"><label class="f-lbl">Комментарий</label><textarea class="f-ta" name="comment" placeholder="Стиль интерьера, сроки, особые пожелания..."></textarea></div>
+        <div class="chk-row">
+          <input type="checkbox" id="pd" name="pd" required />
+          <label for="pd">Согласен(на) на <a href="https://homeproject.online/page/privacy-policy" target="_blank">обработку персональных данных</a> в соответствии с Политикой конфиденциальности Home Project</label>
+        </div>
+        <div class="chk-row">
+          <input type="checkbox" id="ml" name="ml" />
+          <label for="ml">Разрешаю присылать мне информацию о новых коллекциях и специальных предложениях</label>
+        </div>
+        <button type="submit" class="btn-sub">Отправить заявку</button>
+      </form>
+    </div>
+    <div class="f-ok" id="fok">
+      <h3>Заявка принята</h3>
+      <p>Специалист свяжется с вами в течение рабочего дня.<br>Расчёт — 1–3 дня в зависимости от проекта.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="about">
+  <img class="about-img" src="https://admin.snaidero.com/media/2afdyeqt/02-sistema-snaidero-frame-ispirazioni-haute-couture.jpg" alt="Snaidero — Home Project" />
+  <div>
+    <div class="sec-tag">Партнёрство</div>
+    <h2 class="sec-title" style="font-size:38px;margin-bottom:14px">Официальный<br><em>партнёр</em> в России</h2>
+    <p class="sec-body" style="margin-bottom:22px">Home Project представляет Snaidero на основании дилерского соглашения. Для реализации каждого проекта мы работаем совместно с командой специалистов по проектированию и установке.</p>
+    <div class="badge">
+      <div><strong>Анна Чаяускене</strong>&nbsp;— ведёт клиента от ТЗ до установки<br><small style="font-weight:400;font-size:12px">Расчёт: 1 сутки (с чертежом) · Производство: 3,5–4,5 месяца · Предоплата: 70–80%</small></div>
+    </div>
+  </div>
+</div>
+
+<button class="sticky" onclick="goForm()">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  Запросить расчёт
+</button>
+
+<footer class="footer">
+  <p>© 2026 Home Project · Официальный партнёр SNAIDERO на территории РФ · Цены не являются публичной офертой</p>
+  <a href="https://homeproject.online">homeproject.online</a>
+</footer>
+
+<!-- MODAL -->
+<div id="mov" class="modal-ov" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <button class="modal-x" onclick="document.getElementById('mov').classList.remove('open')">✕</button>
+    <div id="mbody"></div>
+  </div>
+</div>
+
+<script>
+function goForm(){document.getElementById('consultation').scrollIntoView({behavior:'smooth'})}
+function sw(id,el){document.getElementById(id).src=el.src;el.closest('.mc-thumbs').querySelectorAll('.mc-thumb').forEach(t=>t.classList.remove('active'));el.classList.add('active')}
+function openFor(col,type){
+  const labels={cost:'Узнать стоимость',catalog:'Скачать каталог',viz:'Запросить визуализацию'};
+  document.getElementById('mbody').innerHTML=`
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;margin-bottom:6px">${labels[type]||'Запрос'}</h3>
+    <p style="font-size:13px;color:var(--warm-grey);margin-bottom:20px">Коллекция: <strong>${col}</strong></p>
+    <form onsubmit="mSubmit(event,'${col}','${type}')">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <div><label style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-grey);display:block;margin-bottom:4px">Имя</label><input type="text" name="name" required placeholder="Ваше имя" style="width:100%;padding:10px 12px;border:1px solid var(--stone);font-family:var(--fn);font-size:14px;background:var(--white);outline:none"/></div>
+        <div><label style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-grey);display:block;margin-bottom:4px">Телефон / Email</label><input type="text" name="contact" required placeholder="+7 / email" style="width:100%;padding:10px 12px;border:1px solid var(--stone);font-family:var(--fn);font-size:14px;background:var(--white);outline:none"/></div>
+      </div>
+      <div style="margin-bottom:10px"><label style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-grey);display:block;margin-bottom:4px">Комментарий</label><textarea name="comment" placeholder="Размеры, стиль, сроки..." style="width:100%;padding:10px 12px;border:1px solid var(--stone);font-family:var(--fn);font-size:14px;background:var(--white);resize:vertical;min-height:65px;outline:none"></textarea></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:14px"><input type="checkbox" required id="mchk" style="margin-top:2px;accent-color:var(--accent)"/><label for="mchk" style="font-size:11px;color:var(--warm-grey);line-height:1.5">Согласен(на) на <a href="https://homeproject.online/page/privacy-policy" target="_blank" style="color:var(--accent)">обработку персональных данных</a></label></div>
+      <button type="submit" style="width:100%;padding:13px;background:var(--dark);color:var(--white);border:none;font-family:var(--fn);font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Отправить</button>
+    </form>`;
+  document.getElementById('mov').classList.add('open');
+}
+async function doSubmit(e){
+  e.preventDefault();const fd=new FormData(e.target);
+  const d={source:'snaidero_main',name:fd.get('name'),contact:fd.get('contact'),collection:fd.get('collection'),req:fd.get('req'),city:fd.get('city'),area:fd.get('area'),comment:fd.get('comment'),url:location.href};
+  try{await fetch('https://80.91.86.53.nip.io/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})}catch(err){}
+  if(typeof ym!=='undefined')ym(109998802,'reachGoal','snaidero_lead');
+  document.getElementById('fwrap').style.display='none';
+  document.getElementById('fok').style.display='block';
+}
+async function mSubmit(e,col,type){
+  e.preventDefault();const fd=new FormData(e.target);
+  const d={source:'snaidero_modal',collection:col,req:type,name:fd.get('name'),contact:fd.get('contact'),comment:fd.get('comment'),url:location.href};
+  try{await fetch('https://80.91.86.53.nip.io/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})}catch(err){}
+  if(typeof ym!=='undefined')ym(109998802,'reachGoal',type==='viz'?'snaidero_viz':'snaidero_lead');
+  document.getElementById('mbody').innerHTML='<div style="text-align:center;padding:28px 0"><p style="font-family:Cormorant Garamond,serif;font-size:22px;font-weight:300;margin-bottom:8px">Заявка принята</p><p style="font-size:13px;color:var(--warm-grey)">Специалист свяжется в течение рабочего дня</p></div>';
+}
+</script>
+</body>
+</html>
