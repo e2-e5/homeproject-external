@@ -7,722 +7,1088 @@
 <title>Liebherr Kitchen Line — встраиваемая холодильная техника | HOME PROJECT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
 
 <!-- Яндекс.Метрика счётчик 109998802 -->
 <script type="text/javascript">
 (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
-ym(109998802,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+m[i].l=1*new Date();
+for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+ym(109998802, "init", {clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:false});
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/109998802" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/109998802" style="position:absolute;left:-9999px;" alt="" /></div></noscript>
 <!-- /Яндекс.Метрика -->
 
 <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 :root {
-  --bg: #FFFFFF;
-  --bg-panel: #F7F8FA;
-  --bg-pale: #F0F4FB;
-  --ink: #1A1C22;
-  --ink-soft: #5A6070;
-  --ink-muted: #9298A6;
-  --line: #E0E4EC;
-  --blue: #2969C8;
-  --blue-deep: #1E52A8;
-  --blue-light: #EBF1FC;
-  --gold: #C8A84B;
-  --steel: #E8ECF2;
+  --bg:        #FAFAF8;
+  --bg-card:   #FFFFFF;
+  --bg-pale:   #F2F4F8;
+  --blue:      #2969C8;
+  --blue-dark: #1a4a9a;
+  --blue-light: #EBF1FB;
+  --ink:       #111827;
+  --ink-mid:   #4B5563;
+  --ink-soft:  #6B7280;
+  --ink-muted: #9CA3AF;
+  --line:      #E5E7EB;
+  --hero-bg:   #0f1e3d;
+  --r:         12px;
+  --r-lg:      20px;
+  --shadow:    0 2px 16px rgba(0,0,0,.07);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.12);
+  --transition: .22s ease;
 }
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
 html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   background: var(--bg);
   color: var(--ink);
-  -webkit-font-smoothing: antialiased;
   line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
-.wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
 
-/* ─── HEADER ─── */
-header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(255,255,255,.97);
+a { color: inherit; text-decoration: none; }
+
+img { display: block; max-width: 100%; }
+
+/* ─── NAV ──────────────────────────────────────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,.95);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
 }
-.hrow {
-  display: flex; align-items: center; justify-content: space-between; height: 66px;
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
 }
-.logo-block { display: flex; align-items: center; gap: 14px; }
-.logo-liebherr {
-  display: flex; align-items: center; gap: 0;
-  font-size: 20px; font-weight: 800; letter-spacing: .04em; color: var(--blue);
-  text-transform: uppercase;
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.logo-liebherr .bar {
-  width: 3px; height: 20px; background: var(--blue); margin-right: 10px; border-radius: 2px;
-}
-.logo-divider { width: 1px; height: 22px; background: var(--line); }
-.logo-partner {
-  font-size: 10.5px; letter-spacing: .14em; color: var(--ink-soft);
-  text-transform: uppercase; font-weight: 600;
-}
-.hnav { display: flex; gap: 28px; align-items: center; }
-.hnav a {
-  font-size: 13px; color: var(--ink-soft); text-decoration: none;
-  cursor: pointer; transition: color .2s;
-}
-.hnav a:hover { color: var(--blue); }
-.btn-nav {
-  background: var(--blue); color: #fff;
-  font-size: 12.5px; font-weight: 600;
-  padding: 9px 22px; border: none; cursor: pointer;
-  border-radius: 3px; transition: .2s; letter-spacing: .02em;
-  font-family: inherit;
-}
-.btn-nav:hover { background: var(--blue-deep); }
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-.hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 1px; }
-
-/* ─── HERO ─── */
-.hero {
-  position: relative;
-  background: linear-gradient(135deg, #0D1B3E 0%, #1A3A7A 40%, #2060C0 75%, #1040A0 100%);
-  overflow: hidden; min-height: 520px; display: flex; align-items: center;
-}
-.hero-geo {
-  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
-}
-.hero-geo::before {
-  content: '';
-  position: absolute; top: -60px; right: -80px;
-  width: 520px; height: 520px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,.07) 0%, transparent 70%);
-}
-.hero-geo::after {
-  content: '';
-  position: absolute; bottom: -100px; left: 30%;
-  width: 700px; height: 300px;
-  background: rgba(255,255,255,.03);
-  transform: rotate(-8deg);
-  border-radius: 40px;
-}
-.hero-lines {
-  position: absolute; inset: 0;
-  background: repeating-linear-gradient(
-    105deg,
-    transparent 0px, transparent 60px,
-    rgba(255,255,255,.025) 60px, rgba(255,255,255,.025) 61px
-  );
-}
-/* Decorative appliance shape */
-.hero-appliance {
-  position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
-  width: 220px; height: 380px;
-  border-radius: 12px;
-  background: linear-gradient(160deg, #D0D8E8 0%, #B0BDD4 30%, #8899BB 60%, #6678A0 100%);
-  box-shadow: 0 30px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.3);
-  display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-  padding: 24px 16px;
-  overflow: hidden;
-}
-.hero-appliance::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 60px;
-  background: linear-gradient(180deg, rgba(255,255,255,.15) 0%, transparent 100%);
-  border-radius: 12px 12px 0 0;
-}
-.appl-handle {
-  width: 36px; height: 5px; background: rgba(255,255,255,.6);
-  border-radius: 3px; align-self: flex-end; margin-right: 4px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.3);
-}
-.appl-logo {
-  font-size: 10px; font-weight: 800; letter-spacing: .15em;
-  color: rgba(255,255,255,.8); text-transform: uppercase;
-  writing-mode: horizontal-tb;
-}
-.appl-shelves {
-  display: flex; flex-direction: column; gap: 8px; width: 100%;
-  flex: 1; justify-content: center; margin: 16px 0;
-}
-.appl-shelf {
-  height: 2px; background: rgba(255,255,255,.2); border-radius: 1px;
-}
-.appl-biofresh {
-  width: 100%; padding: 6px 8px; border-radius: 6px;
-  background: rgba(41,105,200,.5); border: 1px solid rgba(255,255,255,.2);
-  text-align: center;
-}
-.appl-biofresh span {
-  font-size: 8px; font-weight: 700; letter-spacing: .12em; color: rgba(255,255,255,.9);
-  text-transform: uppercase;
-}
-
-.hero-content { position: relative; z-index: 2; padding: 80px 0; }
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 10.5px; letter-spacing: .28em; text-transform: uppercase;
-  color: rgba(255,255,255,.7); margin-bottom: 20px; font-weight: 600;
-}
-.hero-tag::before { content: ''; width: 28px; height: 1px; background: rgba(255,255,255,.5); }
-.hero h1 {
-  font-size: 52px; font-weight: 300; line-height: 1.06; letter-spacing: -.02em;
-  color: #fff; margin-bottom: 8px; max-width: 580px;
-}
-.hero h1 strong { font-weight: 800; }
-.hero-sub {
-  font-size: 16px; color: rgba(255,255,255,.65);
-  margin-bottom: 32px; max-width: 480px; line-height: 1.65;
-}
-.hero-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 38px; }
-.pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 14px; border: 1px solid rgba(255,255,255,.22);
-  border-radius: 100px; font-size: 12px; color: rgba(255,255,255,.85);
-  background: rgba(255,255,255,.08); backdrop-filter: blur(4px);
-}
-.pill::before { content: '✓'; color: rgba(255,255,255,.6); font-size: 10px; }
-.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn-primary {
-  background: #fff; color: var(--blue);
-  font-size: 13.5px; font-weight: 700;
-  padding: 14px 30px; border: none; cursor: pointer;
-  border-radius: 3px; transition: .2s; letter-spacing: .01em;
-  font-family: inherit;
-}
-.btn-primary:hover { background: var(--blue-light); }
-.btn-outline-w {
-  background: transparent; color: #fff;
-  font-size: 13.5px; font-weight: 500;
-  padding: 14px 30px; border: 1.5px solid rgba(255,255,255,.4); cursor: pointer;
-  border-radius: 3px; transition: .2s; letter-spacing: .01em;
-  font-family: inherit;
-}
-.btn-outline-w:hover { border-color: rgba(255,255,255,.8); background: rgba(255,255,255,.08); }
-
-/* ─── BRAND FACTS ─── */
-.brand-facts { background: var(--bg-panel); border-bottom: 1px solid var(--line); padding: 56px 0; }
-.facts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
-.fact-card { background: var(--bg); padding: 32px 28px; }
-.fact-num { font-size: 42px; font-weight: 800; color: var(--blue); line-height: 1; margin-bottom: 6px; }
-.fact-label { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
-.fact-label strong { display: block; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
-
-/* ─── SECTION TITLES ─── */
-.section-header { text-align: center; margin-bottom: 52px; }
-.section-tag {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
-  font-weight: 700; color: var(--blue); margin-bottom: 14px;
-}
-.section-tag::before, .section-tag::after { content: ''; flex: 1; height: 1px; background: var(--blue); width: 20px; }
-.section-h2 { font-size: 36px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 12px; }
-.section-lead { font-size: 16px; color: var(--ink-soft); max-width: 560px; margin: 0 auto; }
-
-/* ─── CATEGORIES ─── */
-.categories { padding: 80px 0; background: var(--bg); }
-.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.cat-card {
-  border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
-  transition: box-shadow .25s, transform .25s;
-  display: flex; flex-direction: column;
-}
-.cat-card:hover { box-shadow: 0 8px 40px rgba(41,105,200,.12); transform: translateY(-3px); }
-.cat-visual {
-  height: 200px; position: relative; overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
-}
-.cat-icon-wrap {
-  position: relative; z-index: 1;
-  display: flex; align-items: center; justify-content: center;
-}
-.cat-info { padding: 24px; flex: 1; display: flex; flex-direction: column; }
-.cat-badge {
-  display: inline-block; padding: 3px 10px; border-radius: 100px;
-  font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-  background: var(--blue-light); color: var(--blue); margin-bottom: 12px;
-}
-.cat-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
-.cat-card .cat-codes { font-size: 11.5px; color: var(--ink-muted); margin-bottom: 10px; letter-spacing: .04em; }
-.cat-card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; flex: 1; margin-bottom: 16px; }
-.cat-dims { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
-.dim-chip {
-  padding: 4px 10px; background: var(--bg-panel); border: 1px solid var(--line);
-  border-radius: 4px; font-size: 11px; color: var(--ink-soft); font-weight: 500;
-}
-.cat-cta {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 600; color: var(--blue);
-  cursor: pointer; background: none; border: none; font-family: inherit;
-  padding: 0; transition: gap .2s;
-}
-.cat-cta:hover { gap: 10px; }
-.cat-cta svg { flex-shrink: 0; }
-
-/* Category visual styles */
-.vis-fridge { background: linear-gradient(145deg, #EBF1FC 0%, #D4E3F8 60%, #BDD0F5 100%); }
-.vis-compact { background: linear-gradient(145deg, #E8F0FB 0%, #C8D8F4 60%, #A8C0EC 100%); }
-.vis-freezer { background: linear-gradient(145deg, #E0EDFB 0%, #BED4F5 60%, #90B4EC 100%); }
-.vis-wine { background: linear-gradient(145deg, #F5EBF8 0%, #E8D4F0 60%, #D0B0E8 100%); }
-.vis-under { background: linear-gradient(145deg, #EAF5EA 0%, #C8E8C4 60%, #A0D49A 100%); }
-
-.appliance-svg { opacity: .85; }
-
-/* Extra wide card */
-.cat-card.wide { grid-column: span 2; }
-.cat-card.wide .cat-visual { height: 220px; }
-
-/* ─── TECHNOLOGIES ─── */
-.technologies { background: var(--bg-panel); padding: 80px 0; }
-.tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.tech-card {
-  background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
-  padding: 32px; display: flex; gap: 24px; align-items: flex-start;
-  transition: box-shadow .25s;
-}
-.tech-card:hover { box-shadow: 0 4px 24px rgba(41,105,200,.1); }
-.tech-icon {
-  width: 52px; height: 52px; border-radius: 12px;
-  background: var(--blue-light); color: var(--blue);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; font-size: 22px;
-}
-.tech-body h4 { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--blue); }
-.tech-body p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; }
-.tech-body .tech-detail {
-  display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 600;
-  color: var(--blue); padding: 4px 10px; background: var(--blue-light);
+.nav-brand-badge {
+  background: var(--blue);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  padding: 3px 8px;
   border-radius: 4px;
 }
+.nav-brand-label {
+  font-size: 13px;
+  color: var(--ink-soft);
+  letter-spacing: .04em;
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-mid);
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--blue); }
+.nav-cta {
+  background: var(--blue);
+  color: #fff !important;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 20px;
+  border-radius: 8px;
+  transition: background var(--transition), transform var(--transition);
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+}
+.nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
 
-/* ─── SIZES ─── */
-.sizes { background: var(--bg); padding: 80px 0; }
-.sizes-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
-.size-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.size-bar-outer {
-  width: 100%; background: var(--bg-panel); border-radius: 6px;
-  border: 1px solid var(--line); overflow: hidden;
-  display: flex; flex-direction: column; justify-content: flex-end; height: 200px;
+/* ─── HERO ─────────────────────────────────────────────────────────── */
+.hero {
+  background: var(--hero-bg);
+  color: #fff;
+  padding: 96px 24px 100px;
+  position: relative;
+  overflow: hidden;
 }
-.size-bar-fill {
-  background: linear-gradient(180deg, var(--blue) 0%, var(--blue-deep) 100%);
-  border-radius: 4px; transition: height .4s ease;
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 70% 50%, rgba(41,105,200,.35) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(41,105,200,.15) 0%, transparent 60%);
+  pointer-events: none;
 }
-.size-label { font-size: 24px; font-weight: 800; color: var(--ink); }
-.size-sub { font-size: 11px; color: var(--ink-muted); text-align: center; }
-.sizes-note { text-align: center; margin-top: 32px; font-size: 13px; color: var(--ink-soft); }
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: 20px;
+}
+.hero-eyebrow span {
+  width: 24px;
+  height: 2px;
+  background: var(--blue);
+  border-radius: 1px;
+  display: inline-block;
+}
+.hero h1 {
+  font-size: clamp(32px, 4.5vw, 54px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  margin-bottom: 20px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: #6EA8FF;
+}
+.hero-sub {
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(255,255,255,.72);
+  margin-bottom: 36px;
+  max-width: 480px;
+}
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  background: var(--blue);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 16px rgba(41,105,200,.4);
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: #3478d8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(41,105,200,.5);
+}
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 13px 28px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255,255,255,.3);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  display: inline-block;
+}
+.btn-outline:hover {
+  border-color: rgba(255,255,255,.7);
+  background: rgba(255,255,255,.07);
+}
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-img-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,.5);
+}
+.hero-img-wrap img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  object-position: center top;
+}
+.hero-img-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hero-img-badge-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.hero-img-badge-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
 
-/* ─── PARTNER BLOCK ─── */
-.partner-block { background: var(--ink); color: #fff; padding: 72px 0; }
-.partner-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-.partner-left h2 { font-size: 38px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 16px; }
-.partner-left p { font-size: 15px; color: rgba(255,255,255,.7); line-height: 1.7; margin-bottom: 28px; }
-.partner-points { display: flex; flex-direction: column; gap: 14px; }
-.partner-point {
-  display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: rgba(255,255,255,.85);
+/* ─── STRIP ─────────────────────────────────────────────────────────── */
+.strip {
+  background: var(--blue);
+  padding: 28px 24px;
 }
-.partner-point::before {
-  content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
-  flex-shrink: 0; margin-top: 7px;
+.strip-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
 }
-.partner-right {
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.12); border-radius: 10px;
-  padding: 40px 36px;
+.strip-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 16px;
+  border-right: 1px solid rgba(255,255,255,.2);
 }
-.partner-right h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: rgba(255,255,255,.9); }
-.partner-right .role { font-size: 12px; color: rgba(255,255,255,.45); margin-bottom: 28px; letter-spacing: .06em; text-transform: uppercase; }
-.contact-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 14px; color: rgba(255,255,255,.75); }
-.contact-row svg { opacity: .5; flex-shrink: 0; }
-.btn-contact {
-  width: 100%; padding: 14px; margin-top: 24px;
-  background: var(--blue); color: #fff; border: none;
-  border-radius: 4px; font-size: 14px; font-weight: 600;
-  cursor: pointer; font-family: inherit; transition: .2s;
-  letter-spacing: .02em;
+.strip-item:last-child { border-right: none; }
+.strip-item-value {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
 }
-.btn-contact:hover { background: var(--blue-deep); }
+.strip-item-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,.75);
+  margin-top: 4px;
+}
 
-/* ─── LEAD FORM SECTION ─── */
-.lead-section { background: var(--bg-pale); padding: 80px 0; border-top: 1px solid var(--line); }
-.lead-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-.lead-left h2 { font-size: 36px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 14px; }
-.lead-left p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 28px; }
-.lead-benefits { display: flex; flex-direction: column; gap: 12px; }
-.lead-benefit { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--ink-soft); }
-.lead-benefit::before { content: '→'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
-.lead-right { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 36px; }
-.form-group { margin-bottom: 18px; }
-.form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 6px; letter-spacing: .04em; text-transform: uppercase; }
-.form-group input, .form-group textarea {
-  width: 100%; padding: 12px 14px; border: 1.5px solid var(--line);
-  border-radius: 4px; font-size: 14px; color: var(--ink);
-  font-family: inherit; background: var(--bg); transition: border-color .2s;
+/* ─── SECTIONS ──────────────────────────────────────────────────────── */
+.section {
+  padding: 80px 24px;
+}
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-alt { background: var(--bg-pale); }
+
+.section-head {
+  margin-bottom: 52px;
+}
+.section-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+.section-head h2 {
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.section-head p {
+  font-size: 16px;
+  color: var(--ink-mid);
+  margin-top: 12px;
+  max-width: 560px;
+  line-height: 1.65;
+}
+
+/* ─── CATEGORIES GRID ────────────────────────────────────────────────── */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.cat-card {
+  background: var(--bg-card);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+.cat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.cat-card-img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  object-position: center;
+  background: #F8F9FC;
+  padding: 20px;
+}
+.cat-card-body {
+  padding: 24px 24px 28px;
+  border-top: 1px solid var(--line);
+}
+.cat-card-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: var(--blue-light);
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.cat-card-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -.01em;
+}
+.cat-card-sub {
+  font-size: 14px;
+  color: var(--ink-mid);
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+.cat-card-models {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.model-chip {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-mid);
+  background: var(--bg-pale);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 3px 10px;
+}
+.cat-card-cta {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue);
+  transition: gap var(--transition);
+}
+.cat-card:hover .cat-card-cta { gap: 10px; }
+.cat-card-cta svg { flex-shrink: 0; }
+
+/* ─── TECHNOLOGIES ───────────────────────────────────────────────────── */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.tech-card {
+  background: var(--bg-card);
+  border-radius: var(--r-lg);
+  padding: 32px 28px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.tech-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+.tech-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--blue-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.tech-icon svg { color: var(--blue); }
+.tech-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  letter-spacing: -.01em;
+}
+.tech-desc {
+  font-size: 14px;
+  color: var(--ink-mid);
+  line-height: 1.6;
+}
+
+/* ─── SIZES ──────────────────────────────────────────────────────────── */
+.sizes-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 40px 0 20px;
+}
+.size-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 160px;
+}
+.size-visual {
+  width: 100%;
+  background: linear-gradient(180deg, var(--blue) 0%, var(--blue-dark) 100%);
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12px;
+  position: relative;
+}
+.size-visual-cm {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+}
+.size-bar-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-mid);
+  text-align: center;
+}
+.size-bar-note {
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ─── BIOFRESH FEATURE ───────────────────────────────────────────────── */
+.biofresh-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.biofresh-img {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.biofresh-img img {
+  width: 100%;
+  height: 480px;
+  object-fit: contain;
+  background: #F8F9FC;
+  padding: 24px;
+}
+.biofresh-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 14px;
+}
+.biofresh-body h2 {
+  font-size: clamp(24px, 2.8vw, 36px);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.biofresh-body p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-mid);
+  margin-bottom: 28px;
+}
+.biofresh-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.biofresh-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.biofresh-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.biofresh-check svg { color: #fff; }
+.biofresh-list-text {
+  font-size: 14px;
+  color: var(--ink-mid);
+  line-height: 1.5;
+}
+.biofresh-list-text strong {
+  color: var(--ink);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* ─── FORM SECTION ───────────────────────────────────────────────────── */
+.form-section {
+  background: var(--hero-bg);
+  padding: 80px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.form-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 80% at 0% 50%, rgba(41,105,200,.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+.form-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.form-text h2 {
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.form-text p {
+  font-size: 15px;
+  color: rgba(255,255,255,.7);
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+.form-promises {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.form-promises li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: rgba(255,255,255,.8);
+}
+.form-promises li::before {
+  content: '✓';
+  width: 20px;
+  height: 20px;
+  background: rgba(41,105,200,.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.form-card {
+  background: #fff;
+  border-radius: var(--r-lg);
+  padding: 36px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+.form-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.form-card-sub {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-mid);
+  margin-bottom: 6px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--ink);
+  background: #fff;
   outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
-.form-group input:focus, .form-group textarea:focus { border-color: var(--blue); }
-.form-group textarea { resize: vertical; min-height: 90px; }
-.check-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; cursor: pointer; }
-.check-group input[type=checkbox] { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--blue); flex-shrink: 0; cursor: pointer; }
-.check-group span { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
-.check-group a { color: var(--blue); }
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(41,105,200,.1);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--ink-muted);
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 88px;
+}
+.form-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.form-check input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: var(--blue);
+}
+.form-check label {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  cursor: pointer;
+}
+.form-check a { color: var(--blue); }
 .btn-submit {
-  width: 100%; padding: 14px; margin-top: 6px;
-  background: var(--blue); color: #fff; border: none;
-  border-radius: 4px; font-size: 14.5px; font-weight: 700;
-  cursor: pointer; font-family: inherit; transition: .2s; letter-spacing: .02em;
+  width: 100%;
+  padding: 15px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  margin-top: 8px;
+  letter-spacing: -.01em;
 }
-.btn-submit:hover { background: var(--blue-deep); }
-.form-note { margin-top: 12px; font-size: 11px; color: var(--ink-muted); text-align: center; }
+.btn-submit:hover {
+  background: var(--blue-dark);
+  transform: translateY(-1px);
+}
+.btn-submit:disabled {
+  opacity: .6;
+  cursor: default;
+  transform: none;
+}
 .form-success {
-  display: none; text-align: center; padding: 32px 24px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 0;
+  gap: 12px;
 }
-.form-success .check-big { font-size: 48px; margin-bottom: 12px; }
-.form-success h3 { font-size: 20px; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+.form-success.visible { display: flex; }
+.form-success-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #10B981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+.form-success h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+}
 .form-success p { font-size: 14px; color: var(--ink-soft); }
 
-/* ─── MODAL ─── */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; z-index: 1000;
-  background: rgba(15,20,40,.7); backdrop-filter: blur(6px);
-  align-items: center; justify-content: center; padding: 20px;
+/* ─── FOOTER ─────────────────────────────────────────────────────────── */
+footer {
+  background: #0a1428;
+  color: rgba(255,255,255,.5);
+  padding: 36px 24px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.8;
 }
-.modal-overlay.open { display: flex; }
-.modal {
-  background: var(--bg); border-radius: 10px; padding: 40px 36px;
-  width: 100%; max-width: 480px; position: relative;
-  box-shadow: 0 24px 80px rgba(0,0,0,.25);
-  animation: fadeUp .25s ease;
+footer a { color: rgba(255,255,255,.65); transition: color var(--transition); }
+footer a:hover { color: #fff; }
+footer .footer-brand {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255,255,255,.9);
+  letter-spacing: .02em;
+  margin-bottom: 6px;
 }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+footer .footer-divider {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: rgba(255,255,255,.2);
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+/* ─── MODAL ──────────────────────────────────────────────────────────── */
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 200;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-backdrop.open { display: flex; }
+.modal-box {
+  background: #fff;
+  border-radius: var(--r-lg);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0,0,0,.35);
+  animation: modal-in .2s ease;
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
 .modal-close {
-  position: absolute; top: 14px; right: 16px;
-  background: none; border: none; font-size: 22px; cursor: pointer;
-  color: var(--ink-muted); line-height: 1; padding: 4px 8px;
-  transition: color .2s;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-pale);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-mid);
+  transition: background var(--transition);
 }
-.modal-close:hover { color: var(--ink); }
-.modal h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
-.modal .modal-sub { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 28px; }
+.modal-close:hover { background: var(--line); }
+.modal-box h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.modal-sub {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
 
-/* ─── FOOTER ─── */
-footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 40px 0; }
-.footer-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 16px;
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .tech-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { display: none; }
+  .biofresh-wrap { grid-template-columns: 1fr; gap: 40px; }
+  .form-inner { grid-template-columns: 1fr; gap: 48px; }
 }
-.footer-brand {
-  display: flex; align-items: center; gap: 10px;
-}
-.footer-logo {
-  font-size: 14px; font-weight: 800; color: var(--blue); letter-spacing: .06em; text-transform: uppercase;
-}
-.footer-copy { font-size: 12.5px; }
-.footer-links { display: flex; gap: 20px; font-size: 12px; }
-.footer-links a { color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; }
-.footer-links a:hover { color: rgba(255,255,255,.9); }
-.footer-disclaimer { margin-top: 20px; font-size: 11px; color: rgba(255,255,255,.3); }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 900px) {
-  .wrap { padding: 0 20px; }
-  .hero h1 { font-size: 36px; }
-  .hero-appliance { display: none; }
-  .facts-grid { grid-template-columns: repeat(2, 1fr); }
-  .cat-grid { grid-template-columns: 1fr 1fr; }
-  .cat-card.wide { grid-column: span 1; }
-  .tech-grid { grid-template-columns: 1fr; }
-  .sizes-grid { grid-template-columns: repeat(3, 1fr); }
-  .partner-inner { grid-template-columns: 1fr; gap: 40px; }
-  .lead-inner { grid-template-columns: 1fr; gap: 40px; }
-  .footer-inner { flex-direction: column; align-items: flex-start; }
-  .hnav { display: none; }
-  .hamburger { display: flex; }
-}
-@media (max-width: 600px) {
-  .hero { min-height: 420px; }
-  .hero h1 { font-size: 28px; }
-  .hero-content { padding: 56px 0; }
-  .section-h2 { font-size: 26px; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
   .cat-grid { grid-template-columns: 1fr; }
-  .facts-grid { grid-template-columns: 1fr 1fr; }
-  .sizes-grid { grid-template-columns: repeat(3, 1fr); }
-  .partner-right { padding: 28px 20px; }
-  .lead-right { padding: 24px 18px; }
-  .modal { padding: 28px 20px; }
+  .tech-grid { grid-template-columns: 1fr 1fr; }
+  .strip-inner { grid-template-columns: repeat(2, 1fr); gap: 16px 0; }
+  .strip-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.15); padding: 12px 0; }
+  .sizes-wrap { gap: 6px; overflow-x: auto; padding-bottom: 8px; }
+  .section { padding: 56px 20px; }
+  .modal-box { padding: 28px 24px; }
+  .form-card { padding: 28px 24px; }
+}
+@media (max-width: 480px) {
+  .tech-grid { grid-template-columns: 1fr; }
+  .hero { padding: 64px 20px 72px; }
 }
 </style>
 </head>
+
 <body>
 
-<!-- ─── HEADER ─── -->
-<header>
-  <div class="wrap">
-    <div class="hrow">
-      <div class="logo-block">
-        <div class="logo-liebherr">
-          <div class="bar"></div>
-          LIEBHERR
-        </div>
-        <div class="logo-divider"></div>
-        <div class="logo-partner">Home Project</div>
-      </div>
-      <nav class="hnav">
-        <a onclick="scrollTo('categories')">Категории</a>
-        <a onclick="scrollTo('technologies')">Технологии</a>
-        <a onclick="scrollTo('sizes')">Размеры ниш</a>
-        <a onclick="scrollTo('contact')">Контакты</a>
-        <button class="btn-nav" onclick="openModal()">Запросить стоимость</button>
-      </nav>
-      <div class="hamburger" onclick="openModal()">
-        <span></span><span></span><span></span>
-      </div>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="nav-brand-badge">LIEBHERR</span>
+      <span class="nav-brand-label">HOME PROJECT</span>
     </div>
+    <ul class="nav-links">
+      <li><a href="#categories">Категории</a></li>
+      <li><a href="#technologies">Технологии</a></li>
+      <li><a href="#sizes">Размеры ниш</a></li>
+    </ul>
+    <button class="nav-cta btn-trigger">Запросить стоимость</button>
   </div>
-</header>
+</nav>
 
-<!-- ─── HERO ─── -->
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-geo"></div>
-  <div class="hero-lines"></div>
-  <div class="hero-appliance">
-    <div class="appl-handle"></div>
-    <div class="appl-shelves">
-      <div class="appl-shelf"></div>
-      <div class="appl-shelf"></div>
-      <div class="appl-shelf"></div>
-      <div class="appl-shelf"></div>
-      <div class="appl-biofresh"><span>BioFresh</span></div>
-      <div class="appl-shelf"></div>
-    </div>
-    <div class="appl-logo">Liebherr</div>
-  </div>
-  <div class="wrap">
-    <div class="hero-content">
-      <div class="hero-tag">Kitchen Line — встраиваемая холодильная техника</div>
-      <h1>Liebherr<br><strong>Kitchen Line</strong></h1>
-      <p class="hero-sub">Встраиваемая холодильная техника для кухни — полная интеграция под любой мебельный фасад. Свежесть продуктов, немецкое качество, 75 лет опыта.</p>
-      <div class="hero-pills">
-        <span class="pill">BioFresh до 4 недель</span>
-        <span class="pill">DuoCooling</span>
-        <span class="pill">Ниши 87–194 см</span>
-        <span class="pill">Германия с 1949</span>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow"><span></span> Официальный дистрибьютор</div>
+      <h1>Kitchen Line —<br><em>встраиваемая</em><br>холодильная<br>техника</h1>
+      <p class="hero-sub">Немецкое качество с 1949 года. Встраиваемые холодильники, морозильники и винные шкафы Liebherr для идеальной кухни — от&nbsp;87 до&nbsp;194 см высотой.</p>
+      <div class="hero-actions">
+        <button class="btn-primary btn-trigger" onclick="ym(109998802,'reachGoal','liebherr_modal_open')">Узнать стоимость</button>
+        <a class="btn-outline" href="#categories">Смотреть каталог</a>
       </div>
-      <div class="hero-btns">
-        <button class="btn-primary" onclick="openModal()">Запросить стоимость</button>
-        <button class="btn-outline-w" onclick="scrollTo('categories')">Смотреть каталог</button>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <img src="https://assets-cdn.liebherr.com/versions/c14f26e0-5d68-4d6c-93e6-4c0879030aa0/w-1280_h-1280_f-webp/ICNd%205103.webp" alt="Liebherr ICNd 5103 встраиваемый холодильник-морозильник" loading="eager">
+        <div class="hero-img-badge">
+          <span class="hero-img-badge-label">Featured</span>
+          <span class="hero-img-badge-value">ICNd 5103 — 177 см</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── BRAND FACTS ─── -->
-<section class="brand-facts">
-  <div class="wrap">
-    <div class="facts-grid">
-      <div class="fact-card">
-        <div class="fact-num">1949</div>
-        <div class="fact-label"><strong>Год основания</strong>Hans Liebherr, Biberach an der Riß, Германия</div>
-      </div>
-      <div class="fact-card">
-        <div class="fact-num">75+</div>
-        <div class="fact-label"><strong>Лет инноваций</strong>В холодильной технике класса Premium</div>
-      </div>
-      <div class="fact-card">
-        <div class="fact-num">5</div>
-        <div class="fact-label"><strong>Высот ниш</strong>87 · 121 · 139 · 177 · 194 см — любой гарнитур</div>
-      </div>
-      <div class="fact-card">
-        <div class="fact-num">A++</div>
-        <div class="fact-label"><strong>Энергокласс</strong>Экономичные компрессоры, умное управление</div>
-      </div>
+<!-- STRIP: 4 FACTS -->
+<div class="strip">
+  <div class="strip-inner">
+    <div class="strip-item">
+      <div class="strip-item-value">1949</div>
+      <div class="strip-item-label">Год основания</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-item-value">Германия</div>
+      <div class="strip-item-label">Производство</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-item-value">5</div>
+      <div class="strip-item-label">Высот ниш: 87–194 см</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-item-value">A++</div>
+      <div class="strip-item-label">Класс энергоэффективности</div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ─── CATEGORIES ─── -->
-<section class="categories" id="categories">
-  <div class="wrap">
-    <div class="section-header">
-      <div class="section-tag">Ассортимент</div>
-      <h2 class="section-h2">Категории Kitchen Line</h2>
-      <p class="section-lead">Полная линейка встраиваемой холодильной техники — для любого проекта кухни</p>
+<!-- CATEGORIES -->
+<section class="section" id="categories">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow">Каталог</div>
+      <h2>Категории встраиваемой техники</h2>
+      <p>Полная линейка встраиваемых холодильников, морозильников и винных шкафов Liebherr для любого формата кухни.</p>
     </div>
-
     <div class="cat-grid">
 
-      <!-- 1. Встраиваемые холодильники -->
-      <div class="cat-card wide">
-        <div class="cat-visual vis-fridge">
-          <svg class="appliance-svg" width="120" height="190" viewBox="0 0 120 190" fill="none">
-            <rect x="20" y="5" width="80" height="180" rx="6" fill="#B8CEF0" stroke="#8AAAD8" stroke-width="1.5"/>
-            <rect x="26" y="12" width="68" height="105" rx="4" fill="#D0E2F8"/>
-            <rect x="26" y="122" width="68" height="57" rx="4" fill="#BDD3F5"/>
-            <rect x="26" y="119" width="68" height="4" fill="#90B8E8"/>
-            <rect x="82" y="40" width="6" height="38" rx="3" fill="#7AA4D8"/>
-            <rect x="82" y="130" width="6" height="30" rx="3" fill="#7AA4D8"/>
-            <rect x="32" y="58" width="50" height="2" rx="1" fill="#A0C0EC"/>
-            <rect x="32" y="72" width="50" height="2" rx="1" fill="#A0C0EC"/>
-            <rect x="32" y="86" width="50" height="2" rx="1" fill="#A0C0EC"/>
-            <rect x="32" y="134" width="50" height="2" rx="1" fill="#90B0E4"/>
-            <rect x="32" y="148" width="50" height="2" rx="1" fill="#90B0E4"/>
-            <rect x="32" y="100" width="50" height="14" rx="3" fill="#2969C8" opacity=".35"/>
-            <text x="57" y="111" font-size="7" fill="white" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="700" letter-spacing="1">BioFresh</text>
-          </svg>
-        </div>
-        <div class="cat-info">
-          <span class="cat-badge">IC-серия</span>
-          <h3>Встраиваемые холодильники</h3>
-          <div class="cat-codes">ICNd · ICBNSd · ICNSd · ICBNdi</div>
-          <p>Полноразмерные встраиваемые холодильники с интеграцией под мебельный фасад. Невидимо вписываются в кухонный гарнитур любого дизайна. Опциональный отсек BioFresh и система DuoCooling.</p>
-          <div class="cat-dims">
-            <span class="dim-chip">Высота ниши 177–195 см</span>
-            <span class="dim-chip">Ширина 56–57 см</span>
-            <span class="dim-chip">Фасад заказчика</span>
+      <!-- 1: IC-серия -->
+      <div class="cat-card" onclick="openModal()">
+        <img class="cat-card-img"
+          src="https://assets-cdn.liebherr.com/versions/c14f26e0-5d68-4d6c-93e6-4c0879030aa0/w-1280_h-1280_f-webp/ICNd%205103.webp"
+          alt="Liebherr ICNd 5103 встраиваемый холодильник-морозильник 177 см"
+          loading="lazy">
+        <div class="cat-card-body">
+          <span class="cat-card-tag">177–195 см</span>
+          <div class="cat-card-title">Холодильники-морозильники IC</div>
+          <div class="cat-card-sub">Полноростовые встраиваемые модели с технологиями BioFresh и NoFrost. Идеальны для колонных ниш 178–196 см.</div>
+          <div class="cat-card-models">
+            <span class="model-chip">ICNd 5103</span>
+            <span class="model-chip">ICBNSd 5123</span>
+            <span class="model-chip">ICNSd 5103</span>
           </div>
-          <button class="cat-cta" onclick="openModal()">
+          <div class="cat-card-cta">
             Запросить стоимость
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#2969C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
         </div>
       </div>
 
-      <!-- 2. Compact -->
-      <div class="cat-card">
-        <div class="cat-visual vis-compact">
-          <svg class="appliance-svg" width="110" height="160" viewBox="0 0 110 160" fill="none">
-            <rect x="15" y="10" width="80" height="140" rx="6" fill="#C4D8F4" stroke="#96B8E4" stroke-width="1.5"/>
-            <rect x="21" y="17" width="68" height="125" rx="4" fill="#D8E8F8"/>
-            <rect x="79" y="45" width="6" height="60" rx="3" fill="#88AEDD"/>
-            <rect x="27" y="45" width="48" height="2" rx="1" fill="#A8C8F0"/>
-            <rect x="27" y="60" width="48" height="2" rx="1" fill="#A8C8F0"/>
-            <rect x="27" y="75" width="48" height="2" rx="1" fill="#A8C8F0"/>
-            <rect x="27" y="90" width="48" height="2" rx="1" fill="#A8C8F0"/>
-            <rect x="27" y="105" width="48" height="14" rx="3" fill="#2969C8" opacity=".3"/>
-            <text x="51" y="116" font-size="6.5" fill="white" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="700" letter-spacing=".8">BioFresh</text>
-          </svg>
-        </div>
-        <div class="cat-info">
-          <span class="cat-badge">IRB-серия</span>
-          <h3>Холодильники compact</h3>
-          <div class="cat-codes">IRBd · IRBci · IRCe · IRDdi</div>
-          <p>Компактные варианты для любой высоты ниши кухонного гарнитура. Идеальны для дополнительных зон хранения.</p>
-          <div class="cat-dims">
-            <span class="dim-chip">Высота ниши 87–178 см</span>
-            <span class="dim-chip">Ширина 56 см</span>
+      <!-- 2: IRB-серия -->
+      <div class="cat-card" onclick="openModal()">
+        <img class="cat-card-img"
+          src="https://assets-cdn.liebherr.com/versions/5e3e09f3-3f63-46af-8ce0-7e0818c8eb18/w-1280_h-1280_f-webp/IRBbi%204050.webp"
+          alt="Liebherr IRBbi 4050 встраиваемый холодильник"
+          loading="lazy">
+        <div class="cat-card-body">
+          <span class="cat-card-tag">87–178 см</span>
+          <div class="cat-card-title">Compact — холодильники IRB</div>
+          <div class="cat-card-sub">Встраиваемые холодильники для любой ниши: от компактных 87 см до полноростовых 178 см. Гибкость под любой проект.</div>
+          <div class="cat-card-models">
+            <span class="model-chip">IRBbi 4050</span>
+            <span class="model-chip">IRBPdi 5170</span>
+            <span class="model-chip">IRBdi 5150</span>
           </div>
-          <button class="cat-cta" onclick="openModal()">
+          <div class="cat-card-cta">
             Запросить стоимость
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#2969C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
         </div>
       </div>
 
-      <!-- 3. Морозильники -->
-      <div class="cat-card">
-        <div class="cat-visual vis-freezer">
-          <svg class="appliance-svg" width="110" height="170" viewBox="0 0 110 170" fill="none">
-            <rect x="15" y="5" width="80" height="158" rx="6" fill="#B0C8F0" stroke="#8AAAE0" stroke-width="1.5"/>
-            <rect x="21" y="12" width="68" height="144" rx="4" fill="#C8DCF8"/>
-            <rect x="79" y="40" width="6" height="70" rx="3" fill="#7898D8"/>
-            <rect x="27" y="40" width="48" height="2" rx="1" fill="#98B8EC"/>
-            <rect x="27" y="58" width="48" height="2" rx="1" fill="#98B8EC"/>
-            <rect x="27" y="76" width="48" height="2" rx="1" fill="#98B8EC"/>
-            <rect x="27" y="94" width="48" height="2" rx="1" fill="#98B8EC"/>
-            <rect x="27" y="112" width="48" height="2" rx="1" fill="#98B8EC"/>
-            <rect x="27" y="128" width="48" height="16" rx="3" fill="#1E52A8" opacity=".4"/>
-            <text x="51" y="140" font-size="6" fill="white" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="700" letter-spacing=".6">SuperFrost</text>
-          </svg>
-        </div>
-        <div class="cat-info">
-          <span class="cat-badge">SIFN / IFN-серия</span>
-          <h3>Встраиваемые морозильники</h3>
-          <div class="cat-codes">SIFNe · SIFNSe · SIFNdi · IFNci</div>
-          <p>Полная заморозка с технологией SuperFrost. Доступны форматы 177 см и компактный 87 см для любой зоны кухни.</p>
-          <div class="cat-dims">
-            <span class="dim-chip">Высота ниши 87 / 177 см</span>
-            <span class="dim-chip">Ширина 56 см</span>
+      <!-- 3: SIF морозильники -->
+      <div class="cat-card" onclick="openModal()">
+        <img class="cat-card-img"
+          src="https://assets-cdn.liebherr.com/versions/9e67c7a8-efa5-4f4a-96ee-74e37d86d70b/w-1280_h-1280_f-webp/SIFNhi%205188.webp"
+          alt="Liebherr SIFNhi 5188 встраиваемый морозильник"
+          loading="lazy">
+        <div class="cat-card-body">
+          <span class="cat-card-tag">177 см · NoFrost</span>
+          <div class="cat-card-title">Встраиваемые морозильники SIF</div>
+          <div class="cat-card-sub">Полноростовые встраиваемые морозильники с технологией NoFrost. Нет инея — нет лишних хлопот. Класс A++.</div>
+          <div class="cat-card-models">
+            <span class="model-chip">SIFNhi 5188</span>
+            <span class="model-chip">SIFNe 5188</span>
+            <span class="model-chip">SIFNSe 5188</span>
           </div>
-          <button class="cat-cta" onclick="openModal()">
+          <div class="cat-card-cta">
             Запросить стоимость
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#2969C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
         </div>
       </div>
 
-      <!-- 4. Винные шкафы -->
-      <div class="cat-card">
-        <div class="cat-visual vis-wine">
-          <svg class="appliance-svg" width="110" height="170" viewBox="0 0 110 170" fill="none">
-            <rect x="15" y="5" width="80" height="158" rx="6" fill="#D8C4E8" stroke="#B898D8" stroke-width="1.5"/>
-            <rect x="21" y="12" width="68" height="144" rx="4" fill="#EAD8F4"/>
-            <rect x="30" y="30" width="10" height="30" rx="5" fill="#7A4898" opacity=".6"/>
-            <rect x="44" y="30" width="10" height="30" rx="5" fill="#5A3878" opacity=".6"/>
-            <rect x="58" y="30" width="10" height="30" rx="5" fill="#8858A8" opacity=".6"/>
-            <rect x="72" y="30" width="8" height="30" rx="4" fill="#6A4088" opacity=".6"/>
-            <rect x="27" y="62" width="56" height="3" rx="1.5" fill="#C0A0E0"/>
-            <rect x="30" y="70" width="10" height="30" rx="5" fill="#7A4898" opacity=".5"/>
-            <rect x="44" y="70" width="10" height="30" rx="5" fill="#5A3878" opacity=".5"/>
-            <rect x="58" y="70" width="10" height="30" rx="5" fill="#8858A8" opacity=".5"/>
-            <rect x="72" y="70" width="8" height="30" rx="4" fill="#6A4088" opacity=".5"/>
-            <rect x="27" y="103" width="56" height="3" rx="1.5" fill="#C0A0E0"/>
-            <rect x="27" y="118" width="56" height="22" rx="4" fill="#2969C8" opacity=".25"/>
-            <text x="55" y="133" font-size="7" fill="#4A2878" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="700">12°–18°C</text>
-          </svg>
-        </div>
-        <div class="cat-info">
-          <span class="cat-badge">EWT-серия</span>
-          <h3>Винные климатические шкафы</h3>
-          <div class="cat-codes">EWTgb 3583 · EWTgb 2383 · EWTgb 1683</div>
-          <p>Встраиваемые винные шкафы с двумя температурными зонами для белых и красных вин. Три формата высоты под любую нишу.</p>
-          <div class="cat-dims">
-            <span class="dim-chip">Высота 87 / 122 / 177 см</span>
-            <span class="dim-chip">Ширина 56 см</span>
+      <!-- 4: Винные шкафы EWT -->
+      <div class="cat-card" onclick="openModal()">
+        <img class="cat-card-img"
+          src="https://assets-cdn.liebherr.com/versions/536ac4c9-dfa2-4ee6-9eed-48e8afb39824/w-1280_h-1280_f-webp/IRSe%205100.webp"
+          alt="Liebherr EWT встраиваемый винный шкаф"
+          loading="lazy">
+        <div class="cat-card-body">
+          <span class="cat-card-tag">87–178 см · Вино</span>
+          <div class="cat-card-title">Винные шкафы EWT</div>
+          <div class="cat-card-sub">Встраиваемые винные шкафы с двумя температурными зонами. Идеальные условия для красных и белых вин.</div>
+          <div class="cat-card-models">
+            <span class="model-chip">EWTgb 3583</span>
+            <span class="model-chip">EWTdf 3553</span>
+            <span class="model-chip">EWTgb 2383</span>
           </div>
-          <button class="cat-cta" onclick="openModal()">
+          <div class="cat-card-cta">
             Запросить стоимость
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#2969C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
         </div>
       </div>
 
-      <!-- 5. Подстольная группа -->
-      <div class="cat-card wide">
-        <div class="cat-visual vis-under">
-          <svg class="appliance-svg" width="200" height="120" viewBox="0 0 200 120" fill="none">
-            <rect x="10" y="10" width="180" height="16" rx="4" fill="#B8C8B0"/>
-            <rect x="20" y="26" width="75" height="80" rx="4" fill="#C8DCC4" stroke="#A0C098" stroke-width="1.5"/>
-            <rect x="26" y="42" width="60" height="2" rx="1" fill="#90B888"/>
-            <rect x="26" y="58" width="60" height="2" rx="1" fill="#90B888"/>
-            <rect x="26" y="74" width="60" height="2" rx="1" fill="#90B888"/>
-            <rect x="88" y="38" width="5" height="40" rx="2.5" fill="#78A870"/>
-            <rect x="105" y="26" width="75" height="80" rx="4" fill="#D8C8E8" stroke="#B8A0D0" stroke-width="1.5"/>
-            <rect x="111" y="38" width="8" height="58" rx="4" fill="#7A4898" opacity=".5"/>
-            <rect x="122" y="38" width="8" height="58" rx="4" fill="#5A3878" opacity=".5"/>
-            <rect x="133" y="38" width="8" height="58" rx="4" fill="#8858A8" opacity=".5"/>
-            <rect x="144" y="38" width="8" height="58" rx="4" fill="#6A4088" opacity=".45"/>
-            <rect x="155" y="38" width="8" height="58" rx="4" fill="#7A4898" opacity=".4"/>
-            <rect x="172" y="38" width="5" height="40" rx="2.5" fill="#A888C8"/>
-          </svg>
-        </div>
-        <div class="cat-info">
-          <span class="cat-badge">UR / SUF / UW-серия</span>
-          <h3>Подстольная группа</h3>
-          <div class="cat-codes">URD · URC · SUFD · SUFC · UWGB · UWPRI</div>
-          <p>Холодильники, морозильники и винные шкафы для монтажа под столешницу. Стандартная высота 60 см — идеально для островных кухонь, барных зон и дополнительного хранения.</p>
-          <div class="cat-dims">
-            <span class="dim-chip">Высота ниши ~60 см</span>
-            <span class="dim-chip">Ширина 60 см</span>
-            <span class="dim-chip">Холодильник / Морозильник / Вино</span>
+      <!-- 5: Подстольная группа -->
+      <div class="cat-card" onclick="openModal()">
+        <img class="cat-card-img"
+          src="https://assets-cdn.liebherr.com/versions/b0b222f1-605e-4a4c-be90-ac494418c59b/w-1280_h-1280_f-webp/SUFNh%20365i.webp"
+          alt="Liebherr SUFNh 365i подстольный морозильник"
+          loading="lazy">
+        <div class="cat-card-body">
+          <span class="cat-card-tag">60 см · Подстольные</span>
+          <div class="cat-card-title">Подстольная группа UR / SUF</div>
+          <div class="cat-card-sub">Встраиваемые холодильники и морозильники под столешницу 60 см. Для кухонных островов и малых кухонь.</div>
+          <div class="cat-card-models">
+            <span class="model-chip">URc 3016</span>
+            <span class="model-chip">URd 3153</span>
+            <span class="model-chip">SUFNh 365i</span>
           </div>
-          <button class="cat-cta" onclick="openModal()">
+          <div class="cat-card-cta">
             Запросить стоимость
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#2969C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6: IRSe / BioFresh -->
+      <div class="cat-card" onclick="openModal()">
+        <img class="cat-card-img"
+          src="https://assets-cdn.liebherr.com/versions/536ac4c9-dfa2-4ee6-9eed-48e8afb39824/w-1280_h-1280_f-webp/IRSe%205100.webp"
+          alt="Liebherr IRSe 5100 встраиваемый холодильник BioFresh"
+          loading="lazy">
+        <div class="cat-card-body">
+          <span class="cat-card-tag">177 см · BioFresh</span>
+          <div class="cat-card-title">BioFresh Premium IRSe</div>
+          <div class="cat-card-sub">Встраиваемые холодильники с эксклюзивным отделением BioFresh — свежесть продуктов до 3 раз дольше.</div>
+          <div class="cat-card-models">
+            <span class="model-chip">IRSe 5100</span>
+            <span class="model-chip">IRSei 5100</span>
+            <span class="model-chip">IRBPdi 5170</span>
+          </div>
+          <div class="cat-card-cta">
+            Запросить стоимость
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
         </div>
       </div>
 
@@ -730,387 +1096,397 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 40px 0; }
   </div>
 </section>
 
-<!-- ─── TECHNOLOGIES ─── -->
-<section class="technologies" id="technologies">
-  <div class="wrap">
-    <div class="section-header">
-      <div class="section-tag">Инновации</div>
-      <h2 class="section-h2">Ключевые технологии</h2>
-      <p class="section-lead">Запатентованные разработки Liebherr для сохранения свежести и удобства</p>
+<!-- TECHNOLOGIES -->
+<section class="section section-alt" id="technologies">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow">Технологии</div>
+      <h2>Немецкие инновации для вашего дома</h2>
+      <p>Четыре фирменные технологии Liebherr, которые задают стандарт в холодильной технике.</p>
     </div>
     <div class="tech-grid">
 
       <div class="tech-card">
         <div class="tech-icon">
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-            <path d="M13 3C8 3 4 7 4 12c0 3.3 1.7 6.2 4.3 7.9L9 22h8l.7-2.1C20.3 18.2 22 15.3 22 12c0-5-4-9-9-9z" stroke="#2969C8" stroke-width="1.8" stroke-linejoin="round"/>
-            <path d="M10 12c0-1.7 1.3-3 3-3s3 1.3 3 3" stroke="#2969C8" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M9 22h8" stroke="#2969C8" stroke-width="1.8" stroke-linecap="round"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a10 10 0 0 1 10 10c0 5.5-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2z"/>
+            <path d="M12 6v6l4 2"/>
           </svg>
         </div>
-        <div class="tech-body">
-          <h4>BioFresh</h4>
-          <p>Отдельный отсек с температурой около 0°C и оптимальной влажностью. Фрукты, овощи, мясо и рыба сохраняют свежесть до <strong>4 недель</strong> — вдвое дольше, чем в стандартном холодильнике.</p>
-          <span class="tech-detail">~0°C · оптимальная влажность · 2× дольше свежесть</span>
-        </div>
+        <div class="tech-title">BioFresh</div>
+        <div class="tech-desc">Поддерживает оптимальный микроклимат для разных типов продуктов. Фрукты, овощи, рыба и мясо хранятся свежими до 3 раз дольше.</div>
       </div>
 
       <div class="tech-card">
         <div class="tech-icon">
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-            <rect x="3" y="4" width="9" height="18" rx="3" stroke="#2969C8" stroke-width="1.8"/>
-            <rect x="14" y="4" width="9" height="18" rx="3" stroke="#2969C8" stroke-width="1.8"/>
-            <path d="M12 8c1.2 1.5 1.2 2.5 0 4" stroke="#2969C8" stroke-width="1.5" stroke-linecap="round"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 12h20M12 2v20"/>
+            <circle cx="12" cy="12" r="4"/>
           </svg>
         </div>
-        <div class="tech-body">
-          <h4>DuoCooling</h4>
-          <p>Два полностью независимых холодильных контура для отдела холодильника и морозильника. Отсутствие общей циркуляции воздуха — продукты не пересыхают, нет смешивания запахов.</p>
-          <span class="tech-detail">2 независимых контура · нет сухости · нет запахов</span>
-        </div>
+        <div class="tech-title">DuoCooling</div>
+        <div class="tech-desc">Два независимых контура охлаждения для холодильника и морозильника. Запахи не смешиваются, влажность поддерживается оптимально.</div>
       </div>
 
       <div class="tech-card">
         <div class="tech-icon">
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-            <path d="M13 4v4M13 18v4M4 13h4M18 13h4" stroke="#2969C8" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="13" cy="13" r="5" stroke="#2969C8" stroke-width="1.8"/>
-            <path d="M13 10v3l2 2" stroke="#2969C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
           </svg>
         </div>
-        <div class="tech-body">
-          <h4>SuperCool / SuperFrost</h4>
-          <p>Быстрое охлаждение продуктов после покупки (SuperCool) и экстренная заморозка (SuperFrost). Автоматически возвращается к обычному режиму — никакой лишней нагрузки на компрессор.</p>
-          <span class="tech-detail">Авторежим · защита продуктов · энергоэффективно</span>
-        </div>
+        <div class="tech-title">NoFrost</div>
+        <div class="tech-desc">Автоматическая разморозка — никакого инея и наледи. Равномерное охлаждение по всему объёму. Забудьте о размораживании навсегда.</div>
       </div>
 
       <div class="tech-card">
         <div class="tech-icon">
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-            <rect x="4" y="4" width="18" height="18" rx="4" stroke="#2969C8" stroke-width="1.8"/>
-            <path d="M8 13h10M8 9h10M8 17h6" stroke="#2969C8" stroke-width="1.6" stroke-linecap="round"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
           </svg>
         </div>
-        <div class="tech-body">
-          <h4>SmartSteel</h4>
-          <p>Специальная антиотпечатковая нержавеющая сталь — поверхность остаётся чистой без специальных средств. Устойчива к царапинам, сохраняет премиальный вид на долгие годы.</p>
-          <span class="tech-detail">Антиотпечатки · устойчивость к царапинам · без следов</span>
-        </div>
+        <div class="tech-title">SmartSteel</div>
+        <div class="tech-desc">Специальное покрытие нержавеющей стали — устойчиво к отпечаткам пальцев. Поверхность всегда выглядит безупречно без лишних усилий.</div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ─── SIZES ─── -->
-<section class="sizes" id="sizes">
-  <div class="wrap">
-    <div class="section-header">
-      <div class="section-tag">Размеры ниш</div>
-      <h2 class="section-h2">Под любой гарнитур</h2>
-      <p class="section-lead">Liebherr Kitchen Line перекрывает все стандартные высоты ниш встраиваемой мебели</p>
-    </div>
-    <div class="sizes-grid">
-      <div class="size-bar-wrap">
-        <div class="size-bar-outer">
-          <div class="size-bar-fill" style="height:45%"></div>
-        </div>
-        <div class="size-label">87 см</div>
-        <div class="size-sub">Compact · Подстольная группа</div>
+<!-- BIOFRESH FEATURE SECTION -->
+<section class="section">
+  <div class="section-inner">
+    <div class="biofresh-wrap">
+      <div class="biofresh-img">
+        <img
+          src="https://assets-cdn.liebherr.com/versions/5e3e09f3-3f63-46af-8ce0-7e0818c8eb18/w-1280_h-1280_f-webp/IRBbi%204050.webp"
+          alt="Liebherr IRBbi встраиваемый холодильник"
+          loading="lazy">
       </div>
-      <div class="size-bar-wrap">
-        <div class="size-bar-outer">
-          <div class="size-bar-fill" style="height:62%"></div>
-        </div>
-        <div class="size-label">121 см</div>
-        <div class="size-sub">Compact · Вино</div>
-      </div>
-      <div class="size-bar-wrap">
-        <div class="size-bar-outer">
-          <div class="size-bar-fill" style="height:71%"></div>
-        </div>
-        <div class="size-label">139 см</div>
-        <div class="size-sub">Compact</div>
-      </div>
-      <div class="size-bar-wrap">
-        <div class="size-bar-outer">
-          <div class="size-bar-fill" style="height:91%"></div>
-        </div>
-        <div class="size-label">177 см</div>
-        <div class="size-sub">Полноразмерные · Морозильники · Вино</div>
-      </div>
-      <div class="size-bar-wrap">
-        <div class="size-bar-outer">
-          <div class="size-bar-fill" style="height:100%"></div>
-        </div>
-        <div class="size-label">194 см</div>
-        <div class="size-sub">Полноразмерные (высокие)</div>
-      </div>
-    </div>
-    <p class="sizes-note">Ширина ниши: <strong>56–57 см</strong> (IC/IRB/SIFN/EWT) · <strong>60 см</strong> (подстольная группа UR/SUF/UW)</p>
-  </div>
-</section>
-
-<!-- ─── PARTNER BLOCK ─── -->
-<section class="partner-block" id="contact">
-  <div class="wrap">
-    <div class="partner-inner">
-      <div class="partner-left">
-        <h2>Home Project —<br>ваш партнёр по Liebherr в Москве</h2>
-        <p>Мы дистрибьюторы встраиваемой премиальной техники в Москве. Работаем напрямую с поставщиком, поэтому можем предложить лучшие условия и экспертную поддержку от выбора до установки.</p>
-        <div class="partner-points">
-          <div class="partner-point">Полный ассортимент Kitchen Line — холодильники, морозильники, винные шкафы</div>
-          <div class="partner-point">Подбор под проект: размер ниши, тип интеграции, бюджет</div>
-          <div class="partner-point">Работаем с дизайнерами, архитекторами и конечными покупателями</div>
-          <div class="partner-point">Официальная поставка, гарантия производителя</div>
-        </div>
-      </div>
-      <div class="partner-right">
-        <h3>Константин Померанец</h3>
-        <div class="role">Менеджер по Liebherr · Home Project</div>
-        <div class="contact-row">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5" stroke="white" stroke-width="1.2" stroke-linecap="round"/><rect x="1" y="3" width="14" height="10" rx="2" stroke="white" stroke-width="1.2"/></svg>
-          info@homeproject.online
-        </div>
-        <div class="contact-row">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="white" stroke-width="1.2"/><path d="M8 4.5v3.5l2 2" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Пн–Пт, 10:00–19:00 МСК
-        </div>
-        <button class="btn-contact" onclick="openModal()">Написать Константину</button>
+      <div class="biofresh-body">
+        <div class="biofresh-eyebrow">Серия IRB Compact</div>
+        <h2>Встроится в любую кухню. Буквально.</h2>
+        <p>Серия Compact — встраиваемые холодильники Liebherr для ниш от 87 до 178 см. Идеальное решение для проектов, где нужна гибкость: острова, пеналы, нестандартные расстановки.</p>
+        <ul class="biofresh-list">
+          <li>
+            <div class="biofresh-check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="biofresh-list-text">
+              <strong>5 высот ниши: 87 / 121 / 139 / 177 / 194 см</strong>
+              Подходит для любого архитектурного решения без компромиссов.
+            </div>
+          </li>
+          <li>
+            <div class="biofresh-check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="biofresh-list-text">
+              <strong>Шарниры SoftClose и светодиодное освещение</strong>
+              Мягкое закрывание и равномерная подсветка всего внутреннего пространства.
+            </div>
+          </li>
+          <li>
+            <div class="biofresh-check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="biofresh-list-text">
+              <strong>Плоский шарнир для фасадов под мебель</strong>
+              Дверь полностью скрывается за кухонным фасадом — безупречная эстетика.
+            </div>
+          </li>
+          <li>
+            <div class="biofresh-check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="biofresh-list-text">
+              <strong>Гарантия 5 лет на компрессор</strong>
+              Немецкое качество подкреплено официальной гарантией производителя.
+            </div>
+          </li>
+        </ul>
+        <button class="btn-primary btn-trigger" onclick="ym(109998802,'reachGoal','liebherr_modal_open')">Получить консультацию</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── LEAD FORM SECTION ─── -->
-<section class="lead-section" id="form">
-  <div class="wrap">
-    <div class="lead-inner">
-      <div class="lead-left">
-        <h2>Запросить стоимость</h2>
-        <p>Оставьте заявку — мы подберём подходящие модели Kitchen Line под ваш проект и пришлём предложение с ценами.</p>
-        <div class="lead-benefits">
-          <div class="lead-benefit">Бесплатная консультация по выбору</div>
-          <div class="lead-benefit">Подбор под конкретный размер ниши</div>
-          <div class="lead-benefit">Ответ в течение рабочего дня</div>
-          <div class="lead-benefit">Работаем с физлицами, дизайнерами, застройщиками</div>
+<!-- SIZES -->
+<section class="section section-alt" id="sizes">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow">Размеры ниш</div>
+      <h2>Пять высот — любой формат кухни</h2>
+      <p>Liebherr предлагает встраиваемую технику под ниши 5 стандартных высот. Мы поможем подобрать нужный вариант под ваш проект.</p>
+    </div>
+
+    <div class="sizes-wrap">
+      <div class="size-bar">
+        <div class="size-visual" style="height:100px">
+          <span class="size-visual-cm">87</span>
         </div>
+        <div class="size-bar-label">87 см</div>
+        <div class="size-bar-note">Низкий<br>подстольный</div>
       </div>
-      <div class="lead-right">
-        <div id="sectionFormArea">
-          <form id="sectionForm" onsubmit="submitSectionForm(event)">
-            <div class="form-group">
-              <label>Имя *</label>
-              <input type="text" id="sf-name" placeholder="Как к вам обращаться" required>
-            </div>
-            <div class="form-group">
-              <label>Телефон *</label>
-              <input type="tel" id="sf-phone" placeholder="+7 (___) ___-__-__" required>
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" id="sf-email" placeholder="для отправки КП">
-            </div>
-            <div class="form-group">
-              <label>Запрос / комментарий</label>
-              <textarea id="sf-comment" placeholder="Например: нужен холодильник высотой 177 см под тёмный фасад + винный шкаф 87 см"></textarea>
-            </div>
-            <div class="check-group">
-              <input type="checkbox" id="sf-pd" required>
-              <span>Я согласен(а) на <a href="#" onclick="return false">обработку персональных данных</a> в соответствии с ФЗ № 152 *</span>
-            </div>
-            <div class="check-group">
-              <input type="checkbox" id="sf-news">
-              <span>Согласен(а) получать информацию об акциях и новинках Home Project</span>
-            </div>
-            <button type="submit" class="btn-submit">Отправить заявку</button>
-            <p class="form-note">* обязательные поля</p>
-          </form>
+      <div class="size-bar">
+        <div class="size-visual" style="height:138px">
+          <span class="size-visual-cm">121</span>
         </div>
-        <div class="form-success" id="sectionSuccess">
-          <div class="check-big">✅</div>
-          <h3>Заявка отправлена!</h3>
-          <p>Константин свяжется с вами в течение рабочего дня.</p>
+        <div class="size-bar-label">121 см</div>
+        <div class="size-bar-note">Пенал<br>компакт</div>
+      </div>
+      <div class="size-bar">
+        <div class="size-visual" style="height:168px">
+          <span class="size-visual-cm">139</span>
         </div>
+        <div class="size-bar-label">139 см</div>
+        <div class="size-bar-note">Средний<br>пенал</div>
+      </div>
+      <div class="size-bar">
+        <div class="size-visual" style="height:218px">
+          <span class="size-visual-cm">177</span>
+        </div>
+        <div class="size-bar-label">177 см</div>
+        <div class="size-bar-note">Полная<br>высота</div>
+      </div>
+      <div class="size-bar">
+        <div class="size-visual" style="height:250px">
+          <span class="size-visual-cm">194</span>
+        </div>
+        <div class="size-bar-label">194 см</div>
+        <div class="size-bar-note">Высокий<br>колонный</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+      <p style="font-size:15px; color:var(--ink-mid); margin-bottom:24px;">Не уверены, какая высота ниши вам нужна? Наш специалист поможет.</p>
+      <button class="btn-primary btn-trigger" onclick="ym(109998802,'reachGoal','liebherr_modal_open')">Получить консультацию по размерам</button>
+    </div>
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section class="form-section" id="contact">
+  <div class="form-inner">
+    <div class="form-text">
+      <h2>Узнать стоимость и наличие</h2>
+      <p>Оставьте заявку — специалист Home Project перезвонит в течение рабочего дня, ответит на вопросы по характеристикам и ценам, поможет с подбором.</p>
+      <ul class="form-promises">
+        <li>Бесплатная консультация эксперта</li>
+        <li>Подбор под размер вашей ниши</li>
+        <li>Актуальные цены и сроки поставки</li>
+        <li>Официальная гарантия и документы</li>
+      </ul>
+    </div>
+    <div class="form-card">
+      <h3>Запросить стоимость</h3>
+      <div class="form-card-sub">Liebherr Kitchen Line · Москва</div>
+      <div id="form-body">
+        <div class="form-group">
+          <label for="f-name">Имя <span style="color:var(--blue)">*</span></label>
+          <input type="text" id="f-name" placeholder="Ваше имя" required>
+        </div>
+        <div class="form-group">
+          <label for="f-phone">Телефон <span style="color:var(--blue)">*</span></label>
+          <input type="tel" id="f-phone" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <div class="form-group">
+          <label for="f-email">Email</label>
+          <input type="email" id="f-email" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label for="f-comment">Комментарий</label>
+          <textarea id="f-comment" placeholder="Модель, размер ниши, вопросы..."></textarea>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="consent-pd" required>
+          <label for="consent-pd">Согласен на <a href="https://homeproject.online/obrabotka-personalnyh-dannyh" target="_blank">обработку персональных данных</a> <span style="color:var(--blue)">*</span></label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="consent-promo">
+          <label for="consent-promo">Согласен получать информацию об акциях и новинках</label>
+        </div>
+        <button class="btn-submit" id="submit-btn" onclick="submitForm()">Отправить заявку</button>
+      </div>
+      <div class="form-success" id="form-success">
+        <div class="form-success-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h4>Заявка отправлена!</h4>
+        <p>Специалист Home Project свяжется с вами в течение рабочего дня.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
+<!-- FOOTER -->
 <footer>
-  <div class="wrap">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo">Home Project</div>
-      </div>
-      <div class="footer-copy">
-        © 2026 Home Project · Официальный партнёр Liebherr в Москве · info@homeproject.online · homeproject.online
-      </div>
-      <div class="footer-links">
-        <a href="https://homeproject.online" target="_blank">homeproject.online</a>
-        <a href="mailto:info@homeproject.online">info@homeproject.online</a>
-      </div>
-    </div>
-    <div class="footer-disclaimer">
-      Цены не являются публичной офертой. Технические характеристики могут быть изменены производителем.
-    </div>
+  <div class="footer-brand">HOME PROJECT</div>
+  <div>Официальный дистрибьютор Liebherr в России</div>
+  <div style="margin-top:8px;">
+    <a href="mailto:info@homeproject.online">info@homeproject.online</a>
+    <span class="footer-divider"></span>
+    <a href="https://homeproject.online?utm_source=liebherr_main&utm_medium=internal&utm_campaign=liebherr_catalog_aug2026" target="_blank">homeproject.online</a>
+  </div>
+  <div style="margin-top:12px; font-size:12px; color:rgba(255,255,255,.3);">
+    © 2026 Home Project · Все права защищены
   </div>
 </footer>
 
-<!-- ─── MODAL ─── -->
-<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
-  <div class="modal" id="modalBox">
-    <button class="modal-close" onclick="closeModal()">×</button>
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
     <h3>Запросить стоимость</h3>
-    <p class="modal-sub">Liebherr Kitchen Line · Home Project Москва</p>
-
-    <div id="modalFormArea">
-      <form id="modalForm" onsubmit="submitModalForm(event)">
-        <div class="form-group">
-          <label>Имя *</label>
-          <input type="text" id="m-name" placeholder="Как к вам обращаться" required>
-        </div>
-        <div class="form-group">
-          <label>Телефон *</label>
-          <input type="tel" id="m-phone" placeholder="+7 (___) ___-__-__" required>
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="m-email" placeholder="для отправки КП">
-        </div>
-        <div class="form-group">
-          <label>Запрос / комментарий</label>
-          <textarea id="m-comment" rows="3" placeholder="Модель, размер ниши, пожелания..."></textarea>
-        </div>
-        <div class="check-group">
-          <input type="checkbox" id="m-pd" required>
-          <span>Я согласен(а) на <a href="#" onclick="return false">обработку персональных данных</a> в соответствии с ФЗ № 152 *</span>
-        </div>
-        <div class="check-group">
-          <input type="checkbox" id="m-news">
-          <span>Согласен(а) получать информацию об акциях и новинках Home Project</span>
-        </div>
-        <button type="submit" class="btn-submit">Отправить заявку</button>
-        <p class="form-note">* обязательные поля</p>
-      </form>
+    <div class="modal-sub">Liebherr Kitchen Line · Москва · Ответим в течение рабочего дня</div>
+    <div id="modal-form-body">
+      <div class="form-group">
+        <label for="m-name">Имя <span style="color:var(--blue)">*</span></label>
+        <input type="text" id="m-name" placeholder="Ваше имя" required>
+      </div>
+      <div class="form-group">
+        <label for="m-phone">Телефон <span style="color:var(--blue)">*</span></label>
+        <input type="tel" id="m-phone" placeholder="+7 (___) ___-__-__" required>
+      </div>
+      <div class="form-group">
+        <label for="m-email">Email</label>
+        <input type="email" id="m-email" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label for="m-comment">Комментарий</label>
+        <textarea id="m-comment" placeholder="Модель, размер ниши, вопросы..."></textarea>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" id="m-consent-pd" required>
+        <label for="m-consent-pd">Согласен на <a href="https://homeproject.online/obrabotka-personalnyh-dannyh" target="_blank">обработку персональных данных</a> <span style="color:var(--blue)">*</span></label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" id="m-consent-promo">
+        <label for="m-consent-promo">Согласен получать информацию об акциях и новинках</label>
+      </div>
+      <button class="btn-submit" id="modal-submit-btn" onclick="submitModal()">Отправить заявку</button>
     </div>
-    <div class="form-success" id="modalSuccess">
-      <div class="check-big">✅</div>
-      <h3>Заявка отправлена!</h3>
-      <p>Константин свяжется с вами в течение рабочего дня.</p>
+    <div class="form-success" id="modal-success">
+      <div class="form-success-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h4>Заявка отправлена!</h4>
+      <p>Специалист Home Project свяжется с вами в течение рабочего дня.</p>
     </div>
   </div>
 </div>
 
 <script>
 const TG_TOKEN = '8625678936:AAHxkRhllb1oMdwOGhaPOaky3-BtyOHZCX4';
-const TG_CHAT = '-5277917910';
-
-function sendToTelegram(data) {
-  const { name, phone, email, comment, news, source } = data;
-  const newsStr = news ? '✅ согласие на рассылку' : '—';
-  const text = [
-    '🏠 <b>Home Project — Liebherr Kitchen Line</b>',
-    '',
-    `👤 <b>Имя:</b> ${name}`,
-    `📞 <b>Телефон:</b> ${phone}`,
-    `✉️ <b>Email:</b> ${email || '—'}`,
-    `💬 <b>Запрос:</b> ${comment || '—'}`,
-    `📰 <b>Рассылка:</b> ${newsStr}`,
-    `📍 <b>Источник:</b> ${source}`,
-    '',
-    `🕐 ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}`
-  ].join('\n');
-
-  return fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: TG_CHAT, text, parse_mode: 'HTML' })
-  });
-}
-
-function scrollTo(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
+const TG_CHAT  = '-5277917910';
 
 function openModal() {
-  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('modal').classList.add('open');
   document.body.style.overflow = 'hidden';
-  if (typeof ym !== 'undefined') ym(109998802, 'reachGoal', 'liebherr_modal_open');
+  if (typeof ym !== 'undefined') ym(109998802,'reachGoal','liebherr_modal_open');
 }
 function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
+  document.getElementById('modal').classList.remove('open');
   document.body.style.overflow = '';
 }
-function handleOverlayClick(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeModal();
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
 
-async function submitModalForm(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.btn-submit');
-  btn.disabled = true;
-  btn.textContent = 'Отправка...';
+document.querySelectorAll('.btn-trigger').forEach(function(btn) {
+  btn.addEventListener('click', openModal);
+});
 
-  const data = {
-    name: document.getElementById('m-name').value.trim(),
-    phone: document.getElementById('m-phone').value.trim(),
-    email: document.getElementById('m-email').value.trim(),
-    comment: document.getElementById('m-comment').value.trim(),
-    news: document.getElementById('m-news').checked,
-    source: 'Модалка · liebherr-preview'
-  };
-
-  try {
-    await sendToTelegram(data);
-    if (typeof ym !== 'undefined') ym(109998802, 'reachGoal', 'liebherr_lead_sent');
-  } catch (err) {
-    console.error('TG error', err);
-  }
-
-  document.getElementById('modalFormArea').style.display = 'none';
-  document.getElementById('modalSuccess').style.display = 'block';
-}
-
-async function submitSectionForm(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.btn-submit');
-  btn.disabled = true;
-  btn.textContent = 'Отправка...';
-
-  const data = {
-    name: document.getElementById('sf-name').value.trim(),
-    phone: document.getElementById('sf-phone').value.trim(),
-    email: document.getElementById('sf-email').value.trim(),
-    comment: document.getElementById('sf-comment').value.trim(),
-    news: document.getElementById('sf-news').checked,
-    source: 'Форма на странице · liebherr-preview'
-  };
-
-  try {
-    await sendToTelegram(data);
-    if (typeof ym !== 'undefined') ym(109998802, 'reachGoal', 'liebherr_lead_sent');
-  } catch (err) {
-    console.error('TG error', err);
-  }
-
-  document.getElementById('sectionFormArea').style.display = 'none';
-  document.getElementById('sectionSuccess').style.display = 'block';
+function buildMessage(name, phone, email, comment, promo) {
+  var utmInfo = '?utm_source=liebherr_main&utm_medium=internal&utm_campaign=liebherr_catalog_aug2026';
+  var lines = [
+    '\uD83D\uDD35 <b>Новая заявка — Liebherr Kitchen Line</b>',
+    '',
+    '\uD83D\uDC64 <b>Имя:</b> ' + name,
+    '\uD83D\uDCDE <b>Телефон:</b> ' + phone,
+    email ? '\uD83D\uDCE7 <b>Email:</b> ' + email : null,
+    comment ? '\uD83D\uDCAC <b>Комментарий:</b> ' + comment : null,
+    '',
+    '\u2705 Согласие ПД: да',
+    promo ? '\uD83D\uDCE3 Рассылка: согласен' : '\uD83D\uDCE3 Рассылка: нет',
+    '',
+    '\uD83D\uDD17 <b>Источник:</b> liebherr-preview' + utmInfo,
+    '\uD83D\uDD50 ' + new Date().toLocaleString('ru-RU', {timeZone:'Europe/Moscow'})
+  ];
+  return lines.filter(function(l){ return l !== null; }).join('\n');
 }
 
-(function() {
-  const UTM = '?utm_source=liebherr_main&utm_medium=internal&utm_campaign=liebherr_catalog_aug2026';
-  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
-    const href = a.getAttribute('href');
-    if (href && href !== '#') {
-      a.setAttribute('href', href + UTM);
-    }
+async function sendTelegram(text) {
+  const url = 'https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage';
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({chat_id: TG_CHAT, text: text, parse_mode: 'HTML'})
   });
-})();
+  return res.ok;
+}
+
+async function submitForm() {
+  var name    = document.getElementById('f-name').value.trim();
+  var phone   = document.getElementById('f-phone').value.trim();
+  var email   = document.getElementById('f-email').value.trim();
+  var comment = document.getElementById('f-comment').value.trim();
+  var pd      = document.getElementById('consent-pd').checked;
+  var promo   = document.getElementById('consent-promo').checked;
+
+  if (!name || !phone) { alert('Пожалуйста, заполните Имя и Телефон'); return; }
+  if (!pd) { alert('Необходимо согласие на обработку персональных данных'); return; }
+
+  var btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Отправляем...';
+
+  var ok = await sendTelegram(buildMessage(name, phone, email, comment, promo));
+  if (ok) {
+    if (typeof ym !== 'undefined') ym(109998802,'reachGoal','liebherr_lead_sent');
+    document.getElementById('form-body').style.display = 'none';
+    document.getElementById('form-success').classList.add('visible');
+  } else {
+    btn.disabled = false;
+    btn.textContent = 'Отправить заявку';
+    alert('Ошибка отправки. Пожалуйста, напишите нам на info@homeproject.online');
+  }
+}
+
+async function submitModal() {
+  var name    = document.getElementById('m-name').value.trim();
+  var phone   = document.getElementById('m-phone').value.trim();
+  var email   = document.getElementById('m-email').value.trim();
+  var comment = document.getElementById('m-comment').value.trim();
+  var pd      = document.getElementById('m-consent-pd').checked;
+  var promo   = document.getElementById('m-consent-promo').checked;
+
+  if (!name || !phone) { alert('Пожалуйста, заполните Имя и Телефон'); return; }
+  if (!pd) { alert('Необходимо согласие на обработку персональных данных'); return; }
+
+  var btn = document.getElementById('modal-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Отправляем...';
+
+  var ok = await sendTelegram(buildMessage(name, phone, email, comment, promo));
+  if (ok) {
+    if (typeof ym !== 'undefined') ym(109998802,'reachGoal','liebherr_lead_sent');
+    document.getElementById('modal-form-body').style.display = 'none';
+    document.getElementById('modal-success').classList.add('visible');
+    setTimeout(closeModal, 3000);
+  } else {
+    btn.disabled = false;
+    btn.textContent = 'Отправить заявку';
+    alert('Ошибка отправки. Пожалуйста, напишите нам на info@homeproject.online');
+  }
+}
 </script>
+
 </body>
 </html>
