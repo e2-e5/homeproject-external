@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Превью: Telegram-карточка лида — Home Project</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1c1e22;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px}
+
+h1{color:#fff;font-size:16px;font-weight:600;margin-bottom:6px;text-align:center;letter-spacing:.02em}
+.subtitle{color:#aaa;font-size:12px;text-align:center;margin-bottom:28px;line-height:1.5}
+
+/* Phone mockup */
+.phone{width:100%;max-width:390px;background:#17212b;border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.6)}
+.phone-header{background:#1f2937;padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.phone-back{color:#5b9bd5;font-size:18px;cursor:pointer}
+.phone-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#2b5278,#5b9bd5);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0}
+.phone-info{flex:1}
+.phone-name{color:#fff;font-size:14px;font-weight:600}
+.phone-status{color:#71b97f;font-size:11px}
+.phone-icons{color:#aaa;font-size:16px;display:flex;gap:16px}
+
+.chat-area{padding:16px 12px;display:flex;flex-direction:column;gap:4px;min-height:420px;background:#17212b}
+
+/* Date label */
+.date-label{text-align:center;color:#8096a7;font-size:11px;margin:6px 0 10px}
+
+/* Bot message */
+.msg{max-width:88%;align-self:flex-start;background:#182533;border-radius:14px 14px 14px 2px;padding:12px 14px;position:relative}
+.msg-bot-name{color:#5b9bd5;font-size:12px;font-weight:600;margin-bottom:6px}
+.msg-text{color:#e8eaed;font-size:13.5px;line-height:1.55}
+.msg-text b{font-weight:600;color:#fff}
+.msg-text .brand-tag{display:inline-block;background:#2b5278;color:#7ec8e3;font-size:11px;padding:1px 8px;border-radius:20px;font-weight:600;margin-left:4px;vertical-align:middle}
+.msg-time{color:#627d8a;font-size:11px;text-align:right;margin-top:6px}
+.status-bar{display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.07)}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#71b97f;flex-shrink:0}
+.status-text{font-size:11px;color:#71b97f;font-weight:600;letter-spacing:.03em}
+
+/* Inline keyboard */
+.kbd{padding:0 0 4px}
+.kbd-row{display:flex;gap:4px;margin-top:4px}
+.kbd-btn{flex:1;background:#2b3d52;border:none;border-radius:8px;color:#e8eaed;font-size:12px;padding:8px 6px;cursor:pointer;font-family:inherit;transition:background .15s;text-align:center;line-height:1.2}
+.kbd-btn:hover{background:#3a5068}
+.kbd-btn.active{background:#1a4a2e;color:#71b97f;font-weight:600}
+.kbd-btn.danger{color:#e8534f}
+
+/* Status updated message */
+.msg-update{max-width:88%;align-self:flex-start;background:#182533;border-radius:14px 14px 14px 2px;padding:10px 14px;margin-top:8px;opacity:0;transform:translateY(8px);transition:all .3s ease}
+.msg-update.visible{opacity:1;transform:translateY(0)}
+.msg-update-text{color:#e8eaed;font-size:13px;line-height:1.5}
+.msg-update-text .upd-badge{display:inline-block;border-radius:4px;padding:1px 8px;font-size:11px;font-weight:600}
+
+/* Explanation block */
+.explainer{width:100%;max-width:390px;margin-top:28px}
+.step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.step:last-child{border:none}
+.step-num{width:28px;height:28px;border-radius:50%;background:#2b5278;color:#7ec8e3;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-title{color:#fff;font-size:13px;font-weight:600;margin-bottom:3px}
+.step-desc{color:#8096a7;font-size:12px;line-height:1.5}
+
+.section-label{color:#5b9bd5;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin:24px 0 10px;width:100%;max-width:390px}
+
+/* Who gets it */
+.recipients{width:100%;max-width:390px;background:#1f2937;border-radius:12px;padding:14px 16px;margin-bottom:24px}
+.rec-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12.5px}
+.rec-row:last-child{border:none}
+.rec-brand{color:#aaa}
+.rec-who{color:#e8eaed;font-weight:500}
+
+/* Note */
+.note{width:100%;max-width:390px;background:#1a2a1a;border:1px solid #2d5a2d;border-radius:10px;padding:12px 14px;margin-top:16px}
+.note-text{color:#86c986;font-size:12px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<h1>📱 Вариант Б — Telegram-карточка лида</h1>
+<p class="subtitle">Так выглядит сообщение когда заявка поступает с сайта.<br>Нажмите кнопку чтобы увидеть обновление статуса.</p>
+
+<!-- Phone mockup -->
+<div class="phone">
+  <div class="phone-header">
+    <span class="phone-back">‹</span>
+    <div class="phone-avatar">HP</div>
+    <div class="phone-info">
+      <div class="phone-name">HomeProject Leads</div>
+      <div class="phone-status">bot · online</div>
+    </div>
+    <div class="phone-icons">⋯</div>
+  </div>
+
+  <div class="chat-area">
+    <div class="date-label">Сегодня, 12 авг 2026</div>
+
+    <!-- Lead card message -->
+    <div class="msg">
+      <div class="msg-bot-name">🏠 HomeProject Bot</div>
+      <div class="msg-text">
+        🔔 <b>Новая заявка HP-0024</b><br><br>
+        📍 Бренд: <b>Snaidero</b> <span class="brand-tag">Кухни</span><br>
+        👤 Имя: <b>Алексей Морозов</b><br>
+        📞 Телефон: <b>+7 915 882-44-17</b><br>
+        💬 Запрос: <i>Кухня OLA, планировка 3.5м, белый глянец, Москва, ЖК Садовые Кварталы</i><br><br>
+        🕐 <b>12.08.2026, 19:45 МСК</b>
+        <div class="status-bar">
+          <div class="status-dot"></div>
+          <div class="status-text" id="status-text">НОВАЯ</div>
+        </div>
+      </div>
+      <div class="msg-time">19:45</div>
+
+      <!-- Inline keyboard -->
+      <div class="kbd">
+        <div class="kbd-row">
+          <button class="kbd-btn active" id="btn-new" onclick="setStatus('new','НОВАЯ','#71b97f','Статус обновлён: НОВАЯ — заявка ещё не обработана')">🟢 Новая</button>
+          <button class="kbd-btn" id="btn-contacted" onclick="setStatus('contacted','CONTACTED','#5b9bd5','✅ Контакт установлен — взяли в работу')">📞 Связались</button>
+        </div>
+        <div class="kbd-row">
+          <button class="kbd-btn" id="btn-consult" onclick="setStatus('consult','КОНСУЛЬТАЦИЯ','#f0a32c','Идёт консультация с клиентом')">🤝 Консультация</button>
+          <button class="kbd-btn" id="btn-kp" onclick="setStatus('kp','КП ОТПРАВЛЕНО','#a97cf0','КП отправлено клиенту')">📄 КП отправлено</button>
+        </div>
+        <div class="kbd-row">
+          <button class="kbd-btn" id="btn-won" onclick="setStatus('won','✅ СДЕЛКА','#71b97f','🏆 Сделка закрыта! Лид HP-0024 выиграно')">🏆 Выиграно</button>
+          <button class="kbd-btn danger" id="btn-lost" onclick="setStatus('lost','❌ ПОТЕРЯНО','#e8534f','Лид HP-0024 закрыт — не выиграно')">❌ Потеряно</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update notification (appears after button click) -->
+    <div class="msg-update" id="update-msg">
+      <div class="msg-update-text">
+        ✏️ <b>Статус HP-0024 обновлён</b><br>
+        <span id="update-detail">→ НОВАЯ</span><br>
+        <span style="color:#627d8a;font-size:11px">Константин · 19:47</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Who gets it -->
+<div class="section-label">Кто получает заявки</div>
+<div class="recipients">
+  <div class="rec-row"><span class="rec-brand">Snaidero (кухни)</span><span class="rec-who">Анна Чаяускене</span></div>
+  <div class="rec-row"><span class="rec-brand">Miele</span><span class="rec-who">Даутова Анна</span></div>
+  <div class="rec-row"><span class="rec-brand">Gaggenau</span><span class="rec-who">Даутова Анна</span></div>
+  <div class="rec-row"><span class="rec-brand">Liebherr</span><span class="rec-who">Даутова Анна</span></div>
+  <div class="rec-row"><span class="rec-brand">Премиальные ТВ</span><span class="rec-who">Даутова Анна</span></div>
+  <div class="rec-row" style="border:none"><span class="rec-brand">Все бренды (копия)</span><span class="rec-who">cat-group@mail.ru</span></div>
+</div>
+
+<!-- How it works -->
+<div class="section-label">Как работает</div>
+<div class="explainer">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Клиент заполняет форму на сайте</div>
+      <div class="step-desc">Snaidero.html / Miele / Liebherr / Premium TV — на любом лендинге или главном сайте</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Лид получает номер HP-XXXX</div>
+      <div class="step-desc">Автоматически. Сохраняется в нашем журнале. info@homeproject.online получает копию.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Карточка уходит в Telegram</div>
+      <div class="step-desc">В общий канал gaggenau.market + дублируется на cat-group@mail.ru и info@gaggenau.market</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <div class="step-title">Ответственный нажимает кнопку статуса</div>
+      <div class="step-desc">Константин или Анна обновляет статус — мы видим в реальном времени. История сохраняется.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <div class="step-title">Аналитика по итогам месяца</div>
+      <div class="step-desc">Сколько лидов, по каким брендам, конверсия HP-XXXX → выиграно. Всё в одном месте.</div>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  <div class="note-text">💡 <b>Что сейчас нужно от Константина:</b> его Telegram username (или добавить бота в канал gaggenau.market), и уточнить email Даутовой Анны — видимо <code>da@kuechengesellschaft.ru</code>.</div>
+</div>
+
+<script>
+const btns = {
+  new:'btn-new', contacted:'btn-contacted', consult:'btn-consult',
+  kp:'btn-kp', won:'btn-won', lost:'btn-lost'
+};
+function setStatus(key, label, color, detail) {
+  // Reset all buttons
+  Object.values(btns).forEach(id => {
+    document.getElementById(id).classList.remove('active');
+  });
+  // Activate clicked
+  document.getElementById(btns[key]).classList.add('active');
+  // Update status text
+  document.getElementById('status-text').textContent = label;
+  document.getElementById('status-text').style.color = color;
+  document.querySelector('.status-dot').style.background = color;
+  // Show update message
+  const upd = document.getElementById('update-msg');
+  document.getElementById('update-detail').textContent = '→ ' + label;
+  upd.classList.add('visible');
+  // Scroll into view
+  setTimeout(() => upd.scrollIntoView({behavior:'smooth', block:'nearest'}), 100);
+}
+</script>
+</body>
+</html>
