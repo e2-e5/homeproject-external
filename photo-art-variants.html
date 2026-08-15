@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Художественные варианты фото</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0e0f13;--card:#181A20;--border:#2A2D38;--txt:#E8EAED;--mut:#9AA0AB;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:Inter,sans-serif;padding:28px}
+h1{font-size:20px;font-weight:700;margin-bottom:6px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:28px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.card-body{padding:14px}
+.card-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.card-desc{font-size:12px;color:var(--mut);line-height:1.5}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+.b-orig{background:#2a2d38;color:#9AA0AB}
+.b-oil{background:#2d1a08;color:#d4824a}
+.b-wc{background:#0a1a2d;color:#5ab0d4}
+.b-sk{background:#1a1a1a;color:#ccc}
+.b-pop{background:#2d0a2d;color:#d45ad4}
+.b-van{background:#0a1a0a;color:#5ad45a}
+.b-rec{background:#2d2410;color:#C9A24B}
+canvas{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+.loading{display:flex;align-items:center;justify-content:center;height:300px;color:var(--mut);font-size:13px}
+</style>
+
+<!-- SVG filters for artistic effects -->
+<svg style="position:absolute;width:0;height:0" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Oil painting: displacement + saturation boost -->
+    <filter id="oil" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04 0.04" numOctaves="5" seed="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+      <feColorMatrix in="disp" type="saturate" values="2.2" result="sat"/>
+      <feComponentTransfer in="sat" result="contrast">
+        <feFuncR type="gamma" amplitude="1" exponent="0.85" offset="0.05"/>
+        <feFuncG type="gamma" amplitude="1" exponent="0.85" offset="0.05"/>
+        <feFuncB type="gamma" amplitude="1" exponent="0.85" offset="0.05"/>
+      </feComponentTransfer>
+      <feGaussianBlur in="contrast" stdDeviation="0.5"/>
+    </filter>
+
+    <!-- Watercolor: soft blur + wash edges + transparency feel -->
+    <filter id="watercolor" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="1.8" result="blur"/>
+      <feTurbulence type="turbulence" baseFrequency="0.025 0.03" numOctaves="3" seed="7" result="noise"/>
+      <feDisplacementMap in="blur" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+      <feColorMatrix in="disp" type="matrix"
+        values="0.9 0.1 0   0 0.08
+                0   0.9 0.1 0 0.06
+                0.1 0   0.8 0 0.1
+                0   0   0   1 0" result="tinted"/>
+      <feComponentTransfer in="tinted">
+        <feFuncR type="linear" slope="0.85" intercept="0.12"/>
+        <feFuncG type="linear" slope="0.82" intercept="0.1"/>
+        <feFuncB type="linear" slope="0.78" intercept="0.14"/>
+      </feComponentTransfer>
+    </filter>
+
+    <!-- Sketch / pencil: edge detect + desaturate -->
+    <filter id="sketch" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="0" result="gray"/>
+      <feGaussianBlur in="gray" stdDeviation="0.4" result="blur"/>
+      <feComposite in="gray" in2="blur" operator="arithmetic" k1="0" k2="2.2" k3="-1.2" k4="0" result="edge"/>
+      <feComponentTransfer in="edge">
+        <feFuncR type="gamma" amplitude="1.2" exponent="1.4" offset="-0.05"/>
+        <feFuncG type="gamma" amplitude="1.2" exponent="1.4" offset="-0.05"/>
+        <feFuncB type="gamma" amplitude="1.2" exponent="1.4" offset="-0.05"/>
+      </feComponentTransfer>
+    </filter>
+
+    <!-- Van Gogh: strong swirl displacement + vivid -->
+    <filter id="vangogh" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feTurbulence type="turbulence" baseFrequency="0.012 0.018" numOctaves="4" seed="12" result="noise1"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise1" scale="14" xChannelSelector="R" yChannelSelector="B" result="d1"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.03 0.02" numOctaves="3" seed="5" result="noise2"/>
+      <feDisplacementMap in="d1" in2="noise2" scale="8" xChannelSelector="G" yChannelSelector="R" result="d2"/>
+      <feColorMatrix in="d2" type="saturate" values="2.8" result="vivid"/>
+      <feComponentTransfer in="vivid">
+        <feFuncR type="gamma" amplitude="1.1" exponent="0.75" offset="0.03"/>
+        <feFuncG type="gamma" amplitude="1.1" exponent="0.78" offset="0.02"/>
+        <feFuncB type="gamma" amplitude="1.15" exponent="0.7" offset="0.05"/>
+      </feComponentTransfer>
+      <feGaussianBlur stdDeviation="0.6"/>
+    </filter>
+
+    <!-- Pop Art: posterize via hard gamma steps -->
+    <filter id="popart" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="4" result="s"/>
+      <feComponentTransfer in="s">
+        <feFuncR type="discrete" tableValues="0 0.2 0.5 0.8 1"/>
+        <feFuncG type="discrete" tableValues="0 0.15 0.4 0.75 1"/>
+        <feFuncB type="discrete" tableValues="0 0.25 0.6 0.9 1"/>
+      </feComponentTransfer>
+    </filter>
+
+    <!-- Charcoal: strong contrast grayscale + texture noise -->
+    <filter id="charcoal" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="0" result="gray"/>
+      <feComponentTransfer in="gray">
+        <feFuncR type="gamma" amplitude="1.3" exponent="1.6" offset="-0.1"/>
+        <feFuncG type="gamma" amplitude="1.3" exponent="1.6" offset="-0.1"/>
+        <feFuncB type="gamma" amplitude="1.3" exponent="1.6" offset="-0.1"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+</svg>
+
+</head>
+<body>
+
+<h1>Художественные варианты фото</h1>
+<div class="sub">Каждый вариант — другой художественный стиль. Фон Дубая сохранён.<br>Выберите стиль → сохраним финальное изображение.</div>
+
+<div class="grid" id="grid">
+  <div class="card">
+    <div class="loading" id="loading-msg">⏳ Загрузка изображения...</div>
+  </div>
+</div>
+
+<script>
+const IMG_URL = 'https://new.homeproject.online/static/1786815515731-1786815406963-IMG_8673.jpeg';
+
+const variants = [
+  {
+    id: 'orig',
+    badge: 'b-orig', label: 'Оригинал',
+    title: 'А — Исходное фото',
+    desc: 'Отправная точка.',
+    filter: 'none'
+  },
+  {
+    id: 'oil',
+    badge: 'b-oil', label: '🎨 Масло на холсте',
+    title: 'Б — Живопись маслом',
+    desc: 'Насыщенные тёплые тона, мазки, объём. Как портрет в технике oil painting.',
+    filter: 'url(#oil)'
+  },
+  {
+    id: 'wc',
+    badge: 'b-wc', label: '💧 Акварель',
+    title: 'В — Акварельный этюд',
+    desc: 'Мягкие переходы, размытые края, тонкие промытые цвета. Изысканный художественный стиль.',
+    filter: 'url(#watercolor)'
+  },
+  {
+    id: 'sk',
+    badge: 'b-sk', label: '✏️ Карандаш',
+    title: 'Г — Карандашный набросок',
+    desc: 'Контурный рисунок, как художественный портрет. Строго и выразительно.',
+    filter: 'url(#sketch)'
+  },
+  {
+    id: 'vg',
+    badge: 'b-van', label: '🌀 Ван Гог',
+    title: 'Д — Стиль Ван Гога',
+    desc: 'Вихревые мазки, яркие экспрессивные цвета. Энергичный, запоминающийся образ.',
+    filter: 'url(#vangogh)'
+  },
+  {
+    id: 'pop',
+    badge: 'b-pop', label: '🎭 Поп-арт',
+    title: 'Е — Поп-арт (Уорхол)',
+    desc: 'Плоские яркие цвета, жёсткие границы. Как афиша или постер.',
+    filter: 'url(#popart)'
+  },
+  {
+    id: 'ch',
+    badge: 'b-sk', label: '🖤 Уголь',
+    title: 'Ж — Угольный портрет',
+    desc: 'Глубокий чёрный, богатые серые тона. Академический художественный рисунок.',
+    filter: 'url(#charcoal)'
+  },
+  {
+    id: 'oilwarm',
+    badge: 'b-rec', label: '⭐ Масло + тепло',
+    title: 'З — Тёплая живопись ⭐ Рекомендую',
+    desc: 'Масло с усиленными тёплыми тонами — золото, охра, умбра. Деловой портрет в классической манере.',
+    filter: 'url(#oil) saturate(1.6) sepia(25%) contrast(1.1)'
+  }
+];
+
+const img = new Image();
+img.crossOrigin = 'anonymous';
+img.onload = function() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  variants.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    // Use SVG image with filter for clean rendering
+    const w = img.naturalWidth, h = img.naturalHeight;
+    const sz = Math.min(w, h);
+    const ox = (w - sz) / 2, oy = 0;
+
+    card.innerHTML = `
+      <div style="width:100%;aspect-ratio:1/1;overflow:hidden;position:relative;background:#111">
+        <svg xmlns="http://www.w3.org/2000/svg"
+          viewBox="${ox} ${oy} ${sz} ${sz}"
+          width="100%" height="100%"
+          style="display:block">
+          <image href="${IMG_URL}"
+            x="0" y="0"
+            width="${w}" height="${h}"
+            filter="${v.filter}"
+            preserveAspectRatio="xMidYMin meet"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <span class="badge ${v.badge}">${v.label}</span>
+        <div class="card-title">${v.title}</div>
+        <div class="card-desc">${v.desc}</div>
+      </div>`;
+    grid.appendChild(card);
+  });
+};
+img.onerror = function() {
+  document.getElementById('grid').innerHTML =
+    '<div style="padding:40px;color:#F85149">Не удалось загрузить фото. Обновите страницу.</div>';
+};
+img.src = IMG_URL;
+</script>
+</body>
+</html>
