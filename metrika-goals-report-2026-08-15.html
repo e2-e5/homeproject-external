@@ -1,1 +1,144 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Project — Метрика · дашборд 15.08.2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+<style>
+  :root{--bg:#181A20;--card:#1F2129;--border:#2A2D38;--txt:#E8EAED;--mut:#9AA0AB;--acc:#C9A24B;--grn:#3FB950;--red:#F85149;--yel:#D8A93B;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:Inter,-apple-system,Segoe UI,Roboto,sans-serif;padding:32px;line-height:1.5}
+  h1{font-size:26px;font-weight:700;margin-bottom:4px}
+  .sub{color:var(--mut);font-size:14px;margin-bottom:28px}
+  h2{font-size:17px;font-weight:600;margin:34px 0 14px;border-left:3px solid var(--acc);padding-left:10px}
+  .grid{display:grid;gap:16px}
+  .kpi{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+  .kpi .card .lbl{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  .kpi .card .val{font-size:28px;font-weight:700;margin-top:6px}
+  .kpi .card .delta{font-size:12px;margin-top:4px}
+  .up{color:var(--grn)}.down{color:var(--red)}.warn{color:var(--yel)}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border)}
+  th{color:var(--mut);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.3px}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .chart-wrap{position:relative;height:280px}
+  .note{background:#241f16;border:1px solid #4a3d1f;border-radius:10px;padding:14px 16px;font-size:13px;color:#e6d8b0;margin-top:12px}
+  .concl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:8px}
+  .concl .card{font-size:13px}
+  .concl .card b{display:block;margin-bottom:4px}
+  .g{border-left:3px solid var(--grn)}.r{border-left:3px solid var(--red)}.y{border-left:3px solid var(--yel)}
+  @media(max-width:720px){.two{grid-template-columns:1fr}body{padding:16px}}
+</style>
+</head>
+<body>
+  <h1>Дашборд Яндекс.Метрики — Home Project</h1>
+  <div class="sub">Основной сайт homeproject.online (счётчик 110362997) · обновлено 15.08.2026<br>
+  Сравнение: <b>Июль (полный месяц)</b> vs <b>Август 1–15</b> (половина месяца)</div>
+
+  <div class="note">⚠️ Август показан за 1–15 (первая половина). Для честного сравнения смотри и абсолют, и темп (×2). Внешние лендинги (счётчик 109998802) в отчёт не попали — токен потерял к ним доступ (ошибка 403), нужно переподключить.</div>
+
+  <h2>Ключевые показатели</h2>
+  <div class="grid kpi">
+    <div class="card"><div class="lbl">Визиты</div><div class="val">108</div><div class="delta warn">июль 321 · темп ×2 ≈ 216</div></div>
+    <div class="card"><div class="lbl">Посетители</div><div class="val">55</div><div class="delta warn">июль 169 · темп ×2 ≈ 110</div></div>
+    <div class="card"><div class="lbl">Отказы</div><div class="val">28,7%</div><div class="delta up">▼ было 38,0% — лучше</div></div>
+    <div class="card"><div class="lbl">Глубина</div><div class="val">3,31</div><div class="delta up">▲ было 2,13 — глубже</div></div>
+    <div class="card"><div class="lbl">Время на сайте</div><div class="val">8:09</div><div class="delta up">▲ было 4:48 — дольше</div></div>
+    <div class="card"><div class="lbl">Заявки KP Lead</div><div class="val">3</div><div class="delta warn">июль 7 · темп ×2 ≈ 6</div></div>
+  </div>
+
+  <h2>Сравнение периодов</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Метрика</th><th class="num">Июль</th><th class="num">Август 1–15</th><th class="num">Темп ×2</th><th>Оценка</th></tr></thead>
+      <tbody>
+        <tr><td>Визиты</td><td class="num">321</td><td class="num">108</td><td class="num">216</td><td class="warn">🟡 ниже темпа</td></tr>
+        <tr><td>Посетители</td><td class="num">169</td><td class="num">55</td><td class="num">110</td><td class="warn">🟡 ниже темпа</td></tr>
+        <tr><td>Отказы, %</td><td class="num">38,0</td><td class="num">28,7</td><td class="num">—</td><td class="up">🟢 лучше</td></tr>
+        <tr><td>Глубина просмотра</td><td class="num">2,13</td><td class="num">3,31</td><td class="num">—</td><td class="up">🟢 лучше</td></tr>
+        <tr><td>Время, сек</td><td class="num">288</td><td class="num">489</td><td class="num">—</td><td class="up">🟢 лучше</td></tr>
+        <tr><td>Заявки (KP Lead)</td><td class="num">7</td><td class="num">3</td><td class="num">6</td><td class="warn">🟡 около темпа</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Источники трафика</h2>
+  <div class="two">
+    <div class="card"><div class="chart-wrap"><canvas id="srcBar"></canvas></div></div>
+    <div class="card"><div class="chart-wrap"><canvas id="srcDonut"></canvas></div></div>
+  </div>
+
+  <h2>Заявки по кампаниям (UTM, август)</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Источник</th><th>Кампания</th><th class="num">Визиты</th><th class="num">Заявки</th></tr></thead>
+      <tbody>
+        <tr><td>coldy</td><td>re-engage-aug26</td><td class="num">3</td><td class="num">0</td></tr>
+        <tr><td>telegram</td><td>sunday-home-2026-08</td><td class="num">3</td><td class="num">0</td></tr>
+        <tr><td>linkedin</td><td>day12_price-update</td><td class="num">1</td><td class="num">0</td></tr>
+        <tr><td>unisender</td><td>welcome-kitchen-studio-2026-07-08</td><td class="num">1</td><td class="num">0</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Размеченного UTM-трафика мало (8 визитов) и без заявок. Три заявки августа пришли с неразмеченных каналов (прямой/органика). Вывод: рассылки и посты почти не размечены — теряем атрибуцию.</div>
+  </div>
+
+  <h2>Топ страниц · Устройства · Гео</h2>
+  <div class="two">
+    <div class="card">
+      <table>
+        <thead><tr><th>Страница</th><th class="num">Визиты</th></tr></thead>
+        <tbody>
+          <tr><td>/ru (главная)</td><td class="num">78</td></tr>
+          <tr><td>/ru/store</td><td class="num">6</td></tr>
+          <tr><td>kp-request.html (форма КП)</td><td class="num">3</td></tr>
+          <tr><td>/ru/page/designers</td><td class="num">3</td></tr>
+          <tr><td>Küppersbusch KI 68000 (уценка)</td><td class="num">3</td></tr>
+          <tr><td>Gaggenau combi-steam</td><td class="num">2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="chart-wrap" style="height:120px"><canvas id="devChart"></canvas></div>
+      <table style="margin-top:14px">
+        <thead><tr><th>Город</th><th class="num">Визиты</th></tr></thead>
+        <tbody>
+          <tr><td>Москва</td><td class="num">35</td></tr>
+          <tr><td>Санкт-Петербург</td><td class="num">1</td></tr>
+          <tr><td>Красногорск / Одинцово / Домодедово</td><td class="num">3</td></tr>
+          <tr><td>Зарубеж (Амстердам, Сингапур, Стокгольм…)</td><td class="num">6</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Выводы</h2>
+  <div class="concl">
+    <div class="card g"><b>🟢 Качество трафика выросло</b>Отказы 38%→29%, глубина 2,1→3,3, время 4:48→8:09. Пришла более вовлечённая аудитория.</div>
+    <div class="card y"><b>🟡 Объём проседает</b>По темпу август идёт ниже июля (216 vs 321 визит). Нужны новые касания — рассылка/посты.</div>
+    <div class="card r"><b>🔴 UTM почти не размечен</b>Только 8 размеченных визитов, 3 заявки — с «прямого». Теряем атрибуцию. Размечать ВСЕ ссылки.</div>
+    <div class="card y"><b>🟡 Заявки в норме темпа</b>3 за половину месяца ≈ 6 к концу, как в июле (7). Конверсия держится.</div>
+    <div class="card g"><b>🟢 Мобайл = десктоп 50/50</b>PC 54 / смартфоны 54. Мобильная вёрстка критична — трафик поровну.</div>
+    <div class="card g"><b>🟢 Ядро — Москва</b>35 из ~55 визитов из Москвы. Гео-фокус выдержан.</div>
+  </div>
+
+<script>
+Chart.defaults.color='#9AA0AB';Chart.defaults.borderColor='#2A2D38';Chart.defaults.font.family='Inter,sans-serif';
+new Chart(document.getElementById('srcBar'),{type:'bar',
+ data:{labels:['Прямой','Внутр.','Ссылки','Поиск','Рассылки','Мессендж.'],
+  datasets:[
+   {label:'Июль',data:[163,45,37,11,58,1],backgroundColor:'#4a4d5a'},
+   {label:'Август 1–15',data:[69,12,11,6,4,4],backgroundColor:'#C9A24B'}]},
+ options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Источники: июль vs август',color:'#E8EAED'}},scales:{y:{beginAtZero:true}}}});
+new Chart(document.getElementById('srcDonut'),{type:'doughnut',
+ data:{labels:['Прямой','Внутр.','Ссылки','Поиск','Рассылки','Мессендж.'],
+  datasets:[{data:[69,12,11,6,4,4],backgroundColor:['#C9A24B','#4a6da7','#3FB950','#D8A93B','#8a63d2','#e06c9a']}]},
+ options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Структура источников (август)',color:'#E8EAED'},legend:{position:'right'}}}});
+new Chart(document.getElementById('devChart'),{type:'bar',
+ data:{labels:['ПК','Смартфоны'],datasets:[{data:[54,54],backgroundColor:['#4a6da7','#C9A24B']}]},
+ options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'Устройства',color:'#E8EAED'}},scales:{x:{beginAtZero:true}}}});
+</script>
+</body>
+</html>
