@@ -170,6 +170,12 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 .form-submit{width:100%;background:var(--sam);color:white;padding:15px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;transition:all .25s;margin-top:4px}
 .form-submit:hover{background:var(--sam2)}
 .form-note{font-size:11px;color:var(--text3);text-align:center;margin-top:12px;line-height:1.5}
+.form-consent{display:flex;align-items:flex-start;gap:10px;margin-top:16px;margin-bottom:6px}
+.form-consent input[type=checkbox]{width:16px;height:16px;flex-shrink:0;margin-top:2px;accent-color:var(--sam);cursor:pointer}
+.form-consent label{font-size:11px;color:var(--text3);line-height:1.55;cursor:pointer}
+.form-consent label a{color:var(--text2);text-decoration:underline;text-underline-offset:2px}
+.form-consent label a:hover{color:var(--gold)}
+.consent-error{border-color:rgba(229,80,0,.6)!important}
 .footer{background:var(--card);border-top:1px solid var(--border);padding:44px 80px;display:flex;align-items:center;justify-content:space-between}
 .footer-logo{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--text);opacity:.4}
 .footer-center{display:flex;gap:32px}
@@ -426,6 +432,10 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
         <select class="form-select"><option value="">Выберите</option><option>Samsung The Wall (от 110") — от 8 млн ₽</option><option>Samsung Micro LED 101" — от 7 млн ₽</option><option>Samsung Micro LED 89" — от 4,5 млн ₽</option><option>Samsung Micro LED 76" — от 2,5 млн ₽</option><option>Hisense 116" ULED X — от 1,5 млн ₽</option><option>Нужна консультация</option></select>
       </div>
       <div class="form-field"><div class="form-label">Комментарий</div><textarea class="form-textarea" placeholder="Площадь, срок, особые требования…"></textarea></div>
+      <div class="form-consent">
+        <input type="checkbox" id="consent-pd">
+        <label for="consent-pd">Я согласен(на) на <a href="https://homeproject.online/policy" target="_blank">обработку персональных данных</a> в соответствии с ФЗ-152 и получение информационных сообщений от Home Project</label>
+      </div>
       <button class="form-submit" id="submitBtn">Отправить запрос →</button>
       <div class="form-note">Данные конфиденциальны и не передаются третьим лицам</div>
     </div>
@@ -444,8 +454,11 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 
 <script>
 document.getElementById('submitBtn').addEventListener('click',function(){
-  var n=document.getElementById('fi-name'),p=document.getElementById('fi-phone');
-  if(!n.value.trim()||!p.value.trim()){[n,p].forEach(function(el){if(!el.value.trim()){el.style.borderColor='rgba(229,80,0,.6)';setTimeout(function(){el.style.borderColor=''},2200)}});return;}
+  var n=document.getElementById('fi-name'),p=document.getElementById('fi-phone'),c=document.getElementById('consent-pd');
+  var ok=true;
+  [n,p].forEach(function(el){if(!el.value.trim()){el.style.borderColor='rgba(229,80,0,.6)';setTimeout(function(){el.style.borderColor=''},2200);ok=false;}});
+  if(!c.checked){c.parentElement.style.outline='1px solid rgba(229,80,0,.5)';setTimeout(function(){c.parentElement.style.outline=''},2200);ok=false;}
+  if(!ok)return;
   this.textContent='✓ Заявка отправлена';this.style.background='rgba(20,160,80,.55)';this.disabled=true;
 });
 var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='none';io.unobserve(e.target)}})},{threshold:0.08});
