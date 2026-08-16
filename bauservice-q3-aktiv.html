@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>БауСервис Q3 2026 — Оснащение ТТ — Актив</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:  #1E2761;
+  --white: #FFFFFF;
+  --blue-l:#CADCFC;
+  --gray:  #5B6472;
+  --card:  #F4F6FB;
+  --red:   #C0392B;
+  --orange:#E67E22;
+  --green: #27AE60;
+  --blue:  #4472C4;
+  --line:  #E0E4EF;
+}
+
+body {
+  background: #b0b8c8;
+  font-family: Arial, sans-serif;
+}
+
+.slide {
+  width: 297mm;
+  height: 167mm;
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+  page-break-after: always;
+  break-after: page;
+  display: block;
+  margin: 0 auto 14px;
+  box-shadow: 0 3px 16px rgba(0,0,0,.30);
+}
+.slide.dark { background: var(--navy); }
+
+.inner {
+  position: absolute;
+  inset: 0;
+  padding: 14mm 16mm 10mm;
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  font-size: 10pt; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--blue-l); margin-bottom: 4mm;
+}
+.slide-title {
+  font-family: Georgia, serif; font-size: 22pt; font-weight: 700;
+  line-height: 1.2; color: var(--white); margin-bottom: 3mm;
+}
+.slide-title.dark-text { color: var(--navy); }
+.subtitle { font-size: 9pt; font-style: italic; color: var(--gray); margin-bottom: 5mm; }
+.subtitle.light { color: var(--blue-l); }
+.meta { font-size: 9pt; font-style: italic; color: var(--blue-l); margin-top: 6mm; }
+.footer-label {
+  position: absolute; bottom: 5mm; left: 16mm;
+  font-size: 7.5pt; color: var(--gray);
+}
+.footer-label.light { color: rgba(202,220,252,.6); }
+
+.divider { height: 1px; background: var(--line); margin-bottom: 4mm; }
+
+.cards-row { display: flex; gap: 4mm; flex: 1; align-items: stretch; }
+.card {
+  flex: 1; background: var(--card); border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.10);
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 4mm 3mm; text-align: center;
+}
+.card .big { font-family: Georgia,serif; font-size: 22pt; font-weight: 700; line-height: 1; margin-bottom: 2mm; }
+.card .lbl { font-size: 8pt; color: var(--gray); line-height: 1.35; }
+.note { font-size: 7.5pt; font-style: italic; color: var(--gray); margin-top: 3mm; }
+
+.block-row { display: flex; gap: 4mm; margin-bottom: 3.5mm; align-items: stretch; }
+.block-stripe { width: 3px; border-radius: 2px; flex-shrink: 0; }
+.block-left { flex: 0 0 115mm; }
+.block-right { flex: 1; }
+.block-title { font-family: Georgia,serif; font-size: 11pt; font-weight: 700; color: var(--navy); margin-bottom: 1mm; }
+.block-stage { font-size: 8.5pt; font-weight: 700; margin-bottom: 1mm; }
+.block-reason { font-size: 8pt; font-style: italic; color: var(--gray); }
+.block-resp { font-size: 8pt; color: var(--navy); line-height: 1.4; }
+
+.badge {
+  display: inline-block; padding: 1.5px 6px; border-radius: 20px;
+  font-size: 7pt; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .4px; color: var(--white); margin-bottom: 2mm;
+}
+.bg-red    { background: var(--red); }
+.bg-orange { background: var(--orange); }
+.bg-green  { background: var(--green); }
+.bg-blue   { background: var(--blue); }
+.bg-navy   { background: var(--navy); }
+.txt-red    { color: var(--red); }
+.txt-orange { color: var(--orange); }
+.txt-green  { color: var(--green); }
+.txt-navy   { color: var(--navy); }
+
+table { width: 100%; border-collapse: collapse; font-size: 8pt; }
+thead tr { background: var(--navy); }
+thead th { color: var(--white); padding: 3px 5px; text-align: left; font-size: 7.5pt; font-weight: 700; }
+tbody tr:nth-child(even) { background: #F8F9FC; }
+tbody td { padding: 3.5px 5px; vertical-align: middle; color: var(--navy); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; flex: 1; }
+.col-hdr {
+  border-radius: 4px; padding: 3.5mm 4mm; font-size: 10pt; font-weight: 700;
+  color: var(--white); text-align: center; margin-bottom: 3mm;
+}
+.mini-card {
+  background: var(--card); border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  padding: 3mm 4mm; margin-bottom: 2.5mm; text-align: center;
+}
+.mini-card .big2 { font-family: Georgia,serif; font-size: 18pt; font-weight: 700; line-height: 1; margin-bottom: 1mm; }
+.mini-card .lbl2 { font-size: 8pt; color: var(--gray); line-height: 1.3; }
+
+.decision-banner {
+  border-radius: 5px; padding: 4mm 5mm; font-family: Georgia,serif;
+  font-size: 11pt; font-weight: 700; color: var(--white); margin-bottom: 4mm; line-height: 1.3;
+}
+.bullet-row { display: flex; gap: 4mm; margin-bottom: 3.5mm; align-items: flex-start; }
+.bullet-num {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9pt; font-weight: 700; color: var(--white); margin-top: 1px;
+}
+.bullet-text { font-size: 8.5pt; color: var(--white); line-height: 1.45; flex: 1; }
+
+.cp-row { display: flex; gap: 4mm; margin-bottom: 3mm; align-items: center; }
+.cp-date {
+  flex-shrink: 0; width: 26mm; border-radius: 4px; padding: 2.5mm 3mm;
+  font-size: 8.5pt; font-weight: 700; color: var(--white); text-align: center;
+}
+.cp-text { flex: 1; font-size: 8.5pt; color: var(--white); line-height: 1.4; }
+.cp-resp { flex-shrink: 0; width: 28mm; font-size: 8pt; font-weight: 700; color: var(--blue-l); text-align: right; }
+
+@media print {
+  body { background: none; }
+  .slide { margin: 0; box-shadow: none; width: 100%; height: 100vh; }
+  @page { size: A4 landscape; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 — TITLE -->
+<div class="slide dark">
+  <div class="inner" style="justify-content:center;">
+    <div class="eyebrow">БАУСЕРВИС</div>
+    <div class="slide-title" style="font-size:26pt; margin-bottom:5mm;">
+      Оснащение торговых точек:<br>статус, риски и решения актива
+    </div>
+    <div class="meta">Управление дистрибуции &nbsp;&middot;&nbsp; данные на 16.08.2026 &nbsp;&middot;&nbsp; для актива</div>
+  </div>
+</div>
+
+<!-- SLIDE 2 — KEY METRICS -->
+<div class="slide">
+  <div class="inner">
+    <div class="slide-title dark-text" style="font-size:17pt;">Ситуация на 16.08.2026</div>
+    <div class="subtitle">Реновация, актуализация выставок, открытие франшиз — три процесса в Q3 2026</div>
+    <div class="divider"></div>
+    <div class="cards-row">
+      <div class="card"><div class="big txt-red">89%</div><div class="lbl">объектов в зоне<br>риска (КРАСНАЯ)</div></div>
+      <div class="card"><div class="big txt-red">242 дня</div><div class="lbl">максимальная<br>просрочка по объекту</div></div>
+      <div class="card"><div class="big txt-navy">3</div><div class="lbl">главных тормоза<br>в трёх процессах</div></div>
+      <div class="card"><div class="big txt-navy">11</div><div class="lbl">ответственных<br>по всей сети</div></div>
+    </div>
+    <div class="note">SLA норматив — 90 дней на полный цикл. По большинству объектов превышен в 1,5–3 раза. Без решений на активе Q3 создаст хвост на Q4.</div>
+  </div>
+  <div class="footer-label">Шаг 1 · Диагностика — БауСервис</div>
+</div>
+
+<!-- SLIDE 3 — THREE BOTTLENECKS -->
+<div class="slide">
+  <div class="inner">
+    <div class="slide-title dark-text" style="font-size:17pt;">Три главных тормоза Q3</div>
+    <div class="subtitle">Выявлены по данным ПЛАН III КВАРТАЛА — этапы, помеченные как «главный тормоз»</div>
+    <div class="divider"></div>
+    <div class="block-row">
+      <div class="block-stripe bg-red"></div>
+      <div class="block-left">
+        <div class="block-title">Реновация ТТ</div>
+        <div class="block-stage txt-red">Тормоз: Этап 2.5 — подписание планограммы партнёром</div>
+        <div class="block-reason">Причина: РМ не дожимают переговоры. Нет жёсткого дедлайна у партнёра.</div>
+      </div>
+      <div class="block-right">
+        <span class="badge bg-red">КРИТИЧНО</span>
+        <div class="block-resp">Ответственные: Головачев Е. (ПТГ, 89%), Демичев Н. (НСБ, 73%), Уварова Н.В. (ЦФО)</div>
+      </div>
+    </div>
+    <div class="block-row">
+      <div class="block-stripe bg-red"></div>
+      <div class="block-left">
+        <div class="block-title">Актуализация выставок</div>
+        <div class="block-stage txt-red">Тормоз: Этап 2.3 — утверждение планограммы партнёром</div>
+        <div class="block-reason">Причина: Партнёр затягивает согласование. Отсутствует SLA.</div>
+      </div>
+      <div class="block-right">
+        <span class="badge bg-red">КРИТИЧНО</span>
+        <div class="block-resp">Ответственные: Уварова Н.В. (ЦФО/МСК), Захаров С. (ЧЛБ, 45%)</div>
+      </div>
+    </div>
+    <div class="block-row">
+      <div class="block-stripe bg-orange"></div>
+      <div class="block-left">
+        <div class="block-title">Открытие франшиз</div>
+        <div class="block-stage txt-orange">Тормоз: Этап 2.1 — разработка планограммы, очередь в СТМ</div>
+        <div class="block-reason">Причина: Нет приоритизации заявок. Нет SLA на исполнение СТМ-отдела.</div>
+      </div>
+      <div class="block-right">
+        <span class="badge bg-orange">УЗКОЕ МЕСТО</span>
+        <div class="block-resp">Ответственный: Болмат Д. (Продукт/СТМ)</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-label">Шаг 2 · Анализ тормозов — БауСервис</div>
+</div>
+
+<!-- SLIDE 4 — FIO RANKING -->
+<div class="slide">
+  <div class="inner">
+    <div class="slide-title dark-text" style="font-size:17pt;">Кто тормозит: ранжирование по риску</div>
+    <div class="subtitle">Источник: СПРАВОЧНИК ТТ × 3 ОБЪЕКТЫ И РИСКИ — совмещение ФИО с данными по объектам</div>
+    <div class="divider" style="margin-bottom:2mm;"></div>
+    <table>
+      <thead>
+        <tr><th>#</th><th>ФИО</th><th>Регион / Дивизион</th><th>Риск</th><th>Просрочка</th><th>Главное нарушение</th><th>Статус</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td><strong>Головачев Е.</strong></td><td>ПТГ · БауЗапад</td><td><strong class="txt-red">89%</strong></td><td>—</td><td>Не подписана планограмма</td><td><span class="badge bg-red">ПРЕДУПРЕЖДЕНИЕ</span></td></tr>
+        <tr><td><strong>2</strong></td><td><strong>Киреев А.</strong></td><td>СМР · БауВосток</td><td><strong class="txt-red">80%</strong></td><td><strong class="txt-red">242 дня</strong></td><td>Просрочки по этапам</td><td><span class="badge bg-red">ПРЕДУПРЕЖДЕНИЕ</span></td></tr>
+        <tr><td><strong>3</strong></td><td><strong>Демичев Н.</strong></td><td>НСБ · БауВосток</td><td><strong class="txt-red">73%</strong></td><td>—</td><td>Не подписана планограмма</td><td><span class="badge bg-red">ПРЕДУПРЕЖДЕНИЕ</span></td></tr>
+        <tr><td>4</td><td><strong>Захаров С.</strong></td><td>ЧЛБ · БауВосток</td><td class="txt-orange">45%</td><td>—</td><td>Не подписано соглашение</td><td><span class="badge bg-orange">КОНТРОЛЬ</span></td></tr>
+        <tr><td>5</td><td><strong>Уварова Н.В.</strong></td><td>ЦФО / МСК</td><td class="txt-orange">30%</td><td>—</td><td>Не согласована смета</td><td><span class="badge bg-orange">КОНТРОЛЬ</span></td></tr>
+        <tr><td>6</td><td><strong>Андрейчук А.</strong></td><td>НН · БауВосток</td><td class="txt-orange">28%</td><td>—</td><td>Задержки по этапам</td><td><span class="badge bg-orange">КОНТРОЛЬ</span></td></tr>
+        <tr><td>—</td><td><strong>Олейник</strong></td><td>РНД · БауЗапад</td><td class="txt-green">12%</td><td>—</td><td>0 нарушений — ЭТАЛОН</td><td><span class="badge bg-green">ЛУЧШИЙ</span></td></tr>
+        <tr><td>—</td><td><strong>Новикова Н.</strong></td><td>СПБ · БауЗапад</td><td class="txt-green">7%</td><td>164 дня *</td><td>Единичный объект</td><td><span class="badge bg-green">НОРМА</span></td></tr>
+      </tbody>
+    </table>
+    <div class="note">* СПБ: 164 дня по одному объекту при общем уровне нарушений 7% — не системная проблема.</div>
+  </div>
+  <div class="footer-label">Шаг 3 · Персональная ответственность — БауСервис</div>
+</div>
+
+<!-- SLIDE 5 — FORECAST -->
+<div class="slide">
+  <div class="inner">
+    <div class="slide-title dark-text" style="font-size:17pt;">Прогноз Q3: два сценария</div>
+    <div class="subtitle">Что будет к 30.09.2026 — статус-кво vs решения актива</div>
+    <div class="divider"></div>
+    <div class="two-col">
+      <div>
+        <div class="col-hdr bg-red">БЕЗ РЕШЕНИЯ АКТИВА</div>
+        <div class="mini-card"><div class="big2 txt-red">~65–70%</div><div class="lbl2">объектов НЕ закроются в Q3</div></div>
+        <div class="mini-card"><div class="big2 txt-red">+2–4 нед.</div><div class="lbl2">среднее доп. время на объект</div></div>
+        <div class="mini-card"><div class="big2 txt-red">Срыв ФР</div><div class="lbl2">открытий из-за очереди СТМ</div></div>
+      </div>
+      <div>
+        <div class="col-hdr bg-green">С РЕШЕНИЕМ АКТИВА</div>
+        <div class="mini-card"><div class="big2 txt-green">&gt;80%</div><div class="lbl2">объектов закроются до 30.09</div></div>
+        <div class="mini-card"><div class="big2 txt-green">SLA 90д</div><div class="lbl2">выдерживается как норматив</div></div>
+        <div class="mini-card"><div class="big2 txt-green">Чистый Q4</div><div class="lbl2">без хвостов и переносов из Q3</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-label">Шаг 4 · Прогноз — БауСервис</div>
+</div>
+
+<!-- SLIDE 6 — DECISION 1 -->
+<div class="slide dark">
+  <div class="inner">
+    <div class="slide-title" style="font-size:18pt;">Решение актива № 1</div>
+    <div class="subtitle light">Жёсткая оценка текущих результатов</div>
+    <div class="decision-banner bg-red">ПЕРСОНАЛЬНАЯ ОТВЕТСТВЕННОСТЬ: результат Q3 — часть квартального KPI</div>
+    <div class="bullet-row">
+      <div class="bullet-num bg-red">1</div>
+      <div class="bullet-text">Квартальный бонус менеджеров и ОП привязывается к закрытию объектов Q3 в срок. Объект в КРАСНОЙ зоне на 30.09 = нет бонуса.</div>
+    </div>
+    <div class="bullet-row">
+      <div class="bullet-num bg-red">2</div>
+      <div class="bullet-text">Официальные предупреждения до <strong>20.08.2026</strong>: <strong>Головачев Е.</strong> (ПТГ, 89%), <strong>Киреев А.</strong> (СМР, 242 дня), <strong>Демичев Н.</strong> (НСБ, 73%). Каждый представляет план устранения в течение 5 р.д.</div>
+    </div>
+    <div class="bullet-row">
+      <div class="bullet-num bg-green">3</div>
+      <div class="bullet-text">Образец — <strong>Олейник (РНД)</strong>, 0 нарушений, 12% риска. Методику утверждаем как внутренний стандарт, тиражируем до <strong>01.09</strong>.</div>
+    </div>
+    <div class="bullet-row">
+      <div class="bullet-num bg-orange">4</div>
+      <div class="bullet-text">Если риск по ОП на 30.09 выше 50% — вопрос о ротации выносится на рассмотрение ГД.</div>
+    </div>
+  </div>
+  <div class="footer-label light">Решение 1 из 2 · Актив — БауСервис</div>
+</div>
+
+<!-- SLIDE 7 — DECISION 2 -->
+<div class="slide dark">
+  <div class="inner">
+    <div class="slide-title" style="font-size:18pt;">Решение актива № 2</div>
+    <div class="subtitle light">Структурная разблокировка двух системных узких мест</div>
+    <div class="decision-banner bg-orange">РАЗБЛОКИРОВКА: антикризисные полномочия Ботьева А. + план ликвидации очереди СТМ</div>
+    <div class="bullet-row">
+      <div class="bullet-num bg-orange">1</div>
+      <div class="bullet-text">ЗГД <strong>Ботьев А.</strong> получает антикризисные полномочия на Q3: прямые переговоры с партнёрами по КРАСНЫМ объектам и право перераспределения ресурсов между регионами без стандартных согласований.</div>
+    </div>
+    <div class="bullet-row">
+      <div class="bullet-num bg-orange">2</div>
+      <div class="bullet-text"><strong>Болмат Д.</strong> (СТМ) представляет до <strong>25.08</strong> план ликвидации очереди: SLA &le; 10 р.д., приоритизация ФР vs реновация, ресурсы. При невозможности — запрос на аутсорс немедленно.</div>
+    </div>
+    <div class="bullet-row">
+      <div class="bullet-num bg-blue">3</div>
+      <div class="bullet-text">Срез <strong>15.09</strong>: КРАСНАЯ зона должна снизиться ниже 40% от текущего уровня. Если нет — эскалация к ГД Новицкому А.В.</div>
+    </div>
+    <div class="bullet-row">
+      <div class="bullet-num bg-green">4</div>
+      <div class="bullet-text">Лучший ОП Q3 (кандидат — <strong>Олейник, РНД</strong>) получает приоритет в расширении портфеля и новых территориях в Q4.</div>
+    </div>
+  </div>
+  <div class="footer-label light">Решение 2 из 2 · Актив — БауСервис</div>
+</div>
+
+<!-- SLIDE 8 — CONTROL POINTS -->
+<div class="slide dark">
+  <div class="inner">
+    <div class="slide-title" style="font-size:18pt;">Контрольные точки Q3</div>
+    <div class="subtitle light">Все события — с датой и ответственным</div>
+    <div style="margin-top:3mm; display:flex; flex-direction:column; gap:3mm;">
+      <div class="cp-row">
+        <div class="cp-date bg-red">20.08.2026</div>
+        <div class="cp-text">Предупреждения Головачев / Киреев / Демичев + ответные планы устранения нарушений</div>
+        <div class="cp-resp">Ботьев А.</div>
+      </div>
+      <div class="cp-row">
+        <div class="cp-date bg-orange">25.08.2026</div>
+        <div class="cp-text">Болмат Д. представляет план ликвидации очереди СТМ с SLA и ресурсами</div>
+        <div class="cp-resp">Болмат Д.</div>
+      </div>
+      <div class="cp-row">
+        <div class="cp-date bg-blue">01.09.2026</div>
+        <div class="cp-text">Стандарт работы с партнёром по образцу Олейника (РНД) оформлен в регламент</div>
+        <div class="cp-resp">Ботьев А. + ОП</div>
+      </div>
+      <div class="cp-row">
+        <div class="cp-date bg-orange">15.09.2026</div>
+        <div class="cp-text">Промежуточный срез: КРАСНАЯ зона &lt; 40%; если нет — эскалация к ГД</div>
+        <div class="cp-resp">Новицкий А.В.</div>
+      </div>
+      <div class="cp-row">
+        <div class="cp-date bg-green">30.09.2026</div>
+        <div class="cp-text">Закрытие Q3: &gt;80% объектов завершены; ротационные решения при риске &gt;50%</div>
+        <div class="cp-resp">Актив / ГД</div>
+      </div>
+    </div>
+    <div style="margin-top:5mm; padding:3mm 5mm; background:rgba(255,255,255,.06); border-radius:4px; font-size:8pt; color:rgba(202,220,252,.7); text-align:center;">
+      Решения №1 и №2 принимаются единым пакетом на активе · 16 августа 2026
+    </div>
+  </div>
+  <div class="footer-label light">Контроль исполнения · Актив — БауСервис</div>
+</div>
+
+</body>
+</html>
