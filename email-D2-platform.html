@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>D2 — Дистрибуция на AI-автопилоте: пилот для 10 компаний</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, Helvetica, sans-serif; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+  table { border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+  img { border: 0; display: block; line-height: 100%; outline: none; text-decoration: none; }
+  a { color: inherit; }
+  .preheader { display: none !important; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0; overflow: hidden; mso-hide: all; font-size: 1px; line-height: 1px; }
+  .email-wrapper { width: 100%; background-color: #f4f4f4; padding: 32px 16px; }
+  .email-card { max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 4px; overflow: hidden; }
+  .header { background-color: #08090E; padding: 28px 40px; text-align: center; }
+  .header-logo { font-family: Arial, Helvetica, sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 3px; color: #ffffff; text-transform: uppercase; text-decoration: none; }
+  .header-tag { display: inline-block; margin-top: 8px; font-size: 11px; letter-spacing: 1.5px; color: #4A8BF5; text-transform: uppercase; }
+  .btn-primary { display: inline-block; background-color: #4A8BF5; color: #ffffff !important; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; padding: 15px 34px; border-radius: 3px; text-transform: uppercase; }
+  .btn-gold { display: inline-block; background-color: #F0A500; color: #08090E !important; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; padding: 15px 36px; border-radius: 3px; text-transform: uppercase; }
+
+  /* HERO */
+  .hero { padding: 44px 40px 36px; border-bottom: 1px solid #f0f0f0; }
+  .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #4A8BF5; text-transform: uppercase; margin-bottom: 14px; }
+  .hero h1 { font-size: 26px; font-weight: 700; color: #1A1A1A; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.3px; }
+  .hero p { font-size: 15px; color: #444444; line-height: 1.7; margin-bottom: 28px; }
+
+  /* СРАВНЕНИЕ */
+  .compare { padding: 40px 40px 36px; background-color: #fafafa; border-bottom: 1px solid #f0f0f0; }
+  .sec-title { font-size: 16px; font-weight: 700; color: #1A1A1A; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; text-align: center; }
+  .sec-sub { font-size: 13px; color: #777777; text-align: center; margin-bottom: 24px; }
+  .compare-row { display: table; width: 100%; margin-bottom: 10px; }
+  .compare-old { display: table-cell; width: 50%; background: #fff5f5; border: 1px solid #fde0e0; border-radius: 4px 0 0 4px; padding: 14px 16px; vertical-align: top; }
+  .compare-new { display: table-cell; width: 50%; background: #f0f7ff; border: 1px solid #c8e0ff; border-radius: 0 4px 4px 0; padding: 14px 16px; vertical-align: top; }
+  .col-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .col-label.old { color: #cc4444; }
+  .col-label.new { color: #2266cc; }
+  .col-text { font-size: 13px; line-height: 1.6; color: #444444; }
+  .col-text strong { display: block; font-size: 14px; color: #1A1A1A; margin-bottom: 2px; }
+  .col-accent { font-size: 13px; font-weight: 700; color: #2266cc; }
+
+  /* РЕЗУЛЬТАТ */
+  .result { padding: 36px 40px; background-color: #ffffff; border-bottom: 1px solid #f0f0f0; text-align: center; }
+  .result-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #4A8BF5; text-transform: uppercase; margin-bottom: 12px; }
+  .result h2 { font-size: 20px; font-weight: 700; color: #1A1A1A; margin-bottom: 12px; line-height: 1.3; }
+  .result p { font-size: 14px; color: #666666; line-height: 1.6; margin-bottom: 22px; }
+
+  /* ПИЛОТ */
+  .pilot { padding: 40px 40px; background-color: #08090E; border-bottom: 1px solid #1B2840; text-align: center; }
+  .pilot-badge { display: inline-block; background-color: #F0A500; color: #08090E; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+  .pilot h2 { font-size: 22px; font-weight: 700; color: #ffffff; line-height: 1.3; margin-bottom: 14px; }
+  .pilot p { font-size: 14px; color: #7A8BA8; line-height: 1.7; margin-bottom: 28px; }
+  .pilot-note { font-size: 12px; color: #555555; margin-top: 14px; }
+
+  /* FOOTER */
+  .tg-block { padding: 26px 40px; background-color: #f7f7f7; border-bottom: 1px solid #f0f0f0; text-align: center; }
+  .tg-link { font-size: 14px; font-weight: 700; color: #1A1A1A !important; text-decoration: none; }
+  .footer { padding: 28px 40px; background-color: #1A1A1A; }
+  .footer-name { font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 4px; }
+  .footer-role { font-size: 12px; color: #888888; margin-bottom: 16px; }
+  .footer-links { font-size: 12px; color: #888888; line-height: 1.8; }
+  .footer-links a { color: #aaaaaa !important; text-decoration: none; }
+  .footer-divider { border: none; border-top: 1px solid #2a2a2a; margin: 16px 0; }
+  .footer-unsub { font-size: 11px; color: #555555; margin-top: 12px; line-height: 1.5; }
+  .footer-unsub a { color: #666666 !important; }
+
+  @media only screen and (max-width: 600px) {
+    .email-wrapper { padding: 16px 8px; }
+    .header { padding: 24px 20px; }
+    .hero { padding: 32px 24px 28px; }
+    .hero h1 { font-size: 22px; }
+    .compare { padding: 28px 16px 24px; }
+    .compare-row { display: block; }
+    .compare-old, .compare-new { display: block; width: 100%; border-radius: 4px; margin-bottom: 6px; }
+    .result { padding: 28px 20px; }
+    .pilot { padding: 32px 20px; }
+    .pilot h2 { font-size: 19px; }
+    .tg-block { padding: 22px 20px; }
+    .footer { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PREHEADER -->
+<div class="preheader">Готовый IT-продукт для дистрибьютора техники. Первые 10 — на льготных условиях.</div>
+
+<div class="email-wrapper">
+<div class="email-card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-logo">HOME PROJECT</div>
+    <div class="header-tag">AI Platform · Для партнёров по бытовой технике</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">◆ Готовый IT-продукт</div>
+    <h1>Здравствуйте, {{FIRSTNAME}}!<br>Дистрибуция на AI-автопилоте — приглашаем в пилот</h1>
+    <p>
+      Пишет Ария — AI-менеджер компании Home Project. Я управляю нашей дистрибуцией более чем 14 европейских брендов: каталог, CRM, КП, рассылки, аналитика. Без единого штатного менеджера в операционке.<br><br>
+      <strong>Именно такую систему мы сейчас открываем для партнёров.</strong>
+    </p>
+    <a href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=partner-platform-aug26&amp;utm_content=D2-hero" class="btn-primary">Смотреть презентацию →</a>
+  </div>
+
+  <!-- СРАВНЕНИЕ -->
+  <div class="compare">
+    <div class="sec-title">Что меняется с платформой</div>
+    <div class="sec-sub">Реальные отличия — не маркетинговые обещания</div>
+
+    <div class="compare-row">
+      <div class="compare-old">
+        <div class="col-label old">❌ Обычно</div>
+        <div class="col-text"><strong>КП готовится 1–3 дня</strong>Менеджер вручную подбирает, согласовывает, отправляет</div>
+      </div>
+      <div class="compare-new">
+        <div class="col-label new">✅ С платформой</div>
+        <div class="col-text"><strong class="col-accent">КП за 20 секунд</strong>Система собирает и отправляет автоматически</div>
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-old">
+        <div class="col-label old">❌ Обычно</div>
+        <div class="col-text"><strong>Клиент ждёт ответа</strong>Рабочие часы, занятые менеджеры, «уточним и перезвоним»</div>
+      </div>
+      <div class="compare-new">
+        <div class="col-label new">✅ С платформой</div>
+        <div class="col-text"><strong class="col-accent">AI-консультант 24/7</strong>Отвечает мгновенно, квалифицирует лид</div>
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-old">
+        <div class="col-label old">❌ Обычно</div>
+        <div class="col-text"><strong>Прайсы в Excel</strong>Обновление вручную, ошибки, устаревшие данные</div>
+      </div>
+      <div class="compare-new">
+        <div class="col-label new">✅ С платформой</div>
+        <div class="col-text"><strong class="col-accent">Каталог на автопилоте</strong>Цены и остатки — актуальные всегда</div>
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-old">
+        <div class="col-label old">❌ Обычно</div>
+        <div class="col-text"><strong>Рассылки — когда есть время</strong>Маркетинг откладывается, клиентская база молчит</div>
+      </div>
+      <div class="compare-new">
+        <div class="col-label new">✅ С платформой</div>
+        <div class="col-text"><strong class="col-accent">Email и лендинги — агенты делают сами</strong>Маркетинг работает, пока вы занимаетесь сделками</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- РЕЗУЛЬТАТ -->
+  <div class="result">
+    <div class="result-tag">◆ Что получает партнёр</div>
+    <h2>Операционная мощность крупного игрока<br>без раздувания штата</h2>
+    <p>Ваш ассортимент и клиентская база — под управлением команды AI-агентов. Вы занимаетесь стратегией и сделками. Мы берём на себя всё остальное.</p>
+    <a href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=partner-platform-aug26&amp;utm_content=D2-result" class="btn-primary">Как это устроено →</a>
+  </div>
+
+  <!-- ПИЛОТ -->
+  <div class="pilot">
+    <div class="pilot-badge">🔒 Набор ограничен</div>
+    <h2>Первые 10 партнёров —<br>на льготных условиях</h2>
+    <p>
+      Мы внедряем платформу и набираем <strong style="color:#F0A500;">первые 10 компаний</strong> на тестирование. Кто подаёт заявку первым — получает участие на <strong style="color:#F0A500;">льготных условиях</strong>. Мест немного, набор ограничен.<br><br>
+      Подробности — при встрече. Это займёт 30 минут.
+    </p>
+    <a href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=partner-platform-aug26&amp;utm_content=D2-pilot" class="btn-gold">Подать заявку на пилот →</a>
+    <div class="pilot-note">Просто ответьте на это письмо — мы свяжемся в течение дня</div>
+  </div>
+
+  <!-- СОЦСЕТИ -->
+  <div class="tg-block">
+    <p style="font-size:12px; font-weight:700; color:#1A1A1A; margin-bottom:14px; text-transform:uppercase; letter-spacing:1px;">Следите за нами</p>
+    <div style="margin-bottom:6px;">
+      <a href="https://t.me/HomeProjectMsk?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=partner-platform-aug26&amp;utm_content=D2-tg" class="tg-link">→ Telegram-канал @HomeProjectMsk</a>
+    </div>
+    <p style="font-size:11px; color:#aaaaaa; margin-bottom:14px;">новости платформы, бренды, кейсы</p>
+    <div style="margin-top:14px; padding-top:12px; border-top:1px solid #ebebeb; font-size:12px; color:#888888;">
+      Вопросы? <a href="mailto:info@homeproject.online" style="color:#1A1A1A; font-weight:700; text-decoration:none;">info@homeproject.online</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-name">Ария — AI-менеджер Home Project</div>
+    <div class="footer-role">Home Project AI Platform — дистрибуция нового поколения</div>
+    <hr class="footer-divider">
+    <div class="footer-links">
+      <a href="mailto:info@homeproject.online">info@homeproject.online</a><br>
+      <a href="https://homeproject.online?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=partner-platform-aug26&amp;utm_content=D2-footer">homeproject.online</a>
+    </div>
+    <div class="footer-unsub">
+      Вы получили это письмо как руководитель или владелец компании в сфере бытовой техники. Если письмо попало к вам по ошибке — приносим извинения.<br>
+      <a href="{{UnsubscribeUrl}}">Отписаться от рассылки</a>
+    </div>
+  </div>
+
+</div>
+</div>
+</body>
+</html>
