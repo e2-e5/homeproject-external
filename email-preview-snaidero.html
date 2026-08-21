@@ -3,341 +3,345 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Превью письма — Snaidero + Техника · Home Project</title>
+<title>Превью письма v3 — Home Project · Snaidero + Техника</title>
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; }
-  body { margin:0; padding:0; background:#222; font-family:'Inter',sans-serif; }
-  .page-wrap { max-width:700px; margin:0 auto; padding:28px 14px 48px; }
+* { box-sizing:border-box; }
+body { margin:0; padding:0; background:#1e1e1e; font-family:'Inter',sans-serif; }
+.page-wrap { max-width:700px; margin:0 auto; padding:24px 14px 48px; }
+.page-top { text-align:center; color:#666; font-size:11px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
+.hint { text-align:center; margin-bottom:20px; }
+.hint span { display:inline-block; background:#2e2e2e; color:#C4A882; font-size:11px; padding:6px 16px; border-radius:20px; }
 
-  /* Page labels */
-  .page-top { text-align:center; color:#777; font-size:11px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:18px; }
-  .click-hint { display:inline-block; background:#333; color:#C4A882; font-size:11px; padding:6px 14px; border-radius:20px; margin-bottom:20px; }
+/* EMAIL */
+.email { background:#fff; box-shadow:0 12px 60px rgba(0,0,0,.7); }
+.pre { background:#f8f6f3; padding:8px 28px; font-size:11px; color:#999; border-bottom:1px solid #eee; }
 
-  /* Email wrapper */
-  .email { background:#fff; box-shadow:0 10px 50px rgba(0,0,0,.6); }
+/* HEADER */
+.hdr { background:#1C1A18; padding:16px 28px; display:flex; align-items:center; justify-content:space-between; }
+.hdr-links { display:flex; gap:0; }
+.hdr-links a { font-size:11px; color:rgba(255,255,255,.4); text-decoration:none; letter-spacing:.08em; padding:0 12px; border-right:1px solid rgba(255,255,255,.1); transition:color .2s; }
+.hdr-links a:last-child { border:none; color:#C4A882; }
+.hdr-links a:hover { color:#C4A882; }
 
-  /* Preheader */
-  .pre { background:#f8f6f3; padding:8px 28px; font-size:11px; color:#999; border-bottom:1px solid #eee; }
+/* HERO */
+.hero-a { display:block; text-decoration:none; position:relative; overflow:hidden; }
+.hero-a img { width:100%; height:310px; object-fit:cover; display:block; }
+.hero-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(28,26,24,.9) 0%,rgba(28,26,24,.15) 55%,transparent 100%); }
+.hero-txt { position:absolute; bottom:0; left:0; right:0; padding:28px 32px; }
+.hero-tag { font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#C4A882; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.hero-tag::before { content:''; width:20px; height:1px; background:#C4A882; display:block; }
+.h-title { font-family:'Cormorant Garamond',serif; font-size:34px; font-weight:300; color:#fff; line-height:1.1; margin:0 0 8px; }
+.h-title em { font-style:italic; }
+.h-sub { font-size:13px; font-weight:300; color:rgba(255,255,255,.7); margin:0 0 14px; }
+.h-btn { display:inline-flex; align-items:center; gap:7px; border:1px solid rgba(255,255,255,.35); color:#fff; font-size:10px; letter-spacing:.15em; text-transform:uppercase; padding:9px 20px; }
+.h-btn::after { content:'→'; }
 
-  /* Header */
-  .hdr { background:#1C1A18; padding:16px 28px; display:flex; align-items:center; justify-content:space-between; }
-  .hdr-right { display:flex; gap:16px; align-items:center; }
-  .hdr-link { font-size:11px; color:rgba(255,255,255,.45); text-decoration:none; letter-spacing:.08em; border-right:1px solid rgba(255,255,255,.1); padding-right:14px; }
-  .hdr-link:last-child { border:none; padding:0; color:#C4A882; }
-  .hdr-link:hover { color:#C4A882; }
+/* BODY */
+.body { padding:30px 28px; }
+.sec-tag { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#8B6F4E; margin-bottom:6px; }
+.sec-h { font-family:'Cormorant Garamond',serif; font-size:25px; font-weight:300; color:#1C1A18; margin:0 0 14px; }
+.sec-h em { font-style:italic; }
+.body-txt { font-size:14px; font-weight:300; color:#555; line-height:1.8; margin:0 0 22px; }
 
-  /* HERO — кликабельный */
-  .hero-link { display:block; text-decoration:none; position:relative; overflow:hidden; }
-  .hero-link img { width:100%; height:320px; object-fit:cover; display:block; }
-  .hero-ov { position:absolute; inset:0; background:linear-gradient(to top, rgba(28,26,24,.88) 0%, rgba(28,26,24,.2) 55%, transparent 100%); transition:background .3s; }
-  .hero-link:hover .hero-ov { background:linear-gradient(to top, rgba(28,26,24,.95) 0%, rgba(28,26,24,.35) 55%, rgba(0,0,0,.1) 100%); }
-  .hero-txt { position:absolute; bottom:0; left:0; right:0; padding:28px 32px; }
-  .hero-tag { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#C4A882; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
-  .hero-tag::before { content:''; display:block; width:20px; height:1px; background:#C4A882; }
-  .hero-title { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:300; color:#fff; line-height:1.1; margin:0 0 6px; }
-  .hero-title em { font-style:italic; }
-  .hero-sub { font-size:13px; font-weight:300; color:rgba(255,255,255,.7); margin:0 0 14px; }
-  .hero-cta { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3); color:#fff; font-size:10px; letter-spacing:.15em; text-transform:uppercase; padding:8px 18px; }
-  .hero-cta::after { content:'→'; }
+/* COLLECTIONS — 3-col кликабельная сетка */
+.cg { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:8px; }
+.cc { display:block; text-decoration:none; position:relative; overflow:hidden; }
+.cc img { width:100%; height:165px; object-fit:cover; display:block; transition:transform .45s; }
+.cc:hover img { transform:scale(1.05); }
+.cc-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(28,26,24,.75) 0%,transparent 50%); }
+.cc-info { position:absolute; bottom:0; left:0; right:0; padding:11px 13px; }
+.cc-name { font-family:'Cormorant Garamond',serif; font-size:19px; font-weight:300; color:#fff; margin:0 0 2px; display:flex; align-items:center; justify-content:space-between; }
+.cc-name::after { content:'↗'; font-family:'Inter'; font-size:11px; opacity:.55; }
+.cc-sub { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.5); }
 
-  /* Section */
-  .sec { padding:32px 28px; }
-  .sec-label { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#8B6F4E; margin-bottom:6px; }
-  .sec-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:300; color:#1C1A18; margin:0 0 16px; }
-  .sec-title em { font-style:italic; }
-  .sec-body { font-size:14px; font-weight:300; color:#555; line-height:1.8; margin:0 0 22px; }
+/* Wide clickable card */
+.wc { display:block; text-decoration:none; position:relative; overflow:hidden; margin-bottom:8px; }
+.wc img { width:100%; height:185px; object-fit:cover; display:block; transition:transform .45s; }
+.wc:hover img { transform:scale(1.03); }
+.wc-ov { position:absolute; inset:0; background:linear-gradient(105deg,rgba(28,26,24,.82) 0%,rgba(0,0,0,.2) 55%,transparent 100%); }
+.wc-txt { position:absolute; top:50%; left:0; transform:translateY(-50%); padding:20px 26px; }
+.wc-badge { display:inline-block; background:#8B6F4E; color:#fff; font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:3px 10px; margin-bottom:7px; }
+.wc-name { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:300; color:#fff; margin:0 0 4px; }
+.wc-desc { font-size:12px; color:rgba(255,255,255,.6); max-width:230px; line-height:1.5; margin:0; }
 
-  /* Collections grid — каждая карточка кликабельна */
-  .coll-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
-  .coll-card { display:block; text-decoration:none; overflow:hidden; position:relative; }
-  .coll-card img { width:100%; height:170px; object-fit:cover; display:block; transition:transform .4s; }
-  .coll-card:hover img { transform:scale(1.04); }
-  .coll-ov { position:absolute; inset:0; background:linear-gradient(to top, rgba(28,26,24,.72) 0%, transparent 55%); transition:background .3s; }
-  .coll-card:hover .coll-ov { background:linear-gradient(to top, rgba(28,26,24,.85) 0%, rgba(0,0,0,.1) 60%); }
-  .coll-info { position:absolute; bottom:0; left:0; right:0; padding:12px 14px; }
-  .coll-name { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; color:#fff; margin:0 0 2px; display:flex; align-items:center; gap:6px; }
-  .coll-name::after { content:'↗'; font-family:'Inter',sans-serif; font-size:12px; opacity:.6; }
-  .coll-sub { font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+/* All collections button */
+.all-btn { display:block; text-align:center; background:#1C1A18; color:#fff; text-decoration:none; font-size:11px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; padding:14px; transition:background .2s; }
+.all-btn:hover { background:#8B6F4E; }
 
-  /* Wide card — новинка, кликабельная */
-  .wide-card { display:block; text-decoration:none; position:relative; overflow:hidden; margin-bottom:16px; }
-  .wide-card img { width:100%; height:200px; object-fit:cover; display:block; transition:transform .4s; }
-  .wide-card:hover img { transform:scale(1.03); }
-  .wide-ov { position:absolute; inset:0; background:linear-gradient(105deg, rgba(28,26,24,.82) 0%, rgba(28,26,24,.3) 55%, transparent 100%); }
-  .wide-txt { position:absolute; top:50%; left:0; transform:translateY(-50%); padding:20px 28px; }
-  .wide-badge { display:inline-block; background:#8B6F4E; color:#fff; font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:3px 10px; margin-bottom:8px; }
-  .wide-name { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:300; color:#fff; margin:0 0 4px; }
-  .wide-desc { font-size:12px; color:rgba(255,255,255,.65); max-width:240px; line-height:1.5; margin:0; }
+/* Separator */
+.sep { display:flex; align-items:center; gap:14px; padding:26px 28px; }
+.sep-line { flex:1; height:1px; background:#EDE9E3; }
+.sep-txt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#C0BAB4; white-space:nowrap; }
 
-  /* All-collections link */
-  .all-link { display:block; text-align:center; background:#1C1A18; color:#fff; text-decoration:none; font-size:11px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; padding:14px; transition:background .2s; }
-  .all-link:hover { background:#8B6F4E; }
+/* TECH SECTION */
+.tech { background:#F7F5F2; padding:28px; }
+.tech-intro { font-size:14px; font-weight:300; color:#555; line-height:1.8; margin:0 0 24px; }
 
-  /* Divider with text */
-  .sep { display:flex; align-items:center; gap:14px; padding:28px; }
-  .sep-line { flex:1; height:1px; background:#EDE9E3; }
-  .sep-txt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#BCBAB6; white-space:nowrap; }
+/* 3-col tech grid */
+.tg3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:10px; }
 
-  /* Tech section */
-  .tech-sec { background:#F7F5F2; padding:28px; }
-  .tech-intro { font-size:14px; font-weight:300; color:#555; line-height:1.8; margin:0 0 22px; }
+/* Brand card — ВЕСЬ кликабельный */
+.bc { display:block; text-decoration:none; background:#fff; border:1px solid #EDE9E3; overflow:hidden; transition:box-shadow .25s, transform .2s; }
+.bc:hover { box-shadow:0 6px 24px rgba(0,0,0,.12); transform:translateY(-2px); }
 
-  /* Tech grid 2 cols */
-  .tech-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
-  .tech-card { display:block; text-decoration:none; background:#fff; overflow:hidden; border:1px solid #EDE9E3; transition:box-shadow .25s; }
-  .tech-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.1); }
-  .tech-card img { width:100%; height:150px; object-fit:cover; display:block; transition:transform .4s; }
-  .tech-card:hover img { transform:scale(1.04); }
-  .tech-info { padding:14px 16px; }
-  .tech-brand { font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:#8B6F4E; margin-bottom:4px; }
-  .tech-name { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:300; color:#1C1A18; margin:0 0 4px; }
-  .tech-desc { font-size:12px; color:#888; line-height:1.5; margin:0; }
-  .tech-arrow { font-size:11px; color:#8B6F4E; margin-top:8px; display:flex; align-items:center; gap:4px; }
-  .tech-arrow::after { content:'→'; }
+/* Image box — contain, белый фон, прибор виден полностью */
+.bc-img { background:#fff; display:flex; align-items:center; justify-content:center; height:200px; overflow:hidden; padding:16px; border-bottom:1px solid #f0ede8; }
+.bc-img img { max-width:100%; max-height:168px; object-fit:contain; display:block; }
 
-  /* Tech 3rd wide card */
-  .tech-wide { display:block; text-decoration:none; background:#fff; overflow:hidden; border:1px solid #EDE9E3; display:flex; transition:box-shadow .25s; }
-  .tech-wide:hover { box-shadow:0 4px 20px rgba(0,0,0,.1); }
-  .tech-wide img { width:200px; height:130px; object-fit:cover; flex-shrink:0; transition:transform .4s; }
-  .tech-wide:hover img { transform:scale(1.04); }
-  .tech-wide-info { padding:16px 18px; display:flex; flex-direction:column; justify-content:center; }
+/* Card info */
+.bc-info { padding:14px 16px 16px; }
+.bc-brand { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#8B6F4E; margin-bottom:5px; }
+.bc-name { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:300; color:#1C1A18; margin:0 0 5px; line-height:1.2; }
+.bc-desc { font-size:12px; color:#888; line-height:1.55; margin:0 0 10px; }
+.bc-cta { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8B6F4E; display:flex; align-items:center; gap:5px; }
+.bc-cta::after { content:'→'; }
 
-  /* Site CTA */
-  .site-cta { display:block; text-align:center; background:#8B6F4E; color:#fff; text-decoration:none; font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; padding:14px; margin-top:10px; transition:background .2s; }
-  .site-cta:hover { background:#6d573c; }
+/* Wide tech card (bottom) */
+.bw { display:flex; text-decoration:none; background:#fff; border:1px solid #EDE9E3; overflow:hidden; transition:box-shadow .25s; margin-bottom:0; }
+.bw:hover { box-shadow:0 6px 24px rgba(0,0,0,.1); }
+.bw-img { background:#fff; display:flex; align-items:center; justify-content:center; width:200px; flex-shrink:0; padding:16px; border-right:1px solid #f0ede8; }
+.bw-img img { max-width:100%; max-height:130px; object-fit:contain; }
+.bw-info { padding:18px 20px; display:flex; flex-direction:column; justify-content:center; }
+.bw-brand { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#8B6F4E; margin-bottom:6px; }
+.bw-name { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; color:#1C1A18; margin:0 0 6px; }
+.bw-desc { font-size:12px; color:#888; line-height:1.55; margin:0 0 10px; }
+.bw-cta { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8B6F4E; display:flex; align-items:center; gap:5px; }
+.bw-cta::after { content:'→'; }
 
-  /* Footer */
-  .footer { padding:22px 28px; border-top:1px solid #EDE9E3; background:#fff; }
-  .footer-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:16px; }
-  .footer-links { display:flex; gap:14px; }
-  .footer-links a { font-size:11px; color:#8B6F4E; text-decoration:none; }
-  .footer-txt { font-size:11px; color:#bbb; line-height:1.6; }
-  .footer-txt a { color:#8B6F4E; text-decoration:none; }
+/* Catalog CTA */
+.cat-btn { display:block; text-align:center; background:#8B6F4E; color:#fff; text-decoration:none; font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; padding:14px; margin-top:10px; transition:background .2s; }
+.cat-btn:hover { background:#6d573c; }
 
-  /* Annotations */
-  .ann { display:inline-flex; align-items:center; gap:5px; background:#1C1A18; color:#C4A882; font-size:10px; padding:3px 10px; border-radius:3px; vertical-align:middle; margin-left:6px; }
+/* FOOTER */
+.footer { padding:20px 28px; border-top:1px solid #EDE9E3; }
+.foot-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.foot-links { display:flex; gap:16px; }
+.foot-links a { font-size:11px; color:#8B6F4E; text-decoration:none; }
+.foot-copy { font-size:11px; color:#ccc; }
+.foot-txt { font-size:11px; color:#bbb; line-height:1.6; }
+.foot-txt a { color:#8B6F4E; text-decoration:none; }
 
-  /* Page note */
-  .page-note { margin-top:22px; background:#333; border-radius:6px; padding:18px 20px; }
-  .page-note h3 { color:#C4A882; font-size:13px; margin:0 0 10px; letter-spacing:.06em; }
-  .page-note ul { margin:0; padding:0 0 0 16px; color:#aaa; font-size:12px; line-height:2; }
-  .page-note li strong { color:#eee; }
-  .page-note li span { color:#f87; }
+/* PAGE NOTE */
+.pnote { margin-top:20px; background:#2a2a2a; border-radius:6px; padding:18px 20px; }
+.pnote h3 { color:#C4A882; font-size:13px; margin:0 0 10px; }
+.pnote ul { margin:0; padding:0 0 0 16px; color:#999; font-size:12px; line-height:2; }
+.pnote li strong { color:#ddd; }
+.pnote li em { color:#f87; font-style:normal; }
 
-  @media(max-width:540px){
-    .coll-grid { grid-template-columns:1fr 1fr; }
-    .tech-grid { grid-template-columns:1fr; }
-    .tech-wide { flex-direction:column; }
-    .tech-wide img { width:100%; height:160px; }
-    .hero-title { font-size:26px; }
-    .sec, .tech-sec { padding:22px 18px; }
-    .hdr { padding:14px 18px; }
-  }
+@media(max-width:540px){
+  .cg { grid-template-columns:1fr 1fr; }
+  .tg3 { grid-template-columns:1fr; }
+  .bw { flex-direction:column; }
+  .bw-img { width:100%; height:160px; border-right:none; border-bottom:1px solid #f0ede8; }
+  .body, .tech { padding:20px 16px; }
+  .hdr { padding:14px 16px; }
+  .h-title { font-size:24px; }
+}
 </style>
 </head>
 <body>
 
 <div class="page-wrap">
-  <div class="page-top">📧 Превью письма v2 — Home Project · Snaidero + Встроенная техника</div>
-  <div style="text-align:center;margin-bottom:20px;">
-    <span class="click-hint">👆 Все фото и названия — кликабельные ссылки</span>
-  </div>
+  <div class="page-top">📧 Превью письма v3 · Home Project · Snaidero + Встроенная техника</div>
+  <div class="hint"><span>👆 Все фото кухонь и все карточки техники — кликабельны</span></div>
 
   <div class="email">
 
     <!-- Preheader -->
-    <div class="pre">Кухни Snaidero и встроенная техника премиум-класса — Home Project, официальный партнёр в России</div>
+    <div class="pre">Кухни Snaidero и встроенная техника Kuppersbusch, Gaggenau, Miele — Home Project, официальный партнёр в России</div>
 
     <!-- Header -->
     <div class="hdr">
-      <svg style="fill:#E8470E;flex-shrink:0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 42.54" width="108" height="33">
+      <svg style="fill:#E8470E;flex-shrink:0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 42.54" width="106" height="33">
         <path d="M0 7.51h136V0H0zM0 42.55h136v-7.51H0z"/>
         <path d="M60.86 13.41h-3.7v16.63h3.7zm0-3.4h-3.7v2.28h3.7z"/>
-        <path d="M8.93 13.4h3.39c2.01.06 3.63 1.68 3.7 3.69h-3.7a2.54 2.54 0 0 0-2.47-2.25h-.92v-1.44z"/>
-        <path d="M7.08 28.58h-.92a2.53 2.53 0 0 1-2.47-2.25H0a3.83 3.83 0 0 0 3.7 3.7h3.39v-1.45z"/>
-        <path d="M8.93 28.58h.92s2.47 0 2.47-3.07-2.47-3.07-2.47-3.07h-.92v-1.45h3.39s3.7 0 3.7 4.52-3.7 4.52-3.7 4.52H8.93z"/>
-        <path d="M7.08 20.99h-.92S3.7 20.99 3.7 17.92s2.46-3.07 2.46-3.07h.92V13.4H3.69C0 13.4 0 17.92 0 17.92s0 4.52 3.7 4.52h3.39v-1.45z"/>
-        <path d="M26.02 13.4h-7.08v16.63h3.7V17.92c0-3.07 2.46-3.07 2.46-3.07h.92z"/>
-        <path d="M27.87 13.4h3.39s3.69 0 3.69 4.52v12.11h-3.69V17.92c0-3.07-2.47-3.07-2.47-3.07h-.93V13.4z"/>
-        <path d="M44.96 13.4h-3.39a3.83 3.83 0 0 0-3.7 3.69h3.7a2.53 2.53 0 0 1 2.46-2.25h.93v-1.44z"/>
-        <path d="M46.81 28.58h.92s2.46 0 2.46-3.07-2.46-3.07-2.46-3.07h-.92v-1.45h.92s2.46 0 2.46-3.07-2.46-3.07-2.46-3.07h-.92V13.4h3.39s3.7 0 3.7 4.52v12.11h-7.09z"/>
-        <path d="M44.96 28.58h-.93s-2.46 0-2.46-3.07 2.46-3.07 2.46-3.07h.93v-1.45h-3.39s-3.69 0-3.69 4.52 3.69 4.52 3.69 4.52h3.39z"/>
-        <path d="M73.06 28.58h.92s2.47 0 2.47-3.07v-7.59c0-3.07-2.47-3.07-2.47-3.07h-.92V13.4h3.39v-3.39h3.69v20.02h-7.08v-1.45z"/>
-        <path d="M71.21 28.58h-.93s-2.46 0-2.46-3.07v-7.59c0-3.07 2.46-3.07 2.46-3.07h.93V13.4h-3.39s-3.69 0-3.69 4.52v7.59c0 4.52 3.69 4.52 3.69 4.52h3.39z"/>
-        <path d="M92.12 28.58h.92c1.26-.04 2.31-1 2.47-2.25h3.7a3.84 3.84 0 0 1-3.7 3.7h-3.39z"/>
-        <path d="M90.27 28.58h-.92s-2.47 0-2.47-3.07 2.47-3.07 2.47-3.07h.92v-1.45h-.92s-2.47 0-2.47-3.07 2.47-3.07 2.47-3.07h.92V13.4h-3.39s-3.69 0-3.69 4.52v7.59c0 4.52 3.69 4.52 3.69 4.52h3.39z"/>
-        <path d="M92.12 20.99h.92s2.47 0 2.47-3.07-2.47-3.07-2.47-3.07h-.92V13.4h3.39s3.7 0 3.7 4.52-3.7 4.52-3.7 4.52h-3.39z"/>
-        <path d="M109.23 13.4h-7.08v16.63h3.7V17.92c0-3.07 2.46-3.07 2.46-3.07h.93V13.4z"/>
-        <path d="M111.07 13.4h3.39c2.01.07 3.63 1.68 3.7 3.69h-3.7a2.54 2.54 0 0 0-2.47-2.25h-.92v-1.44z"/>
-        <path d="M127.06 28.58h-.93s-2.46 0-2.46-3.07v-7.59c0-3.07 2.46-3.07 2.46-3.07h.93V13.4h-3.39s-3.7 0-3.7 4.52v7.59c0 4.52 3.7 4.52 3.7 4.52h3.39z"/>
-        <path d="M128.9 28.58h.92s2.47 0 2.47-3.07v-7.59c0-3.07-2.47-3.07-2.47-3.07h-.93V13.4h3.39s3.69 0 3.69 4.52v7.59c0 4.52-3.69 4.52-3.69 4.52h-3.39v-1.45z"/>
+        <path d="M8.93 13.4h3.39c2.01.06 3.63 1.68 3.7 3.69h-3.7a2.54 2.54 0 0 0-2.47-2.25h-.92v-1.44z"/><path d="M7.08 28.58h-.92a2.53 2.53 0 0 1-2.47-2.25H0a3.83 3.83 0 0 0 3.7 3.7h3.39v-1.45z"/><path d="M8.93 28.58h.92s2.47 0 2.47-3.07-2.47-3.07-2.47-3.07h-.92v-1.45h3.39s3.7 0 3.7 4.52-3.7 4.52-3.7 4.52H8.93z"/><path d="M7.08 20.99h-.92S3.7 20.99 3.7 17.92s2.46-3.07 2.46-3.07h.92V13.4H3.69C0 13.4 0 17.92 0 17.92s0 4.52 3.7 4.52h3.39v-1.45z"/><path d="M26.02 13.4h-7.08v16.63h3.7V17.92c0-3.07 2.46-3.07 2.46-3.07h.92z"/><path d="M27.87 13.4h3.39s3.69 0 3.69 4.52v12.11h-3.69V17.92c0-3.07-2.47-3.07-2.47-3.07h-.93V13.4z"/><path d="M44.96 13.4h-3.39a3.83 3.83 0 0 0-3.7 3.69h3.7a2.53 2.53 0 0 1 2.46-2.25h.93v-1.44z"/><path d="M46.81 28.58h.92s2.46 0 2.46-3.07-2.46-3.07-2.46-3.07h-.92v-1.45h.92s2.46 0 2.46-3.07-2.46-3.07-2.46-3.07h-.92V13.4h3.39s3.7 0 3.7 4.52v12.11h-7.09z"/><path d="M44.96 28.58h-.93s-2.46 0-2.46-3.07 2.46-3.07 2.46-3.07h.93v-1.45h-3.39s-3.69 0-3.69 4.52 3.69 4.52 3.69 4.52h3.39z"/><path d="M73.06 28.58h.92s2.47 0 2.47-3.07v-7.59c0-3.07-2.47-3.07-2.47-3.07h-.92V13.4h3.39v-3.39h3.69v20.02h-7.08v-1.45z"/><path d="M71.21 28.58h-.93s-2.46 0-2.46-3.07v-7.59c0-3.07 2.46-3.07 2.46-3.07h.93V13.4h-3.39s-3.69 0-3.69 4.52v7.59c0 4.52 3.69 4.52 3.69 4.52h3.39z"/><path d="M92.12 28.58h.92c1.26-.04 2.31-1 2.47-2.25h3.7a3.84 3.84 0 0 1-3.7 3.7h-3.39z"/><path d="M90.27 28.58h-.92s-2.47 0-2.47-3.07 2.47-3.07 2.47-3.07h.92v-1.45h-.92s-2.47 0-2.47-3.07 2.47-3.07 2.47-3.07h.92V13.4h-3.39s-3.69 0-3.69 4.52v7.59c0 4.52 3.69 4.52 3.69 4.52h3.39z"/><path d="M92.12 20.99h.92s2.47 0 2.47-3.07-2.47-3.07-2.47-3.07h-.92V13.4h3.39s3.7 0 3.7 4.52-3.7 4.52-3.7 4.52h-3.39z"/><path d="M109.23 13.4h-7.08v16.63h3.7V17.92c0-3.07 2.46-3.07 2.46-3.07h.93V13.4z"/><path d="M111.07 13.4h3.39c2.01.07 3.63 1.68 3.7 3.69h-3.7a2.54 2.54 0 0 0-2.47-2.25h-.92v-1.44z"/><path d="M127.06 28.58h-.93s-2.46 0-2.46-3.07v-7.59c0-3.07 2.46-3.07 2.46-3.07h.93V13.4h-3.39s-3.7 0-3.7 4.52v7.59c0 4.52 3.7 4.52 3.7 4.52h3.39z"/><path d="M128.9 28.58h.92s2.47 0 2.47-3.07v-7.59c0-3.07-2.47-3.07-2.47-3.07h-.93V13.4h3.39s3.69 0 3.69 4.52v7.59c0 4.52-3.69 4.52-3.69 4.52h-3.39v-1.45z"/>
       </svg>
-      <div class="hdr-right">
-        <a href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26" class="hdr-link">homeproject.online</a>
-        <a href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=header" class="hdr-link">Snaidero</a>
+      <div class="hdr-links">
+        <a href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=hdr">Сайт</a>
+        <a href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=hdr">Snaidero</a>
       </div>
     </div>
 
     <!-- HERO — весь блок кликабельный -->
-    <a class="hero-link" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=hero">
+    <a class="hero-a" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=hero">
       <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=1200" alt="Snaidero ICONE OLA" />
       <div class="hero-ov"></div>
       <div class="hero-txt">
         <div class="hero-tag">Официальный партнёр SNAIDERO в России</div>
-        <h2 class="hero-title">Кухни Snaidero —<br><em>авторский проект</em><br>для вашего интерьера</h2>
-        <p class="hero-sub">9 коллекций итальянского производства · расчёт за 1–2 рабочих дня</p>
-        <div class="hero-cta">Смотреть коллекции</div>
+        <h2 class="h-title">Кухни Snaidero —<br><em>авторский проект</em><br>для вашего интерьера</h2>
+        <p class="h-sub">9 итальянских коллекций · расчёт за 1–2 рабочих дня</p>
+        <div class="h-btn">Смотреть коллекции</div>
       </div>
     </a>
 
-    <!-- Коллекции -->
-    <div class="sec">
-      <div class="sec-label">Коллекции Snaidero</div>
-      <div class="sec-title">Выберите <em>свой стиль</em></div>
-      <p class="sec-body">Каждая кухня — индивидуальный проект. Нажмите на коллекцию, которая вас заинтересовала — откроется полная страница с финишами, фото и возможностью запросить расчёт.</p>
+    <!-- КОЛЛЕКЦИИ -->
+    <div class="body">
+      <div class="sec-tag">Коллекции Snaidero</div>
+      <div class="sec-h">Выберите <em>свой стиль</em></div>
+      <p class="body-txt">Нажмите на коллекцию — откроется страница с финишами, фото интерьеров и возможностью запросить индивидуальный расчёт.</p>
 
-      <!-- 3 карточки — кликабельные -->
-      <div class="coll-grid">
-        <a class="coll-card" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=ola#models">
+      <div class="cg">
+        <a class="cc" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=ola#models">
           <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=500" alt="OLA" />
-          <div class="coll-ov"></div>
-          <div class="coll-info">
-            <div class="coll-name">OLA</div>
-            <div class="coll-sub">Pininfarina · Флагман</div>
+          <div class="cc-ov"></div>
+          <div class="cc-info">
+            <div class="cc-name">OLA</div>
+            <div class="cc-sub">Pininfarina · Флагман</div>
           </div>
         </a>
-        <a class="coll-card" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=frame#models">
+        <a class="cc" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=frame#models">
           <img src="https://admin.snaidero.com/media/gdjpcmzp/10-sistema-snaidero-frame-ispirazioni-haute-couture.jpg?width=500" alt="Frame" />
-          <div class="coll-ov"></div>
-          <div class="coll-info">
-            <div class="coll-name">Frame</div>
-            <div class="coll-sub">Iosa Ghini · Haute Couture</div>
+          <div class="cc-ov"></div>
+          <div class="cc-info">
+            <div class="cc-name">Frame</div>
+            <div class="cc-sub">Iosa Ghini · Haute Couture</div>
           </div>
         </a>
-        <a class="coll-card" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=way#models">
-          <img src="https://admin.snaidero.com/media/2bxnwazi/05-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg?width=500" alt="Way" />
-          <div class="coll-ov"></div>
-          <div class="coll-info">
-            <div class="coll-name">Way</div>
-            <div class="coll-sub">Sistema · Wabi-sabi</div>
+        <a class="cc" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=elementi#models">
+          <img src="https://admin.snaidero.com/media/qmkd55dm/02-sistema-snaidero-elementi-una-finestra-sul-futuro.jpg?width=500" alt="Elementi" />
+          <div class="cc-ov"></div>
+          <div class="cc-info">
+            <div class="cc-name">Elementi</div>
+            <div class="cc-sub">Керамика · алюминий · дерево</div>
           </div>
         </a>
       </div>
 
-      <!-- Новинка — широкая кликабельная карточка -->
-      <a class="wide-card" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=orbita#models">
+      <!-- Новинка — широкая -->
+      <a class="wc" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=orbita#models">
         <img src="https://admin.snaidero.com/media/vkljasn3/04-sistema-snaidero-orbita-a-un-passo-dal-colosseo.jpg?width=1200" alt="Orbita & Opera" />
-        <div class="wide-ov"></div>
-        <div class="wide-txt">
-          <div class="wide-badge">Новинка 2026</div>
-          <div class="wide-name">Orbita &amp; Opera</div>
-          <div class="wide-desc">Фасады с поворотом 20° — движение, закреплённое в форме</div>
+        <div class="wc-ov"></div>
+        <div class="wc-txt">
+          <div class="wc-badge">Новинка 2026</div>
+          <div class="wc-name">Orbita &amp; Opera</div>
+          <div class="wc-desc">Фасады с поворотом на 20° — геометрия как архитектурное высказывание</div>
         </div>
       </a>
 
-      <!-- Кнопка — все коллекции -->
-      <a class="all-link" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=all_cta">
-        Смотреть все 9 коллекций →
+      <a class="all-btn" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=all_btn">
+        Все 9 коллекций Snaidero →
       </a>
     </div>
 
-    <!-- Разделитель -->
+    <!-- РАЗДЕЛИТЕЛЬ -->
     <div class="sep">
       <div class="sep-line"></div>
-      <div class="sep-txt">Оснащение кухни техникой</div>
+      <div class="sep-txt">Оснастите кухню первоклассной техникой</div>
       <div class="sep-line"></div>
     </div>
 
-    <!-- Блок: Встроенная техника -->
-    <div class="tech-sec">
-      <div class="sec-label">Home Project · Встроенная техника</div>
-      <div class="sec-title">Кухня —<br><em>это не только мебель</em></div>
-      <p class="tech-intro">
-        Кухня Snaidero раскрывается полностью, когда она оснащена техникой того же уровня. Home Project представляет ведущие европейские бренды встраиваемой техники — варочные поверхности, духовые шкафы, посудомоечные машины и холодильные решения. Нажмите на бренд, чтобы узнать подробнее.
-      </p>
+    <!-- ТЕХНИКА -->
+    <div class="tech">
+      <div class="sec-tag">Встроенная техника · Home Project</div>
+      <div class="sec-h">Кухня —<br><em>это не только мебель</em></div>
+      <p class="tech-intro">Кухня Snaidero раскрывается полностью, когда оснащена техникой того же уровня. Нажмите на бренд — узнайте подробнее о каждом.</p>
 
-      <!-- 2 карточки техники -->
-      <div class="tech-grid">
+      <!-- 3 бренда в ряд: Kuppersbusch, Gaggenau, Miele -->
+      <div class="tg3">
 
-        <!-- BORA -->
-        <a class="tech-card" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=bora">
-          <img src="https://new.homeproject.online/static/1785957011380-GO450120.jpg" alt="BORA варочные поверхности" />
-          <div class="tech-info">
-            <div class="tech-brand">BORA</div>
-            <div class="tech-name">Варочные поверхности</div>
-            <div class="tech-desc">Встроенная вытяжка в поверхности. Никаких вытяжек над головой — только чистый дизайн.</div>
-            <div class="tech-arrow">Смотреть каталог BORA</div>
+        <!-- Kuppersbusch — кухонный интерьер -->
+        <a class="bc" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=kuppersbusch">
+          <div class="bc-img">
+            <img
+              src="https://teka.b-cdn.net/CMP1219/OZGO26BI44713_Kitchen_SS_04_VarioLine_Stainless_Steel_acc_in_Beige_Kitchen_SZ5.jpg"
+              alt="Kuppersbusch духовые шкафы"
+            />
+          </div>
+          <div class="bc-info">
+            <div class="bc-brand">Kuppersbusch</div>
+            <div class="bc-name">Духовые шкафы VarioLine</div>
+            <div class="bc-desc">Встраиваемая техника немецкого качества. Единый стиль от варочной до посудомойки.</div>
+            <div class="bc-cta">Смотреть каталог</div>
           </div>
         </a>
 
-        <!-- Gaggenau -->
-        <a class="tech-card" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=gaggenau">
-          <img src="https://new.homeproject.online/static/1785957018221-GS450120.jpg" alt="Gaggenau духовые шкафы" />
-          <div class="tech-info">
-            <div class="tech-brand">GAGGENAU</div>
-            <div class="tech-name">Духовые шкафы</div>
-            <div class="tech-desc">Профессиональный результат в домашних условиях. Паровой, конвекция, гриль — в едином решении.</div>
-            <div class="tech-arrow">Смотреть каталог Gaggenau</div>
+        <!-- Gaggenau — продуктовое фото (contain) -->
+        <a class="bc" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=gaggenau">
+          <div class="bc-img">
+            <img
+              src="https://new.homeproject.online/static/1785957011380-GO450120.jpg"
+              alt="Gaggenau духовой шкаф"
+            />
+          </div>
+          <div class="bc-info">
+            <div class="bc-brand">Gaggenau</div>
+            <div class="bc-name">Духовые шкафы серии 400</div>
+            <div class="bc-desc">Профессиональный уровень для домашней кухни. Паровой, конвекция, пиролиз.</div>
+            <div class="bc-cta">Смотреть каталог</div>
+          </div>
+        </a>
+
+        <!-- Miele — продуктовое фото (contain) -->
+        <a class="bc" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=miele">
+          <div class="bc-img">
+            <img
+              src="https://media.miele.com/images/2000015/200001503/20000150330.png"
+              alt="Miele духовой шкаф"
+            />
+          </div>
+          <div class="bc-info">
+            <div class="bc-brand">Miele</div>
+            <div class="bc-name">Духовые шкафы H 7000</div>
+            <div class="bc-desc">Немецкая надёжность, интуитивное управление, 20+ режимов приготовления.</div>
+            <div class="bc-cta">Смотреть каталог</div>
           </div>
         </a>
 
       </div>
 
-      <!-- V-ZUG / широкая карточка -->
-      <a class="tech-wide" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=vzug" style="display:flex;text-decoration:none;background:#fff;border:1px solid #EDE9E3;margin-bottom:0;overflow:hidden;">
-        <img src="https://new.homeproject.online/static/1785957021702-GM450120.jpg" alt="V-ZUG" style="width:190px;height:130px;object-fit:cover;flex-shrink:0;" />
-        <div class="tech-wide-info">
-          <div class="tech-brand">V-ZUG · De Dietrich · Kuppersbusch</div>
-          <div class="tech-name">Посудомоечные машины<br>и встроенная техника</div>
-          <div class="tech-desc" style="font-size:12px;color:#888;line-height:1.5;margin-top:4px;">Швейцарская точность V-ZUG, французская элегантность De Dietrich, немецкая инженерия Kuppersbusch.</div>
-          <div class="tech-arrow" style="font-size:11px;color:#8B6F4E;margin-top:8px;display:flex;align-items:center;gap:4px;">Весь каталог техники →</div>
+      <!-- Широкая карточка: паровые духовки Gaggenau -->
+      <a class="bw" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=steam_ovens" style="display:flex;text-decoration:none;background:#fff;border:1px solid #EDE9E3;overflow:hidden;margin-top:10px;">
+        <div class="bw-img">
+          <img src="https://new.homeproject.online/static/1785957018221-GS450120.jpg" alt="Gaggenau паровой духовой шкаф" />
+        </div>
+        <div class="bw-info">
+          <div class="bw-brand">Gaggenau · Паровые духовые шкафы</div>
+          <div class="bw-name">Комби-пар серии 400</div>
+          <div class="bw-desc">Пар + конвекция в одном приборе. Сохраняет витамины, создаёт хрустящую корочку — идеальный баланс для профессионального результата.</div>
+          <div class="bw-cta">Подробнее на сайте</div>
         </div>
       </a>
 
-      <a class="site-cta" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=site_cta">
-        Открыть полный каталог техники на homeproject.online →
+      <a class="cat-btn" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=catalog_cta">
+        Открыть каталог встроенной техники на homeproject.online →
       </a>
     </div>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <div class="footer">
-      <div class="footer-top">
-        <div class="footer-links">
-          <a href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=footer">Snaidero</a>
-          <a href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_kitchen_aug26&utm_content=footer_main">Сайт</a>
+      <div class="foot-row">
+        <div class="foot-links">
+          <a href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=footer">Snaidero</a>
+          <a href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug26&utm_content=footer">Сайт</a>
           <a href="https://t.me/HomeProjectMsk">Telegram</a>
         </div>
-        <div style="font-size:11px;color:#bbb;">© 2026 Home Project</div>
+        <div class="foot-copy">© 2026 Home Project</div>
       </div>
-      <div class="footer-txt">
-        Вы получили это письмо, так как ранее оставляли запрос или работали с нашими проектами.<br>
+      <div class="foot-txt">
+        Вы получили это письмо, так как ранее взаимодействовали с нашими проектами.<br>
         <a href="#">Отписаться от рассылки</a>
       </div>
     </div>
 
   </div><!-- /email -->
 
-  <!-- Page notes -->
-  <div class="page-note">
-    <h3>Что кликабельно в этом письме</h3>
+  <!-- PAGE NOTES -->
+  <div class="pnote">
+    <h3>Что изменено в v3</h3>
     <ul>
-      <li><strong>Герой (фото OLA вверху)</strong> — весь блок → лендинг Snaidero</li>
-      <li><strong>Карточки OLA / Frame / Way</strong> — каждая → свой якорь на лендинге (#models)</li>
-      <li><strong>Orbita &amp; Opera (широкое фото)</strong> → лендинг Snaidero</li>
-      <li><strong>Кнопка «Все 9 коллекций»</strong> → лендинг Snaidero</li>
-      <li><strong>BORA, Gaggenau, V-ZUG (карточки техники)</strong> → homeproject.online</li>
-      <li><strong>«Открыть полный каталог»</strong> → homeproject.online</li>
-      <li><strong>Ссылки в шапке и футере</strong> → сайт / лендинг / Telegram</li>
-      <li>Все ссылки содержат <strong>UTM-метки</strong> для Яндекс.Метрики</li>
-    </ul>
-    <ul style="margin-top:8px;border-top:1px solid #444;padding-top:8px;">
-      <li><span>Фоновые картинки за текстом</span> — <strong style="color:#f87">не используем</strong>. Вместо этого: фото → поверх тёмный оверлей → текст поверх. Работает везде включая Outlook.</li>
-      <li><strong>Следующий шаг:</strong> загрузить HTML в UniSender Classic как шаблон → отправить тестовое на ваш ящик → внести правки по содержанию</li>
+      <li><strong>BORA убран</strong> — заменён на Kuppersbusch</li>
+      <li><strong>Kuppersbusch</strong>: кухонный интерьер с техникой VarioLine (CDN Teka Group) · кликает → homeproject.online</li>
+      <li><strong>Gaggenau GO450120</strong>: духовой шкаф, полный прибор виден целиком (<em>object-fit: contain</em>)</li>
+      <li><strong>Miele H7000</strong>: официальный CDN media.miele.com · полный прибор</li>
+      <li><strong>Все изображения техники</strong>: белый фон + contain — прибор не обрезан</li>
+      <li><strong>Вся сетка техники</strong>: клик по карточке → сайт (с UTM)</li>
+      <li><strong>Широкая карточка</strong>: паровой шкаф Gaggenau GS450120 → сайт</li>
     </ul>
   </div>
-</div>
 
+</div>
 </body>
 </html>
