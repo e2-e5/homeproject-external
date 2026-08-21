@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Превью письма — Snaidero · Home Project</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; padding:0; background:#2a2a2a; font-family:'Inter',sans-serif; }
+  .page-wrap { max-width:680px; margin:0 auto; padding:32px 16px 48px; }
+  .label { text-align:center; color:#888; font-size:12px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:20px; }
+  /* Email wrapper */
+  .email { background:#fff; border-radius:4px; overflow:hidden; box-shadow:0 8px 40px rgba(0,0,0,.5); }
+
+  /* Preheader */
+  .pre { background:#f5f5f5; padding:8px 24px; font-size:11px; color:#999; border-bottom:1px solid #eee; }
+
+  /* Header */
+  .hdr { background:#1C1A18; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; }
+  .hdr-logo { display:flex; align-items:center; gap:10px; }
+  .hdr-brand { font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.5); font-family:'Inter',sans-serif; }
+  .hdr-link { font-size:11px; color:#C4A882; text-decoration:none; letter-spacing:.06em; }
+
+  /* Hero */
+  .hero { position:relative; overflow:hidden; }
+  .hero img { width:100%; height:auto; display:block; }
+  .hero-ov { position:absolute; inset:0; background:linear-gradient(to top, rgba(28,26,24,.85) 0%, rgba(28,26,24,.25) 50%, transparent 100%); }
+  .hero-txt { position:absolute; bottom:0; left:0; right:0; padding:32px; }
+  .hero-tag { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#C4A882; margin-bottom:8px; }
+  .hero-title { font-family:'Cormorant Garamond',serif; font-size:38px; font-weight:300; color:#fff; line-height:1.1; margin:0 0 8px; }
+  .hero-title em { font-style:italic; }
+  .hero-sub { font-size:13px; font-weight:300; color:rgba(255,255,255,.75); margin:0; line-height:1.6; }
+
+  /* Body */
+  .body { padding:36px 32px 28px; }
+  .intro-txt { font-size:15px; font-weight:300; color:#3a3a3a; line-height:1.8; margin:0 0 28px; }
+  .intro-txt strong { font-weight:600; color:#1C1A18; }
+
+  /* Grid */
+  .grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:28px; }
+  .grid-item { overflow:hidden; border-radius:2px; }
+  .grid-item img { width:100%; height:160px; object-fit:cover; display:block; transition:transform .4s; }
+  .grid-cap { padding:8px 4px 0; }
+  .grid-name { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:300; color:#1C1A18; margin:0 0 2px; }
+  .grid-sub { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8C8880; }
+
+  /* Wide photo */
+  .wide-photo { margin-bottom:28px; border-radius:2px; overflow:hidden; position:relative; }
+  .wide-photo img { width:100%; height:240px; object-fit:cover; display:block; }
+  .wide-ov { position:absolute; inset:0; background:linear-gradient(to right, rgba(28,26,24,.7) 0%, transparent 60%); }
+  .wide-txt { position:absolute; top:50%; left:0; transform:translateY(-50%); padding:24px 28px; }
+  .wide-tag { font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#C4A882; margin-bottom:6px; }
+  .wide-title { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:300; color:#fff; margin:0 0 4px; }
+  .wide-desc { font-size:12px; color:rgba(255,255,255,.7); margin:0; line-height:1.5; max-width:220px; }
+
+  /* Divider */
+  .divider { height:1px; background:#f0ede8; margin:0 0 28px; }
+
+  /* Specs row */
+  .specs { display:flex; gap:0; margin-bottom:28px; border:1px solid #EDE9E3; }
+  .spec { flex:1; padding:16px 14px; text-align:center; border-right:1px solid #EDE9E3; }
+  .spec:last-child { border-right:none; }
+  .spec-n { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:300; color:#8B6F4E; line-height:1; margin-bottom:4px; }
+  .spec-l { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8C8880; }
+
+  /* CTA */
+  .cta-wrap { text-align:center; margin-bottom:32px; }
+  .cta { display:inline-block; background:#1C1A18; color:#fff; text-decoration:none; font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; padding:15px 38px; border-radius:1px; }
+  .cta-note { font-size:11px; color:#8C8880; margin-top:10px; }
+
+  /* Footer */
+  .footer { background:#f7f5f2; padding:20px 32px; border-top:1px solid #ede9e3; }
+  .footer-logo { font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#8C8880; margin-bottom:8px; }
+  .footer-txt { font-size:11px; color:#aaa; line-height:1.6; }
+  .footer-txt a { color:#8B6F4E; text-decoration:none; }
+
+  /* Badge */
+  .badge { display:flex; align-items:flex-start; gap:12px; background:#F7F5F2; border-left:3px solid #8B6F4E; padding:14px 16px; margin-bottom:28px; border-radius:0 2px 2px 0; }
+  .badge-ico { font-size:20px; flex-shrink:0; margin-top:2px; }
+  .badge-txt { font-size:13px; color:#2E2C2A; line-height:1.6; }
+  .badge-txt strong { display:block; margin-bottom:2px; color:#1C1A18; font-weight:600; }
+
+  /* Page label */
+  .page-note { text-align:center; color:#666; font-size:12px; margin-top:24px; line-height:1.7; }
+  .page-note strong { color:#C4A882; }
+
+  @media(max-width:520px){
+    .grid { grid-template-columns:1fr 1fr; }
+    .hero-title { font-size:26px; }
+    .hdr { padding:14px 18px; }
+    .body { padding:24px 18px 20px; }
+    .wide-photo img { height:180px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="label">📧 Превью письма — Snaidero · Home Project · Рассылка дизайнерам и архитекторам</div>
+
+  <div class="email">
+
+    <!-- Preheader -->
+    <div class="pre">Кухни Snaidero в Москве — индивидуальный проект за 1–2 рабочих дня · Home Project</div>
+
+    <!-- Header -->
+    <div class="hdr">
+      <div class="hdr-logo">
+        <svg style="fill:#E8470E;flex-shrink:0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 42.54" width="110" height="34">
+          <path d="M0 7.51h136V0H0zM0 42.55h136v-7.51H0z"/>
+          <path d="M60.86 13.41h-3.7v16.63h3.7zm0-3.4h-3.7v2.28h3.7z"/>
+          <path d="M8.93 13.4h3.39c2.01.06 3.63 1.68 3.7 3.69h-3.7a2.54 2.54 0 0 0-2.47-2.25h-.92v-1.44z"/>
+          <path d="M7.08 28.58h-.92a2.53 2.53 0 0 1-2.47-2.25H0a3.83 3.83 0 0 0 3.7 3.7h3.39v-1.45z"/>
+          <path d="M8.93 28.58h.92s2.47 0 2.47-3.07-2.47-3.07-2.47-3.07h-.92v-1.45h3.39s3.7 0 3.7 4.52-3.7 4.52-3.7 4.52H8.93z"/>
+          <path d="M7.08 20.99h-.92S3.7 20.99 3.7 17.92s2.46-3.07 2.46-3.07h.92V13.4H3.69C0 13.4 0 17.92 0 17.92s0 4.52 3.7 4.52h3.39v-1.45z"/>
+          <path d="M26.02 13.4h-7.08v16.63h3.7V17.92c0-3.07 2.46-3.07 2.46-3.07h.92z"/>
+          <path d="M27.87 13.4h3.39s3.69 0 3.69 4.52v12.11h-3.69V17.92c0-3.07-2.47-3.07-2.47-3.07h-.93V13.4z"/>
+          <path d="M44.96 13.4h-3.39a3.83 3.83 0 0 0-3.7 3.69h3.7a2.53 2.53 0 0 1 2.46-2.25h.93v-1.44z"/>
+          <path d="M46.81 28.58h.92s2.46 0 2.46-3.07-2.46-3.07-2.46-3.07h-.92v-1.45h.92s2.46 0 2.46-3.07-2.46-3.07-2.46-3.07h-.92V13.4h3.39s3.7 0 3.7 4.52v12.11h-7.09z"/>
+          <path d="M44.96 28.58h-.93s-2.46 0-2.46-3.07 2.46-3.07 2.46-3.07h.93v-1.45h-3.39s-3.69 0-3.69 4.52 3.69 4.52 3.69 4.52h3.39z"/>
+          <path d="M73.06 28.58h.92s2.47 0 2.47-3.07v-7.59c0-3.07-2.47-3.07-2.47-3.07h-.92V13.4h3.39v-3.39h3.69v20.02h-7.08v-1.45z"/>
+          <path d="M71.21 28.58h-.93s-2.46 0-2.46-3.07v-7.59c0-3.07 2.46-3.07 2.46-3.07h.93V13.4h-3.39s-3.69 0-3.69 4.52v7.59c0 4.52 3.69 4.52 3.69 4.52h3.39z"/>
+          <path d="M92.12 28.58h.92c1.26-.04 2.31-1 2.47-2.25h3.7a3.84 3.84 0 0 1-3.7 3.7h-3.39z"/>
+          <path d="M90.27 28.58h-.92s-2.47 0-2.47-3.07 2.47-3.07 2.47-3.07h.92v-1.45h-.92s-2.47 0-2.47-3.07 2.47-3.07 2.47-3.07h.92V13.4h-3.39s-3.69 0-3.69 4.52v7.59c0 4.52 3.69 4.52 3.69 4.52h3.39z"/>
+          <path d="M92.12 20.99h.92s2.47 0 2.47-3.07-2.47-3.07-2.47-3.07h-.92V13.4h3.39s3.7 0 3.7 4.52-3.7 4.52-3.7 4.52h-3.39z"/>
+          <path d="M109.23 13.4h-7.08v16.63h3.7V17.92c0-3.07 2.46-3.07 2.46-3.07h.93V13.4z"/>
+          <path d="M111.07 13.4h3.39c2.01.07 3.63 1.68 3.7 3.69h-3.7a2.54 2.54 0 0 0-2.47-2.25h-.92v-1.44z"/>
+          <path d="M127.06 28.58h-.93s-2.46 0-2.46-3.07v-7.59c0-3.07 2.46-3.07 2.46-3.07h.93V13.4h-3.39s-3.7 0-3.7 4.52v7.59c0 4.52 3.7 4.52 3.7 4.52h3.39z"/>
+          <path d="M128.9 28.58h.92s2.47 0 2.47-3.07v-7.59c0-3.07-2.47-3.07-2.47-3.07h-.93V13.4h3.39s3.69 0 3.69 4.52v7.59c0 4.52-3.69 4.52-3.69 4.52h-3.39v-1.45z"/>
+        </svg>
+        <span style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);padding-left:10px;border-left:1px solid rgba(255,255,255,.12);margin-left:4px">Официальный партнёр SNAIDERO</span>
+      </div>
+      <a href="#" class="hdr-link">homeproject.online</a>
+    </div>
+
+    <!-- Hero with photo -->
+    <div class="hero">
+      <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=1200" alt="Snaidero ICONE OLA" />
+      <div class="hero-ov"></div>
+      <div class="hero-txt">
+        <div class="hero-tag">Итальянские кухни · Официальный партнёр в России</div>
+        <h1 class="hero-title">Snaidero<br><em>для ваших проектов</em></h1>
+        <p class="hero-sub">Мы открыты к сотрудничеству с дизайнерами и архитекторами.<br>Расчёт под проект — 1–2 рабочих дня, бесплатно.</p>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+
+      <p class="intro-txt">
+        Добрый день!<br><br>
+        Home Project — официальный партнёр <strong>Snaidero</strong> в России. Мы работаем с дизайнерами напрямую: готовим расчёты, предоставляем каталоги и сопровождаем проект от ТЗ до поставки.<br><br>
+        Ниже — актуальные коллекции, доступные для заказа прямо сейчас.
+      </p>
+
+      <!-- 3 kitchen photos grid -->
+      <div class="grid">
+        <div class="grid-item">
+          <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=400" alt="OLA" />
+          <div class="grid-cap">
+            <div class="grid-name">OLA</div>
+            <div class="grid-sub">Pininfarina · Icone</div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img src="https://admin.snaidero.com/media/xtkixgue/06-icone-snaidero-vision-il-respiro-della-citt%C3%A0.jpg?width=400" alt="Vision" />
+          <div class="grid-cap">
+            <div class="grid-name">Vision</div>
+            <div class="grid-sub">Pininfarina · Icone</div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img src="https://admin.snaidero.com/media/gdjpcmzp/10-sistema-snaidero-frame-ispirazioni-haute-couture.jpg?width=400" alt="Frame" />
+          <div class="grid-cap">
+            <div class="grid-name">Frame</div>
+            <div class="grid-sub">Iosa Ghini · Sistema</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wide photo: Orbita/Opera — новинка -->
+      <div class="wide-photo">
+        <img src="https://admin.snaidero.com/media/vkljasn3/04-sistema-snaidero-orbita-a-un-passo-dal-colosseo.jpg?width=1200" alt="Orbita & Opera" />
+        <div class="wide-ov"></div>
+        <div class="wide-txt">
+          <div class="wide-tag">Новинка 2025/2026</div>
+          <div class="wide-title">Orbita &amp; Opera</div>
+          <div class="wide-desc">Фасады под углом 20° — кухня как архитектурный акцент пространства</div>
+        </div>
+      </div>
+
+      <!-- Second row: Way + Elementi -->
+      <div class="grid" style="grid-template-columns:1fr 1fr;margin-bottom:28px;">
+        <div class="grid-item">
+          <img src="https://admin.snaidero.com/media/2bxnwazi/05-sistema-snaidero-elementi-way-interni-wabi-sabi.jpg?width=600" alt="Way" style="height:200px;" />
+          <div class="grid-cap">
+            <div class="grid-name">Way</div>
+            <div class="grid-sub">Wabi-sabi · природные фактуры</div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img src="https://admin.snaidero.com/media/qmkd55dm/02-sistema-snaidero-elementi-una-finestra-sul-futuro.jpg?width=600" alt="Elementi" style="height:200px;" />
+          <div class="grid-cap">
+            <div class="grid-name">Elementi</div>
+            <div class="grid-sub">Керамика · алюминий · дерево</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Specs -->
+      <div class="specs">
+        <div class="spec">
+          <div class="spec-n">70+</div>
+          <div class="spec-l">лет в производстве</div>
+        </div>
+        <div class="spec">
+          <div class="spec-n">9</div>
+          <div class="spec-l">коллекций в России</div>
+        </div>
+        <div class="spec">
+          <div class="spec-n">1–2</div>
+          <div class="spec-l">р.дня — расчёт</div>
+        </div>
+        <div class="spec">
+          <div class="spec-n">3,5–4,5</div>
+          <div class="spec-l">мес. производство</div>
+        </div>
+      </div>
+
+      <!-- Badge -->
+      <div class="badge">
+        <div class="badge-ico">✉</div>
+        <div class="badge-txt">
+          <strong>Анна Никонова — специалист по проектам Snaidero</strong>
+          Пришлите планировку или ТЗ — подготовим расчёт бесплатно за 1–2 рабочих дня. Работаем с архитекторами и дизайнерами напрямую.
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap">
+        <a href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_designers" class="cta">Смотреть все коллекции →</a>
+        <div class="cta-note">или ответьте на это письмо — мы свяжемся в течение рабочего дня</div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-logo">Home Project · Официальный партнёр SNAIDERO в России</div>
+      <div class="footer-txt">
+        Вы получили это письмо, так как являетесь архитектором или дизайнером и ранее взаимодействовали с нашими проектами.<br>
+        <a href="#">Отписаться от рассылки</a> &nbsp;·&nbsp; <a href="https://homeproject.online">homeproject.online</a>
+      </div>
+    </div>
+
+  </div><!-- /email -->
+
+  <div class="page-note">
+    ⬆ Так письмо выглядит в браузере / почтовом клиенте<br>
+    <strong>Изображения загружаются с CDN Snaidero</strong> — работают в Gmail, Яндекс.Почте, Apple Mail, Outlook<br>
+    Фоновые картинки за текстом — <span style="color:#e88">не используем</span> (не работает в Outlook). Вместо этого — секции с полноширинными фото + тёмный оверлей + текст поверх.<br>
+    Шаблон готов к загрузке в UniSender Classic.
+  </div>
+</div>
+
+</body>
+</html>
