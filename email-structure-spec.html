@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Project — Структура информационных рассылок</title>
+<style>
+  :root {
+    --bg: #0E0E0E;
+    --surface: #181818;
+    --card: #1F1F1F;
+    --border: #2A2A2A;
+    --accent: #C9A96E;
+    --accent2: #8B6E4E;
+    --text: #F0EDE8;
+    --muted: #888;
+    --green: #4CAF50;
+    --blue: #4A90D9;
+    --red: #E05555;
+    --yellow: #E8B84B;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 0;
+  }
+  .page-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 40px 24px;
+  }
+  .page-header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .page-header p { color: var(--muted); font-size: 13px; }
+  .meta-row { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+  .meta-badge {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .meta-badge span { color: var(--accent); font-weight: 500; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+  .toc { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin-bottom: 40px; }
+  .toc h3 { color: var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 6px; }
+  .toc a { color: var(--muted); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+  .section { margin-bottom: 56px; }
+  .section-title { font-family: 'Georgia', serif; font-size: 22px; font-weight: 400; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 24px; }
+  .section-num { display: inline-block; width: 28px; height: 28px; background: var(--accent); color: #000; font-size: 13px; font-weight: 700; border-radius: 50%; text-align: center; line-height: 28px; margin-right: 10px; vertical-align: middle; }
+  .philosophy { background: linear-gradient(135deg, #1a1408 0%, #181818 100%); border: 1px solid var(--accent2); border-radius: 8px; padding: 28px 32px; margin-bottom: 40px; }
+  .philosophy h2 { font-family: 'Georgia', serif; color: var(--accent); font-size: 18px; margin-bottom: 16px; }
+  .philosophy p { margin-bottom: 12px; color: #ccc; }
+  .philosophy strong { color: var(--accent); }
+  .philosophy ul { padding-left: 20px; margin-top: 8px; }
+  .philosophy ul li { margin-bottom: 8px; color: #ccc; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px; }
+  th { background: var(--card); color: var(--accent); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  code { font-family: 'SF Mono','Monaco',monospace; background: rgba(201,169,110,0.1); color: var(--accent); padding: 2px 6px; border-radius: 3px; font-size: 12px; }
+  .url-cell { font-family: 'SF Mono','Monaco',monospace; font-size: 11px; color: var(--blue); word-break: break-all; }
+  .block-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .block-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .block-card-header { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .block-badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .block-badge.required { background: rgba(201,169,110,0.2); color: var(--accent); border: 1px solid var(--accent2); }
+  .block-badge.optional { background: rgba(74,144,217,0.15); color: var(--blue); border: 1px solid rgba(74,144,217,0.3); }
+  .block-badge.new { background: rgba(76,175,80,0.15); color: var(--green); border: 1px solid rgba(76,175,80,0.3); }
+  .block-card-body { padding: 16px 18px; }
+  .block-card-body dt { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px; margin-bottom: 3px; }
+  .block-card-body dd { color: var(--text); font-size: 13px; }
+  .visual-spec { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; }
+  .visual-spec h4 { color: var(--accent); font-size: 13px; margin-bottom: 12px; }
+  .visual-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .visual-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 4px 10px; font-size: 12px; color: #ccc; }
+  .visual-chip b { color: var(--accent); }
+  .matrix-cell { width: 28px; height: 28px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; margin: 2px; }
+  .cell-yes { background: rgba(76,175,80,0.2); color: var(--green); border: 1px solid rgba(76,175,80,0.3); }
+  .cell-opt { background: rgba(232,184,75,0.15); color: var(--yellow); border: 1px solid rgba(232,184,75,0.3); }
+  .cell-no { background: rgba(255,255,255,0.03); color: #444; border: 1px solid var(--border); }
+  .note { background: rgba(232,184,75,0.08); border-left: 3px solid var(--yellow); padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 16px 0; font-size: 13px; color: #ccc; }
+  .note strong { color: var(--yellow); }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .pill-A { background: rgba(74,144,217,0.2); color: #6aadff; }
+  .pill-B { background: rgba(201,169,110,0.2); color: var(--accent); }
+  .pill-C { background: rgba(76,175,80,0.2); color: var(--green); }
+  .pill-D { background: rgba(224,85,85,0.2); color: #ff7a7a; }
+  .journey-row { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .journey-step { min-width: 36px; height: 36px; background: var(--accent); color: #000; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .journey-content h4 { color: var(--text); margin-bottom: 4px; font-size: 14px; }
+  .journey-content p { color: var(--muted); font-size: 13px; }
+  .journey-arrow { color: var(--border); font-size: 20px; text-align: center; margin: 4px 0; padding-left: 18px; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+  .tag { color: var(--muted); font-size: 11px; }
+  .footer-note { text-align: center; color: var(--muted); font-size: 12px; padding: 40px; }
+</style>
+</head>
+<body>
+<div class="page-header">
+  <h1>📋 Структура информационных рассылок</h1>
+  <p>Home Project — стандарт построения email-кампаний. Версия 1.0 · Август 2026</p>
+  <div class="meta-row">
+    <div class="meta-badge">Версия <span>1.0</span></div>
+    <div class="meta-badge">Письма <span>A1–D2 (11 ячеек)</span></div>
+    <div class="meta-badge">Статус <span>На согласование</span></div>
+    <div class="meta-badge">Платформа <span>UniSender Classic</span></div>
+  </div>
+</div>
+<div class="container">
+  <div class="toc">
+    <h3>Содержание</h3>
+    <ol>
+      <li><a href="#philosophy">Философия и приоритеты</a></li>
+      <li><a href="#url-map">Карта URL (куда вести клики)</a></li>
+      <li><a href="#blocks">Блоки письма (8 типов)</a></li>
+      <li><a href="#visual">Визуальный стандарт</a></li>
+      <li><a href="#matrix">Матрица: какой блок — в каком письме</a></li>
+      <li><a href="#segments">Профили писем (A1–D2)</a></li>
+      <li><a href="#journey">Клиентский путь</a></li>
+    </ol>
+  </div>
+
+  <div class="philosophy" id="philosophy">
+    <h2>1. Философия и приоритеты</h2>
+    <p><strong>Главный тезис:</strong> Home Project — это не магазин техники. Это <strong>сервисная платформа с AI-агентами</strong>, которая даёт дизайнерам и дилерам максимальную скорость работы с их клиентами.</p>
+    <p>Во всех письмах действует правило:</p>
+    <ul>
+      <li>🥇 <strong>Сервис — первично.</strong> Что мы делаем для вашего бизнеса: скорость, AI, КП за 20 секунд, консультант 24/7.</li>
+      <li>🥈 <strong>Бренды — вторично.</strong> Иллюстрируют ассортимент. Не доминируют над сервисом.</li>
+      <li>🥉 <strong>Платформа — для B2B-партнёров.</strong> Отдельный трек (письма D1/D2) для тех, кто хочет внедрить такую же модель у себя.</li>
+    </ul>
+    <p style="margin-top:16px; color:#aaa; font-size:13px;">
+      <strong>Ключевое преимущество:</strong> У конкурентов менеджер занят. У нас — AI-агент отвечает моментально, подбирает технику, считает КП, помнит историю клиента. Дизайнер получает предложение и выглядит профессионально перед своим заказчиком.
+    </p>
+  </div>
+
+  <div class="section" id="url-map">
+    <div class="section-title"><span class="section-num">2</span> Карта URL — куда вести клики</div>
+    <div class="note"><strong>Правило:</strong> Каждый клик должен приземлять читателя на страницу, которая существует и загружается. Перед обновлением письма — проверить URL на 200 OK.</div>
+    <table>
+      <tr><th>Назначение</th><th>URL</th><th>Статус</th><th>Используется в</th></tr>
+      <tr>
+        <td><strong>Форма КП</strong><br><span class="tag">«Получить КП» / «КП за 20 сек»</span></td>
+        <td class="url-cell">https://e2-e5.github.io/homeproject-external/kp-request.html</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-A">A3</span> <span class="pill pill-B">B3</span> <span class="pill pill-B">B1</span> все</td>
+      </tr>
+      <tr>
+        <td><strong>AI-консультант «Ария»</strong><br><span class="tag">Telegram-бот 24/7</span></td>
+        <td class="url-cell">https://t.me/homeproject_ai_bot</td>
+        <td>✅ 200</td>
+        <td>Все письма (в блоке «Сервис»)</td>
+      </tr>
+      <tr>
+        <td><strong>Snaidero — лендинг</strong></td>
+        <td class="url-cell">https://e2-e5.github.io/homeproject-external/snaidero.html</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-A">A1</span> <span class="pill pill-A">A2</span></td>
+      </tr>
+      <tr>
+        <td><strong>Miele — лендинг</strong></td>
+        <td class="url-cell">https://e2-e5.github.io/homeproject-external/miele.html</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-A">A1</span> <span class="pill pill-A">A3</span> <span class="pill pill-C">C2</span></td>
+      </tr>
+      <tr>
+        <td><strong>Gaggenau — лендинг</strong></td>
+        <td class="url-cell">https://e2-e5.github.io/homeproject-external/gaggenau-brand.html</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-A">A1</span> <span class="pill pill-A">A3</span></td>
+      </tr>
+      <tr>
+        <td><strong>De Dietrich — страница на сайте</strong></td>
+        <td class="url-cell">https://new.homeproject.online/ru/page/brand-de-dietrich</td>
+        <td>✅ 200</td>
+        <td>При упоминании бренда</td>
+      </tr>
+      <tr>
+        <td><strong>Graude — каталог</strong><br><span class="tag">Своей страницы нет — каталог</span></td>
+        <td class="url-cell">https://new.homeproject.online/ru/store?category=brand-graude</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-C">C1</span> <span class="pill pill-C">C3</span></td>
+      </tr>
+      <tr>
+        <td><strong>V-ZUG — каталог</strong></td>
+        <td class="url-cell">https://new.homeproject.online/ru/store?category=brand-v-zug</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-C">C2</span> <span class="pill pill-C">C3</span></td>
+      </tr>
+      <tr>
+        <td><strong>Schulthess — каталог</strong></td>
+        <td class="url-cell">https://new.homeproject.online/ru/store?category=brand-schulthess</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-C">C2</span> <span class="pill pill-C">C3</span></td>
+      </tr>
+      <tr>
+        <td><strong>BORA — каталог</strong></td>
+        <td class="url-cell">https://new.homeproject.online/ru/store?category=brand-bora</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-B">B2</span> <span class="pill pill-C">C3</span></td>
+      </tr>
+      <tr>
+        <td><strong>Kuppersbusch — каталог</strong></td>
+        <td class="url-cell">https://new.homeproject.online/ru/store?category=brand-kuppersbusch</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-B">B2</span> <span class="pill pill-C">C3</span></td>
+      </tr>
+      <tr>
+        <td><strong>Fhiaba — каталог</strong></td>
+        <td class="url-cell">https://new.homeproject.online/ru/store?category=brand-fhiaba</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-B">B2</span></td>
+      </tr>
+      <tr>
+        <td><strong>B2B Платформа — презентация</strong><br><span class="tag">«AI-управление дистрибуцией»</span></td>
+        <td class="url-cell">https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-D">D1</span> <span class="pill pill-D">D2</span></td>
+      </tr>
+      <tr>
+        <td><strong>Весь каталог</strong></td>
+        <td class="url-cell">https://new.homeproject.online/ru/store</td>
+        <td>✅ 200</td>
+        <td><span class="pill pill-C">C3</span></td>
+      </tr>
+    </table>
+    <div class="note"><strong>Правило для брендов без лендинга:</strong> V-ZUG, BORA, Kuppersbusch, Schulthess, Fhiaba, Graude → ведём на <code>/ru/store?category=brand-X</code>. Это показывает реальный ассортимент. Когда появятся лендинги — обновим без пересборки всей стратегии.</div>
+  </div>
+
+  <div class="section" id="blocks">
+    <div class="section-title"><span class="section-num">3</span> Блоки письма — 8 типов</div>
+    <p style="margin-bottom:20px; color:#aaa;">Каждое письмо собирается из блоков. Обязательные — в каждом письме. Опциональные — по теме ячейки.</p>
+    <div class="block-grid">
+      <div class="block-card">
+        <div class="block-card-header"><span class="block-badge required">Обязательный</span><strong>HEADER — Шапка</strong></div>
+        <div class="block-card-body"><dl>
+          <dt>Что показывает</dt><dd>Логотип HOME PROJECT слева, слоган справа (мелко: «Европейская техника для дизайн-проектов»)</dd>
+          <dt>Клики</dt><dd>Логотип → <code>new.homeproject.online</code></dd>
+          <dt>Цель</dt><dd>Идентификация отправителя</dd>
+          <dt>Визуал</dt><dd>Bg: #0E0E0E · Высота: 56px · Логотип: белый текст 18px · Padding: 0 40px</dd>
+        </dl></div>
+      </div>
+      <div class="block-card">
+        <div class="block-card-header"><span class="block-badge required">Обязательный</span><strong>HERO — Главный экран</strong></div>
+        <div class="block-card-body"><dl>
+          <dt>Что показывает</dt><dd>Фоновое фото/цвет + градиент снизу + H1 (тема письма) + подзаголовок (1 строка)</dd>
+          <dt>Клики</dt><dd>Нет кликабельных элементов в Hero — фокус на чтении</dd>
+          <dt>Цель</dt><dd>Захват внимания. Первые 2 секунды — решение «читать дальше»</dd>
+          <dt>Визуал</dt><dd>Высота: 260–320px · Overlay: linear-gradient(rgba(0,0,0,0.2)→rgba(0,0,0,0.75)) · H1: Georgia 28px white · Sub: Inter 14px #ccc · Текст прижат к низу</dd>
+        </dl></div>
+      </div>
+      <div class="block-card">
+        <div class="block-card-header"><span class="block-badge required">Обязательный</span><span class="block-badge new">Новый</span><strong>SERVICE — Сервис (главный)</strong></div>
+        <div class="block-card-body"><dl>
+          <dt>Что показывает</dt><dd>2–3 карточки: «КП за 20 сек», «AI-консультант 24/7», «История объектов». Каждая: иконка + заголовок + 1 строка пользы</dd>
+          <dt>Клики</dt><dd>«Получить КП» → форма КП · «Написать Арии» → Telegram-бот</dd>
+          <dt>Цель</dt><dd>Показать ценность сервиса ДО того, как читатель увидит бренды</dd>
+          <dt>Визуал</dt><dd>Bg: #141414 · Карточки: 3 колонки · Иконки: 32px, accent · Заголовок секции: Georgia 18px accent</dd>
+        </dl></div>
+      </div>
+      <div class="block-card">
+        <div class="block-card-header"><span class="block-badge optional">Опциональный</span><strong>BRANDS — Карточки брендов</strong></div>
+        <div class="block-card-body"><dl>
+          <dt>Что показывает</dt><dd>2–4 карточки брендов. Каждая: лого на светлом фоне (#F8F7F5) + название + 1-строчный тэглайн + кнопка «Смотреть»</dd>
+          <dt>Клики</dt><dd>Каждая карточка → лендинг бренда (по таблице URL) или каталог</dd>
+          <dt>Цель</dt><dd>Иллюстрация ассортимента. Вторичный блок.</dd>
+          <dt>Визуал</dt><dd>Bg секции: #181818 · Карточка bg: #F8F7F5 · Лого: contain, 120px высота · Тэглайн: 11px #666 · Кнопка: outline dark</dd>
+        </dl></div>
+      </div>
+      <div class="block-card">
+        <div class="block-card-header"><span class="block-badge optional">Опциональный</span><strong>WIDECARD — Акцентный блок</strong></div>
+        <div class="block-card-body"><dl>
+          <dt>Что показывает</dt><dd>Полноширинная карточка: фото слева (40%) + текст справа. Глубокое раскрытие одной темы</dd>
+          <dt>Клики</dt><dd>Кнопка «Подробнее» → лендинг бренда или конкретная страница</dd>
+          <dt>Цель</dt><dd>Сформировать интерес к одному приоритетному продукту/бренду</dd>
+          <dt>Визуал</dt><dd>Bg: #0E0E0E · Высота: авто (мин. 200px) · Текст: Georgia заголовок + Inter 13px · Кнопка: accent fill</dd>
+        </dl></div>
+      </div>
+      <div class="block-card">
+        <div class="block-card-header"><span class="block-badge optional">Опциональный</span><span class="block-badge new">Новый</span><strong>PLATFORM — AI-платформа (B2B)</strong></div>
+        <div class="block-card-body"><dl>
+          <dt>Что показывает</dt><dd>Блок «Мы внедряем AI-управление для B2B»: 3 пункта (автоматизация КП / AI-аналитика / интеграция с CRM) + кнопка к презентации</dd>
+          <dt>Клики</dt><dd>«Смотреть презентацию» → hp-transformation-v2.html</dd>
+          <dt>Цель</dt><dd>Питч партнёрства: «хотите такую же систему у себя?»</dd>
+          <dt>Визуал</dt><dd>Bg: #0A1020 · Акцент иконок: #4A90D9 · Заголовок секции: Georgia italic</dd>
+        </dl></div>
+      </div>
+      <div class="block-card">
+        <div class="block-card-header"><span class="block-badge required">Обязательный</span><strong>CTA — Главный призыв к действию</strong></div>
+        <div class="block-card-body"><dl>
+          <dt>Что показывает</dt><dd>2 кнопки рядом: 1) «Получить КП» (основная, accent) + 2) «Написать Арии» (вторичная, outline)</dd>
+          <dt>Клики</dt><dd>КП → форма КП · Ария → Telegram-бот</dd>
+          <dt>Цель</dt><dd>Конвертация. Финальный призыв перед footer.</dd>
+          <dt>Визуал</dt><dd>Bg: #0E0E0E · Текст над кнопками: 1 строка Georgia italic · Кнопки горизонтально, gap 16px</dd>
+        </dl></div>
+      </div>
+      <div class="block-card">
+        <div class="block-card-header"><span class="block-badge required">Обязательный</span><strong>FOOTER — Подвал</strong></div>
+        <div class="block-card-body"><dl>
+          <dt>Что показывает</dt><dd>«© 2026 HOME PROJECT» + адрес · Ссылка отписки: <code>{{UnsubscribeUrl}}</code></dd>
+          <dt>Клики</dt><dd>Отписка → <code>{{UnsubscribeUrl}}</code> (UniSender подставит автоматически)</dd>
+          <dt>Цель</dt><dd>Юридическая обязанность (CAN-SPAM/ФЗ-38). Сохранение репутации домена.</dd>
+          <dt>Визуал</dt><dd>Bg: #0A0A0A · Текст: Inter 11px #555 · Высота: 80px</dd>
+        </dl></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="visual">
+    <div class="section-title"><span class="section-num">4</span> Визуальный стандарт (Snaidero benchmark)</div>
+    <div class="visual-spec">
+      <h4>Цвета</h4>
+      <div class="visual-row">
+        <div class="visual-chip">Фон письма: <b>#0E0E0E</b></div>
+        <div class="visual-chip">Секции: <b>#181818</b></div>
+        <div class="visual-chip">Карточки: <b>#1F1F1F</b></div>
+        <div class="visual-chip">Акцент: <b>#C9A96E</b></div>
+        <div class="visual-chip">Лого-фон: <b>#F8F7F5</b></div>
+        <div class="visual-chip">Текст: <b>#F0EDE8</b></div>
+        <div class="visual-chip">Muted: <b>#888888</b></div>
+      </div>
+    </div>
+    <div class="visual-spec">
+      <h4>Типографика</h4>
+      <div class="visual-row">
+        <div class="visual-chip">H1 Hero: <b>Georgia, 28px, white</b></div>
+        <div class="visual-chip">H2 секций: <b>Georgia, 18–20px, #C9A96E</b></div>
+        <div class="visual-chip">Тело: <b>Inter, 13–14px, #C8C5BF</b></div>
+        <div class="visual-chip">Мелкий: <b>Inter, 11px, #888</b></div>
+        <div class="visual-chip">Кнопки: <b>Inter, 13px, uppercase, letter-spacing 1px</b></div>
+      </div>
+    </div>
+    <div class="visual-spec">
+      <h4>Размеры</h4>
+      <div class="visual-row">
+        <div class="visual-chip">Ширина письма: <b>600px</b></div>
+        <div class="visual-chip">Padding секции: <b>40px</b></div>
+        <div class="visual-chip">Hero высота: <b>280px</b></div>
+        <div class="visual-chip">Brand card лого: <b>contain, max-h 120px</b></div>
+        <div class="visual-chip">Кнопка padding: <b>12px 28px</b></div>
+        <div class="visual-chip">Border-radius кнопки: <b>0px (sharp)</b></div>
+      </div>
+    </div>
+    <div class="visual-spec">
+      <h4>Кнопки</h4>
+      <div class="visual-row">
+        <div class="visual-chip"><b>Primary:</b> bg #C9A96E · text #000</div>
+        <div class="visual-chip"><b>Secondary:</b> bg transparent · text #C9A96E · border 1px #C9A96E</div>
+        <div class="visual-chip"><b>Dark on light:</b> bg #0E0E0E · text white</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="matrix">
+    <div class="section-title"><span class="section-num">5</span> Матрица: блоки × письма</div>
+    <p style="margin-bottom:16px; color:#aaa; font-size:13px;">
+      <span style="display:inline-block;width:24px;height:16px;background:rgba(76,175,80,0.2);border:1px solid rgba(76,175,80,0.3);border-radius:3px;vertical-align:middle;margin-right:6px;"></span>Да &nbsp;
+      <span style="display:inline-block;width:24px;height:16px;background:rgba(232,184,75,0.15);border:1px solid rgba(232,184,75,0.3);border-radius:3px;vertical-align:middle;margin-right:6px;"></span>Возможно &nbsp;
+      <span style="display:inline-block;width:24px;height:16px;background:rgba(255,255,255,0.03);border:1px solid #2A2A2A;border-radius:3px;vertical-align:middle;margin-right:6px;"></span>Нет
+    </p>
+    <table>
+      <tr><th>Блок</th><th>A1</th><th>A2</th><th>A3</th><th>B1</th><th>B2</th><th>B3</th><th>C1</th><th>C2</th><th>C3</th><th>D1</th><th>D2</th></tr>
+      <tr><td><strong>HEADER</strong></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td></tr>
+      <tr><td><strong>HERO</strong></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td></tr>
+      <tr><td><strong>SERVICE 🆕</strong></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-opt">~</div></td><td><div class="matrix-cell cell-opt">~</div></td></tr>
+      <tr><td><strong>BRANDS</strong></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-opt">~</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-no">—</div></td></tr>
+      <tr><td><strong>WIDECARD</strong></td><td><div class="matrix-cell cell-opt">~</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-opt">~</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td></tr>
+      <tr><td><strong>PLATFORM 🆕</strong></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-opt">~</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-no">—</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td></tr>
+      <tr><td><strong>CTA</strong></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td></tr>
+      <tr><td><strong>FOOTER</strong></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td><td><div class="matrix-cell cell-yes">✓</div></td></tr>
+    </table>
+  </div>
+
+  <div class="section" id="segments">
+    <div class="section-title"><span class="section-num">6</span> Профили писем A1–D2</div>
+    <table>
+      <tr><th>Письмо</th><th>Аудитория</th><th>Тема / Hook</th><th>Hero-текст</th><th>Блоки (порядок)</th><th>Главный CTA</th></tr>
+      <tr><td><span class="pill pill-A">A1</span></td><td>Дизайнеры, писали раньше</td><td>«4 новых бренда в вашей работе»</td><td>«Мы расширили портфель. Теперь можем закрыть ещё больше запросов ваших клиентов.»</td><td>HEADER → HERO → <b>SERVICE</b> → BRANDS (Snaidero + Gaggenau + Miele) → CTA → FOOTER</td><td>«Получить КП»</td></tr>
+      <tr><td><span class="pill pill-A">A2</span></td><td>Дизайнеры, писали раньше</td><td>«Snaidero — итальянские кухни премиум»</td><td>«Snaidero. 75 лет итальянского производства — теперь в вашей линейке.»</td><td>HEADER → HERO (Snaidero фото) → <b>SERVICE</b> → WIDECARD (Snaidero) → CTA → FOOTER</td><td>«Смотреть Snaidero»</td></tr>
+      <tr><td><span class="pill pill-A">A3</span></td><td>Дизайнеры, писали раньше</td><td>«Miele + Gaggenau для вашего проекта»</td><td>«Техника, которую выбирают архитекторы. КП — за 20 секунд.»</td><td>HEADER → HERO → <b>SERVICE</b> → BRANDS (Miele + Gaggenau) → WIDECARD (Gaggenau) → CTA → FOOTER</td><td>«Получить КП» → форма КП</td></tr>
+      <tr><td><span class="pill pill-B">B1</span></td><td>Дизайнеры, без касания</td><td>«Сервис, которого нет у других»</td><td>«AI-менеджер отвечает за секунды. КП — за 20. История объектов — всегда под рукой.»</td><td>HEADER → HERO → <b>SERVICE (расширенный)</b> → CTA → FOOTER</td><td>«Попробовать сервис» → форма КП</td></tr>
+      <tr><td><span class="pill pill-B">B2</span></td><td>Дизайнеры, без касания</td><td>«Бренды, которых нет в розничных магазинах»</td><td>«BORA, Kuppersbusch, Fhiaba — техника для тех, кто знает толк.»</td><td>HEADER → HERO → <b>SERVICE</b> → BRANDS (BORA + Kuppers + Fhiaba) → CTA → FOOTER</td><td>«Получить КП»</td></tr>
+      <tr><td><span class="pill pill-B">B3</span></td><td>Дизайнеры, без касания</td><td>«КП за 20 секунд»</td><td>«Пока другие считают — мы уже отправили. AI считает, вы побеждаете тендер.»</td><td>HEADER → HERO → <b>SERVICE (KP-фокус)</b> → WIDECARD (демо КП) → CTA → FOOTER</td><td>«Получить КП» → форма КП</td></tr>
+      <tr><td><span class="pill pill-C">C1</span></td><td>Сантехники / застройщики</td><td>«Graude: стирка от 158 980₽ комплект»</td><td>«Европейская стиральная пара по честной цене. Подберём — пришлём КП.»</td><td>HEADER → HERO → <b>SERVICE</b> → WIDECARD (Graude) → CTA → FOOTER</td><td>«Получить КП»</td></tr>
+      <tr><td><span class="pill pill-C">C2</span></td><td>Сантехники / застройщики</td><td>«Премиум: V-ZUG / Schulthess / Miele»</td><td>«Для проектов без компромиссов. Класс A, тихая работа, 25 лет репутации.»</td><td>HEADER → HERO → <b>SERVICE</b> → BRANDS (V-ZUG + Schulthess + Miele) → CTA → FOOTER</td><td>«Получить КП»</td></tr>
+      <tr><td><span class="pill pill-C">C3</span></td><td>Сантехники / застройщики</td><td>«Вся линейка по ценовым тирам»</td><td>«Эконом, средний, люкс — под любой бюджет. КП с расчётом под проект.»</td><td>HEADER → HERO → <b>SERVICE</b> → BRANDS (3 тира таблицей) → CTA → FOOTER</td><td>«Получить КП»</td></tr>
+      <tr><td><span class="pill pill-D">D1</span></td><td>B2B-партнёры (active_agent)</td><td>«AI ведёт дистрибуцию. Мы показываем как.»</td><td>«Home Project работает на AI-агентах. Каждый процесс автоматизирован. Готовы внедрить для вас.»</td><td>HEADER → HERO → WIDECARD (платформа) → <b>PLATFORM</b> → CTA (к презентации) → FOOTER</td><td>«Смотреть презентацию»</td></tr>
+      <tr><td><span class="pill pill-D">D2</span></td><td>B2B-партнёры (active_agent)</td><td>«Готовый IT-продукт для дистрибьютора»</td><td>«CRM, каталог, КП, рассылки — один AI-агент вместо 3 сотрудников.»</td><td>HEADER → HERO → <b>PLATFORM (расширенный)</b> → WIDECARD (кейс/метрики) → CTA → FOOTER</td><td>«Обсудить внедрение» → Telegram-бот</td></tr>
+    </table>
+  </div>
+
+  <div class="section" id="journey">
+    <div class="section-title"><span class="section-num">7</span> Клиентский путь читателя</div>
+    <p style="margin-bottom:24px; color:#aaa;">Как ведём читателя от первого касания к заявке.</p>
+    <div class="journey-row"><div class="journey-step">1</div><div class="journey-content"><h4>Открывает письмо (тема + превью)</h4><p>Тема строится на конкретной пользе. Превью-текст = первая строка Hero — усиливает тему.</p></div></div>
+    <div class="journey-arrow">↓</div>
+    <div class="journey-row"><div class="journey-step">2</div><div class="journey-content"><h4>Видит Hero — решает читать дальше</h4><p>Сильный заголовок + фото. Без кликабельных элементов — фокус на месседже.</p></div></div>
+    <div class="journey-arrow">↓</div>
+    <div class="journey-row"><div class="journey-step">3</div><div class="journey-content"><h4>SERVICE-блок — понимает ценность сервиса</h4><p>«КП за 20 сек», «AI 24/7», «история объектов». Читатель осознаёт: это не просто склад техники.</p></div></div>
+    <div class="journey-arrow">↓</div>
+    <div class="journey-row"><div class="journey-step">4</div><div class="journey-content"><h4>BRANDS / WIDECARD — видит конкретный продукт</h4><p>Карточки брендов или расширенный блок. Подтверждает ассортимент.</p></div></div>
+    <div class="journey-arrow">↓</div>
+    <div class="journey-row"><div class="journey-step">5</div><div class="journey-content"><h4>CTA — принимает решение</h4><p>Два пути: «Получить КП» или «Написать Арии».</p></div></div>
+    <div class="journey-arrow">↓</div>
+    <div class="journey-row"><div class="journey-step">6</div><div class="journey-content"><h4>Форма КП или Telegram-бот</h4><p>Форма: имя + телефон + описание → КП в течение дня. Telegram: мгновенный диалог с AI-агентом.</p></div></div>
+    <hr>
+    <div class="note">
+      <strong>Ключевой принцип:</strong> В каждом письме читатель сначала понимает <em>зачем нам доверять</em> (SERVICE), и только потом видит <em>что именно можно купить</em> (BRANDS). Обратный порядок превращает письмо в каталог — туда уже не возвращаются.
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Структура v1.0 · Home Project · Август 2026 · На согласование<br>
+    После утверждения — пересборка всех 11 писем по этому стандарту
+  </div>
+</div>
+</body>
+</html>
