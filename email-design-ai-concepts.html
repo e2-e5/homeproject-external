@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Home Project — AI-философия в дизайне письма</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0D0D0D;font-family:'Inter',sans-serif;color:#222;}
+.page{max-width:760px;margin:0 auto;padding:30px 14px 80px;}
+.intro{background:#111;border:1px solid #222;border-radius:12px;padding:30px 32px;margin-bottom:40px;}
+.intro h1{font-size:26px;font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:-.02em;}
+.intro p{font-size:14px;color:#888;line-height:1.75;margin-bottom:10px;}
+.intro .accent{color:#22D3EE;}
+.vlabel{margin:52px 0 18px;}
+.vlabel .chip{display:inline-flex;align-items:center;gap:8px;background:#1a1a1a;border:1px solid #333;color:#aaa;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;border-radius:30px;margin-bottom:14px;}
+.vlabel .chip .dot{width:7px;height:7px;border-radius:50%;background:#22D3EE;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.vlabel h2{font-size:24px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:-.01em;}
+.vlabel p{font-size:13px;color:#666;line-height:1.65;max-width:620px;}
+.vlabel .palette{display:flex;gap:8px;margin-top:14px;}
+.vlabel .sw{width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,.08);}
+.email{box-shadow:0 20px 80px rgba(0,0,0,.6);border-radius:6px;overflow:hidden;}
+a{text-decoration:none;}
+img{display:block;}
+
+/* ====== VARIANT 4: BLUEPRINT GRID ====== */
+.v4{background:#fff;font-family:'Inter',sans-serif;}
+.v4-grid-bg{
+  background-image:linear-gradient(rgba(200,196,188,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(200,196,188,.35) 1px,transparent 1px);
+  background-size:36px 36px;
+  background-color:#FAFAF8;
+}
+.v4-hdr{background:#FAFAF8;padding:18px 30px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #C9C2B5;position:relative;}
+.v4-hdr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#0F2340;}
+.v4-logo{font-family:'Cormorant Garamond',serif;font-size:19px;letter-spacing:.22em;color:#0F2340;text-transform:uppercase;}
+.v4-nav{display:flex;align-items:center;gap:0;}
+.v4-nav a{font-family:'JetBrains Mono',monospace;font-size:10px;color:#8B6F4E;letter-spacing:.08em;padding:0 14px;border-right:1px solid #ddd;}
+.v4-nav a:last-child{border:none;}
+.v4-hero{display:block;position:relative;overflow:hidden;}
+.v4-hero img{width:100%;height:320px;object-fit:cover;}
+.v4-hero .ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,35,64,.96) 0%,rgba(15,35,64,.2) 60%,transparent 100%);}
+.v4-hero .agent-badge{position:absolute;top:20px;right:20px;background:rgba(15,35,64,.85);border:1px solid rgba(196,147,42,.5);color:#C4932A;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;padding:6px 12px;backdrop-filter:blur(4px);}
+.v4-hero .agent-badge::before{content:'● ';color:#4ADE80;}
+.v4-hero .txt{position:absolute;bottom:0;left:0;right:0;padding:30px 32px;}
+.v4-hero .tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;color:#C4932A;margin-bottom:12px;}
+.v4-hero h2{font-family:'Cormorant Garamond',serif;font-size:35px;font-weight:300;color:#fff;line-height:1.1;margin-bottom:10px;}
+.v4-hero h2 em{font-style:italic;}
+.v4-hero .sub{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:18px;}
+.v4-hero .btn{display:inline-flex;align-items:center;gap:10px;border:1px solid #C4932A;color:#C4932A;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:11px 22px;}
+.v4-hero .btn::after{content:'→';}
+.v4-svc{background:#0F2340;padding:32px 30px;}
+.v4-svc .sys-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.v4-svc .sys-line{flex:1;height:1px;background:rgba(196,147,42,.3);}
+.v4-svc .sys-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#C4932A;}
+.v4-svc .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.v4-card{background:rgba(255,255,255,.04);border:1px solid rgba(196,147,42,.2);padding:22px 16px;text-align:center;display:block;transition:background .25s,border-color .25s;}
+.v4-card:hover{background:rgba(196,147,42,.07);border-color:rgba(196,147,42,.5);}
+.v4-card .status{font-family:'JetBrains Mono',monospace;font-size:8px;color:#4ADE80;letter-spacing:.12em;margin-bottom:8px;}
+.v4-card .status::before{content:'● ';}
+.v4-card .t{font-size:13px;font-weight:600;color:#fff;margin-bottom:5px;}
+.v4-card .d{font-size:11px;color:#6A8DAA;line-height:1.5;margin-bottom:12px;}
+.v4-card .go{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#C4932A;}
+.v4-card .go::after{content:' →';}
+.v4-brands{padding:32px 30px;background:#FAFAF8;background-image:linear-gradient(rgba(200,196,188,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(200,196,188,.25) 1px,transparent 1px);background-size:36px 36px;}
+.v4-sectag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#8B6F4E;margin-bottom:8px;}
+.v4-sech{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#0F2340;margin-bottom:18px;}
+.v4-bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.v4-bc{display:block;background:#fff;border:1px solid #C9C2B5;overflow:hidden;transition:box-shadow .25s,border-color .25s;}
+.v4-bc:hover{box-shadow:0 8px 30px rgba(15,35,64,.12);border-color:#0F2340;}
+.v4-bc .im{height:145px;overflow:hidden;}
+.v4-bc .im img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.v4-bc:hover .im img{transform:scale(1.05);}
+.v4-bc .im.contain{background:#F8F6F3;display:flex;align-items:center;justify-content:center;padding:12px;}
+.v4-bc .im.contain img{max-width:100%;max-height:118px;object-fit:contain;}
+.v4-bc .inf{padding:14px;}
+.v4-bc .br{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#8B6F4E;margin-bottom:5px;}
+.v4-bc .nm{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:#0F2340;margin-bottom:5px;}
+.v4-bc .ds{font-size:11px;color:#999;line-height:1.5;margin-bottom:10px;}
+.v4-bc .go{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#8B6F4E;}
+.v4-bc .go::after{content:' →';}
+.v4-cta{background:#0F2340;padding:40px 30px;text-align:center;border-top:1px solid rgba(196,147,42,.3);}
+.v4-cta .sys-tag{font-family:'JetBrains Mono',monospace;font-size:9px;color:#4ADE80;letter-spacing:.12em;margin-bottom:12px;}
+.v4-cta h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:#fff;margin-bottom:6px;}
+.v4-cta p{font-size:12px;color:#6A8DAA;margin-bottom:22px;}
+.v4-btn{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:14px 28px;margin:4px;}
+.v4-btn.gold{background:#C4932A;color:#0F2340;font-weight:700;}
+.v4-btn.out{border:1px solid rgba(196,147,42,.5);color:#C4932A;}
+.v4-ft{background:#FAFAF8;padding:20px 30px;border-top:1px solid #C9C2B5;display:flex;justify-content:space-between;align-items:center;}
+.v4-ft .sig{font-family:'JetBrains Mono',monospace;font-size:10px;color:#8B6F4E;}
+.v4-ft .sig b{color:#0F2340;}
+.v4-ft .lg{font-size:10px;color:#bbb;}
+.v4-ft a{color:#8B6F4E;}
+
+/* ====== VARIANT 5: AURORA INTELLIGENCE ====== */
+.v5{background:#fff;font-family:'Inter',sans-serif;}
+.v5-hdr{padding:18px 30px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0D0221 0%,#180938 100%);}
+.v5-logo{font-size:18px;font-weight:800;letter-spacing:.06em;color:#fff;}
+.v5-logo span{background:linear-gradient(90deg,#A78BFA,#38BDF8,#34D399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.v5-hdr a.nav{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-left:18px;font-weight:500;}
+.v5-hero{display:block;position:relative;overflow:hidden;}
+.v5-hero img{width:100%;height:310px;object-fit:cover;}
+.v5-hero .ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(88,28,135,.88) 0%,rgba(30,58,138,.7) 45%,rgba(0,0,0,.3) 100%);}
+.v5-hero .aurora{position:absolute;inset:0;background:linear-gradient(225deg,rgba(167,139,250,.15) 0%,rgba(56,189,248,.1) 50%,transparent 100%);}
+.v5-hero .txt{position:absolute;bottom:0;left:0;right:0;padding:30px 32px;}
+.v5-hero .tag{display:inline-flex;align-items:center;gap:6px;background:rgba(167,139,250,.2);border:1px solid rgba(167,139,250,.4);color:#C4B5FD;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:14px;}
+.v5-hero .tag::before{content:'✦';}
+.v5-hero h2{font-size:34px;font-weight:800;color:#fff;line-height:1.08;margin-bottom:10px;letter-spacing:-.02em;}
+.v5-hero .sub{font-size:13px;color:rgba(255,255,255,.8);line-height:1.5;margin-bottom:18px;}
+.v5-hero .btn{display:inline-block;background:linear-gradient(135deg,#7C3AED,#2563EB);color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:13px 26px;border-radius:30px;}
+.v5-svc{background:linear-gradient(135deg,#0F172A 0%,#1E1B4B 50%,#0F2A2A 100%);padding:34px 30px;}
+.v5-svc .lead{font-size:20px;font-weight:800;text-align:center;margin-bottom:4px;background:linear-gradient(90deg,#A78BFA,#38BDF8,#34D399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.v5-svc .sub{font-size:12px;color:rgba(255,255,255,.4);text-align:center;margin-bottom:24px;}
+.v5-svc .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.v5-card{background:rgba(255,255,255,.05);border:1px solid rgba(167,139,250,.2);border-radius:12px;padding:22px 16px;text-align:center;display:block;transition:background .25s,border-color .25s,transform .2s;}
+.v5-card:hover{background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.5);transform:translateY(-2px);}
+.v5-card .ic{font-size:24px;margin-bottom:10px;}
+.v5-card .t{font-size:13px;font-weight:700;color:#fff;margin-bottom:5px;}
+.v5-card .d{font-size:11px;color:rgba(255,255,255,.4);line-height:1.5;margin-bottom:12px;}
+.v5-card .go{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#A78BFA;}
+.v5-card .go::after{content:' →';}
+.v5-brands{background:#F8F7FF;padding:34px 30px;}
+.v5-brands .aurora-band{height:4px;background:linear-gradient(90deg,#7C3AED,#2563EB,#0891B2,#059669);border-radius:2px;margin-bottom:24px;}
+.v5-sech{font-size:24px;font-weight:800;color:#1E0B40;margin-bottom:4px;letter-spacing:-.01em;}
+.v5-subh{font-size:12px;color:#9CA3AF;margin-bottom:18px;}
+.v5-bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;}
+.v5-bc{display:block;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #E9E6F5;box-shadow:0 4px 20px rgba(124,58,237,.06);transition:transform .2s,box-shadow .25s,border-color .2s;}
+.v5-bc:hover{transform:translateY(-3px);box-shadow:0 12px 34px rgba(124,58,237,.14);border-color:#A78BFA;}
+.v5-bc .im{height:145px;overflow:hidden;}
+.v5-bc .im img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.v5-bc:hover .im img{transform:scale(1.05);}
+.v5-bc .im.contain{background:linear-gradient(135deg,#F8F7FF,#EFF6FF);display:flex;align-items:center;justify-content:center;padding:14px;}
+.v5-bc .im.contain img{max-width:100%;max-height:118px;object-fit:contain;}
+.v5-bc .inf{padding:14px;}
+.v5-bc .br{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#7C3AED;margin-bottom:5px;}
+.v5-bc .nm{font-size:17px;font-weight:800;color:#1E0B40;margin-bottom:5px;}
+.v5-bc .ds{font-size:11px;color:#9CA3AF;line-height:1.5;margin-bottom:10px;}
+.v5-bc .go{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7C3AED;}
+.v5-bc .go::after{content:' →';}
+.v5-cta{background:linear-gradient(135deg,#1E0B40 0%,#1E3A5F 50%,#0D2B1E 100%);padding:44px 30px;text-align:center;}
+.v5-cta h3{font-size:24px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:-.01em;}
+.v5-cta p{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:22px;}
+.v5-btn{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:14px 30px;border-radius:30px;margin:4px;}
+.v5-btn.grad{background:linear-gradient(135deg,#7C3AED,#2563EB);color:#fff;}
+.v5-btn.out{border:1px solid rgba(167,139,250,.5);color:#A78BFA;}
+.v5-ft{background:linear-gradient(135deg,#0D0221,#180938);padding:22px 30px;text-align:center;}
+.v5-ft .sig{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:6px;}
+.v5-ft .sig b{background:linear-gradient(90deg,#A78BFA,#38BDF8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.v5-ft a{color:#A78BFA;}
+.v5-ft .lg{font-size:11px;color:rgba(255,255,255,.2);line-height:1.7;}
+
+/* ====== VARIANT 6: AGENT INTERFACE ====== */
+.v6{background:#fff;font-family:'Inter',sans-serif;}
+.v6-hdr{background:#070B11;padding:16px 30px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(34,211,238,.15);}
+.v6-hdr-left{display:flex;align-items:center;gap:12px;}
+.v6-logo{font-size:15px;font-weight:900;letter-spacing:.14em;color:#fff;text-transform:uppercase;}
+.v6-status{display:flex;align-items:center;gap:5px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);padding:4px 10px;border-radius:4px;}
+.v6-status .dot{width:6px;height:6px;border-radius:50%;background:#22D3EE;flex-shrink:0;}
+.v6-status span{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#22D3EE;}
+.v6-hdr a.nav{font-size:10px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;margin-left:14px;}
+.v6-hero{display:block;position:relative;overflow:hidden;}
+.v6-hero img{width:100%;height:320px;object-fit:cover;}
+.v6-hero .ov{position:absolute;inset:0;background:linear-gradient(105deg,rgba(7,11,17,.95) 0%,rgba(7,11,17,.5) 55%,transparent 100%);}
+.v6-hero .scan{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#22D3EE,transparent);opacity:.6;}
+.v6-hero .txt{position:absolute;top:50%;left:0;transform:translateY(-50%);padding:0 32px;max-width:400px;}
+.v6-hero .sys{font-size:9px;font-weight:700;letter-spacing:.18em;color:#22D3EE;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.v6-hero .sys::before{content:'';width:18px;height:1px;background:#22D3EE;}
+.v6-hero h2{font-size:32px;font-weight:900;color:#fff;line-height:1.06;margin-bottom:12px;letter-spacing:-.02em;}
+.v6-hero .sub{font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;margin-bottom:18px;}
+.v6-hero .btn{display:inline-flex;align-items:center;gap:8px;background:#22D3EE;color:#070B11;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:13px 24px;}
+.v6-hero .btn::after{content:'→';}
+.v6-svc{background:#0A0F18;padding:32px 30px;border-top:1px solid rgba(34,211,238,.1);}
+.v6-svc .module-hdr{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.v6-svc .module-tag{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#22D3EE;}
+.v6-svc .module-line{flex:1;height:1px;background:rgba(34,211,238,.1);}
+.v6-svc .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.v6-card{background:#0F1923;border:1px solid rgba(34,211,238,.12);padding:22px 16px;text-align:left;display:block;transition:background .2s,border-color .2s;}
+.v6-card:hover{background:#162030;border-color:rgba(34,211,238,.4);}
+.v6-card .agent-status{font-size:9px;font-weight:700;letter-spacing:.1em;color:#22D3EE;margin-bottom:10px;display:flex;align-items:center;gap:5px;}
+.v6-card .agent-status::before{content:'●';font-size:7px;}
+.v6-card .t{font-size:13px;font-weight:700;color:#fff;margin-bottom:5px;}
+.v6-card .d{font-size:11px;color:#4A6580;line-height:1.5;margin-bottom:12px;}
+.v6-card .go{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#22D3EE;display:flex;align-items:center;gap:4px;}
+.v6-card .go::after{content:'→';}
+.v6-brands{background:#fff;padding:32px 30px;border-top:2px solid #22D3EE;}
+.v6-sectag{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#22D3EE;margin-bottom:6px;}
+.v6-sech{font-size:24px;font-weight:900;color:#070B11;margin-bottom:18px;letter-spacing:-.01em;}
+.v6-bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.v6-bc{display:block;background:#fff;border:1px solid #E5E7EB;overflow:hidden;transition:box-shadow .25s,border-color .25s;}
+.v6-bc:hover{box-shadow:0 0 0 1px #22D3EE,0 8px 26px rgba(34,211,238,.1);border-color:#22D3EE;}
+.v6-bc .im{height:145px;overflow:hidden;position:relative;}
+.v6-bc .im img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.v6-bc:hover .im img{transform:scale(1.05);}
+.v6-bc .im.contain{background:#F0F9FF;display:flex;align-items:center;justify-content:center;padding:12px;}
+.v6-bc .im.contain img{max-width:100%;max-height:118px;object-fit:contain;}
+.v6-bc .inf{padding:13px;}
+.v6-bc .br{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#22D3EE;margin-bottom:5px;}
+.v6-bc .nm{font-size:16px;font-weight:800;color:#070B11;margin-bottom:5px;}
+.v6-bc .ds{font-size:11px;color:#9CA3AF;line-height:1.5;margin-bottom:10px;}
+.v6-bc .go{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0891B2;display:flex;align-items:center;gap:4px;}
+.v6-bc .go::after{content:'→';}
+.v6-cta{background:#070B11;padding:44px 30px;text-align:center;border-top:1px solid rgba(34,211,238,.2);}
+.v6-cta .cmd{font-size:11px;font-weight:700;letter-spacing:.1em;color:rgba(34,211,238,.6);margin-bottom:14px;font-family:'JetBrains Mono',monospace;}
+.v6-cta h3{font-size:24px;font-weight:900;color:#fff;margin-bottom:6px;letter-spacing:-.01em;}
+.v6-cta p{font-size:12px;color:#4A6580;margin-bottom:24px;}
+.v6-btn{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:14px 30px;margin:4px;}
+.v6-btn.cyan{background:#22D3EE;color:#070B11;}
+.v6-btn.out{border:1px solid rgba(34,211,238,.4);color:#22D3EE;}
+.v6-ft{background:#070B11;padding:20px 30px;border-top:1px solid rgba(34,211,238,.1);}
+.v6-ft-inner{display:flex;justify-content:space-between;align-items:center;}
+.v6-ft .sig{font-size:11px;color:#4A6580;}
+.v6-ft .sig b{color:#22D3EE;}
+.v6-ft .lg{font-size:10px;color:#333;line-height:1.7;margin-top:10px;text-align:center;}
+.v6-ft a{color:#22D3EE;}
+
+/* Comparison */
+.compare{background:#111;border:1px solid #222;border-radius:12px;padding:28px 30px;margin-top:52px;}
+.compare h2{font-size:22px;font-weight:800;color:#fff;margin-bottom:20px;letter-spacing:-.01em;}
+.compare table{width:100%;border-collapse:collapse;font-size:13px;}
+.compare th,.compare td{text-align:left;padding:11px 14px;border-bottom:1px solid #1e1e1e;color:#aaa;}
+.compare th{color:#555;font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;}
+.compare td:first-child{color:#666;}
+.compare .best{color:#22D3EE;font-weight:700;}
+.compare .rec{background:#0D1A0D;border:1px solid rgba(34,211,238,.15);border-left:3px solid #22D3EE;padding:18px 20px;margin-top:20px;font-size:13px;color:#6A9A6A;line-height:1.75;border-radius:0 6px 6px 0;}
+.compare .rec b{color:#fff;}
+
+@media(max-width:560px){
+  .v4-svc .grid,.v5-svc .grid,.v6-svc .grid,.v4-bgrid,.v5-bgrid,.v6-bgrid{grid-template-columns:1fr;}
+  .v4-hero h2,.v5-hero h2,.v6-hero h2{font-size:26px;}
+  .v6-hero .txt{max-width:100%;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="intro">
+    <h1>AI-философия в дизайне письма</h1>
+    <p>Три новые концепции — здесь <span class="accent">философия AI-агентов читается визуально</span>, без текста. Каждый элемент дизайна отражает позиционирование: точность, интеллект, живая система.</p>
+    <p style="color:#555;">Структура и наполнение — те же. Меняется визуальный язык бренда.</p>
+  </div>
+
+  <!-- VARIANT 4 -->
+  <div class="vlabel">
+    <div class="chip"><div class="dot"></div>КОНЦЕПЦИЯ 4</div>
+    <h2>Blueprint Grid — Техническая точность</h2>
+    <p>Тонкая сетка как у архитектурных чертежей — фон письма. Шрифт JetBrains Mono для AI-меток и статусов. Золото как мост между техникой и роскошью. Заголовок письма — темно-синий с золотой полосой. Говорит: «нас проектировали инженеры».</p>
+    <div class="palette"><div class="sw" style="background:#FAFAF8"></div><div class="sw" style="background:#0F2340"></div><div class="sw" style="background:#C4932A"></div><div class="sw" style="background:#4ADE80"></div></div>
+  </div>
+
+  <div class="email v4">
+    <div class="v4-hdr v4-grid-bg">
+      <div class="v4-logo">Home Project</div>
+      <div class="v4-nav"><a href="https://homeproject.online">homeproject.online</a><a href="https://t.me/homeproject_ai_bot">t.me/aria</a></div>
+    </div>
+    <a class="v4-hero" href="https://e2-e5.github.io/homeproject-external/snaidero.html">
+      <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=1200" alt="">
+      <div class="ov"></div>
+      <div class="agent-badge">CATALOG: LOADED</div>
+      <div class="txt">
+        <div class="tag">// НОВЫЕ БРЕНДЫ · АВГ 2026</div>
+        <h2>Snaidero, Gaggenau, Miele —<br><em>теперь в Home Project</em></h2>
+        <div class="sub">Подберём технику и кухню под ваш объект. КП пришлём за 20 секунд.</div>
+        <div class="btn">Смотреть бренды</div>
+      </div>
+    </a>
+    <div class="v4-svc">
+      <div class="sys-header"><div class="sys-line"></div><div class="sys-label">// AI AGENTS · SYSTEM STATUS: ONLINE</div><div class="sys-line"></div></div>
+      <div class="grid">
+        <a class="v4-card" href="https://e2-e5.github.io/homeproject-external/kp-request.html"><div class="status">KP-AGENT · ACTIVE</div><div class="t">КП за 20 секунд</div><div class="d">Быстрее, чем перезвонить менеджеру</div><div class="go">Получить КП</div></a>
+        <a class="v4-card" href="https://t.me/homeproject_ai_bot"><div class="status">ARIA · ONLINE · 24/7</div><div class="t">AI-консультант Ария</div><div class="d">Подбирает, сравнивает, объясняет</div><div class="go">Написать Арии</div></a>
+        <a class="v4-card" href="https://e2-e5.github.io/homeproject-external/kp-request.html"><div class="status">CRM · 14K CONTACTS</div><div class="t">История объектов</div><div class="d">Помним всё, что вы заказывали</div><div class="go">Начать</div></a>
+      </div>
+    </div>
+    <div class="v4-brands v4-grid-bg">
+      <div class="v4-sectag">// BRAND.CATALOG · 3 items loaded</div>
+      <div class="v4-sech">Нажмите на бренд — откроется каталог</div>
+      <div class="v4-bgrid">
+        <a class="v4-bc" href="https://e2-e5.github.io/homeproject-external/snaidero.html"><div class="im"><img src="https://admin.snaidero.com/media/gdjpcmzp/10-sistema-snaidero-frame-ispirazioni-haute-couture.jpg?width=500" alt=""></div><div class="inf"><div class="br">SNAIDERO</div><div class="nm">Итальянские кухни</div><div class="ds">Премиум-кухни, с 1949 года</div><div class="go">Смотреть</div></div></a>
+        <a class="v4-bc" href="https://e2-e5.github.io/homeproject-external/gaggenau-brand.html"><div class="im contain"><img src="https://new.homeproject.online/static/1785957011380-GO450120.jpg" alt=""></div><div class="inf"><div class="br">GAGGENAU</div><div class="nm">Серия 400</div><div class="ds">Профессиональная техника для дома</div><div class="go">Смотреть</div></div></a>
+        <a class="v4-bc" href="https://e2-e5.github.io/homeproject-external/miele.html"><div class="im contain"><img src="https://media.miele.com/images/2000015/200001503/20000150330.png" alt=""></div><div class="inf"><div class="br">MIELE</div><div class="nm">Духовые H 7000</div><div class="ds">Immer besser · 120 лет</div><div class="go">Смотреть</div></div></a>
+      </div>
+    </div>
+    <div class="v4-cta">
+      <div class="sys-tag">● KP-AGENT READY · RESPONSE TIME: &lt;20s</div>
+      <h3>Нужен КП под конкретный объект?</h3>
+      <p>Пришлём за 20 секунд</p>
+      <a class="v4-btn gold" href="https://e2-e5.github.io/homeproject-external/kp-request.html">Получить КП</a>
+      <a class="v4-btn out" href="https://t.me/homeproject_ai_bot">Написать Арии</a>
+    </div>
+    <div class="v4-ft v4-grid-bg">
+      <div class="sig"><b>Ария</b> · AI-консультант Home Project · на связи 24/7</div>
+      <div class="lg"><a href="#">Отписаться</a> · © 2026 Home Project</div>
+    </div>
+  </div>
+
+  <!-- VARIANT 5 -->
+  <div class="vlabel">
+    <div class="chip"><div class="dot" style="background:#A78BFA;"></div>КОНЦЕПЦИЯ 5</div>
+    <h2>Aurora Intelligence — Живой интеллект</h2>
+    <p>Секции с живыми градиентами (пурпур → индиго → бирюза) — как будто письмо «дышит». Это визуальный язык Anthropic, лидера в мире AI. В России никто в сегменте premium home так не делает. Продукты плавают на умном свете. Говорит: «мы думаем иначе».</p>
+    <div class="palette"><div class="sw" style="background:#0D0221"></div><div class="sw" style="background:#7C3AED"></div><div class="sw" style="background:#2563EB"></div><div class="sw" style="background:#38BDF8"></div><div class="sw" style="background:#34D399"></div></div>
+  </div>
+
+  <div class="email v5">
+    <div class="v5-hdr">
+      <div class="v5-logo">Home <span>Project</span></div>
+      <div><a class="nav" href="https://homeproject.online">Сайт</a><a class="nav" href="https://t.me/homeproject_ai_bot">Telegram</a></div>
+    </div>
+    <a class="v5-hero" href="https://e2-e5.github.io/homeproject-external/snaidero.html">
+      <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=1200" alt="">
+      <div class="ov"></div>
+      <div class="aurora"></div>
+      <div class="txt">
+        <div class="tag">Расширили портфель</div>
+        <h2>Snaidero, Gaggenau, Miele</h2>
+        <div class="sub">Подберём технику и кухню под ваш объект. КП пришлём за 20 секунд.</div>
+        <div class="btn">Смотреть бренды →</div>
+      </div>
+    </a>
+    <div class="v5-svc">
+      <div class="lead">Сервис, который работает за вас</div>
+      <div class="sub">AI-агенты автоматизировали каждый этап — от подбора до КП</div>
+      <div class="grid">
+        <a class="v5-card" href="https://e2-e5.github.io/homeproject-external/kp-request.html"><div class="ic">⚡</div><div class="t">КП за 20 секунд</div><div class="d">Быстрее, чем перезвонить менеджеру</div><div class="go">Получить КП</div></a>
+        <a class="v5-card" href="https://t.me/homeproject_ai_bot"><div class="ic">🤖</div><div class="t">AI-консультант Ария</div><div class="d">Подбирает, сравнивает — 24/7</div><div class="go">Написать Арии</div></a>
+        <a class="v5-card" href="https://e2-e5.github.io/homeproject-external/kp-request.html"><div class="ic">📁</div><div class="t">История объектов</div><div class="d">Помним всё, что вы заказывали</div><div class="go">Начать</div></a>
+      </div>
+    </div>
+    <div class="v5-brands">
+      <div class="aurora-band"></div>
+      <div class="v5-sech">Три бренда — одно КП</div>
+      <div class="v5-subh">Нажмите на бренд — откроется каталог</div>
+      <div class="v5-bgrid">
+        <a class="v5-bc" href="https://e2-e5.github.io/homeproject-external/snaidero.html"><div class="im"><img src="https://admin.snaidero.com/media/gdjpcmzp/10-sistema-snaidero-frame-ispirazioni-haute-couture.jpg?width=500" alt=""></div><div class="inf"><div class="br">Snaidero</div><div class="nm">Итальянские кухни</div><div class="ds">Премиум-кухни, с 1949 года</div><div class="go">Смотреть</div></div></a>
+        <a class="v5-bc" href="https://e2-e5.github.io/homeproject-external/gaggenau-brand.html"><div class="im contain"><img src="https://new.homeproject.online/static/1785957011380-GO450120.jpg" alt=""></div><div class="inf"><div class="br">Gaggenau</div><div class="nm">Серия 400</div><div class="ds">Профессиональная техника для дома</div><div class="go">Смотреть</div></div></a>
+        <a class="v5-bc" href="https://e2-e5.github.io/homeproject-external/miele.html"><div class="im contain"><img src="https://media.miele.com/images/2000015/200001503/20000150330.png" alt=""></div><div class="inf"><div class="br">Miele</div><div class="nm">Духовые H 7000</div><div class="ds">Immer besser · 120 лет качества</div><div class="go">Смотреть</div></div></a>
+      </div>
+    </div>
+    <div class="v5-cta">
+      <h3>Нужен КП под конкретный объект?</h3>
+      <p>Пришлём за 20 секунд</p>
+      <a class="v5-btn grad" href="https://e2-e5.github.io/homeproject-external/kp-request.html">Получить КП</a>
+      <a class="v5-btn out" href="https://t.me/homeproject_ai_bot">Написать Арии</a>
+    </div>
+    <div class="v5-ft">
+      <div class="sig"><b>Ария</b> · AI-консультант Home Project · на связи 24/7</div>
+      <div class="lg">© 2026 Home Project · Москва · homeproject.online · <a href="#">Отписаться</a></div>
+    </div>
+  </div>
+
+  <!-- VARIANT 6 -->
+  <div class="vlabel">
+    <div class="chip"><div class="dot" style="background:#22D3EE;"></div>КОНЦЕПЦИЯ 6</div>
+    <h2>Agent Interface — Вы смотрите на живую систему</h2>
+    <p>Письмо выглядит как интерфейс работающего AI-агента: статус-индикаторы «● ARIA · ONLINE», системные теги, электрический cyan. Продукты показаны как позиции в дашборде. Структура строгая, данные точные. Говорит: «это не маркетинг — это рабочий инструмент».</p>
+    <div class="palette"><div class="sw" style="background:#070B11"></div><div class="sw" style="background:#0A0F18"></div><div class="sw" style="background:#22D3EE"></div><div class="sw" style="background:#fff"></div></div>
+  </div>
+
+  <div class="email v6">
+    <div class="v6-hdr">
+      <div class="v6-hdr-left">
+        <div class="v6-logo">Home Project</div>
+        <div class="v6-status"><div class="dot"></div><span>ARIA · ONLINE</span></div>
+      </div>
+      <div><a class="nav" href="https://homeproject.online">Сайт</a><a class="nav" href="https://t.me/homeproject_ai_bot">Telegram</a></div>
+    </div>
+    <a class="v6-hero" href="https://e2-e5.github.io/homeproject-external/snaidero.html">
+      <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=1200" alt="">
+      <div class="ov"></div>
+      <div class="scan"></div>
+      <div class="txt">
+        <div class="sys">НОВЫЕ БРЕНДЫ · АВГ 2026</div>
+        <h2>Snaidero, Gaggenau,<br>Miele — у нас</h2>
+        <div class="sub">Подберём технику и кухню под ваш объект. КП пришлём за 20 секунд.</div>
+        <div class="btn">Смотреть бренды</div>
+      </div>
+    </a>
+    <div class="v6-svc">
+      <div class="module-hdr"><div class="module-tag">● AGENTS · 3 ONLINE</div><div class="module-line"></div></div>
+      <div class="grid">
+        <a class="v6-card" href="https://e2-e5.github.io/homeproject-external/kp-request.html"><div class="agent-status">KP-AGENT · ACTIVE</div><div class="t">КП за 20 секунд</div><div class="d">Быстрее, чем перезвонить менеджеру</div><div class="go">Получить КП</div></a>
+        <a class="v6-card" href="https://t.me/homeproject_ai_bot"><div class="agent-status">ARIA · ONLINE · 24/7</div><div class="t">AI-консультант Ария</div><div class="d">Подбирает, сравнивает, объясняет</div><div class="go">Написать Арии</div></a>
+        <a class="v6-card" href="https://e2-e5.github.io/homeproject-external/kp-request.html"><div class="agent-status">CRM · 14 000 CONTACTS</div><div class="t">История объектов</div><div class="d">Помним всё, что вы заказывали</div><div class="go">Начать</div></a>
+      </div>
+    </div>
+    <div class="v6-brands">
+      <div class="v6-sectag">BRAND.CATALOG · 3 items</div>
+      <div class="v6-sech">Нажмите на бренд</div>
+      <div class="v6-bgrid">
+        <a class="v6-bc" href="https://e2-e5.github.io/homeproject-external/snaidero.html"><div class="im"><img src="https://admin.snaidero.com/media/gdjpcmzp/10-sistema-snaidero-frame-ispirazioni-haute-couture.jpg?width=500" alt=""></div><div class="inf"><div class="br">SNAIDERO</div><div class="nm">Итальянские кухни</div><div class="ds">Премиум-кухни, с 1949 года</div><div class="go">Смотреть</div></div></a>
+        <a class="v6-bc" href="https://e2-e5.github.io/homeproject-external/gaggenau-brand.html"><div class="im contain"><img src="https://new.homeproject.online/static/1785957011380-GO450120.jpg" alt=""></div><div class="inf"><div class="br">GAGGENAU</div><div class="nm">Серия 400</div><div class="ds">Профессиональная техника для дома</div><div class="go">Смотреть</div></div></a>
+        <a class="v6-bc" href="https://e2-e5.github.io/homeproject-external/miele.html"><div class="im contain"><img src="https://media.miele.com/images/2000015/200001503/20000150330.png" alt=""></div><div class="inf"><div class="br">MIELE</div><div class="nm">Духовые H 7000</div><div class="ds">Immer besser · 120 лет</div><div class="go">Смотреть</div></div></a>
+      </div>
+    </div>
+    <div class="v6-cta">
+      <div class="cmd">$ aria.generate_kp --object="your_project" --time="&lt;20s"</div>
+      <h3>Нужен КП под объект?</h3>
+      <p>Пришлём за 20 секунд</p>
+      <a class="v6-btn cyan" href="https://e2-e5.github.io/homeproject-external/kp-request.html">Получить КП</a>
+      <a class="v6-btn out" href="https://t.me/homeproject_ai_bot">Написать Арии</a>
+    </div>
+    <div class="v6-ft">
+      <div class="v6-ft-inner">
+        <div class="sig"><b>Ария</b> · AI-консультант Home Project · на связи 24/7</div>
+        <div style="font-size:10px;color:#1a2a3a;">© 2026 HP</div>
+      </div>
+      <div class="lg"><a href="#">Отписаться</a> · homeproject.online</div>
+    </div>
+  </div>
+
+  <!-- COMPARE -->
+  <div class="compare">
+    <h2>Сравнение концепций</h2>
+    <table>
+      <tr><th>Критерий</th><th>4 · Blueprint Grid</th><th>5 · Aurora</th><th class="best">6 · Agent Interface</th></tr>
+      <tr><td>AI читается без текста?</td><td>Да (сетка + моно)</td><td>Да (градиент)</td><td class="best">Максимально</td></tr>
+      <tr><td>Уникальность в РФ-рынке</td><td>Высокая</td><td>Очень высокая</td><td class="best">Первый в классе</td></tr>
+      <tr><td>Совместимость с люксом</td><td>Высокая</td><td>Средняя</td><td>Средняя</td></tr>
+      <tr><td>Запоминаемость</td><td>Высокая</td><td>Очень высокая</td><td class="best">Максимальная</td></tr>
+      <tr><td>Риск «не зайти»</td><td>Низкий</td><td>Средний</td><td>Средний (bold bet)</td></tr>
+    </table>
+    <div class="rec">
+      <b>Стратегический взгляд:</b> Концепция 5 (Aurora) и Концепция 6 (Agent Interface) — это территория, которую никто в России в premium home не занял. Это ваш шанс быть первыми.<br><br>
+      Если аудитория — опытные дизайнеры 35+ — безопаснее Концепция 4 (Blueprint) или смешать 4+6.<br>
+      Если аудитория — молодые архбюро, tech-forward клиенты — Концепция 6 это удар.<br><br>
+      <b>Следующий шаг:</b> выберите одну или скажите «смеши X и Y» — я построю финальный шаблон и применю ко всем 11 письмам.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
