@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Project — Варианты оформления письма</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #111; color: #eee; font-family: 'Inter', -apple-system, sans-serif; font-size: 14px; }
+  .page-title { padding: 32px 40px 8px; }
+  .page-title h1 { font-family: Georgia, serif; font-size: 24px; color: #C9A96E; font-weight: 400; }
+  .page-title p { color: #666; font-size: 13px; margin-top: 6px; }
+  .tabs { display: flex; gap: 0; padding: 24px 40px 0; border-bottom: 1px solid #222; flex-wrap: wrap; }
+  .tab { padding: 10px 20px; cursor: pointer; font-size: 13px; color: #666; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .tab:hover { color: #ccc; }
+  .tab.active { color: #C9A96E; border-bottom-color: #C9A96E; }
+  .panels { padding: 32px 40px; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .panel-header { margin-bottom: 32px; }
+  .panel-meta h2 { font-family: Georgia, serif; font-size: 20px; font-weight: 400; margin-bottom: 8px; }
+  .panel-meta p { color: #888; font-size: 13px; line-height: 1.6; max-width: 600px; }
+  .pros-cons { display: flex; gap: 16px; margin-top: 16px; max-width: 600px; }
+  .pros, .cons { flex: 1; }
+  .pros h4 { color: #4CAF50; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .cons h4 { color: #E05555; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .pros li, .cons li { font-size: 12px; color: #aaa; margin-bottom: 4px; list-style: none; padding-left: 14px; position: relative; }
+  .pros li::before { content: '+'; position: absolute; left: 0; color: #4CAF50; }
+  .cons li::before { content: '−'; position: absolute; left: 0; color: #E05555; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 3px; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; }
+  .badge-current { background: rgba(201,169,110,0.2); color: #C9A96E; border: 1px solid #8B6E4E; }
+  .badge-new { background: rgba(76,175,80,0.2); color: #4CAF50; border: 1px solid rgba(76,175,80,0.4); }
+  .preview-wrap { overflow-x: auto; }
+  .email-preview { width: 600px; min-width: 600px; font-family: 'Inter', Arial, sans-serif; overflow: hidden; border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+
+  /* STYLE A */
+  .style-a { background: #0E0E0E; }
+  .style-a .hdr { background: #0E0E0E; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e1e; }
+  .style-a .hdr-logo { font-family: Georgia, serif; font-size: 16px; color: #fff; letter-spacing: 2px; }
+  .style-a .hdr-tag { font-size: 10px; color: #555; letter-spacing: 1px; text-transform: uppercase; }
+  .style-a .hero { height: 220px; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80') center/cover; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px 40px; }
+  .style-a .hero h1 { font-family: Georgia, serif; font-size: 26px; color: #fff; font-weight: 400; line-height: 1.2; margin-bottom: 6px; }
+  .style-a .hero p { font-size: 13px; color: #aaa; }
+  .style-a .service { background: #141414; padding: 32px 40px; }
+  .style-a .service-title { font-family: Georgia, serif; font-size: 16px; color: #C9A96E; margin-bottom: 4px; }
+  .style-a .service-sub { font-size: 11px; color: #555; margin-bottom: 20px; }
+  .style-a .cards { display: flex; gap: 12px; }
+  .style-a .card { flex: 1; background: #1a1a1a; border: 1px solid #252525; padding: 16px; border-radius: 2px; }
+  .style-a .card-icon { font-size: 20px; margin-bottom: 8px; }
+  .style-a .card-title { font-size: 12px; font-weight: 600; color: #C9A96E; margin-bottom: 4px; }
+  .style-a .card-text { font-size: 11px; color: #666; line-height: 1.4; }
+  .style-a .cta { background: #0E0E0E; padding: 28px 40px; text-align: center; border-top: 1px solid #1a1a1a; }
+  .style-a .cta p { font-family: Georgia, serif; font-style: italic; font-size: 14px; color: #888; margin-bottom: 16px; }
+  .style-a .btn-row { display: flex; gap: 12px; justify-content: center; }
+  .style-a .btn-main { background: #C9A96E; color: #000; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 12px 24px; border: none; }
+  .style-a .btn-sec { background: transparent; color: #C9A96E; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 12px 24px; border: 1px solid #C9A96E; }
+  .style-a .foot { background: #090909; padding: 16px 40px; text-align: center; }
+  .style-a .foot p { font-size: 10px; color: #333; }
+
+  /* STYLE B */
+  .style-b { background: #fff; }
+  .style-b .hdr { background: #fff; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; }
+  .style-b .hdr-logo { font-family: Georgia, serif; font-size: 15px; color: #000; letter-spacing: 3px; text-transform: uppercase; }
+  .style-b .hdr-tag { font-size: 10px; color: #999; letter-spacing: 1px; text-transform: uppercase; }
+  .style-b .hero { height: 200px; background: #F5F3EF; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px 40px; position: relative; border-top: 4px solid #000; }
+  .style-b .hero-num { font-family: Georgia, serif; font-size: 80px; color: #E8E4DC; font-weight: 700; position: absolute; top: 10px; right: 40px; line-height: 1; }
+  .style-b .hero h1 { font-family: Georgia, serif; font-size: 28px; color: #000; font-weight: 400; line-height: 1.2; margin-bottom: 6px; position: relative; z-index: 1; }
+  .style-b .hero p { font-size: 13px; color: #666; position: relative; z-index: 1; }
+  .style-b .service { background: #fff; padding: 32px 40px; border-top: 1px solid #e0e0e0; }
+  .style-b .service-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #999; margin-bottom: 16px; }
+  .style-b .cards { display: flex; gap: 0; border: 1px solid #e0e0e0; }
+  .style-b .card { flex: 1; padding: 20px; border-right: 1px solid #e0e0e0; }
+  .style-b .card:last-child { border-right: none; }
+  .style-b .card-icon { font-size: 18px; margin-bottom: 10px; }
+  .style-b .card-title { font-size: 12px; font-weight: 700; color: #000; margin-bottom: 4px; }
+  .style-b .card-text { font-size: 11px; color: #888; line-height: 1.4; }
+  .style-b .cta { background: #F5F3EF; padding: 28px 40px; text-align: center; }
+  .style-b .cta p { font-family: Georgia, serif; font-style: italic; font-size: 15px; color: #333; margin-bottom: 16px; }
+  .style-b .btn-row { display: flex; gap: 12px; justify-content: center; }
+  .style-b .btn-main { background: #000; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 12px 28px; }
+  .style-b .btn-sec { background: transparent; color: #000; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 12px 28px; border: 1px solid #000; }
+  .style-b .foot { background: #fff; padding: 16px 40px; text-align: center; border-top: 1px solid #e0e0e0; }
+  .style-b .foot p { font-size: 10px; color: #bbb; }
+
+  /* STYLE C */
+  .style-c { background: #F5F0E8; }
+  .style-c .hdr { background: #1C1814; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
+  .style-c .hdr-logo { font-family: Georgia, serif; font-size: 15px; color: #D4B483; letter-spacing: 2px; }
+  .style-c .hdr-tag { font-size: 10px; color: #6B5E4A; letter-spacing: 1px; text-transform: uppercase; }
+  .style-c .hero { height: 220px; background: linear-gradient(180deg, rgba(28,24,20,0.3) 0%, rgba(28,24,20,0.85) 100%), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80') center/cover; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px 40px; }
+  .style-c .hero h1 { font-family: Georgia, serif; font-size: 26px; color: #F5F0E8; font-weight: 400; line-height: 1.2; margin-bottom: 6px; }
+  .style-c .hero p { font-size: 13px; color: #C4AD8A; }
+  .style-c .service { background: #F5F0E8; padding: 32px 40px; }
+  .style-c .service-title { font-family: Georgia, serif; font-size: 17px; color: #1C1814; margin-bottom: 4px; }
+  .style-c .service-sub { font-size: 11px; color: #9A8B77; margin-bottom: 20px; }
+  .style-c .cards { display: flex; gap: 12px; }
+  .style-c .card { flex: 1; background: #fff; border: 1px solid #E0D8CC; padding: 16px; }
+  .style-c .card-icon { font-size: 20px; margin-bottom: 8px; }
+  .style-c .card-title { font-size: 12px; font-weight: 600; color: #1C1814; margin-bottom: 4px; }
+  .style-c .card-text { font-size: 11px; color: #9A8B77; line-height: 1.4; }
+  .style-c .cta { background: #1C1814; padding: 28px 40px; text-align: center; }
+  .style-c .cta p { font-family: Georgia, serif; font-style: italic; font-size: 14px; color: #9A8B77; margin-bottom: 16px; }
+  .style-c .btn-row { display: flex; gap: 12px; justify-content: center; }
+  .style-c .btn-main { background: #D4B483; color: #1C1814; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 12px 24px; }
+  .style-c .btn-sec { background: transparent; color: #D4B483; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 12px 24px; border: 1px solid #D4B483; }
+  .style-c .foot { background: #EBE4D8; padding: 16px 40px; text-align: center; }
+  .style-c .foot p { font-size: 10px; color: #A89880; }
+
+  /* STYLE D */
+  .style-d { background: #F8F8F8; }
+  .style-d .hdr { background: #fff; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #1A1A2E; }
+  .style-d .hdr-logo { font-family: 'Inter', sans-serif; font-size: 14px; color: #1A1A2E; letter-spacing: 3px; font-weight: 800; text-transform: uppercase; }
+  .style-d .hdr-tag { font-size: 10px; color: #999; letter-spacing: 0.5px; }
+  .style-d .hero-strip { background: #1A1A2E; padding: 6px 40px; }
+  .style-d .hero-strip p { font-size: 10px; color: #4A6FA5; letter-spacing: 2px; text-transform: uppercase; }
+  .style-d .hero { background: #1A1A2E; padding: 36px 40px 40px; }
+  .style-d .hero h1 { font-family: 'Inter', sans-serif; font-size: 30px; color: #fff; font-weight: 800; line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.5px; }
+  .style-d .hero h1 em { color: #4A90D9; font-style: normal; }
+  .style-d .hero p { font-size: 13px; color: #7A8BA0; }
+  .style-d .service { background: #fff; padding: 32px 40px; }
+  .style-d .service-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #4A90D9; font-weight: 700; margin-bottom: 16px; }
+  .style-d .cards { display: flex; gap: 12px; }
+  .style-d .card { flex: 1; background: #F8F8F8; border-left: 3px solid #4A90D9; padding: 16px; }
+  .style-d .card-icon { font-size: 20px; margin-bottom: 8px; }
+  .style-d .card-title { font-size: 12px; font-weight: 700; color: #1A1A2E; margin-bottom: 4px; }
+  .style-d .card-text { font-size: 11px; color: #888; line-height: 1.4; }
+  .style-d .cta { background: #F8F8F8; padding: 28px 40px; text-align: center; border-top: 1px solid #E8E8E8; }
+  .style-d .cta p { font-size: 14px; color: #333; margin-bottom: 16px; font-weight: 500; }
+  .style-d .btn-row { display: flex; gap: 12px; justify-content: center; }
+  .style-d .btn-main { background: #1A1A2E; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 12px 28px; border-radius: 2px; }
+  .style-d .btn-sec { background: transparent; color: #1A1A2E; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 12px 28px; border: 2px solid #1A1A2E; border-radius: 2px; }
+  .style-d .foot { background: #1A1A2E; padding: 16px 40px; text-align: center; }
+  .style-d .foot p { font-size: 10px; color: #3A4A5E; }
+
+  .compare table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 20px; }
+  .compare th { background: #1a1a1a; color: #C9A96E; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 14px; text-align: left; border-bottom: 1px solid #2a2a2a; }
+  .compare td { padding: 10px 14px; border-bottom: 1px solid #1e1e1e; color: #aaa; vertical-align: top; }
+  .compare td:first-child { color: #fff; font-weight: 500; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+  .dot-gold { background: #C9A96E; } .dot-white { background: #888; } .dot-linen { background: #D4B483; } .dot-blue { background: #4A90D9; }
+  .tip { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; padding: 20px 24px; margin-top: 24px; }
+  .tip h4 { color: #C9A96E; font-size: 13px; margin-bottom: 10px; }
+  .tip p { color: #aaa; font-size: 13px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>Варианты оформления информационного письма</h1>
+  <p>4 стиля · Одинаковая структура (HEADER + HERO + SERVICE + CTA) · На согласование</p>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="show('a',this)">A — Dark Premium</div>
+  <div class="tab" onclick="show('b',this)">B — Editorial White</div>
+  <div class="tab" onclick="show('c',this)">C — Warm Linen</div>
+  <div class="tab" onclick="show('d',this)">D — Bold Modern</div>
+  <div class="tab" onclick="show('compare',this)">⟺ Сравнить</div>
+</div>
+<div class="panels">
+
+  <div class="panel active" id="panel-a">
+    <div class="panel-header"><div class="panel-meta">
+      <span class="badge badge-current">Текущий стиль</span>
+      <h2>A — Dark Premium &nbsp;<span style="color:#C9A96E;font-size:15px;">#0E0E0E + Gold</span></h2>
+      <p>Тёмный фон, золотой акцент, Georgia serif. Ассоциация: премиум, Snaidero, Gaggenau. Письмо выглядит дорого даже в тёмном режиме почтовика.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Плюсы</h4><ul><li>Уникально — у дилеров так не делают</li><li>Работает в тёмном режиме Gmail</li><li>Фотографии техники выигрышны на тёмном</li></ul></div>
+        <div class="cons"><h4>Риски</h4><ul><li>Некоторые почтовики перебивают цвета</li><li>Застройщики могут счесть «слишком дизайнерским»</li></ul></div>
+      </div>
+    </div></div>
+    <div class="preview-wrap"><div class="email-preview style-a">
+      <div class="hdr"><div class="hdr-logo">HOME PROJECT</div><div class="hdr-tag">Европейская техника</div></div>
+      <div class="hero"><h1>Сервис, который<br>работает за вас</h1><p>AI-агенты — КП за 20 секунд, консультант 24/7, история объектов</p></div>
+      <div class="service">
+        <div class="service-title">Сервис, который работает за вас</div>
+        <div class="service-sub">AI-агенты автоматизировали каждый этап — от подбора до коммерческого предложения</div>
+        <div class="cards">
+          <div class="card"><div class="card-icon">⚡</div><div class="card-title">КП за 20 секунд</div><div class="card-text">Быстрее, чем перезвонить менеджеру</div></div>
+          <div class="card"><div class="card-icon">🤖</div><div class="card-title">AI-консультант Ария</div><div class="card-text">Подбирает, сравнивает, объясняет 24/7</div></div>
+          <div class="card"><div class="card-icon">📁</div><div class="card-title">История объектов</div><div class="card-text">Помним всё, что вы заказывали</div></div>
+        </div>
+      </div>
+      <div class="cta"><p>Попробуйте — первый КП бесплатно</p><div class="btn-row"><div class="btn-main">Получить КП</div><div class="btn-sec">Написать Арии</div></div></div>
+      <div class="foot"><p>© 2026 HOME PROJECT · Москва · Отписаться</p></div>
+    </div></div>
+  </div>
+
+  <div class="panel" id="panel-b">
+    <div class="panel-header"><div class="panel-meta">
+      <span class="badge badge-new">Новый вариант</span>
+      <h2>B — Editorial White &nbsp;<span style="color:#ccc;font-size:15px;">Чёрно-белый минимализм</span></h2>
+      <p>Белый фон, чёрный текст, ноль декора. Редакционный стиль — как бизнес-издание. Письмо читается как статья, а не реклама. Максимальный deliverability.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Плюсы</h4><ul><li>Максимальная читаемость на любом устройстве</li><li>Спам-фильтры любят простоту</li><li>Выглядит как «деловая переписка»</li></ul></div>
+        <div class="cons"><h4>Риски</h4><ul><li>Мало эмоции — хуже для холодной аудитории</li><li>Не транслирует «премиум» напрямую</li></ul></div>
+      </div>
+    </div></div>
+    <div class="preview-wrap"><div class="email-preview style-b">
+      <div class="hdr"><div class="hdr-logo">HOME PROJECT</div><div class="hdr-tag">Европейская техника</div></div>
+      <div class="hero"><div class="hero-num">01</div><h1>Сервис, который<br>работает за вас</h1><p>AI-агенты — КП за 20 секунд, консультант 24/7, история объектов</p></div>
+      <div class="service">
+        <div class="service-title">ТРИ ИНСТРУМЕНТА СЕРВИСА</div>
+        <div class="cards">
+          <div class="card"><div class="card-icon">⚡</div><div class="card-title">КП за 20 секунд</div><div class="card-text">Быстрее, чем перезвонить менеджеру</div></div>
+          <div class="card"><div class="card-icon">🤖</div><div class="card-title">Ария 24/7</div><div class="card-text">Подбирает и сравнивает без ожидания</div></div>
+          <div class="card"><div class="card-icon">📁</div><div class="card-title">История объектов</div><div class="card-text">Помним всё, что вы заказывали</div></div>
+        </div>
+      </div>
+      <div class="cta"><p>Попробуйте — первый КП бесплатно</p><div class="btn-row"><div class="btn-main">Получить КП</div><div class="btn-sec">Написать Арии</div></div></div>
+      <div class="foot"><p>© 2026 HOME PROJECT · Москва · Отписаться</p></div>
+    </div></div>
+  </div>
+
+  <div class="panel" id="panel-c">
+    <div class="panel-header"><div class="panel-meta">
+      <span class="badge badge-new">Новый вариант</span>
+      <h2>C — Warm Linen &nbsp;<span style="color:#D4B483;font-size:15px;">Тёплый кремовый</span></h2>
+      <p>Кремовый фон (#F5F0E8) + тёмно-коричневая шапка + золото. Ассоциация: интерьерный журнал, Architectural Digest. Идеален для дизайнеров — резонирует с их эстетикой.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Плюсы</h4><ul><li>Тематически идеален — «домашний» продукт</li><li>Тёплые цвета вызывают доверие</li><li>Отличается от типичных тёмных premium-рассылок</li></ul></div>
+        <div class="cons"><h4>Риски</h4><ul><li>Может быть воспринят как «мягкий» для B2B</li><li>Сложнее показать AI в тёплой эстетике</li></ul></div>
+      </div>
+    </div></div>
+    <div class="preview-wrap"><div class="email-preview style-c">
+      <div class="hdr"><div class="hdr-logo">HOME PROJECT</div><div class="hdr-tag">Европейская техника</div></div>
+      <div class="hero"><h1>Сервис, который<br>работает за вас</h1><p>AI-агенты — КП за 20 секунд, консультант 24/7, история объектов</p></div>
+      <div class="service">
+        <div class="service-title">Сервис, который работает за вас</div>
+        <div class="service-sub">AI-агенты автоматизировали каждый этап — от подбора до предложения</div>
+        <div class="cards">
+          <div class="card"><div class="card-icon">⚡</div><div class="card-title">КП за 20 секунд</div><div class="card-text">Быстрее, чем перезвонить менеджеру</div></div>
+          <div class="card"><div class="card-icon">🤖</div><div class="card-title">Ария 24/7</div><div class="card-text">Подбирает и сравнивает без ожидания</div></div>
+          <div class="card"><div class="card-icon">📁</div><div class="card-title">История объектов</div><div class="card-text">Помним всё, что вы заказывали</div></div>
+        </div>
+      </div>
+      <div class="cta"><p>Попробуйте — первый КП бесплатно</p><div class="btn-row"><div class="btn-main">Получить КП</div><div class="btn-sec">Написать Арии</div></div></div>
+      <div class="foot"><p>© 2026 HOME PROJECT · Москва · Отписаться</p></div>
+    </div></div>
+  </div>
+
+  <div class="panel" id="panel-d">
+    <div class="panel-header"><div class="panel-meta">
+      <span class="badge badge-new">Новый вариант</span>
+      <h2>D — Bold Modern &nbsp;<span style="color:#4A90D9;font-size:15px;">Тёмно-синий + AI-акцент</span></h2>
+      <p>Тёмно-синий (#1A1A2E) + синий акцент (#4A90D9), жирный sans-serif. Ассоциация: технологическая компания, SaaS. Идеален для писем D1/D2 и аудитории застройщиков.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Плюсы</h4><ul><li>Идеально для AI / платформенных писем</li><li>Доверие у застройщиков и B2B</li><li>Высокая контрастность, легко читать</li></ul></div>
+        <div class="cons"><h4>Риски</h4><ul><li>Не «тёплый» — для дизайнеров может не резонировать</li><li>Много dark-blue писем на корпоративном рынке</li></ul></div>
+      </div>
+    </div></div>
+    <div class="preview-wrap"><div class="email-preview style-d">
+      <div class="hdr"><div class="hdr-logo">HOME PROJECT</div><div class="hdr-tag">Европейская техника для проектов</div></div>
+      <div class="hero-strip"><p>AI-ДИСТРИБЬЮТОР · АВГУСТ 2026</p></div>
+      <div class="hero"><h1>Сервис,<br>который работает<br><em>за вас</em></h1><p>AI-агенты — КП за 20 секунд, консультант 24/7, история объектов</p></div>
+      <div class="service">
+        <div class="service-label">Три инструмента сервиса</div>
+        <div class="cards">
+          <div class="card"><div class="card-icon">⚡</div><div class="card-title">КП за 20 секунд</div><div class="card-text">Быстрее, чем перезвонить менеджеру</div></div>
+          <div class="card"><div class="card-icon">🤖</div><div class="card-title">Ария 24/7</div><div class="card-text">Подбирает и сравнивает без ожидания</div></div>
+          <div class="card"><div class="card-icon">📁</div><div class="card-title">История объектов</div><div class="card-text">Помним всё, что вы заказывали</div></div>
+        </div>
+      </div>
+      <div class="cta"><p>Попробуйте — первый КП бесплатно</p><div class="btn-row"><div class="btn-main">Получить КП</div><div class="btn-sec">Написать Арии</div></div></div>
+      <div class="foot"><p>© 2026 HOME PROJECT · Москва · Отписаться</p></div>
+    </div></div>
+  </div>
+
+  <div class="panel" id="panel-compare">
+    <div class="compare">
+      <h3>Сравнение вариантов</h3>
+      <table>
+        <tr><th>Стиль</th><th>Палитра</th><th>Подходит для</th><th>Не подходит</th><th>Рекомендован для писем</th></tr>
+        <tr><td><span class="dot dot-gold"></span>A · Dark Premium</td><td>#0E0E0E + #C9A96E</td><td>Дизайнеры, архитекторы, премиум</td><td>Застройщики, cold B2B</td><td>A1, A2, A3, B1, B2, B3</td></tr>
+        <tr><td><span class="dot dot-white"></span>B · Editorial White</td><td>#fff + #000</td><td>Любая аудитория, высокая читаемость</td><td>Когда нужна эмоция</td><td>Универсальный запасной</td></tr>
+        <tr><td><span class="dot dot-linen"></span>C · Warm Linen</td><td>#F5F0E8 + #1C1814</td><td>Дизайнеры, интерьерная эстетика</td><td>IT-партнёры, застройщики</td><td>A1, A2, A3 — альтернатива Dark</td></tr>
+        <tr><td><span class="dot dot-blue"></span>D · Bold Modern</td><td>#1A1A2E + #4A90D9</td><td>B2B-партнёры, застройщики, AI-питч</td><td>Дизайнеры (слишком корпоративный)</td><td>D1, D2, C1, C2, C3</td></tr>
+      </table>
+      <div class="tip">
+        <h4>💡 Предложение: два стиля вместо одного</h4>
+        <p><strong style="color:#fff;">A (Dark Premium)</strong> — для дизайнеров и архитекторов (письма A1–B3): ассоциирует нас с премиальными брендами, которые продаём.<br><br>
+        <strong style="color:#fff;">D (Bold Modern)</strong> — для застройщиков, санттех и B2B-партнёров (C1–D2): транслирует технологическую компанию с AI, а не просто склад техники.<br><br>
+        Одно и то же сообщение («у нас AI-сервис») приходит в разной «одежде» — подходящей каждой аудитории.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+function show(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
