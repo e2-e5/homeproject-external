@@ -4,233 +4,240 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Ревью постов Telegram · Home Project</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:#F5F5F3;font-family:'Inter',sans-serif;color:#111;padding:0 0 60px;}
+body{background:#F4F2EF;font-family:'Inter',sans-serif;color:#111;padding:0 0 60px;}
 
 .top-bar{background:#111;color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
 .top-bar .brand{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
-.top-bar .meta{font-size:11px;color:#888;letter-spacing:1px;}
+.top-bar .meta{font-size:11px;color:#666;}
 
-.hero{background:#fff;border-bottom:1px solid #E5E5E5;padding:32px 24px 28px;text-align:center;}
-.hero h1{font-size:22px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px;}
-.hero p{font-size:13px;color:#888;}
-.badge{display:inline-block;background:#111;color:#fff;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:14px;}
+.hero{background:#fff;border-bottom:1px solid #E8E5E0;padding:28px 20px 24px;text-align:center;}
+.badge{display:inline-block;background:#111;color:#fff;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:12px;}
+.hero h1{font-size:20px;font-weight:900;letter-spacing:-.3px;margin-bottom:5px;}
+.hero p{font-size:12px;color:#999;}
 
-.variants{max-width:420px;margin:0 auto;padding:24px 16px 0;}
+.section-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#aaa;padding:24px 16px 10px;}
 
-/* каждый вариант */
-.variant{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
-.variant-label{padding:12px 18px;background:#FAFAF9;border-bottom:1px solid #F0F0EE;display:flex;align-items:center;justify-content:space-between;}
-.variant-label .letter{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;}
-.variant-label .tone{font-size:11px;color:#bbb;}
+.variants{max-width:440px;margin:0 auto;padding:0 14px;}
 
-/* visual mock */
-.visual{position:relative;width:100%;overflow:hidden;}
-.visual img{width:100%;display:block;object-fit:cover;}
-.visual.dark-mock{background:#070B11;padding:28px 22px 22px;min-height:200px;display:flex;flex-direction:column;justify-content:center;}
-.visual.lifestyle{min-height:220px;}
+/* ---- TELEGRAM MOCK ---- */
+.tg-phone{background:#E8EBF0;border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.13);margin-bottom:8px;}
+.tg-statusbar{background:#527DA3;padding:10px 16px 8px;display:flex;align-items:center;gap:10px;}
+.tg-back{color:rgba(255,255,255,.8);font-size:18px;line-height:1;}
+.tg-avatar{width:32px;height:32px;border-radius:50%;background:#fff;overflow:hidden;flex-shrink:0;}
+.tg-avatar img{width:100%;height:100%;object-fit:cover;}
+.tg-chname{flex:1;}
+.tg-chname .name{font-size:13px;font-weight:600;color:#fff;}
+.tg-chname .sub{font-size:10px;color:rgba(255,255,255,.7);}
 
-/* overlay brand tag */
-.visual-tag{position:absolute;bottom:12px;left:14px;background:rgba(17,17,17,.65);backdrop-filter:blur(6px);color:#fff;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:5px 10px;border-radius:4px;}
+.tg-feed{background:#E8EBF0;padding:12px 10px;}
 
-/* terminal style */
-.term-label{font-family:'Courier New',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#22D3EE;text-transform:uppercase;margin-bottom:10px;}
-.term-title{font-size:20px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:6px;}
-.term-sub{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5;}
-.term-dot{display:inline-block;width:8px;height:8px;background:#4ADE80;border-radius:50%;margin-right:6px;vertical-align:middle;}
+/* message bubble */
+.tg-msg{background:#fff;border-radius:12px 12px 12px 3px;padding:0;overflow:hidden;max-width:88%;margin-bottom:4px;box-shadow:0 1px 2px rgba(0,0,0,.1);}
+.tg-msg-img{width:100%;display:block;}
+.tg-msg-img img{width:100%;display:block;max-height:220px;object-fit:cover;}
+.tg-msg-body{padding:10px 12px 6px;}
+.tg-msg-text{font-size:13px;line-height:1.55;color:#111;white-space:pre-wrap;word-break:break-word;}
+.tg-msg-text b{font-weight:700;}
+.tg-msg-text u{text-decoration:underline;}
+.tg-msg-text i{font-style:italic;color:#555;}
+.tg-msg-text .hashtag{color:#2481cc;}
+.tg-msg-time{text-align:right;font-size:10px;color:#aaa;padding:2px 10px 8px;}
 
-/* post text */
-.post-body{padding:18px 18px 6px;}
-.post-text{font-size:14px;line-height:1.65;color:#222;white-space:pre-wrap;}
-.post-text strong{font-weight:700;}
-.hashtags{padding:10px 18px 16px;font-size:12px;color:#888;line-height:1.7;}
+/* dark message variant C */
+.tg-msg.dark-msg{background:#1E2733;border-radius:12px 12px 12px 3px;}
+.tg-msg.dark-msg .tg-msg-text{color:#E1E8F0;}
+.tg-msg.dark-msg .tg-msg-text b{color:#fff;}
+.tg-msg.dark-msg .tg-msg-text u{text-decoration:underline;color:#22D3EE;}
+.tg-msg.dark-msg .tg-msg-time{color:#4A6A8A;}
+.tg-msg.dark-msg .hashtag{color:#22D3EE;}
 
-/* target row */
-.target-row{padding:10px 18px 14px;border-top:1px solid #F0F0EE;display:flex;gap:8px;flex-wrap:wrap;}
-.target-chip{font-size:10px;font-weight:600;letter-spacing:.5px;color:#555;background:#F0F0EE;padding:4px 10px;border-radius:20px;}
+/* console block inside dark msg */
+.console-block{background:#0A0F18;border:1px solid rgba(34,211,238,.25);border-radius:8px;padding:10px 14px;margin:8px 0 4px;font-family:'Courier New',monospace;font-size:11px;}
+.console-header{color:#22D3EE;font-weight:700;letter-spacing:1px;font-size:9px;border-bottom:1px solid rgba(34,211,238,.15);padding-bottom:6px;margin-bottom:8px;}
+.console-row{display:flex;align-items:baseline;gap:6px;margin-bottom:5px;}
+.console-row:last-child{margin-bottom:0;}
+.console-dot{color:#22D3EE;flex-shrink:0;}
+.console-agent{color:#22D3EE;min-width:70px;}
+.console-task{color:#4A6580;flex:1;font-size:10px;}
+.console-status{font-size:10px;font-weight:700;white-space:nowrap;}
+.status-done{color:#4ADE80;}
+.status-online{color:#22D3EE;}
+.status-synced{color:#4ADE80;}
 
-/* choose button */
-.choose-wrap{padding:0 18px 18px;}
-.choose-btn{display:block;width:100%;text-align:center;background:#111;color:#fff;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:13px;border-radius:8px;text-decoration:none;}
-.choose-btn.gold{background:linear-gradient(135deg,#8B6F4E,#C4A882);}
-.choose-btn.green{background:linear-gradient(135deg,#142E24,#1E4D3B);}
-.choose-btn.dark{background:linear-gradient(135deg,#070B11,#0A1628);}
+/* caption below phone */
+.phone-caption{font-size:11px;color:#aaa;text-align:center;padding:4px 0 20px;}
 
-/* compare table */
-.compare{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
-.compare-title{padding:14px 18px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;border-bottom:1px solid #F0F0EE;}
-table{width:100%;border-collapse:collapse;}
-td,th{padding:10px 14px;font-size:12px;border-bottom:1px solid #F5F5F3;vertical-align:top;}
-th{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#aaa;background:#FAFAF9;}
-td:first-child{color:#888;font-weight:600;font-size:11px;width:30%;}
-td.a{color:#8B6F4E;font-weight:600;}
-td.b{color:#142E24;font-weight:600;}
-td.c{color:#0891B2;font-weight:600;}
-tr:last-child td{border-bottom:none;}
+/* action row */
+.action-row{display:flex;gap:8px;margin-bottom:28px;}
+.action-btn{flex:1;text-align:center;padding:12px 6px;border-radius:10px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;cursor:pointer;}
+.btn-approve{background:#111;color:#fff;}
+.btn-edit{background:#fff;color:#111;border:1.5px solid #E0E0DC;}
+
+/* divider */
+.divider{border:none;border-top:1px solid #E0DDD8;margin:8px 0 24px;}
+
+/* visual ref card */
+.ref-card{background:#fff;border-radius:12px;overflow:hidden;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,.06);}
+.ref-card img{width:100%;height:140px;object-fit:cover;display:block;}
+.ref-card .ref-label{padding:8px 12px;font-size:11px;color:#666;font-weight:500;}
+
+.collections-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 0 6px;}
+.collections-grid .ref-card img{height:100px;}
 </style>
 </head>
 <body>
 
 <div class="top-bar">
   <span class="brand">Home Project</span>
-  <span class="meta">Telegram · 24.08.2026 · Ревью</span>
+  <span class="meta">Telegram ревью · 24.08.2026</span>
 </div>
 
 <div class="hero">
-  <div class="badge">На согласование</div>
-  <h1>3 варианта воскресного поста</h1>
-  <p>Лёгкие, эмоциональные, без прямых продаж · выберите один</p>
+  <div class="badge">Доработка вариантов Б и В</div>
+  <h1>Ревью постов для Telegram</h1>
+  <p>Обновлённое форматирование, итальянская тема, визуал платформы</p>
 </div>
 
 <div class="variants">
 
-  <!-- ВАРИАНТ А -->
-  <div class="variant">
-    <div class="variant-label">
-      <span class="letter">Вариант А · «Детали решают всё»</span>
-      <span class="tone">тихий / про вкус</span>
-    </div>
-    <div class="visual lifestyle" style="position:relative;">
-      <img src="https://static.insales-cdn.com/images/products/1/2570/919710218/638a7313be3b183f0675327e2ccb2885_foto_dukhovoy_shkaf_kuppersbusch_bp_6350_0_s5_black_velvet_1.jpg" alt="Küppersbusch Black Velvet" style="height:240px;object-fit:contain;background:#F7F5F2;width:100%;">
-      <div class="visual-tag">Küppersbusch · Black Velvet</div>
-    </div>
-    <div class="post-body">
-      <div class="post-text">Иногда всё пространство определяет одна деталь.
+  <!-- ===== ВАРИАНТ Б ===== -->
+  <div class="section-label">Вариант Б — Snaidero · Итальянская тема</div>
 
-Не планировка. Не метраж.
-
-Ручка. Текстура. То, как рука касается поверхности каждое утро.
-
-Именно поэтому в премиальной технике не бывает «просто фурнитуры». 🖤
-
-<em>Хорошего воскресенья.</em></div>
-    </div>
-    <div class="hashtags">#HomeProject #дизайнинтерьера #премиальнаятехника #деталивсё #Küppersbusch</div>
-    <div class="target-row">
-      <span class="target-chip">👤 Дизайнеры</span>
-      <span class="target-chip">🏠 Архитекторы</span>
-      <span class="target-chip">📈 Узнаваемость</span>
-    </div>
-    <div class="choose-wrap">
-      <a class="choose-btn gold" href="https://t.me/HomeProjectMsk">Выбрать Вариант А →</a>
-    </div>
-  </div>
-
-  <!-- ВАРИАНТ Б -->
-  <div class="variant">
-    <div class="variant-label">
-      <span class="letter">Вариант Б · «Кухня в воскресенье»</span>
-      <span class="tone">тёплый / жизненный</span>
-    </div>
-    <div class="visual lifestyle" style="position:relative;">
-      <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=1200" alt="Snaidero OLA" style="height:240px;object-fit:cover;width:100%;">
-      <div class="visual-tag">Snaidero · OLA · Pininfarina</div>
-    </div>
-    <div class="post-body">
-      <div class="post-text">Воскресенье — единственный день, когда кухня работает на вас, а не вы на неё.
-
-Медленный завтрак. Никакого расписания. Пространство, которое ты наконец замечаешь.
-
-Мы думаем, что хорошая кухня — это не про готовку.
-Это про то, как вы себя в ней чувствуете.
-
-<em>Как проводите это воскресенье?</em></div>
-    </div>
-    <div class="hashtags">#HomeProject #Snaidero #кухнямечты #интерьер #воскресенье</div>
-    <div class="target-row">
-      <span class="target-chip">👤 Широкая аудитория</span>
-      <span class="target-chip">💬 Вовлечение</span>
-      <span class="target-chip">❤️ Эмоция</span>
-    </div>
-    <div class="choose-wrap">
-      <a class="choose-btn green" href="https://t.me/HomeProjectMsk">Выбрать Вариант Б →</a>
-    </div>
-  </div>
-
-  <!-- ВАРИАНТ В -->
-  <div class="variant">
-    <div class="variant-label">
-      <span class="letter">Вариант В · «Пока все спят»</span>
-      <span class="tone">ироничный / AI</span>
-    </div>
-    <div class="visual dark-mock">
-      <div class="term-label"><span class="term-dot"></span>// HOME PROJECT · AGENTS · LIVE</div>
-      <div class="term-title">Воскресенье,<br>10:00 утра.</div>
-      <div class="term-sub" style="margin-top:12px;font-family:'Courier New',monospace;font-size:11px;line-height:1.8;">
-        ● KP-AGENT &nbsp;&nbsp; генерирует... &nbsp;&nbsp; <span style="color:#4ADE80;">DONE · 0.4s</span><br>
-        ● ARIA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; отвечает клиенту &nbsp;<span style="color:#22D3EE;">ONLINE</span><br>
-        ● CATALOG &nbsp;&nbsp; синхронизация... &nbsp;<span style="color:#4ADE80;">SYNCED</span>
+  <!-- Telegram mock -->
+  <div class="tg-phone">
+    <div class="tg-statusbar">
+      <div class="tg-back">‹</div>
+      <div class="tg-avatar"><img src="https://homeproject.online/favicon.ico" onerror="this.style.background='#C4A882'"></div>
+      <div class="tg-chname">
+        <div class="name">Home Project</div>
+        <div class="sub">1 247 подписчиков</div>
       </div>
     </div>
-    <div class="post-body">
-      <div class="post-text">Воскресенье, 10:00 утра.
+    <div class="tg-feed">
+      <div class="tg-msg">
+        <div class="tg-msg-img">
+          <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=1200" alt="Snaidero OLA">
+        </div>
+        <div class="tg-msg-body">
+          <div class="tg-msg-text"><b>Итальянская кухня — это не про мебель.</b>
 
-Менеджеры отдыхают. Офисы закрыты. Звонки не берут.
+Это философия пространства. Архитектура повседневной жизни.
 
-Наш AI-агент уже ответил на 4 запроса, обновил каталог и посчитал два КП.
+<b>Snaidero</b> — бренд с 75-летней историей из региона Удине. Каждая коллекция — это сотрудничество с архитекторами мирового уровня:
 
-Мы не против выходных. Просто не умеем их делать полными 🙂
+<u>OLA</u> — создана совместно с <b>Pininfarina</b> (да, теми самыми, кто рисует Ferrari). Органические линии, ни одного прямого угла.
 
-<em>Home Project — компания нового поколения.</em></div>
+<u>Frame</u> — коллаборация с <b>Iosa Ghini</b>. Кухня как haute couture.
+
+<u>Orbita</u> — фасады с поворотом на 20°. Геометрия как художественное высказывание.
+
+Мы — <b>официальный партнёр Snaidero в России.</b>
+Расчёт КП — за <b>1–2 рабочих дня.</b>
+
+<i>Воскресенье — лучшее время, чтобы начать мечтать.</i>
+
+<span class="hashtag">#HomeProject</span> <span class="hashtag">#Snaidero</span> <span class="hashtag">#итальянскиекухни</span> <span class="hashtag">#дизайнинтерьера</span> <span class="hashtag">#кухнямечты</span></div>
+        </div>
+        <div class="tg-msg-time">сейчас ✓✓</div>
+      </div>
     </div>
-    <div class="hashtags">#HomeProject #AIагенты #автоматизация #B2B #компаниябудущего</div>
-    <div class="target-row">
-      <span class="target-chip">💼 B2B партнёры</span>
-      <span class="target-chip">🤖 AI-нарратив</span>
-      <span class="target-chip">🎯 Позиционирование</span>
+  </div>
+  <div class="phone-caption">↑ как выглядит в Telegram</div>
+
+  <!-- Визуальные референсы для поста Б -->
+  <div class="ref-card" style="margin-bottom:6px;">
+    <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=1200" alt="OLA hero">
+    <div class="ref-label">🖼 Вариант обложки — OLA hero (рекомендую)</div>
+  </div>
+  <div class="collections-grid">
+    <div class="ref-card">
+      <img src="https://admin.snaidero.com/media/gdjpcmzp/10-sistema-snaidero-frame-ispirazioni-haute-couture.jpg?width=500" alt="Frame">
+      <div class="ref-label">Frame · Iosa Ghini</div>
     </div>
-    <div class="choose-wrap">
-      <a class="choose-btn dark" href="https://t.me/HomeProjectMsk">Выбрать Вариант В →</a>
+    <div class="ref-card">
+      <img src="https://admin.snaidero.com/media/vkljasn3/04-sistema-snaidero-orbita-a-un-passo-dal-colosseo.jpg?width=1200" alt="Orbita">
+      <div class="ref-label">Orbita · Новинка 2026</div>
     </div>
   </div>
 
-  <!-- СРАВНИТЕЛЬНАЯ ТАБЛИЦА -->
-  <div class="compare">
-    <div class="compare-title">Сравнение вариантов</div>
-    <table>
-      <tr>
-        <th></th>
-        <th>А</th>
-        <th>Б</th>
-        <th>В</th>
-      </tr>
-      <tr>
-        <td>Тон</td>
-        <td class="a">Тихий</td>
-        <td class="b">Тёплый</td>
-        <td class="c">Ироничный</td>
-      </tr>
-      <tr>
-        <td>Аудитория</td>
-        <td class="a">Дизайнеры</td>
-        <td class="b">Все</td>
-        <td class="c">B2B</td>
-      </tr>
-      <tr>
-        <td>Визуал</td>
-        <td class="a">Фото прибора</td>
-        <td class="b">Кухня-лайф</td>
-        <td class="c">Тёмный / AI</td>
-      </tr>
-      <tr>
-        <td>Цель</td>
-        <td class="a">Бренд</td>
-        <td class="b">Вовлечение</td>
-        <td class="c">Позиция</td>
-      </tr>
-      <tr>
-        <td>Вопрос</td>
-        <td class="a">Нет</td>
-        <td class="b">Да (диалог)</td>
-        <td class="c">Нет</td>
-      </tr>
-    </table>
+  <div class="action-row">
+    <a class="action-btn btn-approve" href="#">✓ Одобрить Б</a>
+    <a class="action-btn btn-edit" href="#">✎ Скорректировать</a>
   </div>
 
-  <div style="text-align:center;font-size:11px;color:#bbb;padding:0 0 20px;">
-    Home Project · homeproject.online · Ревью для внутреннего согласования
+  <hr class="divider">
+
+  <!-- ===== ВАРИАНТ В ===== -->
+  <div class="section-label">Вариант В — AI-платформа · «Пока все спят»</div>
+
+  <div class="tg-phone">
+    <div class="tg-statusbar">
+      <div class="tg-back">‹</div>
+      <div class="tg-avatar"><img src="https://homeproject.online/favicon.ico" onerror="this.style.background='#22D3EE'"></div>
+      <div class="tg-chname">
+        <div class="name">Home Project</div>
+        <div class="sub">1 247 подписчиков</div>
+      </div>
+    </div>
+    <div class="tg-feed">
+      <div class="tg-msg dark-msg">
+        <div class="tg-msg-body" style="padding-top:14px;">
+          <div class="tg-msg-text"><b>Воскресенье, 10:07 утра.</b>
+
+Офисы закрыты. Менеджеры недоступны. Конкуренты отдыхают.
+
+А наши агенты уже работают:</div>
+
+          <!-- live console -->
+          <div class="console-block">
+            <div class="console-header">// HOME PROJECT · AGENTS · LIVE &nbsp;&nbsp; 4 online · 0 idle</div>
+            <div class="console-row">
+              <span class="console-dot">●</span>
+              <span class="console-agent">KP-AGENT</span>
+              <span class="console-task">сформировал КП клиенту</span>
+              <span class="console-status status-done">DONE · 0.8s</span>
+            </div>
+            <div class="console-row">
+              <span class="console-dot">●</span>
+              <span class="console-agent">ARIA</span>
+              <span class="console-task">отвечает на запрос</span>
+              <span class="console-status status-online">ONLINE · 24/7</span>
+            </div>
+            <div class="console-row">
+              <span class="console-dot">●</span>
+              <span class="console-agent">CATALOG</span>
+              <span class="console-task">4 300+ позиций</span>
+              <span class="console-status status-synced">SYNCED</span>
+            </div>
+          </div>
+
+          <div class="tg-msg-text" style="margin-top:8px;"><b>Один человек + AI-агенты = <u>компания нового поколения.</u></b>
+
+Мы построили это сами — с нуля, на реальных задачах.
+
+<i>Теперь предлагаем партнёрам. Интересно как? →</i>
+
+<span class="hashtag">#HomeProject</span> <span class="hashtag">#AIагенты</span> <span class="hashtag">#автоматизация</span> <span class="hashtag">#B2B</span> <span class="hashtag">#компаниябудущего</span></div>
+        </div>
+        <div class="tg-msg-time" style="color:#4A6A8A;">сейчас ✓✓</div>
+      </div>
+    </div>
+  </div>
+  <div class="phone-caption">↑ тёмная тема · консоль агентов как визуал поста</div>
+
+  <div class="action-row">
+    <a class="action-btn btn-approve" href="#" style="background:#070B11;">✓ Одобрить В</a>
+    <a class="action-btn btn-edit" href="#">✎ Скорректировать</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Footer -->
+  <div style="text-align:center;font-size:11px;color:#bbb;padding:4px 0 10px;">
+    Home Project · Внутреннее согласование · 24.08.2026
   </div>
 
 </div>
