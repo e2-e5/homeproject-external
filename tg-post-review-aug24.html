@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ревью постов Telegram · Home Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#F5F5F3;font-family:'Inter',sans-serif;color:#111;padding:0 0 60px;}
+
+.top-bar{background:#111;color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+.top-bar .brand{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.top-bar .meta{font-size:11px;color:#888;letter-spacing:1px;}
+
+.hero{background:#fff;border-bottom:1px solid #E5E5E5;padding:32px 24px 28px;text-align:center;}
+.hero h1{font-size:22px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px;}
+.hero p{font-size:13px;color:#888;}
+.badge{display:inline-block;background:#111;color:#fff;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:14px;}
+
+.variants{max-width:420px;margin:0 auto;padding:24px 16px 0;}
+
+/* каждый вариант */
+.variant{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.variant-label{padding:12px 18px;background:#FAFAF9;border-bottom:1px solid #F0F0EE;display:flex;align-items:center;justify-content:space-between;}
+.variant-label .letter{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;}
+.variant-label .tone{font-size:11px;color:#bbb;}
+
+/* visual mock */
+.visual{position:relative;width:100%;overflow:hidden;}
+.visual img{width:100%;display:block;object-fit:cover;}
+.visual.dark-mock{background:#070B11;padding:28px 22px 22px;min-height:200px;display:flex;flex-direction:column;justify-content:center;}
+.visual.lifestyle{min-height:220px;}
+
+/* overlay brand tag */
+.visual-tag{position:absolute;bottom:12px;left:14px;background:rgba(17,17,17,.65);backdrop-filter:blur(6px);color:#fff;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:5px 10px;border-radius:4px;}
+
+/* terminal style */
+.term-label{font-family:'Courier New',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#22D3EE;text-transform:uppercase;margin-bottom:10px;}
+.term-title{font-size:20px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:6px;}
+.term-sub{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5;}
+.term-dot{display:inline-block;width:8px;height:8px;background:#4ADE80;border-radius:50%;margin-right:6px;vertical-align:middle;}
+
+/* post text */
+.post-body{padding:18px 18px 6px;}
+.post-text{font-size:14px;line-height:1.65;color:#222;white-space:pre-wrap;}
+.post-text strong{font-weight:700;}
+.hashtags{padding:10px 18px 16px;font-size:12px;color:#888;line-height:1.7;}
+
+/* target row */
+.target-row{padding:10px 18px 14px;border-top:1px solid #F0F0EE;display:flex;gap:8px;flex-wrap:wrap;}
+.target-chip{font-size:10px;font-weight:600;letter-spacing:.5px;color:#555;background:#F0F0EE;padding:4px 10px;border-radius:20px;}
+
+/* choose button */
+.choose-wrap{padding:0 18px 18px;}
+.choose-btn{display:block;width:100%;text-align:center;background:#111;color:#fff;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:13px;border-radius:8px;text-decoration:none;}
+.choose-btn.gold{background:linear-gradient(135deg,#8B6F4E,#C4A882);}
+.choose-btn.green{background:linear-gradient(135deg,#142E24,#1E4D3B);}
+.choose-btn.dark{background:linear-gradient(135deg,#070B11,#0A1628);}
+
+/* compare table */
+.compare{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.compare-title{padding:14px 18px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;border-bottom:1px solid #F0F0EE;}
+table{width:100%;border-collapse:collapse;}
+td,th{padding:10px 14px;font-size:12px;border-bottom:1px solid #F5F5F3;vertical-align:top;}
+th{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#aaa;background:#FAFAF9;}
+td:first-child{color:#888;font-weight:600;font-size:11px;width:30%;}
+td.a{color:#8B6F4E;font-weight:600;}
+td.b{color:#142E24;font-weight:600;}
+td.c{color:#0891B2;font-weight:600;}
+tr:last-child td{border-bottom:none;}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <span class="brand">Home Project</span>
+  <span class="meta">Telegram · 24.08.2026 · Ревью</span>
+</div>
+
+<div class="hero">
+  <div class="badge">На согласование</div>
+  <h1>3 варианта воскресного поста</h1>
+  <p>Лёгкие, эмоциональные, без прямых продаж · выберите один</p>
+</div>
+
+<div class="variants">
+
+  <!-- ВАРИАНТ А -->
+  <div class="variant">
+    <div class="variant-label">
+      <span class="letter">Вариант А · «Детали решают всё»</span>
+      <span class="tone">тихий / про вкус</span>
+    </div>
+    <div class="visual lifestyle" style="position:relative;">
+      <img src="https://static.insales-cdn.com/images/products/1/2570/919710218/638a7313be3b183f0675327e2ccb2885_foto_dukhovoy_shkaf_kuppersbusch_bp_6350_0_s5_black_velvet_1.jpg" alt="Küppersbusch Black Velvet" style="height:240px;object-fit:contain;background:#F7F5F2;width:100%;">
+      <div class="visual-tag">Küppersbusch · Black Velvet</div>
+    </div>
+    <div class="post-body">
+      <div class="post-text">Иногда всё пространство определяет одна деталь.
+
+Не планировка. Не метраж.
+
+Ручка. Текстура. То, как рука касается поверхности каждое утро.
+
+Именно поэтому в премиальной технике не бывает «просто фурнитуры». 🖤
+
+<em>Хорошего воскресенья.</em></div>
+    </div>
+    <div class="hashtags">#HomeProject #дизайнинтерьера #премиальнаятехника #деталивсё #Küppersbusch</div>
+    <div class="target-row">
+      <span class="target-chip">👤 Дизайнеры</span>
+      <span class="target-chip">🏠 Архитекторы</span>
+      <span class="target-chip">📈 Узнаваемость</span>
+    </div>
+    <div class="choose-wrap">
+      <a class="choose-btn gold" href="https://t.me/HomeProjectMsk">Выбрать Вариант А →</a>
+    </div>
+  </div>
+
+  <!-- ВАРИАНТ Б -->
+  <div class="variant">
+    <div class="variant-label">
+      <span class="letter">Вариант Б · «Кухня в воскресенье»</span>
+      <span class="tone">тёплый / жизненный</span>
+    </div>
+    <div class="visual lifestyle" style="position:relative;">
+      <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=1200" alt="Snaidero OLA" style="height:240px;object-fit:cover;width:100%;">
+      <div class="visual-tag">Snaidero · OLA · Pininfarina</div>
+    </div>
+    <div class="post-body">
+      <div class="post-text">Воскресенье — единственный день, когда кухня работает на вас, а не вы на неё.
+
+Медленный завтрак. Никакого расписания. Пространство, которое ты наконец замечаешь.
+
+Мы думаем, что хорошая кухня — это не про готовку.
+Это про то, как вы себя в ней чувствуете.
+
+<em>Как проводите это воскресенье?</em></div>
+    </div>
+    <div class="hashtags">#HomeProject #Snaidero #кухнямечты #интерьер #воскресенье</div>
+    <div class="target-row">
+      <span class="target-chip">👤 Широкая аудитория</span>
+      <span class="target-chip">💬 Вовлечение</span>
+      <span class="target-chip">❤️ Эмоция</span>
+    </div>
+    <div class="choose-wrap">
+      <a class="choose-btn green" href="https://t.me/HomeProjectMsk">Выбрать Вариант Б →</a>
+    </div>
+  </div>
+
+  <!-- ВАРИАНТ В -->
+  <div class="variant">
+    <div class="variant-label">
+      <span class="letter">Вариант В · «Пока все спят»</span>
+      <span class="tone">ироничный / AI</span>
+    </div>
+    <div class="visual dark-mock">
+      <div class="term-label"><span class="term-dot"></span>// HOME PROJECT · AGENTS · LIVE</div>
+      <div class="term-title">Воскресенье,<br>10:00 утра.</div>
+      <div class="term-sub" style="margin-top:12px;font-family:'Courier New',monospace;font-size:11px;line-height:1.8;">
+        ● KP-AGENT &nbsp;&nbsp; генерирует... &nbsp;&nbsp; <span style="color:#4ADE80;">DONE · 0.4s</span><br>
+        ● ARIA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; отвечает клиенту &nbsp;<span style="color:#22D3EE;">ONLINE</span><br>
+        ● CATALOG &nbsp;&nbsp; синхронизация... &nbsp;<span style="color:#4ADE80;">SYNCED</span>
+      </div>
+    </div>
+    <div class="post-body">
+      <div class="post-text">Воскресенье, 10:00 утра.
+
+Менеджеры отдыхают. Офисы закрыты. Звонки не берут.
+
+Наш AI-агент уже ответил на 4 запроса, обновил каталог и посчитал два КП.
+
+Мы не против выходных. Просто не умеем их делать полными 🙂
+
+<em>Home Project — компания нового поколения.</em></div>
+    </div>
+    <div class="hashtags">#HomeProject #AIагенты #автоматизация #B2B #компаниябудущего</div>
+    <div class="target-row">
+      <span class="target-chip">💼 B2B партнёры</span>
+      <span class="target-chip">🤖 AI-нарратив</span>
+      <span class="target-chip">🎯 Позиционирование</span>
+    </div>
+    <div class="choose-wrap">
+      <a class="choose-btn dark" href="https://t.me/HomeProjectMsk">Выбрать Вариант В →</a>
+    </div>
+  </div>
+
+  <!-- СРАВНИТЕЛЬНАЯ ТАБЛИЦА -->
+  <div class="compare">
+    <div class="compare-title">Сравнение вариантов</div>
+    <table>
+      <tr>
+        <th></th>
+        <th>А</th>
+        <th>Б</th>
+        <th>В</th>
+      </tr>
+      <tr>
+        <td>Тон</td>
+        <td class="a">Тихий</td>
+        <td class="b">Тёплый</td>
+        <td class="c">Ироничный</td>
+      </tr>
+      <tr>
+        <td>Аудитория</td>
+        <td class="a">Дизайнеры</td>
+        <td class="b">Все</td>
+        <td class="c">B2B</td>
+      </tr>
+      <tr>
+        <td>Визуал</td>
+        <td class="a">Фото прибора</td>
+        <td class="b">Кухня-лайф</td>
+        <td class="c">Тёмный / AI</td>
+      </tr>
+      <tr>
+        <td>Цель</td>
+        <td class="a">Бренд</td>
+        <td class="b">Вовлечение</td>
+        <td class="c">Позиция</td>
+      </tr>
+      <tr>
+        <td>Вопрос</td>
+        <td class="a">Нет</td>
+        <td class="b">Да (диалог)</td>
+        <td class="c">Нет</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="text-align:center;font-size:11px;color:#bbb;padding:0 0 20px;">
+    Home Project · homeproject.online · Ревью для внутреннего согласования
+  </div>
+
+</div>
+</body>
+</html>
