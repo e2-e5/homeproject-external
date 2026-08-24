@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Home Project · LinkedIn · День 13 · визуал</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0D1117;color:#F2F0EB;font-family:'Inter',system-ui,sans-serif;
+       min-height:100vh;display:flex;flex-direction:column;align-items:center;
+       justify-content:center;padding:24px;gap:18px}
+  .label{font-size:12px;font-weight:700;color:rgba(242,240,235,.35);letter-spacing:.12em;text-transform:uppercase}
+  .frame{width:min(540px,94vw);border-radius:14px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.7);background:#000}
+  canvas{width:100%;display:block}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#C9A870,#E4C489);
+       color:#1a1408;font-weight:800;font-size:17px;padding:16px 40px;border-radius:13px;border:none;
+       cursor:pointer;transition:opacity .15s;letter-spacing:.01em}
+  .btn:hover{opacity:.85}
+  .status{font-size:14px;color:#C9A870;min-height:20px;font-weight:600;text-align:center}
+  .hint{font-size:12px;color:rgba(242,240,235,.3);text-align:center;max-width:470px;line-height:1.7}
+</style>
+</head>
+<body>
+<p class="label">HOME PROJECT · LinkedIn · День 13 · 1080×1080</p>
+<div class="frame"><canvas id="c" width="1080" height="1080"></canvas></div>
+<button class="btn" onclick="dl()">⬇&nbsp; Скачать JPEG для LinkedIn</button>
+<p class="status" id="st">Загружаю визуал…</p>
+<p class="hint">JPEG · 1080×1080 px · готов к загрузке в LinkedIn как одиночное изображение.<br>На телефоне: если кнопка не сработает — долгое нажатие на картинку выше → «Сохранить фото».</p>
+
+<script>
+const OLA="https://wsrv.nl/?url=admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg&w=1080&h=1080&fit=cover&a=attention&output=jpg&q=90";
+const cv=document.getElementById('c'), ctx=cv.getContext('2d'), W=1080,H=1080;
+
+function grad(y0,y1,c0,c1){const g=ctx.createLinearGradient(0,y0,0,y1);g.addColorStop(0,c0);g.addColorStop(1,c1);ctx.fillStyle=g;ctx.fillRect(0,y0,W,y1-y0);}
+
+async function render(){
+  const img=new Image();
+  img.crossOrigin='anonymous';
+  await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=OLA;});
+  try{
+    await document.fonts.load('700 92px "Cormorant Garamond"');
+    await document.fonts.load('600 25px "Inter"');
+    await document.fonts.load('800 26px "Inter"');
+    await document.fonts.ready;
+  }catch(e){}
+
+  ctx.drawImage(img,0,0,W,H);
+  grad(0,300,'rgba(8,10,18,.55)','rgba(8,10,18,0)');
+  grad(430,1080,'rgba(8,10,18,0)','rgba(6,8,15,.95)');
+
+  const PAD=76;
+  ctx.textBaseline='alphabetic';
+  ctx.font='800 24px Inter'; ctx.fillStyle='#F2F0EB';
+  ctx.fillText('HOME PROJECT',PAD,86);
+  const wHP=ctx.measureText('HOME PROJECT').width;
+  ctx.fillStyle='#C9A870'; ctx.font='700 24px Inter';
+  ctx.fillText('  ·  ДЕНЬ 13',PAD+wHP,86);
+
+  // gold kicker with letter spacing
+  ctx.font='600 25px Inter'; ctx.fillStyle='#C9A870';
+  let lx=PAD; const kick='SNAIDERO · ИТАЛЬЯНСКИЕ КУХНИ';
+  for(const ch of kick){ ctx.fillText(ch,lx,676); lx+=ctx.measureText(ch).width+3.5; }
+
+  // serif headline
+  ctx.fillStyle='#FFFFFF'; ctx.font='700 94px "Cormorant Garamond"';
+  ctx.fillText('Новый бренд в портфеле —',PAD,772);
+  ctx.fillText('упаковали за неделю.',PAD,868);
+
+  ctx.fillStyle='rgba(201,168,112,.9)'; ctx.fillRect(PAD,906,116,3);
+
+  ctx.font='500 25px Inter'; ctx.fillStyle='rgba(242,240,235,.82)';
+  ctx.fillText('Официальный партнёр в России · встроили в каталог,',PAD,952);
+  ctx.fillText('позиционирование и запуск — силами системы 20+ AI-агентов.',PAD,986);
+
+  ctx.font='800 27px Inter'; ctx.fillStyle='#F2F0EB';
+  ctx.fillText('homeproject.online',PAD,1030);
+
+  document.getElementById('st').textContent='Готово — нажми «Скачать JPEG»';
+}
+render().catch(()=>{document.getElementById('st').textContent='Не удалось загрузить фото — обнови страницу';});
+
+function dl(){
+  const st=document.getElementById('st');
+  try{
+    cv.toBlob(function(b){
+      if(!b){st.textContent='Не удалось — долгое нажатие на картинку → Сохранить';return;}
+      const url=URL.createObjectURL(b);
+      const a=document.createElement('a');
+      a.href=url;a.download='homeproject-linkedin-day13.jpg';
+      document.body.appendChild(a);a.click();
+      setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},1200);
+      st.textContent='✓ Файл сохранён — загружай в LinkedIn как изображение';
+    },'image/jpeg',0.92);
+  }catch(e){ st.textContent='Долгое нажатие на картинку выше → «Сохранить фото»'; }
+}
+</script>
+</body>
+</html>
