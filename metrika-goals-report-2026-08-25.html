@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Метрика — отчёт Home Project | 25.08.2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #181A20; color: #E2E8F0; font-family: 'Inter', -apple-system, sans-serif; font-size: 14px; line-height: 1.5; }
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+  h1 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .subtitle { color: #6B7280; font-size: 13px; margin-bottom: 24px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; margin: 28px 0 12px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 8px; }
+  .kpi-card { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; padding: 16px; }
+  .kpi-label { font-size: 11px; color: #6B7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .kpi-value { font-size: 26px; font-weight: 700; color: #fff; line-height: 1; }
+  .kpi-delta { font-size: 12px; margin-top: 4px; }
+  .delta-up { color: #22C55E; }
+  .delta-down { color: #EF4444; }
+  .delta-neutral { color: #94A3B8; }
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .chart-card { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; padding: 20px; }
+  .chart-card-wide { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+  .chart-title { font-size: 13px; font-weight: 600; color: #94A3B8; margin-bottom: 14px; }
+  .table-wrap { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #13151B; color: #6B7280; font-size: 11px; text-transform: uppercase; padding: 10px 14px; text-align: left; }
+  td { padding: 10px 14px; border-top: 1px solid #2A2D38; color: #E2E8F0; font-size: 13px; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: rgba(34,197,94,0.15); color: #22C55E; }
+  .badge-yellow { background: rgba(234,179,8,0.15); color: #EAB308; }
+  .badge-red { background: rgba(239,68,68,0.15); color: #EF4444; }
+  .badge-blue { background: rgba(99,102,241,0.15); color: #818CF8; }
+  .insights { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 4px; }
+  .insight-card { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; padding: 14px; }
+  .insight-icon { font-size: 20px; margin-bottom: 6px; }
+  .insight-text { font-size: 13px; color: #CBD5E1; line-height: 1.5; }
+  .note { color: #6B7280; font-size: 12px; padding: 8px 14px; }
+  @media (max-width: 600px) { .chart-row { grid-template-columns: 1fr; } .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>📊 Яндекс.Метрика — Home Project</h1>
+  <div class="subtitle">Обновлено: 25 августа 2026 · Основной сайт homeproject.online (счётчик 110362997)</div>
+
+  <div class="section-title">Август 2026 (1–25 авг.) vs Июль 2026 (весь месяц)</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Визиты</div>
+      <div class="kpi-value">202</div>
+      <div class="kpi-delta delta-down">↓ vs июль 321 <span style="color:#6B7280">(ещё идёт)</span></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Пользователи</div>
+      <div class="kpi-value">124</div>
+      <div class="kpi-delta delta-down">↓ vs июль 169</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Отказы</div>
+      <div class="kpi-value">43.1%</div>
+      <div class="kpi-delta delta-down">↑ vs июль 38.0%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Глубина</div>
+      <div class="kpi-value">2.42</div>
+      <div class="kpi-delta delta-up">↑ vs июль 2.13 🟢</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Время (сек)</div>
+      <div class="kpi-value">287</div>
+      <div class="kpi-delta delta-neutral">≈ июль 288</div>
+    </div>
+    <div class="kpi-card" style="border-color:#3F51B5">
+      <div class="kpi-label">🎯 КП-лиды</div>
+      <div class="kpi-value" style="color:#818CF8">3</div>
+      <div class="kpi-delta delta-down">↓ vs июль 7 (конв. 1.5%)</div>
+    </div>
+  </div>
+  <p class="note">* Август считается частично (25 дней из 31). Экстраполяция на месяц: ~250 визитов.</p>
+
+  <div class="section-title">Источники трафика — август</div>
+  <div class="chart-row">
+    <div class="chart-card">
+      <div class="chart-title">Доля по источникам</div>
+      <canvas id="sourceDonut" height="200"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Визиты по источнику</div>
+      <canvas id="sourceBar" height="200"></canvas>
+    </div>
+  </div>
+
+  <div class="section-title">Email-рассылки — переходы (UTM)</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Источник / Канал</th>
+          <th>Описание</th>
+          <th>Визиты</th>
+          <th>Пользователи</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="badge badge-blue">unisender / email</span></td><td>Наши кампании UniSender</td><td>24</td><td>24</td></tr>
+        <tr><td><span class="badge badge-yellow">coldy / email</span></td><td>Сторонние рассылки</td><td>10</td><td>10</td></tr>
+        <tr><td><span class="badge badge-green">telegram / social</span></td><td>Посты в канале</td><td>7</td><td>4</td></tr>
+        <tr><td><span class="badge badge-blue">linkedin / post</span></td><td>LinkedIn</td><td>1</td><td>1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Кампании — детализация (UTM)</div>
+  <div class="chart-card-wide">
+    <div class="chart-title">Визиты по UTM-кампаниям (август)</div>
+    <canvas id="campBar" height="160"></canvas>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>UTM Campaign</th>
+          <th>Content</th>
+          <th>Визиты</th>
+          <th>Статус</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>re-engage-aug26</td><td>followup-link</td><td>9</td><td><span class="badge badge-green">✅ Лучший</span></td></tr>
+        <tr><td>re-engage-aug26</td><td>kp-button</td><td>1</td><td><span class="badge badge-green">✅</span></td></tr>
+        <tr><td>partner-platform-aug26</td><td>D1-cta + D2-cta + footers</td><td>7</td><td><span class="badge badge-green">✅</span></td></tr>
+        <tr><td>phase2-aug26</td><td>E1, E2, E3</td><td>5</td><td><span class="badge badge-green">✅</span></td></tr>
+        <tr><td>telegram-posts</td><td>sunday, ai-consultant, voskresnoe</td><td>7</td><td><span class="badge badge-blue">Telegram</span></td></tr>
+        <tr><td>sensing-aug26</td><td>A3, C2</td><td>3</td><td><span class="badge badge-green">✅</span></td></tr>
+        <tr><td>phase3-aug26</td><td>D1-v6 (запущено сегодня)</td><td>1</td><td><span class="badge badge-yellow">🆕 В процессе</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Устройства и сравнение периодов</div>
+  <div class="chart-row">
+    <div class="chart-card">
+      <div class="chart-title">Устройства (август)</div>
+      <canvas id="deviceChart" height="200"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Визиты: июль vs август</div>
+      <canvas id="periodChart" height="200"></canvas>
+    </div>
+  </div>
+
+  <div class="section-title">Email-кампании Home Project — журнал</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Дата</th>
+          <th>Кампания</th>
+          <th>Сегмент</th>
+          <th>Отправлено</th>
+          <th>Открыли</th>
+          <th>Open Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>25.08</td><td>D1 Platform V6</td><td>Партнёры</td><td>150</td><td>—</td><td><span class="badge badge-yellow">в очереди</span></td></tr>
+        <tr><td>25.08</td><td>Тёплые дизайнеры (Snaidero)</td><td>designer + premium</td><td>100</td><td>—</td><td><span class="badge badge-yellow">в очереди</span></td></tr>
+        <tr><td>25.08</td><td>Холодные дизайнеры (Snaidero)</td><td>designer_bt</td><td>50</td><td>—</td><td><span class="badge badge-yellow">в очереди</span></td></tr>
+        <tr><td>22.08</td><td>Snaidero — cold (тест)</td><td>designer_cold</td><td>50</td><td>3</td><td><span class="badge badge-green">6.0%</span></td></tr>
+        <tr><td>22.08</td><td>Snaidero — warm (тест)</td><td>designer_warm</td><td>50</td><td>3</td><td><span class="badge badge-green">6.0%</span></td></tr>
+        <tr><td>21.08</td><td>E3 — Партнёры платформа</td><td>active_agent</td><td>50</td><td>14</td><td><span class="badge badge-green">28.0% 🏆</span></td></tr>
+        <tr><td>21.08</td><td>E1 — Дизайнеры AI</td><td>designer_bt</td><td>100</td><td>—</td><td><span class="badge badge-blue">нет данных</span></td></tr>
+        <tr><td>21.08</td><td>E2 — Не из розницы</td><td>designer_bt</td><td>100</td><td>—</td><td><span class="badge badge-blue">нет данных</span></td></tr>
+        <tr><td>20.08</td><td>Сенсинг C2, C3, D1, D2</td><td>santech + partner</td><td>~200</td><td>—</td><td><span class="badge badge-blue">нет данных</span></td></tr>
+        <tr><td>19.08</td><td>Сенсинг A1, A2</td><td>designer повторные</td><td>97</td><td>—</td><td><span class="badge badge-blue">нет данных</span></td></tr>
+      </tbody>
+    </table>
+    <p class="note">Всего отправлено: ~947 писем. Сегодня ещё 300 — данные появятся 26–27 августа.</p>
+  </div>
+
+  <div class="section-title">Выводы и рекомендации</div>
+  <div class="insights">
+    <div class="insight-card">
+      <div class="insight-icon">🟢</div>
+      <div class="insight-text"><strong>Глубина просмотра растёт:</strong> 2.42 vs 2.13 в июле — пользователи смотрят больше страниц. Контент работает.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">📧</div>
+      <div class="insight-text"><strong>Email — главный управляемый канал:</strong> 24 визита из UniSender за август. Сегодняшние 300 писем дадут трафик завтра.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">🔴</div>
+      <div class="insight-text"><strong>Отказы выросли:</strong> 43% vs 38% в июле. Email-трафик менее целевой. Следить после масштабирования на сегмент B (5 265 контактов).</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">🎯</div>
+      <div class="insight-text"><strong>КП-лиды: 3 за август.</strong> Конверсия 1.49% — норма для холодного трафика. Ждём эффекта от рассылок Phase 3.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">📱</div>
+      <div class="insight-text"><strong>41% трафика — с телефона.</strong> Письма и сайт должны нормально открываться на mobile. Проверить на iPhone.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">🟡</div>
+      <div class="insight-text"><strong>re-engage-aug26 — лидер по кликам:</strong> 10 переходов. Тема повторного вовлечения работает лучше всего. Масштабировать.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">🏆</div>
+      <div class="insight-text"><strong>Партнёрский E3: open rate 28%</strong> — лучший результат среди всех кампаний. Шаблон и сегмент рабочие.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">⏳</div>
+      <div class="insight-text"><strong>Phase 3 только запущена:</strong> 300 писем ушло сегодня партнёрам и дизайнерам. Метрики придут 26–27 августа.</div>
+    </div>
+  </div>
+
+  <p style="color:#374151; font-size:11px; margin-top: 24px; text-align:center;">
+    Home Project · homeproject.online · Данные: Яндекс.Метрика 110362997 · Обновлено 25.08.2026
+  </p>
+</div>
+
+<script>
+new Chart(document.getElementById('sourceDonut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Прямые', 'Рассылки', 'Ссылки', 'Внутренние', 'Поиск', 'Мессенджеры'],
+    datasets: [{ data: [114, 33, 16, 15, 12, 8], backgroundColor: ['#6366F1','#22C55E','#F59E0B','#64748B','#3B82F6','#EC4899'], borderWidth: 0 }]
+  },
+  options: { plugins: { legend: { position: 'bottom', labels: { color: '#94A3B8', font: { size: 11 }, padding: 8 } } }, cutout: '65%' }
+});
+
+new Chart(document.getElementById('sourceBar'), {
+  type: 'bar',
+  data: {
+    labels: ['Прямые', 'Рассылки', 'Ссылки', 'Внутр.', 'Поиск', 'Мессенд.'],
+    datasets: [{ label: 'Визиты', data: [114, 33, 16, 15, 12, 8], backgroundColor: ['#6366F1','#22C55E','#F59E0B','#64748B','#3B82F6','#EC4899'], borderRadius: 4 }]
+  },
+  options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#6B7280', font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: '#6B7280' }, grid: { color: '#2A2D38' } } } }
+});
+
+new Chart(document.getElementById('campBar'), {
+  type: 'bar',
+  data: {
+    labels: ['re-engage-aug26', 'partner-platform', 'telegram-posts', 'phase2-aug26', 'sensing-aug26', 'phase3-aug26'],
+    datasets: [{ label: 'Визиты', data: [10, 7, 7, 5, 3, 1], backgroundColor: '#6366F1', borderRadius: 4 }]
+  },
+  options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#6B7280' }, grid: { color: '#2A2D38' } }, y: { ticks: { color: '#94A3B8', font: { size: 11 } }, grid: { display: false } } } }
+});
+
+new Chart(document.getElementById('deviceChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['PC (59%)', 'Смартфоны (41%)'],
+    datasets: [{ data: [120, 82], backgroundColor: ['#6366F1', '#22C55E'], borderWidth: 0 }]
+  },
+  options: { plugins: { legend: { position: 'bottom', labels: { color: '#94A3B8', font: { size: 12 } } } }, cutout: '60%' }
+});
+
+new Chart(document.getElementById('periodChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Визиты', 'Пользователи', 'KP Лиды'],
+    datasets: [
+      { label: 'Июль (полный)', data: [321, 169, 7], backgroundColor: 'rgba(99,102,241,0.5)', borderRadius: 4 },
+      { label: 'Август (1-25)', data: [202, 124, 3], backgroundColor: '#22C55E', borderRadius: 4 }
+    ]
+  },
+  options: { plugins: { legend: { labels: { color: '#94A3B8', font: { size: 11 } } } }, scales: { x: { ticks: { color: '#6B7280' }, grid: { display: false } }, y: { ticks: { color: '#6B7280' }, grid: { color: '#2A2D38' } } } }
+});
+</script>
+</body>
+</html>
