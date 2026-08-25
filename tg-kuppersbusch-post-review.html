@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>На согласование — пост Küppersbusch</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #181A20;
+      --card: #1F2129;
+      --border: #2A2D38;
+      --text: #E8EAF0;
+      --muted: #7A7F94;
+      --accent-a: #5B9CF6;
+      --accent-b: #B47EFF;
+      --tag-bg: #2A2D38;
+      --btn-copy: #2A2D38;
+      --btn-copy-hover: #363A4A;
+      --btn-copied: #1A4A2E;
+      --btn-copied-text: #4ADE80;
+      --utm: #444857;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      padding: 32px 20px 48px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .page-header .brand-tag {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #23262F;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .page-header .subtitle {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .variant-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .variant-label .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    .variant-a .dot { background: var(--accent-a); }
+    .variant-b .dot { background: var(--accent-b); }
+    .variant-a .variant-label { color: var(--accent-a); }
+    .variant-b .variant-label { color: var(--accent-b); }
+
+    .card-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    .card-header .angle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .post-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .post-text {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--text);
+      white-space: pre-wrap;
+      font-family: inherit;
+    }
+
+    .hashtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .hashtag {
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--tag-bg);
+      font-size: 12px;
+      color: var(--muted);
+      font-family: monospace;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+    }
+
+    .card-footer {
+      padding: 14px 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--btn-copy);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      font-family: inherit;
+    }
+
+    .copy-btn:hover {
+      background: var(--btn-copy-hover);
+    }
+
+    .copy-btn.copied {
+      background: var(--btn-copied);
+      color: var(--btn-copied-text);
+      border-color: #2A5A3A;
+    }
+
+    .utm-note {
+      font-size: 11px;
+      color: var(--muted);
+      background: #1A1C24;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-family: monospace;
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    svg.icon {
+      display: inline-block;
+      vertical-align: middle;
+      width: 14px; height: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>На согласование — пост Küppersbusch</h1>
+  <span class="brand-tag">@HomeProjectMsk · Telegram</span>
+  <p class="subtitle">Два варианта текста. Выберите один или дайте правки.</p>
+</div>
+
+<div class="grid">
+
+  <!-- ВАРИАНТ А -->
+  <div class="card variant-a">
+    <div class="card-header">
+      <div class="variant-label"><span class="dot"></span>Вариант А</div>
+      <h2>Пар + пиролиз: вершина линейки</h2>
+      <div class="angle">Угол: технологии, премиум-готовка</div>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="post-label">Текст поста</div>
+        <div class="post-text" id="post-a">🔬 Духовой шкаф как лаборатория.
+
+Küppersbusch BD 6340.0 — один из немногих шкафов, где пиролиз и встроенный парогенератор работают в паре.
+
+500°C сжигают жир без химии. Пар сохраняет соки и витамины. WLAN — управление с телефона, не выходя из гостиной.
+
+71 литр. 6 цветовых вариантов отделки. Класс энергоэффективности A+.
+
+Немецкий завод в Гельзенкирхене. Производство с 1875 года. РРЦ — от 349 000 ₽.
+
+Для тех, кто относится к кухне всерьёз.</div>
+      </div>
+      <div>
+        <div class="post-label">Хэштеги</div>
+        <div class="hashtags">
+          <span class="hashtag">#Küppersbusch</span>
+          <span class="hashtag">#HomeProject</span>
+          <span class="hashtag">#встраиваемаятехника</span>
+          <span class="hashtag">#духовойшкаф</span>
+          <span class="hashtag">#премиумкухня</span>
+          <span class="hashtag">#кухня</span>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="card-footer">
+      <button class="copy-btn" onclick="copyPost('post-a', this)">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Скопировать вариант А
+      </button>
+      <div class="utm-note">UTM: utm_source=telegram&amp;utm_medium=social&amp;utm_campaign=kuppersbusch-aug26&amp;utm_content=bd6340-steam</div>
+    </div>
+  </div>
+
+  <!-- ВАРИАНТ Б -->
+  <div class="card variant-b">
+    <div class="card-header">
+      <div class="variant-label"><span class="dot"></span>Вариант Б</div>
+      <h2>8 цветов, одна кухня</h2>
+      <div class="angle">Угол: Design Kit, персонализация интерьера</div>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="post-label">Текст поста</div>
+        <div class="post-text" id="post-b">🎨 Что если техника — это часть дизайна?
+
+Küppersbusch Design Kit: 8 цветовых вариантов отделки — Stainless Steel, Black Chrome, Silver Chrome, Gold, Black Velvet, Copper, Hot Chili, Shade of Grey.
+
+Один и тот же шкаф. Разный характер кухни. Монохромный минимализм в чёрном велюре — или яркий акцент в Hot Chili. Роскошь золота — или холодный блеск серебряного хрома.
+
+Design Kit применяется ко всей встраиваемой линейке: духовки, варочные, микроволновки. Кухня в едином стиле — без компромиссов.
+
+С 1875 года — немецкое качество, которое теперь ещё и выглядит так, как вы хотите.
+
+Выберите свой цвет →</div>
+      </div>
+      <div>
+        <div class="post-label">Хэштеги</div>
+        <div class="hashtags">
+          <span class="hashtag">#Küppersbusch</span>
+          <span class="hashtag">#DesignKit</span>
+          <span class="hashtag">#HomeProject</span>
+          <span class="hashtag">#дизайнкухни</span>
+          <span class="hashtag">#встраиваемаятехника</span>
+          <span class="hashtag">#интерьер</span>
+          <span class="hashtag">#кухня</span>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="card-footer">
+      <button class="copy-btn" onclick="copyPost('post-b', this)">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Скопировать вариант Б
+      </button>
+      <div class="utm-note">UTM: utm_source=telegram&amp;utm_medium=social&amp;utm_campaign=kuppersbusch-aug26&amp;utm_content=design-kit</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Home Project · На согласование Андрею · 25.08.2026</footer>
+
+<script>
+  function getHashtags(postId) {
+    const card = document.getElementById(postId).closest('.card');
+    const tags = card.querySelectorAll('.hashtag');
+    return Array.from(tags).map(t => t.textContent.trim()).join(' ');
+  }
+
+  function getCTA(postId) {
+    const ctas = {
+      'post-a': 'https://homeproject.online?utm_source=telegram&utm_medium=social&utm_campaign=kuppersbusch-aug26&utm_content=bd6340-steam',
+      'post-b': 'https://homeproject.online?utm_source=telegram&utm_medium=social&utm_campaign=kuppersbusch-aug26&utm_content=design-kit'
+    };
+    return ctas[postId] || '';
+  }
+
+  function copyPost(postId, btn) {
+    const text = document.getElementById(postId).textContent.trim();
+    const hashtags = getHashtags(postId);
+    const cta = getCTA(postId);
+    const label = postId === 'post-a' ? 'Смотреть на сайте' : 'Выбрать свой цвет';
+    const full = text + '\n\n' + label + ': ' + cta + '\n\n' + hashtags;
+
+    navigator.clipboard.writeText(full).then(() => {
+      btn.classList.add('copied');
+      btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Скопировано!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        const varLetter = postId === 'post-a' ? 'А' : 'Б';
+        btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Скопировать вариант ' + varLetter;
+      }, 2500);
+    }).catch(() => {
+      alert('Не удалось скопировать — скопируйте текст вручную.');
+    });
+  }
+</script>
+
+</body>
+</html>
