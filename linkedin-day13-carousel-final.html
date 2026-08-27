@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>LinkedIn · День 13 · Карусель · Финал</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#EDECEA;font-family:'Inter',sans-serif;color:#111;padding:0 0 80px}
+.topbar{background:#0A66C2;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.topbar-l{color:#fff;font-size:13px;font-weight:800;letter-spacing:1px}
+.topbar-r{color:#cfe3f7;font-size:11px}
+.wrap{max-width:640px;margin:30px auto 0;padding:0 16px}
+.sec-label{font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#888;margin:28px 0 10px}
+.card{background:#fff;border-radius:14px;box-shadow:0 4px 22px rgba(0,0,0,.08);overflow:hidden;margin-bottom:8px}
+.post-head{display:flex;align-items:center;gap:12px;padding:16px 18px 0}
+.avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#0A66C2,#00406e);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
+.pa-name{font-weight:700;font-size:14px}
+.pa-sub{font-size:11px;color:#888}
+.post-caption{padding:14px 18px 18px;font-size:14.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.post-caption b{font-weight:800}
+.post-caption i{color:#666;font-style:italic}
+.tag{color:#0A66C2;font-weight:600}
+.carousel-preview{background:#f0f0f0;padding:12px 18px;display:flex;gap:8px;overflow-x:auto;border-top:1px solid #f0f0f0}
+.thumb{width:120px;height:120px;border-radius:8px;overflow:hidden;flex-shrink:0;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.thumb-inner{width:240px;height:240px;transform:scale(.5);transform-origin:top left;position:absolute}
+.thumb-label{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,.65);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px}
+
+/* mini slide styles */
+.s1{position:relative;width:240px;height:240px;overflow:hidden}
+.s1bg{position:absolute;inset:0;background:url('https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=600') center/cover no-repeat}
+.s1ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,5,4,.3) 0%,rgba(6,5,4,.75) 70%)}
+.s1cnt{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px}
+.s1t{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#F5F0E8;line-height:1}
+.s1b{font-size:8px;font-weight:800;color:#C9A870;letter-spacing:2px;margin-bottom:4px}
+.s2m{background:#0D1117;width:240px;height:240px;display:flex;flex-direction:column;justify-content:center;padding:16px}
+.s2mt{font-size:14px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.s2ms{display:flex;flex-direction:column;gap:5px}
+.s2ms span{font-size:8px;color:#4A5A6A;padding-left:10px;border-left:2px solid #C9A870}
+.s3m{background:#070B11;width:240px;height:240px;display:flex;flex-direction:column;justify-content:center;padding:16px;gap:10px}
+.s3mb{display:flex;align-items:center;gap:8px}
+.s3mi{font-size:16px;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(34,211,238,.1)}
+.s3mt{font-size:9px;font-weight:700;color:#fff}
+.s4m{position:relative;width:240px;height:240px;overflow:hidden}
+.s4ml{position:absolute;left:0;top:0;width:50%;height:100%;background:url('https://admin.snaidero.com/media/gdjpcmzp/10-sistema-snaidero-frame-ispirazioni-haute-couture.jpg?width=400') center/cover}
+.s4mr{position:absolute;right:0;top:0;width:50%;height:100%;background:url('https://admin.snaidero.com/media/vkljasn3/04-sistema-snaidero-orbita-a-un-passo-dal-colosseo.jpg?width=400') center/cover}
+.s4mov{position:absolute;inset:0;background:rgba(5,4,3,.5)}
+.s4mc{position:absolute;inset:0;display:flex;align-items:flex-end;padding:12px}
+.s4mc span{font-family:'Cormorant Garamond',serif;font-size:12px;color:#C9A870;letter-spacing:3px}
+.s5m{background:#070B11;width:240px;height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.s5dt{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#22D3EE,#6366f1,transparent)}
+.s5mb{font-size:56px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px}
+.s5mb em{color:#22D3EE;font-style:normal}
+.s5mu{font-size:11px;font-weight:700;color:#253040;letter-spacing:3px;margin-bottom:10px}
+.s5mt{font-size:9px;color:#22D3EE;letter-spacing:2px;text-transform:uppercase}
+
+.note{background:#fff;border-left:3px solid #0A66C2;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;color:#333;margin-bottom:16px}
+.note b{color:#0A66C2}
+.dl-btn{display:block;background:#0A66C2;color:#fff;text-align:center;font-weight:700;font-size:14px;padding:14px 24px;border-radius:10px;text-decoration:none;margin-bottom:10px}
+.dl-btn:hover{background:#004182}
+.badge-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700}
+.b-new{background:rgba(34,197,94,.12);color:#16a34a}
+.b-ok{background:rgba(99,102,241,.12);color:#4f46e5}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-l">in · День 13 · Вариант Б — Карусель (финал)</span>
+  <span class="topbar-r">Snaidero · 5 слайдов · запасной вариант</span>
+</div>
+
+<div class="wrap">
+
+  <div class="badge-wrap" style="margin-top:20px">
+    <span class="badge b-new">Вариант Б — запасной</span>
+    <span class="badge b-ok">Вариант А уже опубликован</span>
+  </div>
+
+  <div class="sec-label">Текст поста (карусельная версия — короче, приглашает листать)</div>
+  <div class="card">
+    <div class="post-head">
+      <div class="avatar">HP</div>
+      <div><div class="pa-name">Home Project</div><div class="pa-sub">Дистрибуция премиальной техники · AI-операционка</div></div>
+    </div>
+    <div class="post-caption"><b>Новый бренд в портфеле за 7 дней — листайте, как это устроено →</b>
+
+Обычно онбординг нового бренда: 2–3 месяца, команда из нескольких человек, куча согласований.
+
+Мы взяли Snaidero и прошли весь путь меньше чем за неделю:
+разведка рынка → позиционирование → каталог и лендинг → рассылка по сегментам → аналитика с первого дня.
+
+Каждый этап — в карусели. Пролистайте.
+
+<b>Кто это сделал?</b> Система из 20+ агентов под управлением агентов-управляющих. Параллельная работа, нет шва между отделами, нет срыва сроков.
+
+Так выглядит дистрибуция нового поколения.
+
+<i>День 13 из ?. Строим AI-операционку с нуля — без глянца.</i>
+
+<span class="tag">#HomeProject #AIагенты #ExecutiveAI #дистрибуция #B2B #Snaidero</span></div>
+
+    <!-- миниатюры слайдов как превью карусели -->
+    <div class="carousel-preview">
+
+      <div class="thumb">
+        <div class="thumb-inner">
+          <div class="s1">
+            <div class="s1bg"></div><div class="s1ov"></div>
+            <div class="s1cnt">
+              <div class="s1b">ДЕНЬ 13</div>
+              <div class="s1t">Новый бренд<br>за неделю</div>
+            </div>
+          </div>
+        </div>
+        <div class="thumb-label">1 — Обложка</div>
+      </div>
+
+      <div class="thumb">
+        <div class="thumb-inner">
+          <div class="s2m">
+            <div class="s2mt">6 этапов.<br>Система.</div>
+            <div class="s2ms">
+              <span>01 Разведка рынка</span>
+              <span>02 Позиционирование</span>
+              <span>03 Каталог</span>
+              <span>04 Материалы</span>
+              <span>05 Запуск</span>
+              <span>06 Аналитика</span>
+            </div>
+          </div>
+        </div>
+        <div class="thumb-label">2 — 6 этапов</div>
+      </div>
+
+      <div class="thumb">
+        <div class="thumb-inner">
+          <div class="s3m">
+            <div class="s3mb"><div class="s3mi">⚡</div><div class="s3mt">Параллельная работа</div></div>
+            <div class="s3mb"><div class="s3mi">🔗</div><div class="s3mt">Нет шва между отделами</div></div>
+            <div class="s3mb"><div class="s3mi">⏱</div><div class="s3mt">Система не ждёт</div></div>
+          </div>
+        </div>
+        <div class="thumb-label">3 — Почему так быстро</div>
+      </div>
+
+      <div class="thumb">
+        <div class="thumb-inner">
+          <div class="s4m">
+            <div class="s4ml"></div><div class="s4mr"></div><div class="s4mov"></div>
+            <div class="s4mc"><span>OLA · FRAME · ORBITA</span></div>
+          </div>
+        </div>
+        <div class="thumb-label">4 — Коллекции</div>
+      </div>
+
+      <div class="thumb">
+        <div class="thumb-inner">
+          <div class="s5m">
+            <div class="s5dt"></div>
+            <div class="s5mt">РЕЗУЛЬТАТ</div>
+            <div class="s5mb">&lt;<em>7</em></div>
+            <div class="s5mu">ДНЕЙ</div>
+          </div>
+        </div>
+        <div class="thumb-label">5 — Итог</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Чем отличается от Варианта А:</b> текст короче (~300 слов vs 550), акцент на «листайте карусель», нет подробного разбора каждого этапа — он в слайдах. Хэштеги чуть короче. Работает как самостоятельный пост, не дублирует предыдущий.
+  </div>
+
+  <div class="sec-label">Скачать PDF для загрузки в LinkedIn</div>
+  <a class="dl-btn" href="https://e2-e5.github.io/homeproject-external/linkedin-day13-pdf.html" target="_blank">
+    📄 Открыть PDF-страницу → Ctrl+P → Сохранить как PDF
+  </a>
+  <div class="note">
+    В Chrome: открыть ссылку → <b>Ctrl+P</b> (или ⌘P на Mac) → «Сохранить как PDF» → загрузить в LinkedIn как документ. LinkedIn покажет как листаемую карусель.
+  </div>
+
+  <div class="sec-label">Что дальше</div>
+  <div class="note">
+    1. Согласовать текст и слайды с Андреем.<br>
+    2. Скачать PDF (инструкция выше).<br>
+    3. После «ок» — опубликовать в LinkedIn как Document-пост.<br>
+    4. Этот пост можно выпустить через <b>1–2 дня</b> после Варианта А — как продолжение темы.
+  </div>
+
+</div>
+</body>
+</html>
