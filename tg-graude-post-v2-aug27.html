@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>На согласование — пост Graude v2</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #181A20; --card: #1F2129; --border: #2A2D38;
+      --text: #E8EAF0; --muted: #7A7F94;
+      --blue: #5B9CF6; --purple: #B47EFF; --green: #4ADE80;
+      --tag-bg: #2A2D38;
+    }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; min-height: 100vh; padding: 32px 20px 60px; }
+
+    h1 { text-align: center; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .brand-tag { display: block; text-align: center; margin-bottom: 10px; }
+    .brand-tag span { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; background: #23262F; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .subtitle { text-align: center; font-size: 14px; color: var(--muted); margin-bottom: 40px; }
+
+    .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+    .text-block { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; max-width: 680px; margin: 0 auto 48px; }
+    .post-label { font-size: 11px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .tg-text { font-size: 15px; line-height: 1.7; white-space: pre-wrap; }
+    .tg-text b { font-weight: 700; color: #fff; }
+    .tg-text a { color: var(--blue); text-decoration: none; }
+    .hashtags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .hashtag { padding: 3px 8px; border-radius: 6px; background: var(--tag-bg); font-size: 12px; color: var(--muted); font-family: monospace; }
+    .copy-btn {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      width: 100%; margin-top: 14px; padding: 10px 16px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--tag-bg);
+      color: var(--text); font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: background .15s;
+    }
+    .copy-btn:hover { background: #363A4A; }
+    .copy-btn.copied { background: #1A4A2E; color: var(--green); border-color: #2A5A3A; }
+
+    .visuals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+    @media (max-width: 900px) { .visuals-grid { grid-template-columns: 1fr; } }
+
+    .visual-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .visual-card-header { padding: 14px 18px 12px; border-bottom: 1px solid var(--border); }
+    .visual-num { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+    .visual-num.v1 { color: var(--blue); }
+    .visual-num.v2 { color: var(--purple); }
+    .visual-num.v3 { color: #F97316; }
+    .visual-card-header h3 { font-size: 14px; font-weight: 600; }
+    .visual-card-header p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* VISUAL 1 */
+    .vis1 {
+      width: 100%; aspect-ratio: 1/1; position: relative;
+      background: #0D0E11; display: flex; flex-direction: column;
+      align-items: center; justify-content: space-between;
+      padding: 20px 16px 18px; overflow: hidden;
+    }
+    .vis1::before {
+      content: ''; position: absolute;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(91,156,246,0.13) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .vis1-brand { font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,.4); z-index: 1; }
+    .vis1-img { width: 72%; flex: 1; object-fit: contain; z-index: 1; padding: 8px 0; }
+    .vis1-bottom { z-index: 1; width: 100%; }
+    .vis1-model { font-size: 22px; font-weight: 700; letter-spacing: -.5px; text-align: center; color: #fff; }
+    .vis1-pills { display: flex; justify-content: center; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+    .vis1-pill { padding: 3px 9px; border-radius: 20px; border: 1px solid rgba(91,156,246,.35); font-size: 10px; font-weight: 600; color: var(--blue); }
+    .vis1-price { text-align: center; font-size: 11px; color: rgba(255,255,255,.35); margin-top: 8px; }
+
+    /* VISUAL 2 */
+    .vis2 {
+      width: 100%; aspect-ratio: 1/1; position: relative;
+      background: linear-gradient(135deg, #13151B 0%, #1F2129 100%);
+      display: grid; grid-template-columns: 2fr 3fr; overflow: hidden;
+    }
+    .vis2-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 20px 0 20px 18px; z-index: 1;
+    }
+    .vis2-brand-label { font-size: 8px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
+    .vis2-model { font-size: 17px; font-weight: 800; letter-spacing: -.5px; line-height: 1.1; color: #fff; margin-bottom: 14px; }
+    .vis2-feat { font-size: 9.5px; color: rgba(255,255,255,.65); line-height: 1.9; }
+    .vis2-feat li { list-style: none; padding-left: 12px; position: relative; }
+    .vis2-feat li::before { content: '—'; position: absolute; left: 0; color: var(--purple); font-weight: 700; }
+    .vis2-price-tag { margin-top: 12px; padding: 4px 8px; background: rgba(180,126,255,.12); border: 1px solid rgba(180,126,255,.3); border-radius: 6px; display: inline-block; font-size: 10px; font-weight: 700; color: var(--purple); }
+    .vis2-right { position: relative; overflow: hidden; }
+    .vis2-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 12px 8px; }
+    .vis2-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, #13151B 0%, transparent 40%); }
+
+    /* VISUAL 3 */
+    .vis3 {
+      width: 100%; aspect-ratio: 1/1; position: relative;
+      background: #0D0E11; display: flex; flex-direction: column;
+      align-items: center; overflow: hidden;
+    }
+    .vis3-fire {
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 220px; height: 220px;
+      background: radial-gradient(ellipse at 50% 80%, rgba(251,113,30,0.22) 0%, rgba(239,68,68,0.08) 40%, transparent 70%);
+      pointer-events: none;
+    }
+    .vis3-watermark {
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      font-size: 72px; font-weight: 900; letter-spacing: -2px;
+      color: rgba(255,255,255,.03); white-space: nowrap; pointer-events: none;
+      text-transform: uppercase;
+    }
+    .vis3-top { padding: 20px 18px 0; width: 100%; z-index: 1; }
+    .vis3-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 20px;
+      background: rgba(251,113,30,.12); border: 1px solid rgba(251,113,30,.3);
+      font-size: 10px; font-weight: 700; color: #FB711E; letter-spacing: .5px;
+    }
+    .vis3-img { width: 65%; flex: 1; object-fit: contain; z-index: 1; margin: auto; }
+    .vis3-bottom { padding: 0 18px 18px; width: 100%; z-index: 1; }
+    .vis3-tagline { font-size: 18px; font-weight: 800; letter-spacing: -.5px; color: #fff; line-height: 1.2; }
+    .vis3-tagline span { color: #FB711E; }
+    .vis3-sub { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 5px; }
+
+    footer { margin-top: 50px; text-align: center; font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<h1>На согласование — пост Graude v2</h1>
+<div class="brand-tag"><span>@HomeProjectMsk · Telegram</span></div>
+<p class="subtitle">Обновлённый текст с жирным и ссылками + 3 варианта визуала</p>
+
+<div class="text-block">
+  <p class="section-title">Текст поста</p>
+  <div class="post-label">Предпросмотр (жирный и ссылки как в Telegram)</div>
+  <div class="tg-text" id="post-text">🖤 <b>16 режимов нагрева</b> — и <b>AirFry</b> уже в комплекте.
+
+<b>Graude BMP 60.4 S</b> — немецкий духовой шкаф, в котором всё предусмотрено заранее:
+→ <b>Пиролитическая очистка</b> — при 500°C духовка сжигает загрязнения сама, без химии
+→ Противень <b>AirFry</b> идёт в серийной комплектации — хрустящая корочка без фритюра
+→ <b>95 автоматических рецептов</b> и программа <b>Profi Cook</b> — выбрал режим, поставил, готово
+→ <b>7" TFT-дисплей</b> и сенсорное <b>Logic Control</b> — управление как в смартфоне
+
+Атермальное стекло <b>CoolTouch</b> — снаружи холодное даже при 250°C внутри.
+
+<b>GRAUDE PREMIUM</b>. Производство — Германия. РРЦ — от <b>101 490 ₽</b>.
+
+Смотреть модель → <a href="https://homeproject.online/products/graude-bmp-60-4-s?utm_source=telegram&utm_medium=social&utm_campaign=graude-aug27" target="_blank">homeproject.online</a>
+Все модели Graude → <a href="https://homeproject.online/categories/graude?utm_source=telegram&utm_medium=social&utm_campaign=graude-aug27" target="_blank">раздел бренда</a></div>
+
+  <div class="hashtags">
+    <span class="hashtag">#Graude</span>
+    <span class="hashtag">#HomeProject</span>
+    <span class="hashtag">#духовойшкаф</span>
+    <span class="hashtag">#пиролиз</span>
+    <span class="hashtag">#AirFry</span>
+    <span class="hashtag">#встраиваемаятехника</span>
+    <span class="hashtag">#немецкаятехника</span>
+  </div>
+
+  <button class="copy-btn" onclick="copyText(this)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    Скопировать текст для Telegram (Markdown)
+  </button>
+
+  <div style="margin-top:12px; padding:10px 14px; background:#13151B; border-radius:8px; font-size:11px; color:var(--muted); line-height:1.6;">
+    <b style="color:rgba(255,255,255,.45)">Как публиковать с жирным:</b> при создании поста в Telegram — выделите нужные слова и нажмите «Жирный» (Bold). Или используйте кнопку «Скопировать» — текст скопируется в формате Markdown (*слово* = жирный).
+  </div>
+</div>
+
+<div style="max-width:1100px; margin: 0 auto 20px;">
+  <p class="section-title">3 варианта визуала — выберите один (или скажите доработать)</p>
+</div>
+
+<div class="visuals-grid">
+
+  <div class="visual-card">
+    <div class="visual-card-header">
+      <div class="visual-num v1">● Вариант 1 — Premium Noir</div>
+      <h3>Тёмный фон + синий глоу</h3>
+      <p>Продукт в центре, синяя подсветка, три feature-пилюли снизу. Стиль как у Küppersbusch.</p>
+    </div>
+    <div class="vis1">
+      <div class="vis1-brand">Graude · Premium</div>
+      <img class="vis1-img" src="https://technika-vkusa.ru/upload/iblock/9d9/1zgtgf07n0xwp5swrwv2c4ku5erz0pgm.png" alt="Graude BMP 60.4 S">
+      <div class="vis1-bottom">
+        <div class="vis1-model">BMP 60.4 S</div>
+        <div class="vis1-pills">
+          <span class="vis1-pill">Пиролиз</span>
+          <span class="vis1-pill">AirFry</span>
+          <span class="vis1-pill">16 режимов</span>
+        </div>
+        <div class="vis1-price">РРЦ от 101 490 ₽ · Германия</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-card-header">
+      <div class="visual-num v2">● Вариант 2 — Split Specs</div>
+      <h3>Продукт справа + функции слева</h3>
+      <p>Фиолетовые акценты, список характеристик — информативный стиль.</p>
+    </div>
+    <div class="vis2">
+      <div class="vis2-left">
+        <div class="vis2-brand-label">Graude Premium</div>
+        <div class="vis2-model">BMP<br>60.4 S</div>
+        <ul class="vis2-feat">
+          <li>Пиролиз 500°C</li>
+          <li>AirFry в комплекте</li>
+          <li>16 режимов</li>
+          <li>TFT 7" дисплей</li>
+          <li>95 рецептов</li>
+        </ul>
+        <div class="vis2-price-tag">от 101 490 ₽</div>
+      </div>
+      <div class="vis2-right">
+        <img class="vis2-img" src="https://technika-vkusa.ru/upload/iblock/9d9/1zgtgf07n0xwp5swrwv2c4ku5erz0pgm.png" alt="Graude BMP 60.4 S">
+      </div>
+    </div>
+  </div>
+
+  <div class="visual-card">
+    <div class="visual-card-header">
+      <div class="visual-num v3">● Вариант 3 — Heat / Pyro</div>
+      <h3>Акцент на пиролизе</h3>
+      <p>Тёплые тона, "огненный" глоу снизу, слоган "Сам всё очистит" — характерный стиль.</p>
+    </div>
+    <div class="vis3">
+      <div class="vis3-fire"></div>
+      <div class="vis3-watermark">PYRO</div>
+      <div class="vis3-top">
+        <div class="vis3-badge">🔥 Самоочистка при 500°C</div>
+      </div>
+      <img class="vis3-img" src="https://technika-vkusa.ru/upload/iblock/9d9/1zgtgf07n0xwp5swrwv2c4ku5erz0pgm.png" alt="Graude BMP 60.4 S">
+      <div class="vis3-bottom">
+        <div class="vis3-tagline">Пиролиз.<br><span>Сам всё очистит.</span></div>
+        <div class="vis3-sub">Graude BMP 60.4 S · от 101 490 ₽ · Германия</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Home Project · Согласование поста Graude · 27.08.2026</footer>
+
+<script>
+function copyText(btn) {
+  const raw = `🖤 *16 режимов нагрева* — и *AirFry* уже в комплекте.\n\n*Graude BMP 60.4 S* — немецкий духовой шкаф, в котором всё предусмотрено заранее:\n→ *Пиролитическая очистка* — при 500°C духовка сжигает загрязнения сама, без химии\n→ Противень *AirFry* идёт в серийной комплектации — хрустящая корочка без фритюра\n→ *95 автоматических рецептов* и программа *Profi Cook* — выбрал режим, поставил, готово\n→ *7" TFT-дисплей* и сенсорное *Logic Control* — управление как в смартфоне\n\nАтермальное стекло *CoolTouch* — снаружи холодное даже при 250°C внутри.\n\n*GRAUDE PREMIUM*. Производство — Германия. РРЦ — от *101 490 ₽*.\n\n[Смотреть модель](https://homeproject.online/products/graude-bmp-60-4-s?utm_source=telegram&utm_medium=social&utm_campaign=graude-aug27) · [Все модели Graude](https://homeproject.online/categories/graude?utm_source=telegram&utm_medium=social&utm_campaign=graude-aug27)\n\n#Graude #HomeProject #духовойшкаф #пиролиз #AirFry #встраиваемаятехника #немецкаятехника`;
+  navigator.clipboard.writeText(raw).then(() => {
+    btn.classList.add('copied');
+    btn.textContent = '✓ Скопировано!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Скопировать текст для Telegram (Markdown)';
+    }, 2500);
+  });
+}
+</script>
+</body>
+</html>
