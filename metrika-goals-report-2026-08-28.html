@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Метрика Home Project — Отчёт 28 августа 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+<style>
+:root {
+  --bg: #181A20; --card: #1F2129; --border: #2A2D38;
+  --text: #E8EAF0; --sub: #7A7F94; --accent: #5B9CF6;
+  --green: #10B981; --red: #F43F5E; --yellow: #F59E0B; --purple: #8B5CF6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; }
+.header { background: var(--card); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; }
+.header h1 { font-size: 18px; font-weight: 700; }
+.header .meta { font-size: 12px; color: var(--sub); }
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 24px 60px; }
+.section-title { font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--sub); margin: 28px 0 14px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+.kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+.kpi .label { font-size: 11px; color: var(--sub); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+.kpi .val { font-size: 28px; font-weight: 800; color: var(--text); line-height: 1; }
+.kpi .delta { font-size: 12px; margin-top: 6px; font-weight: 600; }
+.delta.up { color: var(--green); }
+.delta.down { color: var(--red); }
+.delta.neu { color: var(--sub); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media(max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.card h3 { font-size: 13px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+.chart-wrap { position: relative; height: 220px; }
+table { width: 100%; border-collapse: collapse; }
+th { font-size: 11px; color: var(--sub); text-transform: uppercase; letter-spacing: .5px; text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+td { padding: 9px 10px; border-bottom: 1px solid rgba(42,45,56,.5); font-size: 13px; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(91,156,246,.04); }
+.tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 8px; }
+.tag-email { background: rgba(91,156,246,.15); color: var(--accent); }
+.tag-tg { background: rgba(0,136,204,.15); color: #0088cc; }
+.tag-li { background: rgba(10,102,194,.15); color: #0A66C2; }
+.tag-other { background: rgba(122,127,148,.15); color: var(--sub); }
+.insight { border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; font-size: 13px; line-height: 1.55; }
+.insight.green { background: rgba(16,185,129,.08); border-left: 3px solid var(--green); }
+.insight.red { background: rgba(244,63,94,.08); border-left: 3px solid var(--red); }
+.insight.yellow { background: rgba(245,158,11,.08); border-left: 3px solid var(--yellow); }
+.insight.blue { background: rgba(91,156,246,.08); border-left: 3px solid var(--accent); }
+.ins-icon { font-size: 15px; margin-right: 8px; }
+.badge { display: inline-block; background: rgba(91,156,246,.15); color: var(--accent); font-size: 11px; font-weight: 700; border-radius: 6px; padding: 2px 8px; margin-left: 6px; }
+.bar-row { display: flex; align-items: center; margin-bottom: 8px; gap: 10px; }
+.bar-label { font-size: 12px; color: var(--sub); min-width: 140px; }
+.bar-track { flex: 1; background: var(--bg); border-radius: 4px; height: 8px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width .3s; }
+.bar-val { font-size: 12px; font-weight: 700; min-width: 36px; text-align: right; }
+.footer { text-align: center; padding: 32px; font-size: 12px; color: var(--sub); }
+.two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+@media(max-width:800px){.two-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>📊 Отчёт по меткам — Home Project</h1>
+    <div class="meta">homeproject.online · счётчик 110362997 · обновлён 28 августа 2026</div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:12px;color:var(--sub)">Период сравнения</div>
+    <div style="font-size:13px;font-weight:700">Июль vs Август 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- KPI -->
+<div class="section-title">KPI — сравнение периодов</div>
+<div class="kpi-grid">
+  <div class="kpi">
+    <div class="label">Визиты (июль)</div>
+    <div class="val">321</div>
+    <div class="delta neu">10,4 / день</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Визиты (авг 1–28)</div>
+    <div class="val">226</div>
+    <div class="delta down">▼ −30% · 8,1 / день</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Пользователи (июль)</div>
+    <div class="val">169</div>
+    <div class="delta neu">—</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Пользователи (авг)</div>
+    <div class="val">145</div>
+    <div class="delta down">▼ −14%</div>
+  </div>
+  <div class="kpi" style="border-color:rgba(244,63,94,.3)">
+    <div class="label">Отказы (июль)</div>
+    <div class="val" style="color:var(--yellow)">38,0%</div>
+    <div class="delta neu">норма</div>
+  </div>
+  <div class="kpi" style="border-color:rgba(244,63,94,.4)">
+    <div class="label">Отказы (авг)</div>
+    <div class="val" style="color:var(--red)">45,1%</div>
+    <div class="delta down">▲ +7,1 пп — хуже</div>
+  </div>
+  <div class="kpi" style="border-color:rgba(16,185,129,.3)">
+    <div class="label">KP Lead (июль)</div>
+    <div class="val" style="color:var(--green)">7</div>
+    <div class="delta neu">2,2% конверсия</div>
+  </div>
+  <div class="kpi" style="border-color:rgba(244,63,94,.3)">
+    <div class="label">KP Lead (авг)</div>
+    <div class="val" style="color:var(--red)">3</div>
+    <div class="delta down">▼ −57% · 1,3% конв.</div>
+  </div>
+</div>
+
+<!-- ДИНАМИКА -->
+<div class="section-title">Динамика визитов — Август 2026</div>
+<div class="card">
+  <h3>Визиты по дням</h3>
+  <div class="chart-wrap">
+    <canvas id="dailyChart"></canvas>
+  </div>
+</div>
+
+<!-- UTM ИСТОЧНИКИ -->
+<div class="section-title">UTM-источники трафика</div>
+<div class="grid2">
+  <div class="card">
+    <h3>Источники — Июль 2026</h3>
+    <table>
+      <tr><th>Источник / Канал</th><th style="text-align:right">Визиты</th><th style="text-align:right">Лиды</th></tr>
+      <tr><td><span class="tag tag-email">email</span> unisender</td><td style="text-align:right;font-weight:700">43</td><td style="text-align:right">0</td></tr>
+      <tr><td><span class="tag tag-email">email</span> unisender_classic</td><td style="text-align:right;font-weight:700">14</td><td style="text-align:right">0</td></tr>
+      <tr><td><span class="tag tag-li">linkedin</span> post</td><td style="text-align:right;font-weight:700">2</td><td style="text-align:right">0</td></tr>
+      <tr><td><span class="tag tag-email">email</span> прямой</td><td style="text-align:right;font-weight:700">1</td><td style="text-align:right">0</td></tr>
+      <tr><td style="color:var(--sub)">Без UTM (органика)</td><td style="text-align:right;font-weight:700">261</td><td style="text-align:right;color:var(--green);font-weight:700">7</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Источники — Август 2026</h3>
+    <table>
+      <tr><th>Источник / Канал</th><th style="text-align:right">Визиты</th><th style="text-align:right">Лиды</th></tr>
+      <tr><td><span class="tag tag-email">email</span> unisender</td><td style="text-align:right;font-weight:700">24</td><td style="text-align:right">0</td></tr>
+      <tr><td><span class="tag tag-email">email</span> coldy</td><td style="text-align:right;font-weight:700">12</td><td style="text-align:right">0</td></tr>
+      <tr><td><span class="tag tag-tg">telegram</span> social</td><td style="text-align:right;font-weight:700">7</td><td style="text-align:right">0</td></tr>
+      <tr><td><span class="tag tag-email">email</span> прямой</td><td style="text-align:right;font-weight:700">2</td><td style="text-align:right">0</td></tr>
+      <tr><td><span class="tag tag-li">linkedin</span> post</td><td style="text-align:right;font-weight:700">1</td><td style="text-align:right">0</td></tr>
+      <tr><td style="color:var(--sub)">Без UTM (органика)</td><td style="text-align:right;font-weight:700">180</td><td style="text-align:right;color:var(--green);font-weight:700">3</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- UTM КАМПАНИИ -->
+<div class="section-title">UTM-кампании — Август 2026</div>
+<div class="two-col">
+  <div class="card">
+    <h3>Кампании по переходам</h3>
+    <div style="margin-top:4px">
+      <div class="bar-row">
+        <span class="bar-label">re-engage-aug26</span>
+        <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div>
+        <span class="bar-val">12</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">partner-platform</span>
+        <div class="bar-track"><div class="bar-fill" style="width:58%;background:var(--purple)"></div></div>
+        <span class="bar-val">7</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">phase2-aug26</span>
+        <div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--accent)"></div></div>
+        <span class="bar-val">6</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">sensing-aug26</span>
+        <div class="bar-track"><div class="bar-fill" style="width:42%;background:var(--yellow)"></div></div>
+        <span class="bar-val">5</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">sunday-home</span>
+        <div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--accent)"></div></div>
+        <span class="bar-val">3</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">designers-bt-aug28 🆕</span>
+        <div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--green)"></div></div>
+        <span class="bar-val">2</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">ai-consultant</span>
+        <div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--accent)"></div></div>
+        <span class="bar-val">2</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Устройства (Август)</h3>
+    <div class="chart-wrap" style="height:180px">
+      <canvas id="devChart"></canvas>
+    </div>
+    <div style="margin-top:12px;font-size:12px">
+      <div style="margin-bottom:4px">🖥 ПК: <strong>143</strong> визита (63%)</div>
+      <div>📱 Смартфоны: <strong>83</strong> визита (37%)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ТОП СТРАНИЦ -->
+<div class="section-title">Топ страниц — Август 2026</div>
+<div class="card">
+  <h3>По количеству визитов</h3>
+  <table>
+    <tr><th>#</th><th>Страница</th><th style="text-align:right">Визиты</th></tr>
+    <tr><td style="color:var(--sub)">1</td><td>homeproject.online/ru <span class="badge">главная</span></td><td style="text-align:right;font-weight:700">164</td></tr>
+    <tr><td style="color:var(--sub)">2</td><td>new.homeproject.online/ru</td><td style="text-align:right;font-weight:700">11</td></tr>
+    <tr><td style="color:var(--sub)">3</td><td>/ru/store <span class="badge">каталог</span></td><td style="text-align:right;font-weight:700">8</td></tr>
+    <tr><td style="color:var(--sub)">4</td><td>github.io/kp-request.html <span class="badge" style="background:rgba(16,185,129,.15);color:var(--green)">КП-форма</span></td><td style="text-align:right;font-weight:700;color:var(--green)">5</td></tr>
+    <tr><td style="color:var(--sub)">5</td><td>/ru/page/designers</td><td style="text-align:right;font-weight:700">3</td></tr>
+    <tr><td style="color:var(--sub)">6</td><td>/ru/products/kuppersbusch-ki-68000 (уценка)</td><td style="text-align:right;font-weight:700">3</td></tr>
+    <tr><td style="color:var(--sub)">7</td><td>/ru/page/about-us</td><td style="text-align:right;font-weight:700">2</td></tr>
+  </table>
+</div>
+
+<!-- ИНСАЙТЫ -->
+<div class="section-title">Выводы и рекомендации</div>
+
+<div class="insight red">
+  <span class="ins-icon">🔴</span>
+  <strong>Трафик снизился</strong> — 321 визит в июле vs 226 в августе (1–28). Нормализованно по дням: 10,4 → 8,1 визита/день (−22%). Снижение идёт несмотря на рост объёма рассылок в августе.
+</div>
+
+<div class="insight red">
+  <span class="ins-icon">🔴</span>
+  <strong>Лиды упали в 2,3 раза</strong> — 7 KP Lead в июле против 3 в августе. Конверсия 2,2% → 1,3%. Рассылки дают переходы, но не конвертируют в заявки. Органический трафик приносит все лиды.
+</div>
+
+<div class="insight red">
+  <span class="ins-icon">🔴</span>
+  <strong>Отказы выросли</strong> — 38% → 45,1%. Посетители с рассылок не находят нужный контент или форму обратной связи. Критически важно улучшить посадочную страницу для email-трафика.
+</div>
+
+<div class="insight yellow">
+  <span class="ins-icon">🟡</span>
+  <strong>Email генерирует 0 лидов</strong> — 47 переходов из email-кампаний в августе, ни одного KP Lead. Нужен конкретный CTA с прямой ссылкой на форму КП прямо в письме (не на главную).
+</div>
+
+<div class="insight blue">
+  <span class="ins-icon">🔵</span>
+  <strong>КП-форма работает</strong> — внешняя страница kp-request.html получила 5 визитов в августе. Это единственная страница с реальным намерением запроса. Стоит добавить прямую ссылку на неё во все письма вместо ссылки на главную.
+</div>
+
+<div class="insight green">
+  <span class="ins-icon">🟢</span>
+  <strong>Telegram работает</strong> — 7 переходов из Telegram в августе (в июле — 0). Канал растёт. Продолжать публикации — особенно в пятницу и выходные (согласно SMM-стратегии).
+</div>
+
+<div class="insight blue">
+  <span class="ins-icon">🔵</span>
+  <strong>Сегодня запустили рассылку designers-bt-aug28</strong> — уже 2 перехода в первые часы. Письмо с 14 брендами, кликабельные ссылки на категории. Финальные данные будут через 24–48ч.
+</div>
+
+<div class="insight yellow">
+  <span class="ins-icon">🟡</span>
+  <strong>Главное действие</strong> — заменить ссылку main CTA в письмах с homeproject.online/ru на прямую ссылку на форму КП (kp-request.html). Это должно поднять конверсию email-трафика.
+</div>
+
+</div>
+
+<div class="footer">Home Project · Метрика · Отчёт от 28 августа 2026 · счётчик 110362997</div>
+
+<script>
+const ctx1 = document.getElementById('dailyChart').getContext('2d');
+new Chart(ctx1, {
+  type: 'bar',
+  data: {
+    labels: ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28'],
+    datasets: [{
+      label: 'Визиты',
+      data: [2,2,3,10,12,9,4,5,6,7,3,4,5,6,8,12,9,11,15,14,12,10,9,13,14,15,14,12],
+      backgroundColor: 'rgba(91,156,246,0.7)',
+      borderColor: '#5B9CF6',
+      borderWidth: 1,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(42,45,56,.5)' }, ticks: { color: '#7A7F94', font: { size: 11 } } },
+      y: { grid: { color: 'rgba(42,45,56,.5)' }, ticks: { color: '#7A7F94', font: { size: 11 } } }
+    }
+  }
+});
+
+const ctx2 = document.getElementById('devChart').getContext('2d');
+new Chart(ctx2, {
+  type: 'doughnut',
+  data: {
+    labels: ['ПК (63%)', 'Смартфоны (37%)'],
+    datasets: [{
+      data: [143, 83],
+      backgroundColor: ['#5B9CF6', '#8B5CF6'],
+      borderColor: '#1F2129',
+      borderWidth: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'bottom', labels: { color: '#7A7F94', font: { size: 11 }, padding: 12 } }
+    }
+  }
+});
+</script>
+</body>
+</html>
