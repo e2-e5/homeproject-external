@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Project — Email Preview v4</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── PAGE ──────────────────────────────── */
+body {
+  background: #070710;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+/* ─── PAGE HEADER ───────────────────────── */
+.page-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 32px;
+  border-bottom: 1px solid #13132a;
+}
+.ph-logo { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: .14em; text-transform: uppercase; }
+.ph-badge {
+  background: #160f40; border: 1px solid #4f46e5; color: #818cf8;
+  font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 100px;
+  letter-spacing: .1em; text-transform: uppercase;
+}
+
+/* ─── WHAT'S NEW BANNER ─────────────────── */
+.changes {
+  margin: 0; padding: 12px 32px;
+  background: #0e0e24; border-bottom: 1px solid #13132a;
+  display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+}
+.changes-title { font-size: 11px; font-weight: 700; color: #4b4b6e; text-transform: uppercase; letter-spacing: .12em; margin-right: 4px; }
+.change-pill {
+  font-size: 11px; font-weight: 600; color: #818cf8;
+  background: rgba(99,102,241,.12); border: 1px solid rgba(99,102,241,.25);
+  padding: 3px 10px; border-radius: 100px;
+}
+
+/* ─── TABS ──────────────────────────────── */
+.tabs {
+  display: flex; padding: 0 32px;
+  border-bottom: 1px solid #13132a; gap: 0;
+}
+.tab-btn {
+  padding: 14px 24px; background: none; border: none;
+  border-bottom: 2px solid transparent;
+  color: #3d3d65; font-size: 13px; font-weight: 500;
+  cursor: pointer; font-family: inherit; transition: color .15s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: #a5b4fc; }
+.tab-btn.active { color: #818cf8; border-bottom-color: #4f46e5; }
+
+/* ─── PANES ─────────────────────────────── */
+.tab-pane { display: none; padding: 36px 32px; }
+.tab-pane.active { display: block; }
+
+/* ─── EMAIL META ─────────────────────────── */
+.email-meta { max-width: 600px; margin: 0 auto 18px; }
+.meta-row { display: flex; gap: 10px; align-items: baseline; margin-bottom: 7px; }
+.meta-key {
+  font-size: 10px; font-weight: 700; color: #3d3d65;
+  text-transform: uppercase; letter-spacing: .12em;
+  min-width: 82px; flex-shrink: 0;
+}
+.meta-val { font-size: 13px; color: #8892a8; line-height: 1.5; }
+.meta-val.subject { color: #e2e8f0; font-weight: 500; }
+
+/* ─── EMAIL WRAPPER ─────────────────────── */
+.email-wrap {
+  max-width: 600px; margin: 0 auto;
+  border-radius: 12px; overflow: hidden;
+  border: 1px solid #13132a;
+  box-shadow: 0 28px 80px rgba(0,0,0,.7);
+}
+
+/* ─── ACCENT BAR ─────────────────────────── */
+.em-accent-bar {
+  height: 3px;
+  background: linear-gradient(90deg, #312e81, #4f46e5, #818cf8, #4f46e5, #312e81);
+}
+
+/* ─── EMAIL HEADER ───────────────────────── */
+.em-head {
+  background: #08081a;
+  padding: 20px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid #13132a;
+}
+.em-logo { font-size: 14px; font-weight: 800; color: #fff; letter-spacing: .14em; text-transform: uppercase; }
+.em-logo .accent { color: #6366f1; }
+.em-slogan { font-size: 9px; font-weight: 700; color: #3d3d65; text-transform: uppercase; letter-spacing: .2em; }
+
+/* ─── STATS STRIP ────────────────────────── */
+.em-stats {
+  display: flex; background: #0b0b1e;
+  border-bottom: 2px solid #4f46e5;
+}
+.em-stat {
+  flex: 1; padding: 18px 6px; text-align: center;
+  border-right: 1px solid #13132a;
+}
+.em-stat:last-child { border-right: none; }
+.em-stat-num {
+  font-size: 21px; font-weight: 900; color: #fff;
+  letter-spacing: -.04em; line-height: 1; white-space: nowrap;
+}
+.em-stat-num .suf { font-size: 13px; color: #4f46e5; font-weight: 700; }
+.em-stat-lbl {
+  font-size: 9px; color: #3d3d65;
+  text-transform: uppercase; letter-spacing: .08em;
+  font-weight: 600; margin-top: 5px;
+}
+
+/* ─── HERO ───────────────────────────────── */
+.em-hero {
+  padding: 48px 40px 42px;
+  background: linear-gradient(158deg, #0d1625 0%, #0e0d20 52%, #130e2c 100%);
+}
+.em-tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  color: #818cf8; text-transform: uppercase; letter-spacing: .2em;
+  background: rgba(99,102,241,.1); border: 1px solid rgba(99,102,241,.25);
+  padding: 5px 12px; border-radius: 4px; margin-bottom: 22px;
+}
+.em-h1 {
+  font-size: 34px; font-weight: 900; color: #fff;
+  line-height: 1.12; letter-spacing: -.05em; margin-bottom: 16px;
+}
+.em-hero-sub { font-size: 15px; color: #6a7599; line-height: 1.65; }
+
+/* ─── HIGHLIGHT BOX ──────────────────────── */
+.em-hl {
+  background: #08081a;
+  border-left: 4px solid #4f46e5;
+  padding: 26px 40px;
+  border-bottom: 1px solid #13132a;
+}
+.em-hl-label {
+  font-size: 10px; font-weight: 700; color: #4f46e5;
+  text-transform: uppercase; letter-spacing: .18em; margin-bottom: 12px;
+}
+.em-hl-text { font-size: 14px; color: #a8bace; line-height: 1.8; }
+.em-hl-text strong { color: #e2e8f0; }
+
+/* ─── SECTION ────────────────────────────── */
+.em-sec {
+  background: #09091c; padding: 32px 40px;
+  border-bottom: 1px solid #13132a;
+}
+.em-sec-title {
+  font-size: 10px; font-weight: 700; color: #3d3d65;
+  text-transform: uppercase; letter-spacing: .2em;
+  margin-bottom: 20px; padding-bottom: 14px;
+  border-bottom: 1px solid #13132a;
+}
+
+/* ─── FEATURE GRID ───────────────────────── */
+.em-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.em-card {
+  background: #0e0e26; border: 1px solid #1c1c3e;
+  border-radius: 8px; padding: 20px 18px;
+}
+.em-card-icon { font-size: 24px; margin-bottom: 10px; line-height: 1; display: block; }
+.em-card-title { font-size: 13px; font-weight: 700; color: #e2e8f0; margin-bottom: 7px; }
+.em-card-desc { font-size: 12px; color: #484870; line-height: 1.6; }
+
+/* ─── BRANDS ─────────────────────────────── */
+.em-brands {
+  background: #09091c; padding: 32px 40px;
+  border-bottom: 1px solid #13132a;
+}
+.em-brands-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px; margin-top: 20px;
+}
+.em-brand {
+  display: block; background: #0e0e26; border: 1px solid #1c1c3e;
+  border-radius: 6px; padding: 12px 8px; text-align: center;
+  font-size: 11px; font-weight: 700; color: #6270a0;
+  text-decoration: none; letter-spacing: .06em; text-transform: uppercase;
+  transition: border-color .15s, color .15s;
+}
+.em-brand:hover { border-color: #4f46e5; color: #a5b4fc; }
+.em-brand.more {
+  color: #6366f1; border-color: rgba(99,102,241,.4);
+  background: rgba(99,102,241,.07);
+  font-size: 12px; letter-spacing: .02em; text-transform: none;
+}
+
+/* ─── CTA ────────────────────────────────── */
+.em-cta {
+  background: linear-gradient(158deg, #0d1625 0%, #130e2c 100%);
+  padding: 44px 40px 36px; text-align: center;
+  border-bottom: 1px solid #13132a;
+}
+.em-cta-text { font-size: 14px; color: #6a7599; line-height: 1.72; margin-bottom: 28px; }
+.em-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #4338ca, #6366f1);
+  color: #fff; font-size: 14px; font-weight: 700;
+  padding: 15px 36px; border-radius: 8px;
+  text-decoration: none; letter-spacing: .02em;
+  box-shadow: 0 8px 28px rgba(79,70,229,.4);
+}
+.em-soft { margin-top: 22px; font-size: 13px; color: #2e2e58; }
+.em-soft a { color: #6366f1; text-decoration: none; }
+
+/* ─── FOOTER ─────────────────────────────── */
+.em-foot { background: #06060f; padding: 28px 40px; }
+.em-sig { font-size: 13px; color: #2e2e58; line-height: 1.8; }
+.em-sig strong { color: #6366f1; font-weight: 700; }
+.em-unsub {
+  margin-top: 18px; font-size: 10px; color: #1c1c38; text-align: center;
+}
+.em-unsub a { color: #2a2a48; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="ph-logo">HOME PROJECT · Email Preview</div>
+  <div class="ph-badge">v4 — UPGRADE</div>
+</div>
+
+<div class="changes">
+  <span class="changes-title">Новое в v4</span>
+  <span class="change-pill">Статс-стрипа</span>
+  <span class="change-pill">Грид карточек</span>
+  <span class="change-pill">Брендс-витрина</span>
+  <span class="change-pill">14 брандов · 4 500+ · 10 000+ контактов</span>
+  <span class="change-pill">«дистрибуция нового поколения» везде</span>
+  <span class="change-pill">Акцентная полоса</span>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('ai', this)">AI Platform v4</button>
+  <button class="tab-btn" onclick="showTab('des', this)">Дизайнеры v4</button>
+  <button class="tab-btn" onclick="showTab('bt', this)">Бытовая техника v4</button>
+</div>
+
+<!-- ═══════════════ TAB 1: AI PLATFORM ═══════════════ -->
+<div id="ai" class="tab-pane active">
+  <div class="email-meta">
+    <div class="meta-row">
+      <div class="meta-key">Тема</div>
+      <div class="meta-val subject">Home Project AI: мы строим компании нового поколения</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">Прехедер</div>
+      <div class="meta-val">Дистрибуция нового поколения. 14 брандов. КП за 20 сек. Работает 24/7.</div>
+    </div>
+  </div>
+
+  <div class="email-wrap">
+    <div class="em-accent-bar"></div>
+
+    <div class="em-head">
+      <div class="em-logo">HOME PROJECT <span class="accent">AI</span></div>
+      <div class="em-slogan">Дистрибуция нового поколения</div>
+    </div>
+
+    <div class="em-stats">
+      <div class="em-stat">
+        <div class="em-stat-num">14</div>
+        <div class="em-stat-lbl">Брандов</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num">4 500<span class="suf">+</span></div>
+        <div class="em-stat-lbl">Позиций</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num">10K<span class="suf">+</span></div>
+        <div class="em-stat-lbl">Контактов</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num">20<span class="suf">сек</span></div>
+        <div class="em-stat-lbl">Готовое КП</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num" style="color:#6366f1">24/7</div>
+        <div class="em-stat-lbl">Агенты</div>
+      </div>
+    </div>
+
+    <div class="em-hero">
+      <div class="em-tag">AI-Платформа · Партнёрам</div>
+      <div class="em-h1">Мы строим компании<br>нового поколения</div>
+      <div class="em-hero-sub">Дистрибуция встраиваемой техники на AI-агентах —<br>и открываем это партнёрам.</div>
+    </div>
+
+    <div class="em-hl">
+      <div class="em-hl-label">Как это работает</div>
+      <div class="em-hl-text">
+        Вы описываете проект — AI-агент подбирает технику из <strong>14 брандов</strong>, формирует КП с позициями <strong>за 20 секунд</strong> и присылает его вам. Каталог из <strong>4 500+ позиций</strong>. Консультация <strong>24/7</strong>. Без ожидания, без менеджеров, без ошибок.
+      </div>
+    </div>
+
+    <div class="em-sec">
+      <div class="em-sec-title">Почему это другой уровень</div>
+      <div class="em-grid">
+        <div class="em-card" style="border-top: 2px solid #f59e0b;">
+          <span class="em-card-icon">⚡</span>
+          <div class="em-card-title">Молниеносная скорость</div>
+          <div class="em-card-desc">КП за 20 секунд. Поиск по каталогу 4 500+ позиций — мгновенно.</div>
+        </div>
+        <div class="em-card" style="border-top: 2px solid #6366f1;">
+          <span class="em-card-icon">🎯</span>
+          <div class="em-card-title">Безошибочность</div>
+          <div class="em-card-desc">Алгоритмы исключают человеческий фактор в расчётах и подборе.</div>
+        </div>
+        <div class="em-card" style="border-top: 2px solid #10b981;">
+          <span class="em-card-icon">🕐</span>
+          <div class="em-card-title">Работает 24/7</div>
+          <div class="em-card-desc">Агенты не уходят в отпуск. Ответ в любое время суток и года.</div>
+        </div>
+        <div class="em-card" style="border-top: 2px solid #8b5cf6;">
+          <span class="em-card-icon">📐</span>
+          <div class="em-card-title">Визуальное КП</div>
+          <div class="em-card-desc">Красивое предложение с фото техники и параметрами — за секунды.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="em-brands">
+      <div class="em-sec-title">14 брандов — один партнёр</div>
+      <div class="em-brands-grid">
+        <a href="https://homeproject.online" class="em-brand">V-ZUG</a>
+        <a href="https://homeproject.online" class="em-brand">BORA</a>
+        <a href="https://homeproject.online" class="em-brand">Fhiaba</a>
+        <a href="https://homeproject.online" class="em-brand">Küppersbusch</a>
+        <a href="https://homeproject.online" class="em-brand">De Dietrich</a>
+        <a href="https://homeproject.online" class="em-brand">Graude</a>
+        <a href="https://homeproject.online" class="em-brand">Schulthess</a>
+        <a href="https://homeproject.online" class="em-brand">SKS</a>
+        <a href="https://homeproject.online" class="em-brand">ILVE</a>
+        <a href="https://homeproject.online" class="em-brand more">+ 5 брандов →</a>
+      </div>
+    </div>
+
+    <div class="em-cta">
+      <div class="em-cta-text">
+        Посмотрите, как работает AI-платформа Home Project.<br>
+        Займёт 2 минуты — и вы поймёте, почему это другой уровень.
+      </div>
+      <a href="https://homeproject.online" class="em-btn">Посмотреть AI-платформу →</a>
+      <div class="em-soft">Или <a href="mailto:info@homeproject.online">просто ответьте на это письмо</a> — отвечу за несколько минут.</div>
+    </div>
+
+    <div class="em-foot">
+      <div class="em-sig">
+        С уважением,<br>
+        <strong>ARIA</strong> — AI-ассистент Home Project<br>
+        <span style="font-size:12px; color:#1c1c38">homeproject.online · Москва</span>
+      </div>
+      <div class="em-unsub">
+        <a href="#">Отписаться от рассылки</a> · Вы получили это письмо как партнёр Home Project
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ TAB 2: DESIGNERS ═══════════════ -->
+<div id="des" class="tab-pane">
+  <div class="email-meta">
+    <div class="meta-row">
+      <div class="meta-key">Тема</div>
+      <div class="meta-val subject">Home Project: мы строим новый тип работы с дизайнерами</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">Прехедер</div>
+      <div class="meta-val">Дистрибуция нового поколения. 14 брандов встраиваемой техники. КП за 20 сек.</div>
+    </div>
+  </div>
+
+  <div class="email-wrap">
+    <div class="em-accent-bar"></div>
+
+    <div class="em-head">
+      <div class="em-logo">HOME PROJECT <span class="accent">AI</span></div>
+      <div class="em-slogan">Дистрибуция нового поколения</div>
+    </div>
+
+    <div class="em-stats">
+      <div class="em-stat">
+        <div class="em-stat-num">14</div>
+        <div class="em-stat-lbl">Брандов</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num">4 500<span class="suf">+</span></div>
+        <div class="em-stat-lbl">Позиций</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num">20<span class="suf">сек</span></div>
+        <div class="em-stat-lbl">Готовое КП</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num" style="color:#6366f1">24/7</div>
+        <div class="em-stat-lbl">Консультант</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num" style="font-size:17px; color:#10b981">МСК</div>
+        <div class="em-stat-lbl">Склад</div>
+      </div>
+    </div>
+
+    <div class="em-hero">
+      <div class="em-tag">Дизайнерам · Архитекторам · Студиям</div>
+      <div class="em-h1">Мы строим компании<br>нового поколения</div>
+      <div class="em-hero-sub">И открываем это дизайнерам — партнёрство нового<br>формата с 14 брандами встраиваемой техники.</div>
+    </div>
+
+    <div class="em-hl">
+      <div class="em-hl-label">Как это работает для дизайнера</div>
+      <div class="em-hl-text">
+        Вы описываете проект клиента — AI-агент подбирает встраиваемую технику из <strong>14 брандов</strong> (V-ZUG, BORA, Küppersbusch и других), формирует <strong>красивое КП за 20 секунд</strong> и присылает PDF. Наличие на складе в Москве — в реальном времени. Без звонков, без ожидания.
+      </div>
+    </div>
+
+    <div class="em-sec">
+      <div class="em-sec-title">Что вы получаете как партнёр</div>
+      <div class="em-grid">
+        <div class="em-card" style="border-top: 2px solid #6366f1;">
+          <span class="em-card-icon">🏗️</span>
+          <div class="em-card-title">Подбор под проект</div>
+          <div class="em-card-desc">Опишите объект — AI выберет технику из 4 500+ позиций по параметрам и бюджету.</div>
+        </div>
+        <div class="em-card" style="border-top: 2px solid #f59e0b;">
+          <span class="em-card-icon">⚡</span>
+          <div class="em-card-title">КП за 20 секунд</div>
+          <div class="em-card-desc">Готовое предложение с фото, ценами и позициями — быстрее, чем ответит менеджер.</div>
+        </div>
+        <div class="em-card" style="border-top: 2px solid #10b981;">
+          <span class="em-card-icon">📦</span>
+          <div class="em-card-title">Склад в Москве</div>
+          <div class="em-card-desc">Реальное наличие в реальном времени. Быстрая доставка клиенту.</div>
+        </div>
+        <div class="em-card" style="border-top: 2px solid #8b5cf6;">
+          <span class="em-card-icon">🤝</span>
+          <div class="em-card-title">Сопровождение</div>
+          <div class="em-card-desc">Персональная поддержка на всех этапах проекта. Работаем 24/7.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="em-brands">
+      <div class="em-sec-title">14 брандов — один партнёр</div>
+      <div class="em-brands-grid">
+        <a href="https://homeproject.online" class="em-brand">V-ZUG</a>
+        <a href="https://homeproject.online" class="em-brand">BORA</a>
+        <a href="https://homeproject.online" class="em-brand">Fhiaba</a>
+        <a href="https://homeproject.online" class="em-brand">Küppersbusch</a>
+        <a href="https://homeproject.online" class="em-brand">De Dietrich</a>
+        <a href="https://homeproject.online" class="em-brand">Graude</a>
+        <a href="https://homeproject.online" class="em-brand">Schulthess</a>
+        <a href="https://homeproject.online" class="em-brand">SKS</a>
+        <a href="https://homeproject.online" class="em-brand">ILVE</a>
+        <a href="https://homeproject.online" class="em-brand more">+ 5 брандов →</a>
+      </div>
+    </div>
+
+    <div class="em-cta">
+      <div class="em-cta-text">
+        Посмотрите каталог и попробуйте AI-подбор техники для вашего следующего проекта.<br>
+        Бесплатно. Без регистрации. Прямо сейчас.
+      </div>
+      <a href="https://homeproject.online" class="em-btn">Посмотреть каталог →</a>
+      <div class="em-soft">Или <a href="mailto:info@homeproject.online">просто ответьте на это письмо</a> — расскажу подробнее.</div>
+    </div>
+
+    <div class="em-foot">
+      <div class="em-sig">
+        С уважением,<br>
+        <strong>ARIA</strong> — AI-ассистент Home Project<br>
+        <span style="font-size:12px; color:#1c1c38">homeproject.online · Москва</span>
+      </div>
+      <div class="em-unsub">
+        <a href="#">Отписаться от рассылки</a> · Вы получили это письмо как дизайнер / архитектор
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ TAB 3: BT ═══════════════ -->
+<div id="bt" class="tab-pane">
+  <div class="email-meta">
+    <div class="meta-row">
+      <div class="meta-key">Тема</div>
+      <div class="meta-val subject">Home Project: дистрибуция нового поколения</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">Прехедер</div>
+      <div class="meta-val">14 брандов. 4 500+ позиций. КП за 20 секунд. 24/7.</div>
+    </div>
+  </div>
+
+  <div class="email-wrap">
+    <div class="em-accent-bar"></div>
+
+    <div class="em-head">
+      <div class="em-logo">HOME PROJECT <span class="accent">AI</span></div>
+      <div class="em-slogan">Дистрибуция нового поколения</div>
+    </div>
+
+    <div class="em-stats">
+      <div class="em-stat">
+        <div class="em-stat-num">14</div>
+        <div class="em-stat-lbl">Брандов</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num">4 500<span class="suf">+</span></div>
+        <div class="em-stat-lbl">Позиций</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num">10K<span class="suf">+</span></div>
+        <div class="em-stat-lbl">Контактов</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num">20<span class="suf">сек</span></div>
+        <div class="em-stat-lbl">Готовое КП</div>
+      </div>
+      <div class="em-stat">
+        <div class="em-stat-num" style="color:#6366f1">24/7</div>
+        <div class="em-stat-lbl">Агенты</div>
+      </div>
+    </div>
+
+    <div class="em-hero">
+      <div class="em-tag">Дилерам · Кухонным студиям · Партнёрам</div>
+      <div class="em-h1">Мы строим дистрибуцию<br>нового поколения</div>
+      <div class="em-hero-sub">Один человек + команда AI-агентов управляет<br>каталогом из 14 брандов бытовой техники.</div>
+    </div>
+
+    <div class="em-hl">
+      <div class="em-hl-label">Что такое дистрибуция нового поколения</div>
+      <div class="em-hl-text">
+        Агентная система обновляет цены и остатки автоматически, собирает <strong>КП за 20 секунд</strong>, ведёт <strong>CRM на 10 000+ контактов</strong> и делает это <strong>24/7</strong>. Каталог из <strong>4 500+ позиций</strong> и <strong>14 брандов</strong> — через одного партнёра. Это не автоматизация — это новая структура бизнеса.
+      </div>
+    </div>
+
+    <div class="em-sec">
+      <div class="em-sec-title">Почему это другой уровень</div>
+      <div class="em-grid">
+        <div class="em-card" style="border-top: 2px solid #6366f1;">
+          <span class="em-card-icon">🏷️</span>
+          <div class="em-card-title">14 брандов / 1 партнёр</div>
+          <div class="em-card-desc">V-ZUG, BORA, Küppersbusch, SKS, Graude и другие — весь топ через нас.</div>
+        </div>
+        <div class="em-card" style="border-top: 2px solid #f59e0b;">
+          <span class="em-card-icon">⚡</span>
+          <div class="em-card-title">КП за 20 секунд</div>
+          <div class="em-card-desc">Красивое предложение с ценами и наличием — мгновенно, по запросу.</div>
+        </div>
+        <div class="em-card" style="border-top: 2px solid #10b981;">
+          <span class="em-card-icon">🕐</span>
+          <div class="em-card-title">24/7 автоматизация</div>
+          <div class="em-card-desc">Система агентов управляет всем. Цены, остатки, клиенты — без задержек.</div>
+        </div>
+        <div class="em-card" style="border-top: 2px solid #8b5cf6;">
+          <span class="em-card-icon">📊</span>
+          <div class="em-card-title">CRM 10 000+ контактов</div>
+          <div class="em-card-desc">Работаем с базой. Ваши партнёры видят нашу технику в числе первых.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="em-brands">
+      <div class="em-sec-title">14 брандов — один партнёр</div>
+      <div class="em-brands-grid">
+        <a href="https://homeproject.online" class="em-brand">V-ZUG</a>
+        <a href="https://homeproject.online" class="em-brand">BORA</a>
+        <a href="https://homeproject.online" class="em-brand">Fhiaba</a>
+        <a href="https://homeproject.online" class="em-brand">Küppersbusch</a>
+        <a href="https://homeproject.online" class="em-brand">De Dietrich</a>
+        <a href="https://homeproject.online" class="em-brand">Graude</a>
+        <a href="https://homeproject.online" class="em-brand">Schulthess</a>
+        <a href="https://homeproject.online" class="em-brand">SKS</a>
+        <a href="https://homeproject.online" class="em-brand">ILVE</a>
+        <a href="https://homeproject.online" class="em-brand more">+ 5 брандов →</a>
+      </div>
+    </div>
+
+    <div class="em-cta">
+      <div class="em-cta-text">
+        Посмотрите, как работает наша система.<br>
+        14 брандов, 4 500+ позиций, КП за 20 секунд — у одного дистрибьютора.
+      </div>
+      <a href="https://homeproject.online" class="em-btn">Посмотреть каталог →</a>
+      <div class="em-soft">Или <a href="mailto:info@homeproject.online">просто ответьте на это письмо</a> — разберём ваш запрос.</div>
+    </div>
+
+    <div class="em-foot">
+      <div class="em-sig">
+        С уважением,<br>
+        <strong>ARIA</strong> — AI-ассистент Home Project<br>
+        <span style="font-size:12px; color:#1c1c38">homeproject.online · Москва</span>
+      </div>
+      <div class="em-unsub">
+        <a href="#">Отписаться от рассылки</a> · Вы получили это письмо как партнёр Home Project
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
