@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Preview v3 — Дизайнеры + БТ в формате AI Platform</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;font-family:Arial,sans-serif;color:#fff}
+.nav{background:#1A1A1A;padding:14px 24px;border-bottom:2px solid #C9A36A;position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.nav-brand{font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;white-space:nowrap}
+.nav-sub{font-size:11px;color:#777;margin-left:4px}
+.nav-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab-btn{padding:7px 18px;background:#2a2a2a;color:#888;font-size:12px;font-weight:600;cursor:pointer;border-radius:4px;border:none}
+.tab-btn.active{background:#C9A36A;color:#1A1A1A}
+.tab-ref{background:#1a2a1a;color:#4a8a4a;border:1px solid #2a4a2a;font-size:11px}
+.tab-ref.active{background:#2a4a2a;color:#8aca8a;border-color:#4a8a4a}
+
+.panel{display:none;padding:24px;max-width:800px;margin:0 auto}
+.panel.active{display:block}
+
+.email-meta{background:#1A1A1A;border-radius:8px;padding:16px 20px;margin-bottom:16px;border:1px solid #2a2a2a}
+.meta-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px}
+.meta-row:last-child{margin:0}
+.meta-key{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#666;width:80px;flex-shrink:0;padding-top:2px}
+.meta-val{font-size:13px;color:#ddd;line-height:1.5}
+.meta-val.subj{font-size:15px;font-weight:700;color:#C9A36A}
+.meta-val.ref{color:#4a8a4a;font-style:italic}
+.meta-badge{display:inline-block;background:#1a3a1a;color:#4a8a4a;border:1px solid #2a5a2a;border-radius:3px;font-size:10px;font-weight:700;padding:2px 8px;margin-left:8px;letter-spacing:1px}
+
+.email-wrap{background:#e0e0e0;border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.6)}
+.email-chrome{background:#ebebeb;padding:10px 16px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #d0d0d0}
+.dot{width:11px;height:11px;border-radius:50%}
+.chrome-info{margin-left:6px;flex:1;min-width:0}
+.chrome-from{font-size:11px;color:#666;display:block}
+.chrome-subj{font-size:12px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;margin-top:2px}
+
+.email-scroll{max-height:720px;overflow-y:auto;background:#ccc;padding:10px}
+.email-inner{background:#fff;max-width:600px;margin:0 auto;font-family:Arial,sans-serif}
+
+.e-hdr{background:#0f0e17;padding:24px 32px;text-align:center}
+.e-logo{color:#fff;font-size:20px;font-weight:700;letter-spacing:1px}
+.e-platform{color:#6c6c8a;font-size:14px;font-weight:400;margin-left:8px}
+.e-hero{background:linear-gradient(135deg,#0d1b2a 0%,#1b2838 100%);padding:40px 32px;text-align:center}
+.e-hero-tag{font-size:13px;color:#7c83d1;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.e-hero-h1{color:#fff;font-size:22px;font-weight:700;margin:0 0 12px;line-height:1.35}
+.e-hero-sub{color:#90a4ae;font-size:15px;margin:0;line-height:1.6}
+.e-body{padding:32px}
+.e-greeting{font-size:17px;font-weight:600;color:#1a1a2e;margin:0 0 16px}
+.e-p{font-size:15px;color:#444;line-height:1.7;margin-bottom:20px}
+.e-box{background:#f0f4ff;border-left:4px solid #3f51b5;border-radius:4px;padding:18px 20px;margin-bottom:24px}
+.e-box-title{font-size:15px;color:#1a1a2e;font-weight:600;margin:0 0 8px}
+.e-box-text{font-size:14px;color:#555;line-height:1.7;margin:0}
+.e-list-wrap{background:#f8f9ff;border-radius:8px;padding:24px;margin-bottom:24px}
+.e-list-title{font-size:16px;font-weight:700;color:#1a1a2e;margin-bottom:16px}
+.e-list-row{display:flex;gap:8px;margin-bottom:10px;line-height:1.6}
+.e-list-dot{color:#3f51b5;font-size:18px;font-weight:700;flex-shrink:0}
+.e-list-text{font-size:15px;color:#333;line-height:1.6}
+.e-p2-label{font-size:15px;color:#444;line-height:1.7;margin-bottom:8px;font-weight:600}
+.e-p2{font-size:15px;color:#444;line-height:1.7;margin-bottom:24px}
+.e-cta-wrap{text-align:center;margin:28px 0}
+.e-cta{display:inline-block;background:#3f51b5;color:#fff;text-decoration:none;font-size:16px;font-weight:700;padding:14px 32px;border-radius:8px}
+.e-close{font-size:15px;color:#444;line-height:1.7;margin-bottom:20px}
+.e-hr{border:none;border-top:1px solid #eee;margin:24px 0}
+.e-sign{font-size:14px;color:#666;line-height:1.7;margin:0}
+.e-sign strong{color:#1a1a2e}
+.e-sign a{color:#3f51b5}
+.e-footer{background:#f5f5f5;padding:20px 32px;text-align:center;font-size:12px;color:#999;line-height:1.6}
+.e-footer a{color:#999;text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <span class="nav-brand">HOME PROJECT · Email v3</span>
+  <span class="nav-sub">Дизайнеры + БТ в формате AI Platform</span>
+  <div class="nav-tabs">
+    <button class="tab-btn tab-ref active" onclick="show('ref',this)">↩ AI Platform (эталон)</button>
+    <button class="tab-btn" onclick="show('designers',this)">✏️ Дизайнеры v3</button>
+    <button class="tab-btn" onclick="show('bt',this)">🔧 БТ v3</button>
+  </div>
+</div>
+
+
+<!-- AI Platform REFERENCE -->
+<div class="panel active" id="panel-ref">
+  <div class="email-meta">
+    <div class="meta-row"><span class="meta-key">Статус</span><span class="meta-val ref">Отправлен 25–27 авг · OR 36–51% <span class="meta-badge">ЭТАЛОН — НЕ МЕНЯЕМ</span></span></div>
+    <div class="meta-row"><span class="meta-key">Тема</span><span class="meta-val subj">Home Project AI: мы строим компании нового поколения</span></div>
+    <div class="meta-row"><span class="meta-key">Аудитория</span><span class="meta-val">Партнёры по БТ · B2B дистрибьюторы</span></div>
+  </div>
+  <div class="email-wrap">
+    <div class="email-chrome">
+      <div class="dot" style="background:#ff5f56"></div><div class="dot" style="background:#ffbd2e"></div><div class="dot" style="background:#27c93f"></div>
+      <div class="chrome-info">
+        <span class="chrome-from">Ария | Home Project &lt;info@homeproject.online&gt;</span>
+        <span class="chrome-subj">Home Project AI: мы строим компании нового поколения</span>
+      </div>
+    </div>
+    <div class="email-scroll">
+      <div class="email-inner">
+        <div style="display:none;max-height:0;overflow:hidden;color:transparent">Дистрибуция как IT-продукт. Команда AI-агентов — каталог, КП, CRM, рассылки. Открываем пилот для партнёров.</div>
+        <div class="e-hdr"><span class="e-logo">HOME PROJECT</span><span class="e-platform">AI Platform</span></div>
+        <div class="e-hero">
+          <div class="e-hero-tag">ДЛЯ ПАРТНЁРОВ ПО БТ</div>
+          <div class="e-hero-h1">Мы строим компании нового поколения</div>
+          <p class="e-hero-sub">Дистрибуция бытовой техники на AI-агентах — и открываем это партнёрам</p>
+        </div>
+        <div class="e-body">
+          <p class="e-greeting">Здравствуйте, {{Name|уважаемый коллега}}!</p>
+          <p class="e-p">Меня зовут Ария — AI-менеджер Home Project. Мы не просто продаём технику: за последние полгода мы построили операционную систему, в которой весь цикл дистрибуции ведут AI-агенты. Это получился новый тип компании — и мы хотим открыть эту модель партнёрам.</p>
+          <div class="e-box">
+            <p class="e-box-title">Что значит «компания нового поколения»?</p>
+            <p class="e-box-text">Один человек + команда AI-агентов → управляет каталогом из тысяч позиций, отвечает клиентам 24/7, собирает КП за 20 секунд, ведёт CRM, запускает рассылки и строит аналитику. Без найма и без потерь скорости.</p>
+          </div>
+          <div class="e-list-wrap">
+            <div class="e-list-title">Что уже работает в нашей системе:</div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>Каталог</strong> — 2 300+ товаров: цены, остатки и описания обновляются автоматически, без менеджера</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>AI-консультант 24/7</strong> — подбирает технику, отвечает на вопросы, квалифицирует лиды в режиме реального времени</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>КП за 20 секунд</strong> — коммерческое предложение с позициями и ценами без участия менеджера</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>CRM и маркетинг</strong> — 14 000 контактов, сегментация, рассылки, соцсети — агенты запускают сами</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>Аналитика и отчёты</strong> — по трафику, продажам и эффективности каналов, без ручного сбора</span></div>
+          </div>
+          <p class="e-p2-label">Почему это интересно именно вам:</p>
+          <p class="e-p2">Если вы дистрибьютор или дилер бытовой техники — эта модель позволяет масштабировать операции без пропорционального роста команды. Мы сейчас отбираем 10 компаний для пилота: подключаем ваш ассортимент и базу к нашей AI-платформе, берём операционку на себя.</p>
+          <div class="e-cta-wrap"><a href="#" class="e-cta">Посмотреть как это работает</a></div>
+          <p class="e-close">Готовы показать систему в работе — просто ответьте на это письмо, и я расскажу подробнее.</p>
+          <hr class="e-hr">
+          <p class="e-sign"><strong>Ария</strong> — AI-менеджер Home Project<br><a href="#">homeproject.online</a></p>
+        </div>
+        <div class="e-footer">Home Project — дистрибуция премиальной бытовой техники<br><a href="#">Отписаться от рассылки</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- DESIGNERS v3 -->
+<div class="panel" id="panel-designers">
+  <div class="email-meta">
+    <div class="meta-row"><span class="meta-key">Тема</span><span class="meta-val subj">Home Project: мы строим новый тип работы с дизайнерами</span></div>
+    <div class="meta-row"><span class="meta-key">Аудитория</span><span class="meta-val">Дизайнеры интерьеров, архитекторы, студии — warm + cold</span></div>
+    <div class="meta-row"><span class="meta-key">Формула</span><span class="meta-val">Та же, что AI Platform — интрига + «новый тип» + боль про КП и спецификацию</span></div>
+  </div>
+  <div class="email-wrap">
+    <div class="email-chrome">
+      <div class="dot" style="background:#ff5f56"></div><div class="dot" style="background:#ffbd2e"></div><div class="dot" style="background:#27c93f"></div>
+      <div class="chrome-info">
+        <span class="chrome-from">Ария | Home Project &lt;info@homeproject.online&gt;</span>
+        <span class="chrome-subj">Home Project: мы строим новый тип работы с дизайнерами</span>
+      </div>
+    </div>
+    <div class="email-scroll">
+      <div class="email-inner">
+        <div style="display:none;max-height:0;overflow:hidden;color:transparent">AI-партнёр для вашего бюро — подбор техники из 9 брендов, КП за 20 секунд, склад Москва. Открываем пилот.</div>
+        <div class="e-hdr"><span class="e-logo">HOME PROJECT</span><span class="e-platform">AI Platform</span></div>
+        <div class="e-hero">
+          <div class="e-hero-tag">ДИЗАЙНЕРАМ · АРХИТЕКТОРАМ · СТУДИЯМ</div>
+          <div class="e-hero-h1">Мы строим компании нового поколения</div>
+          <p class="e-hero-sub">Дистрибуция встраиваемой техники на AI-агентах — и открываем это партнёрам</p>
+        </div>
+        <div class="e-body">
+          <p class="e-greeting">Здравствуйте, {{Name|уважаемый коллега}}!</p>
+          <p class="e-p">Меня зовут Ария — AI-менеджер Home Project. Мы не просто поставляем технику: за последние полгода мы построили операционную систему, в которой весь цикл работы с дизайнерами и архитекторами ведут AI-агенты. Это получился новый тип компании — и мы хотим открыть эту модель партнёрам.</p>
+          <div class="e-box">
+            <p class="e-box-title">Что значит «новый тип работы»?</p>
+            <p class="e-box-text">Вы описываете проект — AI-агент подбирает технику из 9 брендов, формирует КП с позициями за 20 секунд, проверяет наличие на складе в Москве. Ваш клиент получает ответ 24/7. Без ожидания, без Excel, без лишних звонков.</p>
+          </div>
+          <div class="e-list-wrap">
+            <div class="e-list-title">Что уже работает в нашей системе:</div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>Каталог</strong> — 9 премиальных брендов: V-ZUG, BORA, Küppersbusch, De Dietrich, Fhiaba и другие</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>КП за 20 секунд</strong> — позиции и цены без участия менеджера, сразу под конкретный объект</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>AI-консультант 24/7</strong> — отвечает на технические вопросы клиента, пока вы работаете над проектом</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>Склад Москва</strong> — наличие по большинству позиций, быстрая доставка на объект</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>Сопровождение</strong> — от спецификации до монтажа и гарантии, без лишних итераций</span></div>
+          </div>
+          <p class="e-p2-label">Почему это интересно именно вам:</p>
+          <p class="e-p2">Если вы дизайнер, архитектор или руководите студией — эта модель позволяет предлагать клиентам первоклассную технику без потерь времени на согласования и ожидание КП. Мы сейчас отбираем партнёров для пилота.</p>
+          <div class="e-cta-wrap"><a href="#" class="e-cta">Посмотреть как это работает</a></div>
+          <p class="e-close">Готовы показать систему в работе — просто ответьте на это письмо, и я расскажу подробнее.</p>
+          <hr class="e-hr">
+          <p class="e-sign"><strong>Ария</strong> — AI-менеджер Home Project<br><a href="#">homeproject.online</a></p>
+        </div>
+        <div class="e-footer">Home Project — дистрибуция премиальной встраиваемой техники<br><a href="#">Отписаться от рассылки</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- BT v3 -->
+<div class="panel" id="panel-bt">
+  <div class="email-meta">
+    <div class="meta-row"><span class="meta-key">Тема</span><span class="meta-val subj">Home Project: мы строим дистрибуцию нового поколения</span></div>
+    <div class="meta-row"><span class="meta-key">Аудитория</span><span class="meta-val">Дилеры, дистрибьюторы БТ, кухонные студии — warm + cold</span></div>
+    <div class="meta-row"><span class="meta-key">Формула</span><span class="meta-val">Та же, что AI Platform — масштабирование дистрибуции без роста команды</span></div>
+  </div>
+  <div class="email-wrap">
+    <div class="email-chrome">
+      <div class="dot" style="background:#ff5f56"></div><div class="dot" style="background:#ffbd2e"></div><div class="dot" style="background:#27c93f"></div>
+      <div class="chrome-info">
+        <span class="chrome-from">Ария | Home Project &lt;info@homeproject.online&gt;</span>
+        <span class="chrome-subj">Home Project: мы строим дистрибуцию нового поколения</span>
+      </div>
+    </div>
+    <div class="email-scroll">
+      <div class="email-inner">
+        <div style="display:none;max-height:0;overflow:hidden;color:transparent">Один человек + AI-агенты = 9 брендов, 2 300+ позиций, КП за 20 секунд. Открываем пилот для партнёров.</div>
+        <div class="e-hdr"><span class="e-logo">HOME PROJECT</span><span class="e-platform">AI Platform</span></div>
+        <div class="e-hero">
+          <div class="e-hero-tag">ДИЛЕРАМ · КУХОННЫМ СТУДИЯМ · ПАРТНЁРАМ</div>
+          <div class="e-hero-h1">Мы строим компании нового поколения</div>
+          <p class="e-hero-sub">Дистрибуция бытовой техники на AI-агентах — и открываем это партнёрам</p>
+        </div>
+        <div class="e-body">
+          <p class="e-greeting">Здравствуйте, {{Name|уважаемый коллега}}!</p>
+          <p class="e-p">Меня зовут Ария — AI-менеджер Home Project. Мы не просто торгуем техникой: за последние полгода мы построили операционную систему, в которой весь цикл дистрибуции ведут AI-агенты. Это получился новый тип компании — и мы хотим открыть эту модель партнёрам.</p>
+          <div class="e-box">
+            <p class="e-box-title">Что значит «дистрибуция нового поколения»?</p>
+            <p class="e-box-text">Один человек + команда AI-агентов → управляет каталогом 2 300+ позиций из 9 брендов, обновляет цены и остатки автоматически, собирает КП за 20 секунд, ведёт CRM на 14 000 контактов. Без найма, без потерь скорости.</p>
+          </div>
+          <div class="e-list-wrap">
+            <div class="e-list-title">Что уже работает в нашей системе:</div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>Каталог</strong> — 9 брендов, 2 300+ позиций: цены и наличие обновляются в реальном времени</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>Склад Москва</strong> — наличие по ключевым категориям: готовка, холод, стирка, встройка</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>КП за 20 секунд</strong> — с позициями и ценами, без ручного расчёта и ожидания менеджера</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>AI-консультант 24/7</strong> — квалифицирует запросы, отвечает клиентам в режиме реального времени</span></div>
+            <div class="e-list-row"><span class="e-list-dot">·</span><span class="e-list-text"><strong>CRM и маркетинг</strong> — 14 000 контактов, рассылки, соцсети — агенты ведут сами</span></div>
+          </div>
+          <p class="e-p2-label">Почему это интересно именно вам:</p>
+          <p class="e-p2">Если вы дилер, дистрибьютор или руководите кухонной студией — эта модель позволяет расширить ассортимент и предложить клиентам премиальные бренды без роста команды. Мы сейчас отбираем партнёров для пилота: подключаем ваших клиентов и запросы к нашей AI-операционке.</p>
+          <div class="e-cta-wrap"><a href="#" class="e-cta">Посмотреть как это работает</a></div>
+          <p class="e-close">Готовы показать систему в работе — просто ответьте на это письмо, и я расскажу подробнее.</p>
+          <hr class="e-hr">
+          <p class="e-sign"><strong>Ария</strong> — AI-менеджер Home Project<br><a href="#">homeproject.online</a></p>
+        </div>
+        <div class="e-footer">Home Project — дистрибуция премиальной бытовой техники<br><a href="#">Отписаться от рассылки</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
