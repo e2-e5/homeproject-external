@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Preview v2 — Home Project</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;font-family:Arial,sans-serif;color:#fff}
+
+/* NAV */
+.nav{background:#1A1A1A;padding:14px 24px;border-bottom:2px solid #C9A36A;position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.nav-brand{font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;white-space:nowrap}
+.nav-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab-btn{padding:7px 18px;background:#2a2a2a;color:#888;font-size:12px;font-weight:600;cursor:pointer;border-radius:4px;border:none;transition:all .15s}
+.tab-btn.active{background:#C9A36A;color:#1A1A1A}
+.tab-btn.star{background:#1a2a1a;color:#22aa55;border:1px solid #22aa55}
+.tab-btn.star.active{background:#22aa55;color:#fff;border-color:#22aa55}
+
+/* PANELS */
+.panel{display:none;padding:24px;max-width:1360px;margin:0 auto}
+.panel.active{display:block}
+.panel-head{margin-bottom:20px}
+.panel-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:4px}
+.panel-sub{font-size:12px;color:#888}
+
+/* TWO-COL LAYOUT */
+.layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+
+/* CHANGE LOG */
+.changes{background:#1A1A1A;border-radius:8px;border:1px solid #2a2a2a;overflow:hidden;position:sticky;top:68px}
+.changes-hdr{padding:14px 16px;background:#111;border-bottom:1px solid #2a2a2a}
+.ch-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9A36A}
+.ch-cur{font-size:24px;font-weight:800;margin:4px 0 2px}
+.ch-cur.green{color:#22aa55}
+.ch-cur.gold{color:#C9A36A}
+.ch-meta{font-size:10px;color:#666}
+.ch-target{font-size:12px;font-weight:700;color:#C9A36A;margin-top:6px}
+.changes-body{padding:14px 16px}
+.ci{margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #222}
+.ci:last-child{border:none;margin:0;padding:0}
+.ci-tag{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px}
+.ci-tag.new{color:#22aa55}
+.ci-tag.imp{color:#C9A36A}
+.ci-tag.keep{color:#555}
+.ci-text{font-size:11px;color:#aaa;line-height:1.55}
+.ci-text strong{color:#ddd}
+
+/* SUBJECT COMPARE */
+.subj{background:#111;border-radius:6px;padding:12px 16px;margin-bottom:14px;border:1px solid #2a2a2a}
+.subj-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#555;margin-bottom:5px}
+.subj-old{font-size:11px;color:#666;text-decoration:line-through;margin-bottom:5px;line-height:1.4}
+.subj-new{font-size:13px;font-weight:700;color:#C9A36A;line-height:1.4}
+
+/* EMAIL CLIENT */
+.email-wrap{background:#e8e8e8;border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.6)}
+.email-chrome{background:#f0f0f0;padding:10px 16px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #ddd}
+.dot{width:11px;height:11px;border-radius:50%}
+.chrome-from{font-size:11px;color:#666;margin-left:6px;flex:1}
+.chrome-subj{font-size:11px;font-weight:700;color:#1a1a1a;margin-right:4px;max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.email-scroll{max-height:680px;overflow-y:auto;background:#d8d8d8;padding:12px}
+
+/* PREVIEW BADGE */
+.preview-badge{background:#ffedd5;border:1px solid #fed7aa;border-radius:4px;padding:6px 12px;font-size:10px;color:#9a3412;font-weight:600;text-align:center;margin-bottom:12px}
+
+/* EMAIL BASE RESET */
+.em{max-width:600px;margin:0 auto;background:#fff;font-family:Arial,sans-serif}
+.em-hdr{background:#1C1A18;padding:20px 32px;text-align:center}
+.em-logo{font-size:20px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase}
+.em-tag{display:block;font-size:10px;letter-spacing:2px;color:#C4A882;text-transform:uppercase;margin-top:5px}
+
+/* HERO */
+.em-hero{position:relative;height:260px;overflow:hidden;background:#0d1b2a}
+.em-hero img{width:100%;height:100%;object-fit:cover;opacity:.75;display:block}
+.em-hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,12,20,.92) 0%,rgba(10,12,20,.2) 60%,transparent 100%)}
+.em-hero-txt{position:absolute;bottom:0;left:0;right:0;padding:24px 32px}
+.em-hero-kicker{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C4A882;margin-bottom:10px;display:block}
+.em-hero h1{font-family:Georgia,serif;font-size:26px;font-weight:300;color:#fff;margin:0;line-height:1.25;font-style:italic}
+.em-hero h1 em{font-style:italic;color:#e8d5b7}
+
+/* STATS STRIPE */
+.em-stats{background:#1A1A1A;display:flex}
+.em-stat{flex:1;text-align:center;padding:14px 6px;border-right:1px solid #2a2a2a}
+.em-stat:last-child{border-right:none}
+.em-stat-n{font-size:20px;font-weight:700;color:#C4A882;display:block}
+.em-stat-l{font-size:9px;color:#777;text-transform:uppercase;letter-spacing:.5px;margin-top:2px;display:block}
+
+/* BODY */
+.em-body{padding:32px}
+.em-greeting{font-size:16px;font-weight:600;color:#1a1a1a;margin-bottom:14px;display:block}
+.em-p{font-size:15px;color:#444;line-height:1.75;margin-bottom:18px}
+
+/* PAIN CARDS */
+.em-pain{display:flex;gap:10px;margin:20px 0}
+.em-pain-card{flex:1;border-radius:6px;padding:16px 18px}
+.em-pain-card.bad{background:#fff5f5;border:1px solid #fecaca}
+.em-pain-card.good{background:#f0fff4;border:1px solid #bbf7d0}
+.em-pain-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:block}
+.em-pain-card.bad .em-pain-tag{color:#dc2626}
+.em-pain-card.good .em-pain-tag{color:#16a34a}
+.em-pain-h3{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:6px;display:block}
+.em-pain-list{font-size:13px;color:#666;line-height:1.8}
+
+/* PRODUCT CARDS */
+.em-prods-hdr{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#999;margin:24px 0 10px;display:block}
+.em-prods{display:flex;gap:8px;margin-bottom:4px}
+.em-prod{flex:1;border:1px solid #eee;border-radius:4px;overflow:hidden;background:#fafafa}
+.em-prod-img{height:100px;display:flex;align-items:center;justify-content:center;background:#fff;border-bottom:1px solid #f0f0f0;padding:8px}
+.em-prod-img img{max-width:100%;max-height:84px;object-fit:contain}
+.em-prod-img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0f0f0,#e0e0e0)}
+.em-prod-ph-text{font-size:18px;font-weight:700;color:#ccc}
+.em-prod-info{padding:10px 12px}
+.em-prod-brand{font-size:9px;font-weight:700;color:#8B6F4E;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:2px}
+.em-prod-name{font-size:12px;font-weight:700;color:#1a1a1a;display:block;margin-bottom:3px;line-height:1.3}
+.em-prod-sub{font-size:10px;color:#999;display:block}
+
+/* SEPARATOR */
+.em-sep{padding:10px 32px;text-align:center;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#aaa;border-top:1px solid #eee;border-bottom:1px solid #eee;background:#fafafa;margin:0}
+
+/* BRAND GRID */
+.em-brands{padding:20px 32px 0}
+.em-brands-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;text-align:center;margin-bottom:10px;display:block}
+.em-brand-badges{text-align:center;margin-bottom:20px}
+.em-badge{display:inline-block;padding:5px 10px;margin:3px;background:#fff;border:1px solid #e0e0e0;border-radius:2px;font-size:11px;font-weight:600;color:#1a1a1a}
+.em-badge.more{background:#f5f5f5;color:#999;font-size:10px}
+
+/* CTA */
+.em-cta{text-align:center;padding:24px 32px}
+.em-btn-primary{display:inline-block;background:#1C1A18;color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:15px 36px;border-radius:3px;letter-spacing:.5px;text-transform:uppercase}
+.em-btn-outline{display:inline-block;border:2px solid #1C1A18;color:#1C1A18;text-decoration:none;font-size:12px;font-weight:600;padding:12px 22px;border-radius:3px;margin-left:8px;text-transform:uppercase}
+
+/* ARIA SIGN */
+.em-sign{padding:20px 32px 24px;border-top:1px solid #eee}
+.em-sign strong{font-size:13px;color:#1a1a1a;display:block;margin-bottom:3px}
+.em-sign a{color:#8B6F4E;font-size:12px;text-decoration:none}
+
+/* FOOTER */
+.em-footer{background:#1C1A18;padding:18px 32px;text-align:center;font-size:11px;color:#777;line-height:1.6}
+.em-footer a{color:#666;text-decoration:underline}
+
+/* COLLECTION GRID (Designers) */
+.em-coll{display:flex;gap:4px;padding:8px;background:#fff}
+.em-coll-item{flex:1;position:relative;height:120px;overflow:hidden;border-radius:2px}
+.em-coll-item img{width:100%;height:100%;object-fit:cover}
+.em-coll-ov{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.em-coll-name{position:absolute;bottom:6px;left:8px;font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.5px}
+
+/* HIGHLIGHT BOX */
+.em-hbox{background:#f0f4ff;border-left:4px solid #1C1A18;border-radius:4px;padding:16px 18px;margin-bottom:18px}
+.em-hbox-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:6px;display:block}
+.em-hbox-text{font-size:13px;color:#555;line-height:1.65}
+
+/* TELEGRAM BLOCK */
+.em-tg{background:#f0f7ff;border:1px solid #dbeafe;border-radius:6px;padding:14px 18px;display:flex;align-items:center;gap:12px}
+.em-tg-icon{font-size:22px;flex-shrink:0}
+.em-tg-text{font-size:13px;color:#1e40af;line-height:1.5}
+.em-tg-text a{color:#1d4ed8;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <span class="nav-brand">HOME PROJECT · Email Preview v2</span>
+  <div class="nav-tabs">
+    <button class="tab-btn star active" onclick="show('platform',this)">⭐ AI Platform — ГЛАВНЫЙ</button>
+    <button class="tab-btn" onclick="show('designers',this)">✏️ Дизайнеры</button>
+    <button class="tab-btn" onclick="show('bt',this)">🔧 Бытовая техника</button>
+  </div>
+</div>
+
+
+<!-- TAB 1: AI PLATFORM v2 -->
+<div class="panel active" id="panel-platform">
+<div class="panel-head">
+  <div class="panel-title">AI Platform v2 — главный приоритет</div>
+  <div class="panel-sub">Уже лидирует по OR (36–51%). Задача: усилить визуал → поднять CTR с 0.4% до 3–5%</div>
+</div>
+<div class="layout">
+
+  <div class="changes">
+    <div class="changes-hdr">
+      <div class="ch-title">Текущий результат</div>
+      <div class="ch-cur green">OR 36–51%</div>
+      <div class="ch-meta">CTR 0.4% · 480 писем</div>
+      <div class="ch-target">→ Цель: OR 45–55%, CTR 3–5%</div>
+    </div>
+    <div class="changes-body">
+      <div class="ci">
+        <div class="ci-tag new">✅ НОВОЕ</div>
+        <div class="ci-text"><strong>Hero-фото с оверлеем</strong><br>Живое фото + italic serif title поверх. Snaidero-архитектура.</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag new">✅ НОВОЕ</div>
+        <div class="ci-text"><strong>Stats stripe</strong><br>~3 000 писем · 20 сек · 14 000 CRM — цифры доверия прямо под hero.</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag new">✅ НОВОЕ</div>
+        <div class="ci-text"><strong>Product cards с фото</strong><br>3 реальных товара из каталога — V-ZUG, Küppersbusch, Fhiaba.</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag imp">⬆️ УЛУЧШЕНО</div>
+        <div class="ci-text"><strong>Pain cards визуально</strong><br>❌/✅ цветные блоки вместо bullet-текста в коробочке.</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag imp">⬆️ УЛУЧШЕНО</div>
+        <div class="ci-text"><strong>Тема письма с цифрой</strong><br>Было: «Мы строим компании...». Стало: «КП за 20 сек. Без менеджера.»</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag keep">— СОХРАНЕНО</div>
+        <div class="ci-text">Личный тон от Арии<br>Работающий copy — не трогаем</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="subj">
+      <div class="subj-lbl">Тема письма</div>
+      <div class="subj-old">Home Project AI: мы строим компании нового поколения</div>
+      <div class="subj-new">✨ КП за 20 сек. Без менеджера. Вот как мы это делаем.</div>
+    </div>
+    <div class="email-wrap">
+      <div class="email-chrome">
+        <div class="dot" style="background:#ff5f56"></div>
+        <div class="dot" style="background:#ffbd2e"></div>
+        <div class="dot" style="background:#27c93f"></div>
+        <span class="chrome-from">Ария | Home Project &lt;info@homeproject.online&gt;</span>
+        <span class="chrome-subj">КП за 20 сек. Без менеджера. Вот как мы это делаем.</span>
+      </div>
+      <div class="email-scroll">
+        <div class="preview-badge">ПРЕВЬЮ — не финальный HTML для рассылки. Дайте добро → пересоберём в рассылочный формат.</div>
+        <div class="em">
+          <div class="em-hdr">
+            <div class="em-logo">HOME PROJECT</div>
+            <span class="em-tag">AI-ПЛАТФОРМА · B2B ПАРТНЁРЫ</span>
+          </div>
+          <div class="em-hero">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&h=280&fit=crop&q=80" alt="">
+            <div class="em-hero-ov"></div>
+            <div class="em-hero-txt">
+              <span class="em-hero-kicker">ДЛЯ ДИСТРИБЬЮТОРОВ И ДИЛЕРОВ БТ</span>
+              <h1>Один человек.<br><em>14 брендов.</em><br>Без отдела продаж.</h1>
+            </div>
+          </div>
+          <div class="em-stats">
+            <div class="em-stat"><span class="em-stat-n">~3 000</span><span class="em-stat-l">писем/мес</span></div>
+            <div class="em-stat"><span class="em-stat-n">20 сек</span><span class="em-stat-l">на КП</span></div>
+            <div class="em-stat"><span class="em-stat-n">14 000</span><span class="em-stat-l">контактов CRM</span></div>
+          </div>
+          <div class="em-body">
+            <span class="em-greeting">Здравствуйте, {{Name|уважаемый коллега}}!</span>
+            <p class="em-p">Меня зовут Ария — AI-менеджер Home Project. Пока большинство дистрибьюторов тратит 2–3 дня на КП и держит 5 менеджеров на телефоне — мы сделали это по-другому.</p>
+            <div class="em-pain">
+              <div class="em-pain-card bad">
+                <span class="em-pain-tag">❌ Без платформы</span>
+                <span class="em-pain-h3">Операционка на людях</span>
+                <div class="em-pain-list">КП — 2–3 дня<br>Менеджеры в Excel<br>Прайсы устаревают<br>CRM — в голове</div>
+              </div>
+              <div class="em-pain-card good">
+                <span class="em-pain-tag">✅ С AI-платформой</span>
+                <span class="em-pain-h3">Агенты делают рутину</span>
+                <div class="em-pain-list">КП — 20 секунд<br>Каталог 2 300+ авто<br>14 000 CRM + рассылки<br>Консультант 24/7</div>
+              </div>
+            </div>
+            <p class="em-p">За последние полгода мы построили операционную систему, в которой весь цикл дистрибуции ведут AI-агенты. Сейчас открываем первые <strong>10 партнёрств</strong> — подключаем вашу базу и ассортимент к нашей AI-операционке.</p>
+            <span class="em-prods-hdr">Что уже в каталоге — 2 300+ позиций</span>
+            <div class="em-prods">
+              <div class="em-prod">
+                <div class="em-prod-img"><img src="https://new.homeproject.online/static/1785957011380-GO450120.jpg" alt="V-ZUG"></div>
+                <div class="em-prod-info"><span class="em-prod-brand">V-ZUG</span><span class="em-prod-name">Combi-Steam XSL</span><span class="em-prod-sub">Паровой + конвекция</span></div>
+              </div>
+              <div class="em-prod">
+                <div class="em-prod-img"><div class="em-prod-img-ph"><span class="em-prod-ph-text">K</span></div></div>
+                <div class="em-prod-info"><span class="em-prod-brand">Küppersbusch</span><span class="em-prod-name">Духовой шкаф B-Serie</span><span class="em-prod-sub">Пиролиз + AirFry</span></div>
+              </div>
+              <div class="em-prod">
+                <div class="em-prod-img"><img src="https://new.homeproject.online/static/1785957018221-GS450120.jpg" alt="Fhiaba"></div>
+                <div class="em-prod-info"><span class="em-prod-brand">Fhiaba</span><span class="em-prod-name">S8990FRT6i</span><span class="em-prod-sub">Встр. холодильник</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="em-brands">
+            <span class="em-brands-lbl">Все бренды в портфеле</span>
+            <div class="em-brand-badges">
+              <span class="em-badge">V-ZUG</span><span class="em-badge">BORA</span><span class="em-badge">Küppersbusch</span><span class="em-badge">Fhiaba</span><span class="em-badge">De Dietrich</span><span class="em-badge">Graude</span><span class="em-badge">Schulthess</span><span class="em-badge">SKS</span><span class="em-badge">ILVE</span><span class="em-badge more">+ ещё →</span>
+            </div>
+          </div>
+          <div class="em-cta">
+            <a href="#" class="em-btn-primary">Смотреть как это работает →</a>
+            <a href="#" class="em-btn-outline">Написать Арии</a>
+          </div>
+          <div style="padding:0 32px 24px">
+            <div class="em-tg">
+              <div class="em-tg-icon">✈️</div>
+              <div class="em-tg-text">Telegram-канал: <a href="#">@HomeProjectMsk</a> — новинки, кейсы, закрытые спецпредложения</div>
+            </div>
+          </div>
+          <div class="em-sign">
+            <strong>Ария — AI-менеджер Home Project</strong>
+            <a href="#">homeproject.online</a>
+          </div>
+          <div class="em-footer">Home Project — дистрибуция премиальной бытовой техники<br><a href="#">Отписаться от рассылки</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- TAB 2: DESIGNERS v2 -->
+<div class="panel" id="panel-designers">
+<div class="panel-head">
+  <div class="panel-title">Дизайнеры и архитекторы v2 — Snaidero-структура + наш копирайт</div>
+  <div class="panel-sub">Текущий OR 6–9%. Цель: 20–30% + CTR 2%</div>
+</div>
+<div class="layout">
+
+  <div class="changes">
+    <div class="changes-hdr">
+      <div class="ch-title">Текущий результат</div>
+      <div class="ch-cur gold">OR 6–9%</div>
+      <div class="ch-meta">CTR ≈ 0% · Snaidero / welcome</div>
+      <div class="ch-target">→ Цель: OR 20–30%, CTR 2%</div>
+    </div>
+    <div class="changes-body">
+      <div class="ci">
+        <div class="ci-tag new">✅ НОВОЕ</div>
+        <div class="ci-text"><strong>Snaidero-hero с нашими брендами</strong><br>Кухонное фото + тёмный оверлей + italic serif — та же визуальная архитектура.</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag new">✅ НОВОЕ</div>
+        <div class="ci-text"><strong>3-col grid: V-ZUG | BORA | Küppersbusch</strong><br>Вместо «коллекций Snaidero» — наши бренды с фото.</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag new">✅ НОВОЕ</div>
+        <div class="ci-text"><strong>Pain-hook в тексте</strong><br>«Клиент ждёт КП неделю?» — конкретная боль дизайнера.</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag imp">⬆️ УЛУЧШЕНО</div>
+        <div class="ci-text"><strong>Тема письма</strong><br>«Клиент ждёт КП неделю? У нас — 20 секунд.»</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag imp">⬆️ УЛУЧШЕНО</div>
+        <div class="ci-text"><strong>Warm/Cold разделены</strong><br>Warm: «новинки». Cold: «знакомство + боль». Показана cold-версия.</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="subj">
+      <div class="subj-lbl">Тема письма (cold-версия)</div>
+      <div class="subj-old">Кухни Snaidero + встроенная техника: Kuppersbusch, Gaggenau, Miele | Home Project</div>
+      <div class="subj-new">✨ Клиент ждёт КП неделю? У нас — 20 секунд.</div>
+    </div>
+    <div class="email-wrap">
+      <div class="email-chrome">
+        <div class="dot" style="background:#ff5f56"></div>
+        <div class="dot" style="background:#ffbd2e"></div>
+        <div class="dot" style="background:#27c93f"></div>
+        <span class="chrome-from">Ария | Home Project &lt;info@homeproject.online&gt;</span>
+        <span class="chrome-subj">Клиент ждёт КП неделю? У нас — 20 секунд.</span>
+      </div>
+      <div class="email-scroll">
+        <div class="preview-badge">ПРЕВЬЮ · Cold-версия (первое касание). Warm — те же блоки, другое приветствие и lead.</div>
+        <div class="em">
+          <div class="em-hdr">
+            <div class="em-logo">HOME PROJECT</div>
+            <span class="em-tag">ДИЗАЙНЕРАМ · АРХИТЕКТОРАМ · СТУДИЯМ</span>
+          </div>
+          <div class="em-hero">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&h=280&fit=crop&q=80" alt="">
+            <div class="em-hero-ov"></div>
+            <div class="em-hero-txt">
+              <span class="em-hero-kicker">ПРЕМИАЛЬНАЯ ВСТРАИВАЕМАЯ ТЕХНИКА</span>
+              <h1>Правильная техника<br>для <em>вашего проекта.</em><br>КП — за 20 секунд.</h1>
+            </div>
+          </div>
+          <div class="em-coll">
+            <div class="em-coll-item">
+              <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=250&h=130&fit=crop&q=70" alt="V-ZUG">
+              <div class="em-coll-ov"></div>
+              <span class="em-coll-name">V-ZUG</span>
+            </div>
+            <div class="em-coll-item">
+              <img src="https://images.unsplash.com/photo-1556909144-b37c10dd5dd3?w=250&h=130&fit=crop&q=70" alt="BORA">
+              <div class="em-coll-ov"></div>
+              <span class="em-coll-name">BORA</span>
+            </div>
+            <div class="em-coll-item">
+              <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=250&h=130&fit=crop&q=70" alt="Küppersbusch">
+              <div class="em-coll-ov"></div>
+              <span class="em-coll-name">Küppersbusch</span>
+            </div>
+          </div>
+          <div class="em-sep">— подберём технику для любого проекта. КП за 20 секунд —</div>
+          <div class="em-body">
+            <span class="em-greeting">Здравствуйте, {{Name|коллега}}!</span>
+            <p class="em-p">Меня зовут Ария — AI-менеджер Home Project. Мы дистрибутируем <strong>9 премиальных брендов</strong> встраиваемой техники и работаем с дизайнерами и студиями напрямую.</p>
+            <div class="em-hbox">
+              <span class="em-hbox-title">Почему с нами удобно работать</span>
+              <div class="em-hbox-text">Клиент выбирает — вы пишете нам → КП с позициями за <strong>20 секунд</strong>. Наличие на складе в Москве. Монтаж и гарантия включены.</div>
+            </div>
+            <span class="em-prods-hdr">Флагманские позиции</span>
+            <div class="em-prods">
+              <div class="em-prod">
+                <div class="em-prod-img"><img src="https://new.homeproject.online/static/1785957011380-GO450120.jpg" alt="V-ZUG"></div>
+                <div class="em-prod-info"><span class="em-prod-brand">V-ZUG</span><span class="em-prod-name">Combi-Steam XSL</span><span class="em-prod-sub">Паровой + конвекция</span></div>
+              </div>
+              <div class="em-prod">
+                <div class="em-prod-img"><div class="em-prod-img-ph"><span class="em-prod-ph-text">K</span></div></div>
+                <div class="em-prod-info"><span class="em-prod-brand">Küppersbusch</span><span class="em-prod-name">B-Serie 7.0</span><span class="em-prod-sub">Пиролиз + AirFry</span></div>
+              </div>
+              <div class="em-prod">
+                <div class="em-prod-img"><div class="em-prod-img-ph" style="background:linear-gradient(135deg,#1a1a1a,#333)"><span class="em-prod-ph-text" style="color:#888">B</span></div></div>
+                <div class="em-prod-info"><span class="em-prod-brand">BORA</span><span class="em-prod-name">Professional 2.0</span><span class="em-prod-sub">Панель + вытяжка</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="em-brands">
+            <span class="em-brands-lbl">9 брендов в портфеле Home Project</span>
+            <div class="em-brand-badges">
+              <span class="em-badge">V-ZUG</span><span class="em-badge">BORA</span><span class="em-badge">Küppersbusch</span><span class="em-badge">De Dietrich</span><span class="em-badge">Fhiaba</span><span class="em-badge">Graude</span><span class="em-badge">Schulthess</span><span class="em-badge">SKS</span><span class="em-badge">ILVE</span>
+            </div>
+          </div>
+          <div class="em-cta">
+            <a href="#" class="em-btn-primary">Получить КП за 20 секунд →</a>
+            <a href="#" class="em-btn-outline">Каталог</a>
+          </div>
+          <div class="em-sign">
+            <strong>Ария — AI-менеджер Home Project</strong>
+            <a href="#">homeproject.online</a> · <a href="#">@HomeProjectMsk</a>
+          </div>
+          <div class="em-footer">Home Project — дистрибуция премиальной встраиваемой техники · Москва<br><a href="#">Отписаться от рассылки</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- TAB 3: BT v2 -->
+<div class="panel" id="panel-bt">
+<div class="panel-head">
+  <div class="panel-title">Бытовая техника v2 — от таблицы к карточкам с фото</div>
+  <div class="panel-sub">Текущий OR 8.7%. Цель: 20–30% + CTR 2–3%</div>
+</div>
+<div class="layout">
+
+  <div class="changes">
+    <div class="changes-hdr">
+      <div class="ch-title">Текущий результат</div>
+      <div class="ch-cur gold">OR 8.7%</div>
+      <div class="ch-meta">CTR ≈ 0% · warm_bt сегмент</div>
+      <div class="ch-target">→ Цель: OR 20–30%, CTR 2–3%</div>
+    </div>
+    <div class="changes-body">
+      <div class="ci">
+        <div class="ci-tag new">✅ НОВОЕ</div>
+        <div class="ci-text"><strong>Hero + lifestyle кухня</strong><br>Вместо тёмного градиента — живое фото кухни с техникой.</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag new">✅ НОВОЕ</div>
+        <div class="ci-text"><strong>4 product-карточки с фото</strong><br>V-ZUG, Küppersbusch, BORA, Schulthess — вместо строк таблицы.</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag new">✅ НОВОЕ</div>
+        <div class="ci-text"><strong>Stats stripe</strong><br>9 брендов · 2 300+ позиций · 20 сек КП.</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag imp">⬆️ УЛУЧШЕНО</div>
+        <div class="ci-text"><strong>Сокращено до 4 брендов</strong><br>Было 14 — перегрузка. Топ-4 + «все 9 →».</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag imp">⬆️ УЛУЧШЕНО</div>
+        <div class="ci-text"><strong>Убрано «по запросу»</strong><br>Заменено CTA «Запросить КП».</div>
+      </div>
+      <div class="ci">
+        <div class="ci-tag imp">⬆️ УЛУЧШЕНО</div>
+        <div class="ci-text"><strong>Тема письма</strong><br>«Ваши клиенты хотят V-ZUG. КП — за 20 секунд.»</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="subj">
+      <div class="subj-lbl">Тема письма</div>
+      <div class="subj-old">V-ZUG, Gaggenau, Küppersbusch, Schulthess — встроенная техника для ваших объектов</div>
+      <div class="subj-new">✨ Ваши клиенты хотят V-ZUG и BORA. КП — за 20 секунд.</div>
+    </div>
+    <div class="email-wrap">
+      <div class="email-chrome">
+        <div class="dot" style="background:#ff5f56"></div>
+        <div class="dot" style="background:#ffbd2e"></div>
+        <div class="dot" style="background:#27c93f"></div>
+        <span class="chrome-from">Ария | Home Project &lt;info@homeproject.online&gt;</span>
+        <span class="chrome-subj">Ваши клиенты хотят V-ZUG и BORA. КП — за 20 секунд.</span>
+      </div>
+      <div class="email-scroll">
+        <div class="preview-badge">ПРЕВЬЮ — не финальный HTML для рассылки. Дайте добро → пересоберём в рассылочный формат.</div>
+        <div class="em">
+          <div class="em-hdr">
+            <div class="em-logo">HOME PROJECT</div>
+            <span class="em-tag">ВСТРОЕННАЯ ТЕХНИКА · ПРЕМИАЛЬНЫЕ БРЕНДЫ</span>
+          </div>
+          <div class="em-hero">
+            <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=700&h=280&fit=crop&q=80" alt="">
+            <div class="em-hero-ov"></div>
+            <div class="em-hero-txt">
+              <span class="em-hero-kicker">ДЛЯ ДИЗАЙНЕРОВ И ДИЛЕРОВ</span>
+              <h1>Премиальная техника<br>для <em>ваших объектов.</em><br>Склад Москва. КП за 20 сек.</h1>
+            </div>
+          </div>
+          <div class="em-stats">
+            <div class="em-stat"><span class="em-stat-n">9</span><span class="em-stat-l">брендов</span></div>
+            <div class="em-stat"><span class="em-stat-n">2 300+</span><span class="em-stat-l">позиций</span></div>
+            <div class="em-stat"><span class="em-stat-n">20 сек</span><span class="em-stat-l">на КП</span></div>
+          </div>
+          <div class="em-body">
+            <span class="em-greeting">Здравствуйте, {{Name|коллега}}!</span>
+            <p class="em-p">Меня зовут Ария — AI-менеджер Home Project. Ваши клиенты всё чаще спрашивают <strong>V-ZUG, BORA и Küppersbusch</strong> — мы официальный дистрибьютор с наличием в Москве. КП с позициями отправим за 20 секунд.</p>
+            <span class="em-prods-hdr">Топ-4 бренда по запросам</span>
+            <div class="em-prods">
+              <div class="em-prod">
+                <div class="em-prod-img"><img src="https://new.homeproject.online/static/1785957011380-GO450120.jpg" alt="V-ZUG"></div>
+                <div class="em-prod-info"><span class="em-prod-brand">V-ZUG</span><span class="em-prod-name">Комби-пар, духовки, холод</span><span class="em-prod-sub">Швейцария · склад МСК</span></div>
+              </div>
+              <div class="em-prod">
+                <div class="em-prod-img"><div class="em-prod-img-ph"><span class="em-prod-ph-text">K</span></div></div>
+                <div class="em-prod-info"><span class="em-prod-brand">Küppersbusch</span><span class="em-prod-name">Духовки, индукция</span><span class="em-prod-sub">Германия · склад МСК</span></div>
+              </div>
+              <div class="em-prod">
+                <div class="em-prod-img"><div class="em-prod-img-ph" style="background:linear-gradient(135deg,#1a1a1a,#333)"><span class="em-prod-ph-text" style="color:#888">B</span></div></div>
+                <div class="em-prod-info"><span class="em-prod-brand">BORA</span><span class="em-prod-name">Панели + вытяжка</span><span class="em-prod-sub">Германия · склад МСК</span></div>
+              </div>
+              <div class="em-prod">
+                <div class="em-prod-img"><div class="em-prod-img-ph" style="background:linear-gradient(135deg,#0a2040,#1a4080)"><span class="em-prod-ph-text" style="color:#6090d0">S</span></div></div>
+                <div class="em-prod-info"><span class="em-prod-brand">Schulthess</span><span class="em-prod-name">Стирка, сушка</span><span class="em-prod-sub">Швейцария · склад МСК</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="em-sep">— ещё 5 брендов: Fhiaba · De Dietrich · Graude · SKS · ILVE —</div>
+          <div class="em-brands" style="padding-top:16px">
+            <div class="em-brand-badges">
+              <span class="em-badge">Fhiaba</span><span class="em-badge">De Dietrich</span><span class="em-badge">Graude</span><span class="em-badge">SKS</span><span class="em-badge">ILVE</span><span class="em-badge more">Все 9 брендов →</span>
+            </div>
+          </div>
+          <div class="em-cta">
+            <a href="#" class="em-btn-primary">Запросить КП за 20 секунд →</a>
+            <a href="#" class="em-btn-outline">Каталог</a>
+          </div>
+          <div style="padding:0 32px 24px">
+            <div class="em-tg">
+              <div class="em-tg-icon">✈️</div>
+              <div class="em-tg-text">Новинки и спецпредложения: <a href="#">@HomeProjectMsk</a></div>
+            </div>
+          </div>
+          <div class="em-sign">
+            <strong>Ария — AI-менеджер Home Project</strong>
+            <a href="#">homeproject.online</a>
+          </div>
+          <div class="em-footer">Home Project — дистрибуция премиальной бытовой техники · Москва<br><a href="#">Отписаться от рассылки</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
