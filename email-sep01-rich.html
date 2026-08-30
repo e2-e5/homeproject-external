@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Preview — 1 сентября 2026 · Home Project</title>
+<style>
+/* ═══ PREVIEW CHROME ═══ */
+body { margin:0; padding:0; font-family:Arial,Helvetica,sans-serif; background:#0e0e0e; }
+.preview-header { background:#1A1A1A; padding:20px 32px; border-bottom:2px solid #C9A36A; }
+.preview-title { color:#ffffff; font-size:16px; font-weight:700; letter-spacing:2px; text-transform:uppercase; }
+.preview-sub { color:#888888; font-size:12px; margin-top:5px; }
+.tabs { display:flex; gap:4px; padding:16px 32px 0; background:#0e0e0e; flex-wrap:wrap; }
+.tab { padding:10px 20px; background:#1F1F1F; color:#888; font-size:13px; font-weight:600; cursor:pointer; border-radius:4px 4px 0 0; border:1px solid #2a2a2a; border-bottom:none; transition:all .2s; white-space:nowrap; }
+.tab:hover { background:#2a2a2a; color:#ccc; }
+.tab.active { background:#f4f4f4; color:#1A1A1A; }
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+.stats-bar { background:#111; padding:10px 32px; display:flex; gap:20px; flex-wrap:wrap; border-bottom:1px solid #1f1f1f; }
+.stat { color:#888; font-size:11px; letter-spacing:0.3px; }
+.stat strong { color:#C9A36A; }
+.email-wrapper { width:100%; background-color:#f4f4f4; padding:32px 16px; }
+.email-card { max-width:600px; margin:0 auto; background-color:#ffffff; border-radius:4px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.10); }
+.preheader { display:none !important; visibility:hidden; opacity:0; color:transparent; height:0; width:0; overflow:hidden; font-size:1px; line-height:1px; }
+.hp-header { background-color:#1A1A1A; padding:28px 40px; text-align:center; }
+.hp-logo { font-family:Arial,Helvetica,sans-serif; font-size:22px; font-weight:700; letter-spacing:3px; color:#ffffff; text-transform:uppercase; text-decoration:none; display:block; }
+.hp-tag { display:inline-block; margin-top:8px; font-size:11px; letter-spacing:1.5px; color:#C9A36A; text-transform:uppercase; }
+.hp-hero { padding:44px 40px 36px; border-bottom:1px solid #f0f0f0; }
+.hp-hero h1 { font-size:26px; font-weight:700; color:#1A1A1A; line-height:1.3; margin-bottom:20px; letter-spacing:-0.3px; }
+.hp-hero p { font-size:15px; color:#444444; line-height:1.7; margin-bottom:28px; }
+.hp-btn-primary { display:inline-block; background-color:#1A1A1A; color:#ffffff !important; text-decoration:none; font-size:14px; font-weight:700; letter-spacing:0.5px; padding:15px 34px; border-radius:3px; text-transform:uppercase; }
+.hp-btn-outline { display:inline-block; background-color:#ffffff; color:#1A1A1A !important; text-decoration:none; font-size:13px; font-weight:700; letter-spacing:0.5px; padding:13px 28px; border:2px solid #1A1A1A; border-radius:3px; text-transform:uppercase; }
+.hp-split { padding:40px 40px 32px; background-color:#fafafa; border-bottom:1px solid #f0f0f0; }
+.hp-split-title { font-size:16px; font-weight:700; color:#1A1A1A; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; text-align:center; }
+.hp-split-sub { font-size:13px; color:#777777; text-align:center; margin-bottom:28px; }
+.hp-path-card { background-color:#ffffff; border:1px solid #e8e8e8; border-radius:4px; padding:22px 20px; margin-bottom:14px; }
+.hp-path-badge { display:inline-block; font-size:10px; font-weight:700; letter-spacing:1.5px; color:#C9A36A; text-transform:uppercase; margin-bottom:8px; }
+.hp-path-h3 { font-size:15px; font-weight:700; color:#1A1A1A; margin-bottom:10px; }
+.hp-path-steps { font-size:13px; color:#555555; line-height:1.8; }
+.hp-path-steps strong { color:#1A1A1A; }
+.hp-arrow { color:#C9A36A; font-weight:700; }
+.hp-split-cta { text-align:center; margin-top:20px; }
+.hp-ai { padding:36px 40px; background-color:#ffffff; border-bottom:1px solid #f0f0f0; text-align:center; }
+.hp-ai-tag { display:inline-block; font-size:10px; font-weight:700; letter-spacing:2px; color:#C9A36A; text-transform:uppercase; margin-bottom:12px; }
+.hp-ai h2 { font-size:20px; font-weight:700; color:#1A1A1A; margin-bottom:12px; line-height:1.3; }
+.hp-ai p { font-size:14px; color:#666666; line-height:1.6; margin-bottom:22px; }
+.hp-stats { display:table; width:100%; border-collapse:collapse; }
+.hp-stat-cell { display:table-cell; width:33%; padding:16px 12px; text-align:center; border-right:1px solid #f0f0f0; background-color:#fafafa; }
+.hp-stat-cell:last-child { border-right:none; }
+.hp-stat-num { font-size:22px; font-weight:700; color:#C9A36A; }
+.hp-stat-label { font-size:11px; color:#999999; text-transform:uppercase; letter-spacing:0.8px; margin-top:4px; }
+.hp-brands { padding:40px 40px 28px; background-color:#fafafa; border-bottom:1px solid #f0f0f0; }
+.hp-brands-title { font-size:16px; font-weight:700; color:#1A1A1A; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; text-align:center; }
+.hp-brands-sub { font-size:12px; color:#999999; text-align:center; margin-bottom:24px; letter-spacing:0.3px; }
+.hp-brand-cat { font-size:11px; font-weight:700; letter-spacing:1.5px; color:#999999; text-transform:uppercase; margin-top:18px; margin-bottom:10px; }
+.hp-brand-row { font-size:14px; line-height:2.1; }
+.hp-brand-link { display:inline-block; padding:5px 11px; margin:0 3px 5px 0; background-color:#ffffff; color:#1A1A1A !important; text-decoration:none; font-weight:600; border:1px solid #e0e0e0; border-radius:3px; font-size:13px; letter-spacing:0.2px; }
+.hp-cta { padding:44px 40px; text-align:center; background-color:#ffffff; border-bottom:1px solid #f0f0f0; }
+.hp-cta h2 { font-size:22px; font-weight:700; color:#1A1A1A; margin-bottom:12px; line-height:1.3; }
+.hp-cta p { font-size:14px; color:#666666; margin-bottom:26px; line-height:1.6; }
+.hp-cta-dual { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.hp-tg { padding:26px 40px; background-color:#f7f7f7; border-bottom:1px solid #f0f0f0; text-align:center; }
+.hp-tg-head { font-size:12px; font-weight:700; color:#1A1A1A; margin-bottom:14px; text-transform:uppercase; letter-spacing:1px; }
+.hp-tg-link { font-size:15px; font-weight:700; color:#1A1A1A !important; text-decoration:none; letter-spacing:0.3px; }
+.hp-tg-note { font-size:11px; color:#aaaaaa; margin:6px 0 12px; }
+.hp-tg-bot { font-size:12px; color:#888888; margin-top:12px; padding-top:12px; border-top:1px solid #ebebeb; }
+.hp-tg-bot a { color:#1A1A1A; font-weight:700; text-decoration:none; }
+.hp-footer { padding:28px 40px; background-color:#1A1A1A; }
+.hp-footer-name { font-size:14px; font-weight:700; color:#ffffff; margin-bottom:4px; }
+.hp-footer-role { font-size:12px; color:#888888; margin-bottom:16px; }
+.hp-footer-links { font-size:12px; color:#888888; line-height:1.8; }
+.hp-footer-links a { color:#aaaaaa !important; text-decoration:none; }
+.hp-footer-divider { border:none; border-top:1px solid #2a2a2a; margin:16px 0; }
+.hp-footer-unsub { font-size:11px; color:#555555; margin-top:12px; line-height:1.5; }
+.hp-footer-unsub a { color:#666666 !important; text-decoration:underline; }
+.hp-stripe { background:#1A1A1A; padding:20px 40px; text-align:center; }
+.hp-stripe p { font-size:14px; color:#C9A36A; font-weight:700; letter-spacing:0.5px; }
+</style>
+</head>
+<body>
+
+<div class="preview-header">
+  <div class="preview-title">HOME PROJECT · Email Preview · 1 сентября 2026</div>
+  <div class="preview-sub">4 письма · 400 адресов · на согласование Андрею перед запуском</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">📊 AI-Платформа B2B &nbsp;<span style="font-size:11px;opacity:.7">120 адресов</span></div>
+  <div class="tab" onclick="showTab(1)">✏️ Тёплые дизайнеры &nbsp;<span style="font-size:11px;opacity:.7">92 адреса</span></div>
+  <div class="tab" onclick="showTab(2)">🍳 Кухонные студии &nbsp;<span style="font-size:11px;opacity:.7">92 адреса</span></div>
+  <div class="tab" onclick="showTab(3)">🚿 Сантехника &nbsp;<span style="font-size:11px;opacity:.7">96 адресов</span></div>
+</div>
+
+<!-- EMAIL 1: B2B PLATFORM -->
+<div class="tab-content active" id="tab-0">
+<div class="stats-bar">
+  <span class="stat">📨 Кому: <strong>active_agent + b2b_dealer</strong></span>
+  <span class="stat">Тема: <strong>"Один человек управляет 14 брендами. Без отдела продаж."</strong></span>
+  <span class="stat">От: <strong>info@homeproject.online</strong></span>
+  <span class="stat">UTM: <strong>b2b-platform-sep01</strong></span>
+</div>
+<div class="email-wrapper">
+<div class="email-card">
+  <div class="preheader">Это не магия — AI-операционка. 14 брендов, 2 400 позиций, 14 000 контактов — один человек + агенты. Рассказываем как.</div>
+  <div class="hp-header">
+    <span class="hp-logo">HOME PROJECT</span>
+    <div class="hp-tag">AI-ПЛАТФОРМА · B2B ПАРТНЁРЫ</div>
+  </div>
+  <div class="hp-hero">
+    <h1>Один человек.<br>14 брендов.<br>Без операционного отдела.</h1>
+    <p>Меня зовут Ария — AI-менеджер компании Home Project. Мы официальный дистрибьютор 14 европейских премиальных брендов: V-ZUG, BORA, Küppersbusch, Fhiaba, De Dietrich и другие.<br><br>Весь каталог, CRM на 14 000 контактов, коммерческие предложения, рассылки и аналитику ведёт <strong>один человек</strong>. Потому что AI-агенты делают то, что обычно требует команды из 8–12 человек.<br><br>Мы построили это для себя. Теперь готовы передать партнёрам.</p>
+    <a href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=hero-cta" class="hp-btn-primary">Смотреть презентацию →</a>
+  </div>
+  <div class="hp-stripe"><p>За последние 60 дней · автономно · без ручных команд</p></div>
+  <div style="background:#fafafa; border-bottom:1px solid #f0f0f0;">
+    <div class="hp-stats">
+      <div class="hp-stat-cell"><div class="hp-stat-num">~3 000</div><div class="hp-stat-label">писем отправлено</div></div>
+      <div class="hp-stat-cell"><div class="hp-stat-num">20 сек</div><div class="hp-stat-label">время на КП</div></div>
+      <div class="hp-stat-cell"><div class="hp-stat-num">14 000</div><div class="hp-stat-label">контактов в CRM</div></div>
+    </div>
+  </div>
+  <div class="hp-split">
+    <div class="hp-split-title">До платформы vs После</div>
+    <div class="hp-split-sub">Сравните — как меняется операционка с AI-агентами</div>
+    <div class="hp-path-card">
+      <div class="hp-path-badge" style="color:#cc4444;">❌ Без платформы — операционка на людях</div>
+      <div class="hp-path-h3">Стандартная операционка дистрибьютора</div>
+      <div class="hp-path-steps">
+        <strong>→</strong> КП клиентам готовится 2–3 дня, пока менеджер не освободится<br>
+        <strong>→</strong> Прайс-листы в Excel устаревают за сутки — клиент получает неверные цены<br>
+        <strong>→</strong> Остатки отслеживаются вручную: звонки поставщикам, сводные таблицы<br>
+        <strong>→</strong> CRM не заполнена — менеджеры ведут клиентов в голове или в заметках<br>
+        <strong>→</strong> Рассылки — раз в квартал, если дойдут руки
+      </div>
+    </div>
+    <div class="hp-path-card">
+      <div class="hp-path-badge" style="color:#22aa55;">✅ С AI-платформой · Home Project</div>
+      <div class="hp-path-h3">Агенты делают рутину — вы ведёте переговоры</div>
+      <div class="hp-path-steps">
+        <strong><span class="hp-arrow">→</span></strong> КП за <strong>20 секунд</strong> — в любое время суток, без участия менеджера<br>
+        <strong><span class="hp-arrow">→</span></strong> Каталог обновляется автоматически по данным поставщиков<br>
+        <strong><span class="hp-arrow">→</span></strong> <strong>14 000 контактов</strong> сегментированы и обогащены — агент, не оператор<br>
+        <strong><span class="hp-arrow">→</span></strong> Рассылки уходят сами пока владелец на встрече — 3 000 писем за месяц<br>
+        <strong><span class="hp-arrow">→</span></strong> Один человек управляет всем через чат с AI-агентами
+      </div>
+    </div>
+    <div class="hp-split-cta">
+      <a href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=split-cta" class="hp-btn-outline">Как это устроено →</a>
+    </div>
+  </div>
+  <div class="hp-ai">
+    <div class="hp-ai-tag">◆ AI-консультант · онлайн 24/7</div>
+    <h2>Есть вопрос по технике или<br>условиям партнёрства?</h2>
+    <p>Наш AI-консультант знает все 14 брендов, характеристики, остатки и цены. Отвечает мгновенно — в любое время, в том числе в выходные и праздники. Просто напишите запрос на сайте или в Telegram.</p>
+    <a href="https://homeproject.online?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=ai-block" class="hp-btn-outline">Попробовать AI-консультант →</a>
+  </div>
+  <div class="hp-brands">
+    <div class="hp-brands-title">14 брендов в портфеле</div>
+    <div class="hp-brands-sub">Кликните на бренд — откроется каталог на сайте</div>
+    <div class="hp-brand-cat">Кухонная техника</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-v-zug&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-v-zug" class="hp-brand-link">V-ZUG</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-bora&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-bora" class="hp-brand-link">BORA</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-kuppersbusch&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-kuppersbusch" class="hp-brand-link">Küppersbusch</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-de-dietrich&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-de-dietrich" class="hp-brand-link">De Dietrich</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-graude&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-graude" class="hp-brand-link">GRAUDE</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-ilve&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-ilve" class="hp-brand-link">ILVE</a>
+    </div>
+    <div class="hp-brand-cat">Холодильники и стирка</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-fhiaba&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-fhiaba" class="hp-brand-link">Fhiaba</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-schulthess&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-schulthess" class="hp-brand-link">Schulthess</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-sks&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-sks" class="hp-brand-link">SKS</a>
+    </div>
+    <div class="hp-brand-cat">Сантехника</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-salini&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-salini" class="hp-brand-link">Salini</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-paulmark&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=brand-paulmark" class="hp-brand-link">Paulmark</a>
+    </div>
+  </div>
+  <div class="hp-cta">
+    <h2>Первые 10 партнёров —<br>льготные условия подключения</h2>
+    <p>Мы принимаем первых партнёров на особых условиях. Просто ответьте на это письмо или напишите напрямую — никаких лишних форм и процедур.</p>
+    <div class="hp-cta-dual">
+      <a href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=cta-deck" class="hp-btn-primary">Смотреть условия →</a>
+      <a href="mailto:info@homeproject.online?subject=Партнёрство&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=cta-email" class="hp-btn-outline">Написать напрямую →</a>
+    </div>
+  </div>
+  <div class="hp-tg">
+    <div class="hp-tg-head">Следите за нами</div>
+    <div><a href="https://t.me/HomeProjectMsk?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=tg-channel" class="hp-tg-link">→ Telegram-канал @HomeProjectMsk</a></div>
+    <div class="hp-tg-note">кейсы AI-операционки, новинки брендов, бизнес-практика</div>
+    <div><a href="https://vk.com/club223468013?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=vk" class="hp-tg-link">→ ВКонтакте Home Project</a></div>
+    <div class="hp-tg-bot">Вопрос по платформе? <a href="https://t.me/homeproject_ai_bot?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=tg-bot">AI-консультант @homeproject_ai_bot</a></div>
+  </div>
+  <div class="hp-footer">
+    <div class="hp-footer-name">Ария — AI-менеджер Home Project</div>
+    <div class="hp-footer-role">Home Project — AI-сервис дистрибуции 14 премиальных брендов</div>
+    <hr class="hp-footer-divider">
+    <div class="hp-footer-links"><a href="mailto:info@homeproject.online">info@homeproject.online</a><br><a href="https://homeproject.online?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=b2b-platform-sep01&amp;utm_content=footer">homeproject.online</a></div>
+    <div class="hp-footer-unsub">Вы получили это письмо как руководитель компании в сфере B2B-дистрибуции техники. Мы не покупали базу — вы попали в наш список через открытые профессиональные источники.<br><a href="{{UnsubscribeUrl}}">Отписаться от рассылки</a></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- EMAIL 2: WARM DESIGNERS -->
+<div class="tab-content" id="tab-1">
+<div class="stats-bar">
+  <span class="stat">📨 Кому: <strong>warm_designer + designer</strong></span>
+  <span class="stat">Тема: <strong>"14 брендов. КП за 20 секунд. Для ваших проектов."</strong></span>
+  <span class="stat">От: <strong>info@homeproject.online</strong></span>
+  <span class="stat">UTM: <strong>warm-designers-sep01</strong></span>
+</div>
+<div class="email-wrapper">
+<div class="email-card">
+  <div class="preheader">Перестаньте ждать прайсы — V-ZUG, BORA, Küppersbusch, De Dietrich, GRAUDE и ещё 10 брендов. КП мгновенно.</div>
+  <div class="hp-header">
+    <span class="hp-logo">HOME PROJECT</span>
+    <div class="hp-tag">ДИЗАЙНЕРАМ · АРХИТЕКТОРАМ</div>
+  </div>
+  <div class="hp-hero">
+    <h1>Ваши проекты заслуживают лучшего.<br>Мы готовы это обеспечить.</h1>
+    <p>Мы знаем, как это бывает: прайс-лист устаревает пока ждёшь ответ менеджера. КП на три позиции готовится неделю. Клиент торопит, а подтверждения наличия нет.<br><br><strong>Home Project</strong> — официальный дистрибьютор 14 премиальных брендов. Весь каталог — онлайн. КП — за 20 секунд. AI-консультант — круглосуточно.</p>
+    <a href="https://homeproject.online/ru/store?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=hero-cta" class="hp-btn-primary">Смотреть каталог →</a>
+  </div>
+  <div class="hp-split">
+    <div class="hp-split-title">Как получить КП</div>
+    <div class="hp-split-sub">Оба пути ведут к готовому предложению — выберите удобный</div>
+    <div class="hp-path-card">
+      <div class="hp-path-badge">Путь 1 · через AI-консультант</div>
+      <div class="hp-path-h3">Описываете проект — получаете варианты</div>
+      <div class="hp-path-steps">
+        <strong>1.</strong> Открываете AI-консультант на homeproject.online<br>
+        <strong>2.</strong> Описываете задачу: «кухня 16 м², варочная индукция + духовка + холодильник side-by-side»<br>
+        <strong>3.</strong> AI подбирает <strong>2–3 варианта комплекта</strong> под ваш бюджет и стиль<br>
+        <strong>4. <span class="hp-arrow">→</span></strong> Готовое КП с ценами и позициями — через 20 секунд
+      </div>
+    </div>
+    <div class="hp-path-card">
+      <div class="hp-path-badge">Путь 2 · через email</div>
+      <div class="hp-path-h3">Пишете запрос — AI подбирает и отвечает</div>
+      <div class="hp-path-steps">
+        <strong>1.</strong> Отправляете запрос на <strong>info@homeproject.online</strong> — в любом формате<br>
+        <strong>2.</strong> AI-агент читает задачу и подбирает подходящие позиции из 14 брендов<br>
+        <strong>3.</strong> Возвращает <strong>несколько вариантов КП</strong> на выбор — под проект и бюджет<br>
+        <strong>4. <span class="hp-arrow">→</span></strong> Уточняете любой вариант в переписке, всё онлайн
+      </div>
+    </div>
+    <div class="hp-split-cta">
+      <a href="https://homeproject.online/ru/page/designers?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=split-cta" class="hp-btn-outline">Попробовать бесплатно →</a>
+    </div>
+  </div>
+  <div class="hp-ai">
+    <div class="hp-ai-tag">◆ AI-консультант · 24/7</div>
+    <h2>Есть вопрос по технике?<br>Спросите AI прямо сейчас</h2>
+    <p>Наш AI-консультант знает все 14 брендов — характеристики, совместимость, размеры, цены и остатки. Отвечает мгновенно, в том числе ночью и в выходные. Никакого «уточним и перезвоним».</p>
+    <a href="https://homeproject.online?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=ai-block" class="hp-btn-outline">Задать вопрос AI →</a>
+  </div>
+  <div class="hp-brands">
+    <div class="hp-brands-title">14 брендов в портфеле</div>
+    <div class="hp-brands-sub">Кликните на бренд — откроется каталог</div>
+    <div class="hp-brand-cat">Кухня · встраиваемая техника</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-v-zug&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-v-zug" class="hp-brand-link">V-ZUG</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-bora&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-bora" class="hp-brand-link">BORA</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-kuppersbusch&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-kuppersbusch" class="hp-brand-link">Küppersbusch</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-de-dietrich&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-de-dietrich" class="hp-brand-link">De Dietrich</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-graude&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-graude" class="hp-brand-link">GRAUDE</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-ilve&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-ilve" class="hp-brand-link">ILVE</a>
+    </div>
+    <div class="hp-brand-cat">Холодильники</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-fhiaba&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-fhiaba" class="hp-brand-link">Fhiaba</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-schulthess&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-schulthess" class="hp-brand-link">Schulthess</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-sks&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-sks" class="hp-brand-link">SKS</a>
+    </div>
+    <div class="hp-brand-cat">Сантехника</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-salini&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-salini" class="hp-brand-link">Salini</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-paulmark&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=brand-paulmark" class="hp-brand-link">Paulmark</a>
+    </div>
+  </div>
+  <div class="hp-cta">
+    <h2>Станьте партнёром —<br>получайте КП быстрее конкурентов</h2>
+    <p>Партнёрам доступны приоритетная обработка запросов, персональные условия и поддержка по каждому проекту. Регистрация онлайн — занимает 2 минуты.</p>
+    <div class="hp-cta-dual">
+      <a href="https://homeproject.online/ru/page/designers?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=cta-partner" class="hp-btn-primary">Стать партнёром →</a>
+      <a href="https://homeproject.online/ru/store?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=cta-catalog" class="hp-btn-outline">Смотреть каталог →</a>
+    </div>
+  </div>
+  <div class="hp-tg">
+    <div class="hp-tg-head">Следите за нами</div>
+    <div><a href="https://t.me/HomeProjectMsk?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=tg-channel" class="hp-tg-link">→ Telegram-канал @HomeProjectMsk</a></div>
+    <div class="hp-tg-note">новинки брендов, кейсы проектов, бонусы дизайнерам</div>
+    <div><a href="https://vk.com/club223468013?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=vk" class="hp-tg-link">→ ВКонтакте Home Project</a></div>
+    <div class="hp-tg-bot">Вопрос по технике? <a href="https://t.me/homeproject_ai_bot?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=tg-bot">AI-консультант @homeproject_ai_bot</a></div>
+  </div>
+  <div class="hp-footer">
+    <div class="hp-footer-name">Команда Home Project</div>
+    <div class="hp-footer-role">Официальный дистрибьютор 14 европейских премиальных брендов</div>
+    <hr class="hp-footer-divider">
+    <div class="hp-footer-links"><a href="mailto:info@homeproject.online">info@homeproject.online</a><br><a href="https://homeproject.online/ru/page/designers?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=warm-designers-sep01&amp;utm_content=footer">homeproject.online</a></div>
+    <div class="hp-footer-unsub">Вы получили это письмо как профессионал в сфере дизайна интерьера. Мы не покупали базу — вы или ваша студия попали в наш список через открытые профессиональные источники.<br><a href="{{UnsubscribeUrl}}">Отписаться от рассылки</a></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- EMAIL 3: KITCHEN STUDIOS -->
+<div class="tab-content" id="tab-2">
+<div class="stats-bar">
+  <span class="stat">📨 Кому: <strong>kitchen_studio + kitchen_factory</strong></span>
+  <span class="stat">Тема: <strong>"Кухонная техника premium — каталог и КП за 20 секунд"</strong></span>
+  <span class="stat">От: <strong>info@homeproject.online</strong></span>
+  <span class="stat">UTM: <strong>kitchen-studios-sep01</strong></span>
+</div>
+<div class="email-wrapper">
+<div class="email-card">
+  <div class="preheader">V-ZUG, BORA, Küppersbusch, De Dietrich, GRAUDE, ILVE — полный каталог с мгновенным КП для студий и производителей кухонь.</div>
+  <div class="hp-header">
+    <span class="hp-logo">HOME PROJECT</span>
+    <div class="hp-tag">КУХОННЫМ СТУДИЯМ · КОМПЛЕКТАЦИЯ</div>
+  </div>
+  <div class="hp-hero">
+    <h1>Комплектуйте кухни быстрее.<br>Premium-техника с мгновенным КП.</h1>
+    <p>Сколько времени уходит на согласование техники с клиентом? Два варианта духовки, три варианта варочной — и неделя переписки с поставщиком, пока КП не готово.<br><br><strong>Home Project</strong> — официальный дистрибьютор V-ZUG, BORA, Küppersbusch, De Dietrich, GRAUDE, ILVE и других. Весь каталог онлайн. КП для клиента — за 20 секунд.</p>
+    <a href="https://homeproject.online/ru/store?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=hero-cta" class="hp-btn-primary">Смотреть каталог кухонной техники →</a>
+  </div>
+  <div class="hp-split">
+    <div class="hp-split-title">Два способа комплектации</div>
+    <div class="hp-split-sub">Под любой формат работы студии</div>
+    <div class="hp-path-card">
+      <div class="hp-path-badge">Вариант 1 · Комплект под ключ</div>
+      <div class="hp-path-h3">Кухня целиком — за один запрос</div>
+      <div class="hp-path-steps">
+        <strong>1.</strong> Опишите параметры: площадь, стиль, бюджет<br>
+        <strong>2.</strong> AI подбирает комплект: <strong>варочная + духовка + холодильник + вытяжка</strong><br>
+        <strong>3.</strong> На выбор — несколько сборок из разных брендов под разный ценовой сегмент<br>
+        <strong>4. <span class="hp-arrow">→</span></strong> Готовое КП с ценами, артикулами и описаниями — моментально
+      </div>
+    </div>
+    <div class="hp-path-card">
+      <div class="hp-path-badge">Вариант 2 · Под конкретный проект</div>
+      <div class="hp-path-h3">Точечный подбор — бренд / тип / бюджет</div>
+      <div class="hp-path-steps">
+        <strong>1.</strong> Открываете каталог и фильтруете по бренду, типу техники и ценовому диапазону<br>
+        <strong>2.</strong> Добавляете нужные позиции в КП — по одной или пакетом<br>
+        <strong>3.</strong> Нажимаете «Оформить КП» <span class="hp-arrow">→</span> получаете документ с позициями и ценами<br>
+        <strong>4. <span class="hp-arrow">→</span></strong> Отправляете клиенту напрямую из системы
+      </div>
+    </div>
+    <div class="hp-split-cta">
+      <a href="https://homeproject.online/ru/store?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=split-cta" class="hp-btn-outline">Открыть каталог →</a>
+    </div>
+  </div>
+  <div class="hp-ai">
+    <div class="hp-ai-tag">◆ AI-консультант · технические вопросы</div>
+    <h2>Размеры, совместимость,<br>монтаж — AI ответит сразу</h2>
+    <p>Подходит ли духовка под конкретную нишу? Есть ли вытяжка к этой панели? Какой холодильник встанет в шкаф 60 см? Наш AI знает технические характеристики всего каталога и отвечает без ожидания.</p>
+    <a href="https://homeproject.online?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=ai-block" class="hp-btn-outline">Спросить AI →</a>
+  </div>
+  <div class="hp-brands">
+    <div class="hp-brands-title">Кухонная техника — полный ассортимент</div>
+    <div class="hp-brands-sub">Кликните на бренд — откроется каталог</div>
+    <div class="hp-brand-cat">Встраиваемая техника · флагманы</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-v-zug&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-v-zug" class="hp-brand-link">V-ZUG</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-bora&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-bora" class="hp-brand-link">BORA</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-kuppersbusch&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-kuppersbusch" class="hp-brand-link">Küppersbusch</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-de-dietrich&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-de-dietrich" class="hp-brand-link">De Dietrich</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-graude&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-graude" class="hp-brand-link">GRAUDE</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-ilve&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-ilve" class="hp-brand-link">ILVE</a>
+    </div>
+    <div class="hp-brand-cat">Холодильники · встраиваемые и отдельностоящие</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-fhiaba&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-fhiaba" class="hp-brand-link">Fhiaba</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-sks&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-sks" class="hp-brand-link">SKS</a>
+    </div>
+    <div class="hp-brand-cat">Стирка · премиум</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-schulthess&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-schulthess" class="hp-brand-link">Schulthess</a>
+    </div>
+    <div class="hp-brand-cat">Сантехника · для комплексных проектов</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-salini&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-salini" class="hp-brand-link">Salini</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-paulmark&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=brand-paulmark" class="hp-brand-link">Paulmark</a>
+    </div>
+  </div>
+  <div class="hp-cta">
+    <h2>Дилерские условия<br>для кухонных студий</h2>
+    <p>Если ваша студия комплектует кухни регулярно — мы готовы обсудить индивидуальные условия сотрудничества. Первый запрос бесплатно — попробуйте нашу систему в деле.</p>
+    <div class="hp-cta-dual">
+      <a href="https://homeproject.online/ru/page/designers?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=cta-dealer" class="hp-btn-primary">Запросить условия →</a>
+      <a href="https://homeproject.online/ru/store?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=cta-catalog" class="hp-btn-outline">Смотреть каталог →</a>
+    </div>
+  </div>
+  <div class="hp-tg">
+    <div class="hp-tg-head">Следите за нами</div>
+    <div><a href="https://t.me/HomeProjectMsk?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=tg-channel" class="hp-tg-link">→ Telegram-канал @HomeProjectMsk</a></div>
+    <div class="hp-tg-note">новинки и обзоры кухонной техники, кейсы студий</div>
+    <div><a href="https://vk.com/club223468013?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=vk" class="hp-tg-link">→ ВКонтакте Home Project</a></div>
+    <div class="hp-tg-bot">Технический вопрос? <a href="https://t.me/homeproject_ai_bot?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=tg-bot">AI-консультант @homeproject_ai_bot</a></div>
+  </div>
+  <div class="hp-footer">
+    <div class="hp-footer-name">Команда Home Project</div>
+    <div class="hp-footer-role">Официальный дистрибьютор 14 брендов — кухня, холод, стирка, сантехника</div>
+    <hr class="hp-footer-divider">
+    <div class="hp-footer-links"><a href="mailto:info@homeproject.online">info@homeproject.online</a><br><a href="https://homeproject.online?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=kitchen-studios-sep01&amp;utm_content=footer">homeproject.online</a></div>
+    <div class="hp-footer-unsub">Вы получили это письмо как руководитель кухонной студии или производитель мебели. Мы не покупали базу — вы попали в наш список через открытые профессиональные источники.<br><a href="{{UnsubscribeUrl}}">Отписаться от рассылки</a></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- EMAIL 4: SANTECH -->
+<div class="tab-content" id="tab-3">
+<div class="stats-bar">
+  <span class="stat">📨 Кому: <strong>designer_santech + santech_dealer</strong></span>
+  <span class="stat">Тема: <strong>"Schulthess и Salini — швейцарская стирка и итальянская ванная"</strong></span>
+  <span class="stat">От: <strong>info@homeproject.online</strong></span>
+  <span class="stat">UTM: <strong>santech-sep01</strong></span>
+</div>
+<div class="email-wrapper">
+<div class="email-card">
+  <div class="preheader">Эксклюзивный каталог — Schulthess Swiss Made, SKS, Salini, Paulmark. КП за 20 секунд для дистрибьюторов и дизайнеров.</div>
+  <div class="hp-header">
+    <span class="hp-logo">HOME PROJECT</span>
+    <div class="hp-tag">СТИРКА · САНТЕХНИКА · SWISS MADE</div>
+  </div>
+  <div class="hp-hero">
+    <h1>Швейцарская точность.<br>Итальянская роскошь.</h1>
+    <p>Есть техника, которую не ищут по запросу «стиральная машина». Её рекомендуют дизайнеры, выбирают те, кто понимает разницу.<br><br><strong>Schulthess</strong> — швейцарские стиральные системы, которые работают тихо, долго и без лишних функций. <strong>Salini</strong> — итальянская сантехника ручной работы для тех, кто проектирует ванную как отдельную комнату отдыха.<br><br>Home Project — официальный дистрибьютор. Весь каталог онлайн.</p>
+    <a href="https://homeproject.online/ru/store?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=hero-cta" class="hp-btn-primary">Смотреть каталог →</a>
+  </div>
+  <div class="hp-split">
+    <div class="hp-split-title">Два направления каталога</div>
+    <div class="hp-split-sub">Стирка и сантехника — под один высокий стандарт</div>
+    <div class="hp-path-card">
+      <div class="hp-path-badge">Schulthess · Swiss Made · стирка</div>
+      <div class="hp-path-h3">Швейцарские стиральные системы</div>
+      <div class="hp-path-steps">
+        <strong><span class="hp-arrow">→</span></strong> Производство в Швейцарии с 1920 года — не маркетинг, а факт<br>
+        <strong><span class="hp-arrow">→</span></strong> Стиральные машины и сушилки: отдельностоящие и встраиваемые<br>
+        <strong><span class="hp-arrow">→</span></strong> Тихие, надёжные, с минимальным потреблением воды и энергии<br>
+        <strong><span class="hp-arrow">→</span></strong> Идеальны для постирочных комнат в проектах бизнес+ и премиум класса
+      </div>
+    </div>
+    <div class="hp-path-card">
+      <div class="hp-path-badge">Salini &amp; Paulmark · итальянская ванная</div>
+      <div class="hp-path-h3">Сантехника для проектов уровня premium</div>
+      <div class="hp-path-steps">
+        <strong><span class="hp-arrow">→</span></strong> Salini — отдельностоящие ванны, душевые системы, итальянское производство<br>
+        <strong><span class="hp-arrow">→</span></strong> Paulmark — ванны и душевые кабины, широкая линейка форм и отделок<br>
+        <strong><span class="hp-arrow">→</span></strong> Для дизайнеров: подробные технические карты, размеры в PDF<br>
+        <strong><span class="hp-arrow">→</span></strong> КП с позициями и ценами — через AI-консультант за 20 секунд
+      </div>
+    </div>
+    <div class="hp-split-cta">
+      <a href="https://homeproject.online/ru/store?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=split-cta" class="hp-btn-outline">Открыть каталог сантехники →</a>
+    </div>
+  </div>
+  <div class="hp-ai">
+    <div class="hp-ai-tag">◆ AI-консультант</div>
+    <h2>Технические характеристики,<br>наличие, монтажные размеры — сразу</h2>
+    <p>Подходит ли ванна под конкретный проект? Какой тип слива у модели? Есть ли Schulthess с сушкой в одном корпусе? Наш AI отвечает на технические вопросы мгновенно, 24/7.</p>
+    <a href="https://homeproject.online?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=ai-block" class="hp-btn-outline">Задать вопрос AI →</a>
+  </div>
+  <div class="hp-brands">
+    <div class="hp-brands-title">Сантехника и стирка · полный каталог</div>
+    <div class="hp-brands-sub">Кликните на бренд — откроется каталог</div>
+    <div class="hp-brand-cat">Стирка · Swiss Made</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-schulthess&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-schulthess" class="hp-brand-link">Schulthess</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-sks&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-sks" class="hp-brand-link">SKS</a>
+    </div>
+    <div class="hp-brand-cat">Сантехника · ванны и душ</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-salini&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-salini" class="hp-brand-link">Salini</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-paulmark&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-paulmark" class="hp-brand-link">Paulmark</a>
+    </div>
+    <div class="hp-brand-cat">Кухонная техника · если нужен полный проект</div>
+    <div class="hp-brand-row">
+      <a href="https://homeproject.online/ru/store?brand=brand-v-zug&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-v-zug" class="hp-brand-link">V-ZUG</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-bora&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-bora" class="hp-brand-link">BORA</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-kuppersbusch&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-kuppersbusch" class="hp-brand-link">Küppersbusch</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-de-dietrich&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-de-dietrich" class="hp-brand-link">De Dietrich</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-graude&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-graude" class="hp-brand-link">GRAUDE</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-fhiaba&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-fhiaba" class="hp-brand-link">Fhiaba</a>
+      <a href="https://homeproject.online/ru/store?brand=brand-ilve&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=brand-ilve" class="hp-brand-link">ILVE</a>
+    </div>
+  </div>
+  <div class="hp-cta">
+    <h2>Запросите условия<br>дистрибуции или дизайн-партнёрства</h2>
+    <p>Работаете с сантехникой или постирочными комнатами регулярно? Готовы обсудить партнёрские условия — напишите напрямую или запросите КП прямо сейчас.</p>
+    <div class="hp-cta-dual">
+      <a href="https://homeproject.online/ru/page/designers?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=cta-partner" class="hp-btn-primary">Запросить условия →</a>
+      <a href="mailto:info@homeproject.online?subject=Schulthess%20%2F%20Salini&amp;utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=cta-email" class="hp-btn-outline">Написать напрямую →</a>
+    </div>
+  </div>
+  <div class="hp-tg">
+    <div class="hp-tg-head">Следите за нами</div>
+    <div><a href="https://t.me/HomeProjectMsk?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=tg-channel" class="hp-tg-link">→ Telegram-канал @HomeProjectMsk</a></div>
+    <div class="hp-tg-note">обзоры Schulthess, Salini, кейсы ванных комнат</div>
+    <div><a href="https://vk.com/club223468013?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=vk" class="hp-tg-link">→ ВКонтакте Home Project</a></div>
+    <div class="hp-tg-bot">Вопрос по каталогу? <a href="https://t.me/homeproject_ai_bot?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=tg-bot">AI-консультант @homeproject_ai_bot</a></div>
+  </div>
+  <div class="hp-footer">
+    <div class="hp-footer-name">Команда Home Project</div>
+    <div class="hp-footer-role">Официальный дистрибьютор Schulthess, SKS, Salini, Paulmark</div>
+    <hr class="hp-footer-divider">
+    <div class="hp-footer-links"><a href="mailto:info@homeproject.online">info@homeproject.online</a><br><a href="https://homeproject.online?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=santech-sep01&amp;utm_content=footer">homeproject.online</a></div>
+    <div class="hp-footer-unsub">Вы получили это письмо как профессионал в сфере сантехники и бытовой техники. Мы не покупали базу — вы попали в наш список через открытые профессиональные источники.<br><a href="{{UnsubscribeUrl}}">Отписаться от рассылки</a></div>
+  </div>
+</div>
+</div>
+</div>
+
+<script>
+function showTab(n) {
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', i===n));
+  document.querySelectorAll('.tab-content').forEach((c,i) => c.classList.toggle('active', i===n));
+}
+</script>
+</body>
+</html>
