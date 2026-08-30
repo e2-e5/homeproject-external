@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проекты писем 01.09.2026 — Home Project</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0e1117;color:#e2e8f0;font-family:'Segoe UI',system-ui,sans-serif;padding-bottom:60px}
+
+nav{background:#161b27;border-bottom:1px solid #2a3040;padding:14px 28px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:100}
+.logo{font-size:12px;font-weight:800;letter-spacing:.15em;color:#fff}.logo span{color:#4a90e2}
+.plan-pill{background:#1a2035;border:1px solid #2a3040;border-radius:20px;padding:6px 14px;font-size:12px;color:#94a3b8}
+.plan-pill strong{color:#e2e8f0}
+
+.tabs{display:flex;gap:6px;padding:20px 28px;flex-wrap:wrap}
+.tab{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:2px solid #2a3040;color:#64748b;transition:.15s}
+.tab.active{border-color:currentColor}
+.tab.t1{color:#4a90e2}.tab.t1.active{background:#0d2240}
+.tab.t2{color:#f59e0b}.tab.t2.active{background:#1c1500}
+.tab.t3{color:#10b981}.tab.t3.active{background:#052e16}
+.tab.t4{color:#7c3aed}.tab.t4.active{background:#170d30}
+
+.email-page{display:none;padding:0 28px}
+.email-page.active{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+.meta-panel{background:#1a2035;border:1px solid #2a3040;border-radius:16px;padding:24px;height:fit-content}
+.meta-panel h3{font-size:15px;font-weight:800;color:#fff;margin-bottom:16px}
+.meta-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1e2535;font-size:13px}
+.meta-row:last-child{border:none}
+.meta-label{color:#64748b}
+.meta-val{color:#e2e8f0;font-weight:600;text-align:right;max-width:200px}
+.highlight-box{background:#0d2240;border:1px solid #1e3a5f;border-radius:10px;padding:14px;margin-top:16px;font-size:13px;color:#93c5fd;line-height:1.6}
+.volume-box{background:#052e16;border:1px solid #166534;border-radius:10px;padding:14px;margin-top:12px;font-size:13px;color:#86efac;line-height:1.6}
+
+.preview-wrap{background:#e8edf5;border-radius:16px;overflow:hidden}
+.preview-bar{background:#d1d9e6;padding:10px 16px;display:flex;align-items:center;gap:8px;font-size:12px;color:#4a5568}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.email-outer{max-width:600px;margin:0 auto;background:#fff;font-family:Arial,Helvetica,sans-serif}
+
+/* ====== EMAIL INNER STYLES ====== */
+.eh{padding:0}
+.eh-top{background:#07090f;padding:20px 32px;display:flex;align-items:center;justify-content:space-between}
+.eh-logo{font-size:12px;font-weight:900;letter-spacing:.2em;color:#fff}
+.eh-logo span{color:#4a90e2}
+.eh-tag{font-size:10px;font-weight:700;letter-spacing:.12em;padding:4px 12px;border-radius:20px}
+
+.eb{padding:32px}
+.eb h2{font-size:22px;font-weight:800;color:#0f172a;line-height:1.3;margin-bottom:14px}
+.eb p{font-size:14px;line-height:1.75;color:#374151;margin-bottom:12px}
+.eb ul{margin:0 0 14px 0;padding:0;list-style:none}
+.eb ul li{font-size:13px;line-height:1.65;color:#374151;padding:3px 0 3px 20px;position:relative}
+.eb ul li::before{content:'→';position:absolute;left:0;font-weight:700}
+.cta-btn{display:block;text-decoration:none;text-align:center;padding:14px 24px;border-radius:10px;font-size:15px;font-weight:800;margin:20px 0}
+.divider{height:1px;background:#f1f5f9;margin:22px 0}
+.sig{font-size:13px;color:#374151;margin-top:16px}
+.sig strong{color:#0f172a}
+.sig a{color:#4a90e2;text-decoration:none}
+
+.nums-row{display:table;width:100%;margin:16px 0}
+.num-cell{display:table-cell;text-align:center;padding:14px 8px;background:#f8fafc;border:1px solid #e2e8f0}
+.num-cell .nv{font-size:24px;font-weight:900;color:#0f172a}
+.num-cell .nl{font-size:11px;color:#64748b;margin-top:2px}
+
+.hl-box{border-left:3px solid #4a90e2;background:#f0f7ff;padding:14px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px;color:#1e3a5f;line-height:1.6}
+.hl-box.gold{border-left-color:#f59e0b;background:#fffbeb;color:#78350f}
+.hl-box.green{border-left-color:#10b981;background:#f0fdf4;color:#14532d}
+.hl-box.purple{border-left-color:#7c3aed;background:#f5f3ff;color:#3b0764}
+
+.compare-tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.compare-tbl th{background:#f1f5f9;padding:9px 12px;text-align:left;color:#64748b;font-size:11px;font-weight:700}
+.compare-tbl td{padding:9px 12px;border-bottom:1px solid #f8fafc;color:#374151}
+.x{color:#ef4444}.ck{color:#10b981;font-weight:700}
+
+.pcard{border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.pc-brand{font-size:10px;font-weight:900;letter-spacing:.12em;color:#4a90e2;text-transform:uppercase}
+.pc-model{font-size:15px;font-weight:800;color:#0f172a;margin:4px 0 2px}
+.pc-desc{font-size:12px;color:#64748b;line-height:1.5}
+.pc-price{font-size:14px;font-weight:800;color:#10b981;margin-top:8px}
+
+.ef{background:#f8fafc;padding:18px 32px;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8;line-height:1.6}
+.ef a{color:#4a90e2;text-decoration:none}
+
+/* Subject line bar */
+.subj-bar{background:#f1f5f9;padding:10px 16px;font-size:12px;color:#374151;border-bottom:1px solid #e2e8f0}
+.subj-bar strong{color:#0f172a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">HOME <span>PROJECT</span></div>
+  <div class="plan-pill">📅 Старт: <strong>01.09 (пн)</strong></div>
+  <div class="plan-pill">📧 Объём: <strong>400 писем</strong></div>
+  <div class="plan-pill">От: <strong>info@homeproject.online ✅</strong></div>
+</nav>
+
+<div class="tabs">
+  <div class="tab t4 active" onclick="show(1)">🤖 Платформа B2B · 120 писем · 30%</div>
+  <div class="tab t1" onclick="show(2)">🎨 Дизайнеры · 92 письма · 23%</div>
+  <div class="tab t2" onclick="show(3)">🍳 Кух. студии · 92 письма · 23%</div>
+  <div class="tab t3" onclick="show(4)">🚿 Санктехника · 96 писем · 24%</div>
+</div>
+
+<!-- ============ EMAIL 1: PLATFORM ============ -->
+<div class="email-page active" id="ep1">
+  <div class="meta-panel">
+    <h3>🤖 Платформа → B2B партнёры</h3>
+    <div class="meta-row"><span class="meta-label">Сегмент</span><span class="meta-val">active_agent (120 из 703)</span></div>
+    <div class="meta-row"><span class="meta-label">От</span><span class="meta-val">Ария — AI-менеджер Home Project</span></div>
+    <div class="meta-row"><span class="meta-label">From email</span><span class="meta-val">info@homeproject.online</span></div>
+    <div class="meta-row"><span class="meta-label">Тема</span><span class="meta-val">Один человек управляет 14 брендами. Без отдела продаж.</span></div>
+    <div class="meta-row"><span class="meta-label">Прехедер</span><span class="meta-val">Мы сами на этом работаем. Теперь открываем для партнёров.</span></div>
+    <div class="meta-row"><span class="meta-label">UTM campaign</span><span class="meta-val">b2b-platform-sep01</span></div>
+    <div class="meta-row"><span class="meta-label">UTM content</span><span class="meta-val">email1</span></div>
+    <div class="meta-row"><span class="meta-label">Письмо в серии</span><span class="meta-val">1 из 3</span></div>
+    <div class="meta-row"><span class="meta-label">OR цель</span><span class="meta-val">≥35% (baseline: 36–51%)</span></div>
+    <div class="highlight-box">Самый горячий сегмент — дал OR 36–51% в прошлых кампаниях. Тот же подход «кейс + конкретика» но более сжато и с таблицей для быстрого сравнения.</div>
+    <div class="volume-box">120 контактов из 703 active_agent (первый батч). Лимит платформы: 30% дневного объёма = 120 из 400.</div>
+  </div>
+  <div class="preview-wrap">
+    <div class="preview-bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span> &nbsp; Почтовый клиент · 600px</div>
+    <div class="subj-bar"><strong>Тема:</strong> Один человек управляет 14 брендами. Без отдела продаж. &nbsp;|&nbsp; <strong>От:</strong> Ария — AI-менеджер Home Project</div>
+    <div class="email-outer">
+      <div class="eh-top">
+        <div class="eh-logo">HOME <span>PROJECT</span></div>
+        <span class="eh-tag" style="background:#2d1458;color:#a78bfa">AI-Платформа</span>
+      </div>
+      <div class="eb">
+        <h2>Один человек управляет<br>14 брендами. Без найма.</h2>
+        <p>Здравствуйте!</p>
+        <p>Меня зовут Ария — AI-менеджер Home Project. Мы дистрибьютор 14 европейских премиальных брендов: V-ZUG, BORA, Küppersbusch, De Dietrich, ILVE и другие.</p>
+        <p>И весь каталог, CRM, КП, рассылки, аналитику — ведёт один человек. Потому что AI-платформа делает то, что обычно требует команды.</p>
+        <div class="nums-row">
+          <div class="num-cell"><div class="nv">14</div><div class="nl">брендов</div></div>
+          <div class="num-cell"><div class="nv">20 с</div><div class="nl">готовый КП</div></div>
+          <div class="num-cell"><div class="nv">24/7</div><div class="nl">AI-консультант</div></div>
+          <div class="num-cell"><div class="nv">0</div><div class="nl">менеджеров</div></div>
+        </div>
+        <table class="compare-tbl">
+          <tr><th>Как обычно у дистрибьютора</th><th>Как работает платформа</th></tr>
+          <tr><td><span class="x">✗</span> КП 1–3 дня, зависит от менеджера</td><td><span class="ck">✓</span> КП за 20 секунд, автоматически</td></tr>
+          <tr><td><span class="x">✗</span> Прайсы в Excel, обновление руками</td><td><span class="ck">✓</span> Каталог 2 400 позиций на автопилоте</td></tr>
+          <tr><td><span class="x">✗</span> Менеджер берёт трубку — когда не занят</td><td><span class="ck">✓</span> AI-консультант 24/7 без выходных</td></tr>
+          <tr><td><span class="x">✗</span> Рассылки «когда есть время»</td><td><span class="ck">✓</span> Email и SMM — агенты делают сами</td></tr>
+          <tr><td><span class="x">✗</span> Аналитика — раз в квартал</td><td><span class="ck">✓</span> Живые отчёты, всегда актуальные</td></tr>
+        </table>
+        <p>Мы построили это для себя. Сейчас набираем <strong>первых 10 партнёров</strong> на пилот — они получают существенно более льготные условия подключения.</p>
+        <a class="cta-btn" href="https://e2-e5.github.io/homeproject-external/hp-transformation-v2.html?utm_source=unisender&utm_medium=email&utm_campaign=b2b-platform-sep01&utm_content=email1" style="background:#7c3aed;color:#fff">Смотреть презентацию платформы →</a>
+        <div class="divider"></div>
+        <p>Или просто ответьте на это письмо — расскажем подробнее в коротком звонке (30 мин, без обязательств).</p>
+        <div class="sig">
+          <strong>Ария</strong> — AI-менеджер<br>
+          Home Project · <a href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=b2b-platform-sep01&utm_content=email1">homeproject.online</a>
+        </div>
+      </div>
+      <div class="ef">
+        © 2026 Home Project, ИП · Москва · <a href="{{UnsubscribeUrl}}">Отписаться от рассылки</a><br>
+        Вы получили это письмо, так как ваш контакт находится в нашей базе партнёров.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EMAIL 2: DESIGNERS ============ -->
+<div class="email-page" id="ep2">
+  <div class="meta-panel">
+    <h3>🎨 Тёплые дизайнеры</h3>
+    <div class="meta-row"><span class="meta-label">Сегмент</span><span class="meta-val">designer_premium (92 из 560)</span></div>
+    <div class="meta-row"><span class="meta-label">От</span><span class="meta-val">Команда Home Project</span></div>
+    <div class="meta-row"><span class="meta-label">From email</span><span class="meta-val">info@homeproject.online</span></div>
+    <div class="meta-row"><span class="meta-label">Тема</span><span class="meta-val">Новинки сезона: Snaidero + BORA + Küppersbusch — под один проект</span></div>
+    <div class="meta-row"><span class="meta-label">Прехедер</span><span class="meta-val">Кухня + техника от одного поставщика. КП за 20 секунд.</span></div>
+    <div class="meta-row"><span class="meta-label">UTM campaign</span><span class="meta-val">warm-designers-sep01</span></div>
+    <div class="meta-row"><span class="meta-label">UTM content</span><span class="meta-val">email1</span></div>
+    <div class="meta-row"><span class="meta-label">Последний контакт</span><span class="meta-val">11 июля (7 недель назад)</span></div>
+    <div class="meta-row"><span class="meta-label">OR цель</span><span class="meta-val">≥15% (baseline: 6–9%)</span></div>
+    <div class="highlight-box">Не писали 7 недель — время второго касания. Конкретная подборка продуктов Snaidero + техника. Мягкий CTA: «КП за 20 сек» или «ответьте с параметрами».</div>
+    <div class="volume-box">92 контакта из designer_premium. Начинаем с premium — они теплее и с более высоким средним чеком.</div>
+  </div>
+  <div class="preview-wrap">
+    <div class="preview-bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div>
+    <div class="subj-bar"><strong>Тема:</strong> Новинки сезона: Snaidero + BORA + Küppersbusch — под один проект &nbsp;|&nbsp; <strong>От:</strong> Команда Home Project</div>
+    <div class="email-outer">
+      <div class="eh-top">
+        <div class="eh-logo">HOME <span>PROJECT</span></div>
+        <span class="eh-tag" style="background:#1e3a5f;color:#93c5fd">Для дизайнеров</span>
+      </div>
+      <div class="eb">
+        <h2>Подборка под ваш проект:<br>кухня + техника из одного места</h2>
+        <p>Здравствуйте!</p>
+        <p>Команда Home Project. Мы дистрибьюторы <strong>Snaidero</strong> и 13 брендов встраиваемой техники — BORA, Küppersbusch, V-ZUG, De Dietrich, ILVE, Graude.</p>
+        <p>Если в вашем проекте нужна кухня и встраиваемая техника — можем закрыть всё из одного места, с одним КП и одной доставкой.</p>
+        <div class="pcard">
+          <div class="pc-brand">Snaidero · Италия</div>
+          <div class="pc-model">Кухонные фасады — Wave, Ola, Code</div>
+          <div class="pc-desc">Итальянское производство. Матовый лак, шпон, эмаль. Работаем с дизайнерами напрямую, поставка под проект, точные сроки.</div>
+        </div>
+        <div class="pcard">
+          <div class="pc-brand">BORA · Германия</div>
+          <div class="pc-model">Professional 2.0 — варочная с встроенной вытяжкой</div>
+          <div class="pc-desc">Вытяжка встроена в панель — над плитой ничего нет. Идеально для открытых кухонь и пространств без навесных шкафов.</div>
+          <div class="pc-price">от 280 000 ₽</div>
+        </div>
+        <div class="pcard">
+          <div class="pc-brand">Küppersbusch · Германия</div>
+          <div class="pc-model">B6550.0 — духовой шкаф 60 см, пиролиз</div>
+          <div class="pc-desc">16 режимов, пиролитическая очистка, лаконичный фасад. Хорошо вписывается в минимализм, современную классику и хай-тек.</div>
+          <div class="pc-price">от 145 000 ₽</div>
+        </div>
+        <p>Полный каталог и цены — на сайте. Или пришлите параметры проекта — подберём и пришлём КП за 20 секунд.</p>
+        <a class="cta-btn" href="https://homeproject.online/ru/store?utm_source=unisender&utm_medium=email&utm_campaign=warm-designers-sep01&utm_content=email1" style="background:#2563eb;color:#fff">Открыть каталог →</a>
+        <a class="cta-btn" href="https://e2-e5.github.io/homeproject-external/kp-request.html?utm_source=unisender&utm_medium=email&utm_campaign=warm-designers-sep01&utm_content=email1-kp" style="background:#f0f7ff;color:#1e40af;margin-top:0">Получить КП за 20 секунд →</a>
+        <div class="divider"></div>
+        <div class="sig">
+          <strong>Команда Home Project</strong><br>
+          <a href="https://homeproject.online/ru/page/designers?utm_source=unisender&utm_medium=email&utm_campaign=warm-designers-sep01&utm_content=email1-footer">Страница для дизайнеров</a> · info@homeproject.online
+        </div>
+      </div>
+      <div class="ef">© 2026 Home Project, ИП · <a href="{{UnsubscribeUrl}}">Отписаться</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EMAIL 3: KITCHEN STUDIOS ============ -->
+<div class="email-page" id="ep3">
+  <div class="meta-panel">
+    <h3>🍳 Кухонные студии</h3>
+    <div class="meta-row"><span class="meta-label">Сегмент</span><span class="meta-val">kitchen_studio (92 из 515)</span></div>
+    <div class="meta-row"><span class="meta-label">От</span><span class="meta-val">Команда Home Project</span></div>
+    <div class="meta-row"><span class="meta-label">From email</span><span class="meta-val">info@homeproject.online</span></div>
+    <div class="meta-row"><span class="meta-label">Тема</span><span class="meta-val">Snaidero + встраиваемая техника премиум — один поставщик для вашей студии</span></div>
+    <div class="meta-row"><span class="meta-label">Прехедер</span><span class="meta-val">Один прайс, одна доставка, одно КП для вашего клиента.</span></div>
+    <div class="meta-row"><span class="meta-label">UTM campaign</span><span class="meta-val">kitchen-studios-sep01</span></div>
+    <div class="meta-row"><span class="meta-label">UTM content</span><span class="meta-val">email1</span></div>
+    <div class="meta-row"><span class="meta-label">Статус</span><span class="meta-val">Нетронутые — 0 писем ранее</span></div>
+    <div class="meta-row"><span class="meta-label">OR цель</span><span class="meta-val">≥20% (новый сегмент)</span></div>
+    <div class="highlight-box">Эти студии — партнёры Homeier, то есть уже работают с поставщиком. Говорим не «познакомьтесь» а «вот что мы предлагаем сверху того что у вас есть».</div>
+    <div class="volume-box">92 из 515 кухонных студий. Первый батч — самые активные по данным Homeier-канала.</div>
+  </div>
+  <div class="preview-wrap">
+    <div class="preview-bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div>
+    <div class="subj-bar"><strong>Тема:</strong> Snaidero + встраиваемая техника премиум — один поставщик для вашей студии &nbsp;|&nbsp; <strong>От:</strong> Команда Home Project</div>
+    <div class="email-outer">
+      <div class="eh-top" style="background:#1c1500">
+        <div class="eh-logo" style="color:#fff">HOME <span style="color:#f59e0b">PROJECT</span></div>
+        <span class="eh-tag" style="background:#451a03;color:#fde68a">Для кухонных студий</span>
+      </div>
+      <div class="eb">
+        <h2>Snaidero + техника премиум:<br>один поставщик — полный проект</h2>
+        <p>Здравствуйте!</p>
+        <p>Команда Home Project. Мы дистрибьюторы <strong>Snaidero</strong> (Италия) и 13 брендов встраиваемой техники: BORA, Küppersbusch, V-ZUG, De Dietrich, ILVE. Работаем напрямую с кухонными студиями.</p>
+        <div class="hl-box gold">
+          <strong>Идея для вашей студии:</strong> фасады Snaidero + подобранная техника = клиент получает готовое предложение «под ключ». Один поставщик — меньше логистики, одно КП, одни сроки.
+        </div>
+        <ul>
+          <li><strong>Snaidero</strong> — итальянские кухонные фасады (Wave, Ola, Code, Skyline). Поставка под проект.</li>
+          <li><strong>BORA Professional</strong> — варочная с встроенной вытяжкой. Тренд в премиум-сегменте.</li>
+          <li><strong>Küppersbusch, V-ZUG, De Dietrich</strong> — встраиваемая техника для требовательных клиентов.</li>
+          <li><strong>КП за 20 секунд</strong> — AI подбирает комплект и формирует коммерческое предложение мгновенно.</li>
+        </ul>
+        <p>Если сейчас работаете с другим поставщиком техники — просто сравните условия. Ответьте на письмо или запросите прайс на сайте.</p>
+        <a class="cta-btn" href="https://e2-e5.github.io/homeproject-external/kp-request.html?utm_source=unisender&utm_medium=email&utm_campaign=kitchen-studios-sep01&utm_content=email1" style="background:#d97706;color:#fff">Запросить прайс для студии →</a>
+        <div class="divider"></div>
+        <p style="font-size:13px;color:#64748b">Также готовы обсудить условия дистрибуции и экспозицию в вашем шоуруме. Ответьте на письмо.</p>
+        <div class="sig">
+          <strong>Команда Home Project</strong><br>
+          <a href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=kitchen-studios-sep01&utm_content=email1-footer">homeproject.online</a> · info@homeproject.online
+        </div>
+      </div>
+      <div class="ef">© 2026 Home Project, ИП · <a href="{{UnsubscribeUrl}}">Отписаться</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EMAIL 4: SANTECH ============ -->
+<div class="email-page" id="ep4">
+  <div class="meta-panel">
+    <h3>🚿 Салоны сантехники</h3>
+    <div class="meta-row"><span class="meta-label">Сегмент</span><span class="meta-val">designer_santech (96 из 1 560)</span></div>
+    <div class="meta-row"><span class="meta-label">От</span><span class="meta-val">Команда Home Project</span></div>
+    <div class="meta-row"><span class="meta-label">From email</span><span class="meta-val">info@homeproject.online</span></div>
+    <div class="meta-row"><span class="meta-label">Тема</span><span class="meta-val">Schulthess: стирка + сушка 60 см — Swiss Made для вашего шоурума</span></div>
+    <div class="meta-row"><span class="meta-label">Прехедер</span><span class="meta-val">Колонна в ванную + ISE-сервис = дополнительный доход с каждой продажи.</span></div>
+    <div class="meta-row"><span class="meta-label">UTM campaign</span><span class="meta-val">santech-schulthess-sep01</span></div>
+    <div class="meta-row"><span class="meta-label">UTM content</span><span class="meta-val">email1</span></div>
+    <div class="meta-row"><span class="meta-label">Статус</span><span class="meta-val">Нетронутые — 0 писем ранее</span></div>
+    <div class="meta-row"><span class="meta-label">OR цель</span><span class="meta-val">≥18% (новый сегмент)</span></div>
+    <div class="highlight-box">Санктехники продают ванные комнаты — туда идёт стиральная машина. Schulthess 60 см колонна — органичный продукт для их шоурума. ISE-сервис = маржа на каждой продаже.</div>
+    <div class="volume-box">96 из 1 560 санктехников. Первый батч самый осторожный — новый сегмент, нужно проверить OR и отклики.</div>
+  </div>
+  <div class="preview-wrap">
+    <div class="preview-bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div>
+    <div class="subj-bar"><strong>Тема:</strong> Schulthess: стирка + сушка 60 см — Swiss Made для вашего шоурума &nbsp;|&nbsp; <strong>От:</strong> Команда Home Project</div>
+    <div class="email-outer">
+      <div class="eh-top" style="background:#052e16">
+        <div class="eh-logo" style="color:#fff">HOME <span style="color:#10b981">PROJECT</span></div>
+        <span class="eh-tag" style="background:#14532d;color:#86efac">Swiss Made · Schulthess</span>
+      </div>
+      <div class="eb">
+        <h2>Schulthess: стирка + сушка<br>в 60 см — для ванной вашего клиента</h2>
+        <p>Здравствуйте!</p>
+        <p>Команда Home Project. Мы эксклюзивные дистрибьюторы <strong>Schulthess</strong> в России — швейцарского бренда стиральных и сушильных машин с 1926 года.</p>
+        <div class="hl-box green">
+          <strong>Почему Schulthess в ванную комнату:</strong> компактная колонна (стиральная + сушильная, ширина 60 см × глубина 60 см), тихий ход, встраивается в нишу, Swiss Made качество. Именно то, что клиент хочет при ремонте премиального санузла.
+        </div>
+        <div class="nums-row">
+          <div class="num-cell"><div class="nv">1926</div><div class="nl">год основания</div></div>
+          <div class="num-cell"><div class="nv">60×60</div><div class="nl">см, колонна</div></div>
+          <div class="num-cell"><div class="nv">ISE</div><div class="nl">сервис-контракт</div></div>
+        </div>
+        <p><strong>ISE-сервис</strong> — это сервисный контракт, который идёт вместе с машиной. Клиент покупает спокойствие на несколько лет, вы получаете дополнительную маржу с каждой продажи Schulthess.</p>
+        <ul>
+          <li>Стиральная + сушильная колонна — 60 см ширина, в нишу</li>
+          <li>Swiss Made — производство в Швейцарии с 1926 года</li>
+          <li>Тихий ход — подходит для жилых пространств</li>
+          <li>ISE сервис-контракт — продаётся вместе с техникой</li>
+        </ul>
+        <a class="cta-btn" href="https://homeproject.online/ru/store?category=stiralnye-mashiny&utm_source=unisender&utm_medium=email&utm_campaign=santech-schulthess-sep01&utm_content=email1" style="background:#059669;color:#fff">Смотреть Schulthess в каталоге →</a>
+        <a class="cta-btn" href="https://e2-e5.github.io/homeproject-external/kp-request.html?utm_source=unisender&utm_medium=email&utm_campaign=santech-schulthess-sep01&utm_content=email1-kp" style="background:#f0fdf4;color:#065f46;margin-top:0">Запросить прайс и условия партнёрства →</a>
+        <div class="divider"></div>
+        <p style="font-size:13px;color:#64748b">Готовы рассмотреть экспозиционный экземпляр для вашего шоурума и обсудить условия дистрибуции Schulthess + ISE. Ответьте на это письмо.</p>
+        <div class="sig">
+          <strong>Команда Home Project</strong><br>
+          <a href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=santech-schulthess-sep01&utm_content=email1-footer">homeproject.online</a> · info@homeproject.online
+        </div>
+      </div>
+      <div class="ef">© 2026 Home Project, ИП · <a href="{{UnsubscribeUrl}}">Отписаться</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(n){
+  document.querySelectorAll('.email-page').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
+  document.getElementById('ep'+n).classList.add('active');
+  document.querySelectorAll('.tab')[n-1].classList.add('active');
+}
+</script>
+</body>
+</html>
