@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Style Analysis — Home Project</title>
+<style>
+body { margin:0; padding:0; background:#0a0a0a; font-family:Arial,sans-serif; color:#fff; }
+
+/* NAV */
+.nav { background:#1A1A1A; padding:18px 32px; border-bottom:2px solid #C9A36A; position:sticky; top:0; z-index:100; }
+.nav-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#fff; }
+.nav-sub { font-size:11px; color:#888; margin-top:3px; }
+.nav-tabs { display:flex; gap:6px; margin-top:12px; flex-wrap:wrap; }
+.nav-tab { padding:7px 16px; background:#2a2a2a; color:#888; font-size:12px; font-weight:600; cursor:pointer; border-radius:4px; border:1px solid #333; }
+.nav-tab.active { background:#C9A36A; color:#1A1A1A; border-color:#C9A36A; }
+
+/* PANELS */
+.panel { display:none; }
+.panel.active { display:block; }
+
+/* ANALYSIS SECTION */
+.analysis { padding:32px; max-width:1200px; margin:0 auto; }
+.section-head { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#C9A36A; margin-bottom:8px; }
+.section-title { font-size:22px; font-weight:700; color:#fff; margin-bottom:24px; line-height:1.3; }
+
+/* COMPARISON GRID */
+.compare-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
+.compare-card { background:#1A1A1A; border-radius:8px; overflow:hidden; border:1px solid #2a2a2a; }
+.compare-card.winner { border-color:#22aa55; }
+.compare-card.loser { border-color:#aa2222; }
+.compare-card.new { border-color:#C9A36A; }
+.compare-header { padding:16px 20px; background:#111; }
+.compare-label { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; }
+.compare-label.green { color:#22aa55; }
+.compare-label.red { color:#aa3333; }
+.compare-label.gold { color:#C9A36A; }
+.compare-name { font-size:16px; font-weight:700; color:#fff; margin-bottom:6px; }
+.compare-metric { font-size:28px; font-weight:800; margin-bottom:2px; }
+.compare-metric.green { color:#22aa55; }
+.compare-metric.red { color:#f87171; }
+.compare-metric.gold { color:#C9A36A; }
+.compare-meta { font-size:11px; color:#666; }
+.compare-body { padding:16px 20px; }
+.compare-row { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #222; }
+.compare-row:last-child { border:none; margin-bottom:0; padding-bottom:0; }
+.compare-key { font-size:11px; color:#888; flex-shrink:0; width:90px; line-height:1.5; }
+.compare-val { font-size:12px; color:#ddd; text-align:right; line-height:1.5; flex:1; }
+
+/* BIG INSIGHT */
+.insight { background:#1A1A1A; border:1px solid #2a2a2a; border-radius:10px; padding:28px; margin-bottom:32px; }
+.insight-tag { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#C9A36A; margin-bottom:12px; }
+.insight-title { font-size:20px; font-weight:700; color:#fff; margin-bottom:16px; line-height:1.3; }
+.insight-body { font-size:14px; color:#aaa; line-height:1.8; }
+.insight-body strong { color:#fff; }
+
+/* FORMULA */
+.formula { display:flex; align-items:center; gap:16px; background:#111; border-radius:8px; padding:20px 24px; margin:20px 0; flex-wrap:wrap; }
+.formula-item { text-align:center; }
+.formula-item .fi-name { font-size:13px; font-weight:700; color:#fff; }
+.formula-item .fi-sub { font-size:10px; color:#888; margin-top:2px; }
+.formula-plus { font-size:24px; color:#444; }
+.formula-eq { font-size:24px; color:#C9A36A; font-weight:700; }
+.formula-result { text-align:center; }
+.formula-result .fr-name { font-size:15px; font-weight:700; color:#C9A36A; }
+.formula-result .fr-sub { font-size:11px; color:#888; margin-top:2px; }
+
+/* ANATOMY */
+.anatomy { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px; }
+.anatomy-item { background:#1A1A1A; border-radius:8px; padding:18px 20px; border-left:3px solid #2a2a2a; }
+.anatomy-item.good { border-left-color:#22aa55; }
+.anatomy-item.bad { border-left-color:#aa3333; }
+.anatomy-item.neutral { border-left-color:#C9A36A; }
+.anatomy-tag { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; }
+.anatomy-tag.good { color:#22aa55; }
+.anatomy-tag.bad { color:#f87171; }
+.anatomy-tag.neutral { color:#C9A36A; }
+.anatomy-title { font-size:14px; font-weight:700; color:#fff; margin-bottom:8px; }
+.anatomy-text { font-size:12px; color:#999; line-height:1.6; }
+.anatomy-text strong { color:#ddd; }
+
+/* RECOMMENDATIONS */
+.recs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
+.rec-card { background:#1A1A1A; border-radius:8px; overflow:hidden; border:1px solid #2a2a2a; }
+.rec-header { padding:16px 20px; }
+.rec-header.platform { background:linear-gradient(135deg,#0d1b2a,#1b2838); }
+.rec-header.bt { background:linear-gradient(135deg,#1A0A00,#2a1500); }
+.rec-header.designer { background:linear-gradient(135deg,#0a1a0a,#0f2a0f); }
+.rec-tag { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:#888; margin-bottom:6px; }
+.rec-name { font-size:16px; font-weight:700; color:#fff; margin-bottom:4px; }
+.rec-sub { font-size:12px; color:#888; }
+.rec-body { padding:16px 20px; }
+.rec-item { margin-bottom:12px; }
+.rec-item-head { font-size:12px; font-weight:700; color:#C9A36A; margin-bottom:4px; }
+.rec-item-text { font-size:11px; color:#999; line-height:1.6; }
+.before-after { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; }
+.ba-col { background:#111; border-radius:4px; padding:8px 10px; }
+.ba-label { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:#666; margin-bottom:4px; }
+.ba-label.before { color:#f87171; }
+.ba-label.after { color:#22aa55; }
+.ba-text { font-size:11px; color:#ccc; line-height:1.5; }
+
+/* VISUAL PREVIEW COMPARE */
+.preview-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:32px; }
+.preview-wrap { background:#1A1A1A; border-radius:8px; overflow:hidden; border:1px solid #2a2a2a; }
+.preview-label { padding:10px 16px; background:#111; font-size:11px; font-weight:700; color:#888; display:flex; justify-content:space-between; align-items:center; }
+.preview-or { font-size:14px; font-weight:800; }
+.preview-or.green { color:#22aa55; }
+.preview-or.red { color:#f87171; }
+.preview-or.gold { color:#C9A36A; }
+.preview-frame { height:400px; overflow-y:auto; padding:12px; background:#f4f4f4; }
+
+/* EMAIL MOCKUPS */
+.em-snaidero { background:#fff; font-family:'Georgia',serif; border-radius:4px; overflow:hidden; }
+.em-s-hdr { background:#1C1A18; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; }
+.em-s-logo { color:#E8470E; font-size:16px; font-weight:900; }
+.em-s-links { font-size:9px; color:rgba(255,255,255,.4); }
+.em-s-hero { position:relative; height:140px; overflow:hidden; }
+.em-s-hero img { width:100%; height:100%; object-fit:cover; }
+.em-s-hero-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,.8),transparent 50%); }
+.em-s-hero-txt { position:absolute; bottom:0; left:0; right:0; padding:12px 16px; }
+.em-s-tag { font-size:8px; letter-spacing:2px; text-transform:uppercase; color:#C4A882; margin-bottom:4px; }
+.em-s-h1 { font-size:16px; font-weight:300; color:#fff; line-height:1.2; margin:0; font-family:Georgia,serif; font-style:italic; }
+.em-s-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; padding:8px; background:#fff; }
+.em-s-col { position:relative; height:60px; overflow:hidden; }
+.em-s-col img { width:100%; height:100%; object-fit:cover; }
+.em-s-col-ov { position:absolute; inset:0; background:rgba(0,0,0,.4); }
+.em-s-col-name { position:absolute; bottom:4px; left:4px; font-size:9px; color:#fff; font-weight:700; }
+.em-s-sep { padding:8px 16px; text-align:center; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:#aaa; border-top:1px solid #eee; border-bottom:1px solid #eee; background:#fafafa; }
+.em-s-tech { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; padding:8px; background:#f7f5f2; }
+.em-s-bc { background:#fff; border:1px solid #eee; padding:6px; }
+.em-s-bc img { width:100%; height:40px; object-fit:contain; }
+.em-s-bc-name { font-size:8px; font-weight:700; color:#8B6F4E; margin-top:3px; text-align:center; }
+
+/* Platform mini mockup */
+.em-platform { background:#fff; font-family:Arial,sans-serif; border-radius:4px; overflow:hidden; }
+.em-p-hdr { background:#0f0e17; padding:10px 16px; text-align:center; }
+.em-p-hdr-name { font-size:12px; font-weight:700; color:#fff; letter-spacing:1px; }
+.em-p-hero { background:linear-gradient(135deg,#0d1b2a,#1b2838); padding:16px; text-align:center; }
+.em-p-label { font-size:8px; letter-spacing:2px; text-transform:uppercase; color:#7c83d1; margin-bottom:6px; }
+.em-p-h1 { font-size:13px; font-weight:800; color:#fff; margin:0 0 6px; line-height:1.3; }
+.em-p-sub { font-size:10px; color:#90a4ae; }
+.em-p-body { padding:12px 16px; }
+.em-p-box { background:#f0f4ff; border-left:3px solid #3f51b5; padding:10px 12px; border-radius:3px; margin-bottom:10px; }
+.em-p-box-title { font-size:10px; font-weight:700; color:#1a1a2e; margin-bottom:4px; }
+.em-p-box-text { font-size:9px; color:#555; line-height:1.5; }
+.em-p-list { font-size:9px; color:#444; line-height:1.8; }
+.em-p-btn { display:block; text-align:center; background:#3f51b5; color:#fff; font-size:10px; font-weight:700; padding:8px; border-radius:5px; text-decoration:none; margin-top:10px; }
+
+/* Sep01 mini mockup */
+.em-sep { background:#fff; font-family:Arial,sans-serif; border-radius:4px; overflow:hidden; }
+.em-sep-hdr { background:#1A1A1A; padding:10px 16px; text-align:center; }
+.em-sep-logo { font-size:13px; font-weight:700; letter-spacing:2px; color:#fff; text-transform:uppercase; }
+.em-sep-tag { font-size:8px; letter-spacing:1.5px; color:#C9A36A; text-transform:uppercase; margin-top:2px; }
+.em-sep-hero { padding:16px; }
+.em-sep-h1 { font-size:14px; font-weight:700; color:#1A1A1A; margin-bottom:8px; line-height:1.3; }
+.em-sep-p { font-size:10px; color:#555; line-height:1.6; margin-bottom:10px; }
+.em-sep-btn { display:inline-block; background:#1A1A1A; color:#fff; font-size:9px; font-weight:700; padding:7px 14px; border-radius:2px; text-transform:uppercase; text-decoration:none; }
+.em-sep-cards { background:#fafafa; padding:12px 16px; }
+.em-sep-card { background:#fff; border:1px solid #e8e8e8; border-radius:3px; padding:10px; margin-bottom:6px; }
+.em-sep-card-tag { font-size:8px; font-weight:700; letter-spacing:1.5px; color:#C9A36A; text-transform:uppercase; margin-bottom:4px; }
+.em-sep-card-h3 { font-size:11px; font-weight:700; color:#1A1A1A; margin-bottom:4px; }
+.em-sep-card-text { font-size:9px; color:#666; line-height:1.5; }
+.em-sep-brands { background:#fafafa; padding:8px 16px; }
+.em-sep-brand-row { font-size:0; margin-bottom:4px; }
+.em-sep-brand-link { display:inline-block; padding:3px 7px; margin:0 2px 2px 0; background:#fff; border:1px solid #e0e0e0; border-radius:2px; font-size:9px; font-weight:600; color:#1A1A1A; text-decoration:none; }
+
+/* NEW CONCEPT mini mockup */
+.em-new { background:#fff; font-family:Arial,sans-serif; border-radius:4px; overflow:hidden; }
+.em-new-hdr { background:#1C1A18; padding:10px 16px; text-align:center; }
+.em-new-logo { font-size:13px; font-weight:700; letter-spacing:2px; color:#fff; text-transform:uppercase; }
+.em-new-tag { font-size:8px; letter-spacing:1.5px; color:#C4A882; text-transform:uppercase; margin-top:2px; }
+.em-new-hero { position:relative; height:130px; overflow:hidden; }
+.em-new-hero img { width:100%; height:100%; object-fit:cover; }
+.em-new-hero-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(13,14,23,.9),transparent 60%); }
+.em-new-hero-txt { position:absolute; bottom:0; left:0; right:0; padding:12px 16px; }
+.em-new-h1 { font-size:16px; font-weight:300; color:#fff; line-height:1.2; margin:0; font-style:italic; }
+.em-new-sub { font-size:9px; color:rgba(255,255,255,.6); margin-top:3px; }
+.em-new-body { padding:12px 16px; }
+.em-new-pain { background:#f8f9ff; border-left:3px solid #0d1b2a; padding:10px 12px; border-radius:3px; margin-bottom:10px; }
+.em-new-pain-title { font-size:10px; font-weight:700; color:#0d1b2a; margin-bottom:4px; }
+.em-new-pain-text { font-size:9px; color:#555; line-height:1.5; }
+.em-new-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; margin-bottom:10px; }
+.em-new-stat { background:#1A1A1A; padding:6px 4px; text-align:center; border-radius:3px; }
+.em-new-stat-n { font-size:13px; font-weight:700; color:#C4A882; }
+.em-new-stat-l { font-size:7px; color:#888; text-transform:uppercase; letter-spacing:0.5px; }
+.em-new-cards { background:#fafafa; padding:10px; }
+.em-new-card { background:#fff; border:1px solid #e8e8e8; border-radius:3px; padding:8px; margin-bottom:5px; }
+.em-new-card-tag { font-size:7px; font-weight:700; letter-spacing:1.5px; color:#C4A882; text-transform:uppercase; margin-bottom:3px; }
+.em-new-card-h3 { font-size:11px; font-weight:700; color:#1A1A1A; margin-bottom:3px; }
+.em-new-card-text { font-size:9px; color:#666; line-height:1.4; }
+.em-new-tech { background:#f7f5f2; padding:10px; }
+.em-new-tech-title { font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#8B6F4E; margin-bottom:8px; text-align:center; }
+.em-new-tech-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; }
+.em-new-bc { background:#fff; border:1px solid #eee; padding:5px; }
+.em-new-bc img { width:100%; height:35px; object-fit:contain; }
+.em-new-bc-name { font-size:7px; font-weight:700; color:#8B6F4E; text-align:center; margin-top:2px; text-transform:uppercase; }
+.em-new-btn { display:block; text-align:center; background:#1C1A18; color:#fff; font-size:9px; font-weight:700; padding:8px; text-decoration:none; text-transform:uppercase; letter-spacing:1px; margin:8px; }
+
+/* WIN FORMULA DETAIL */
+.win-detail { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; }
+.win-col-title { font-size:13px; font-weight:700; color:#C9A36A; margin-bottom:12px; text-transform:uppercase; letter-spacing:1px; }
+.win-list { list-style:none; padding:0; margin:0; }
+.win-list li { font-size:12px; color:#aaa; line-height:1.8; padding:4px 0; border-bottom:1px solid #1a1a1a; }
+.win-list li strong { color:#fff; }
+.win-list li::before { content:'→ '; color:#C9A36A; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-title">HOME PROJECT · Email Style Analysis</div>
+  <div class="nav-sub">Сравнение 4 стилей · Анализ · Рекомендации</div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showPanel('compare',this)">📊 Сравнение стилей</div>
+    <div class="nav-tab" onclick="showPanel('anatomy',this)">🔬 Что делает Snaidero правильно</div>
+    <div class="nav-tab" onclick="showPanel('formula',this)">✨ Формула нового письма</div>
+    <div class="nav-tab" onclick="showPanel('recs',this)">🎯 Рекомендации по 3 типам</div>
+  </div>
+</div>
+
+
+<!-- PANEL 1: COMPARE -->
+<div class="panel active" id="panel-compare">
+<div class="analysis">
+
+  <div class="section-head">Визуальное сравнение</div>
+  <div class="section-title">4 стиля — 3 разных результата</div>
+
+  <div class="compare-grid">
+    <div class="compare-card loser">
+      <div class="compare-header">
+        <div class="compare-label red">❌ Высокий визуал · слабый результат</div>
+        <div class="compare-name">Snaidero email</div>
+        <div class="compare-metric red">6.8%</div>
+        <div class="compare-meta">Open Rate · 650 писем · 22–27 авг</div>
+      </div>
+      <div class="compare-body">
+        <div class="compare-row"><span class="compare-key">Шрифт</span><span class="compare-val">Cormorant Garamond (serif) + Inter</span></div>
+        <div class="compare-row"><span class="compare-key">Герой</span><span class="compare-val">Полноширинное фото, кинематограф. оверлей</span></div>
+        <div class="compare-row"><span class="compare-key">Цвета</span><span class="compare-val">#1C1A18 + #C4A882 + #8B6F4E (тёплые)</span></div>
+        <div class="compare-row"><span class="compare-key">Контент</span><span class="compare-val">Коллекции кухонь + карточки техники с фото</span></div>
+        <div class="compare-row"><span class="compare-key">CTA</span><span class="compare-val">Размытый: «Смотреть коллекции»</span></div>
+        <div class="compare-row"><span class="compare-key">Боль</span><span class="compare-val">❌ Не обращена к боли получателя</span></div>
+        <div class="compare-row"><span class="compare-key">Клики</span><span class="compare-val">0 из 650</span></div>
+      </div>
+    </div>
+    <div class="compare-card winner">
+      <div class="compare-header">
+        <div class="compare-label green">✅ Слабый визуал · сильный результат</div>
+        <div class="compare-name">AI Platform email</div>
+        <div class="compare-metric green">36–51%</div>
+        <div class="compare-meta">Open Rate · 480 писем · 25–27 авг</div>
+      </div>
+      <div class="compare-body">
+        <div class="compare-row"><span class="compare-key">Шрифт</span><span class="compare-val">Arial (системный), без красоты</span></div>
+        <div class="compare-row"><span class="compare-key">Герой</span><span class="compare-val">Тёмный градиент, заголовок текстом</span></div>
+        <div class="compare-row"><span class="compare-key">Цвета</span><span class="compare-val">#0d1b2a + #3f51b5 (холодные синие)</span></div>
+        <div class="compare-row"><span class="compare-key">Контент</span><span class="compare-val">Личный питч + bullet-список возможностей</span></div>
+        <div class="compare-row"><span class="compare-key">CTA</span><span class="compare-val">Точный: «Посмотреть как это работает»</span></div>
+        <div class="compare-row"><span class="compare-key">Боль</span><span class="compare-val">✅ «КП 2 дня → 20 секунд» — прямо в точку</span></div>
+        <div class="compare-row"><span class="compare-key">Клики</span><span class="compare-val">2 из 480 (0.4% CTR — есть, но мало)</span></div>
+      </div>
+    </div>
+    <div class="compare-card new">
+      <div class="compare-header">
+        <div class="compare-label gold">⚡ Новые (1 сент.) — ещё не отправлены</div>
+        <div class="compare-name">Sep 01 emails</div>
+        <div class="compare-metric gold">?%</div>
+        <div class="compare-meta">Прогноз: 15–25% (средний диапазон)</div>
+      </div>
+      <div class="compare-body">
+        <div class="compare-row"><span class="compare-key">Шрифт</span><span class="compare-val">Arial, чистый и читаемый</span></div>
+        <div class="compare-row"><span class="compare-key">Герой</span><span class="compare-val">Тёмный header + текстовый заголовок</span></div>
+        <div class="compare-row"><span class="compare-key">Цвета</span><span class="compare-val">#1A1A1A + #C9A36A (фирменный стиль)</span></div>
+        <div class="compare-row"><span class="compare-key">Контент</span><span class="compare-val">Path-cards + brand grid — структурно</span></div>
+        <div class="compare-row"><span class="compare-key">CTA</span><span class="compare-val">Двойной: primary + outline</span></div>
+        <div class="compare-row"><span class="compare-key">Боль</span><span class="compare-val">⚡ Частично — есть pain-копирайт</span></div>
+        <div class="compare-row"><span class="compare-key">Фото</span><span class="compare-val">❌ Нет визуальных якорей / продуктов</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual previews -->
+  <div class="section-head" style="margin-top:32px;">Визуальное превью (упрощённые версии)</div>
+  <div class="section-title" style="font-size:18px;">Как выглядит каждый стиль</div>
+
+  <div class="preview-row">
+    <div class="preview-wrap">
+      <div class="preview-label">Snaidero — визуально богатый <span class="preview-or red">OR 6.8%</span></div>
+      <div class="preview-frame" style="background:#1e1e1e; padding:8px;">
+        <div class="em-snaidero">
+          <div class="em-s-hdr"><span class="em-s-logo">S</span><span class="em-s-links">Сайт · Snaidero</span></div>
+          <div class="em-s-hero">
+            <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=700" alt="">
+            <div class="em-s-hero-ov"></div>
+            <div class="em-s-hero-txt">
+              <div class="em-s-tag">Официальный партнёр SNAIDERO</div>
+              <div class="em-s-h1">Кухни Snaidero —<br><em>авторский проект</em></div>
+            </div>
+          </div>
+          <div style="padding:10px 12px 4px; background:#fff;">
+            <div style="font-size:9px;color:#8B6F4E;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Коллекции Snaidero</div>
+            <div style="font-family:Georgia,serif;font-size:14px;font-weight:300;color:#1C1A18;font-style:italic;margin-bottom:6px;">Выберите <em>свой стиль</em></div>
+          </div>
+          <div class="em-s-grid">
+            <div class="em-s-col"><img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=200" alt=""><div class="em-s-col-ov"></div><div class="em-s-col-name">OLA</div></div>
+            <div class="em-s-col"><img src="https://admin.snaidero.com/media/gdjpcmzp/10-sistema-snaidero-frame-ispirazioni-haute-couture.jpg?width=200" alt=""><div class="em-s-col-ov"></div><div class="em-s-col-name">Frame</div></div>
+            <div class="em-s-col"><img src="https://admin.snaidero.com/media/qmkd55dm/02-sistema-snaidero-elementi-una-finestra-sul-futuro.jpg?width=200" alt=""><div class="em-s-col-ov"></div><div class="em-s-col-name">Elementi</div></div>
+          </div>
+          <div class="em-s-sep">— оснастите кухню первоклассной техникой —</div>
+          <div class="em-s-tech">
+            <div class="em-s-bc"><img src="https://teka.b-cdn.net/CMP1219/OZGO26BI44713_Kitchen_SS_04_VarioLine_Stainless_Steel_acc_in_Beige_Kitchen_SZ5.jpg" alt=""><div class="em-s-bc-name">Küppersbusch</div></div>
+            <div class="em-s-bc"><img src="https://media.miele.com/images/2000015/200001503/20000150330.png" alt=""><div class="em-s-bc-name">Miele</div></div>
+            <div class="em-s-bc"><img src="https://media.miele.com/images/2000015/200001503/20000150330.png" alt=""><div class="em-s-bc-name">Gaggenau</div></div>
+          </div>
+          <div style="background:#1C1A18;padding:8px;text-align:center;font-size:9px;color:#C4A882;text-transform:uppercase;letter-spacing:1px;">Snaidero · Home Project · Telegram</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-wrap">
+      <div class="preview-label">AI Platform — текстовый, точный <span class="preview-or green">OR 36–51%</span></div>
+      <div class="preview-frame" style="background:#f4f4f4; padding:8px;">
+        <div class="em-platform">
+          <div class="em-p-hdr"><div class="em-p-hdr-name">HOME PROJECT <span style="color:#6c6c8a;font-size:10px;font-weight:400">AI Platform</span></div></div>
+          <div class="em-p-hero">
+            <div class="em-p-label">Для партнёров по БТ</div>
+            <div class="em-p-h1">Мы строим компании<br>нового поколения</div>
+            <div class="em-p-sub">Дистрибуция бытовой техники на AI-агентах</div>
+          </div>
+          <div class="em-p-body">
+            <div style="font-size:11px;font-weight:600;color:#1a1a2e;margin-bottom:8px;">Здравствуйте, {{Name}}!</div>
+            <div style="font-size:10px;color:#444;line-height:1.6;margin-bottom:8px;">Меня зовут Ария — AI-менеджер Home Project. За последние полгода мы построили операционную систему, в которой весь цикл дистрибуции ведут AI-агенты...</div>
+            <div class="em-p-box">
+              <div class="em-p-box-title">Что значит «компания нового поколения»?</div>
+              <div class="em-p-box-text">Один человек + команда AI-агентов → управляет каталогом из тысяч позиций, отвечает клиентам 24/7, собирает КП за 20 секунд...</div>
+            </div>
+            <div class="em-p-list">
+              · <strong>Каталог</strong> — 2 300+ товаров обновляется автоматически<br>
+              · <strong>AI-консультант 24/7</strong> — подбирает, квалифицирует<br>
+              · <strong>КП за 20 секунд</strong> — без участия менеджера<br>
+              · <strong>CRM и маркетинг</strong> — 14 000 контактов, рассылки
+            </div>
+            <a class="em-p-btn" href="#">Посмотреть как это работает</a>
+          </div>
+          <div style="background:#f5f5f5;padding:10px;text-align:center;font-size:9px;color:#999;">Home Project · Отписаться</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-wrap">
+      <div class="preview-label">Sep 01 (новые) — структурный <span class="preview-or gold">прогноз 15–25%</span></div>
+      <div class="preview-frame" style="background:#f4f4f4; padding:8px;">
+        <div class="em-sep">
+          <div class="em-sep-hdr">
+            <div class="em-sep-logo">HOME PROJECT</div>
+            <div class="em-sep-tag">AI-ПЛАТФОРМА · B2B ПАРТНЁРЫ</div>
+          </div>
+          <div class="em-sep-hero">
+            <h1 class="em-sep-h1">Один человек.<br>14 брендов.<br>Без операционного отдела.</h1>
+            <p class="em-sep-p">Меня зовут Ария — AI-менеджер компании Home Project. Весь каталог, CRM на 14 000 контактов ведёт один человек...</p>
+            <a href="#" class="em-sep-btn">Смотреть презентацию →</a>
+          </div>
+          <div class="em-sep-cards">
+            <div class="em-sep-card">
+              <div class="em-sep-card-tag">❌ Без платформы</div>
+              <div class="em-sep-card-h3">Операционка на людях</div>
+              <div class="em-sep-card-text">→ КП 2–3 дня, Excel, ручные прайсы...</div>
+            </div>
+            <div class="em-sep-card">
+              <div class="em-sep-card-tag" style="color:#22aa55;">✅ С AI-платформой</div>
+              <div class="em-sep-card-h3">Агенты делают рутину</div>
+              <div class="em-sep-card-text">→ КП 20 сек, каталог авто, 14 000 CRM...</div>
+            </div>
+          </div>
+          <div class="em-sep-brands" style="padding:8px 12px;">
+            <div style="font-size:8px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">14 брендов в портфеле</div>
+            <div class="em-sep-brand-row">
+              <span class="em-sep-brand-link">V-ZUG</span>
+              <span class="em-sep-brand-link">BORA</span>
+              <span class="em-sep-brand-link">Küppersbusch</span>
+            </div>
+            <div class="em-sep-brand-row">
+              <span class="em-sep-brand-link">Fhiaba</span>
+              <span class="em-sep-brand-link">Schulthess</span>
+              <span class="em-sep-brand-link">Salini</span>
+            </div>
+          </div>
+          <div style="padding:10px 12px;text-align:center;">
+            <a href="#" style="background:#1A1A1A;color:#fff;font-size:9px;font-weight:700;padding:7px 14px;border-radius:2px;text-decoration:none;display:inline-block;text-transform:uppercase;margin-right:6px;">Смотреть условия →</a>
+            <a href="#" style="border:1.5px solid #1A1A1A;color:#1A1A1A;font-size:9px;font-weight:700;padding:6px 12px;border-radius:2px;text-decoration:none;display:inline-block;text-transform:uppercase;">Написать →</a>
+          </div>
+          <div style="background:#1A1A1A;padding:10px;text-align:center;font-size:9px;color:#888;">Ария · info@homeproject.online · Отписаться</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-tag">Главный вывод анализа</div>
+    <div class="insight-title">Snaidero красивый, но молчит. Платформа некрасивая, но говорит.</div>
+    <div class="insight-body">
+      Snaidero: <strong>журнальный визуал → нет обращения к боли → OR 6.8%</strong>. Красота без релевантности = красивая витрина в пустом переулке.<br><br>
+      AI Platform: <strong>минималистичный текст → точное попадание в боль → OR 36–51%</strong>. Директор дистрибьютора открыл, потому что письмо говорило про его проблему — медленные КП и дорогих менеджеров.<br><br>
+      Sep 01: <strong>структурно правильно, но нет визуального якоря</strong>. Path-cards хороши, но глазу не за что зацепиться — нет ни одной живой фотографии продукта или интерьера.<br><br>
+      <strong>Вывод: нужно взять Snaidero-архитектуру (героя с живым фото, product-cards с изображениями) и наполнить её болью платформенного письма.</strong>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- PANEL 2: ANATOMY -->
+<div class="panel" id="panel-anatomy">
+<div class="analysis">
+
+  <div class="section-head">Детальный разбор</div>
+  <div class="section-title">Что делает Snaidero визуально цепляющим — и почему это не работает в одиночку</div>
+
+  <div class="anatomy">
+    <div class="anatomy-item good">
+      <div class="anatomy-tag good">✅ Работает — визуал</div>
+      <div class="anatomy-title">Полноширинное hero-фото с кинематограф. оверлеем</div>
+      <div class="anatomy-text">Тёмный градиент снизу + белый текст поверх фото — <strong>создаёт глубину и ощущение premium</strong>. Первые 0.3 секунды взгляд идёт на картинку, не на текст. Это правильно для luxury-продукта.</div>
+    </div>
+    <div class="anatomy-item good">
+      <div class="anatomy-tag good">✅ Работает — типографика</div>
+      <div class="anatomy-title">Cormorant Garamond: serif + курсив</div>
+      <div class="anatomy-text">Сочетание <em>«авторский проект»</em> курсивом на тёмном фоне — <strong>мгновенно считывается как luxury-бренд</strong>. Дизайнеры знают этот язык. Проблема: этот шрифт не грузится в Gmail/Outlook — заменяется на Times New Roman.</div>
+    </div>
+    <div class="anatomy-item good">
+      <div class="anatomy-tag good">✅ Работает — сетка коллекций</div>
+      <div class="anatomy-title">3-col grid с фото-карточками</div>
+      <div class="anatomy-text">Кликабельная сетка с overlay-заголовком <strong>визуально передаёт богатство ассортимента</strong>. Получатель сразу понимает: «здесь много красивых вещей». Это создаёт желание исследовать.</div>
+    </div>
+    <div class="anatomy-item good">
+      <div class="anatomy-tag good">✅ Работает — product cards</div>
+      <div class="anatomy-title">Техника с фото в карточках (contain, белый фон)</div>
+      <div class="anatomy-text">Карточки Küppersbusch / Gaggenau / Miele <strong>показывают реальный товар</strong>, а не просто логотип. Это ключевое отличие от sep01-писем: там бренды есть только как текстовые бейджи без фото.</div>
+    </div>
+    <div class="anatomy-item bad">
+      <div class="anatomy-tag bad">❌ Не работает — релевантность</div>
+      <div class="anatomy-title">Нет обращения к проблеме получателя</div>
+      <div class="anatomy-text">Дизайнер открывает письмо — и видит <strong>красивые кухни Snaidero</strong>. Но у него в голове вопрос: «Как я это закажу? Сколько ждать КП? Есть ли в наличии?» Ответа нет. Красота без ответа = 0 кликов.</div>
+    </div>
+    <div class="anatomy-item bad">
+      <div class="anatomy-tag bad">❌ Не работает — тема письма</div>
+      <div class="anatomy-title">«Кухни Snaidero + встроенная техника» — безликая</div>
+      <div class="anatomy-text">Тема выглядит как <strong>рекламный каталог</strong>, а не личное сообщение. Сравните с платформой: «Один человек управляет 14 брендами» — это история. Истории открывают, каталоги — нет.</div>
+    </div>
+    <div class="anatomy-item bad">
+      <div class="anatomy-tag bad">❌ Не работает — CTA</div>
+      <div class="anatomy-title">«Смотреть коллекции» — слабейший призыв</div>
+      <div class="anatomy-text">Нет ни конкретики, ни срочности, ни выгоды. <strong>Что именно я получу, нажав?</strong> Непонятно. «Получить КП за 20 секунд» = конкретный результат → гораздо выше CTR.</div>
+    </div>
+    <div class="anatomy-item bad">
+      <div class="anatomy-tag bad">❌ Не работает — одинаковый шаблон</div>
+      <div class="anatomy-title">Warm и cold получили идентичное письмо</div>
+      <div class="anatomy-text">Warm-дизайнеры (уже знакомы с нами) и cold (первое касание) <strong>получили одно и то же письмо</strong>. Персонализация нулевая. Warm сегмент должен получать «продолжение», cold — «знакомство».</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-tag">Ключевой вывод по Snaidero</div>
+    <div class="insight-title">Snaidero решил задачу «выглядеть красиво», но не решил задачу «заставить кликнуть»</div>
+    <div class="insight-body">
+      Визуальная архитектура Snaidero <strong>правильная</strong>: hero + grid + product cards + dark footer. Это лучшее письмо по структуре из всех наших шаблонов.<br><br>
+      Но контент не даёт получателю ответа на вопрос <strong>«Что мне с этим делать?»</strong>. Нет обоснования почему именно сейчас, нет конкретного следующего шага, нет персонализации под сегмент.<br><br>
+      <strong>Задача: взять структуру Snaidero → заменить контент на pain-point копирайт платформенного письма → добавить реальные product-cards с фото из нашего каталога.</strong>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- PANEL 3: FORMULA -->
+<div class="panel" id="panel-formula">
+<div class="analysis">
+
+  <div class="section-head">Новая концепция</div>
+  <div class="section-title">Формула письма, которое и выглядит, и конвертирует</div>
+
+  <div class="formula">
+    <div class="formula-item">
+      <div class="fi-name">Snaidero-архитектура</div>
+      <div class="fi-sub">Hero-фото + product-cards + dark footer</div>
+    </div>
+    <div class="formula-plus">+</div>
+    <div class="formula-item">
+      <div class="fi-name">Pain-copy платформы</div>
+      <div class="fi-sub">Боль → решение → конкретный CTA</div>
+    </div>
+    <div class="formula-plus">+</div>
+    <div class="formula-item">
+      <div class="fi-name">Brand-grid Sep01</div>
+      <div class="fi-sub">Кликабельные бейджи брендов</div>
+    </div>
+    <div class="formula-eq">=</div>
+    <div class="formula-result">
+      <div class="fr-name">Целевой OR 25–40%</div>
+      <div class="fr-sub">CTR ≥ 2% · визуально premium</div>
+    </div>
+  </div>
+
+  <div class="section-head" style="margin-top:32px;">Предлагаемая структура нового письма</div>
+  <div class="section-title" style="font-size:18px;">Новый шаблон = Snaidero + Платформа + Sep01</div>
+
+  <div style="max-width:600px; margin:0 auto 32px;">
+    <div class="preview-wrap">
+      <div class="preview-label">Новый концепт — как должно выглядеть <span class="preview-or gold">цель OR 25–40%</span></div>
+      <div class="preview-frame" style="background:#f4f4f4; padding:8px; height:600px;">
+        <div class="em-new">
+          <div class="em-new-hdr">
+            <div class="em-new-logo">HOME PROJECT</div>
+            <div class="em-new-tag">AI-ПЛАТФОРМА · B2B ПАРТНЁРЫ</div>
+          </div>
+          <div class="em-new-hero">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&h=350&fit=crop" alt="Современный офис">
+            <div class="em-new-hero-ov"></div>
+            <div class="em-new-hero-txt">
+              <div class="em-new-h1">Один человек.<br><em>14 брендов.</em><br>Без отдела продаж.</div>
+              <div class="em-new-sub">AI-операционка Home Project · для партнёров-дистрибьюторов</div>
+            </div>
+          </div>
+          <div class="em-new-stats">
+            <div class="em-new-stat"><div class="em-new-stat-n">~3 000</div><div class="em-new-stat-l">писем/мес</div></div>
+            <div class="em-new-stat"><div class="em-new-stat-n">20 сек</div><div class="em-new-stat-l">на КП</div></div>
+            <div class="em-new-stat"><div class="em-new-stat-n">14 000</div><div class="em-new-stat-l">контактов</div></div>
+          </div>
+          <div class="em-new-cards">
+            <div class="em-new-card">
+              <div class="em-new-card-tag" style="color:#cc4444;">❌ Без платформы</div>
+              <div class="em-new-card-h3">Операционка на людях</div>
+              <div class="em-new-card-text">КП 2–3 дня · менеджеры в Excel · прайсы устаревают</div>
+            </div>
+            <div class="em-new-card">
+              <div class="em-new-card-tag" style="color:#22aa55;">✅ С AI-платформой</div>
+              <div class="em-new-card-h3">Агенты делают рутину</div>
+              <div class="em-new-card-text">КП 20 сек · каталог авто · 14 000 CRM · рассылки сами</div>
+            </div>
+          </div>
+          <div class="em-new-tech">
+            <div class="em-new-tech-title">14 брендов · кликните для просмотра каталога</div>
+            <div class="em-new-tech-grid">
+              <div class="em-new-bc"><img src="https://new.homeproject.online/static/1785957011380-GO450120.jpg" alt="V-ZUG"><div class="em-new-bc-name">V-ZUG</div></div>
+              <div class="em-new-bc"><img src="https://teka.b-cdn.net/CMP1219/OZGO26BI44713_Kitchen_SS_04_VarioLine_Stainless_Steel_acc_in_Beige_Kitchen_SZ5.jpg" alt="Küppersbusch"><div class="em-new-bc-name">Küppersbusch</div></div>
+              <div class="em-new-bc"><img src="https://new.homeproject.online/static/1785957018221-GS450120.jpg" alt="Fhiaba"><div class="em-new-bc-name">Fhiaba</div></div>
+            </div>
+          </div>
+          <a class="em-new-btn" href="#">Первые 10 партнёров — льготные условия →</a>
+          <div style="background:#1C1A18;padding:8px;text-align:center;font-size:9px;color:#888;">Ария · info@homeproject.online · @HomeProjectMsk · Отписаться</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="win-detail">
+    <div class="win-col">
+      <div class="win-col-title">Что берём от Snaidero</div>
+      <ul class="win-list">
+        <li><strong>Hero-блок с живым фото</strong> — интерьер или продукт, тёмный оверлей, текст поверх</li>
+        <li><strong>Serif-курсив в заголовке</strong> — Georgia italic на тёмном фоне</li>
+        <li><strong>Product-cards с фото</strong> — реальный товар из каталога (contain, белый фон)</li>
+        <li><strong>Тёмный footer</strong> с ссылками на соцсети</li>
+        <li><strong>Разделительная полоска</strong> между разделами с текстом</li>
+        <li><strong>Тёплый акцент</strong> #C4A882 — вместо нашего #C9A36A</li>
+      </ul>
+    </div>
+    <div class="win-col">
+      <div class="win-col-title">Что берём от AI Platform</div>
+      <ul class="win-list">
+        <li><strong>Открывающая боль</strong> — первый абзац = проблема получателя</li>
+        <li><strong>Конкретные цифры</strong> — «20 секунд», «14 000 контактов»</li>
+        <li><strong>Личный тон от Арии</strong> — не «мы предлагаем», а «я расскажу»</li>
+        <li><strong>Точный CTA</strong> — «Посмотреть как это работает» > «Смотреть каталог»</li>
+        <li><strong>Срочность</strong> — «первые 10 партнёров» = ограниченность</li>
+        <li><strong>Pain-cards</strong> — До/После в сравнении</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-tag">Финальная рекомендация</div>
+    <div class="insight-title">Три обновлённых письма: AI-Platform, BT (бытовая техника), Дизайнеры</div>
+    <div class="insight-body">
+      Каждое письмо получает:
+      <strong>1)</strong> Hero-блок с релевантным фото (AI Platform → офис; BT → lifestyle-кухня; Дизайнеры → интерьерный проект)<br>
+      <strong>2)</strong> Pain-hook в первом абзаце, специфичный для каждого сегмента<br>
+      <strong>3)</strong> Product-cards с реальными фото из нашего каталога<br>
+      <strong>4)</strong> Статистика-полоска (цифры = доверие)<br>
+      <strong>5)</strong> Двойной CTA: primary (действие) + outline (альтернатива)<br>
+      Результат: <strong>визуальный вес Snaidero + конверсионная точность платформы</strong>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- PANEL 4: RECOMMENDATIONS -->
+<div class="panel" id="panel-recs">
+<div class="analysis">
+
+  <div class="section-head">Конкретные улучшения</div>
+  <div class="section-title">Что поменять в каждом письме</div>
+
+  <div class="recs">
+    <div class="rec-card">
+      <div class="rec-header platform">
+        <div class="rec-tag">📊 OR 36–51% сейчас</div>
+        <div class="rec-name">AI Platform</div>
+        <div class="rec-sub">Цель: 40–55% OR + CTR 3–5%</div>
+      </div>
+      <div class="rec-body">
+        <div class="rec-item">
+          <div class="rec-item-head">1. Добавить hero-фото</div>
+          <div class="rec-item-text">Сейчас письмо начинается с тёмного градиента без образа. Нужен живой визуал — современный офис или data-dashboard. Это поднимет ощущение серьёзности.</div>
+          <div class="before-after">
+            <div class="ba-col"><div class="ba-label before">Сейчас</div><div class="ba-text">Градиент + текст-заголовок</div></div>
+            <div class="ba-col"><div class="ba-label after">После</div><div class="ba-text">Lifestyle-фото офиса + заголовок поверх оверлея</div></div>
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-head">2. Добавить product-cards из каталога</div>
+          <div class="rec-item-text">После текста — сетка 3 карточки с фото реальных товаров. Переключает письмо от «рассказываю» к «показываю», повышает CTR.</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-head">3. Статистика-бейджи</div>
+          <div class="rec-item-text">«~3 000 писем / 20 сек / 14 000 контактов» — тёмная полоска с тремя цифрами прямо под hero. Визуальное доказательство.</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-head">4. Тема письма — добавить число</div>
+          <div class="before-after">
+            <div class="ba-col"><div class="ba-label before">Сейчас</div><div class="ba-text">"Мы строим компании нового поколения"</div></div>
+            <div class="ba-col"><div class="ba-label after">После</div><div class="ba-text">"КП за 20 сек. Без менеджера. Смотрите как."</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-header bt">
+        <div class="rec-tag">🏠 OR 8.7% сейчас (warm_bt)</div>
+        <div class="rec-name">Бытовая техника</div>
+        <div class="rec-sub">Цель: 20–30% OR + CTR 2–3%</div>
+      </div>
+      <div class="rec-body">
+        <div class="rec-item">
+          <div class="rec-item-head">1. Заменить таблицу-список на hero + карточки</div>
+          <div class="rec-item-text">Текущий шаблон — справочник-каталог: бренды в строках таблицы. Нет эмоции. Нужен hero-блок с интерьерным фото + 3–4 карточки с фото конкретных моделей.</div>
+          <div class="before-after">
+            <div class="ba-col"><div class="ba-label before">Сейчас</div><div class="ba-text">Строки таблицы: V-ZUG | описание | цена</div></div>
+            <div class="ba-col"><div class="ba-label after">После</div><div class="ba-text">Hero-интерьер + карточки с фото товара</div></div>
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-head">2. Персонализировать тему</div>
+          <div class="before-after">
+            <div class="ba-col"><div class="ba-label before">Сейчас</div><div class="ba-text">"V-ZUG, Gaggenau, Küppersbusch — встроенная техника для ваших объектов"</div></div>
+            <div class="ba-col"><div class="ba-label after">После</div><div class="ba-text">"Ваши клиенты хотят V-ZUG. Мы готовы дать КП за 20 секунд."</div></div>
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-head">3. Сократить до 4–5 брендов</div>
+          <div class="rec-item-text">Сейчас 14 брендов — перегрузка. Оставить топ-4 по категории. Добавить «Все 14 брендов →» в конце.</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-head">4. Убрать «по запросу» — токсично для конверсии</div>
+          <div class="rec-item-text">«По запросу» без цены убивает CTA. Либо поставить «от X ₽», либо убрать ценовой столбец совсем и заменить на кнопку КП.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-header designer">
+        <div class="rec-tag">✏️ OR 6–9% сейчас (Snaidero/welcome)</div>
+        <div class="rec-name">Дизайнеры и архитекторы</div>
+        <div class="rec-sub">Цель: 20–30% OR + CTR 2%</div>
+      </div>
+      <div class="rec-body">
+        <div class="rec-item">
+          <div class="rec-item-head">1. Взять Snaidero-структуру целиком</div>
+          <div class="rec-item-text">Hero-фото кухонного интерьера с тёмным оверлеем — оставить. Убрать «Snaidero» из названий, поставить наши бренды: V-ZUG, BORA, Küppersbusch.</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-head">2. Полностью переписать тему</div>
+          <div class="before-after">
+            <div class="ba-col"><div class="ba-label before">Сейчас</div><div class="ba-text">"Кухни Snaidero + встроенная техника"</div></div>
+            <div class="ba-col"><div class="ba-label after">После</div><div class="ba-text">"Клиент ждёт КП неделю? У нас — 20 секунд."</div></div>
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-head">3. Разделить warm и cold содержание</div>
+          <div class="rec-item-text"><strong>Warm:</strong> «Мы рады, что вы с нами — вот что появилось нового» + новинки каталога.<br><strong>Cold:</strong> «Знакомство» — кто мы, боль + решение, один чёткий CTA.</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-head">4. Добавить 2 конкретных продукта с фото</div>
+          <div class="rec-item-text">Флагманская модель V-ZUG + флагман BORA — с реальными фото из каталога. Кнопка «Добавить в КП» под каждой карточкой.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-tag">Следующий шаг</div>
+    <div class="insight-title">Перестроить 3 шаблона по новой формуле</div>
+    <div class="insight-body">
+      Приоритет: <strong>1) AI Platform</strong> — уже работает (OR 36%+), добавить визуал → ещё лучше.<br>
+      <strong>2) Дизайнеры</strong> — взять Snaidero-структуру + переписать копирайт + наши бренды.<br>
+      <strong>3) БТ</strong> — перейти от таблицы к карточкам + hero.<br><br>
+      Если дать добро — пересобираю все три с нуля по этой формуле.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+function showPanel(id, el) {
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById('panel-' + id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
