@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Встраиваемая техника для ваших объектов — Home Project</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:15px;color:#1A1A2E;background:#f4f4f4}
+.wrap{max-width:620px;margin:0 auto;background:#fff}
+.eh{background:#0B0C0F;padding:20px 32px;text-align:center;border-bottom:3px solid;border-image:linear-gradient(90deg,#F59E0B,#2563EB,#8B5CF6,#EC4899) 1}
+.eh .br{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.38);font-family:Arial}
+.eh .brm{font-size:19px;font-weight:700;color:#fff;letter-spacing:1px;font-family:Arial}
+.hero{background:linear-gradient(135deg,#0c1120 0%,#172040 50%,#231545 100%);padding:32px 32px 24px;text-align:center}
+.hero h1{font-size:22px;font-weight:800;color:#fff;font-family:Arial;line-height:1.3;margin-bottom:10px}
+.hero .sub{font-size:13.5px;color:rgba(255,255,255,.6);font-family:Arial;line-height:1.55}
+.stats-tbl{margin:20px auto 0;border-collapse:separate;border-spacing:8px 0}
+.sp{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);border-radius:22px;padding:8px 18px;text-align:center}
+.sp .sn{font-size:16px;font-weight:900;color:#fff;font-family:Arial;display:block}
+.sp .sl{font-size:10px;color:rgba(255,255,255,.52);font-family:Arial}
+.ec{padding:24px 32px 0;background:#fff}
+.intro{font-size:15px;color:#333;line-height:1.65;font-family:Arial;margin-bottom:4px}
+.ch{display:table;width:100%;margin:24px 0 10px;font-family:Arial}
+.cb{display:table-cell;width:5px;vertical-align:middle;padding-right:10px}
+.cb span{display:block;width:5px;height:22px;border-radius:3px}
+.ct{display:table-cell;vertical-align:middle;font-size:15px;font-weight:800;color:#1A1A2E;text-decoration:none}
+.cn{font-size:12px;color:#aaa;margin-left:8px;font-weight:400}
+.bc{display:table;width:100%;border-radius:9px;margin-bottom:7px;font-family:Arial;border:1px solid #eee;border-left:4px solid #eee;background:#F8FAFF}
+.bc .bn{display:table-cell;width:148px;vertical-align:middle;padding:11px 10px 11px 14px}
+.bc .bn a{font-size:14px;font-weight:800;color:#1A1A2E;text-decoration:none;display:block;margin-bottom:2px}
+.bc .bd{display:table-cell;vertical-align:middle;font-size:12px;color:#626978;line-height:1.4;padding:11px 6px}
+.bc .bpr{display:table-cell;vertical-align:middle;text-align:right;padding:11px 14px 11px 6px;white-space:nowrap}
+.bc .bpr a{display:inline-block;font-size:12px;font-weight:800;color:#fff;border-radius:14px;padding:5px 11px;text-decoration:none}
+.ptag{display:inline-block;font-size:10px;font-weight:700;background:#F3F4F6;color:#6B7280;border-radius:8px;padding:2px 7px;margin-top:3px}
+.ptag-p{background:#FDF4FF;color:#9333EA}
+.mc{text-align:right;margin:4px 0 8px;font-family:Arial}
+.mc a{font-size:12.5px;font-weight:700;color:#2563EB;text-decoration:none}
+.div{height:1px;background:#F0F2F6;margin:8px 0}
+.why{background:#0d1421;border-radius:12px;padding:22px 24px;margin:20px 0;font-family:Arial}
+.why .wt{font-size:15px;font-weight:800;color:#fff;margin-bottom:14px}
+.why-tbl{width:100%;border-collapse:separate;border-spacing:10px 0}
+.wc{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;text-align:center;vertical-align:top}
+.wc .wi{font-size:22px;margin-bottom:6px}
+.wc .wn{font-size:13px;font-weight:800;color:#fff;margin-bottom:4px}
+.wc .wd{font-size:11px;color:rgba(255,255,255,.6);line-height:1.4}
+.ai{background:linear-gradient(135deg,#2563EB 0%,#6D4AE0 100%);border-radius:12px;padding:20px 22px;margin:18px 0;font-family:Arial}
+.ai .at{font-size:15px;font-weight:800;color:#fff;margin-bottom:12px}
+.ar{font-size:13px;color:rgba(255,255,255,.92);line-height:1.8;padding-left:4px}
+.res{background:#F8FAFF;border:1px solid #E5EEFF;border-radius:10px;padding:16px 20px;margin:18px 0;font-family:Arial}
+.res .rt{font-size:13px;font-weight:800;color:#1A1A2E;margin-bottom:10px}
+.cta{text-align:center;padding:4px 0 24px;font-family:Arial}
+.cta a.btn{display:inline-block;background:#F59E0B;color:#fff;text-decoration:none;padding:15px 44px;border-radius:10px;font-size:15px;font-weight:800}
+.cta .cs{margin-top:10px;font-size:12px;color:#999}
+.cta .cs a{color:#2563EB;text-decoration:none;font-weight:600}
+.ef{background:#0B0C0F;padding:20px 32px;font-family:Arial;text-align:center}
+.ef .fn{font-size:14px;font-weight:800;color:#fff;letter-spacing:1.5px;margin-bottom:4px}
+.ef .fp{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:12px}
+.ef .fli a{color:#7FB0FF;text-decoration:none;margin:0 6px;font-size:12.5px}
+.disc{background:#fff;padding:12px 32px;font-size:11.5px;color:#9aa0ac;font-family:Arial;line-height:1.5;text-align:center;border-top:1px solid #EEF0F4}
+.unsub{text-align:center;padding:10px 32px 16px;font-size:11px;color:#bbb;font-family:Arial;background:#fff}
+.unsub a{color:#bbb}
+.subjbar{max-width:620px;margin:0 auto 2px;padding:10px 32px;background:#eef1f6;font-size:12px;color:#667;font-family:Arial}
+.subjbar b{color:#1A1A2E}
+</style>
+</head>
+<body>
+<div class="subjbar"><b>Тема:</b> Встраиваемая техника для ваших объектов — 14 брендов в одном месте<br><b>Прехедер:</b> Готовка · Холод · Стирка · Профи-плиты — полная комплектация под объект.</div>
+<div class="wrap">
+<div class="eh"><div class="br">HOME PROJECT</div><div class="brm">Premium Built-in Appliances</div></div>
+<div class="hero">
+  <h1>Встраиваемая техника для ваших объектов —<br>14 брендов в одном месте</h1>
+  <div class="sub">Готовка · Холод · Стирка · Профи-плиты — полная комплектация.<br>Официальный дистрибьютор и партнёрские бренды.</div>
+  <table class="stats-tbl" role="presentation"><tr>
+    <td><div class="sp"><span class="sn">14</span><span class="sl">брендов</span></div></td>
+    <td><div class="sp"><span class="sn">РФ</span><span class="sl">склад</span></div></td>
+    <td><div class="sp"><span class="sn">2 мин</span><span class="sl">КП под объект</span></div></td>
+    <td><div class="sp"><span class="sn">4</span><span class="sl">категории</span></div></td>
+  </tr></table>
+</div>
+<div class="ec">
+<div class="intro" style="margin-top:20px">Здравствуйте!<br><br>Home Project — официальный дистрибьютор <strong>14 брендов</strong> встраиваемой техники премиум-класса. Ниже — все бренды по категориям. Каждое название — ссылка в каталог. КП под ваш объект — за 2–3 минуты.</div>
+
+<table class="ch" role="presentation"><tr><td class="cb"><span style="background:#F59E0B"></span></td><td><a class="ct" href="https://homeproject.online/ru/categories/духовой-шкаф?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=cooking-head">🔥 Готовка</a><span class="cn">духовые · паровые · варочные · вытяжки</span></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#F59E0B;background:#FFFBF0;border-color:#FAE8B0"><tr><td class="bn"><a href="https://homeproject.online/ru/categories/v-zug?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=vzug">V-ZUG</a><span class="ptag">🇨🇭 Швейцария</span></td><td class="bd">Паровые шкафы, духовые, варочные — швейцарский флагман для топ-объектов.</td><td class="bpr"><a href="https://homeproject.online/ru/categories/v-zug?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=vzug-p" style="background:#F59E0B">от 437 840 ₽</a></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#F59E0B;background:#FFFBF0;border-color:#FAE8B0"><tr><td class="bn"><a href="https://homeproject.online/ru/store?q=gaggenau&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=gaggenau">Gaggenau</a><span class="ptag ptag-p">🤝 партнёр</span></td><td class="bd">Ультра-премиум: духовые Series 400/200, пар, вакуумные ящики — выбор шеф-поваров и архитекторов.</td><td class="bpr"><a href="https://homeproject.online/ru/store?q=gaggenau&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=gaggenau-p" style="background:#64748B">по запросу</a></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#F59E0B;background:#FFFBF0;border-color:#FAE8B0"><tr><td class="bn"><a href="https://homeproject.online/ru/store?q=bora&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=bora">BORA</a><span class="ptag">🇩🇪 Германия</span></td><td class="bd">Индукционные панели с интегрированной вытяжкой — без навесной вытяжки. Для дизайн-проектов.</td><td class="bpr"><a href="https://homeproject.online/ru/store?q=bora&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=bora-p" style="background:#64748B">по запросу</a></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#F59E0B;background:#FFFBF0;border-color:#FAE8B0"><tr><td class="bn"><a href="https://homeproject.online/ru/categories/kuppersbusch?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=kup">Küppersbusch</a><span class="ptag">🇩🇪 Германия</span></td><td class="bd">Полная линейка: духовые, варочные, посудомойки, винные шкафы, холодильники. Немецкий минимализм.</td><td class="bpr"><a href="https://homeproject.online/ru/categories/kuppersbusch?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=kup-p" style="background:#F59E0B">от 101 990 ₽</a></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#F59E0B;background:#FFFBF0;border-color:#FAE8B0"><tr><td class="bn"><a href="https://homeproject.online/ru/store?q=graude&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=graude">Graude</a><span class="ptag">🇩🇪 Германия</span></td><td class="bd">Духовые с пиролизом и AirFry, комбо-шкафы с паром. Немецкое качество в доступном премиуме.</td><td class="bpr"><a href="https://homeproject.online/ru/store?q=graude&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=graude-p" style="background:#F59E0B">от 94 990 ₽</a></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#F59E0B;background:#FFFBF0;border-color:#FAE8B0"><tr><td class="bn"><a href="https://homeproject.online/ru/store?q=de+dietrich&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=dd">De Dietrich</a><span class="ptag">🇫🇷 Франция</span></td><td class="bd">Духовые, вытяжки, варочные серии HORIZONE — французские технологии, широкий ассортимент.</td><td class="bpr"><a href="https://homeproject.online/ru/store?q=de+dietrich&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=dd-p" style="background:#F59E0B">от 73 990 ₽</a></td></tr></table>
+<div class="mc"><a href="https://homeproject.online/ru/categories/духовой-шкаф?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=cooking-mc">Все духовые шкафы →</a> &nbsp;·&nbsp; <a href="https://homeproject.online/ru/categories/варочная-поверхность?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=hob-mc">Варочные поверхности →</a></div>
+<div class="div"></div>
+
+<table class="ch" role="presentation"><tr><td class="cb"><span style="background:#06B6D4"></span></td><td><a class="ct" href="https://homeproject.online/ru/categories/встраиваемый-холодильник?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=cold-head">❄️ Холодильное оборудование</a><span class="cn">встраиваемые · морозильники · винные шкафы</span></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#06B6D4;background:#F0FCFF;border-color:#B3ECF8"><tr><td class="bn"><a href="https://homeproject.online/ru/store?q=fhiaba&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=fhiaba">Fhiaba</a><span class="ptag">🇮🇹 Италия</span></td><td class="bd">Встраиваемые холодильники и морозильники премиум. No Frost, тихая работа, высота до 205 см.</td><td class="bpr"><a href="https://homeproject.online/ru/store?q=fhiaba&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=fhiaba-p" style="background:#06B6D4">по запросу</a></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#06B6D4;background:#F0FCFF;border-color:#B3ECF8"><tr><td class="bn"><a href="https://homeproject.online/ru/store?q=sks&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=sks">SKS</a><span class="ptag">🇩🇪 Германия</span></td><td class="bd">Встраиваемые холодильники и морозильные камеры. Широкий типоразмерный ряд под любой гарнитур.</td><td class="bpr"><a href="https://homeproject.online/ru/store?q=sks&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=sks-p" style="background:#06B6D4">по запросу</a></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#06B6D4;background:#F0FCFF;border-color:#B3ECF8"><tr><td class="bn"><a href="https://homeproject.online/ru/categories/kuppersbusch?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=kup-wine">Küppersbusch<br><small style="font-weight:400;font-size:11px;color:#888">Винные шкафы</small></a><span class="ptag">🇩🇪 Германия</span></td><td class="bd">Встраиваемые винные шкафы с двухзонным охлаждением — органично в любой кухонный гарнитур.</td><td class="bpr"><a href="https://homeproject.online/ru/categories/винный-шкаф?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=wine-p" style="background:#06B6D4">от 101 990 ₽</a></td></tr></table>
+<div class="mc"><a href="https://homeproject.online/ru/categories/встраиваемый-холодильник?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=cold-mc">Все холодильники →</a> &nbsp;·&nbsp; <a href="https://homeproject.online/ru/categories/винный-шкаф?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=wine-mc">Винные шкафы →</a></div>
+<div class="div"></div>
+
+<table class="ch" role="presentation"><tr><td class="cb"><span style="background:#10B981"></span></td><td><a class="ct" href="https://homeproject.online/ru/categories/стиральная-машина-60см?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=laundry-head">💧 Стирка и сушка</a><span class="cn">встраиваемые стиральные и сушильные машины</span></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#10B981;background:#F0FDF8;border-color:#A7F0D4"><tr><td class="bn"><a href="https://homeproject.online/ru/categories/v-zug?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=vzug-laundry">V-ZUG</a><span class="ptag">🇨🇭 Швейцария</span></td><td class="bd">Встраиваемые стиральные и сушильные машины премиум. Twindos, минимальный шум для жилых объектов.</td><td class="bpr"><a href="https://homeproject.online/ru/categories/v-zug?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=vzug-laundry-p" style="background:#10B981">по запросу</a></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#10B981;background:#F0FDF8;border-color:#A7F0D4"><tr><td class="bn"><a href="https://homeproject.online/ru/store?q=schulthess&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=schulthess">Schulthess</a><span class="ptag">🇨🇭 Швейцария</span></td><td class="bd">Встраиваемые стиральные и сушильные Swiss Made. Долговечность, точное дозирование, тихая работа.</td><td class="bpr"><a href="https://homeproject.online/ru/store?q=schulthess&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=schulthess-p" style="background:#10B981">от 322 140 ₽</a></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#10B981;background:#F0FDF8;border-color:#A7F0D4"><tr><td class="bn"><a href="https://homeproject.online/ru/store?q=graude&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=graude-laundry">Graude</a><span class="ptag">🇩🇪 Германия</span></td><td class="bd">Встраиваемые стиральные машины — немецкое качество и современный функционал в премиум-сегменте.</td><td class="bpr"><a href="https://homeproject.online/ru/store?q=graude&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=graude-laundry-p" style="background:#10B981">по запросу</a></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#10B981;background:#F0FDF8;border-color:#A7F0D4"><tr><td class="bn"><a href="https://homeproject.online?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=miele">Miele</a><span class="ptag ptag-p">🤝 партнёр</span></td><td class="bd">Встраиваемые стиральные и сушильные — доступны через нашего партнёра по запросу.</td><td class="bpr"><a href="https://homeproject.online?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=miele-p" style="background:#64748B">по запросу</a></td></tr></table>
+<div class="mc"><a href="https://homeproject.online/ru/categories/стиральная-машина-60см?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=wash-mc">Стиральные машины →</a> &nbsp;·&nbsp; <a href="https://homeproject.online/ru/categories/сушильная-машина-60см?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=dry-mc">Сушильные машины →</a></div>
+<div class="div"></div>
+
+<table class="ch" role="presentation"><tr><td class="cb"><span style="background:#F43F5E"></span></td><td><a class="ct" href="https://homeproject.online/ru/store?q=ilve&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=ranges-head">🍳 Профессиональные плиты</a><span class="cn">газ · электро · комбо · цвет на заказ</span></td></tr></table>
+<table class="bc" role="presentation" style="border-left-color:#F43F5E;background:#FFF5F7;border-color:#FAC5CE"><tr><td class="bn"><a href="https://homeproject.online/ru/store?q=ilve&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=ilve">ILVE</a><span class="ptag">🇮🇹 Италия</span></td><td class="bd">Профессиональные плиты Made in Italy — газ, электро, индукция, любые цвета RAL на заказ.</td><td class="bpr"><a href="https://homeproject.online/ru/store?q=ilve&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=ilve-p" style="background:#F43F5E">по запросу</a></td></tr></table>
+<div class="mc"><a href="https://homeproject.online/ru/store?q=ilve&utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=ilve-mc">Посмотреть все плиты ILVE →</a></div>
+
+<div class="why">
+  <div class="wt">⭐ Почему Home Project</div>
+  <table class="why-tbl" role="presentation"><tr>
+    <td class="wc"><div class="wi">🏭</div><div class="wn">Склад в РФ</div><div class="wd">Готовый запас — без ожидания из Европы</div></td>
+    <td class="wc"><div class="wi">⚡</div><div class="wn">КП за 2–3 мин</div><div class="wd">AI подбирает по вашему списку позиций</div></td>
+    <td class="wc"><div class="wi">🔗</div><div class="wn">14 брендов, 1 договор</div><div class="wd">Один прайс для полной комплектации объекта</div></td>
+  </tr></table>
+</div>
+
+<div class="ai">
+  <div class="at">🤖 AI-подбор техники под объект</div>
+  <div class="ar">
+    ✓ Пришлите список позиций — КП готово за 2–3 минуты<br>
+    ✓ Характеристики, наличие, сроки поставки — сразу по всем 14 брендам<br>
+    ✓ Подбор аналогов, если нужная позиция не в наличии<br>
+    ✓ Без звонков дилерам — одно окно для всей комплектации
+  </div>
+</div>
+
+<div class="res">
+  <div class="rt">🔗 Быстрые ссылки</div>
+  <table role="presentation"><tr>
+    <td style="padding:0 6px 0 0"><a href="https://homeproject.online?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=res-cat" style="display:inline-block;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:20px;text-decoration:none;border:1.5px solid #2563EB;color:#2563EB;background:#fff">🛍 Каталог</a></td>
+    <td style="padding:0 6px"><a href="https://homeproject.online?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=res-kp" style="display:inline-block;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:20px;text-decoration:none;border:1.5px solid #F97316;color:#F97316;background:#fff">📋 Запросить КП</a></td>
+    <td style="padding:0 6px"><a href="https://t.me/HomeProjectMsk?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=res-tg" style="display:inline-block;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:20px;text-decoration:none;border:1.5px solid #0088cc;color:#0088cc;background:#fff">✈️ Telegram</a></td>
+    <td style="padding:0 0 0 6px"><a href="https://homeproject.online?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=res-contact" style="display:inline-block;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:20px;text-decoration:none;border:1.5px solid #10B981;color:#10B981;background:#fff">💬 Написать нам</a></td>
+  </tr></table>
+</div>
+
+<div class="cta">
+  <a class="btn" href="https://homeproject.online?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=main-cta">Открыть каталог и запросить КП →</a>
+  <div class="cs">или <a href="https://t.me/HomeProjectMsk?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=tg-cta">напишите в Telegram @HomeProjectMsk</a> — подберём технику под ваш объект</div>
+</div>
+</div>
+
+<div class="ef">
+  <div class="fn">HOME PROJECT</div>
+  <div class="fp">Дистрибуция встраиваемой техники премиум-класса · Москва</div>
+  <div class="fli">
+    <a href="https://homeproject.online?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=footer-site">homeproject.online</a>
+    <a href="https://t.me/HomeProjectMsk?utm_source=email&utm_medium=email&utm_campaign=designers-bt-aug31&utm_content=footer-tg">Telegram-канал</a>
+  </div>
+</div>
+<div class="disc">С вами общается Ария — AI-менеджер Home Project. Отвечу на письмо и помогу с подбором в любое время.</div>
+<div class="unsub">Вы получили это письмо, так как ранее проявляли интерес к Home Project.<br><a href="{{UNSUBSCRIBE}}">Отписаться от рассылки</a></div>
+</div>
+</body>
+</html>
