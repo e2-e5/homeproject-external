@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кухни Snaidero и встроенная техника — Home Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; }
+body { margin:0; padding:0; background:#EDE9E3; font-family:'Inter',sans-serif; }
+.email { max-width:640px; margin:0 auto; background:#fff; }
+.pre { background:#f8f6f3; padding:8px 28px; font-size:11px; color:#999; border-bottom:1px solid #eee; }
+.hdr { background:#1C1A18; padding:16px 28px; display:flex; align-items:center; justify-content:space-between; }
+.hdr-links { display:flex; gap:0; }
+.hdr-links a { font-size:11px; color:rgba(255,255,255,.4); text-decoration:none; letter-spacing:.08em; padding:0 12px; border-right:1px solid rgba(255,255,255,.1); }
+.hdr-links a:last-child { border:none; color:#C4A882; }
+.hero-a { display:block; text-decoration:none; position:relative; overflow:hidden; }
+.hero-a img { width:100%; height:310px; object-fit:cover; display:block; }
+.hero-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(28,26,24,.9) 0%,rgba(28,26,24,.15) 55%,transparent 100%); }
+.hero-txt { position:absolute; bottom:0; left:0; right:0; padding:28px 32px; }
+.hero-tag { font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#C4A882; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.hero-tag::before { content:''; width:20px; height:1px; background:#C4A882; display:block; }
+.h-title { font-family:'Cormorant Garamond',serif; font-size:34px; font-weight:300; color:#fff; line-height:1.1; margin:0 0 8px; }
+.h-title em { font-style:italic; }
+.h-sub { font-size:13px; font-weight:300; color:rgba(255,255,255,.7); margin:0 0 14px; }
+.h-btn { display:inline-flex; align-items:center; gap:7px; border:1px solid rgba(255,255,255,.35); color:#fff; font-size:10px; letter-spacing:.15em; text-transform:uppercase; padding:9px 20px; }
+.h-btn::after { content:'→'; }
+.body { padding:30px 28px; }
+.sec-tag { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#8B6F4E; margin-bottom:6px; }
+.sec-h { font-family:'Cormorant Garamond',serif; font-size:25px; font-weight:300; color:#1C1A18; margin:0 0 14px; }
+.sec-h em { font-style:italic; }
+.body-txt { font-size:14px; font-weight:300; color:#555; line-height:1.8; margin:0 0 22px; }
+.cg { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:8px; }
+.cc { display:block; text-decoration:none; position:relative; overflow:hidden; }
+.cc img { width:100%; height:165px; object-fit:cover; display:block; }
+.cc-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(28,26,24,.75) 0%,transparent 50%); }
+.cc-info { position:absolute; bottom:0; left:0; right:0; padding:11px 13px; }
+.cc-name { font-family:'Cormorant Garamond',serif; font-size:19px; font-weight:300; color:#fff; margin:0 0 2px; display:flex; align-items:center; justify-content:space-between; }
+.cc-name::after { content:'↗'; font-family:'Inter'; font-size:11px; opacity:.55; }
+.cc-sub { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+.wc { display:block; text-decoration:none; position:relative; overflow:hidden; margin-bottom:8px; }
+.wc img { width:100%; height:185px; object-fit:cover; display:block; }
+.wc-ov { position:absolute; inset:0; background:linear-gradient(105deg,rgba(28,26,24,.82) 0%,rgba(0,0,0,.2) 55%,transparent 100%); }
+.wc-txt { position:absolute; top:50%; left:0; transform:translateY(-50%); padding:20px 26px; }
+.wc-badge { display:inline-block; background:#8B6F4E; color:#fff; font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:3px 10px; margin-bottom:7px; }
+.wc-name { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:300; color:#fff; margin:0 0 4px; }
+.wc-desc { font-size:12px; color:rgba(255,255,255,.6); max-width:230px; line-height:1.5; margin:0; }
+.all-btn { display:block; text-align:center; background:#1C1A18; color:#fff; text-decoration:none; font-size:11px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; padding:14px; }
+.sep { display:flex; align-items:center; gap:14px; padding:26px 28px; }
+.sep-line { flex:1; height:1px; background:#EDE9E3; }
+.sep-txt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#C0BAB4; white-space:nowrap; }
+.tech { background:#F7F5F2; padding:28px; }
+.tech-intro { font-size:14px; font-weight:300; color:#555; line-height:1.8; margin:0 0 24px; }
+.tg3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:10px; }
+.bc { display:block; text-decoration:none; background:#fff; border:1px solid #EDE9E3; overflow:hidden; }
+.bc-img { background:#fff; display:flex; align-items:center; justify-content:center; height:200px; overflow:hidden; padding:16px; border-bottom:1px solid #f0ede8; }
+.bc-img img { max-width:100%; max-height:168px; object-fit:contain; display:block; }
+.bc-info { padding:14px 16px 16px; }
+.bc-brand { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#8B6F4E; margin-bottom:5px; }
+.bc-name { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:300; color:#1C1A18; margin:0 0 5px; line-height:1.2; }
+.bc-desc { font-size:12px; color:#888; line-height:1.55; margin:0 0 10px; }
+.bc-cta { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8B6F4E; display:flex; align-items:center; gap:5px; }
+.bc-cta::after { content:'→'; }
+.bw { display:flex; text-decoration:none; background:#fff; border:1px solid #EDE9E3; overflow:hidden; margin-bottom:0; }
+.bw-img { background:#fff; display:flex; align-items:center; justify-content:center; width:200px; flex-shrink:0; padding:16px; border-right:1px solid #f0ede8; }
+.bw-img img { max-width:100%; max-height:130px; object-fit:contain; }
+.bw-info { padding:18px 20px; display:flex; flex-direction:column; justify-content:center; }
+.bw-brand { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#8B6F4E; margin-bottom:6px; }
+.bw-name { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; color:#1C1A18; margin:0 0 6px; }
+.bw-desc { font-size:12px; color:#888; line-height:1.55; margin:0 0 10px; }
+.bw-cta { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8B6F4E; display:flex; align-items:center; gap:5px; }
+.bw-cta::after { content:'→'; }
+.cat-btn { display:block; text-align:center; background:#8B6F4E; color:#fff; text-decoration:none; font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; padding:14px; margin-top:10px; }
+.footer { padding:20px 28px; border-top:1px solid #EDE9E3; }
+.foot-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.foot-links { display:flex; gap:16px; }
+.foot-links a { font-size:11px; color:#8B6F4E; text-decoration:none; }
+.foot-copy { font-size:11px; color:#ccc; }
+.foot-txt { font-size:11px; color:#bbb; line-height:1.6; }
+.foot-txt a { color:#8B6F4E; text-decoration:none; }
+.disc { padding:14px 28px; font-size:11px; color:#aaa; text-align:center; line-height:1.5; }
+@media(max-width:540px){
+  .cg { grid-template-columns:1fr 1fr; }
+  .tg3 { grid-template-columns:1fr; }
+  .bw { flex-direction:column; }
+  .bw-img { width:100%; height:160px; border-right:none; border-bottom:1px solid #f0ede8; }
+  .body, .tech { padding:20px 16px; }
+  .hdr { padding:14px 16px; }
+  .h-title { font-size:24px; }
+}
+</style>
+</head>
+<body>
+  <div class="email">
+    <div class="pre">Кухни Snaidero и встроенная техника Küppersbusch, Gaggenau, Miele — Home Project, официальный партнёр в России</div>
+    <div class="hdr">
+      <svg style="fill:#E8470E;flex-shrink:0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 42.54" width="106" height="33">
+        <path d="M0 7.51h136V0H0zM0 42.55h136v-7.51H0z"/>
+        <path d="M60.86 13.41h-3.7v16.63h3.7zm0-3.4h-3.7v2.28h3.7z"/>
+        <path d="M8.93 13.4h3.39c2.01.06 3.63 1.68 3.7 3.69h-3.7a2.54 2.54 0 0 0-2.47-2.25h-.92v-1.44z"/><path d="M7.08 28.58h-.92a2.53 2.53 0 0 1-2.47-2.25H0a3.83 3.83 0 0 0 3.7 3.7h3.39v-1.45z"/><path d="M8.93 28.58h.92s2.47 0 2.47-3.07-2.47-3.07-2.47-3.07h-.92v-1.45h3.39s3.7 0 3.7 4.52-3.7 4.52-3.7 4.52H8.93z"/><path d="M7.08 20.99h-.92S3.7 20.99 3.7 17.92s2.46-3.07 2.46-3.07h.92V13.4H3.69C0 13.4 0 17.92 0 17.92s0 4.52 3.7 4.52h3.39v-1.45z"/><path d="M26.02 13.4h-7.08v16.63h3.7V17.92c0-3.07 2.46-3.07 2.46-3.07h.92z"/><path d="M27.87 13.4h3.39s3.69 0 3.69 4.52v12.11h-3.69V17.92c0-3.07-2.47-3.07-2.47-3.07h-.93V13.4z"/><path d="M44.96 13.4h-3.39a3.83 3.83 0 0 0-3.7 3.69h3.7a2.53 2.53 0 0 1 2.46-2.25h.93v-1.44z"/><path d="M46.81 28.58h.92s2.46 0 2.46-3.07-2.46-3.07-2.46-3.07h-.92v-1.45h.92s2.46 0 2.46-3.07-2.46-3.07-2.46-3.07h-.92V13.4h3.39s3.7 0 3.7 4.52v12.11h-7.09z"/><path d="M44.96 28.58h-.93s-2.46 0-2.46-3.07 2.46-3.07 2.46-3.07h.93v-1.45h-3.39s-3.69 0-3.69 4.52 3.69 4.52 3.69 4.52h3.39z"/><path d="M73.06 28.58h.92s2.47 0 2.47-3.07v-7.59c0-3.07-2.47-3.07-2.47-3.07h-.92V13.4h3.39v-3.39h3.69v20.02h-7.08v-1.45z"/><path d="M71.21 28.58h-.93s-2.46 0-2.46-3.07v-7.59c0-3.07 2.46-3.07 2.46-3.07h.93V13.4h-3.39s-3.69 0-3.69 4.52v7.59c0 4.52 3.69 4.52 3.69 4.52h3.39z"/><path d="M92.12 28.58h.92c1.26-.04 2.31-1 2.47-2.25h3.7a3.84 3.84 0 0 1-3.7 3.7h-3.39z"/><path d="M90.27 28.58h-.92s-2.47 0-2.47-3.07 2.47-3.07 2.47-3.07h.92v-1.45h-.92s-2.47 0-2.47-3.07 2.47-3.07 2.47-3.07h.92V13.4h-3.39s-3.69 0-3.69 4.52v7.59c0 4.52 3.69 4.52 3.69 4.52h3.39z"/><path d="M92.12 20.99h.92s2.47 0 2.47-3.07-2.47-3.07-2.47-3.07h-.92V13.4h3.39s3.7 0 3.7 4.52-3.7 4.52-3.7 4.52h-3.39z"/><path d="M109.23 13.4h-7.08v16.63h3.7V17.92c0-3.07 2.46-3.07 2.46-3.07h.93V13.4z"/><path d="M111.07 13.4h3.39c2.01.07 3.63 1.68 3.7 3.69h-3.7a2.54 2.54 0 0 0-2.47-2.25h-.92v-1.44z"/><path d="M127.06 28.58h-.93s-2.46 0-2.46-3.07v-7.59c0-3.07 2.46-3.07 2.46-3.07h.93V13.4h-3.39s-3.7 0-3.7 4.52v7.59c0 4.52 3.7 4.52 3.7 4.52h3.39z"/><path d="M128.9 28.58h.92s2.47 0 2.47-3.07v-7.59c0-3.07-2.47-3.07-2.47-3.07h-.93V13.4h3.39s3.69 0 3.69 4.52v7.59c0 4.52-3.69 4.52-3.69 4.52h-3.39v-1.45z"/>
+      </svg>
+      <div class="hdr-links">
+        <a href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=hdr">Сайт</a>
+        <a href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=hdr">Snaidero</a>
+      </div>
+    </div>
+    <a class="hero-a" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=hero">
+      <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=1200" alt="Snaidero ICONE OLA" />
+      <div class="hero-ov"></div>
+      <div class="hero-txt">
+        <div class="hero-tag">Официальный партнёр SNAIDERO в России</div>
+        <h2 class="h-title">Кухни Snaidero —<br><em>авторский проект</em><br>для вашего интерьера</h2>
+        <p class="h-sub">9 итальянских коллекций · расчёт за 1–2 рабочих дня</p>
+        <div class="h-btn">Смотреть коллекции</div>
+      </div>
+    </a>
+    <div class="body">
+      <div class="sec-tag">Коллекции Snaidero</div>
+      <div class="sec-h">Выберите <em>свой стиль</em></div>
+      <p class="body-txt">Нажмите на коллекцию — откроется страница с финишами, фото интерьеров и возможностью запросить индивидуальный расчёт.</p>
+      <div class="cg">
+        <a class="cc" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=ola#models">
+          <img src="https://admin.snaidero.com/media/ol4nsiff/04-icone-snaidero-ola-tra-il-deserto-e-il-mare.jpg?width=500" alt="OLA" />
+          <div class="cc-ov"></div>
+          <div class="cc-info"><div class="cc-name">OLA</div><div class="cc-sub">Pininfarina · Флагман</div></div>
+        </a>
+        <a class="cc" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=frame#models">
+          <img src="https://admin.snaidero.com/media/gdjpcmzp/10-sistema-snaidero-frame-ispirazioni-haute-couture.jpg?width=500" alt="Frame" />
+          <div class="cc-ov"></div>
+          <div class="cc-info"><div class="cc-name">Frame</div><div class="cc-sub">Iosa Ghini · Haute Couture</div></div>
+        </a>
+        <a class="cc" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=elementi#models">
+          <img src="https://admin.snaidero.com/media/qmkd55dm/02-sistema-snaidero-elementi-una-finestra-sul-futuro.jpg?width=500" alt="Elementi" />
+          <div class="cc-ov"></div>
+          <div class="cc-info"><div class="cc-name">Elementi</div><div class="cc-sub">Керамика · алюминий · дерево</div></div>
+        </a>
+      </div>
+      <a class="wc" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=orbita#models">
+        <img src="https://admin.snaidero.com/media/vkljasn3/04-sistema-snaidero-orbita-a-un-passo-dal-colosseo.jpg?width=1200" alt="Orbita & Opera" />
+        <div class="wc-ov"></div>
+        <div class="wc-txt">
+          <div class="wc-badge">Новинка 2026</div>
+          <div class="wc-name">Orbita &amp; Opera</div>
+          <div class="wc-desc">Фасады с поворотом на 20° — геометрия как архитектурное высказывание</div>
+        </div>
+      </a>
+      <a class="all-btn" href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=all_btn">Все 9 коллекций Snaidero →</a>
+    </div>
+    <div class="sep">
+      <div class="sep-line"></div>
+      <div class="sep-txt">Оснастите кухню первоклассной техникой</div>
+      <div class="sep-line"></div>
+    </div>
+    <div class="tech">
+      <div class="sec-tag">Встроенная техника · Home Project</div>
+      <div class="sec-h">Кухня —<br><em>это не только мебель</em></div>
+      <p class="tech-intro">Кухня Snaidero раскрывается полностью, когда оснащена техникой того же уровня. Нажмите на бренд — узнайте подробнее о каждом.</p>
+      <div class="tg3">
+        <a class="bc" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=kuppersbusch">
+          <div class="bc-img"><img src="https://teka.b-cdn.net/CMP1219/OZGO26BI44713_Kitchen_SS_04_VarioLine_Stainless_Steel_acc_in_Beige_Kitchen_SZ5.jpg" alt="Küppersbusch духовые шкафы" /></div>
+          <div class="bc-info"><div class="bc-brand">Küppersbusch</div><div class="bc-name">Духовые шкафы VarioLine</div><div class="bc-desc">Встраиваемая техника немецкого качества. Единый стиль от варочной до посудомойки.</div><div class="bc-cta">Смотреть каталог</div></div>
+        </a>
+        <a class="bc" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=gaggenau">
+          <div class="bc-img"><img src="https://new.homeproject.online/static/1785957011380-GO450120.jpg" alt="Gaggenau духовой шкаф" /></div>
+          <div class="bc-info"><div class="bc-brand">Gaggenau</div><div class="bc-name">Духовые шкафы серии 400</div><div class="bc-desc">Профессиональный уровень для домашней кухни. Паровой, конвекция, пиролиз.</div><div class="bc-cta">Смотреть каталог</div></div>
+        </a>
+        <a class="bc" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=miele">
+          <div class="bc-img"><img src="https://media.miele.com/images/2000015/200001503/20000150330.png" alt="Miele духовой шкаф" /></div>
+          <div class="bc-info"><div class="bc-brand">Miele</div><div class="bc-name">Духовые шкафы H 7000</div><div class="bc-desc">Немецкая надёжность, интуитивное управление, 20+ режимов приготовления.</div><div class="bc-cta">Смотреть каталог</div></div>
+        </a>
+      </div>
+      <a class="bw" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=steam_ovens">
+        <div class="bw-img"><img src="https://new.homeproject.online/static/1785957018221-GS450120.jpg" alt="Gaggenau паровой духовой шкаф" /></div>
+        <div class="bw-info"><div class="bw-brand">Gaggenau · Паровые духовые шкафы</div><div class="bw-name">Комби-пар серии 400</div><div class="bw-desc">Пар + конвекция в одном приборе. Сохраняет витамины, создаёт хрустящую корочку — идеальный баланс для профессионального результата.</div><div class="bw-cta">Подробнее на сайте</div></div>
+      </a>
+      <a class="cat-btn" href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=catalog_cta">Открыть каталог встроенной техники на homeproject.online →</a>
+    </div>
+    <div class="footer">
+      <div class="foot-row">
+        <div class="foot-links">
+          <a href="https://e2-e5.github.io/homeproject-external/snaidero.html?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=footer">Snaidero</a>
+          <a href="https://homeproject.online?utm_source=unisender&utm_medium=email&utm_campaign=snaidero_tech_aug31&utm_content=footer">Сайт</a>
+          <a href="https://t.me/HomeProjectMsk">Telegram</a>
+        </div>
+        <div class="foot-copy">© 2026 Home Project</div>
+      </div>
+      <div class="foot-txt">Вы получили это письмо, так как ранее взаимодействовали с проектами Home Project.<br><a href="{{UNSUBSCRIBE}}">Отписаться от рассылки</a></div>
+    </div>
+    <div class="disc">С вами общается Ария — AI-менеджер Home Project. Помогу подобрать технику под ваш проект в любое время.</div>
+  </div>
+</body>
+</html>
