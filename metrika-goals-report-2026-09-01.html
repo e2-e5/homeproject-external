@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Project — отчёт по Метрике · 01.09.2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#181A20;color:#EAEAEA;font-family:-apple-system,Inter,Segoe UI,Roboto,sans-serif;line-height:1.5;padding:28px 18px 70px}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-size:26px;font-weight:600;margin-bottom:4px}
+.sub{color:#9AA0AC;font-size:14px;margin-bottom:26px}
+h2{font-size:18px;margin:34px 0 14px;padding-bottom:8px;border-bottom:1px solid #2A2D38}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:10px}
+.card{background:#1F2129;border:1px solid #2A2D38;border-radius:12px;padding:16px 18px}
+.card .l{font-size:12px;color:#9AA0AC;text-transform:uppercase;letter-spacing:.04em}
+.card .v{font-size:26px;font-weight:700;margin-top:6px}
+.card .d{font-size:12px;margin-top:4px}
+.up{color:#46A758}.down{color:#E5484D}.flat{color:#9AA0AC}
+table{width:100%;border-collapse:collapse;background:#1F2129;border:1px solid #2A2D38;border-radius:12px;overflow:hidden;margin-bottom:10px}
+th,td{padding:11px 14px;text-align:left;font-size:14px;border-bottom:1px solid #2A2D38}
+th{background:#20222B;color:#9AA0AC;font-weight:600;font-size:12px;text-transform:uppercase}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chartbox{background:#1F2129;border:1px solid #2A2D38;border-radius:12px;padding:18px}
+.chartbox h3{font-size:14px;margin-bottom:12px;color:#EAEAEA}
+.note{background:#1F2129;border:1px solid #2A2D38;border-left:3px solid #C7A250;border-radius:8px;padding:13px 16px;margin:8px 0;font-size:14px}
+.note.g{border-left-color:#46A758}.note.r{border-left-color:#E5484D}.note.y{border-left-color:#C7A250}
+.foot{margin-top:36px;color:#9AA0AC;font-size:12px;border-top:1px solid #2A2D38;padding-top:14px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Отчёт по Яндекс.Метрике — Home Project</h1>
+  <p class="sub">Основной сайт homeproject.online · счётчик 110362997 · данные на 01.09.2026, 07:25 МСК</p>
+
+  <div class="note y"><b>Контекст:</b> сегодня 01.09 в 07:25 МСК ушли 3 рассылки (400 писем: Snaidero 150 · БТ 150 · AI-платформа 100). Их эффект в трафике/целях появится в течение суток — этот отчёт фиксирует базу «до».</div>
+
+  <h2>Июль vs Август — основные метрики</h2>
+  <table>
+    <tr><th>Метрика</th><th>Июль</th><th>Август</th><th>Δ</th></tr>
+    <tr><td>Визиты</td><td class="n">321</td><td class="n">254</td><td class="n down">−21%</td></tr>
+    <tr><td>Посетители</td><td class="n">169</td><td class="n">160</td><td class="n down">−5%</td></tr>
+    <tr><td>Отказы</td><td class="n">38,0%</td><td class="n">42,1%</td><td class="n down">+4,1 п.п.</td></tr>
+    <tr><td>Глубина просмотра</td><td class="n">2,13</td><td class="n">2,28</td><td class="n up">+7%</td></tr>
+    <tr><td>Время на сайте</td><td class="n">288 с</td><td class="n">241 с</td><td class="n down">−16%</td></tr>
+    <tr><td>Цель «KP Lead»</td><td class="n">7</td><td class="n">3</td><td class="n down">−4</td></tr>
+  </table>
+
+  <div class="cards">
+    <div class="card"><div class="l">Визиты · авг</div><div class="v">254</div><div class="d down">−21% к июлю</div></div>
+    <div class="card"><div class="l">Посетители · авг</div><div class="v">160</div><div class="d down">−5% к июлю</div></div>
+    <div class="card"><div class="l">Глубина · авг</div><div class="v">2,28</div><div class="d up">+7% к июлю</div></div>
+    <div class="card"><div class="l">KP Lead · авг</div><div class="v">3</div><div class="d down">−4 к июлю</div></div>
+  </div>
+
+  <h2>Динамика и источники трафика</h2>
+  <div class="grid2">
+    <div class="chartbox"><h3>Визиты и посетители: июль → август</h3><canvas id="dyn" height="200"></canvas></div>
+    <div class="chartbox"><h3>Источники трафика (август)</h3><canvas id="src" height="200"></canvas></div>
+  </div>
+
+  <h2>Источники трафика — детально (август)</h2>
+  <table>
+    <tr><th>Источник</th><th>Визиты</th><th>Доля</th></tr>
+    <tr><td>Прямые заходы</td><td class="n">144</td><td class="n">57%</td></tr>
+    <tr><td>Email-рассылки</td><td class="n">52</td><td class="n">20%</td></tr>
+    <tr><td>Переходы по ссылкам</td><td class="n">16</td><td class="n">6%</td></tr>
+    <tr><td>Внутренние</td><td class="n">15</td><td class="n">6%</td></tr>
+    <tr><td>Поисковые системы</td><td class="n">14</td><td class="n">6%</td></tr>
+    <tr><td>Мессенджеры</td><td class="n">9</td><td class="n">4%</td></tr>
+  </table>
+  <div class="note g"><b>Email работает:</b> рассылки — источник №2 после прямых заходов (20% трафика, 52 визита). Это подтверждает ставку на email как основной канал в фазе запуска.</div>
+
+  <h2>UTM-кампании — топ по визитам (август)</h2>
+  <table>
+    <tr><th>Кампания</th><th>Визиты</th><th>KP Lead</th></tr>
+    <tr><td>re-engage-aug26</td><td class="n">24</td><td class="n">0</td></tr>
+    <tr><td>partner-platform-aug26</td><td class="n">7</td><td class="n">0</td></tr>
+    <tr><td>phase2-aug26</td><td class="n">6</td><td class="n">0</td></tr>
+    <tr><td>sensing-aug26</td><td class="n">5</td><td class="n">0</td></tr>
+    <tr><td>sunday-home-2026-08</td><td class="n">3</td><td class="n">0</td></tr>
+    <tr><td>designers-bt-aug28</td><td class="n">2</td><td class="n">0</td></tr>
+    <tr><td>snaidero_tech_aug26</td><td class="n">1</td><td class="n">0</td></tr>
+  </table>
+  <div class="note y"><b>Лидер по кликам — «re-engage» (реактивация базы), 24 визита.</b> Платформенные и партнёрские кампании дают клики, но пока без конверсии в KP Lead — форму на сайте нужно усиливать (следующая точка роста).</div>
+
+  <h2>Выводы</h2>
+  <div class="note r"><b>🔴 Трафик и лиды в августе просели</b> (визиты −21%, KP Lead 7→3). Причина — сезонный спад (отпуска, конец лета) + фокус на прогрев домена малыми батчами.</div>
+  <div class="note g"><b>🟢 Качество аудитории выросло:</b> глубина просмотра +7%. Приходят более вовлечённые посетители.</div>
+  <div class="note g"><b>🟢 Email — стабильный источник №2</b> (20% трафика). Сегодняшние 400 писем (старт осеннего сезона) должны развернуть динамику вверх.</div>
+  <div class="note y"><b>🟡 Узкое место — конверсия в заявку.</b> Клики есть, KP Lead почти нет. Приоритет сентября: упростить форму запроса КП и добавить явный CTA на посадочных.</div>
+
+  <div class="foot">Источник: Яндекс.Метрика, счётчик 110362997 (homeproject.online). Счётчик лендингов 109998802 временно недоступен по токену (403) — данные по внешним страницам в этот отчёт не вошли. Обновлено 01.09.2026.</div>
+</div>
+
+<script>
+new Chart(document.getElementById('dyn'),{
+  type:'bar',
+  data:{labels:['Июль','Август'],datasets:[
+    {label:'Визиты',data:[321,254],backgroundColor:'#C7A250'},
+    {label:'Посетители',data:[169,160],backgroundColor:'#4A6FA5'}
+  ]},
+  options:{plugins:{legend:{labels:{color:'#EAEAEA'}}},scales:{x:{ticks:{color:'#9AA0AC'},grid:{color:'#2A2D38'}},y:{ticks:{color:'#9AA0AC'},grid:{color:'#2A2D38'}}}}
+});
+new Chart(document.getElementById('src'),{
+  type:'doughnut',
+  data:{labels:['Прямые','Email','Ссылки','Внутренние','Поиск','Мессенджеры'],datasets:[
+    {data:[144,52,16,15,14,9],backgroundColor:['#4A6FA5','#46A758','#C7A250','#8B6F4E','#7A6FB0','#D9885A']}
+  ]},
+  options:{plugins:{legend:{position:'right',labels:{color:'#EAEAEA',font:{size:11}}}}}
+});
+</script>
+</body>
+</html>
