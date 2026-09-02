@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home Project — Аналитика Июль–Сентябрь 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#181A20;color:#e2e8f0;font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.5}
+  .container{max-width:1200px;margin:0 auto;padding:24px 16px}
+  h1{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px}
+  .subtitle{color:#64748b;font-size:13px;margin-bottom:28px}
+  h2{font-size:15px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px;margin-top:32px}
+  .card{background:#1F2129;border:1px solid #2A2D38;border-radius:10px;padding:20px;margin-bottom:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:768px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.grid2.keep{grid-template-columns:1fr 1fr}}
+  .kpi{background:#1F2129;border:1px solid #2A2D38;border-radius:10px;padding:16px;text-align:center}
+  .kpi .label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+  .kpi .val{font-size:26px;font-weight:700;color:#fff}
+  .kpi .sub{font-size:12px;color:#64748b;margin-top:4px}
+  .kpi .delta-up{color:#22c55e;font-weight:600}
+  .kpi .delta-dn{color:#ef4444;font-weight:600}
+  .kpi .delta-neu{color:#94a3b8;font-weight:600}
+  table{width:100%;border-collapse:collapse}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#64748b;padding:8px 10px;border-bottom:1px solid #2A2D38}
+  td{padding:8px 10px;border-bottom:1px solid #1a1d26;font-size:13px}
+  tr:last-child td{border-bottom:none}
+  .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+  .badge-green{background:#052e16;color:#22c55e}
+  .badge-red{background:#2d1212;color:#ef4444}
+  .badge-yellow{background:#2d2212;color:#f59e0b}
+  .badge-blue{background:#0f1f3d;color:#60a5fa}
+  .insight{border-radius:8px;padding:12px 16px;margin-bottom:10px;font-size:13px;line-height:1.6}
+  .insight-green{background:#052e16;border-left:3px solid #22c55e}
+  .insight-red{background:#2d1212;border-left:3px solid #ef4444}
+  .insight-yellow{background:#2d2212;border-left:3px solid #f59e0b}
+  .insight-blue{background:#0f1f3d;border-left:3px solid #60a5fa}
+  .chart-wrap{position:relative;height:220px}
+  .chart-wrap-lg{position:relative;height:300px}
+  .tag{display:inline-block;background:#2A2D38;color:#94a3b8;border-radius:4px;padding:1px 6px;font-size:11px;font-family:monospace}
+  .pct-bar{height:6px;background:#2A2D38;border-radius:3px;margin-top:4px}
+  .pct-bar-fill{height:6px;border-radius:3px}
+  .sep{border-top:1px solid #2A2D38;margin:20px 0}
+  .logo{font-weight:800;font-size:18px;color:#fff;letter-spacing:1px}
+  .logo span{color:#3b82f6}
+  .header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+  .updated{font-size:12px;color:#64748b}
+  .email-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #2A2D38}
+  .email-row:last-child{border-bottom:none}
+  .email-name{font-weight:600;font-size:13px;flex:1}
+  .email-stat{font-size:12px;color:#94a3b8;text-align:right;min-width:60px}
+  .click-tag{display:inline-block;background:#0f1f3d;color:#60a5fa;padding:2px 7px;border-radius:3px;font-size:11px;margin:2px}
+  .prog{background:#2A2D38;border-radius:3px;height:6px;overflow:hidden;margin-top:3px}
+  .prog-fill{height:6px;border-radius:3px;background:#3b82f6}
+  .prog-fill.green{background:#22c55e}
+  .prog-fill.red{background:#ef4444}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header-row">
+  <div>
+    <div class="logo">HOME<span>PROJECT</span></div>
+    <div style="color:#64748b;font-size:12px;margin-top:2px">Аналитика рассылок и сайта</div>
+  </div>
+  <div class="updated">Обновлено 02.09.2026 · Метрика + UniSender</div>
+</div>
+
+<!-- ===== СЕКЦИЯ 1: СВОДКА ===== -->
+<h2>Динамика по месяцам</h2>
+<div class="grid3">
+  <div class="kpi">
+    <div class="label">Визиты · Июль</div>
+    <div class="val">321</div>
+    <div class="sub">169 уникальных</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Визиты · Август</div>
+    <div class="val">254</div>
+    <div class="sub delta-dn">↓ 21% vs июль · 160 уникальных</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Визиты · Сентябрь</div>
+    <div class="val">39</div>
+    <div class="sub delta-neu">1–2 сен · 33 уникальных</div>
+  </div>
+</div>
+
+<!-- Таблица сравнения -->
+<div class="card" style="margin-top:16px">
+<table>
+<thead><tr>
+  <th>Метрика</th>
+  <th>Июль</th>
+  <th>Август</th>
+  <th>Сентябрь (1–2)</th>
+  <th>Тренд</th>
+</tr></thead>
+<tbody>
+<tr>
+  <td>Визиты</td>
+  <td>321</td>
+  <td>254</td>
+  <td>39</td>
+  <td><span class="badge badge-yellow">↓ −21%</span></td>
+</tr>
+<tr>
+  <td>Уникальные пользователи</td>
+  <td>169</td>
+  <td>160</td>
+  <td>33</td>
+  <td><span class="badge badge-yellow">стабильно</span></td>
+</tr>
+<tr>
+  <td>Отказы</td>
+  <td>38.0%</td>
+  <td>42.1%</td>
+  <td>28.2%</td>
+  <td><span class="badge badge-green">↓ сен лучше</span></td>
+</tr>
+<tr>
+  <td>Глубина просмотра</td>
+  <td>2.13</td>
+  <td>2.28</td>
+  <td>1.26</td>
+  <td><span class="badge badge-yellow">авг лучше</span></td>
+</tr>
+<tr>
+  <td>Среднее время (сек)</td>
+  <td>288</td>
+  <td>241</td>
+  <td>34</td>
+  <td><span class="badge badge-red">↓ падает</span></td>
+</tr>
+<tr>
+  <td>Лиды (KP Lead форма)</td>
+  <td><strong>7</strong></td>
+  <td><strong>3</strong></td>
+  <td><strong>0</strong></td>
+  <td><span class="badge badge-red">↓↓ критично</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Недельная динамика -->
+<div class="card">
+  <div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">Визиты по неделям (июль–сентябрь)</div>
+  <div class="chart-wrap-lg">
+    <canvas id="weeklyChart"></canvas>
+  </div>
+</div>
+
+<!-- ===== СЕКЦИЯ 2: ИСТОЧНИКИ ===== -->
+<h2>Источники трафика</h2>
+<div class="grid2">
+<div class="card">
+  <div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">Каналы — Июль</div>
+  <div class="chart-wrap"><canvas id="srcJulChart"></canvas></div>
+</div>
+<div class="card">
+  <div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">Каналы — Август</div>
+  <div class="chart-wrap"><canvas id="srcAugChart"></canvas></div>
+</div>
+</div>
+
+<div class="card">
+<div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">Источники по месяцам (сравнение)</div>
+<table>
+<thead><tr><th>Источник</th><th>Июль</th><th>Август</th><th>Сентябрь</th></tr></thead>
+<tbody>
+<tr><td>🎯 Прямой (direct)</td><td>163</td><td>144</td><td>23</td></tr>
+<tr><td>📧 Email-рассылки</td><td>58</td><td>52</td><td>7</td></tr>
+<tr><td>🔗 Ссылки (реферал)</td><td>37</td><td>16</td><td>2</td></tr>
+<tr><td>🏠 Внутренний</td><td>45</td><td>15</td><td>2</td></tr>
+<tr><td>🔍 Поиск</td><td>11</td><td>14</td><td>4</td></tr>
+<tr><td>💬 Мессенджеры</td><td>1</td><td>9</td><td>0</td></tr>
+<tr><td>📱 Соцсети</td><td>1</td><td>0</td><td>0</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== СЕКЦИЯ 3: UTM КНОПКИ В ПИСЬМАХ ===== -->
+<h2>Какие кнопки в письмах работают</h2>
+
+<div class="card">
+<div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">UTM-контент — клики по кнопкам и ссылкам (Август)</div>
+<table>
+<thead><tr><th>UTM Content (кнопка/ссылка)</th><th>Кликов</th><th>Интерпретация</th></tr></thead>
+<tbody>
+<tr>
+  <td><span class="tag">followup-link</span></td>
+  <td><strong style="color:#22c55e">14</strong>
+    <div class="prog"><div class="prog-fill green" style="width:100%"></div></div>
+  </td>
+  <td>Ссылка «Подробнее» в подписи письма — топ</td>
+</tr>
+<tr>
+  <td><span class="tag">kp-button</span></td>
+  <td><strong style="color:#22c55e">8</strong>
+    <div class="prog"><div class="prog-fill green" style="width:57%"></div></div>
+  </td>
+  <td>CTA-кнопка «Запросить КП» — работает</td>
+</tr>
+<tr>
+  <td><span class="tag">cta</span></td>
+  <td>3
+    <div class="prog"><div class="prog-fill" style="width:21%"></div></div>
+  </td>
+  <td>Обобщённый CTA</td>
+</tr>
+<tr>
+  <td><span class="tag">D1-cta</span> / <span class="tag">D2-cta</span></td>
+  <td>2+2
+    <div class="prog"><div class="prog-fill" style="width:28%"></div></div>
+  </td>
+  <td>Платформенные письма D1/D2</td>
+</tr>
+<tr>
+  <td><span class="tag">catalog-link</span></td>
+  <td>2
+    <div class="prog"><div class="prog-fill" style="width:14%"></div></div>
+  </td>
+  <td>Ссылка на каталог</td>
+</tr>
+<tr>
+  <td><span class="tag">E1</span> / <span class="tag">E2</span></td>
+  <td>2+1</td>
+  <td>Phase2 письма — следовали на сайт</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Клики по кампаниям из UniSender -->
+<div class="card">
+<div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">Клики по ссылкам внутри писем (UniSender)</div>
+<table>
+<thead><tr><th>Кампания</th><th>Отправлено</th><th>Открыли</th><th>Кликов</th><th>Куда кликали</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>B2B Платформа (01.09)</strong></td>
+  <td>100</td>
+  <td><span style="color:#22c55e">8 (8%)</span></td>
+  <td><strong style="color:#22c55e">14 кликов</strong></td>
+  <td>
+    <span class="click-tag">kp-request ×6</span>
+    <span class="click-tag">hp-transformation ×4</span>
+    <span class="click-tag">Telegram-бот ×2</span>
+    <span class="click-tag">сайт ×2</span>
+  </td>
+</tr>
+<tr>
+  <td>Snaidero (01.09)</td>
+  <td>150</td>
+  <td><span style="color:#f59e0b">7 (5%)</span></td>
+  <td>1</td>
+  <td><span class="click-tag">snaidero.html ×1</span></td>
+</tr>
+<tr>
+  <td>Дизайнеры БТ (01.09)</td>
+  <td>148</td>
+  <td><span style="color:#f59e0b">12 (8%)</span></td>
+  <td>0</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>D1 Платформа (27.08)</td>
+  <td>100</td>
+  <td><span style="color:#22c55e">21 (26%) ⭐</span></td>
+  <td>2</td>
+  <td><span class="click-tag">сайт ×1</span> <span class="click-tag">platform deck ×1</span></td>
+</tr>
+<tr>
+  <td>D1 Платформа БТ (27.08)</td>
+  <td>100</td>
+  <td><span style="color:#22c55e">15 (15%)</span></td>
+  <td>0</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Warm Дизайнеры (26–27.08)</td>
+  <td>47+47</td>
+  <td>3+3 (6%)</td>
+  <td>0</td>
+  <td>—</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== СЕКЦИЯ 4: СТРАНИЦЫ САЙТА ===== -->
+<h2>Разделы сайта homeproject.online — популярность</h2>
+
+<div class="card">
+<div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">Топ страниц (просмотры за июль–сентябрь)</div>
+<table>
+<thead><tr><th>Страница</th><th>Июль PV</th><th>Август PV</th><th>Сен PV</th><th>Итого</th></tr></thead>
+<tbody>
+<tr>
+  <td>🏠 Главная <span class="tag">/ru</span></td>
+  <td>204</td><td>340</td><td>24</td>
+  <td><strong style="color:#22c55e">568</strong></td>
+</tr>
+<tr>
+  <td>👤 Страница дизайнерам <span class="tag">/page/designers</span></td>
+  <td>119</td><td>10</td><td>—</td>
+  <td><strong>129</strong></td>
+</tr>
+<tr>
+  <td>🛒 Каталог <span class="tag">/store</span></td>
+  <td>21</td><td>26</td><td>—</td>
+  <td><strong>47</strong></td>
+</tr>
+<tr>
+  <td>📋 KP-форма <span class="tag">[лендинг]</span></td>
+  <td>22</td><td>13</td><td>6</td>
+  <td><strong style="color:#60a5fa">41</strong></td>
+</tr>
+<tr>
+  <td>🍳 Товар Küppersbusch (уценка)</td>
+  <td>21</td><td>—</td><td>—</td>
+  <td><strong>21+</strong></td>
+</tr>
+<tr>
+  <td>🔵 Gaggenau <span class="tag">/page/brand-gaggenau</span></td>
+  <td>15</td><td>9</td><td>—</td>
+  <td><strong>24</strong></td>
+</tr>
+<tr>
+  <td>ℹ️ О компании <span class="tag">/page/about-us</span></td>
+  <td>16</td><td>5</td><td>—</td>
+  <td><strong>22</strong></td>
+</tr>
+<tr>
+  <td>💰 Уценка <span class="tag">/page/utsenka</span></td>
+  <td>16</td><td>5</td><td>—</td>
+  <td><strong>21</strong></td>
+</tr>
+<tr>
+  <td>🆕 Новый сайт <span class="tag">new.homeproject.online</span></td>
+  <td>—</td><td>13+8=21</td><td>2</td>
+  <td><strong style="color:#60a5fa">23</strong></td>
+</tr>
+<tr>
+  <td>📞 Контакты <span class="tag">/page/contacts</span></td>
+  <td>12</td><td>—</td><td>—</td>
+  <td><strong>12+</strong></td>
+</tr>
+<tr>
+  <td>🆕 Новинки <span class="tag">/page/novinki</span></td>
+  <td>12</td><td>—</td><td>—</td>
+  <td><strong>12+</strong></td>
+</tr>
+<tr>
+  <td>🏷️ V-ZUG <span class="tag">/page/vzug</span></td>
+  <td>8</td><td>—</td><td>—</td>
+  <td><strong>8+</strong></td>
+</tr>
+<tr>
+  <td>🏷️ Liebherr <span class="tag">/page/brand-liebherr</span></td>
+  <td>10</td><td>3</td><td>3</td>
+  <td><strong>16</strong></td>
+</tr>
+<tr>
+  <td>🤖 AI-ассистент <span class="tag">new/assistant</span></td>
+  <td>—</td><td>6</td><td>—</td>
+  <td><strong>6+</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== СЕКЦИЯ 5: ЛЕНДИНГИ ===== -->
+<h2>Внешние лендинги (GitHub Pages) — интерес</h2>
+
+<div class="card">
+<div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">Трафик на лендинги (из писем и прямой)</div>
+<table>
+<thead><tr><th>Лендинг</th><th>PV всего</th><th>Источник</th><th>Статус</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>kp-request.html</strong> — форма КП</td>
+  <td><strong style="color:#22c55e">41</strong></td>
+  <td>письма + Medipal прямой</td>
+  <td><span class="badge badge-green">активно</span></td>
+</tr>
+<tr>
+  <td><strong>hp-transformation-v2.html</strong> — платформа</td>
+  <td>~8–12</td>
+  <td>платформенные письма</td>
+  <td><span class="badge badge-blue">тёплый интерес</span></td>
+</tr>
+<tr>
+  <td><strong>snaidero.html</strong> — Snaidero лендинг</td>
+  <td>~5–8</td>
+  <td>Snaidero письма</td>
+  <td><span class="badge badge-yellow">слабый отклик</span></td>
+</tr>
+<tr>
+  <td><strong>hp-ai-platform-partner-deck.html</strong></td>
+  <td>~3</td>
+  <td>D1 письма</td>
+  <td><span class="badge badge-blue">клик из письма</span></td>
+</tr>
+</tbody>
+</table>
+<div style="margin-top:12px;padding:10px;background:#0f1f3d;border-radius:6px;font-size:12px;color:#94a3b8">
+  ⚠️ Счётчик GitHub Pages (109998802) не даёт детальные данные — токен без доступа. Показываем данные из основного счётчика 110362997 + клики UniSender.
+</div>
+</div>
+
+<!-- ===== СЕКЦИЯ 6: КАМПАНИИ ===== -->
+<h2>Эффективность email-кампаний</h2>
+
+<div class="card">
+<div class="chart-wrap-lg"><canvas id="emailChart"></canvas></div>
+</div>
+
+<div class="card">
+<div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">Сводка кампаний — Август–Сентябрь</div>
+<table>
+<thead><tr><th>Кампания</th><th>Дата</th><th>Сегмент</th><th>Отпр.</th><th>Доставлено</th><th>Открыли</th><th>OR%</th><th>Кликнули</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>D1 Platform (авг 26)</strong></td><td>26.08</td><td>active_agent</td>
+  <td>88</td><td>84</td><td style="color:#22c55e"><strong>29</strong></td>
+  <td><span class="badge badge-green">35%</span></td><td>1</td>
+</tr>
+<tr>
+  <td><strong>D1 Platform (авг 27)</strong></td><td>27.08</td><td>active_agent</td>
+  <td>100</td><td>82</td><td style="color:#22c55e"><strong>21</strong></td>
+  <td><span class="badge badge-green">26%</span></td><td>1</td>
+</tr>
+<tr>
+  <td>D1 Platform BT (авг 27)</td><td>27.08</td><td>b2b_wholesale</td>
+  <td>100</td><td>70</td><td>15</td>
+  <td><span class="badge badge-blue">15%</span></td><td>0</td>
+</tr>
+<tr>
+  <td>Warm Дизайнеры (авг 27)</td><td>27.08</td><td>designer_premium</td>
+  <td>47</td><td>47</td><td>3</td>
+  <td><span class="badge badge-yellow">6%</span></td><td>0</td>
+</tr>
+<tr>
+  <td>Snaidero (01.09)</td><td>01.09</td><td>designer_premium</td>
+  <td>150</td><td>141</td><td>7</td>
+  <td><span class="badge badge-red">5%</span></td><td>1</td>
+</tr>
+<tr>
+  <td>Дизайнеры БТ (01.09)</td><td>01.09</td><td>designer+bt</td>
+  <td>148</td><td>129</td><td>12</td>
+  <td><span class="badge badge-yellow">8%</span></td><td>0</td>
+</tr>
+<tr>
+  <td><strong>B2B Платформа (01.09)</strong></td><td>01.09</td><td>b2b_dealer</td>
+  <td>100</td><td>89</td><td>8</td>
+  <td><span class="badge badge-blue">8%</span></td>
+  <td><strong style="color:#22c55e">2 uni / 14 total</strong></td>
+</tr>
+<tr style="opacity:.7">
+  <td>Snaidero → Кух. студии (02.09)</td><td>02.09</td><td>kitchen_studio</td>
+  <td>150</td><td>—</td><td>—</td>
+  <td><span class="badge badge-yellow">в отправке</span></td><td>—</td>
+</tr>
+<tr style="opacity:.7">
+  <td>Platform Agent (02.09)</td><td>02.09</td><td>active_agent</td>
+  <td>150</td><td>—</td><td>—</td>
+  <td><span class="badge badge-yellow">в отправке</span></td><td>—</td>
+</tr>
+<tr style="opacity:.7">
+  <td>Холодные дизайнеры Москва (02.09)</td><td>02.09</td><td>designer_bt</td>
+  <td>100</td><td>—</td><td>—</td>
+  <td><span class="badge badge-yellow">в отправке</span></td><td>—</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== СЕКЦИЯ 7: ГЕО + УСТРОЙСТВА ===== -->
+<h2>Аудитория — устройства и география</h2>
+<div class="grid2">
+<div class="card">
+  <div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">Устройства (июль–сентябрь)</div>
+  <div class="chart-wrap"><canvas id="devChart"></canvas></div>
+  <div style="margin-top:12px">
+    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2A2D38">
+      <span>💻 ПК/десктоп</span><strong>437 (71%)</strong>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:6px 0">
+      <span>📱 Смартфоны</span><strong>177 (29%)</strong>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div style="font-weight:600;margin-bottom:14px;color:#e2e8f0">Топ-города</div>
+  <table>
+  <thead><tr><th>Город</th><th>Визитов</th><th>Доля</th></tr></thead>
+  <tbody>
+  <tr><td>🇷🇺 Москва</td><td><strong>241</strong>
+    <div class="prog"><div class="prog-fill green" style="width:100%"></div></div>
+  </td><td>39%</td></tr>
+  <tr><td>🇷🇺 Красногорск</td><td>28
+    <div class="prog"><div class="prog-fill" style="width:12%"></div></div>
+  </td><td>4.5%</td></tr>
+  <tr><td>🇸🇬 Сингапур</td><td>13</td><td>2.1%</td></tr>
+  <tr><td>🇷🇺 СПб</td><td>11</td><td>1.8%</td></tr>
+  <tr><td>🇳🇱 Амстердам</td><td>9</td><td>1.5%</td></tr>
+  <tr><td>🇹🇷 Анталья</td><td>8</td><td>1.3%</td></tr>
+  <tr><td>🇷🇺 Химки</td><td>3</td><td>0.5%</td></tr>
+  <tr><td>🇷🇺 Краснодар</td><td>2</td><td>0.3%</td></tr>
+  </tbody>
+  </table>
+</div>
+</div>
+
+<!-- ===== СЕКЦИЯ 8: ВЫВОДЫ ===== -->
+<h2>Ключевые выводы и рекомендации</h2>
+
+<div class="insight insight-red">
+  <strong>🔴 Лиды падают: 7 → 3 → 0</strong><br>
+  Трафик есть, форма технически работает (проверено), но конверсий нет. KP-форма получила 41 просмотр — лиды не создаются. Узкое место: форму видят, но не заполняют. Решение (принято): упростили форму — теперь нужны только имя + email. <strong>Ждём эффекта после 02.09.</strong>
+</div>
+
+<div class="insight insight-green">
+  <strong>🟢 B2B-платформа — лидер по кликам</strong><br>
+  Письмо «Один человек управляет 14 брендами» → 14 кликов на 100 отправленных. Кликают в форму КП (×6), в презентацию платформы (×4), в Telegram-бот (×2). Это самый вовлечённый сегмент. Масштабируем: 02.09 отправили ещё 150 active_agent.
+</div>
+
+<div class="insight insight-green">
+  <strong>🟢 D1-платформа — лучший Open Rate: 26–35%</strong><br>
+  Тема «Один человек управляет 14 брендами. Без отдела продаж.» открывается в 3–5× лучше Snaidero (5%) и Дизайнеров (8%). Платформенный оффер резонирует с B2B-аудиторией.
+</div>
+
+<div class="insight insight-yellow">
+  <strong>🟡 Snaidero-тема слабая — заменили</strong><br>
+  «Кухни Snaidero и встроенная техника» открывается лишь на 5%. Новая тема с 02.09: <em>«Snaidero + КП по бытовой технике за 20 секунд»</em> + новый сегмент: <strong>кухонные студии (515 контактов, первое касание)</strong>. Результат — завтра.
+</div>
+
+<div class="insight insight-blue">
+  <strong>🔵 «followup-link» — самая кликаемая кнопка (14 кликов)</strong><br>
+  Это ссылка «Подробнее» в подписи письма, не главный CTA. Значит: люди читают до конца, но главный CTA-button «Запросить КП» видят, но не кликают так активно (8 кликов). Вывод: <strong>CTA-кнопку нужно поднять выше в письме.</strong>
+</div>
+
+<div class="insight insight-blue">
+  <strong>🔵 Страница дизайнерам — топ на сайте (129 PV)</strong><br>
+  /page/designers генерирует второй по величине трафик — люди читают о сотрудничестве. Это горячая страница: нужен CTA → форма КП или контакт. Сейчас страница есть, но ссылки на форму КП нет.
+</div>
+
+<div class="insight insight-yellow">
+  <strong>🟡 Медипал-лиды: 2 горячих контакта без конверсии</strong><br>
+  Серов и Медведев из МЕДИПАЛ кликали KP-форму 5–6 раз 01.09, но не отправили заявку. Причина: форма была слишком длинной (требовала бренды/бюджет). 02.09 отправлены персональные dogon-письма, форма упрощена. <strong>Следим за ответом.</strong>
+</div>
+
+<div class="insight insight-green">
+  <strong>🟢 Новый сайт (new.homeproject.online) — замечен</strong><br>
+  23 просмотра за август–сентябрь, включая 6 визитов на /assistant. Аудитория находит и изучает AI-ассистента самостоятельно.
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="sep"></div>
+<div style="text-align:center;color:#374151;font-size:12px;padding-bottom:24px">
+  Home Project · Аналитика 02.09.2026 · Данные: Яндекс.Метрика (счётчик 110362997) + UniSender Classic
+</div>
+
+</div><!-- /container -->
+
+<script>
+// Weekly chart
+new Chart(document.getElementById('weeklyChart'), {
+  type: 'bar',
+  data: {
+    labels: ['29 июн','6 июл','13 июл','20 июл','27 июл','3 авг','10 авг','17 авг','24 авг','31 авг'],
+    datasets: [
+      {
+        label: 'Визиты',
+        data: [16,133,71,56,49,61,59,65,51,53],
+        backgroundColor: function(ctx) {
+          var i = ctx.dataIndex;
+          return i < 5 ? 'rgba(59,130,246,0.7)' : 'rgba(34,197,94,0.7)';
+        },
+        borderRadius: 4
+      },
+      {
+        label: 'Пользователи',
+        data: [10,105,36,20,19,32,36,52,43,42],
+        backgroundColor: 'rgba(99,102,241,0.4)',
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#94a3b8', font: { size: 12 } } },
+      tooltip: { mode: 'index' }
+    },
+    scales: {
+      x: { ticks: { color: '#64748b', font: { size: 11 } }, grid: { color: '#1a1d26' } },
+      y: { ticks: { color: '#64748b' }, grid: { color: '#1a1d26' } }
+    }
+  }
+});
+
+// Source donut - July
+new Chart(document.getElementById('srcJulChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Прямой','Email','Внутренний','Ссылки','Поиск','Соцсети'],
+    datasets: [{
+      data: [163,58,45,37,11,2],
+      backgroundColor: ['#3b82f6','#22c55e','#f59e0b','#8b5cf6','#ec4899','#64748b'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 11 }, padding: 10 } }
+    }
+  }
+});
+
+// Source donut - August
+new Chart(document.getElementById('srcAugChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Прямой','Email','Поиск','Ссылки','Внутренний','Мессенджеры'],
+    datasets: [{
+      data: [144,52,14,16,15,9],
+      backgroundColor: ['#3b82f6','#22c55e','#ec4899','#8b5cf6','#f59e0b','#0ea5e9'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 11 }, padding: 10 } }
+    }
+  }
+});
+
+// Devices
+new Chart(document.getElementById('devChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Десктоп (71%)', 'Смартфоны (29%)'],
+    datasets: [{
+      data: [437, 177],
+      backgroundColor: ['#3b82f6', '#22c55e'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 12 } } } }
+  }
+});
+
+// Email campaigns bar chart
+new Chart(document.getElementById('emailChart'), {
+  type: 'bar',
+  data: {
+    labels: ['D1 Plat 26.08','D1 Plat 27.08','D1 BT 27.08','Snaidero 01.09','Дизайн БТ 01.09','B2B Plat 01.09'],
+    datasets: [
+      {
+        label: 'Доставлено',
+        data: [84, 82, 70, 141, 129, 89],
+        backgroundColor: 'rgba(59,130,246,0.4)',
+        borderRadius: 4
+      },
+      {
+        label: 'Открыли',
+        data: [29, 21, 15, 7, 12, 8],
+        backgroundColor: 'rgba(34,197,94,0.8)',
+        borderRadius: 4
+      },
+      {
+        label: 'Кликнули',
+        data: [1, 1, 0, 1, 0, 2],
+        backgroundColor: 'rgba(245,158,11,0.9)',
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#94a3b8', font: { size: 12 } } }
+    },
+    scales: {
+      x: { ticks: { color: '#64748b', font: { size: 11 } }, grid: { color: '#1a1d26' } },
+      y: { ticks: { color: '#64748b' }, grid: { color: '#1a1d26' } }
+    }
+  }
+});
+</script>
+</body>
+</html>
