@@ -1,0 +1,46 @@
+name: Guard published pages
+
+# Every push to main (that is how agents publish) is checked: broken HTML
+# files are repaired and committed back, so a bad publish never stays live.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: guard-pages
+  cancel-in-progress: false
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate and repair changed pages
+        env:
+          BEFORE: ${{ github.event.before }}
+          ALL: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
+        run: python3 .github/scripts/guard_pages.py
+
+      - name: Commit repairs
+        run: |
+          if git diff --quiet; then
+            echo "nothing to repair"
+            exit 0
+          fi
+          git config user.name "pages-guard[bot]"
+          git config user.email "pages-guard[bot]@users.noreply.github.com"
+          git add -- '*.html'
+          git commit -m "guard: auto-repair broken published pages"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((2 ** i))
+          done
+          echo "::error::could not push repairs"
+          exit 1
