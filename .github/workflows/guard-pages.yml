@@ -5,6 +5,10 @@ name: Guard published pages
 on:
   push:
     branches: [main]
+  # Hourly safety net: a push made with a token that does not emit push events
+  # (a GitHub App, for example) would otherwise never be checked.
+  schedule:
+    - cron: '17 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -25,7 +29,7 @@ jobs:
       - name: Validate and repair changed pages
         env:
           BEFORE: ${{ github.event.before }}
-          ALL: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
+          ALL: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule') && '1' || '' }}
         run: python3 .github/scripts/guard_pages.py
 
       - name: Commit repairs
