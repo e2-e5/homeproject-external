@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GPT-6 Astra — Разбор для бизнеса</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg: #0A0A0F;
+  --card: #13131A;
+  --border: #1E1E2E;
+  --tx: #E8E8F0;
+  --mut: #6B6B80;
+  --accent: #7C6AF7;
+  --green: #34D399;
+  --red: #F87171;
+  --yellow: #FBBF24;
+  --blue: #60A5FA;
+  --orange: #FB923C;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo { font-size: 13px; font-weight: 700; letter-spacing: 3px; color: var(--mut); }
+.nav-dots { display: flex; gap: 8px; }
+.nav-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); cursor: pointer; transition: background .2s;
+}
+.nav-dot.active { background: var(--accent); }
+
+/* SLIDES */
+.slide {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 48px 60px;
+  max-width: 1000px; margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+.slide-num {
+  font-size: 11px; letter-spacing: 4px; font-weight: 600;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 20px;
+}
+h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+h2 { font-size: clamp(24px, 3.5vw, 38px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; }
+.sub { font-size: 18px; color: var(--mut); margin-bottom: 40px; }
+
+/* TAGS */
+.tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+.tag-green { background: rgba(52,211,153,.15); color: var(--green); }
+.tag-red { background: rgba(248,113,113,.15); color: var(--red); }
+.tag-yellow { background: rgba(251,191,36,.15); color: var(--yellow); }
+.tag-blue { background: rgba(96,165,250,.15); color: var(--blue); }
+.tag-purple { background: rgba(124,106,247,.15); color: var(--accent); }
+
+/* CARDS GRID */
+.grid { display: grid; gap: 16px; }
+.g2 { grid-template-columns: 1fr 1fr; }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+@media(max-width:700px) { .g2,.g3 { grid-template-columns: 1fr; } }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px;
+}
+.card-num { font-size: 42px; font-weight: 900; line-height: 1; }
+.card-label { font-size: 13px; color: var(--mut); margin-top: 6px; }
+.card-desc { font-size: 14px; color: var(--tx); margin-top: 10px; line-height: 1.5; }
+
+/* FACT ROWS */
+.fact-row {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 18px 0; border-bottom: 1px solid var(--border);
+}
+.fact-row:last-child { border-bottom: none; }
+.fact-icon { font-size: 22px; flex-shrink: 0; width: 36px; text-align: center; }
+.fact-body h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.fact-body p { font-size: 14px; color: var(--mut); }
+.fact-body b { color: var(--tx); }
+
+/* COMPARE TABLE */
+.compare { width: 100%; border-collapse: collapse; font-size: 14px; }
+.compare th {
+  text-align: left; padding: 12px 16px;
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--mut); border-bottom: 2px solid var(--border);
+}
+.compare td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.compare tr:last-child td { border-bottom: none; }
+.compare .claim { color: var(--tx); font-weight: 500; }
+.compare .verdict { }
+.compare .src { font-size: 12px; color: var(--mut); margin-top: 4px; }
+
+/* IMPACT ITEMS */
+.impact {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px 24px;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.impact + .impact { margin-top: 12px; }
+.impact-icon { font-size: 24px; flex-shrink: 0; }
+.impact-body h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.impact-body p { font-size: 14px; color: var(--mut); line-height: 1.55; }
+.impact-body b { color: var(--tx); }
+.impact.border-green { border-left: 3px solid var(--green); }
+.impact.border-red { border-left: 3px solid var(--red); }
+.impact.border-yellow { border-left: 3px solid var(--yellow); }
+.impact.border-blue { border-left: 3px solid var(--blue); }
+.impact.border-purple { border-left: 3px solid var(--accent); }
+
+/* QUOTE */
+.quote {
+  border-left: 3px solid var(--accent);
+  padding: 16px 24px;
+  background: var(--card);
+  border-radius: 0 12px 12px 0;
+  font-size: 17px; font-style: italic; color: var(--tx);
+  margin: 24px 0;
+}
+.quote-src { font-size: 12px; color: var(--mut); font-style: normal; margin-top: 8px; }
+
+/* TIMELINE */
+.tl-item { display: flex; gap: 20px; padding-bottom: 28px; position: relative; }
+.tl-item:not(:last-child)::before {
+  content: ''; position: absolute; left: 19px; top: 40px;
+  width: 2px; bottom: 0; background: var(--border);
+}
+.tl-dot {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; background: var(--card); border: 2px solid var(--border);
+}
+.tl-body h4 { font-size: 15px; font-weight: 700; padding-top: 8px; }
+.tl-body p { font-size: 13.5px; color: var(--mut); margin-top: 4px; line-height: 1.5; }
+
+/* PRICE TABLE */
+.price-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.price-row:last-child { border-bottom: none; }
+.price-val { font-weight: 700; font-size: 16px; }
+
+/* FOOTER SLIDE */
+.cta-box {
+  background: linear-gradient(135deg, rgba(124,106,247,.12), rgba(96,165,250,.08));
+  border: 1px solid rgba(124,106,247,.3);
+  border-radius: 20px; padding: 40px;
+}
+.sources { margin-top: 24px; }
+.sources a { color: var(--blue); font-size: 13px; text-decoration: none; display: block; margin-bottom: 6px; }
+.sources a:hover { text-decoration: underline; }
+
+/* ACCENT TEXT */
+.hl { color: var(--accent); font-weight: 700; }
+.hl-green { color: var(--green); font-weight: 700; }
+.hl-red { color: var(--red); font-weight: 700; }
+.hl-yellow { color: var(--yellow); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">HOME PROJECT · AI BRIEF</div>
+  <div class="nav-dots">
+    <div class="nav-dot active" onclick="scrollTo(0)" title="Начало"></div>
+    <div class="nav-dot" onclick="scrollToSlide(1)" title="Факты"></div>
+    <div class="nav-dot" onclick="scrollToSlide(2)" title="Computer Use"></div>
+    <div class="nav-dot" onclick="scrollToSlide(3)" title="Проверка"></div>
+    <div class="nav-dot" onclick="scrollToSlide(4)" title="Бизнес"></div>
+    <div class="nav-dot" onclick="scrollToSlide(5)" title="Цена"></div>
+    <div class="nav-dot" onclick="scrollToSlide(6)" title="Что делать"></div>
+  </div>
+</nav>
+
+<!-- SLIDE 1: TITLE -->
+<section class="slide" id="slide-0">
+  <div class="slide-num">01 · Обзор</div>
+  <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;">
+    <span class="tag tag-purple">GPT-6 ASTRA</span>
+    <span class="tag tag-green">ВЫШЛО 03.09.2026</span>
+    <span class="tag tag-yellow">РАЗБОР ДЛЯ БИЗНЕСА</span>
+  </div>
+  <h1>Это не очередной<br>апдейт ChatGPT</h1>
+  <p class="sub">Проверяем каждый тезис из поста по первоисточникам OpenAI, Fortune, CNBC — и объясняем, что это значит для вашего бизнеса прямо сейчас.</p>
+
+  <div class="grid g3" style="margin-top:8px;">
+    <div class="card">
+      <div class="card-num" style="color:var(--accent)">99.9%</div>
+      <div class="card-label">ARC-AGI-3 — benchmark «сильного ИИ»</div>
+      <div class="card-desc">Предыдущая модель — 7.8%. Скачок ×12 по одному из ключевых тестов AGI.</div>
+    </div>
+    <div class="card">
+      <div class="card-num" style="color:var(--yellow)">40 мин</div>
+      <div class="card-label">Среднее время на сложную задачу</div>
+      <div class="card-desc">GPT-5.6 Sol справлялся за 75 минут. Вдвое быстрее — без потери качества.</div>
+    </div>
+    <div class="card">
+      <div class="card-num" style="color:var(--red)">$50</div>
+      <div class="card-label">за 1 млн выходных токенов</div>
+      <div class="card-desc">В 2.5× дороже предыдущей модели. Самая дорогая frontier-модель на сегодня.</div>
+    </div>
+  </div>
+
+  <div class="quote">
+    «Небезосновательно считать, что мы вступили в эпоху AGI.»
+    <div class="quote-src">— Грег Брокман, президент OpenAI, 3 сентября 2026</div>
+  </div>
+</section>
+
+<!-- SLIDE 2: ФАКТЫ -->
+<section class="slide" id="slide-1">
+  <div class="slide-num">02 · Факты</div>
+  <h2>Что на самом деле<br>умеет GPT-6 Astra</h2>
+  <p class="sub">Только подтверждённые данные из официальных источников.</p>
+
+  <div class="card">
+    <div class="fact-row">
+      <div class="fact-icon">🖥️</div>
+      <div class="fact-body">
+        <h4>Computer Use — управление компьютером как человек</h4>
+        <p>Видит экран, нажимает кнопки, двигает мышью. Может заполнять формы, обновлять записи в CRM, работать с таблицами, вести исследования, создавать документы — <b>в любом существующем ПО без API-интеграции</b>.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-icon">⚡</div>
+      <div class="fact-body">
+        <h4>Скорость: быстрее предшественника вдвое</h4>
+        <p>Задача, которую GPT-5.6 Sol выполнял 75 минут, Astra делает за <b>40 минут</b>. При этом потребляет на 65% меньше токенов — прямое снижение стоимости работы.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-icon">🔐</div>
+      <div class="fact-body">
+        <h4>Критический уровень кибербезопасности</h4>
+        <p>Первая модель OpenAI с рейтингом «Critical» по кибербезопасности. Может <b>самостоятельно находить уязвимости нулевого дня</b> и строить exploit-цепочки. Поэтому релиз задержали на несколько недель.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-icon">🏋️</div>
+      <div class="fact-body">
+        <h4>Обучение: 100 000 GPU на одном объекте</h4>
+        <p>Обучение проходило на <b>Stargate-кластере в Техасе</b> — крупнейший тренировочный прогон за историю OpenAI. Это объясняет и качество, и цену.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-icon">🤖</div>
+      <div class="fact-body">
+        <h4>Конкурент: Claude Fable 5.1 от Anthropic</h4>
+        <p>Да — «Басня» из поста реальная. <b>Anthropic уже выпустила Claude Fable 5.1</b>. Astra обгоняет её по ряду категорий. Цены у обоих одинаковые: $10/$50 за миллион токенов.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: COMPUTER USE -->
+<section class="slide" id="slide-2">
+  <div class="slide-num">03 · Ключевая фича</div>
+  <h2>Computer Use:<br>что это меняет</h2>
+  <p class="sub">Не «ИИ отвечает на вопросы» — а ИИ сидит за компьютером вместо человека.</p>
+
+  <div class="grid g2" style="margin-bottom:20px;">
+    <div class="card">
+      <div style="font-size:13px;letter-spacing:2px;color:var(--mut);margin-bottom:12px;text-transform:uppercase;">Было (до Astra)</div>
+      <div class="tl-item">
+        <div class="tl-dot">👤</div>
+        <div class="tl-body"><h4>Человек открывает программу</h4><p>Учится месяцами: Excel, 1С, AutoCAD, CRM...</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">⌨️</div>
+        <div class="tl-body"><h4>Человек вводит данные</h4><p>Рутина. 8 часов в день. Зарплата каждый месяц.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🤔</div>
+        <div class="tl-body"><h4>Менеджер проверяет</h4><p>Следующий человек в цепочке.</p></div>
+      </div>
+    </div>
+    <div class="card" style="border-color:rgba(124,106,247,.4);">
+      <div style="font-size:13px;letter-spacing:2px;color:var(--accent);margin-bottom:12px;text-transform:uppercase;">Стало (с Astra)</div>
+      <div class="tl-item">
+        <div class="tl-dot" style="border-color:var(--accent);">🗣️</div>
+        <div class="tl-body"><h4>Вы говорите задачу</h4><p>«Обнови все контакты в CRM, добавь заметки по встречам»</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="border-color:var(--accent);">🤖</div>
+        <div class="tl-body"><h4>ИИ-агент выполняет</h4><p>Открывает CRM, двигает мышью, заполняет поля — без API, без интеграции.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="border-color:var(--green);">✅</div>
+        <div class="tl-body"><h4>Готово за 40 минут</h4><p>Что раньше занимало рабочий день — теперь пока вы пьёте кофе.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="impact border-yellow">
+    <div class="impact-icon">💡</div>
+    <div class="impact-body">
+      <h4>Исторический контекст</h4>
+      <p>Computer Use появился у Anthropic (Claude) в <b>октябре 2024 года</b>. Это правда — тезис из поста подтверждён. GPT-6 Astra сделал качественный скачок: теперь это не эксперимент, а рабочий инструмент для длинных многоэтапных задач.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: ПРОВЕРКА ТЕЗИСОВ -->
+<section class="slide" id="slide-3">
+  <div class="slide-num">04 · Факт-чек</div>
+  <h2>Проверяем тезисы<br>поста по источникам</h2>
+  <p class="sub">Что подтверждено, что преувеличено, что пока неизвестно.</p>
+
+  <div class="card" style="overflow-x:auto;">
+    <table class="compare">
+      <tr>
+        <th style="width:42%">Тезис из поста</th>
+        <th style="width:18%">Вердикт</th>
+        <th>Что говорят источники</th>
+      </tr>
+      <tr>
+        <td class="claim">Computer Use — качественный скачок, можно «нанять» на 8 часов</td>
+        <td><span class="tag tag-green">✓ ВЕРНО</span></td>
+        <td>Fortune, OpenAI: «zip through spreadsheets at superhuman speed». Задача 40 мин vs 75 мин ранее. Длинные сессии — подтверждены.<div class="src">Fortune, 03.09.2026</div></td>
+      </tr>
+      <tr>
+        <td class="claim">Computer Use появился у Anthropic (Claude) в 2024 году</td>
+        <td><span class="tag tag-green">✓ ВЕРНО</span></td>
+        <td>Claude Computer Use запущен в октябре 2024. OpenAI добавил позже. Anthropic — первопроходец.<div class="src">Anthropic blog, окт. 2024</div></td>
+      </tr>
+      <tr>
+        <td class="claim">ИИ может работать в любой программе — Excel, AutoCAD, 1С, CRM</td>
+        <td><span class="tag tag-green">✓ ВЕРНО</span></td>
+        <td>OpenAI: «fill out forms, update CRM records, conduct research, produce documents». Любой UI без API-интеграции.<div class="src">OpenAI, eesel.ai</div></td>
+      </tr>
+      <tr>
+        <td class="claim">Следующий шаг — программы будут писаться под ИИ-агентов</td>
+        <td><span class="tag tag-yellow">~ ЛОГИЧНО</span></td>
+        <td>OpenAI питч именно в этом: «skip integrations, run the UI itself». Тренд реален, но временные рамки неизвестны.<div class="src">MarketScale, eesel.ai</div></td>
+      </tr>
+      <tr>
+        <td class="claim">«Басня» (Fable) от Anthropic — следующий релиз</td>
+        <td><span class="tag tag-green">✓ ВЕРНО</span></td>
+        <td>Claude Fable 5.1 уже вышел. Astra обгоняет его по ряду тестов. Оба стоят $10/$50 за млн токенов.<div class="src">Fortune, 03.09.2026</div></td>
+      </tr>
+      <tr>
+        <td class="claim">Сокращение до 70% сотрудников через 3–6 месяцев</td>
+        <td><span class="tag tag-red">⚠ ПРЕУВЕЛИЧЕНО</span></td>
+        <td>Ни один источник такого прогноза не даёт. Общий разум (reasoning) у Astra вырос минимально: 61.2 vs 60.9 у предыдущей. Автоматизация нарастает, но массовые увольнения — не «через 6 месяцев».<div class="src">eesel.ai: «more like 5.7 not 6»</div></td>
+      </tr>
+      <tr>
+        <td class="claim">Astra — самый дорогой инструмент на сегодня</td>
+        <td><span class="tag tag-green">✓ ВЕРНО</span></td>
+        <td>$10/M input, $50/M output — в 2.5× дороже предыдущей модели. Паритет с Claude Fable на топ-уровне.<div class="src">eesel.ai pricing table</div></td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- SLIDE 5: БИЗНЕС-ПОСЛЕДСТВИЯ -->
+<section class="slide" id="slide-4">
+  <div class="slide-num">05 · Бизнес</div>
+  <h2>5 последствий<br>для вашего бизнеса</h2>
+  <p class="sub">Не «когда-нибудь» — актуально прямо сейчас, в сентябре 2026.</p>
+
+  <div class="impact border-red">
+    <div class="impact-icon">💼</div>
+    <div class="impact-body">
+      <h4>1. Любой офисный сотрудник с компьютером — под вопросом</h4>
+      <p>Бухгалтер, аналитик, менеджер по вводу данных, оператор CRM. Если его работа — нажимать кнопки в программе, <b>ИИ-агент справится за 40 минут то, на что у человека уходил день</b>. Это не повод паниковать — это повод первым начать внедрять.</p>
+    </div>
+  </div>
+  <div class="impact border-yellow">
+    <div class="impact-icon">📦</div>
+    <div class="impact-body">
+      <h4>2. Software as a product умирает — software as a tool остаётся</h4>
+      <p>Excel, WMS, BI-системы, 1С — <b>промежуточный слой между задачей и результатом</b>. ИИ научится обходить интерфейс или создавать нужный инструмент на лету. Выигрывают те, кто продаёт результат, а не ПО.</p>
+    </div>
+  </div>
+  <div class="impact border-green">
+    <div class="impact-icon">💰</div>
+    <div class="impact-body">
+      <h4>3. Главный новый рынок — ИИ-экономия</h4>
+      <p>Тезис из поста точный: <b>оптимизация расходов на ИИ — это бизнес</b>. Astra стоит $50/M токенов. Правильный выбор модели под задачу (Haiku vs Sonnet vs Astra) может в 10× снизить затраты. Консалтинг «ИИ-аудит бюджета» — горячий продукт уже сегодня.</p>
+    </div>
+  </div>
+  <div class="impact border-blue">
+    <div class="impact-icon">🏎️</div>
+    <div class="impact-body">
+      <h4>4. Цены будут падать — ждите китайских аналогов</h4>
+      <p>Anthropic и OpenAI сравнялись в цене. <b>Следующий шаг — азиатские лаборатории</b> (DeepSeek, Qwen) выпустят сопоставимый Computer Use по в 5–10 раз дешевле. Срок: 6–12 месяцев. Не привязывайтесь к одному провайдеру.</p>
+    </div>
+  </div>
+  <div class="impact border-purple">
+    <div class="impact-icon">🚀</div>
+    <div class="impact-body">
+      <h4>5. Ранний старт = конкурентное преимущество на 1–2 года</h4>
+      <p>Компания, которая <b>сегодня строит процессы под ИИ-агентов</b>, через год будет на голову выше тех, кто начнёт «когда оно подешевеет». Home Project уже на этом пути — агентская система, рассылки, каталог автоматизированы.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: ЦЕНА -->
+<section class="slide" id="slide-5">
+  <div class="slide-num">06 · Экономика</div>
+  <h2>Сколько стоит<br>ИИ-сотрудник</h2>
+  <p class="sub">Сравнение стоимости Astra и реальных задач с человеком.</p>
+
+  <div class="grid g2">
+    <div class="card">
+      <div style="font-size:13px;letter-spacing:2px;color:var(--mut);margin-bottom:16px;text-transform:uppercase;">Стоимость Astra (API)</div>
+      <div class="price-row">
+        <span>Стандарт: input</span>
+        <span class="price-val">$10 / 1M токенов</span>
+      </div>
+      <div class="price-row">
+        <span>Стандарт: output</span>
+        <span class="price-val hl-red">$50 / 1M токенов</span>
+      </div>
+      <div class="price-row">
+        <span>Batch-режим: output</span>
+        <span class="price-val hl-yellow">$25 / 1M токенов</span>
+      </div>
+      <div class="price-row">
+        <span>vs предыдущая модель</span>
+        <span class="price-val hl-red">в 2.5× дороже</span>
+      </div>
+      <div class="price-row">
+        <span>ChatGPT Pro (месяц)</span>
+        <span class="price-val">$200/мес</span>
+      </div>
+      <div style="margin-top:16px;font-size:13px;color:var(--mut);">Для большинства задач малого бизнеса хватает Sonnet/Haiku — в 10–50× дешевле Astra при 80% качества.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:13px;letter-spacing:2px;color:var(--mut);margin-bottom:16px;text-transform:uppercase;">Когда Astra оправдана</div>
+      <div class="fact-row" style="padding:12px 0;">
+        <div class="fact-icon">✅</div>
+        <div class="fact-body"><h4>Сложные многоэтапные задачи</h4><p>Проектирование, аудит безопасности, работа с legacy-системами без API</p></div>
+      </div>
+      <div class="fact-row" style="padding:12px 0;">
+        <div class="fact-icon">✅</div>
+        <div class="fact-body"><h4>Длинные автономные сессии</h4><p>Многочасовые задачи, где нужен «ИИ на полный день»</p></div>
+      </div>
+      <div class="fact-row" style="padding:12px 0;">
+        <div class="fact-icon">✅</div>
+        <div class="fact-body"><h4>Кодирование и кибербезопасность</h4><p>Там, где прирост качества окупает 2.5× надбавку</p></div>
+      </div>
+      <div class="fact-row" style="padding:12px 0;">
+        <div class="fact-icon">❌</div>
+        <div class="fact-body"><h4>Массовые рутинные задачи</h4><p>Рассылки, категоризация, FAQ — берите Haiku/Sonnet, не Astra</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote" style="margin-top:24px;">
+    Общий разум (reasoning) у Astra вырос с 60.9 до 61.2 по индексу Artificial Analysis. Огромные деньги — минимальный прирост общего интеллекта. Платите за скорость и Computer Use, не за «умнее».
+    <div class="quote-src">— eesel.ai, анализ GPT-6 Astra, сентябрь 2026</div>
+  </div>
+</section>
+
+<!-- SLIDE 7: ЧТО ДЕЛАТЬ -->
+<section class="slide" id="slide-6">
+  <div class="slide-num">07 · Действия</div>
+  <h2>Что делать<br>прямо сейчас</h2>
+  <p class="sub">Конкретные шаги — без паники, без промедления.</p>
+
+  <div class="cta-box">
+    <div class="grid g2" style="gap:20px;">
+      <div>
+        <div style="font-size:13px;letter-spacing:2px;color:var(--accent);margin-bottom:16px;font-weight:700;">МАЛЫЙ И СРЕДНИЙ БИЗНЕС</div>
+        <div class="tl-item">
+          <div class="tl-dot" style="border-color:var(--accent);">1</div>
+          <div class="tl-body"><h4>Нарисуйте карту рутины</h4><p>Какие задачи в вашей команде — повторяются? Ввод данных, отчёты, переписка? Это первые кандидаты на автоматизацию.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="border-color:var(--accent);">2</div>
+          <div class="tl-body"><h4>Не идите сразу на Astra</h4><p>ChatGPT Pro $200/мес или Claude API Sonnet закрывают 90% задач. Astra — для сложных проектных сценариев.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="border-color:var(--accent);">3</div>
+          <div class="tl-body"><h4>Пилот на одном процессе</h4><p>Возьмите одну роль/задачу и полностью автоматизируйте за 2 недели. Замерьте результат. Масштабируйте.</p></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;letter-spacing:2px;color:var(--green);margin-bottom:16px;font-weight:700;">HOME PROJECT — КОНКРЕТНО</div>
+        <div class="tl-item">
+          <div class="tl-dot" style="border-color:var(--green);">✓</div>
+          <div class="tl-body"><h4>Уже делаем правильно</h4><p>Агентская система, автоматизация рассылок, каталога, CRM — это и есть «ИИ-агенты за компьютером». Вы на 1–2 года впереди рынка.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="border-color:var(--green);">→</div>
+          <div class="tl-body"><h4>Следующий шаг: Computer Use для партнёров</h4><p>Показать дизайнерам и студиям, что заказать КП можно за 20 секунд через ИИ — это конкурентное преимущество в продажах.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="border-color:var(--green);">→</div>
+          <div class="tl-body"><h4>Следить за ценами на Astra</h4><p>Когда китайские аналоги снизят цену в 5–10×, Computer Use для обработки заказов и работы с поставщиками станет экономически обоснованным.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sources" style="margin-top:32px;">
+    <div style="font-size:11px;letter-spacing:2px;color:var(--mut);margin-bottom:12px;text-transform:uppercase;">Источники</div>
+    <a href="https://openai.com/index/gpt-6-astra/" target="_blank">→ OpenAI: GPT-6 Astra (официальный релиз)</a>
+    <a href="https://fortune.com/2026/09/03/openai-debuts-gpt-6-astra-computer-use-greg-brockman-says-start-of-agi/" target="_blank">→ Fortune: OpenAI launches GPT-6 Astra, touts computer use</a>
+    <a href="https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html" target="_blank">→ CNBC: OpenAI begins rolling out Astra model</a>
+    <a href="https://www.eesel.ai/blog/gpt-6-astra" target="_blank">→ eesel.ai: GPT-6 Astra — what it does, what it costs, and the catch</a>
+    <a href="https://en.wikipedia.org/wiki/GPT-6_Astra" target="_blank">→ Wikipedia: GPT-6 Astra</a>
+    <a href="https://9to5mac.com/2026/09/04/openai-releasing-major-upgrade-to-chatgpt-and-codex-with-gpt-6-astra-details-here/" target="_blank">→ 9to5Mac: OpenAI releasing major upgrade with GPT-6 Astra</a>
+  </div>
+</section>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.nav-dot');
+
+function scrollToSlide(i) {
+  slides[i].scrollIntoView({ behavior: 'smooth' });
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const i = Array.from(slides).indexOf(e.target);
+      dots.forEach((d, di) => d.classList.toggle('active', di === i));
+    }
+  });
+}, { threshold: 0.5 });
+
+slides.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
