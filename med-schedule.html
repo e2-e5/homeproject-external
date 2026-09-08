@@ -68,6 +68,7 @@ body{min-height:100vh;padding-bottom:48px;}
 .bp-in.ok{border-color:#48BB78;background:#F0FFF4;}
 .bp-in.sys{color:#E53E3E;}
 .bp-in.dia{color:#3182CE;}
+.bp-in.pulse{color:#DD6B20;}
 .bp-slash{font-size:20px;color:#CBD5E0;}
 .bp-mmhg{font-size:11px;color:#A0AEC0;white-space:nowrap;}
 
@@ -97,7 +98,7 @@ body{min-height:100vh;padding-bottom:48px;}
 
 <div class="hdr">
   <h1>💊 График приёма</h1>
-  <div class="dates">07 сентября — 06 октября 2026</div>
+  <div class="dates">08 сентября — 07 октября 2026</div>
   <div class="g-bar-wrap"><div class="g-bar" id="gBar" style="width:0%"></div></div>
   <div class="g-label" id="gLabel">Загрузка…</div>
 </div>
@@ -116,7 +117,7 @@ body{min-height:100vh;padding-bottom:48px;}
 <div class="content" id="main"></div>
 
 <script>
-const START = new Date(2026,8,7);
+const START = new Date(2026,8,8);
 const N = 30;
 const WD = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
 const MO = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
@@ -157,18 +158,18 @@ function meds(i){
 function phaseBanner(i){
   if(i<7){
     return `<div class="phase phase-1">
-      <div class="phase-ttl">🟢 Период 1 · дни 1–7 (07–13 сен)</div>
+      <div class="phase-ttl">🟢 Период 1 · дни 1–7 (08–14 сен)</div>
       <div class="phase-txt">Принимаете <b>все препараты</b>: Ху Гань Пянь + Чай Ху Шу Гань + Тао Хун Сы У Тан + Ци Цзюй Ди Хуан Вань + Магний.</div>
     </div>`;
   } else if(i<14){
     return `<div class="phase phase-2">
-      <div class="phase-ttl">🟡 Период 2 · дни 8–14 (14–20 сен)</div>
+      <div class="phase-ttl">🟡 Период 2 · дни 8–14 (15–21 сен)</div>
       <div class="phase-txt"><b>7-дневные завершены</b> (Ху Гань Пянь, Чай Ху Шу Гань). Продолжаете: <b>Тао Хун Сы У Тан</b> (3 раза), <b>Ци Цзюй Ди Хуан Вань</b> (вечером), <b>Магний</b> (на ночь).</div>
     </div>`;
   } else {
     return `<div class="phase phase-3">
-      <div class="phase-ttl">🔵 Период 3 · дни 15–30 (21 сен–06 окт)</div>
-      <div class="phase-txt">Все травяные курсы завершены. Остаётся только <b>Магний на ночь</b> (до 06 октября).</div>
+      <div class="phase-ttl">🔵 Период 3 · дни 15–30 (22 сен–07 окт)</div>
+      <div class="phase-txt">Все травяные курсы завершены. Остаётся только <b>Магний на ночь</b> (до 07 октября).</div>
     </div>`;
   }
 }
@@ -236,16 +237,24 @@ function medRow(i,slot,med,data){
 }
 
 function bpRow(i,data,when){
-  const sk=`bp_${when[0]}_s`,dk=`bp_${when[0]}_d`;
-  const sv=data[sk]||'',dv=data[dk]||'';
-  const lbl=when==='morning'?'Давление утром':'Давление вечером';
+  const w=when[0];
+  const sk=`bp_${w}_s`,dk=`bp_${w}_d`,pk=`bp_${w}_p`;
+  const sv=data[sk]||'',dv=data[dk]||'',pv=data[pk]||'';
+  const lbl=when==='morning'?'утром':'вечером';
   return `<div class="bp-row">
-    <div class="bp-lbl">❤️ ${lbl}</div>
+    <div class="bp-lbl">❤️ Давление ${lbl}</div>
     <div class="bp-fields">
       <input id="bp_${i}_${sk}" class="bp-in sys${sv?' ok':''}" type="number" inputmode="numeric" placeholder="120" value="${sv}" onblur="bpSave(${i},'${sk}')">
       <span class="bp-slash">/</span>
       <input id="bp_${i}_${dk}" class="bp-in dia${dv?' ok':''}" type="number" inputmode="numeric" placeholder="80" value="${dv}" onblur="bpSave(${i},'${dk}')">
       <span class="bp-mmhg">мм рт.ст.</span>
+    </div>
+  </div>
+  <div class="bp-row">
+    <div class="bp-lbl">💓 Пульс ${lbl}</div>
+    <div class="bp-fields">
+      <input id="bp_${i}_${pk}" class="bp-in pulse${pv?' ok':''}" type="number" inputmode="numeric" placeholder="70" value="${pv}" onblur="bpSave(${i},'${pk}')">
+      <span class="bp-mmhg">уд/мин</span>
     </div>
   </div>`;
 }
