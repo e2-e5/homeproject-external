@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Сравнение цен — Home Project vs miele-electronics.ru</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0E0F13;--card:#171923;--card2:#1F2230;--line:#2C3040;--ink:#EFEFF2;--mut:#9AA0AE;--gold:#C8A84B;--gold2:#E4CE86;--green:#3FBF7F;--red:#D9534F;--blue:#5FA8DE}
+  body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 18px}
+
+  header{background:linear-gradient(135deg,#14161E,#0B0C10);border-bottom:1px solid var(--line);padding:30px 0 26px}
+  .brand{font-size:12px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;font-weight:700}
+  h1{font-size:26px;font-weight:800;margin:10px 0 6px}
+  .sub{color:var(--mut);font-size:14px}
+  .tag{display:inline-block;margin-top:12px;background:rgba(63,191,127,.12);border:1px solid rgba(63,191,127,.4);color:var(--green);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700}
+
+  .tabs{position:sticky;top:0;z-index:20;background:rgba(14,15,19,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .tabs-nav{display:flex;gap:6px;padding:10px 0}
+  .tabs-nav button{background:transparent;border:1px solid var(--line);color:var(--mut);padding:9px 18px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit;white-space:nowrap}
+  .tabs-nav button:hover{border-color:var(--gold);color:var(--ink)}
+  .tabs-nav button.active{background:var(--gold);border-color:var(--gold);color:#14161E}
+
+  .panel{display:none;padding:28px 0 60px}
+  .panel.active{display:block}
+
+  /* Summary cards */
+  .summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:28px}
+  .sc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .sc.win{border-color:rgba(63,191,127,.5);background:rgba(63,191,127,.06)}
+  .sc .lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mut);font-weight:700;margin-bottom:8px}
+  .sc .val{font-size:26px;font-weight:800;color:var(--gold2);line-height:1.1}
+  .sc.win .val{color:var(--green)}
+  .sc .note{font-size:12px;color:var(--mut);margin-top:6px}
+  @media(max-width:620px){.summary{grid-template-columns:1fr}}
+
+  /* Table */
+  .tbl-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;padding:10px 12px;border-bottom:2px solid var(--line);text-align:left}
+  td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr:hover td{background:rgba(255,255,255,.02)}
+  .pos{font-weight:600;font-size:13px}
+  .art{font-size:11px;color:var(--mut);margin-top:2px;font-family:ui-monospace,monospace}
+  .comp-price{color:var(--mut)}
+  .our-price{color:var(--ink);font-weight:700}
+  .delta-cell{font-weight:700}
+  .plus{color:var(--green)}
+  .bar-wrap{margin-top:5px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;min-width:60px}
+  .bar{height:4px;border-radius:2px;background:var(--green)}
+  tfoot td{font-weight:800;font-size:15px;padding-top:14px;border-top:2px solid var(--gold);border-bottom:none}
+  tfoot .comp-price{color:var(--mut)}
+  tfoot .our-price{color:var(--gold2);font-size:18px}
+  tfoot .plus{color:var(--green);font-size:18px}
+
+  .note-block{background:rgba(200,168,75,.07);border:1px solid rgba(200,168,75,.3);border-radius:12px;padding:16px 18px;margin-top:22px;font-size:13px;color:var(--mut)}
+  .note-block b{color:var(--gold2)}
+
+  .extra-row td{background:rgba(95,168,222,.04);color:var(--blue);font-size:13px}
+  .extra-row .our-price{color:var(--blue);font-weight:600}
+
+  h2.sec{font-size:18px;font-weight:700;margin:0 0 16px;color:var(--ink)}
+  .sec-sub{font-size:13px;color:var(--mut);margin-bottom:20px;margin-top:-10px}
+
+  footer{border-top:1px solid var(--line);padding:24px 0 36px;color:var(--mut);font-size:12px;margin-top:40px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">HOME PROJECT · аналитика</div>
+    <h1>Наши цены vs miele-electronics.ru</h1>
+    <div class="sub">Позиционное сравнение по двум вариантам комплекта Miele для Василия</div>
+    <div class="tag">✓ По каждой позиции мы дешевле</div>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="wrap">
+    <div class="tabs-nav">
+      <button class="active" onclick="showTab('t1',this)">Вариант «Комфорт»</button>
+      <button onclick="showTab('t2',this)">Вариант «Флагман»</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== КОМФОРТ ========== -->
+<div id="t1" class="panel active">
+  <div class="wrap">
+    <h2 class="sec">Вариант «Комфорт»</h2>
+    <p class="sec-sub">Сравниваем 9 общих позиций Miele по одинаковым артикулам. Вытяжка и монтажный комплект — отдельно.</p>
+
+    <div class="summary">
+      <div class="sc">
+        <div class="lbl">miele-electronics.ru</div>
+        <div class="val">2 040 500 ₽</div>
+        <div class="note">10 позиций (Miele DAS4630 вытяжка, без монтажного комплекта)</div>
+      </div>
+      <div class="sc win">
+        <div class="lbl">Home Project</div>
+        <div class="val">1 768 800 ₽</div>
+        <div class="note">11 позиций (Falmec вытяжка + монтажный комплект WTV501 в комплекте)</div>
+      </div>
+      <div class="sc win">
+        <div class="lbl">Ваша экономия</div>
+        <div class="val">271 700 ₽</div>
+        <div class="note">–13,3% от суммы конкурента · и у нас больше позиций</div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:38%">Позиция / Артикул</th>
+          <th class="num">miele-electronics.ru</th>
+          <th class="num">Home Project</th>
+          <th class="num">Экономия</th>
+          <th style="width:90px"></th>
+        </tr>
+      </thead>
+      <tbody id="t1-body"></tbody>
+      <tfoot id="t1-foot"></tfoot>
+    </table>
+    </div>
+
+    <div class="note-block">
+      <b>Важно по вытяжке:</b> на miele-electronics.ru предложена <b>Miele DAS4630</b> за 129 000 ₽ — это накладная вытяжка Miele. Мы включаем <b>Falmec Gruppo Incasso Plus 50 IX</b> за 69 900 ₽ — встраиваемая в верхний шкаф, скрытая установка, мощность 1280 м³/ч. Если понадобится поменять на DAS4630, итог у нас всё равно составит <b>1 828 900 ₽</b> — на <b>211 600 ₽ дешевле</b> конкурента.<br><br>
+      <b>Монтажный комплект WTV501</b> для стирально-сушильной колонны (9 000 ₽) включён в нашу цену — у конкурента он отдельно, либо не предусмотрен.
+    </div>
+  </div>
+</div>
+
+<!-- ========== ФЛАГМАН ========== -->
+<div id="t2" class="panel">
+  <div class="wrap">
+    <h2 class="sec">Вариант «Флагман»</h2>
+    <p class="sec-sub">Конкурент предложил 9 позиций — без вытяжки и без монтажного комплекта. Мы включаем оба.</p>
+
+    <div class="summary">
+      <div class="sc">
+        <div class="lbl">miele-electronics.ru</div>
+        <div class="val">2 515 000 ₽</div>
+        <div class="note">9 позиций (без вытяжки и монтажного комплекта)</div>
+      </div>
+      <div class="sc win">
+        <div class="lbl">Home Project</div>
+        <div class="val">2 365 600 ₽</div>
+        <div class="note">11 позиций (Falmec вытяжка + монтажный комплект WTV601 включены)</div>
+      </div>
+      <div class="sc win">
+        <div class="lbl">Ваша экономия</div>
+        <div class="val">149 400 ₽</div>
+        <div class="note">–5,9% · и у нас 2 дополнительные позиции, которых нет у конкурента</div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:38%">Позиция / Артикул</th>
+          <th class="num">miele-electronics.ru</th>
+          <th class="num">Home Project</th>
+          <th class="num">Экономия</th>
+          <th style="width:90px"></th>
+        </tr>
+      </thead>
+      <tbody id="t2-body"></tbody>
+      <tfoot id="t2-foot"></tfoot>
+    </table>
+    </div>
+
+    <div class="note-block">
+      <b>Конкурент не включил вытяжку и монтажный комплект</b> в свой список. Если добавить к их итогу (2 515 000 ₽) стоимость DAS4630 129 000 ₽ + монтажный комплект ~12 000 ₽, получится <b>≈2 656 000 ₽</b>. Против нашего полного пакета из 11 позиций за <b>2 365 600 ₽</b> — экономия <b>290 400 ₽ (10,9%)</b>.
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">Home Project · Сравнение цен подготовлено 09.09.2026. Цены miele-electronics.ru актуальны на дату сравнения и могут меняться.</div>
+</footer>
+
+<script>
+function rub(n){return n.toLocaleString('ru-RU')+' ₽';}
+
+var V1=[
+  {pos:'Стиральная машина',   art:'WEG 895 WCS RU',       comp:239000, us:215000},
+  {pos:'Сушильная машина',    art:'TEH 795 WP',            comp:239000, us:219000},
+  {pos:'Посудомоечная машина',art:'G 5790 SCVi SL',        comp:179000, us:159900},
+  {pos:'Холодильник',         art:'KFN 7744 D',            comp:275000, us:247000},
+  {pos:'Варочная панель',     art:'KM 7464 FL',            comp:143500, us:125000},
+  {pos:'Духовой шкаф',        art:'H 2861-1 B OBSW',       comp:161000, us:145000},
+  {pos:'СВЧ встраиваемая',   art:'M2230SC OBSW',          comp:127000, us:107500},
+  {pos:'Кофемашина',          art:'CVA7440 OBSW',          comp:359000, us:299000},
+  {pos:'Подогреватель посуды',art:'ESW 7030 OBSW',         comp:189000, us:172500},
+];
+var V1extra=[
+  {pos:'Вытяжка встраиваемая',art:'Falmec GRUPPO INCASSO PLUS 50 IX (нержавеющая сталь)',comp:'Miele DAS4630 · 129 000 ₽',us:69900,note:true},
+  {pos:'Монтажный комплект',  art:'WTV 501 (стирально-сушильная колонна)',comp:'не включён',us:9000,note:true},
+];
+
+var V2=[
+  {pos:'Стиральная машина',   art:'WQ 1000 WPS Nova Edition', comp:314000, us:290000},
+  {pos:'Сушильная машина',    art:'TQ 1000 WP Nova Edition',  comp:315000, us:290000},
+  {pos:'Посудомоечная машина',art:'G 5990 SCVi SL',           comp:225000, us:202500},
+  {pos:'Холодильник',         art:'KFN 7774 C',               comp:309000, us:299900},
+  {pos:'Варочная панель',     art:'KM 7667 FL',               comp:239000, us:203900},
+  {pos:'Духовой шкаф',        art:'H 7262 BP OBSW',           comp:242000, us:228000},
+  {pos:'СВЧ встраиваемая',   art:'M7244TC OBSW',             comp:187000, us:174900},
+  {pos:'Кофемашина',          art:'CVA7845 OBSW',             comp:495000, us:425000},
+  {pos:'Подогреватель посуды',art:'ESW 7030 OBSW',            comp:189000, us:172500},
+];
+var V2extra=[
+  {pos:'Вытяжка встраиваемая',art:'Falmec GRUPPO INCASSO PLUS 50 IX (нержавеющая сталь)',comp:'не включена',us:69900,note:true},
+  {pos:'Монтажный комплект',  art:'WTV 601 (стирально-сушильная колонна)',comp:'не включён',us:9000,note:true},
+];
+
+function maxDelta(data){return Math.max(...data.map(r=>r.comp-r.us));}
+
+function renderTable(bodyId,footId,data,extra,compTotal,usTotal){
+  var maxD=maxDelta(data);
+  var rows='';
+  data.forEach(function(r){
+    var d=r.comp-r.us;
+    var pct=(d/maxD*100).toFixed(0);
+    rows+='<tr>'+
+      '<td><div class="pos">'+r.pos+'</div><div class="art">'+r.art+'</div></td>'+
+      '<td class="num comp-price">'+rub(r.comp)+'</td>'+
+      '<td class="num our-price">'+rub(r.us)+'</td>'+
+      '<td class="num delta-cell plus">−'+rub(d)+'</td>'+
+      '<td><div class="bar-wrap"><div class="bar" style="width:'+pct+'%"></div></div></td>'+
+      '</tr>';
+  });
+  extra.forEach(function(r){
+    var compStr=typeof r.comp==='number'?rub(r.comp):r.comp;
+    rows+='<tr class="extra-row">'+
+      '<td><div class="pos">'+r.pos+'</div><div class="art">'+r.art+'</div></td>'+
+      '<td class="num comp-price" style="color:var(--red);font-size:12px">'+compStr+'</td>'+
+      '<td class="num our-price">'+rub(r.us)+'</td>'+
+      '<td class="num" style="color:var(--blue);font-size:12px">бонус</td>'+
+      '<td></td>'+
+      '</tr>';
+  });
+  document.getElementById(bodyId).innerHTML=rows;
+  var diff=compTotal-usTotal;
+  var pctStr=((diff/compTotal)*100).toFixed(1);
+  document.getElementById(footId).innerHTML=
+    '<tr>'+
+    '<td><b>ИТОГО</b></td>'+
+    '<td class="num comp-price">'+rub(compTotal)+'</td>'+
+    '<td class="num our-price">'+rub(usTotal)+'</td>'+
+    '<td class="num plus delta-cell">−'+rub(diff)+'<br><span style="font-size:11px;font-weight:400">–'+pctStr+'%</span></td>'+
+    '<td></td>'+
+    '</tr>';
+}
+
+renderTable('t1-body','t1-foot',V1,V1extra,2040500,1768800);
+renderTable('t2-body','t2-foot',V2,V2extra,2515000,2365600);
+
+function showTab(id,btn){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.tabs-nav button').forEach(function(b){b.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
