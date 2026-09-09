@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Выбор бренда — Бренд-гид | Home Project</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#EAEAEA;--card:#fff;--text:#1A1A1A;--muted:#777;--border:#E5E5E5;
+  --miele:#1A1A1A;--miele-r:#CC0000;
+  --kupp:#1C1C1C;--kupp-g:#C8A84B;
+  --vzug:#1B3F5C;--vzug-l:#2E6B9E;
+  --bora:#111;--bora-a:#E8E0D0;
+  --sks:#0B2042;--sks-l:#8BA4C0;
+  --hp-gold:#C8A84B;--hp-dark:#111;
+}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* HEADER */
+.hdr{background:#111;color:#fff;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 14px rgba(0,0,0,.5)}
+.logo{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--hp-gold)}
+.hdr-sub{font-size:11px;color:rgba(255,255,255,.38);letter-spacing:.5px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0A0A0A 0%,#1A1A1A 60%,#262626 100%);color:#fff;padding:44px 20px 36px;text-align:center}
+.hero-eye{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:10px}
+.hero h1{font-size:24px;font-weight:300;letter-spacing:1px;margin-bottom:10px}
+.hero h1 em{font-style:normal;font-weight:700;color:var(--hp-gold)}
+.hero p{font-size:13px;color:rgba(255,255,255,.48);max-width:580px;margin:0 auto;line-height:1.8}
+
+/* TABS */
+.tnav{background:#1A1A1A;border-bottom:1px solid #2A2A2A;padding:0 12px;overflow-x:auto;white-space:nowrap}
+.tnav button{background:none;border:none;border-bottom:3px solid transparent;color:rgba(255,255,255,.4);padding:12px 15px;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:.3px}
+.tnav button:hover{color:rgba(255,255,255,.75)}
+.tnav button.active{color:#fff;border-bottom-color:var(--hp-gold)}
+
+/* PANELS */
+.panel{display:none;padding:20px 14px 60px;max-width:1180px;margin:0 auto}
+.panel.active{display:block}
+
+/* SECTION LABEL */
+.slbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#AAAAAA;font-weight:600;margin-bottom:14px}
+
+/* BRAND CARDS GRID */
+.brands-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:28px}
+
+/* BRAND CARD */
+.bc{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);transition:transform .18s,box-shadow .18s}
+.bc:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
+.bc-top{height:80px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.bc-flag{font-size:22px}
+.bc-brand{font-size:18px;font-weight:700;letter-spacing:1px}
+.bc-tier{font-size:10px;opacity:.65;margin-top:2px;letter-spacing:.5px}
+.bc-body{padding:14px 16px}
+.bc-country{font-size:10px;color:#999;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.bc-usp{font-size:12px;color:#444;line-height:1.55;margin-bottom:10px;min-height:36px}
+.bc-pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.pill{font-size:10px;padding:3px 8px;border-radius:10px;font-weight:500}
+.pill.green{background:#E8F5E9;color:#2E7D32}
+.pill.red{background:#FFEBEE;color:#C62828}
+.pill.blue{background:#E3F2FD;color:#1565C0}
+.pill.gold{background:#FFF8E1;color:#E65100}
+.pill.gray{background:#F5F5F5;color:#666}
+.bc-price{font-size:12px;color:#999;border-top:1px solid #F0F0F0;padding-top:8px;margin-top:4px}
+.bc-price strong{color:#1A1A1A;font-size:13px}
+
+/* COVERAGE MATRIX */
+.matrix-wrap{overflow-x:auto;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.09);margin-bottom:24px}
+table.mx{width:100%;border-collapse:collapse;background:#fff;font-size:12px;min-width:700px}
+table.mx th{padding:10px 12px;text-align:center;font-size:10px;letter-spacing:.8px;text-transform:uppercase;font-weight:700;white-space:nowrap}
+.mx-th-pos{background:#F5F5F5;color:#555;text-align:left;min-width:160px}
+.mx-th-m{background:#1A1A1A;color:var(--hp-gold)}
+.mx-th-k{background:#1C1C1C;color:var(--kupp-g)}
+.mx-th-v{background:#1B3F5C;color:#8BB8D8}
+.mx-th-s{background:#1B3F52;color:#AAD4E8}
+.mx-th-b{background:#111;color:#E8E0D0}
+.mx-th-dd{background:#2E1A5C;color:#B8A0E8}
+.mx-th-f{background:#3D1F1F;color:#E8B0A0}
+.mx-th-sks{background:#0B2042;color:var(--sks-l)}
+table.mx td{padding:9px 12px;border-bottom:1px solid #F5F5F5;text-align:center;vertical-align:middle}
+table.mx tr:last-child td{border-bottom:none}
+table.mx tr:hover td{background:#FAFAFA}
+.mx-pos{text-align:left;font-weight:600;font-size:12px;color:#333}
+.mx-ico{font-size:15px;margin-right:6px}
+.yes{color:#43A047;font-size:16px}
+.no{color:#EF5350;font-size:14px}
+.part{color:#FF9800;font-size:11px;font-weight:600}
+.spec{color:#42A5F5;font-size:11px;font-weight:600}
+
+/* COMPARISON TABLES */
+.cmp-wrap{overflow-x:auto;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.09);margin-bottom:20px}
+table.ct{width:100%;border-collapse:collapse;background:#fff;font-size:12px;min-width:600px}
+table.ct th{padding:10px 14px;text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700;white-space:nowrap}
+.ct-th-pos{background:#F5F5F5;color:#555;min-width:120px}
+.ct-th-m{background:#1A1A1A;color:var(--hp-gold)}
+.ct-th-k{background:#2A2A2A;color:var(--kupp-g)}
+.ct-th-v{background:#1B3F5C;color:#8BB8D8}
+table.ct td{padding:9px 14px;border-bottom:1px solid #F5F5F5;vertical-align:top}
+table.ct tr:last-child td{border-bottom:none}
+table.ct tr:hover td{background:#FAFAFA}
+.ct-pos{font-weight:600;color:#333;font-size:12px}
+.mn{font-size:11px;font-weight:600;margin-bottom:2px}
+.ms{font-size:10px;color:#888;line-height:1.4;margin-bottom:4px}
+.mp{font-size:13px;font-weight:700}
+.mp-m{color:#1A1A1A}
+.mp-k{color:#5D4037}
+.mp-v{color:#1B3F5C}
+.winner{font-size:9px;background:#E8F5E9;color:#2E7D32;padding:2px 6px;border-radius:8px;font-weight:700;margin-left:4px}
+.td-na{color:#CCC;font-size:10px;font-style:italic}
+
+/* HOOD CARDS */
+.hood-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:24px}
+.hc{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.hc-top{height:100px;display:flex;align-items:center;justify-content:center;font-size:44px;position:relative}
+.hc-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:700;padding:3px 7px;border-radius:10px}
+.hc-body{padding:12px 14px}
+.hc-brand{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#999;margin-bottom:3px}
+.hc-model{font-size:13px;font-weight:700;margin-bottom:4px}
+.hc-type{font-size:11px;color:#666;margin-bottom:6px}
+.hc-price{font-size:17px;font-weight:700}
+.hc-specs{margin-top:8px;border-top:1px solid #F5F5F5;padding-top:8px}
+.hc-spec-row{display:flex;justify-content:space-between;font-size:11px;padding:2px 0}
+.hc-spec-row .key{color:#999}
+.hc-spec-row .val{font-weight:600}
+
+/* RECOMMENDATION */
+.rec-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:24px}
+.rc{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.rc.rec-1{border-top:4px solid var(--miele-r)}
+.rc.rec-2{border-top:4px solid var(--kupp-g)}
+.rc.rec-3{border-top:4px solid var(--vzug-l)}
+.rc.rec-4{border-top:4px solid #66BB6A}
+.rc-num{font-size:28px;font-weight:300;color:#DDD;margin-bottom:6px}
+.rc-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.rc-sub{font-size:12px;color:#999;margin-bottom:12px}
+.rc-price{font-size:18px;font-weight:700;margin-bottom:10px}
+.rc-pros{font-size:12px;color:#555;line-height:1.7}
+.rc-pros li{margin-left:14px;margin-bottom:2px}
+
+/* DECISIONS */
+.decisions{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-top:20px}
+.dec-title{font-size:14px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #F0F0F0}
+.dec-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #F5F5F5}
+.dec-row:last-child{border-bottom:none}
+.dec-q{font-size:13px;font-weight:600;flex:0 0 200px;color:#1A1A1A}
+.dec-a{font-size:12px;color:#666;line-height:1.6;flex:1}
+.dec-tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:8px;font-weight:600;margin-right:4px;margin-bottom:3px}
+.dec-tag.a{background:#E8F5E9;color:#2E7D32}
+.dec-tag.b{background:#E3F2FD;color:#1565C0}
+.dec-tag.c{background:#FFF8E1;color:#E65100}
+
+/* FOOTER */
+footer{background:#111;color:rgba(255,255,255,.3);text-align:center;padding:22px 16px;font-size:11px;line-height:1.9;letter-spacing:.3px}
+footer strong{color:rgba(255,255,255,.55)}
+
+@media(max-width:640px){.brands-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="logo">HOME PROJECT</div>
+  <div class="hdr-sub">Бренд-гид · для Василия</div>
+</div>
+
+<div class="hero">
+  <div class="hero-eye">Персональный гид · Рациональный выбор</div>
+  <h1>Все бренды — <em>одна страница</em></h1>
+  <p>Полное сравнение брендов и моделей для вашего проекта: встроенный единый блок техники. Цель — помочь выбрать бренд и конкретные модели.</p>
+</div>
+
+<div class="tnav">
+  <button class="active" onclick="showTab('brands',this)">🏠 Все бренды</button>
+  <button onclick="showTab('matrix',this)">✅ Кто что умеет</button>
+  <button onclick="showTab('compare',this)">🔧 Сравнение по позициям</button>
+  <button onclick="showTab('hoods',this)">🌬️ Мощные вытяжки</button>
+  <button onclick="showTab('reco',this)">⭐ Рекомендация</button>
+</div>
+
+<!-- ======================== TAB: BRANDS ======================== -->
+<div id="brands" class="panel active">
+  <div class="slbl">Наш портфель · 10 брендов</div>
+
+  <div style="margin-bottom:10px;font-size:12px;color:#888">
+    🟢 Может закрыть полный комплект &nbsp;|&nbsp; 🟡 Кухня без стирки &nbsp;|&nbsp; 🔵 Специалист одной категории
+  </div>
+
+  <div class="brands-grid">
+
+    <!-- MIELE -->
+    <div class="bc">
+      <div class="bc-top" style="background:linear-gradient(135deg,#1A1A1A,#2A2A2A)">
+        <div><div class="bc-brand" style="color:#fff">Miele</div><div class="bc-tier" style="color:rgba(255,255,255,.5)">★★★★ Premium</div></div>
+        <div class="bc-flag">🇩🇪</div>
+      </div>
+      <div class="bc-body">
+        <div class="bc-country">Германия · с 1899 · Gütersloh</div>
+        <div class="bc-usp">Единственный бренд в нашем портфеле, который закрывает ВСЕ 10 позиций: кухню и прачечную под одной маркой. Лучшая надёжность и сервис.</div>
+        <div class="bc-pills">
+          <span class="pill green">Полный экосистем</span>
+          <span class="pill green">Стирка + кухня</span>
+          <span class="pill blue">Obsidian Black</span>
+          <span class="pill gold">TwinDos · AutoDos</span>
+        </div>
+        <div class="bc-price">Полный комплект (10 поз): <strong>~3 350 000 ₽</strong></div>
+      </div>
+    </div>
+
+    <!-- KÜPPERSBUSCH -->
+    <div class="bc">
+      <div class="bc-top" style="background:linear-gradient(135deg,#1C1C1C,#2D2D2D)">
+        <div><div class="bc-brand" style="color:#C8A84B;font-size:14px">KÜPPERSBUSCH</div><div class="bc-tier" style="color:rgba(255,255,255,.5)">★★★★ Premium</div></div>
+        <div class="bc-flag">🇩🇪</div>
+      </div>
+      <div class="bc-body">
+        <div class="bc-country">Германия · с 1875 · Gelsenkirchen</div>
+        <div class="bc-usp">8 цветовых коллекций — единая палитра через ВСЕ приборы кухни. Black Chrome и Black Velvet — идеальный чёрный. Нет своей стирки (→ Schulthess).</div>
+        <div class="bc-pills">
+          <span class="pill blue">Black Chrome S2</span>
+          <span class="pill blue">Black Velvet S5</span>
+          <span class="pill green">8 коллекций</span>
+          <span class="pill gold">Единый стиль</span>
+          <span class="pill red">Стирка → Schulthess</span>
+        </div>
+        <div class="bc-price">Кухня (8 поз): <strong>~1 900 000 ₽</strong> + Schulthess</div>
+      </div>
+    </div>
+
+    <!-- V-ZUG -->
+    <div class="bc">
+      <div class="bc-top" style="background:linear-gradient(135deg,#1B3F5C,#2E6B9E)">
+        <div><div class="bc-brand" style="color:#fff">V-ZUG</div><div class="bc-tier" style="color:rgba(255,255,255,.5)">★★★★★ Ultra</div></div>
+        <div class="bc-flag">🇨🇭</div>
+      </div>
+      <div class="bc-body">
+        <div class="bc-country">Швейцария · с 1913 · Zug</div>
+        <div class="bc-usp">«Выше Miele» — швейцарская точность и паровые технологии. Black Glass — глубокий чёрный. Нет холодильника (→ Miele/Fhiaba). Стирка через сестринский Schulthess.</div>
+        <div class="bc-pills">
+          <span class="pill blue">Black Glass</span>
+          <span class="pill green">Пар — лучший в мире</span>
+          <span class="pill gold">Schweizer Qualität</span>
+          <span class="pill red">Нет холодильника</span>
+          <span class="pill red">Стирка → Schulthess</span>
+        </div>
+        <div class="bc-price">Кухня (8 поз): <strong>~4 300 000 ₽</strong></div>
+      </div>
+    </div>
+
+    <!-- SCHULTHESS -->
+    <div class="bc">
+      <div class="bc-top" style="background:linear-gradient(135deg,#2C4C6E,#3A6898)">
+        <div><div class="bc-brand" style="color:#fff;font-size:14px">SCHULTHESS</div><div class="bc-tier" style="color:rgba(255,255,255,.5)">★★★★ Premium</div></div>
+        <div class="bc-flag">🇨🇭</div>
+      </div>
+      <div class="bc-body">
+        <div class="bc-country">Швейцария · сестринский бренд V-ZUG</div>
+        <div class="bc-usp">Специалист прачечной. Ключевое: монтажный комплект с выдвижной полкой между машинами — <strong>именно то, о чём вы просили</strong>. Washer + Dryer open-стек.</div>
+        <div class="bc-pills">
+          <span class="pill green">⭐ Стопка с полкой</span>
+          <span class="pill green">Стиральная + Сушильная</span>
+          <span class="pill gray">White / Серебро</span>
+          <span class="pill red">Только прачечная</span>
+        </div>
+        <div class="bc-price">Пара + полка: <strong>~680 000–730 000 ₽</strong></div>
+      </div>
+    </div>
+
+    <!-- BORA -->
+    <div class="bc">
+      <div class="bc-top" style="background:linear-gradient(135deg,#111,#222)">
+        <div><div class="bc-brand" style="color:#E8E0D0">BORA</div><div class="bc-tier" style="color:rgba(255,255,255,.5)">★★★★ Design</div></div>
+        <div class="bc-flag">🇩🇪</div>
+      </div>
+      <div class="bc-body">
+        <div class="bc-country">Германия · с 2007 · Raubling</div>
+        <div class="bc-usp">Революция готовки: вытяжка встроена В варочную панель. Над головой — ничего. All Black вариация. Лучший выбор для «wow»-эффекта зоны готовки.</div>
+        <div class="bc-pills">
+          <span class="pill blue">All Black</span>
+          <span class="pill green">Downdraft — нет вытяжки</span>
+          <span class="pill gold">Wow-эффект</span>
+          <span class="pill red">Только зона готовки</span>
+        </div>
+        <div class="bc-price">Зона готовки (панель + вытяжка): <strong>от 1 130 000 ₽</strong></div>
+      </div>
+    </div>
+
+    <!-- De Dietrich -->
+    <div class="bc">
+      <div class="bc-top" style="background:linear-gradient(135deg,#2E1A5C,#4A2E8A)">
+        <div><div class="bc-brand" style="color:#D0C0F0;font-size:13px">DE DIETRICH</div><div class="bc-tier" style="color:rgba(255,255,255,.5)">★★★ Mid-Premium</div></div>
+        <div class="bc-flag">🇫🇷</div>
+      </div>
+      <div class="bc-body">
+        <div class="bc-country">Франция · с 1684 · старейший бренд</div>
+        <div class="bc-usp">Доступный премиум с французским характером. Полная кухонная линейка. Хорошее соотношение цена/качество для тех, кто хочет европейский уровень без наценки.</div>
+        <div class="bc-pills">
+          <span class="pill green">Полная кухня</span>
+          <span class="pill blue">Чёрный доступен</span>
+          <span class="pill gold">Лучшая цена/качество</span>
+          <span class="pill red">Нет стирки</span>
+        </div>
+        <div class="bc-price">Кухня (8 поз): <strong>~1 200 000–1 600 000 ₽</strong></div>
+      </div>
+    </div>
+
+    <!-- SKS -->
+    <div class="bc">
+      <div class="bc-top" style="background:linear-gradient(135deg,#0B2042,#1A3A6A)">
+        <div><div class="bc-brand" style="color:#8BA4C0;font-size:13px">SIGNATURE KITCHEN</div><div class="bc-tier" style="color:rgba(255,255,255,.5)">★★★★★ Ultra-Premium</div></div>
+        <div class="bc-flag">🇺🇸</div>
+      </div>
+      <div class="bc-body">
+        <div class="bc-country">США (LG Electronics) · профессиональный стиль</div>
+        <div class="bc-usp">Американский про-кухня. Уникальный French Door холодильник и sous-vide варочная панель. Флагманский продукт для тех, кто хочет самое дорогое и заметное.</div>
+        <div class="bc-pills">
+          <span class="pill green">Флагман French Door</span>
+          <span class="pill gold">Sous-Vide варочная</span>
+          <span class="pill blue">Сталь / Панели</span>
+          <span class="pill red">Нет стирки · Нет вытяжки</span>
+        </div>
+        <div class="bc-price">Кухня (8 поз): <strong>~4 660 000 ₽</strong></div>
+      </div>
+    </div>
+
+    <!-- FHIABA -->
+    <div class="bc">
+      <div class="bc-top" style="background:linear-gradient(135deg,#3D1F1F,#6B3A3A)">
+        <div><div class="bc-brand" style="color:#E8B0A0">Fhiaba</div><div class="bc-tier" style="color:rgba(255,255,255,.5)">★★★★★★ Luxury</div></div>
+        <div class="bc-flag">🇮🇹</div>
+      </div>
+      <div class="bc-body">
+        <div class="bc-country">Италия · холодильники мирового класса</div>
+        <div class="bc-usp">Лучшие холодильники в мире. TriMode — один корпус работает как холодильник, морозильник или винный шкаф. Когда «лучший холодильник» важнее цены.</div>
+        <div class="bc-pills">
+          <span class="pill green">Лучший холодильник</span>
+          <span class="pill gold">TriMode</span>
+          <span class="pill blue">Нержавеющая / стекло</span>
+          <span class="pill red">Только холодильники</span>
+        </div>
+        <div class="bc-price">Холодильник: <strong>от 2 352 000 ₽</strong></div>
+      </div>
+    </div>
+
+    <!-- ILVE -->
+    <div class="bc">
+      <div class="bc-top" style="background:linear-gradient(135deg,#2A1A0A,#5C3A1A)">
+        <div><div class="bc-brand" style="color:#D4A870">ILVE</div><div class="bc-tier" style="color:rgba(255,255,255,.5)">★★★★ Italian Luxury</div></div>
+        <div class="bc-flag">🇮🇹</div>
+      </div>
+      <div class="bc-body">
+        <div class="bc-country">Италия · Bassano del Grappa · Кулинарное искусство</div>
+        <div class="bc-usp">Итальянские профессиональные духовые шкафы и варочные панели. Кастомные цвета, ручки, вставки. Для тех, кому важна итальянская душа на кухне.</div>
+        <div class="bc-pills">
+          <span class="pill green">Итальянский дизайн</span>
+          <span class="pill gold">Кастомизация цвета</span>
+          <span class="pill blue">Чёрный доступен</span>
+          <span class="pill red">Только кулинария</span>
+        </div>
+        <div class="bc-price">Кулинарная зона: <strong>по запросу</strong></div>
+      </div>
+    </div>
+
+    <!-- GRAUDE -->
+    <div class="bc">
+      <div class="bc-top" style="background:linear-gradient(135deg,#2A2A2A,#444)">
+        <div><div class="bc-brand" style="color:#CCC">GRAUDE</div><div class="bc-tier" style="color:rgba(255,255,255,.5)">★★ Entry-Premium</div></div>
+        <div class="bc-flag">🇩🇪</div>
+      </div>
+      <div class="bc-body">
+        <div class="bc-country">Германия · доступная кухонная техника</div>
+        <div class="bc-usp">Немецкая кухонная техника начального уровня. Духовые шкафы от 37 990 ₽. Кофемашина от 214 490 ₽. Хорошая база для смешанных комплектов.</div>
+        <div class="bc-pills">
+          <span class="pill green">Доступность</span>
+          <span class="pill gray">Белый · Чёрный · Сталь</span>
+          <span class="pill red">Базовый уровень</span>
+          <span class="pill red">Не для премиум-проекта</span>
+        </div>
+        <div class="bc-price">Духовой шкаф: <strong>от 37 990 ₽</strong></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======================== TAB: MATRIX ======================== -->
+<div id="matrix" class="panel">
+  <div class="slbl">Что закрывает каждый бренд из ваших 10 позиций</div>
+  <div class="matrix-wrap">
+    <table class="mx">
+      <thead>
+        <tr>
+          <th class="mx-th-pos">Позиция</th>
+          <th class="mx-th-m">Miele</th>
+          <th class="mx-th-k">Küppers­busch</th>
+          <th class="mx-th-v">V-ZUG</th>
+          <th class="mx-th-s">Schulthess</th>
+          <th class="mx-th-b">BORA</th>
+          <th class="mx-th-dd">De Dietrich</th>
+          <th class="mx-th-f">Fhiaba</th>
+          <th class="mx-th-sks">SKS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mx-pos"><span class="mx-ico">🌀</span>Стиральная</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="part">→S</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+        </tr>
+        <tr>
+          <td class="mx-pos"><span class="mx-ico">💨</span>Сушильная + полка</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="part">→S</span></td>
+          <td><span class="yes" title="Монтажный комплект с полкой">⭐</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+        </tr>
+        <tr>
+          <td class="mx-pos"><span class="mx-ico">❄️</span>Холодильник встр.</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="spec">VIP</span></td>
+          <td><span class="yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="mx-pos"><span class="mx-ico">🍽️</span>Посудомойка</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="mx-pos"><span class="mx-ico">🔥</span>Варочная панель</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="spec">★★★</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="mx-pos"><span class="mx-ico">🌬️</span>Вытяжка мощная</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="spec">↓ Down</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+        </tr>
+        <tr>
+          <td class="mx-pos"><span class="mx-ico">🎂</span>Духовой шкаф</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="mx-pos"><span class="mx-ico">📡</span>СВЧ / Комби</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="mx-pos"><span class="mx-ico">☕</span>Кофемашина</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+        </tr>
+        <tr>
+          <td class="mx-pos"><span class="mx-ico">🫙</span>Подогреватель</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✕</span></td>
+          <td><span class="no">✕</span></td>
+        </tr>
+        <tr style="background:#F9F9F9;font-weight:700">
+          <td class="mx-pos" style="font-weight:700">Покрытие из 10</td>
+          <td style="color:#2E7D32;font-size:14px">10/10</td>
+          <td style="color:#1565C0;font-size:13px">8/10</td>
+          <td style="color:#1B3F5C;font-size:13px">8/10</td>
+          <td style="color:#555;font-size:13px">2/10</td>
+          <td style="color:#555;font-size:13px">2/10</td>
+          <td style="color:#555;font-size:13px">8/10</td>
+          <td style="color:#555;font-size:13px">1/10</td>
+          <td style="color:#555;font-size:13px">7/10</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:11px;color:#AAA;line-height:1.8">
+    ✓ — есть в нашем каталоге &nbsp;|&nbsp; ✕ — нет &nbsp;|&nbsp; →S — через Schulthess (сестринский бренд V-ZUG) &nbsp;|&nbsp; ⭐ — монтажный комплект с выдвижной полкой &nbsp;|&nbsp; ★★★ — специалист &nbsp;|&nbsp; VIP — ультра-люкс
+  </div>
+</div>
+
+<!-- ======================== TAB: COMPARE ======================== -->
+<div id="compare" class="panel">
+  <div class="slbl">Топ-3 бренда · Сравнение модель-по-модели</div>
+  <p style="font-size:12px;color:#888;margin-bottom:18px">Ниже — рекомендуемые модели в чёрном цвете для каждого бренда по каждой из 10 позиций.</p>
+
+  <!-- WASHING -->
+  <div class="slbl" style="margin-top:0">🌀 Стиральная машина</div>
+  <div class="cmp-wrap">
+    <table class="ct">
+      <thead><tr>
+        <th class="ct-th-pos">Параметр</th>
+        <th class="ct-th-m">⚫ Miele</th>
+        <th class="ct-th-k">⬛ Küppersbusch</th>
+        <th class="ct-th-v">🔵 V-ZUG / Schulthess</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="ct-pos">Модель</td>
+          <td><div class="mn">WQ 1000 WPS Nova Edition</div></td>
+          <td><div class="td-na">Нет собственных стиральных</div></td>
+          <td><div class="mn">Schulthess Spirit 530 <span class="winner">⭐ Партнёр</span></div></td>
+        </tr>
+        <tr><td class="ct-pos">Загрузка</td>
+          <td>9 кг</td><td class="td-na">—</td><td>9 кг</td>
+        </tr>
+        <tr><td class="ct-pos">Обороты отжима</td>
+          <td>1 600 об/мин</td><td class="td-na">—</td><td>1 400 об/мин</td>
+        </tr>
+        <tr><td class="ct-pos">Ключевая технология</td>
+          <td>TwinDos — авто-дозирование 2 компонентов</td><td class="td-na">—</td><td>Swiss Precision · AquaStop</td>
+        </tr>
+        <tr><td class="ct-pos">Цвет</td>
+          <td>White / Graphite / Steel</td><td class="td-na">—</td><td>White</td>
+        </tr>
+        <tr><td class="ct-pos">Цена РРЦ</td>
+          <td><div class="mp mp-m">339 400 ₽</div></td>
+          <td class="td-na">—</td>
+          <td><div class="mp mp-v">357 540 ₽ <span style="font-size:10px;color:#999">(уц.)</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DRYER + SHELF -->
+  <div class="slbl">💨 Сушильная машина + монтажная полка</div>
+  <div class="cmp-wrap">
+    <table class="ct">
+      <thead><tr>
+        <th class="ct-th-pos">Параметр</th>
+        <th class="ct-th-m">⚫ Miele</th>
+        <th class="ct-th-k">⬛ Küppersbusch</th>
+        <th class="ct-th-v">🔵 Schulthess</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="ct-pos">Модель сушилки</td>
+          <td><div class="mn">TQ 1000 WP Nova Edition</div></td>
+          <td class="td-na">Нет</td>
+          <td><div class="mn">Spirit 660 <span class="winner">⭐ Партнёр</span></div></td>
+        </tr>
+        <tr><td class="ct-pos">Монтажная полка</td>
+          <td>Miele WTV 501 — стек-комплект</td><td class="td-na">—</td>
+          <td>Schulthess 52208-52214 <strong>с выдвижной полкой</strong> ⭐</td>
+        </tr>
+        <tr><td class="ct-pos">Тип вентиляции</td>
+          <td>Тепловой насос (A++)</td><td class="td-na">—</td><td>Тепловой насос</td>
+        </tr>
+        <tr><td class="ct-pos">Цена сушилки</td>
+          <td><div class="mp mp-m">298 770 ₽</div></td>
+          <td class="td-na">—</td>
+          <td><div class="mp mp-v">322 140 ₽ <span style="font-size:10px;color:#999">(уц.)</span></div></td>
+        </tr>
+        <tr><td class="ct-pos">Монтажный комплект с полкой</td>
+          <td><span class="td-na">уточнить</span></td><td class="td-na">—</td>
+          <td><div class="mp mp-v">48 990 ₽ <span class="winner">⭐</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- OVEN -->
+  <div class="slbl">🎂 Духовой шкаф</div>
+  <div class="cmp-wrap">
+    <table class="ct">
+      <thead><tr>
+        <th class="ct-th-pos">Параметр</th>
+        <th class="ct-th-m">⚫ Miele</th>
+        <th class="ct-th-k">⬛ Küppersbusch</th>
+        <th class="ct-th-v">🔵 V-ZUG</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="ct-pos">Модель (чёрный)</td>
+          <td><div class="mn">H 7464 BP OBSW</div></td>
+          <td><div class="mn">BP 6550.0-Airfry S2 Black Chrome</div></td>
+          <td><div class="mn">Combair V6000 60P Black Glass</div></td>
+        </tr>
+        <tr><td class="ct-pos">Объём / Ширина</td>
+          <td>76 л / 60 см</td><td>76 л / 60 см</td><td>— / 60 см</td>
+        </tr>
+        <tr><td class="ct-pos">Пиролиз</td>
+          <td>✅</td><td>✅</td><td>✅</td>
+        </tr>
+        <tr><td class="ct-pos">AirFry</td>
+          <td>✅ <span class="winner">есть</span></td><td>✅ (-Airfry версия)</td><td>❌ (пар вместо)</td>
+        </tr>
+        <tr><td class="ct-pos">Пар встроен</td>
+          <td>❌ (отдельный H7840)</td><td>✅ (BD 6340 версия)</td><td>✅ Все Combair <span class="winner">V6000</span></td>
+        </tr>
+        <tr><td class="ct-pos">Цвет чёрный</td>
+          <td>Obsidian Black</td><td>Black Chrome S2</td><td>Black Glass</td>
+        </tr>
+        <tr><td class="ct-pos">Цена РРЦ</td>
+          <td><div class="mp mp-m">350 755 ₽</div></td>
+          <td><div class="mp mp-k">466 990 ₽</div></td>
+          <td><div class="mp mp-v">662 040 ₽</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COFFEE -->
+  <div class="slbl">☕ Кофемашина</div>
+  <div class="cmp-wrap">
+    <table class="ct">
+      <thead><tr>
+        <th class="ct-th-pos">Параметр</th>
+        <th class="ct-th-m">⚫ Miele</th>
+        <th class="ct-th-k">⬛ Küppersbusch</th>
+        <th class="ct-th-v">🔵 V-ZUG</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="ct-pos">Модель (чёрный)</td>
+          <td><div class="mn">CVA 7440 OBSW</div></td>
+          <td><div class="mn">CKV 6550.0 S2 Black Chrome</div></td>
+          <td><div class="mn">CoffeeCenter V6000 45 Black Glass</div></td>
+        </tr>
+        <tr><td class="ct-pos">Контейнеры зёрен</td>
+          <td>1 (2 в CVA7845)</td><td>1</td><td>2 контейнера <span class="winner">Лучший</span></td>
+        </tr>
+        <tr><td class="ct-pos">Одновременно 2 кружки</td>
+          <td>✅ OneTouch for Two</td><td>✅</td><td>✅</td>
+        </tr>
+        <tr><td class="ct-pos">Горячая вода / пара</td>
+          <td>✅</td><td>✅</td><td>✅</td>
+        </tr>
+        <tr><td class="ct-pos">Цена РРЦ</td>
+          <td><div class="mp mp-m">357 363 ₽</div></td>
+          <td><div class="mp mp-k">~132 990 ₽ <span class="winner">Лучшая цена</span></div></td>
+          <td><div class="mp mp-v">825 290 ₽</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WARMING DRAWER -->
+  <div class="slbl">🫙 Подогреватель посуды</div>
+  <div class="cmp-wrap">
+    <table class="ct">
+      <thead><tr>
+        <th class="ct-th-pos">Параметр</th>
+        <th class="ct-th-m">⚫ Miele</th>
+        <th class="ct-th-k">⬛ Küppersbusch</th>
+        <th class="ct-th-v">🔵 V-ZUG</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="ct-pos">Модель (чёрный)</td>
+          <td><div class="mn">ESW 7030 OBSW <span style="font-size:10px;color:#999">(добавляем)</span></div></td>
+          <td><div class="mn">CSW 6800.0 S2 Black Chrome</div></td>
+          <td><div class="mn">V4000 28 Black Glass</div></td>
+        </tr>
+        <tr><td class="ct-pos">Вместимость</td>
+          <td>12 приборов</td><td>~12 приборов</td><td>28 см / средний</td>
+        </tr>
+        <tr><td class="ct-pos">Таймер</td>
+          <td>✅ 4 часа</td><td>✅</td><td>✅</td>
+        </tr>
+        <tr><td class="ct-pos">Push2Open</td>
+          <td>✅</td><td>✅</td><td>—</td>
+        </tr>
+        <tr><td class="ct-pos">Цена РРЦ</td>
+          <td><div class="mp mp-m">189 000 ₽ <span style="font-size:10px;color:#999">(добавляем)</span></div></td>
+          <td><div class="mp mp-k">~132 990 ₽ <span class="winner">Лучшая цена</span></div></td>
+          <td><div class="mp mp-v">335 990 ₽</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FRIDGE -->
+  <div class="slbl">❄️ Холодильник встроенный</div>
+  <div class="cmp-wrap">
+    <table class="ct">
+      <thead><tr>
+        <th class="ct-th-pos">Параметр</th>
+        <th class="ct-th-m">⚫ Miele</th>
+        <th class="ct-th-k">⬛ Küppersbusch</th>
+        <th style="background:#3D1F1F;color:#E8B0A0;padding:10px 14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700">🍷 Fhiaba (VIP)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="ct-pos">Модель</td>
+          <td><div class="mn">KFN 7795 С NoFrost</div></td>
+          <td><div class="mn">Küppersbusch встр.</div></td>
+          <td><div class="mn">XS900TST6 TriMode <span class="winner">Топ мира</span></div></td>
+        </tr>
+        <tr><td class="ct-pos">Технология</td>
+          <td>NoFrost · 7000 серия</td><td>NoFrost</td><td>TriMode: холод / мороз / вино</td>
+        </tr>
+        <tr><td class="ct-pos">Цена РРЦ</td>
+          <td><div class="mp mp-m">396 195 ₽</div></td>
+          <td><div class="mp mp-k">~250 000–400 000 ₽</div></td>
+          <td><div class="mp" style="color:#8B3A3A">2 352 735 ₽</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ======================== TAB: HOODS ======================== -->
+<div id="hoods" class="panel">
+  <div class="slbl">Мощные вытяжки — все варианты для чёрного комплекта</div>
+  <p style="font-size:12px;color:#888;margin-bottom:18px">Вы хотите мощную вытяжку. Ниже — все опции: от традиционных встроенных до революционного downdraft BORA.</p>
+
+  <div class="hood-grid">
+
+    <div class="hc">
+      <div class="hc-top" style="background:linear-gradient(140deg,#111,#2A2A2A)">
+        <span>🌬️</span>
+        <span class="hc-badge" style="background:var(--hp-gold);color:#1A1A1A">Флагман</span>
+      </div>
+      <div class="hc-body">
+        <div class="hc-brand">Miele</div>
+        <div class="hc-model">DA 6698 D OBSW</div>
+        <div class="hc-type">Настенная / Островная · Obsidian Black</div>
+        <div class="hc-price" style="color:#1A1A1A">565 000 ₽</div>
+        <div class="hc-specs">
+          <div class="hc-spec-row"><span class="key">Тип</span><span class="val">Overhead · в колонну</span></div>
+          <div class="hc-spec-row"><span class="key">Цвет</span><span class="val">Obsidian Black ✅</span></div>
+          <div class="hc-spec-row"><span class="key">Совместимость</span><span class="val">Miele экосистем</span></div>
+          <div class="hc-spec-row"><span class="key">Монтаж</span><span class="val">Стандартный</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hc">
+      <div class="hc-top" style="background:linear-gradient(140deg,#1B3F5C,#2E6B9E)">
+        <span>🌬️</span>
+        <span class="hc-badge" style="background:#8BB8D8;color:#1A1A1A">V6000</span>
+      </div>
+      <div class="hc-body">
+        <div class="hc-brand">V-ZUG</div>
+        <div class="hc-model">AiroClearIsland V6000</div>
+        <div class="hc-type">Островная · самая мощная V-ZUG</div>
+        <div class="hc-price" style="color:#1B3F5C">743 390 ₽</div>
+        <div class="hc-specs">
+          <div class="hc-spec-row"><span class="key">Тип</span><span class="val">Island · над островом</span></div>
+          <div class="hc-spec-row"><span class="key">Цвет</span><span class="val">Platinum / Pearl</span></div>
+          <div class="hc-spec-row"><span class="key">Совместимость</span><span class="val">V-ZUG экосистем</span></div>
+          <div class="hc-spec-row"><span class="key">Монтаж</span><span class="val">К потолку</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hc">
+      <div class="hc-top" style="background:linear-gradient(140deg,#1B3F5C,#2E6B9E)">
+        <span>🌬️</span>
+      </div>
+      <div class="hc-body">
+        <div class="hc-brand">V-ZUG</div>
+        <div class="hc-model">AiroClearWall V6000</div>
+        <div class="hc-type">Настенная / Cabinet · V6000</div>
+        <div class="hc-price" style="color:#1B3F5C">509 240 ₽</div>
+        <div class="hc-specs">
+          <div class="hc-spec-row"><span class="key">Тип</span><span class="val">Настенная</span></div>
+          <div class="hc-spec-row"><span class="key">Цвет</span><span class="val">Нержавеющая сталь</span></div>
+          <div class="hc-spec-row"><span class="key">Cabinet версия</span><span class="val">448 340 ₽</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hc">
+      <div class="hc-top" style="background:linear-gradient(140deg,#1B3F5C,#2E6B9E)">
+        <span>↓</span>
+        <span class="hc-badge" style="background:#8BB8D8;color:#1A1A1A">Downdraft</span>
+      </div>
+      <div class="hc-body">
+        <div class="hc-brand">V-ZUG</div>
+        <div class="hc-model">DSMS — в столешницу</div>
+        <div class="hc-type">Downdraft · встроенная в столешницу</div>
+        <div class="hc-price" style="color:#1B3F5C">641 540 ₽</div>
+        <div class="hc-specs">
+          <div class="hc-spec-row"><span class="key">Тип</span><span class="val">Downdraft ↓</span></div>
+          <div class="hc-spec-row"><span class="key">Над головой</span><span class="val">Ничего ✅</span></div>
+          <div class="hc-spec-row"><span class="key">Совместимость</span><span class="val">V-ZUG панель</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hc">
+      <div class="hc-top" style="background:linear-gradient(140deg,#111,#1A1A1A)">
+        <span>↓</span>
+        <span class="hc-badge" style="background:#E8E0D0;color:#111">All Black</span>
+      </div>
+      <div class="hc-body">
+        <div class="hc-brand">BORA</div>
+        <div class="hc-model">PKAS3AB — система All Black</div>
+        <div class="hc-type">Downdraft + мотор · встроенная в столешницу</div>
+        <div class="hc-price" style="color:#111">682 490 ₽</div>
+        <div class="hc-specs">
+          <div class="hc-spec-row"><span class="key">Тип</span><span class="val">Downdraft ↓ WOW</span></div>
+          <div class="hc-spec-row"><span class="key">Над головой</span><span class="val">Ничего ✅✅</span></div>
+          <div class="hc-spec-row"><span class="key">Цвет</span><span class="val">All Black ✅</span></div>
+          <div class="hc-spec-row"><span class="key">Нужна панель BORA</span><span class="val">+448 340 ₽</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hc">
+      <div class="hc-top" style="background:linear-gradient(140deg,#1C1C1C,#2A2A2A)">
+        <span>🌬️</span>
+      </div>
+      <div class="hc-body">
+        <div class="hc-brand">Küppersbusch</div>
+        <div class="hc-model">DW 9880.0 S2 Black Chrome</div>
+        <div class="hc-type">Настенная декоративная · Black Chrome</div>
+        <div class="hc-price" style="color:#C8A84B">261 990 ₽</div>
+        <div class="hc-specs">
+          <div class="hc-spec-row"><span class="key">Тип</span><span class="val">Настенная</span></div>
+          <div class="hc-spec-row"><span class="key">Цвет</span><span class="val">Black Chrome ✅</span></div>
+          <div class="hc-spec-row"><span class="key">Лучшая цена</span><span class="val">среди всех ✅</span></div>
+          <div class="hc-spec-row"><span class="key">В стиль</span><span class="val">Küppersbusch кухня</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Hood comparison table -->
+  <div class="slbl">Сравнение вытяжек одной таблицей</div>
+  <div class="cmp-wrap">
+    <table class="ct" style="min-width:500px">
+      <thead>
+        <tr>
+          <th class="ct-th-pos">Параметр</th>
+          <th style="background:#1A1A1A;color:var(--hp-gold);padding:10px 14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700">Miele DA 6698</th>
+          <th style="background:#111;color:#E8E0D0;padding:10px 14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700">BORA PKAS3AB</th>
+          <th style="background:#1B3F5C;color:#8BB8D8;padding:10px 14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700">V-ZUG Island</th>
+          <th style="background:#2A2A2A;color:var(--kupp-g);padding:10px 14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700">Küppers DW 9880</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="ct-pos">Тип</td><td>Overhead (над головой)</td><td>Downdraft (в столешнице) ⬇️</td><td>Островная (потолок)</td><td>Настенная</td></tr>
+        <tr><td class="ct-pos">Над головой — что?</td><td>Вытяжка</td><td>Ничего ✅✅</td><td>Вытяжка</td><td>Вытяжка</td></tr>
+        <tr><td class="ct-pos">Цвет чёрный</td><td>Obsidian Black ✅</td><td>All Black ✅</td><td>❌ Нет чёрного</td><td>Black Chrome ✅</td></tr>
+        <tr><td class="ct-pos">Нужна своя панель?</td><td>Нет</td><td>Да (BORA) +448 340 ₽</td><td>Нет</td><td>Нет</td></tr>
+        <tr><td class="ct-pos">Wow-эффект</td><td>★★★</td><td>★★★★★</td><td>★★★★</td><td>★★</td></tr>
+        <tr><td class="ct-pos">Цена</td>
+          <td><strong>565 000 ₽</strong></td>
+          <td><strong>682 490 ₽</strong><br><span style="font-size:10px;color:#999">+ панель 448 340</span></td>
+          <td><strong>743 390 ₽</strong></td>
+          <td><strong>261 990 ₽</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ======================== TAB: RECOMMENDATION ======================== -->
+<div id="reco" class="panel">
+  <div class="slbl">Четыре пути к вашему единому блоку</div>
+  <div class="rec-cards">
+
+    <div class="rc rec-1">
+      <div class="rc-num">01</div>
+      <div class="rc-title">Miele — один бренд, всё включено</div>
+      <div class="rc-sub">Единственный вариант «один бренд 10/10» · Obsidian Black</div>
+      <div class="rc-price" style="color:#1A1A1A">~3 350 000 ₽</div>
+      <ul class="rc-pros">
+        <li>Единственный бренд с кухней + прачечной</li>
+        <li>Obsidian Black — самый глубокий чёрный</li>
+        <li>TwinDos + AutoDos — умная химия</li>
+        <li>Лучший сервис и запчасти в РФ</li>
+        <li>Конкурент предложил тот же набор за 2 509 000 ₽ — есть зазор для переговоров</li>
+      </ul>
+    </div>
+
+    <div class="rc rec-2">
+      <div class="rc-num">02</div>
+      <div class="rc-title">Küppersbusch + Schulthess</div>
+      <div class="rc-sub">Лучший единый дизайн кухни + швейцарская прачечная</div>
+      <div class="rc-price" style="color:#5D4037">~2 500 000 ₽</div>
+      <ul class="rc-pros">
+        <li>8 цветовых коллекций — Black Chrome или Black Velvet</li>
+        <li>Самая строгая единая эстетика среди кухонь</li>
+        <li>Schulthess с полкой — монтажный комплект с выдвижной полкой ⭐</li>
+        <li>Выгоднее Miele на ~850 000 ₽</li>
+        <li>Küppersbusch производит в Германии с 1875 года</li>
+      </ul>
+    </div>
+
+    <div class="rc rec-3">
+      <div class="rc-num">03</div>
+      <div class="rc-title">V-ZUG + Schulthess + Miele (холодильник)</div>
+      <div class="rc-sub">«Лучшее в каждой категории» · Швейцарская инженерия</div>
+      <div class="rc-price" style="color:#1B3F5C">~4 800 000 ₽+</div>
+      <ul class="rc-pros">
+        <li>V-ZUG — «выше Miele» по качеству паровой готовки</li>
+        <li>Каждый прибор V6000 — лидер в своей категории</li>
+        <li>Schulthess — родственный бренд, идеальная пара</li>
+        <li>CoffeeCenter — лучшая встроенная кофемашина</li>
+        <li>Для тех, кому важно «the very best» без компромиссов</li>
+      </ul>
+    </div>
+
+    <div class="rc rec-4">
+      <div class="rc-num">04</div>
+      <div class="rc-title">Miele кухня + BORA зона готовки</div>
+      <div class="rc-sub">Революционный WOW-эффект · No overhead hood</div>
+      <div class="rc-price" style="color:#1B5E20">~3 800 000 ₽</div>
+      <ul class="rc-pros">
+        <li>BORA All Black — вытяжка В столешнице, нет ничего над головой</li>
+        <li>Над варочной зоной — чистое пространство</li>
+        <li>Miele закрывает всё остальное в Obsidian Black</li>
+        <li>BORA PKAS3AB (682 490) + BORA PKFI3AB (448 340) вместо Miele варочной + вытяжки</li>
+        <li>Технологический wow-statement для гостей</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- KEY DECISIONS -->
+  <div class="decisions">
+    <div class="dec-title">⭐ 4 вопроса, которые определят выбор</div>
+    <div class="dec-row">
+      <div class="dec-q">Единый бренд vs лучшее из разных?</div>
+      <div class="dec-a">
+        <span class="dec-tag a">Один бренд → Miele</span>
+        <span class="dec-tag b">Лучший дизайн кухни → Küppersbusch</span>
+        <span class="dec-tag c">Лучшее качество → V-ZUG</span>
+        <br>Miele — единственный, кто закрывает ВСЕ 10 позиций под одной маркой. Küppersbusch даёт лучший единый стиль кухни, но прачечная — Schulthess.
+      </div>
+    </div>
+    <div class="dec-row">
+      <div class="dec-q">Вытяжка — традиционная или BORA?</div>
+      <div class="dec-a">
+        <span class="dec-tag a">Традиционная → Miele DA 6698 / V-ZUG Island</span>
+        <span class="dec-tag b">Революция → BORA All Black</span>
+        <br>BORA убирает вытяжку над головой полностью — это изменит восприятие кухни. Но требует BORA-панель и специального монтажа воздуховода вниз.
+      </div>
+    </div>
+    <div class="dec-row">
+      <div class="dec-q">Холодильник: Miele или Fhiaba?</div>
+      <div class="dec-a">
+        <span class="dec-tag a">Разумный выбор → Miele KFN 7795 (396 195 ₽)</span>
+        <span class="dec-tag c">Лучшее в мире → Fhiaba XS900TST (2 352 735 ₽)</span>
+        <br>Fhiaba TriMode — один корпус, три режима (холодильник/морозильник/вино). Это не просто холодильник — это дизайн-объект. Разница в цене ~2 000 000 ₽.
+      </div>
+    </div>
+    <div class="dec-row">
+      <div class="dec-q">Кофемашина: CVA7440 или CVA7845?</div>
+      <div class="dec-a">
+        <span class="dec-tag a">CVA 7440 → 357 363 ₽ (у нас)</span>
+        <span class="dec-tag c">CVA 7845 → 623 501 ₽ (у нас) · 489 000 ₽ (конкурент)</span>
+        <br>CVA7845 — флагман с 3 контейнерами зёрен. Конкурент предложил её за 489 000 ₽. Если Вам важен именно CVA7845 — нужно обсудить ценообразование отдельно.
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICE SUMMARY -->
+  <div style="background:#fff;border-radius:12px;padding:20px;margin-top:14px;box-shadow:0 2px 8px rgba(0,0,0,.07)">
+    <div class="dec-title">💰 Итоговые суммы по вариантам (РРЦ)</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:10px">
+      <thead>
+        <tr style="background:#F5F5F5">
+          <th style="padding:10px 14px;text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#666">Вариант</th>
+          <th style="padding:10px 14px;text-align:right;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#666">Сумма РРЦ</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#666">Примечание</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #F0F0F0">
+          <td style="padding:10px 14px;font-weight:600">Miele all-in-one (с мощной вытяжкой)</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;font-size:15px">~3 350 000 ₽</td>
+          <td style="padding:10px 14px;font-size:11px;color:#888">10 позиций · DA 6698 D OBSW</td>
+        </tr>
+        <tr style="border-bottom:1px solid #F0F0F0">
+          <td style="padding:10px 14px;font-weight:600">Küppersbusch + Schulthess</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;font-size:15px">~2 500 000 ₽</td>
+          <td style="padding:10px 14px;font-size:11px;color:#888">10 позиций · Black Chrome</td>
+        </tr>
+        <tr style="border-bottom:1px solid #F0F0F0">
+          <td style="padding:10px 14px;font-weight:600">V-ZUG + Schulthess + Miele (холод.)</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;font-size:15px">~4 800 000 ₽</td>
+          <td style="padding:10px 14px;font-size:11px;color:#888">10 позиций · Black Glass</td>
+        </tr>
+        <tr style="border-bottom:1px solid #F0F0F0">
+          <td style="padding:10px 14px;font-weight:600">Miele + BORA (downdraft зона готовки)</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;font-size:15px">~3 800 000 ₽</td>
+          <td style="padding:10px 14px;font-size:11px;color:#888">BORA All Black зона готовки</td>
+        </tr>
+        <tr style="border-bottom:1px solid #F0F0F0;background:#FFF8E1">
+          <td style="padding:10px 14px;font-weight:600">Конкурент — Топ (Miele, без вытяжки)</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;font-size:15px;color:#1565C0">2 509 000 ₽</td>
+          <td style="padding:10px 14px;font-size:11px;color:#888">9 позиций · без вытяжки ⚠️</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px;color:#AAA;margin-top:10px;line-height:1.7">
+      Все цены — РРЦ. Финальная стоимость обсуждается индивидуально после выбора позиций и цвета.
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>HOME PROJECT</strong><br>
+  Все цены в рублях (РРЦ) · Актуально на сентябрь 2026<br>
+  homeproject.online
+</footer>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tnav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
