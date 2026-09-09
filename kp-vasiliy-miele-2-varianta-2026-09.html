@@ -10,21 +10,19 @@
   :root{
     --bg:#0E0F13; --card:#171923; --card2:#1F2230; --line:#2C3040;
     --ink:#EFEFF2; --mut:#9AA0AE; --gold:#C8A84B; --gold2:#E4CE86;
-    --green:#3FBF7F; --red:#D9534F;
+    --green:#3FBF7F; --red:#D9534F; --blue:#5FA8DE;
   }
   body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 18px}
   a{color:inherit}
 
-  /* HEADER */
   header{background:linear-gradient(135deg,#14161E 0%,#0B0C10 100%);border-bottom:1px solid var(--line);padding:34px 0 30px}
   .brand{font-size:13px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;font-weight:700}
   .brand span{color:var(--mut);font-weight:500}
   h1{font-size:30px;font-weight:800;margin:14px 0 6px;line-height:1.15}
-  .sub{color:var(--mut);font-size:15px;max-width:720px}
+  .sub{color:var(--mut);font-size:15px;max-width:760px}
   .for{display:inline-block;margin-top:16px;background:rgba(200,168,75,.12);border:1px solid rgba(200,168,75,.4);color:var(--gold2);padding:7px 16px;border-radius:30px;font-size:14px;font-weight:600}
 
-  /* TABS */
   .tabs{position:sticky;top:0;z-index:20;background:rgba(14,15,19,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   .tabs-nav{display:flex;gap:6px;overflow-x:auto;padding:10px 0}
   .tabs-nav button{white-space:nowrap;background:transparent;border:1px solid var(--line);color:var(--mut);padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit}
@@ -34,45 +32,53 @@
   .panel{display:none;padding:30px 0 60px}
   .panel.active{display:block}
 
-  /* VARIANT HERO */
   .vhero{background:linear-gradient(135deg,var(--card) 0%,var(--card2) 100%);border:1px solid var(--line);border-radius:18px;padding:28px;margin-bottom:26px;position:relative;overflow:hidden}
-  .vhero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(200,168,75,.14),transparent 70%)}
+  .vhero::before{content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(200,168,75,.14),transparent 70%)}
   .vtag{display:inline-block;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:5px 12px;border-radius:6px;margin-bottom:12px}
   .vtag.a{background:rgba(63,191,127,.14);color:var(--green);border:1px solid rgba(63,191,127,.4)}
   .vtag.b{background:rgba(200,168,75,.14);color:var(--gold2);border:1px solid rgba(200,168,75,.4)}
   .vhero h2{font-size:24px;font-weight:800;margin-bottom:6px}
-  .vhero p{color:var(--mut);font-size:14px;max-width:640px}
-  .vprice{display:flex;flex-wrap:wrap;gap:26px;margin-top:20px;align-items:flex-end}
-  .vprice .rrc{color:var(--mut);font-size:15px;text-decoration:line-through;text-decoration-color:var(--red)}
-  .vprice .fin{font-size:34px;font-weight:800;color:var(--gold2);line-height:1}
-  .vprice .fin small{display:block;font-size:12px;color:var(--mut);font-weight:500;text-decoration:none;margin-bottom:4px}
-  .vprice .save{background:rgba(63,191,127,.14);border:1px solid rgba(63,191,127,.4);color:var(--green);padding:8px 14px;border-radius:10px;font-weight:700;font-size:14px}
-  .vmeta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .vhero>p{color:var(--mut);font-size:14px;max-width:680px}
+  .vmeta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
   .vmeta span{font-size:13px;color:var(--mut);background:rgba(255,255,255,.03);border:1px solid var(--line);padding:6px 12px;border-radius:8px}
   .vmeta b{color:var(--ink)}
 
-  /* PRODUCT GRID */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-  .pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;transition:.2s;position:relative}
+  /* THREE PRICE SELECTOR */
+  .prices3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+  .p3{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:13px;padding:16px}
+  .p3.main{border-color:var(--gold);background:rgba(200,168,75,.08)}
+  .p3.low{border-color:rgba(63,191,127,.5)}
+  .p3 .plbl{font-size:12px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:6px;min-height:32px}
+  .p3 .pv{font-size:23px;font-weight:800;color:var(--ink);margin-top:6px;line-height:1.1}
+  .p3.main .pv{color:var(--gold2)}
+  .p3 .pd{font-size:11px;color:var(--mut);margin-top:5px}
+  .p3 .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .dm{background:var(--gold)} .dl{background:var(--green)} .db{background:var(--blue)}
+  @media(max-width:720px){.prices3{grid-template-columns:1fr}}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+  .pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;transition:.2s;position:relative}
   .pc:hover{border-color:rgba(200,168,75,.5);transform:translateY(-2px)}
-  .pc .top{display:flex;gap:14px;align-items:flex-start}
-  .ico{flex-shrink:0;width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#21242F,#171923);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
-  .ico svg{width:28px;height:28px;stroke:var(--gold);fill:none;stroke-width:1.6}
+  .imgbox{height:170px;background:#fff;border-radius:11px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:14px}
+  .imgbox img{max-height:158px;max-width:92%;object-fit:contain}
+  .imgtile{height:170px;border-radius:11px;background:radial-gradient(circle at 50% 35%,#262A38,#14161E);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin-bottom:14px}
+  .imgtile svg{width:54px;height:54px;stroke:var(--gold);fill:none;stroke-width:1.5}
+  .imgtile span{font-size:11px;color:var(--mut);letter-spacing:1px;text-transform:uppercase}
   .pc .cat{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mut);font-weight:700}
   .pc h3{font-size:15px;font-weight:700;margin:3px 0 2px;line-height:1.25}
   .pc .art{font-size:12px;color:var(--gold2);font-family:'SF Mono',ui-monospace,monospace}
   .pc .mf{font-size:12px;color:var(--mut)}
-  .pc .spec{font-size:13px;color:var(--mut);margin-top:12px;padding-top:12px;border-top:1px solid var(--line);flex-grow:1}
-  .pc .price{display:flex;align-items:baseline;justify-content:space-between;margin-top:14px;gap:8px;flex-wrap:wrap}
+  .pc .spec{font-size:13px;color:var(--mut);margin-top:11px;padding-top:11px;border-top:1px solid var(--line);flex-grow:1}
+  .swaptag{display:inline-block;margin-top:9px;font-size:11.5px;color:var(--blue);background:rgba(95,168,222,.1);border:1px solid rgba(95,168,222,.35);padding:4px 9px;border-radius:7px;font-weight:600}
+  .pc .price{display:flex;align-items:baseline;justify-content:space-between;margin-top:13px;gap:8px;flex-wrap:wrap}
   .pc .price .rrc{color:var(--mut);font-size:13px;text-decoration:line-through;text-decoration-color:var(--red)}
   .pc .price .fin{font-size:19px;font-weight:800;color:var(--ink)}
-  .pc .avail{position:absolute;top:14px;right:14px;font-size:11px;padding:3px 8px;border-radius:20px;font-weight:600}
-  .av-in{background:rgba(63,191,127,.12);color:var(--green)}
-  .av-ord{background:rgba(200,168,75,.12);color:var(--gold2)}
+  .pc .avail{position:absolute;top:10px;right:10px;font-size:11px;padding:3px 8px;border-radius:20px;font-weight:600;z-index:2}
+  .av-in{background:rgba(63,191,127,.85);color:#0B0C10}
+  .av-ord{background:rgba(200,168,75,.85);color:#0B0C10}
 
-  /* NOTE BOX */
   .note{background:linear-gradient(135deg,rgba(46,107,158,.12),rgba(27,63,92,.08));border:1px solid rgba(78,140,190,.4);border-radius:14px;padding:20px 22px;margin:24px 0}
-  .note h4{font-size:15px;font-weight:700;color:#8FC0EE;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .note h4{font-size:15px;font-weight:700;color:#8FC0EE;margin-bottom:8px}
   .note p{font-size:14px;color:var(--mut);margin-bottom:10px}
   .swap{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
   .swap div{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:14px}
@@ -83,24 +89,25 @@
   .warn{background:rgba(217,83,79,.08);border:1px solid rgba(217,83,79,.35);border-radius:12px;padding:14px 18px;margin:20px 0;font-size:14px;color:#E9A9A7}
   .warn b{color:#F2C9C7}
 
-  /* COMPARE TABLE */
   table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
-  th,td{padding:12px 12px;text-align:left;border-bottom:1px solid var(--line)}
+  th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line)}
   th{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
   td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-  .trow-total td{font-weight:800;font-size:16px;color:var(--gold2);border-top:2px solid var(--gold);border-bottom:none;padding-top:16px}
+  .trow-total td{font-weight:800;font-size:16px;color:var(--gold2);border-top:2px solid var(--gold);border-bottom:none;padding-top:15px}
+  .trow-sub td{font-weight:700;color:var(--ink);background:rgba(255,255,255,.02)}
   tbody tr:hover{background:rgba(255,255,255,.02)}
-  .cmpcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:24px}
+  .cmpcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:8px}
   .cmpc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .cmpc.g{border-color:rgba(200,168,75,.4)}
   .cmpc .lbl{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--mut);font-weight:700;margin-bottom:6px}
-  .cmpc .big{font-size:26px;font-weight:800;color:var(--gold2)}
+  .cmpc .big{font-size:25px;font-weight:800;color:var(--gold2)}
   .cmpc p{font-size:13px;color:var(--mut);margin-top:8px}
 
   footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--mut);font-size:13px}
   footer b{color:var(--ink)}
-  .cta{display:inline-block;margin-top:12px;background:var(--gold);color:#14161E;padding:12px 24px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none}
   .disclaim{font-size:12px;color:#6B7180;margin-top:16px;line-height:1.6}
-  @media(max-width:600px){h1{font-size:24px}.vprice .fin{font-size:28px}.grid{grid-template-columns:1fr}}
+  h2.sec{font-size:20px;margin:30px 0 10px}
+  @media(max-width:600px){h1{font-size:24px}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -109,7 +116,7 @@
   <div class="wrap">
     <div class="brand">HOME PROJECT <span>· премиальная встраиваемая техника</span></div>
     <h1>Комплект встраиваемой техники Miele</h1>
-    <div class="sub">Полный ансамбль кухонной и постирочной техники Miele в едином дизайне Obsidian Black. Два готовых варианта комплектации на выбор — «Комфорт» и «Флагман».</div>
+    <div class="sub">Полный ансамбль кухонной и постирочной техники Miele в едином дизайне Obsidian Black. Два готовых варианта комплектации — «Комфорт» и «Флагман». По каждому варианту — три цены на выбор в зависимости от холодильника.</div>
     <div class="for">Персональное предложение для Василия · 09.09.2026</div>
   </div>
 </header>
@@ -119,7 +126,7 @@
     <div class="tabs-nav">
       <button class="active" onclick="showTab('v1',this)">① Вариант «Комфорт»</button>
       <button onclick="showTab('v2',this)">② Вариант «Флагман»</button>
-      <button onclick="showTab('cmp',this)">📊 Сравнение вариантов</button>
+      <button onclick="showTab('cmp',this)">📊 Все цены и сравнение</button>
     </div>
   </div>
 </div>
@@ -130,11 +137,11 @@
     <div class="vhero">
       <span class="vtag a">Вариант 1 · оптимальный</span>
       <h2>«Комфорт» — сбалансированный комплект Miele</h2>
-      <p>Полный набор из 11 позиций: стирально-сушильная колонна, кухонная группа, кофемашина и подогреватель. Разумный баланс возможностей и стоимости.</p>
-      <div class="vprice">
-        <div class="fin"><small>Цена комплекта со скидкой</small>1 768 800 ₽</div>
-        <div class="rrc">розница 2 045 800 ₽</div>
-        <div class="save">выгода 277 000 ₽</div>
+      <p>11 позиций: стирально-сушильная колонна, кухонная группа, кофемашина и подогреватель. Разумный баланс возможностей и стоимости. Выберите цену в зависимости от холодильника:</p>
+      <div class="prices3">
+        <div class="p3 main"><div class="plbl"><span class="dot dm"></span>С холодильником Miele KFN 7744 D</div><div class="pv">1 768 800 ₽</div><div class="pd">базовая комплектация · розница 2 045 800 ₽</div></div>
+        <div class="p3 low"><div class="plbl"><span class="dot dl"></span>С холодильником Liebherr ICNe 5103</div><div class="pv">1 664 800 ₽</div><div class="pd">−104 000 ₽ · самый доступный холодильник</div></div>
+        <div class="p3"><div class="plbl"><span class="dot db"></span>С холодильником Liebherr SICNdi 5153</div><div class="pv">1 720 800 ₽</div><div class="pd">−48 000 ₽ · холодильник Liebherr выше классом</div></div>
       </div>
       <div class="vmeta">
         <span>Гарантия: <b>12 месяцев</b></span>
@@ -144,15 +151,6 @@
       </div>
     </div>
     <div class="grid" id="grid-v1"></div>
-
-    <div class="note">
-      <h4>🔄 Холодильник можно заменить на Liebherr</h4>
-      <p>Встраиваемый холодильник в этом комплекте можно заменить на модель Liebherr — под ваш бюджет и требования. Заменить прибор можно после того, как определимся с базовым вариантом.</p>
-      <div class="swap">
-        <div><b>Liebherr ICNe 5103</b><div class="p">143 000 ₽</div><div class="d">Встраиваемый, более доступный</div></div>
-        <div><b>Liebherr SICNdi 5153</b><div class="p">199 000 ₽</div><div class="d">Встраиваемый, расширенная комплектация</div></div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -162,11 +160,11 @@
     <div class="vhero">
       <span class="vtag b">Вариант 2 · флагманский</span>
       <h2>«Флагман» — топовая линейка Miele Nova Edition</h2>
-      <p>Максимальная комплектация: флагманская стирально-сушильная пара Nova Edition, старшая варочная и духовой шкаф с пиролизом, топовая кофемашина CVA7845. Расширенная гарантия 24 месяца.</p>
-      <div class="vprice">
-        <div class="fin"><small>Цена комплекта со скидкой</small>2 365 600 ₽</div>
-        <div class="rrc">розница 2 727 900 ₽</div>
-        <div class="save">выгода 362 300 ₽</div>
+      <p>Максимальная комплектация: флагманская стирально-сушильная пара Nova Edition, старшая варочная и духовой шкаф с пиролизом, топовая кофемашина CVA7845. Расширенная гарантия 24 месяца. Выберите цену в зависимости от холодильника:</p>
+      <div class="prices3">
+        <div class="p3 main"><div class="plbl"><span class="dot dm"></span>С холодильником Miele KFN 7774 C</div><div class="pv">2 365 600 ₽</div><div class="pd">базовая комплектация · розница 2 727 900 ₽</div></div>
+        <div class="p3 low"><div class="plbl"><span class="dot dl"></span>С холодильником Liebherr ICNe 5103</div><div class="pv">2 208 700 ₽</div><div class="pd">−156 900 ₽ · самый доступный холодильник</div></div>
+        <div class="p3"><div class="plbl"><span class="dot db"></span>С холодильником Liebherr SICNdi 5153</div><div class="pv">2 264 700 ₽</div><div class="pd">−100 900 ₽ · холодильник Liebherr выше классом</div></div>
       </div>
       <div class="vmeta">
         <span>Гарантия: <b>24 месяца</b></span>
@@ -176,30 +174,25 @@
       </div>
     </div>
     <div class="grid" id="grid-v2"></div>
-
-    <div class="note">
-      <h4>🔄 Холодильник можно заменить на Liebherr</h4>
-      <p>Встраиваемый холодильник в этом комплекте можно заменить на модель Liebherr. Заменить прибор можно после того, как определимся с базовым вариантом.</p>
-      <div class="swap">
-        <div><b>Liebherr ICNe 5103</b><div class="p">143 000 ₽</div><div class="d">Встраиваемый, более доступный</div></div>
-        <div><b>Liebherr SICNdi 5153</b><div class="p">199 000 ₽</div><div class="d">Встраиваемый, расширенная комплектация</div></div>
-      </div>
-    </div>
   </div>
 </div>
 
 <!-- COMPARE -->
 <div id="cmp" class="panel">
   <div class="wrap">
+    <h2 class="sec" style="margin-top:6px">Все шесть цен на выбор</h2>
     <div class="cmpcards">
-      <div class="cmpc"><div class="lbl">Вариант «Комфорт»</div><div class="big">1 768 800 ₽</div><p>11 позиций · гарантия 12 мес · высота СВЧ 38 см</p></div>
-      <div class="cmpc"><div class="lbl">Вариант «Флагман»</div><div class="big">2 365 600 ₽</div><p>11 позиций · гарантия 24 мес · высота СВЧ 45 см</p></div>
-      <div class="cmpc"><div class="lbl">Разница</div><div class="big" style="color:var(--ink)">+ 596 800 ₽</div><p>Флагман дороже за старшие серии техники и расширенную гарантию</p></div>
+      <div class="cmpc g"><div class="lbl">«Комфорт» · Miele</div><div class="big">1 768 800 ₽</div><p>базовый · холодильник Miele KFN 7744 D</p></div>
+      <div class="cmpc"><div class="lbl">«Комфорт» · Liebherr ICNe</div><div class="big" style="color:var(--green)">1 664 800 ₽</div><p>самый доступный</p></div>
+      <div class="cmpc"><div class="lbl">«Комфорт» · Liebherr SICNdi</div><div class="big" style="color:var(--blue)">1 720 800 ₽</div><p>Liebherr выше классом</p></div>
+      <div class="cmpc g"><div class="lbl">«Флагман» · Miele</div><div class="big">2 365 600 ₽</div><p>базовый · холодильник Miele KFN 7774 C</p></div>
+      <div class="cmpc"><div class="lbl">«Флагман» · Liebherr ICNe</div><div class="big" style="color:var(--green)">2 208 700 ₽</div><p>самый доступный</p></div>
+      <div class="cmpc"><div class="lbl">«Флагман» · Liebherr SICNdi</div><div class="big" style="color:var(--blue)">2 264 700 ₽</div><p>Liebherr выше классом</p></div>
     </div>
 
-    <div class="warn">⚠️ <b>Важно по высоте СВЧ:</b> в варианте «Комфорт» встраиваемая СВЧ имеет высоту <b>38 см</b>, в варианте «Флагман» — <b>45 см</b>. Это влияет на компоновку приборов в колонне — фронты должны выстраиваться ровно. Учтём при финальной раскладке.</div>
+    <div class="warn" style="margin-top:24px">⚠️ <b>Важно по высоте СВЧ:</b> в варианте «Комфорт» встраиваемая СВЧ высотой <b>38 см</b>, в «Флагмане» — <b>45 см</b>. Это влияет на компоновку приборов в колонне — фронты должны выстраиваться ровно. Учтём при финальной раскладке.</div>
 
-    <h2 style="font-size:20px;margin:28px 0 6px">Позиция за позицией</h2>
+    <h2 class="sec">Позиция за позицией</h2>
     <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Позиция</th><th>«Комфорт»</th><th class="num">Цена</th><th>«Флагман»</th><th class="num">Цена</th></tr></thead>
@@ -208,8 +201,12 @@
     </div>
 
     <div class="note" style="margin-top:28px">
-      <h4>🔄 Любой холодильник — заменяем на Liebherr</h4>
-      <p>В обоих вариантах встраиваемый холодильник Miele можно заменить на встраиваемый Liebherr: <b>ICNe 5103 — 143 000 ₽</b> или <b>SICNdi 5153 — 199 000 ₽</b>. Определимся с базовым вариантом — и подберём прибор.</p>
+      <h4>🔄 Холодильник — заменяемая позиция</h4>
+      <p>В таблице выше указан комплект с холодильником Miele. В любом варианте его можно заменить на встраиваемый Liebherr — тогда итог пересчитывается (см. шесть цен выше):</p>
+      <div class="swap">
+        <div><b>Liebherr ICNe 5103</b><div class="p">143 000 ₽</div><div class="d">Встраиваемый, более доступный</div></div>
+        <div><b>Liebherr SICNdi 5153</b><div class="p">199 000 ₽</div><div class="d">Встраиваемый, расширенная комплектация</div></div>
+      </div>
     </div>
   </div>
 </div>
@@ -218,19 +215,16 @@
   <div class="wrap">
     <b>Home Project</b> — дистрибуция премиальной встраиваемой техники · Москва<br>
     Готовы обсудить финальную комплектацию, цвет и раскладку приборов. Возможна замена отдельных позиций под ваш проект.
-    <br><a class="cta" href="#" onclick="return false">Обсудить и оформить заказ</a>
     <div class="disclaim">
-      Все цены указаны в рублях, действительны на дату предложения (09.09.2026) и могут меняться в зависимости от курса и наличия. Гарантия производителя — как указано в каждом варианте. Сроки поставки — по каждой позиции отдельно (в наличии / под заказ). Предложение носит информационный характер и не является публичной офертой.
+      Фотографии приборов носят иллюстративный характер; финальная отделка уточняется по артикулу. Все цены в рублях, действительны на дату предложения (09.09.2026) и могут меняться в зависимости от курса и наличия. Гарантия производителя — как указано в каждом варианте. Сроки поставки — по каждой позиции отдельно (в наличии / под заказ). Предложение носит информационный характер и не является публичной офертой.
     </div>
   </div>
 </footer>
 
 <script>
-// ---- SVG icons ----
 var IC = {
   wash:'<svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="14" r="5"/><circle cx="8" cy="6" r="1"/></svg>',
   dry:'<svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="14" r="5"/><path d="M10 12c1 1 3 1 4 0"/></svg>',
-  kit:'<svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M8 7V4M16 7V4"/></svg>',
   dish:'<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 8h16"/><circle cx="9" cy="5.5" r="0.7"/><path d="M9 12v6M15 12v6"/></svg>',
   fridge:'<svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M6 10h12M9 5v2M9 13v3"/></svg>',
   cook:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="2"/><circle cx="16" cy="8" r="2"/><circle cx="8" cy="16" r="2"/><circle cx="16" cy="16" r="2"/></svg>',
@@ -241,47 +235,59 @@ var IC = {
   warm:'<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 12h10"/></svg>',
   mount:'<svg viewBox="0 0 24 24"><path d="M14 7l3-3 3 3-3 3z"/><path d="M4 20l7-7M13 5l-9 9 3 3 9-9"/></svg>'
 };
+var M='https://media.miele.com/images/', SUF='.png?d=500&impolicy=z-boxed';
+var IMG={
+  teh795:M+'2000017/200001788/20000178898'+SUF,
+  m2230:M+'2000015/200001503/20000150339'+SUF,
+  cva7440:M+'2000015/200001501/20000150123'+SUF,
+  m7244:M+'2000015/200001503/20000150344'+SUF,
+  wq1000:'https://new.homeproject.online/hpimg/miele/MIELE-WQ1000-WPS-NOVA.jpg',
+  cva7845:'https://new.homeproject.online/hpimg/miele/MIELE-CVA7845-GRGR.jpg',
+  tq1000:'https://high-level.ru/upload/iblock/616/ds2ys7y1g86x97mvf0h5dp22w4xkrmg5.jpg',
+  km7667:'https://high-level.ru/upload/iblock/d4d/revkfuzy7rxfo3vpnrpuv7rvdy85s33q.jpg'
+};
 
-// ---- Data ----
 var V1 = [
   {ic:'wash',cat:'Стиральная машина',n:'Miele WEG 895 WCS Chrome Edition',art:'WEG 895 WCS RU',mf:'Miele · отдельностоящая',spec:'Серия W1, загрузка 9 кг, отжим до 1600 об/мин, TwinDos, отделка люка Chrome Edition.',rrc:253500,fin:215000,av:'in'},
-  {ic:'mount',cat:'Монтажный комплект',n:'Соединительный комплект для колонны',art:'WTV 501',mf:'Miele · для установки в колонну',spec:'Позволяет установить стиральную и сушильную машины друг на друга (штабелирование).',rrc:12000,fin:9000,av:'in'},
-  {ic:'dry',cat:'Сушильная машина',n:'Miele TEH 795 WP',art:'TEH 795 WP',mf:'Miele · отдельностоящая',spec:'Тепловой насос (энергоэффективность A), PerfectDry, бережная сушка. Пара к стиральной машине.',rrc:247000,fin:219000,av:'in'},
-  {ic:'dish',cat:'Посудомоечная машина',n:'Miele G 5790 SCVi SL',art:'G 5790 SCVi SL',mf:'Miele · полновстраиваемая 45 см',spec:'Ширина 45 см, полное встраивание, AutoOpen-сушка, отделка панели «нержавеющая сталь».',rrc:180600,fin:159900,av:'in'},
-  {ic:'fridge',cat:'Холодильник',n:'Miele KFN 7744 D',art:'KFN 7744 D',mf:'Miele · встраиваемый',spec:'Двухкамерный, нижняя морозильная камера, NoFrost, встраиваемый.',rrc:275000,fin:247000,av:'ord'},
-  {ic:'cook',cat:'Варочная панель',n:'Miele KM 7464 FL',art:'KM 7464 FL',mf:'Miele · индукционная 60 см',spec:'Индукция, ширина 60 см, зоны с расширением, сенсорное управление.',rrc:143000,fin:125000,av:'in'},
-  {ic:'oven',cat:'Духовой шкаф',n:'Miele H 2861-1 B OBSW',art:'H 2861-1 B OBSW',mf:'Miele · полноразмерный 60 см',spec:'Высота 60 см, отделка Obsidian Black, набор автоматических программ.',rrc:162000,fin:145000,av:'in'},
-  {ic:'mw',cat:'СВЧ встраиваемая',n:'Miele M2230SC OBSW',art:'M2230SC OBSW',mf:'Miele · высота 38 см',spec:'Встраиваемая микроволновая печь, высота ниши 38 см, Obsidian Black.',rrc:119000,fin:107500,av:'in'},
-  {ic:'coffee',cat:'Кофемашина',n:'Miele CVA7440 OBSW',art:'CVA7440 OBSW',mf:'Miele · встраиваемая',spec:'Автономное водоснабжение (без подвода воды), OneTouch, Obsidian Black.',rrc:376800,fin:299000,av:'in'},
+  {ic:'mount',cat:'Монтажный комплект',n:'Соединительный комплект для колонны',art:'WTV 501',mf:'Miele · установка в колонну',spec:'Позволяет установить стиральную и сушильную машины друг на друга (штабелирование).',rrc:12000,fin:9000,av:'in'},
+  {ic:'dry',img:'teh795',cat:'Сушильная машина',n:'Miele TEH 795 WP',art:'TEH 795 WP',mf:'Miele · отдельностоящая',spec:'Тепловой насос, PerfectDry, SteamFinish, бережная сушка. Пара к стиральной машине.',rrc:247000,fin:219000,av:'in'},
+  {ic:'dish',cat:'Посудомоечная машина',n:'Miele G 5790 SCVi SL',art:'G 5790 SCVi SL',mf:'Miele · полновстраиваемая 45 см',spec:'Ширина 45 см, полное встраивание, AutoOpen-сушка, панель «нержавеющая сталь».',rrc:180600,fin:159900,av:'in'},
+  {ic:'fridge',cat:'Холодильник',n:'Miele KFN 7744 D',art:'KFN 7744 D',mf:'Miele · встраиваемый',spec:'Двухкамерный, нижняя морозильная камера, NoFrost, встраиваемый.',swap:1,rrc:275000,fin:247000,av:'ord'},
+  {ic:'cook',cat:'Варочная панель',n:'Miele KM 7464 FL',art:'KM 7464 FL',mf:'Miele · индукционная 60 см',spec:'Индукция, ширина 60 см, зоны с расширением, сенсорное управление ComfortSelect.',rrc:143000,fin:125000,av:'in'},
+  {ic:'oven',cat:'Духовой шкаф',n:'Miele H 2861-1 B OBSW',art:'H 2861-1 B OBSW',mf:'Miele · полноразмерный 60 см',spec:'Высота 60 см, отделка Obsidian Black, автоматические программы приготовления.',rrc:162000,fin:145000,av:'in'},
+  {ic:'mw',img:'m2230',cat:'СВЧ встраиваемая',n:'Miele M2230SC OBSW',art:'M2230SC OBSW',mf:'Miele · высота 38 см',spec:'Встраиваемая микроволновая печь, высота ниши 38 см, Obsidian Black.',rrc:119000,fin:107500,av:'in'},
+  {ic:'coffee',img:'cva7440',cat:'Кофемашина',n:'Miele CVA7440 OBSW',art:'CVA7440 OBSW',mf:'Miele · встраиваемая',spec:'Автономное водоснабжение (без подвода воды), OneTouch, CupSensor, Obsidian Black.',rrc:376800,fin:299000,av:'in'},
   {ic:'hood',cat:'Вытяжка',n:'Falmec Gruppo Incasso Plus 50 IX',art:'GRUPPO INCASSO PLUS 50 IX · 500 мм',mf:'Falmec · встраиваемая в шкаф',spec:'Встраивается в верхний шкаф, ширина 60 см, макс. производительность 1280 м³/ч, нержавеющая сталь.',rrc:81900,fin:69900,av:'in'},
-  {ic:'warm',cat:'Подогреватель посуды',n:'Miele ESW 7030 OBSW',art:'ESW 7030 OBSW',mf:'Miele · встраиваемый',spec:'Встраиваемый подогреватель посуды, отделка Obsidian Black. Дополняет колонну приборов.',rrc:195000,fin:172500,av:'ord'}
+  {ic:'warm',cat:'Подогреватель посуды',n:'Miele ESW 7030 OBSW',art:'ESW 7030 OBSW',mf:'Miele · встраиваемый',spec:'Push2Open, поддержание температуры блюд и подогрев посуды. Отделка Obsidian Black.',rrc:195000,fin:172500,av:'ord'}
 ];
 
 var V2 = [
-  {ic:'wash',cat:'Стиральная машина',n:'Miele WQ 1000 WPS Nova Edition',art:'WQ 1000 WPS Nova',mf:'Miele · отдельностоящая, флагман',spec:'Серия Nova Edition, загрузка 9 кг, отжим до 1600 об/мин, TwinDos, SteamCare, WiFiConn@ct + NFC.',rrc:325000,fin:290000,av:'in'},
-  {ic:'mount',cat:'Монтажный комплект',n:'Соединительный комплект для колонны',art:'WTV 601',mf:'Miele · для установки в колонну',spec:'Позволяет установить стиральную и сушильную машины друг на друга (штабелирование).',rrc:12000,fin:9000,av:'in'},
-  {ic:'dry',cat:'Сушильная машина',n:'Miele TQ 1000 WP Nova Edition',art:'TQ 1000 WP Nova',mf:'Miele · отдельностоящая, флагман',spec:'Тепловой насос A+++, SteamFinish (готово без утюга), FragranceDos, WiFiConn@ct + NFC.',rrc:325000,fin:290000,av:'in'},
-  {ic:'dish',cat:'Посудомоечная машина',n:'Miele G 5990 SCVi SL',art:'G 5990 SCVi SL',mf:'Miele · полновстраиваемая 45 см',spec:'Ширина 45 см, старшая серия, полное встраивание, AutoOpen-сушка, панель «нержавеющая сталь».',rrc:225000,fin:202500,av:'ord'},
-  {ic:'fridge',cat:'Холодильник',n:'Miele KFN 7774 C',art:'KFN 7774 C',mf:'Miele · встраиваемый',spec:'Двухкамерный, нижняя морозильная камера, NoFrost, встраиваемый.',rrc:364000,fin:299900,av:'in'},
-  {ic:'cook',cat:'Варочная панель',n:'Miele KM 7667 FL',art:'KM7667 FL',mf:'Miele · индукционная 60 см',spec:'Индукция, ширина 60 см, старшая серия, расширенные зоны и режимы.',rrc:240000,fin:203900,av:'in'},
-  {ic:'oven',cat:'Духовой шкаф',n:'Miele H 7262 BP OBSW',art:'H 7262 BP OBSW',mf:'Miele · полноразмерный 60 см',spec:'Высота 60 см, пиролитическая очистка, TFT-дисплей, Obsidian Black.',rrc:259000,fin:228000,av:'in'},
-  {ic:'mw',cat:'СВЧ встраиваемая',n:'Miele M7244TC OBSW',art:'M7244TC OBSW',mf:'Miele · высота 45 см',spec:'Встраиваемая микроволновая печь, высота ниши 45 см, TopControl, Obsidian Black.',rrc:195000,fin:174900,av:'in'},
-  {ic:'coffee',cat:'Кофемашина',n:'Miele CVA7845 OBSW',art:'CVA7845 OBSW',mf:'Miele · встраиваемая, топовая',spec:'Топовая встраиваемая кофемашина, OneTouch, CupSensor, автономное/подключаемое водоснабжение, Obsidian Black.',rrc:506000,fin:425000,av:'in'},
+  {ic:'wash',img:'wq1000',cat:'Стиральная машина',n:'Miele WQ 1000 WPS Nova Edition',art:'WQ 1000 WPS Nova',mf:'Miele · отдельностоящая, флагман',spec:'Серия Nova Edition, загрузка 9 кг, отжим до 1600 об/мин, TwinDos, SteamCare, WiFiConn@ct + NFC.',rrc:325000,fin:290000,av:'in'},
+  {ic:'mount',cat:'Монтажный комплект',n:'Соединительный комплект для колонны',art:'WTV 601',mf:'Miele · установка в колонну',spec:'Позволяет установить стиральную и сушильную машины друг на друга (штабелирование).',rrc:12000,fin:9000,av:'in'},
+  {ic:'dry',img:'tq1000',cat:'Сушильная машина',n:'Miele TQ 1000 WP Nova Edition',art:'TQ 1000 WP Nova',mf:'Miele · отдельностоящая, флагман',spec:'Тепловой насос A+++, SteamFinish (готово без утюга), FragranceDos, WiFiConn@ct + NFC.',rrc:325000,fin:290000,av:'in'},
+  {ic:'dish',cat:'Посудомоечная машина',n:'Miele G 5990 SCVi SL',art:'G 5990 SCVi SL',mf:'Miele · полновстраиваемая 45 см',spec:'Ширина 45 см, старшая серия, QuickPowerWash, AutoOpen-сушка, панель «нержавеющая сталь».',rrc:225000,fin:202500,av:'ord'},
+  {ic:'fridge',cat:'Холодильник',n:'Miele KFN 7774 C',art:'KFN 7774 C',mf:'Miele · встраиваемый',spec:'Двухкамерный, нижняя морозильная камера, NoFrost, PerfectFresh, встраиваемый.',swap:1,rrc:364000,fin:299900,av:'in'},
+  {ic:'cook',img:'km7667',cat:'Варочная панель',n:'Miele KM 7667 FL',art:'KM7667 FL',mf:'Miele · индукционная 60 см',spec:'Индукция FullSurface с распознаванием посуды, PowerBoost, установка вровень со столешницей.',rrc:240000,fin:203900,av:'in'},
+  {ic:'oven',cat:'Духовой шкаф',n:'Miele H 7262 BP OBSW',art:'H 7262 BP OBSW',mf:'Miele · полноразмерный 60 см',spec:'76 л, пиролитическая очистка, TFT-дисплей, беспроводной термощуп, SoftOpen. Obsidian Black.',rrc:259000,fin:228000,av:'in'},
+  {ic:'mw',img:'m7244',cat:'СВЧ встраиваемая',n:'Miele M7244TC OBSW',art:'M7244TC OBSW',mf:'Miele · высота 45 см',spec:'Встраиваемая печь, высота ниши 45 см, TopControl, кварцевый гриль, Obsidian Black.',rrc:195000,fin:174900,av:'in'},
+  {ic:'coffee',img:'cva7845',cat:'Кофемашина',n:'Miele CVA7845 OBSW',art:'CVA7845 OBSW',mf:'Miele · встраиваемая, топовая',spec:'Топовая кофемашина, OneTouch, CupSensor, автономное/подключаемое водоснабжение, Obsidian Black.',rrc:506000,fin:425000,av:'in'},
   {ic:'hood',cat:'Вытяжка',n:'Falmec Gruppo Incasso Plus 50 IX',art:'GRUPPO INCASSO PLUS 50 IX · 500 мм',mf:'Falmec · встраиваемая в шкаф',spec:'Встраивается в верхний шкаф, ширина 60 см, макс. производительность 1280 м³/ч, нержавеющая сталь.',rrc:81900,fin:69900,av:'in'},
-  {ic:'warm',cat:'Подогреватель посуды',n:'Miele ESW 7030 OBSW',art:'ESW 7030 OBSW',mf:'Miele · встраиваемый',spec:'Встраиваемый подогреватель посуды, отделка Obsidian Black. Дополняет колонну приборов.',rrc:195000,fin:172500,av:'ord'}
+  {ic:'warm',cat:'Подогреватель посуды',n:'Miele ESW 7030 OBSW',art:'ESW 7030 OBSW',mf:'Miele · встраиваемый',spec:'Push2Open, поддержание температуры блюд и подогрев посуды. Отделка Obsidian Black.',rrc:195000,fin:172500,av:'ord'}
 ];
 
 function rub(n){return n.toLocaleString('ru-RU')+' \u20BD';}
 function avBadge(a){return a==='in'?'<span class="avail av-in">В наличии</span>':'<span class="avail av-ord">Под заказ</span>';}
-
+function media(p){
+  if(p.img && IMG[p.img]) return '<div class="imgbox"><img src="'+IMG[p.img]+'" alt="'+p.n+'" loading="lazy"></div>';
+  return '<div class="imgtile">'+IC[p.ic]+'<span>'+p.cat+'</span></div>';
+}
 function renderGrid(id,data){
   var h='';
   data.forEach(function(p){
-    h+='<div class="pc">'+avBadge(p.av)+
-      '<div class="top"><div class="ico">'+IC[p.ic]+'</div><div>'+
+    h+='<div class="pc">'+avBadge(p.av)+media(p)+
       '<div class="cat">'+p.cat+'</div><h3>'+p.n+'</h3>'+
-      '<div class="art">'+p.art+'</div><div class="mf">'+p.mf+'</div></div></div>'+
-      '<div class="spec">'+p.spec+'</div>'+
+      '<div class="art">'+p.art+'</div><div class="mf">'+p.mf+'</div>'+
+      '<div class="spec">'+p.spec+(p.swap?'<br><span class="swaptag">🔄 заменяемо на Liebherr — см. три цены вверху</span>':'')+'</div>'+
       '<div class="price"><span class="rrc">'+rub(p.rrc)+'</span><span class="fin">'+rub(p.fin)+'</span></div>'+
       '</div>';
   });
@@ -290,7 +296,6 @@ function renderGrid(id,data){
 renderGrid('grid-v1',V1);
 renderGrid('grid-v2',V2);
 
-// compare table
 (function(){
   var rows='';
   for(var i=0;i<V1.length;i++){
@@ -299,7 +304,7 @@ renderGrid('grid-v2',V2);
       '<td>'+a.n.replace('Miele ','')+'</td><td class="num">'+rub(a.fin)+'</td>'+
       '<td>'+b.n.replace('Miele ','')+'</td><td class="num">'+rub(b.fin)+'</td></tr>';
   }
-  rows+='<tr class="trow-total"><td>ИТОГО со скидкой</td><td></td><td class="num">1 768 800 \u20BD</td><td></td><td class="num">2 365 600 \u20BD</td></tr>';
+  rows+='<tr class="trow-total"><td>ИТОГО с холодильником Miele</td><td></td><td class="num">1 768 800 \u20BD</td><td></td><td class="num">2 365 600 \u20BD</td></tr>';
   document.getElementById('cmp-body').innerHTML=rows;
 })();
 
