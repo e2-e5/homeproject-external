@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miele — Сравнение предложений | Home Project</title>
+    <meta name="robots" content="noindex,nofollow">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --miele-black:#1A1A1A;
+            --miele-red:#CC0000;
+            --comp-blue:#1C3457;
+            --comp-light:#2B5096;
+            --hp-gold:#C8A84B;
+            --green:#2E7D32;
+            --red-dark:#C62828;
+        }
+        body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#EBEBEB;color:#1A1A1A;min-height:100vh}
+
+        /* HEADER */
+        .header{background:var(--miele-black);color:#fff;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.45)}
+        .logo{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--hp-gold)}
+        .header-sub{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.5px}
+
+        /* HERO */
+        .hero{background:linear-gradient(135deg,#0A0A0A 0%,#1A1A1A 55%,#232323 100%);color:#fff;padding:44px 20px 38px;text-align:center}
+        .hero-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px}
+        .hero h1{font-size:25px;font-weight:300;letter-spacing:1px;margin-bottom:10px}
+        .hero h1 em{font-style:normal;font-weight:700;color:var(--miele-red)}
+        .hero p{font-size:13px;color:rgba(255,255,255,.5);max-width:580px;margin:0 auto;line-height:1.8}
+
+        /* TABS */
+        .tabs-nav{background:#1E1E1E;border-bottom:1px solid #2E2E2E;padding:0 14px;overflow-x:auto;white-space:nowrap}
+        .tabs-nav button{background:none;border:none;border-bottom:3px solid transparent;color:rgba(255,255,255,.42);padding:13px 16px;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:.3px}
+        .tabs-nav button:hover{color:rgba(255,255,255,.78)}
+        .tabs-nav button.active{color:#fff;border-bottom-color:var(--miele-red)}
+        .tabs-nav button.tab-hp.active{border-bottom-color:var(--hp-gold)}
+        .tabs-nav button.tab-cmp.active{border-bottom-color:#66BB6A}
+
+        /* PANELS */
+        .panel{display:none;padding:20px 14px 60px;max-width:1180px;margin:0 auto}
+        .panel.active{display:block}
+
+        /* VARIANT HERO CARD */
+        .v-hero{border-radius:14px;padding:26px 22px;margin-bottom:20px;color:#fff;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+        .v-hero.comp-top{background:linear-gradient(135deg,#1C3457 0%,var(--comp-light) 100%)}
+        .v-hero.comp-mid{background:linear-gradient(135deg,#243650 0%,#3A5570 100%)}
+        .v-hero.hp{background:linear-gradient(135deg,#0E0E0E 0%,#1C1C1C 100%);border:1px solid #2D2D2D}
+        .v-hero-l .label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;opacity:.55;margin-bottom:6px}
+        .v-hero-l .title{font-size:20px;font-weight:700;margin-bottom:4px}
+        .v-hero-l .subtitle{font-size:12px;opacity:.55}
+        .v-hero-r{text-align:right}
+        .v-hero-r .plabel{font-size:9px;letter-spacing:2px;text-transform:uppercase;opacity:.45}
+        .v-hero-r .ptotal{font-size:27px;font-weight:300;letter-spacing:-.5px;margin-top:2px}
+        .v-hero-r .ptotal .cur{font-size:18px}
+        .v-hero-r .pnote{font-size:11px;opacity:.45;margin-top:3px}
+        .badge-warn{background:rgba(255,152,0,.18);border:1px solid rgba(255,152,0,.32);border-radius:6px;padding:6px 12px;font-size:11px;color:#FFB74D;margin-top:10px;display:inline-block}
+        .badge-ok{background:rgba(76,175,80,.18);border:1px solid rgba(76,175,80,.28);border-radius:6px;padding:6px 12px;font-size:11px;color:#81C784;margin-top:10px;display:inline-block}
+
+        /* PRODUCTS GRID */
+        .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:13px;margin-bottom:20px}
+
+        /* PRODUCT CARD */
+        .pc{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.07);transition:transform .18s,box-shadow .18s}
+        .pc:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,0,0,.12)}
+        .pc.miss{opacity:.42}
+        .pc-vis{height:118px;display:flex;align-items:center;justify-content:center;font-size:46px;position:relative}
+        .pc-vis.c{background:linear-gradient(140deg,#1C3457 0%,var(--comp-light) 100%)}
+        .pc-vis.cm{background:linear-gradient(140deg,#243650 0%,#3A5570 100%)}
+        .pc-vis.h{background:linear-gradient(140deg,#111 0%,#252525 100%)}
+        .pc-vis.ms{background:#EEEEEE}
+        .pbadge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:700;padding:3px 7px;border-radius:10px;letter-spacing:.4px}
+        .pbadge.miss{background:#EF5350;color:#fff}
+        .pbadge.adv{background:#43A047;color:#fff}
+        .pbadge.gold{background:var(--hp-gold);color:#1A1A1A}
+        .pbadge.warn{background:#FFA726;color:#fff}
+        .pbadge.white{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.28)}
+        .pc-body{padding:11px 13px}
+        .pc-cat{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#9E9E9E;margin-bottom:3px}
+        .pc-model{font-size:12px;font-weight:600;color:#1A1A1A;margin-bottom:4px;line-height:1.3}
+        .pc-spec{font-size:11px;color:#777;margin-bottom:8px;line-height:1.4}
+        .pc-price{font-size:16px;font-weight:700}
+        .pc-price.gold{color:var(--hp-gold)}
+        .pc-price.blue{color:var(--comp-blue)}
+        .pc-price small{font-size:12px}
+        .pc-price.miss{color:#BDBDBD;font-size:11px;font-style:italic;font-weight:400}
+
+        /* COMPARISON TABLE */
+        .ctw{overflow-x:auto;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.09);margin-bottom:22px}
+        table.ct{width:100%;border-collapse:collapse;background:#fff;font-size:12px}
+        table.ct th{padding:11px 13px;text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;font-weight:700}
+        .th-pos{background:#F2F2F2;color:#666;border-right:1px solid #E8E8E8;min-width:130px}
+        .th-ct{background:var(--comp-blue);color:rgba(255,255,255,.88)}
+        .th-cm{background:#243650;color:rgba(255,255,255,.88)}
+        .th-hp{background:#111;color:var(--hp-gold)}
+        .th-d{background:#1B5E20;color:rgba(255,255,255,.88);text-align:right;min-width:106px}
+        table.ct td{padding:9px 13px;border-bottom:1px solid #F5F5F5;vertical-align:top}
+        table.ct tr:last-child td{border-bottom:none}
+        table.ct tr:hover td{background:#FAFAFA}
+        .td-pos{font-weight:600;color:#333;border-right:1px solid #EBEBEB;font-size:12px}
+        .td-ico{font-size:16px;margin-right:5px}
+        .mn{font-size:11px;font-weight:600;color:#1A1A1A;margin-bottom:1px}
+        .mp{font-size:13px;font-weight:700}
+        .mp.c{color:var(--comp-blue)}
+        .mp.h{color:#1A1A1A}
+        .mnote{font-size:10px;color:#ABABAB;margin-top:2px}
+        .mmiss{color:#D0D0D0;font-size:10px;font-style:italic}
+        .d-pos{color:var(--red-dark);font-weight:700;text-align:right;font-size:12px}
+        .d-neg{color:var(--green);font-weight:700;text-align:right;font-size:12px}
+        .d-nt{color:#AAA;text-align:right;font-style:italic;font-size:10px}
+        .total-row td{font-weight:700;background:#F4F4F4 !important;border-top:2px solid #DCDCDC !important;font-size:13px}
+
+        /* INSIGHTS */
+        .ins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:13px;margin-top:22px}
+        .ins{background:#fff;border-radius:10px;padding:17px;box-shadow:0 1px 5px rgba(0,0,0,.06)}
+        .ins.g{border-left:4px solid #43A047}
+        .ins.r{border-left:4px solid #EF5350}
+        .ins.o{border-left:4px solid #FFA726}
+        .ins.b{border-left:4px solid #42A5F5}
+        .ins-ico{font-size:22px;margin-bottom:7px}
+        .ins-title{font-size:13px;font-weight:700;margin-bottom:5px;color:#1A1A1A}
+        .ins-text{font-size:12px;color:#666;line-height:1.65}
+
+        /* SECTION LABEL */
+        .sec-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#ADADAD;font-weight:600;margin-bottom:14px}
+
+        /* FOOTER */
+        footer{background:var(--miele-black);color:rgba(255,255,255,.32);text-align:center;padding:22px 16px;font-size:11px;line-height:1.9;letter-spacing:.3px}
+        footer strong{color:rgba(255,255,255,.58)}
+        .disc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:7px;padding:10px 16px;font-size:11px;color:rgba(255,255,255,.4);max-width:680px;margin:0 auto 16px;text-align:center;line-height:1.7}
+
+        @media(max-width:600px){.pgrid{grid-template-columns:repeat(2,1fr)}.v-hero-r{text-align:left}.v-hero-r .ptotal{font-size:21px}}
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">HOME PROJECT</div>
+    <div class="header-sub">Анализ предложений Miele · для Василия</div>
+</div>
+
+<div class="hero">
+    <div class="hero-eyebrow">Персональный анализ · Первичный драфт</div>
+    <h1>Miele — <em>Конкурент vs Home Project</em></h1>
+    <p>Ниже — предложение конкурента в двух вариантах и ответ Home Project на тот же комплект. Все цены РРЦ. Итоговая стоимость обсуждается после выбора финального набора.</p>
+</div>
+
+<div class="tabs-nav">
+    <button class="active" onclick="showTab('ct',this)">🔵 Конкурент — Топ &nbsp;·&nbsp; 2 509 000 ₽</button>
+    <button onclick="showTab('cm',this)">🔷 Конкурент — Средний &nbsp;·&nbsp; 2 040 500 ₽</button>
+    <button class="tab-hp" onclick="showTab('hp',this)">⚫ Home Project — Miele &nbsp;·&nbsp; 2 793 408 ₽</button>
+    <button class="tab-cmp" onclick="showTab('cmp',this)">📊 Сравнение цен</button>
+</div>
+
+<!-- ===================== TAB: COMPETITOR TOP ===================== -->
+<div id="ct" class="panel active">
+    <div class="v-hero comp-top">
+        <div class="v-hero-l">
+            <div class="label">Конкурент · miele-electronics.ru · Топ</div>
+            <div class="title">Miele — Obsidian Black</div>
+            <div class="subtitle">9 позиций · максимальная серия</div>
+            <div class="badge-warn">⚠️ Вытяжка в комплект не включена</div>
+        </div>
+        <div class="v-hero-r">
+            <div class="plabel">РРЦ итого</div>
+            <div class="ptotal">2 509 000 <span class="cur">₽</span></div>
+            <div class="pnote">9 позиций</div>
+        </div>
+    </div>
+
+    <div class="sec-lbl">Комплект техники — предложение конкурента</div>
+    <div class="pgrid">
+        <div class="pc">
+            <div class="pc-vis c"><span>🌀</span><span class="pbadge white">WQ 1000</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Стиральная машина</div>
+                <div class="pc-model">WQ 1000 WPS Nova Edition</div>
+                <div class="pc-spec">9 кг · 1 600 об/мин · TwinDos</div>
+                <div class="pc-price blue">314 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis c"><span>💨</span><span class="pbadge white">TQ 1000</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Сушильная машина</div>
+                <div class="pc-model">TQ 1000 WP Nova Edition</div>
+                <div class="pc-spec">9 кг · Тепловой насос · FragranceDos</div>
+                <div class="pc-price blue">315 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis c"><span>❄️</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Холодильник встроенный</div>
+                <div class="pc-model">KFN 7774 C</div>
+                <div class="pc-spec">245 л · NoFrost · DynaCool</div>
+                <div class="pc-price blue">309 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis c"><span>🍽️</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Посудомоечная машина</div>
+                <div class="pc-model">G 5990 SCVi SL</div>
+                <div class="pc-spec">45 см · 9 комплектов · 40 дБ</div>
+                <div class="pc-price blue">225 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis c"><span>🔥</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Варочная панель</div>
+                <div class="pc-model">KM7667 FL</div>
+                <div class="pc-spec">Полноповерхностная индукция · SmartSelect</div>
+                <div class="pc-price blue">239 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc miss">
+            <div class="pc-vis ms"><span>🌬️</span><span class="pbadge miss">НЕ ВКЛЮЧЕНА</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Вытяжка</div>
+                <div class="pc-model">Отсутствует</div>
+                <div class="pc-spec">В топ-варианте конкурента вытяжка не предложена</div>
+                <div class="pc-price miss">не включена</div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis c"><span>🎂</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Духовой шкаф</div>
+                <div class="pc-model">H 7262 BP OBSW</div>
+                <div class="pc-spec">76 л · Пиролиз · SoftClose · 7 режимов</div>
+                <div class="pc-price blue">242 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis c"><span>📡</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Микроволновая печь</div>
+                <div class="pc-model">M7244TC OBSW</div>
+                <div class="pc-spec">46 л · Гриль · 45 программ · сенсор</div>
+                <div class="pc-price blue">187 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis c"><span>☕</span><span class="pbadge gold">Флагман</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Кофемашина зерновая</div>
+                <div class="pc-model">CVA7845 OBSW</div>
+                <div class="pc-spec">3 контейнера · OneTouch for Two · M Touch</div>
+                <div class="pc-price blue">489 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis c"><span>🫙</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Подогреватель посуды</div>
+                <div class="pc-model">ESW 7030 OBSW</div>
+                <div class="pc-spec">12 приборов · Push2Open · Таймер 4 ч</div>
+                <div class="pc-price blue">189 000 <small>₽</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== TAB: COMPETITOR MIDDLE ===================== -->
+<div id="cm" class="panel">
+    <div class="v-hero comp-mid">
+        <div class="v-hero-l">
+            <div class="label">Конкурент · miele-electronics.ru · Средний</div>
+            <div class="title">Miele — Chrome &amp; Obsidian</div>
+            <div class="subtitle">10 позиций · полный набор · базовая серия</div>
+            <div class="badge-ok">✅ Полный комплект из 10 позиций</div>
+        </div>
+        <div class="v-hero-r">
+            <div class="plabel">РРЦ итого</div>
+            <div class="ptotal">2 040 500 <span class="cur">₽</span></div>
+            <div class="pnote">10 позиций</div>
+        </div>
+    </div>
+
+    <div class="sec-lbl">Комплект техники — средний вариант конкурента</div>
+    <div class="pgrid">
+        <div class="pc">
+            <div class="pc-vis cm"><span>🌀</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Стиральная машина</div>
+                <div class="pc-model">WEG 895 WCS Chrome Edition</div>
+                <div class="pc-spec">9 кг · Chrome Edition</div>
+                <div class="pc-price blue">239 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis cm"><span>💨</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Сушильная машина</div>
+                <div class="pc-model">TEH 795 WP</div>
+                <div class="pc-spec">9 кг · Тепловой насос · PerfectDry</div>
+                <div class="pc-price blue">239 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis cm"><span>❄️</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Холодильник встроенный</div>
+                <div class="pc-model">KFN 7744 D</div>
+                <div class="pc-spec">315 л · A+++ · DynaCool</div>
+                <div class="pc-price blue">275 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis cm"><span>🍽️</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Посудомоечная машина</div>
+                <div class="pc-model">G 5790 SCVi SL</div>
+                <div class="pc-spec">45 см · AutoOpen · 44 дБ</div>
+                <div class="pc-price blue">179 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis cm"><span>🔥</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Варочная панель</div>
+                <div class="pc-model">KM7464FL</div>
+                <div class="pc-spec">PowerFlex индукция · 60 см</div>
+                <div class="pc-price blue">143 500 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis cm"><span>🌬️</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Вытяжка встраиваемая</div>
+                <div class="pc-model">DAS4630</div>
+                <div class="pc-spec">60 см · 720 м³/ч · SmartControl</div>
+                <div class="pc-price blue">129 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis cm"><span>🎂</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Духовой шкаф</div>
+                <div class="pc-model">H 2861 B OBSW</div>
+                <div class="pc-spec">76 л · 9 режимов · Пиролиз</div>
+                <div class="pc-price blue">161 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis cm"><span>📡</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Микроволновая печь</div>
+                <div class="pc-model">M2230SC OBSW</div>
+                <div class="pc-spec">17 л · Гриль · 11 программ</div>
+                <div class="pc-price blue">127 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis cm"><span>☕</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Кофемашина зерновая</div>
+                <div class="pc-model">CVA7440 OBSW</div>
+                <div class="pc-spec">OneTouch for Two · Автоочистка</div>
+                <div class="pc-price blue">359 000 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis cm"><span>🫙</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Подогреватель посуды</div>
+                <div class="pc-model">ESW 7030 OBSW</div>
+                <div class="pc-spec">12 приборов · Push2Open · Таймер</div>
+                <div class="pc-price blue">189 000 <small>₽</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== TAB: HOME PROJECT MIELE ===================== -->
+<div id="hp" class="panel">
+    <div class="v-hero hp">
+        <div class="v-hero-l">
+            <div class="label">Home Project · Наш ответ · Miele</div>
+            <div class="title">Miele — Obsidian Black</div>
+            <div class="subtitle">9 позиций · вытяжка включена · серия выше</div>
+            <div class="badge-ok">✅ Включена вытяжка · 7000-серия · AirFry</div>
+        </div>
+        <div class="v-hero-r">
+            <div class="plabel">РРЦ итого</div>
+            <div class="ptotal" style="color:var(--hp-gold)">2 793 408 <span class="cur">₽</span></div>
+            <div class="pnote">9 позиций (подогреватель — в процессе)</div>
+        </div>
+    </div>
+
+    <div class="sec-lbl">Комплект Home Project · Miele</div>
+    <div class="pgrid">
+        <div class="pc">
+            <div class="pc-vis h"><span>🌀</span><span class="pbadge white">WQ 1000</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Стиральная машина</div>
+                <div class="pc-model">WQ 1000 WPS Nova Edition</div>
+                <div class="pc-spec">9 кг · 1 600 об/мин · TwinDos · Nova</div>
+                <div class="pc-price gold">339 400 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis h"><span>💨</span><span class="pbadge white">TQ 1000</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Сушильная машина</div>
+                <div class="pc-model">TQ 1000 WP Nova Edition</div>
+                <div class="pc-spec">9 кг · Тепловой насос · FragranceDos</div>
+                <div class="pc-price gold">298 770 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis h"><span>❄️</span><span class="pbadge adv">7000</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Холодильник встроенный</div>
+                <div class="pc-model">KFN 7795 С</div>
+                <div class="pc-spec">7000 серия · NoFrost · FlexiLight</div>
+                <div class="pc-price gold">396 195 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis h"><span>🍽️</span><span class="pbadge adv">AutoDos</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Посудомоечная машина</div>
+                <div class="pc-model">G 7651 SCVi AutoDos</div>
+                <div class="pc-spec">7000 серия · AutoDos · 14 комплектов</div>
+                <div class="pc-price gold">224 570 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis h"><span>🔥</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Варочная панель</div>
+                <div class="pc-model">KM 7564 FL</div>
+                <div class="pc-spec">FlexInduction · 4 зоны · 60 см</div>
+                <div class="pc-price gold">194 925 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis h"><span>🌬️</span><span class="pbadge adv">✓ Есть</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Вытяжка встраиваемая</div>
+                <div class="pc-model">DA 2668 CLST</div>
+                <div class="pc-spec">CleanSteel · Тихая · Встраиваемая</div>
+                <div class="pc-price gold">196 531 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis h"><span>🎂</span><span class="pbadge adv">AirFry</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Духовой шкаф</div>
+                <div class="pc-model">H 7464 BP OBSW</div>
+                <div class="pc-spec">AirFry · Пиролиз · 7400 серия</div>
+                <div class="pc-price gold">350 755 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis h"><span>📡</span><span class="pbadge adv">Комби</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">СВЧ-комби</div>
+                <div class="pc-model">H 7840 BMX OBSW</div>
+                <div class="pc-spec">СВЧ + Пар + Духовка · Флагман класс</div>
+                <div class="pc-price gold">434 899 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc">
+            <div class="pc-vis h"><span>☕</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Кофемашина зерновая</div>
+                <div class="pc-model">CVA 7440 OBSW</div>
+                <div class="pc-spec">OneTouch for Two · Автоочистка</div>
+                <div class="pc-price gold">357 363 <small>₽</small></div>
+            </div>
+        </div>
+        <div class="pc miss">
+            <div class="pc-vis ms"><span>🫙</span><span class="pbadge warn">Добавляем</span></div>
+            <div class="pc-body">
+                <div class="pc-cat">Подогреватель посуды</div>
+                <div class="pc-model">ESW 7030 OBSW</div>
+                <div class="pc-spec">Добавляем в каталог · 189 000 ₽</div>
+                <div class="pc-price miss">в процессе добавления</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== TAB: COMPARISON ===================== -->
+<div id="cmp" class="panel">
+    <div class="sec-lbl">Позиция-по-позиции · Все три варианта</div>
+    <div class="ctw">
+        <table class="ct">
+            <thead>
+                <tr>
+                    <th class="th-pos">Позиция</th>
+                    <th class="th-ct">🔵 Конкурент — Топ</th>
+                    <th class="th-cm">🔷 Конкурент — Средний</th>
+                    <th class="th-hp">⚫ Home Project</th>
+                    <th class="th-d">HP vs Топ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-pos"><span class="td-ico">🌀</span>Стиральная</td>
+                    <td><div class="mn">WQ 1000 WPS Nova</div><div class="mp c">314 000 ₽</div></td>
+                    <td><div class="mn">WEG 895 WCS Chrome</div><div class="mp c">239 000 ₽</div></td>
+                    <td><div class="mn">WQ 1000 WPS Nova</div><div class="mp h">339 400 ₽</div></td>
+                    <td class="d-pos">+25 400 ₽</td>
+                </tr>
+                <tr>
+                    <td class="td-pos"><span class="td-ico">💨</span>Сушильная</td>
+                    <td><div class="mn">TQ 1000 WP Nova</div><div class="mp c">315 000 ₽</div></td>
+                    <td><div class="mn">TEH 795 WP</div><div class="mp c">239 000 ₽</div></td>
+                    <td><div class="mn">TQ 1000 WP Nova</div><div class="mp h">298 770 ₽</div></td>
+                    <td class="d-neg">−16 230 ₽</td>
+                </tr>
+                <tr>
+                    <td class="td-pos"><span class="td-ico">❄️</span>Холодильник</td>
+                    <td><div class="mn">KFN 7774 C</div><div class="mp c">309 000 ₽</div><div class="mnote">245 л</div></td>
+                    <td><div class="mn">KFN 7744 D</div><div class="mp c">275 000 ₽</div><div class="mnote">315 л, A+++</div></td>
+                    <td><div class="mn">KFN 7795 С</div><div class="mp h">396 195 ₽</div><div class="mnote">7000 серия ↑</div></td>
+                    <td class="d-pos">+87 195 ₽</td>
+                </tr>
+                <tr>
+                    <td class="td-pos"><span class="td-ico">🍽️</span>Посудомойка</td>
+                    <td><div class="mn">G 5990 SCVi SL</div><div class="mp c">225 000 ₽</div><div class="mnote">45 см, 5000 серия</div></td>
+                    <td><div class="mn">G 5790 SCVi SL</div><div class="mp c">179 000 ₽</div><div class="mnote">45 см, AutoOpen</div></td>
+                    <td><div class="mn">G 7651 SCVi AutoDos</div><div class="mp h">224 570 ₽</div><div class="mnote">7000 серия, AutoDos ↑</div></td>
+                    <td class="d-neg">−430 ₽</td>
+                </tr>
+                <tr>
+                    <td class="td-pos"><span class="td-ico">🔥</span>Варочная</td>
+                    <td><div class="mn">KM7667 FL</div><div class="mp c">239 000 ₽</div><div class="mnote">Полноповерхностная</div></td>
+                    <td><div class="mn">KM7464FL</div><div class="mp c">143 500 ₽</div><div class="mnote">PowerFlex</div></td>
+                    <td><div class="mn">KM 7564 FL</div><div class="mp h">194 925 ₽</div><div class="mnote">FlexInduction</div></td>
+                    <td class="d-neg">−44 075 ₽</td>
+                </tr>
+                <tr>
+                    <td class="td-pos"><span class="td-ico">🌬️</span>Вытяжка</td>
+                    <td><div class="mmiss">⚠️ Не включена</div></td>
+                    <td><div class="mn">DAS4630</div><div class="mp c">129 000 ₽</div></td>
+                    <td><div class="mn">DA 2668 CLST</div><div class="mp h">196 531 ₽</div><div class="mnote">✅ Включена</div></td>
+                    <td class="d-nt">входит в HP</td>
+                </tr>
+                <tr>
+                    <td class="td-pos"><span class="td-ico">🎂</span>Духовой шкаф</td>
+                    <td><div class="mn">H 7262 BP OBSW</div><div class="mp c">242 000 ₽</div><div class="mnote">Серия 7200</div></td>
+                    <td><div class="mn">H 2861 B OBSW</div><div class="mp c">161 000 ₽</div><div class="mnote">Серия 2000</div></td>
+                    <td><div class="mn">H 7464 BP OBSW</div><div class="mp h">350 755 ₽</div><div class="mnote">Серия 7400 · AirFry ↑</div></td>
+                    <td class="d-pos">+108 755 ₽</td>
+                </tr>
+                <tr>
+                    <td class="td-pos"><span class="td-ico">📡</span>СВЧ / Комби</td>
+                    <td><div class="mn">M7244TC OBSW</div><div class="mp c">187 000 ₽</div><div class="mnote">46 л, только СВЧ</div></td>
+                    <td><div class="mn">M2230SC OBSW</div><div class="mp c">127 000 ₽</div><div class="mnote">17 л, СВЧ + Гриль</div></td>
+                    <td><div class="mn">H 7840 BMX OBSW</div><div class="mp h">434 899 ₽</div><div class="mnote">СВЧ + Пар + Духовка ↑↑</div></td>
+                    <td class="d-pos">+247 899 ₽</td>
+                </tr>
+                <tr>
+                    <td class="td-pos"><span class="td-ico">☕</span>Кофемашина</td>
+                    <td><div class="mn">CVA7845 OBSW</div><div class="mp c">489 000 ₽</div><div class="mnote">Флагман, 3 контейнера</div></td>
+                    <td><div class="mn">CVA7440 OBSW</div><div class="mp c">359 000 ₽</div></td>
+                    <td><div class="mn">CVA 7440 OBSW</div><div class="mp h">357 363 ₽</div><div class="mnote">та же модель, ≈ цена</div></td>
+                    <td class="d-neg">−131 637 ₽</td>
+                </tr>
+                <tr>
+                    <td class="td-pos"><span class="td-ico">🫙</span>Подогреватель</td>
+                    <td><div class="mn">ESW 7030 OBSW</div><div class="mp c">189 000 ₽</div></td>
+                    <td><div class="mn">ESW 7030 OBSW</div><div class="mp c">189 000 ₽</div></td>
+                    <td><div class="mmiss">⏳ Добавляем (189 000 ₽)</div></td>
+                    <td class="d-nt">—</td>
+                </tr>
+                <tr class="total-row">
+                    <td class="td-pos">ИТОГО</td>
+                    <td><div style="color:var(--comp-blue)">2 509 000 ₽</div><div style="font-size:10px;color:#999;font-weight:400">9 поз, без вытяжки</div></td>
+                    <td><div style="color:var(--comp-blue)">2 040 500 ₽</div><div style="font-size:10px;color:#999;font-weight:400">10 поз, полный набор</div></td>
+                    <td><div style="color:var(--hp-gold)">2 793 408 ₽</div><div style="font-size:10px;color:#999;font-weight:400">9 поз, с вытяжкой</div></td>
+                    <td class="d-pos">+284 408 ₽</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sec-lbl">Ключевые выводы</div>
+    <div class="ins-grid">
+        <div class="ins g">
+            <div class="ins-ico">✅</div>
+            <div class="ins-title">Вытяжка — конкурент забыл</div>
+            <div class="ins-text">В топ-варианте конкурента вытяжка отсутствует. Home Project включает DA 2668 CLST (196 531 ₽). Для единого встроенного блока это ключевая позиция.</div>
+        </div>
+        <div class="ins g">
+            <div class="ins-ico">⬆️</div>
+            <div class="ins-title">Посудомойка: 7000 серия за ту же цену</div>
+            <div class="ins-text">HP предлагает G 7651 с AutoDos (7000-серия) за 224 570 ₽ — практически то же, что G 5990 у конкурента за 225 000 ₽. Новее, функциональнее, паритет цены.</div>
+        </div>
+        <div class="ins b">
+            <div class="ins-ico">🔝</div>
+            <div class="ins-title">СВЧ-комби vs просто микроволновка</div>
+            <div class="ins-text">Конкурент предлагает M7244TC — обычная СВЧ (187 000 ₽). HP — H 7840 BMX: полноценная комби-духовка с микроволнами и паром. Принципиально другой класс (+247 899 ₽).</div>
+        </div>
+        <div class="ins b">
+            <div class="ins-ico">🌡️</div>
+            <div class="ins-title">Духовой шкаф: 7400 vs 7200 серия</div>
+            <div class="ins-text">H 7464 BP (HP) — новее, поддерживает AirFry и MasterChef. H 7262 BP (конкурент) — серия ниже. Разница +108 755 ₽ оправдана расширенным функционалом.</div>
+        </div>
+        <div class="ins o">
+            <div class="ins-ico">☕</div>
+            <div class="ins-title">Кофемашина CVA7845 — ценовой разрыв</div>
+            <div class="ins-text">Конкурент предлагает CVA7845 за 489 000 ₽. В каталоге HP та же модель — 623 501 ₽ (разница 134 501 ₽). HP предложил CVA7440 как сопоставимую альтернативу за 357 363 ₽. Нужно уточнить у Василия приоритет.</div>
+        </div>
+        <div class="ins r">
+            <div class="ins-ico">🫙</div>
+            <div class="ins-title">Подогреватель ESW 7030 — нужно добавить</div>
+            <div class="ins-text">Конкурент включает ESW 7030 OBSW (189 000 ₽) в оба варианта. В каталоге HP позиции пока нет. Добавляем — после чего комплект становится полным из 10 позиций.</div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="disc">
+        Все цены указаны в РРЦ (рекомендованная розничная цена). Итоговая стоимость комплекта обсуждается индивидуально после согласования финального набора позиций и цветового решения.
+    </div>
+    <strong>HOME PROJECT</strong><br>
+    Эксклюзивная дистрибуция премиальной встраиваемой техники<br>
+    homeproject.online
+</footer>
+
+<script>
+    function showTab(id, btn) {
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tabs-nav button').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        if (btn) btn.classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+</script>
+
+</body>
+</html>
