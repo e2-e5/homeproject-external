@@ -3,360 +3,236 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex">
-<title>Home Project — Bertazzoni Nero · Персональное КП для Василия</title>
+<title>КП для Василия — Bertazzoni Kitchen | HomeProject</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  :root{
-    --bg:#0B0C10;--card:#14161C;--card2:#1A1C24;--line:#282B36;
-    --ink:#EFEFF2;--mut:#9AA0AE;--gold:#C8A84B;--gold2:#E4CE86;
-    --green:#3FBF7F;--red:#D9534F;--blue:#5FA8DE;
-  }
-  body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 18px}
-  header{background:linear-gradient(135deg,#101218 0%,#060709 100%);border-bottom:1px solid var(--line);padding:34px 0 30px}
-  .brand{font-size:13px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;font-weight:700}
-  .brand span{color:var(--mut);font-weight:500}
-  h1{font-size:30px;font-weight:800;margin:14px 0 6px;line-height:1.15}
-  .sub{color:var(--mut);font-size:15px;max-width:760px}
-  .for{display:inline-block;margin-top:16px;background:rgba(200,168,75,.12);border:1px solid rgba(200,168,75,.4);color:var(--gold2);padding:7px 16px;border-radius:30px;font-size:14px;font-weight:600}
-  .hbadges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-  .hbadge{font-size:12px;background:rgba(63,191,127,.1);border:1px solid rgba(63,191,127,.35);color:var(--green);padding:4px 12px;border-radius:20px;font-weight:600}
-  .hbadge.dark{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.2);color:var(--ink)}
-  .hbadge.amber{background:rgba(200,168,75,.1);border-color:rgba(200,168,75,.35);color:var(--gold2)}
+:root{
+  --bg:#0B0C10;--card:#13151C;--card2:#1A1D26;--border:#2A2E3D;
+  --accent:#E2B96A;--accent2:#C9A35C;--text:#E8EAF0;--muted:#7A8099;
+  --nero:#1C1C1C;--green:#4CAF82;--red:#E05050;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',-apple-system,sans-serif;min-height:100vh;}
 
-  .tabs{position:sticky;top:0;z-index:20;background:rgba(11,12,16,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .tabs-nav{display:flex;gap:6px;overflow-x:auto;padding:10px 0}
-  .tabs-nav button{white-space:nowrap;background:transparent;border:1px solid var(--line);color:var(--mut);padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit}
-  .tabs-nav button:hover{border-color:var(--gold);color:var(--ink)}
-  .tabs-nav button.active{background:var(--gold);border-color:var(--gold);color:#14161E}
+.header{padding:32px 20px 20px;text-align:center;border-bottom:1px solid var(--border);}
+.header-logo{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.header-title{font-size:clamp(20px,4vw,28px);font-weight:700;color:var(--text);margin-bottom:8px;}
+.header-sub{font-size:14px;color:var(--muted);}
+.badge{display:inline-flex;align-items:center;gap:6px;background:#1A1A1A;border:1px solid #333;color:#B0B0B0;font-size:12px;padding:4px 12px;border-radius:20px;margin-top:12px;}
 
-  .panel{display:none;padding:30px 0 60px}
-  .panel.active{display:block}
+.fridge-toggle-wrap{padding:18px 20px 4px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border);margin-bottom:0;}
+.fridge-toggle-label{font-size:12px;color:var(--muted);}
+.fridge-toggle{display:flex;gap:3px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:3px;}
+.fridge-btn{padding:7px 14px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:500;background:transparent;color:var(--muted);transition:all .2s;}
+.fridge-btn.active{background:var(--accent);color:#000;}
+.fridge-price-tag{font-size:12px;color:var(--accent);font-weight:600;padding:4px 8px;background:rgba(226,185,106,0.1);border-radius:6px;}
 
-  .vhero{background:linear-gradient(135deg,var(--card) 0%,var(--card2) 100%);border:1px solid var(--line);border-radius:18px;padding:28px;margin-bottom:26px;position:relative;overflow:hidden}
-  .vhero::before{content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(200,168,75,.14),transparent 70%)}
-  .vtag{display:inline-block;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:5px 12px;border-radius:6px;margin-bottom:12px}
-  .vtag.a{background:rgba(63,191,127,.14);color:var(--green);border:1px solid rgba(63,191,127,.4)}
-  .vtag.b{background:rgba(200,168,75,.14);color:var(--gold2);border:1px solid rgba(200,168,75,.4)}
-  .vhero h2{font-size:24px;font-weight:800;margin-bottom:6px}
-  .vhero>p{color:var(--mut);font-size:14px;max-width:680px}
-  .vtotal{margin-top:20px}
-  .vtotal .vt-lbl{font-size:13px;color:var(--mut)}
-  .vtotal .vt-amt{font-size:36px;font-weight:800;margin-top:4px;line-height:1.1}
-  .vmeta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-  .vmeta span{font-size:13px;color:var(--mut);background:rgba(255,255,255,.03);border:1px solid var(--line);padding:6px 12px;border-radius:8px}
-  .vmeta b{color:var(--ink)}
+.tabs{display:flex;gap:3px;padding:20px 20px 0;overflow-x:auto;max-width:900px;margin:0 auto;}
+.tab-btn{padding:9px 18px;border-radius:8px 8px 0 0;border:1px solid var(--border);border-bottom:none;cursor:pointer;font-size:12px;font-weight:500;background:var(--card);color:var(--muted);white-space:nowrap;transition:all .2s;}
+.tab-btn.active{background:var(--card2);color:var(--text);border-color:var(--accent);}
 
-  .sec-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin:28px 0 14px;padding-bottom:10px;border-bottom:1px solid rgba(200,168,75,.25)}
+.main{padding:0 20px 40px;max-width:900px;margin:0 auto;}
+.panel{display:none;background:var(--card2);border:1px solid var(--border);border-radius:0 8px 8px 8px;padding:20px;}
+.panel.active{display:block;}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
-  .pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;transition:.2s;position:relative}
-  .pc:hover{border-color:rgba(200,168,75,.5);transform:translateY(-2px)}
-  .pc.laundry{border-color:rgba(95,168,222,.25);background:rgba(95,168,222,.03)}
-  .pc.laundry:hover{border-color:rgba(95,168,222,.6)}
-  .imgbox{height:200px;background:#0E0E10;border:1px solid var(--line);border-radius:11px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:14px}
-  .imgbox img{max-height:190px;max-width:94%;object-fit:contain;display:block}
-  .imgtile{height:200px;border-radius:11px;background:radial-gradient(circle at 50% 35%,#1E2129,#0C0D11);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin-bottom:14px}
-  .imgtile svg{width:54px;height:54px;stroke:var(--gold);fill:none;stroke-width:1.5}
-  .imgtile span{font-size:11px;color:var(--mut);letter-spacing:1px;text-transform:uppercase}
-  .pc .cat{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mut);font-weight:700}
-  .pc h3{font-size:15px;font-weight:700;margin:3px 0 2px;line-height:1.25}
-  .pc .art{font-size:12px;color:var(--gold2);font-family:'SF Mono',ui-monospace,monospace}
-  .pc .mf{font-size:12px;color:var(--mut)}
-  .pc .spec{font-size:13px;color:var(--mut);margin-top:11px;padding-top:11px;border-top:1px solid var(--line);flex-grow:1}
-  .colorchip{display:inline-block;margin-top:9px;font-size:11px;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.18);padding:3px 9px;border-radius:20px;font-weight:600}
-  .colorchip::before{content:'●';color:#000;text-shadow:0 0 0 #444;margin-right:5px;font-size:13px;vertical-align:-1px;filter:drop-shadow(0 0 1px #666)}
-  .pc .price{display:flex;align-items:baseline;justify-content:space-between;margin-top:13px;gap:8px}
-  .pc .price .plbl{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
-  .pc .price .pamt{font-size:19px;font-weight:800;color:var(--gold2)}
-  .pc .avail{position:absolute;top:10px;right:10px;font-size:11px;padding:3px 8px;border-radius:20px;font-weight:600;z-index:2}
-  .av-in{background:rgba(63,191,127,.85);color:#0B0C10}
+.section-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.stag{background:var(--accent);color:#000;font-size:10px;padding:2px 8px;border-radius:10px;letter-spacing:0;text-transform:none;font-weight:600;}
+.stag-green{background:rgba(76,175,130,0.15);color:var(--green);font-size:10px;padding:2px 8px;border-radius:10px;letter-spacing:0;text-transform:none;font-weight:600;border:1px solid rgba(76,175,130,0.3);}
 
-  .total-bar{background:linear-gradient(135deg,rgba(200,168,75,.08),rgba(200,168,75,.04));border:1px solid rgba(200,168,75,.35);border-radius:14px;padding:18px 24px;margin-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-  .total-bar .tl{font-size:13px;color:var(--mut)}
-  .total-bar .tn{font-size:12px;color:var(--green);margin-top:3px}
-  .total-bar .ta{font-size:28px;font-weight:800;color:var(--gold2)}
+.items{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.item{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;}
+.item.highlight-liebherr{border-color:rgba(76,175,130,0.4);background:rgba(76,175,130,0.04);}
+.item-img{width:56px;height:56px;border-radius:6px;object-fit:cover;background:var(--nero);flex-shrink:0;}
+.item-fallback{width:56px;height:56px;border-radius:6px;background:var(--nero);display:none;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.item-name{font-size:13px;font-weight:500;line-height:1.4;}
+.item-art{font-size:11px;color:var(--muted);margin-top:2px;font-family:monospace;}
+.item-color{font-size:11px;color:var(--accent);margin-top:3px;}
+.item-price{text-align:right;flex-shrink:0;}
+.p-rrc{font-size:11px;color:var(--muted);text-decoration:line-through;}
+.p-client{font-size:14px;font-weight:600;color:var(--text);}
+.p-only{font-size:14px;font-weight:600;color:var(--text);}
+.disc{display:inline-block;background:rgba(76,175,130,0.12);color:var(--green);font-size:10px;font-weight:600;padding:1px 7px;border-radius:8px;margin-top:3px;}
+.av-in{font-size:10px;color:var(--green);margin-top:3px;}
+.av-order{font-size:10px;color:#E0A040;margin-top:3px;}
 
-  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
-  th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line)}
-  th{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
-  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-  .trow-sub td{background:rgba(255,255,255,.02);font-weight:700;font-size:13px;color:var(--mut)}
-  .trow-total td{font-weight:800;font-size:16px;border-top:2px solid var(--gold);border-bottom:none;padding-top:15px}
-  tbody tr:hover{background:rgba(255,255,255,.02)}
+.total-box{background:var(--card);border:1px solid var(--accent);border-radius:10px;padding:16px 20px;margin-top:4px;}
+.t-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px;color:var(--muted);}
+.t-row .val{color:var(--text);}
+.t-row.big{font-size:18px;font-weight:700;color:var(--text);border-top:1px solid var(--border);padding-top:12px;margin-top:8px;}
+.t-row.big .val{color:var(--accent);}
 
-  .cmpcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:8px}
-  .cmpc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
-  .cmpc.green{border-color:rgba(63,191,127,.4)}
-  .cmpc.gold{border-color:rgba(200,168,75,.4)}
-  .cmpc .cl{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--mut);font-weight:700;margin-bottom:8px}
-  .cmpc .ca{font-size:25px;font-weight:800}
-  .cmpc p{font-size:13px;color:var(--mut);margin-top:8px;line-height:1.4}
-  .cavt{display:inline-block;margin-top:10px;font-size:11px;padding:3px 8px;border-radius:20px;font-weight:600;background:rgba(63,191,127,.85);color:#0B0C10}
+.designnote{background:rgba(255,255,255,0.03);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6;}
+.liebherr-note{background:rgba(76,175,130,0.05);border:1px solid rgba(76,175,130,0.2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.5;}
 
-  .designnote{background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;padding:16px 20px;margin:20px 0}
-  .designnote h4{font-size:14px;font-weight:700;color:var(--gold2);margin-bottom:6px}
-  .designnote p{font-size:13px;color:var(--mut)}
+.cmp-table{width:100%;border-collapse:collapse;font-size:12px;}
+.cmp-table th{background:var(--card);color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;}
+.cmp-table td{padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
+.cmp-table tr:last-child td{border-bottom:none;}
+.cmp-brand{font-weight:600;font-size:13px;}
+.cmp-price{font-weight:700;color:var(--accent);font-size:14px;}
+.cmp-rrc{color:var(--muted);text-decoration:line-through;font-size:11px;}
+.cmp-note{color:var(--muted);font-size:11px;margin-top:3px;}
+.cmp-table tr.hl{background:rgba(226,185,106,0.04);}
 
-  h2.sec{font-size:20px;margin:32px 0 12px}
-  footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--mut);font-size:13px}
-  footer b{color:var(--ink)}
-  .disclaim{font-size:12px;color:#6B7180;margin-top:16px;line-height:1.6}
-  @media(max-width:600px){h1{font-size:24px}.grid{grid-template-columns:1fr}.total-bar{flex-direction:column}.total-bar .ta{font-size:22px}}
+.footer{text-align:center;color:var(--muted);font-size:11px;padding:24px;border-top:1px solid var(--border);}
+@media(max-width:480px){
+  .item{grid-template-columns:44px 1fr auto;}
+  .item-img,.item-fallback{width:44px;height:44px;}
+  .tabs{padding:14px 12px 0;}
+  .main{padding:0 12px 30px;}
+  .fridge-toggle-wrap{gap:6px;}
+  .fridge-btn{padding:6px 10px;font-size:11px;}
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap">
-    <div class="brand">HOME PROJECT <span>· премиальная встраиваемая техника</span></div>
-    <h1>Кухня Bertazzoni Nero — единый чёрный дизайн</h1>
-    <div class="sub">Полная кухня Bertazzoni в чёрном исполнении (Nero) + вытяжка Falmec + прачечная на выбор. Два варианта комплектации: «Комфорт» с Graude и «Флагман» с Schulthess. Все позиции в наличии.</div>
-    <div class="for">Персональное предложение для Василия · 11.09.2026</div>
-    <div class="hbadges">
-      <span class="hbadge dark">⬛ Единый чёрный дизайн Nero</span>
-      <span class="hbadge">✓ Всё в наличии</span>
-      <span class="hbadge">Варочная 60×60 см</span>
-      <span class="hbadge amber">Цены РРЦ</span>
-    </div>
+<div class="header">
+  <div class="header-logo">HomeProject · Коммерческое предложение</div>
+  <div class="header-title">Кухня Bertazzoni + прачечная</div>
+  <div class="header-sub">Для Василия · сентябрь 2026</div>
+  <div class="badge">⬛ Единый чёрный дизайн Nero</div>
+</div>
+
+<div class="fridge-toggle-wrap">
+  <span class="fridge-toggle-label">Холодильник:</span>
+  <div class="fridge-toggle">
+    <button class="fridge-btn active" id="fb-b" onclick="setFridge('b')">Bertazzoni REF704</button>
+    <button class="fridge-btn" id="fb-l" onclick="setFridge('l')">Liebherr IXRF 5125</button>
   </div>
-</header>
+  <span class="fridge-price-tag" id="fridge-tag"></span>
+</div>
 
 <div class="tabs">
-  <div class="wrap">
-    <div class="tabs-nav">
-      <button class="active" onclick="showTab('v1',this)">① Вариант «Комфорт»</button>
-      <button onclick="showTab('v2',this)">② Вариант «Флагман»</button>
-      <button onclick="showTab('cmp',this)">📊 Все варианты и сравнение</button>
-    </div>
-  </div>
+  <button class="tab-btn active" id="tab-g" onclick="showTab('g')">🏠 Комфорт — Graude</button>
+  <button class="tab-btn" id="tab-s" onclick="showTab('s')">✨ Флагман — Schulthess</button>
+  <button class="tab-btn" id="tab-m" onclick="showTab('m')">🔵 Miele</button>
+  <button class="tab-btn" id="tab-cmp" onclick="showTab('cmp')">📊 Сравнение</button>
 </div>
 
-<!-- ВАРИАНТ 1: КОМФОРТ -->
-<div id="v1" class="panel active">
-  <div class="wrap">
-    <div class="vhero">
-      <span class="vtag a">Вариант 1 · Оптимальный</span>
-      <h2>«Комфорт» — Bertazzoni Nero + Graude</h2>
-      <p>10 позиций: полная кухня Bertazzoni в едином чёрном исполнении с вытяжкой Falmec и прачечной колонной Graude. Все позиции в наличии, быстрая поставка.</p>
-      <div class="vtotal">
-        <div class="vt-lbl">Итоговая стоимость комплекта (РРЦ)</div>
-        <div class="vt-amt" style="color:var(--green)">1 766 880 ₽</div>
-      </div>
-      <div class="vmeta">
-        <span>Кухня + Falmec: <b>1 607 900 ₽</b></span>
-        <span>Прачечная Graude: <b>158 980 ₽</b></span>
-        <span>Позиций: <b>10</b></span>
-        <span>Наличие: <b style="color:var(--green)">✓ Всё есть</b></span>
-      </div>
+<div class="main">
+
+<!-- GRAUDE -->
+<div class="panel active" id="panel-g">
+  <div class="designnote">⬛ Все видимые элементы кухни — <strong>Nero (чёрный)</strong>. Встраиваемые приборы (посудомойка, холодильник) скрыты за фасадом кухни.</div>
+  <div class="section-title">Кухня Bertazzoni <span class="stag">Nero</span></div>
+  <div class="items" id="kitchen-g"></div>
+  <div class="section-title">Прачечная <span class="stag">Graude</span></div>
+  <div class="items">
+    <div class="item">
+      <img class="item-img" src="https://technika-vkusa.ru/upload/iblock/b28/isq3pvwh5ei5dtixrib9c1ct12onf537.png" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt=""><div class="item-fallback">🫧</div>
+      <div><div class="item-name">Graude WA 100.3</div><div class="item-art">WA 100.3</div></div>
+      <div class="item-price"><div class="p-only">69 990 ₽</div><div class="av-in">● В наличии</div></div>
     </div>
-
-    <div class="designnote">
-      <h4>⬛ Единый чёрный дизайн Bertazzoni Nero</h4>
-      <p>Вся кухонная техника Bertazzoni подобрана в чёрном исполнении: варочная панель — чёрное стекло, духовой шкаф, СВЧ-комби и подогреватель — Professional Nero, кофемашина — чёрная стеклянная панель. Холодильник и посудомоечная машина полновстраиваемые — за чёрным фасадом кухни.</p>
-    </div>
-
-    <div class="sec-label">Кухня Bertazzoni Nero + Вытяжка Falmec</div>
-    <div class="grid" id="g1k"></div>
-
-    <div class="sec-label" style="margin-top:32px">Прачечная Graude</div>
-    <div class="grid" id="g1l"></div>
-
-    <div class="total-bar">
-      <div>
-        <div class="tl">Итого «Комфорт» · 10 позиций</div>
-        <div class="tn">✓ Всё в наличии · Bertazzoni Nero + Falmec + Graude</div>
-      </div>
-      <div class="ta">1 766 880 ₽</div>
+    <div class="item">
+      <img class="item-img" src="https://technika-vkusa.ru/upload/iblock/ebf/m8eimfoc6rsfr4osfhkfpc64x0n2uqer.png" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt=""><div class="item-fallback">💨</div>
+      <div><div class="item-name">Graude TA 100.3</div><div class="item-art">TA 100.3</div></div>
+      <div class="item-price"><div class="p-only">88 990 ₽</div><div class="av-in">● В наличии</div></div>
     </div>
   </div>
+  <div class="total-box" id="total-g"></div>
 </div>
 
-<!-- ВАРИАНТ 2: ФЛАГМАН -->
-<div id="v2" class="panel">
-  <div class="wrap">
-    <div class="vhero">
-      <span class="vtag b">Вариант 2 · Флагманский</span>
-      <h2>«Флагман» — Bertazzoni Nero + Schulthess Gold</h2>
-      <p>10 позиций: та же чёрная кухня Bertazzoni с вытяжкой Falmec, но с премиальной прачечной Schulthess Gold Collection. Все позиции в наличии.</p>
-      <div class="vtotal">
-        <div class="vt-lbl">Итоговая стоимость комплекта (РРЦ)</div>
-        <div class="vt-amt" style="color:var(--gold2)">2 548 880 ₽</div>
-      </div>
-      <div class="vmeta">
-        <span>Кухня + Falmec: <b>1 607 900 ₽</b></span>
-        <span>Прачечная Schulthess: <b>940 980 ₽</b></span>
-        <span>Позиций: <b>10</b></span>
-        <span>Наличие: <b style="color:var(--green)">✓ Всё есть</b></span>
-      </div>
-    </div>
-
-    <div class="designnote">
-      <h4>⬛ Единый чёрный дизайн Bertazzoni Nero</h4>
-      <p>Вся кухонная техника Bertazzoni подобрана в чёрном исполнении: варочная панель — чёрное стекло, духовой шкаф, СВЧ-комби и подогреватель — Professional Nero, кофемашина — чёрная стеклянная панель. Холодильник и посудомоечная машина полновстраиваемые — за чёрным фасадом кухни.</p>
-    </div>
-
-    <div class="sec-label">Кухня Bertazzoni Nero + Вытяжка Falmec</div>
-    <div class="grid" id="g2k"></div>
-
-    <div class="sec-label" style="margin-top:32px">Прачечная Schulthess Gold Collection</div>
-    <div class="grid" id="g2l"></div>
-
-    <div class="total-bar">
+<!-- SCHULTHESS -->
+<div class="panel" id="panel-s">
+  <div class="designnote">⬛ Все видимые элементы кухни — <strong>Nero (чёрный)</strong>. Встраиваемые приборы скрыты за фасадом кухни.</div>
+  <div class="section-title">Кухня Bertazzoni <span class="stag">Nero</span></div>
+  <div class="items" id="kitchen-s"></div>
+  <div class="section-title">Прачечная <span class="stag">Schulthess</span> <span class="stag-green">−18% для вас</span></div>
+  <div class="items">
+    <div class="item">
+      <img class="item-img" src="https://static.insales-cdn.com/images/products/1/2577/3031001617/large_ADA1.102BE1H3J3K_2.png" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt=""><div class="item-fallback">🫧</div>
       <div>
-        <div class="tl">Итого «Флагман» · 10 позиций</div>
-        <div class="tn">✓ Всё в наличии · Bertazzoni Nero + Falmec + Schulthess Gold</div>
+        <div class="item-name">Schulthess Spirit TopLine ADA1.102BE1H3J3KY</div>
+        <div class="item-art">ADA1.102BE1H3J3KY</div>
+        <div class="item-color">Стиральная машина 10 кг · Heat Pump</div>
       </div>
-      <div class="ta">2 548 880 ₽</div>
+      <div class="item-price"><div class="p-rrc">461 990 ₽</div><div class="p-client">380 000 ₽</div><div class="disc">−18%</div><div class="av-in">● В наличии</div></div>
+    </div>
+    <div class="item">
+      <img class="item-img" src="https://static.insales-cdn.com/images/products/1/5457/3031004497/large_MDA1.100FH3K_2.png" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt=""><div class="item-fallback">💨</div>
+      <div>
+        <div class="item-name">Schulthess Spirit TopLine MDA1.100FH3KY</div>
+        <div class="item-art">MDA1.100FH3KY</div>
+        <div class="item-color">Сушильная машина · Heat Pump</div>
+      </div>
+      <div class="item-price"><div class="p-rrc">478 990 ₽</div><div class="p-client">394 000 ₽</div><div class="disc">−18%</div><div class="av-in">● В наличии</div></div>
     </div>
   </div>
+  <div class="total-box" id="total-s"></div>
+</div>
+
+<!-- MIELE -->
+<div class="panel" id="panel-m">
+  <div class="designnote">⬛ Все видимые элементы кухни — <strong>Nero (чёрный)</strong>. Встраиваемые приборы скрыты за фасадом кухни.</div>
+  <div class="section-title">Кухня Bertazzoni <span class="stag">Nero</span></div>
+  <div class="items" id="kitchen-m"></div>
+  <div class="section-title">Прачечная <span class="stag">Miele W1 + T1</span></div>
+  <div class="items">
+    <div class="item">
+      <div class="item-fallback" style="display:flex">🫧</div>
+      <div>
+        <div class="item-name">Miele WEG 895 WCS Chrome Edition</div>
+        <div class="item-art">WEG 895 WCS RU</div>
+        <div class="item-color">Стиральная машина 9 кг · W1</div>
+      </div>
+      <div class="item-price"><div class="p-rrc">253 500 ₽</div><div class="p-client">215 000 ₽</div><div class="disc">−15%</div><div class="av-in">● В наличии</div></div>
+    </div>
+    <div class="item">
+      <div class="item-fallback" style="display:flex">🔩</div>
+      <div>
+        <div class="item-name">Miele WTV 501 — стойка-подставка</div>
+        <div class="item-art">WTV 501</div>
+        <div class="item-color">Для установки сушилки над стиральной</div>
+      </div>
+      <div class="item-price"><div class="p-rrc">12 000 ₽</div><div class="p-client">9 000 ₽</div><div class="disc">−25%</div><div class="av-in">● В наличии</div></div>
+    </div>
+    <div class="item">
+      <div class="item-fallback" style="display:flex">💨</div>
+      <div>
+        <div class="item-name">Miele TEH 795 WP</div>
+        <div class="item-art">TEH 795 WP</div>
+        <div class="item-color">Сушильная машина · Heat Pump T1</div>
+      </div>
+      <div class="item-price"><div class="p-rrc">247 000 ₽</div><div class="p-client">219 000 ₽</div><div class="disc">−11%</div><div class="av-in">● В наличии</div></div>
+    </div>
+  </div>
+  <div class="total-box" id="total-m"></div>
 </div>
 
 <!-- СРАВНЕНИЕ -->
-<div id="cmp" class="panel">
-  <div class="wrap">
-    <h2 class="sec" style="margin-top:6px">Три варианта прачечной — все в наличии</h2>
-    <div class="cmpcards">
-      <div class="cmpc green">
-        <div class="cl">«Комфорт» · Graude</div>
-        <div class="ca" style="color:var(--green)">1 766 880 ₽</div>
-        <p>Кухня 1 607 900 ₽ + прачечная Graude 158 980 ₽</p>
-        <span class="cavt">✓ Всё в наличии</span>
-      </div>
-      <div class="cmpc">
-        <div class="cl">Средний · Miele</div>
-        <div class="ca" style="color:var(--blue)">2 120 400 ₽</div>
-        <p>Кухня 1 607 900 ₽ + прачечная Miele 512 500 ₽</p>
-        <span class="cavt">✓ Всё в наличии</span>
-      </div>
-      <div class="cmpc gold">
-        <div class="cl">«Флагман» · Schulthess</div>
-        <div class="ca" style="color:var(--gold2)">2 548 880 ₽</div>
-        <p>Кухня 1 607 900 ₽ + прачечная Schulthess 940 980 ₽</p>
-        <span class="cavt">✓ Всё в наличии</span>
-      </div>
-    </div>
-
-    <h2 class="sec">Все позиции и цены — развёрнутая таблица</h2>
-    <div style="overflow-x:auto">
-    <table>
-      <thead>
-        <tr>
-          <th>Позиция</th>
-          <th class="num" style="color:var(--green)">Комфорт (Graude)</th>
-          <th class="num" style="color:var(--blue)">Miele</th>
-          <th class="num" style="color:var(--gold2)">Флагман (Schulthess)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="trow-sub"><td colspan="4">Кухня Bertazzoni Nero + Вытяжка Falmec</td></tr>
-        <tr><td>Варочная индукционная 60 см · чёрное стекло<br><span style="font-size:12px;color:var(--mut)">Bertazzoni P604IM2B2NE-20</span></td><td class="num">154 900 ₽</td><td class="num">154 900 ₽</td><td class="num">154 900 ₽</td></tr>
-        <tr><td>Вытяжка встраиваемая 60 см<br><span style="font-size:12px;color:var(--mut)">Falmec Gruppo Incasso Plus 50 IX</span></td><td class="num">81 900 ₽</td><td class="num">81 900 ₽</td><td class="num">81 900 ₽</td></tr>
-        <tr><td>Духовой шкаф · Professional Nero<br><span style="font-size:12px;color:var(--mut)">Bertazzoni F6011PROVTN</span></td><td class="num">305 900 ₽</td><td class="num">305 900 ₽</td><td class="num">305 900 ₽</td></tr>
-        <tr><td>СВЧ-комби · Professional Nero<br><span style="font-size:12px;color:var(--mut)">Bertazzoni F457PROMWTN</span></td><td class="num">173 400 ₽</td><td class="num">173 400 ₽</td><td class="num">173 400 ₽</td></tr>
-        <tr><td>Кофемашина · чёрная панель<br><span style="font-size:12px;color:var(--mut)">Bertazzoni M45CAFX</span></td><td class="num">316 100 ₽</td><td class="num">316 100 ₽</td><td class="num">316 100 ₽</td></tr>
-        <tr><td>Посудомоечная машина 60 см · полновстраиваемая<br><span style="font-size:12px;color:var(--mut)">Bertazzoni DW6083PRT</span></td><td class="num">148 800 ₽</td><td class="num">148 800 ₽</td><td class="num">148 800 ₽</td></tr>
-        <tr><td>Холодильник French Door · полновстраиваемый<br><span style="font-size:12px;color:var(--mut)">Bertazzoni REF704BBNPTC</span></td><td class="num">331 400 ₽</td><td class="num">331 400 ₽</td><td class="num">331 400 ₽</td></tr>
-        <tr><td>Подогреватель посуды · Nero<br><span style="font-size:12px;color:var(--mut)">Bertazzoni WD60N</span></td><td class="num">95 500 ₽</td><td class="num">95 500 ₽</td><td class="num">95 500 ₽</td></tr>
-        <tr class="trow-sub"><td>Итого кухня</td><td class="num">1 607 900 ₽</td><td class="num">1 607 900 ₽</td><td class="num">1 607 900 ₽</td></tr>
-
-        <tr class="trow-sub"><td colspan="4">Прачечная</td></tr>
-        <tr>
-          <td>Стиральная машина<br><span style="font-size:12px;color:var(--mut)">Graude WA 100.3 / Miele WEG 895 WCS / Schulthess ADA1.102</span></td>
-          <td class="num">69 990 ₽</td><td class="num">253 500 ₽</td><td class="num">461 990 ₽</td>
-        </tr>
-        <tr>
-          <td>Монтажный комплект<br><span style="font-size:12px;color:var(--mut)">— / Miele WTV 501 / —</span></td>
-          <td class="num" style="color:var(--mut)">—</td><td class="num">12 000 ₽</td><td class="num" style="color:var(--mut)">—</td>
-        </tr>
-        <tr>
-          <td>Сушильная машина<br><span style="font-size:12px;color:var(--mut)">Graude TA 100.3 / Miele TEH 795 WP / Schulthess MDA1.100</span></td>
-          <td class="num">88 990 ₽</td><td class="num">247 000 ₽</td><td class="num">478 990 ₽</td>
-        </tr>
-        <tr class="trow-sub">
-          <td>Итого прачечная</td>
-          <td class="num">158 980 ₽</td><td class="num">512 500 ₽</td><td class="num">940 980 ₽</td>
-        </tr>
-        <tr class="trow-total">
-          <td>ИТОГО КОМПЛЕКТ</td>
-          <td class="num" style="color:var(--green)">1 766 880 ₽</td>
-          <td class="num" style="color:var(--blue)">2 120 400 ₽</td>
-          <td class="num" style="color:var(--gold2)">2 548 880 ₽</td>
-        </tr>
-        <tr>
-          <td style="font-size:12px;color:var(--mut)">Наличие</td>
-          <td style="font-size:12px"><span style="background:rgba(63,191,127,.8);color:#0B0C10;padding:2px 7px;border-radius:10px;font-weight:600">✓ Всё есть</span></td>
-          <td style="font-size:12px"><span style="background:rgba(63,191,127,.8);color:#0B0C10;padding:2px 7px;border-radius:10px;font-weight:600">✓ Всё есть</span></td>
-          <td style="font-size:12px"><span style="background:rgba(63,191,127,.8);color:#0B0C10;padding:2px 7px;border-radius:10px;font-weight:600">✓ Всё есть</span></td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-
-    <!-- Характеристики -->
-    <h2 class="sec" style="margin-top:44px">Сравнение по характеристикам: Bertazzoni vs Miele</h2>
-    <div style="overflow-x:auto">
-    <table>
-      <thead><tr><th>Характеристика</th><th>Bertazzoni</th><th>Miele</th></tr></thead>
-      <tbody>
-        <tr><td>Происхождение</td><td>Италия (с 1882)</td><td>Германия (с 1899)</td></tr>
-        <tr><td>Единый цвет комплекта</td><td>Чёрный (Nero) — вся кухня</td><td>Obsidian Black</td></tr>
-        <tr><td>Варочная панель</td><td>Индукция 60 см, чёрное стекло, TFT, BoosterZone</td><td>Индукция 60 см, ComfortSelect или FullSurface</td></tr>
-        <tr><td>Духовой шкаф</td><td>Professional Nero, 65 л, пар, термощуп, 10 режимов</td><td>Multisystem, автопрограммы, пиролиз в старших</td></tr>
-        <tr><td>СВЧ встраиваемая</td><td>Professional Nero, 45 см, гриль, 25 программ</td><td>38 или 45 см в зависимости от варианта</td></tr>
-        <tr><td>Кофемашина</td><td>M45CAFX, чёрная панель, 10 напитков</td><td>CVA7440/CVA7845, OneTouch, CupSensor</td></tr>
-        <tr><td>Посудомойка</td><td>60 см, полновстраиваемая, 14 комплектов</td><td>45 см полн. встр., AutoOpen-сушка</td></tr>
-        <tr><td>Холодильник</td><td>French Door 70 см, полновстраиваемый, TotalNoFrost</td><td>Двухкамерный встраиваемый, NoFrost</td></tr>
-        <tr><td>Подогреватель</td><td>WD60N Nero, 3 режима, 60 см</td><td>ESW 7030, Push2Open</td></tr>
-        <tr><td>Итого кухня (РРЦ)</td><td>1 607 900 ₽</td><td>≈ 1 402 600 ₽ (Комфорт)</td></tr>
-      </tbody>
-    </table>
-    </div>
-
-    <h2 class="sec" style="margin-top:36px">Сравнение прачечных: Graude vs Miele vs Schulthess</h2>
-    <div style="overflow-x:auto">
-    <table>
-      <thead><tr><th>Характеристика</th><th style="color:var(--green)">Graude</th><th style="color:var(--blue)">Miele</th><th style="color:var(--gold2)">Schulthess</th></tr></thead>
-      <tbody>
-        <tr><td>Стиральная модель</td><td>WA 100.3</td><td>WEG 895 WCS</td><td>Gold 540 ADA1.102</td></tr>
-        <tr><td>Сушильная модель</td><td>TA 100.3</td><td>TEH 795 WP</td><td>MDA1.100</td></tr>
-        <tr><td>Загрузка (стирка)</td><td>10 кг</td><td>9 кг</td><td>10 кг</td></tr>
-        <tr><td>Отжим макс.</td><td>1400 об/мин</td><td>1600 об/мин</td><td>1600 об/мин</td></tr>
-        <tr><td>Тип сушки</td><td>Тепловой насос</td><td>Тепловой насос A+++</td><td>Тепловой насос A+++</td></tr>
-        <tr><td>Авто-дозирование</td><td>—</td><td>TwinDos</td><td>i-DOS</td></tr>
-        <tr><td>Монтаж в колонну</td><td>Встроено</td><td>Комплект WTV 501 (+12 000 ₽)</td><td>Встроено</td></tr>
-        <tr><td>Наличие</td><td><span style="color:var(--green)">✓ В наличии</span></td><td><span style="color:var(--green)">✓ В наличии</span></td><td><span style="color:var(--green)">✓ В наличии</span></td></tr>
-        <tr><td>Стоимость пары (РРЦ)</td><td><b style="color:var(--green)">158 980 ₽</b></td><td><b style="color:var(--blue)">512 500 ₽</b></td><td><b style="color:var(--gold2)">940 980 ₽</b></td></tr>
-      </tbody>
-    </table>
-    </div>
+<div class="panel" id="panel-cmp">
+  <div class="section-title">Все варианты</div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Итоги пересчитываются автоматически при переключении холодильника (Bertazzoni / Liebherr) вверху страницы.</p>
+  <table class="cmp-table">
+    <thead><tr><th>Вариант</th><th>Кухня</th><th>Прачечная</th><th>Итого</th></tr></thead>
+    <tbody>
+      <tr><td><div class="cmp-brand">🏠 Комфорт</div><div class="cmp-note">Graude</div></td>
+          <td id="cmp-k-g"></td>
+          <td><div style="font-weight:600">158 980 ₽</div><div class="cmp-note">WA 100.3 + TA 100.3 · В наличии</div></td>
+          <td><div class="cmp-price" id="cmp-t-g"></div></td></tr>
+      <tr class="hl"><td><div class="cmp-brand">🔵 Miele</div><div class="cmp-note">W1 + T1</div></td>
+          <td id="cmp-k-m"></td>
+          <td><div class="cmp-rrc">512 500 ₽</div><div style="font-weight:600">443 000 ₽</div><div class="cmp-note">WEG 895 + WTV 501 + TEH 795 · В наличии</div></td>
+          <td><div class="cmp-price" id="cmp-t-m"></div></td></tr>
+      <tr><td><div class="cmp-brand">✨ Флагман</div><div class="cmp-note">Schulthess −18%</div></td>
+          <td id="cmp-k-s"></td>
+          <td><div class="cmp-rrc">940 980 ₽</div><div style="font-weight:600">774 000 ₽</div><div class="disc">−18%</div><div class="cmp-note">ADA1.102 + MDA1.100 · В наличии</div></td>
+          <td><div class="cmp-price" id="cmp-t-s"></div></td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:20px;padding:14px 16px;background:var(--card);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.6;">
+    <strong style="color:var(--text)">О варианте с Liebherr IXRF 5125-22 001</strong><br>
+    Встраиваемый Side-by-Side, нержавеющая сталь. Аналог по классу Bertazzoni French Door.
+    Разница в стоимости: <strong style="color:var(--accent)">+22 600 ₽</strong> к итогу.
+    При проектировании потребуется согласовать размеры ниши.
   </div>
 </div>
 
-<footer>
-  <div class="wrap">
-    <b>Home Project</b> — дистрибуция премиальной встраиваемой техники · Москва<br>
-    Готовы обсудить финальную комплектацию и раскладку приборов. Возможна замена отдельных позиций под ваш проект.
-    <div class="disclaim">
-      Фотографии приборов носят иллюстративный характер; финальная отделка уточняется по артикулу. Вся техника Bertazzoni подобрана в чёрном исполнении (Nero). Холодильник и посудомоечная машина — полновстраиваемые, фасад в цвет кухни. Все цены — РРЦ, в рублях, действительны на дату предложения (11.09.2026). Предложение носит информационный характер и не является публичной офертой.
-    </div>
-  </div>
-</footer>
+</div><!-- /main -->
+
+<div class="footer">HomeProject · homeproject.online · +7 (495) 000-00-00 · Предложение действительно 30 дней</div>
 
 <script>
-var IC={
-  cook:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="2"/><circle cx="16" cy="8" r="2"/><circle cx="8" cy="16" r="2"/><circle cx="16" cy="16" r="2"/></svg>',
-  hood:'<svg viewBox="0 0 24 24"><path d="M3 4h18v5l-4 3H7L3 9z"/><path d="M12 12v6"/><path d="M9 20h6"/></svg>',
-  oven:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 8h18"/><circle cx="7" cy="5.5" r=".7"/><rect x="6" y="11" width="12" height="7" rx="1"/></svg>',
-  mw:'<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><rect x="5" y="8" width="9" height="8" rx="1"/><path d="M17 9v6"/></svg>',
-  coffee:'<svg viewBox="0 0 24 24"><path d="M5 8h11v5a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5z"/><path d="M16 9h2a2 2 0 0 1 0 4h-2"/><path d="M8 5V3M11 5V3"/></svg>',
-  dish:'<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 8h16"/><circle cx="9" cy="5.5" r=".7"/><path d="M9 12v6M15 12v6"/></svg>',
-  fridge:'<svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M6 10h12M9 5v2M9 13v3"/></svg>',
-  warm:'<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 12h10"/></svg>',
-  wash:'<svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="14" r="5"/><circle cx="8" cy="6" r="1"/></svg>',
-  dry:'<svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="14" r="5"/><path d="M10 12c1 1 3 1 4 0"/></svg>'
-};
 var IMG={
   cook_b:'https://bertazzoni-store.ru/upload/iblock/b6a/sgi5x4ycs7ouvpav8npkppsd330tdttr.webp',
   falmec:'https://high-level.ru/upload/iblock/8ec/q627s24qb9gdpniiawu0ktts860ptjr4.jpg',
@@ -365,64 +241,102 @@ var IMG={
   coffee_b:'https://bertazzoni-store.ru/upload/iblock/d50/85q7aujqds5oyongkbwkcmgu2ebm24o1.webp',
   dish_b:'https://bertazzoni-store.ru/upload/iblock/3d3/pf6biczt4xijnrkdgzwud4ea7va91mxj.webp',
   fridge_b:'https://bertazzoni-store.ru/upload/iblock/bf0/lm8eq5f2t5ut22mnrfdjkvjppvly987d.webp',
-  warm_b:'https://bertazzoni-store.ru/upload/iblock/7b1/wpoj42oxv2s5u1edq4001faqr3y0gcr7.webp',
-  wash_g:'https://technika-vkusa.ru/upload/iblock/b28/isq3pvwh5ei5dtixrib9c1ct12onf537.png',
-  dry_g:'https://technika-vkusa.ru/upload/iblock/ebf/m8eimfoc6rsfr4osfhkfpc64x0n2uqer.png',
-  wash_s:'https://static.insales-cdn.com/images/products/1/2577/3031001617/large_ADA1.102BE1H3J3K_2.png',
-  dry_s:'https://static.insales-cdn.com/images/products/1/5457/3031004497/large_MDA1.100FH3K_2.png'
+  fridge_l:'https://holod.ru/pics/clean/medium/47/1126547_3.jpg',
+  warm_b:'https://bertazzoni-store.ru/upload/iblock/7b1/wpoj42oxv2s5u1edq4001faqr3y0gcr7.webp'
 };
-
-var KITCHEN=[
-  {ic:'cook',  img:'cook_b',   cat:'Варочная панель',       n:'Bertazzoni P604IM2B2NE-20',         art:'P604IM2B2NE-20',           mf:'Bertazzoni · индукционная 60×60 см',    color:'Чёрное стекло (Nero)', spec:'Индукция, 4 зоны, TFT-дисплей, BoosterZone, 7 режимов мощности.',                        rrc:154900},
-  {ic:'hood',  img:'falmec',   cat:'Вытяжка встраиваемая',  n:'Falmec Gruppo Incasso Plus 50 IX',  art:'GRUPPO INCASSO PLUS 50 IX', mf:'Falmec · встраиваемая в шкаф 60 см',   color:'', spec:'Встраивается в верхний шкаф (скрыта), 60 см, макс. 1280 м³/ч.',               rrc:81900},
-  {ic:'oven',  img:'oven_b',   cat:'Духовой шкаф',          n:'Bertazzoni F6011PROVTN',            art:'F6011PROVTN',              mf:'Bertazzoni · Professional Nero 60 см',  color:'Чёрный (Nero)', spec:'65 л, SteelFresh каталитические панели, 10 режимов, пар, термощуп, TFT-дисплей.',        rrc:305900},
-  {ic:'mw',    img:'mw_b',     cat:'СВЧ встраиваемая',      n:'Bertazzoni F457PROMWTN',            art:'F457PROMWTN',              mf:'Bertazzoni · Professional Nero 45 см',  color:'Чёрный (Nero)', spec:'Микроволновая печь-гриль, высота 45 см, 25 авт. программ, чёрное исполнение.',           rrc:173400},
-  {ic:'coffee',img:'coffee_b', cat:'Кофемашина',             n:'Bertazzoni M45CAFX',                art:'M45CAFX',                  mf:'Bertazzoni · встраиваемая, чёрная',     color:'Чёрная панель', spec:'10 напитков, One-Touch, кофемолка 6 степеней, капучинатор, 45 см.',                      rrc:316100},
-  {ic:'dish',  img:'dish_b',   cat:'Посудомоечная машина',  n:'Bertazzoni DW6083PRT',              art:'DW6083PRT',                mf:'Bertazzoni · полновстраиваемая 60 см',  color:'За фасадом кухни', spec:'14 комплектов, 8 программ, энергокласс A. Фасад — в цвет кухни (чёрный).',            rrc:148800},
-  {ic:'fridge',img:'fridge_b', cat:'Холодильник',            n:'Bertazzoni REF704BBNPTC',          art:'REF704BBNPTC',             mf:'Bertazzoni · полновстраиваемый French Door', color:'За фасадом кухни', spec:'French Door 70 см, TotalNoFrost, MultiAir. Фасад — в цвет кухни (чёрный).',        rrc:331400},
-  {ic:'warm',  img:'warm_b',   cat:'Подогреватель посуды',  n:'Bertazzoni WD60N',                  art:'WD60N',                    mf:'Bertazzoni · Nero 60 см',               color:'Чёрный (Nero)', spec:'Поддержание температуры блюд и подогрев посуды, 3 режима.',                              rrc:95500}
+var IC={cook:'🍳',hood:'💨',oven:'⬛',mw:'📡',coffee:'☕',dish:'🍽️',fridge:'🧊',warm:'🌡️'};
+var KB=[
+  {ic:'cook',img:'cook_b',n:'Bertazzoni P604IM2B2NE-20',art:'P604IM2B2NE-20',color:'Чёрное стекло (Nero)',p:154900},
+  {ic:'hood',img:'falmec',n:'Falmec Gruppo Incasso Plus 50 IX',art:'GRUPPO INCASSO PLUS 50 IX',color:'Встроенная вытяжка',p:81900},
+  {ic:'oven',img:'oven_b',n:'Bertazzoni F6011PROVTN',art:'F6011PROVTN',color:'Чёрный (Nero)',p:305900},
+  {ic:'mw',img:'mw_b',n:'Bertazzoni F457PROMWTN',art:'F457PROMWTN',color:'Чёрный (Nero)',p:173400},
+  {ic:'coffee',img:'coffee_b',n:'Bertazzoni M45CAFX',art:'M45CAFX',color:'Чёрная панель',p:316100},
+  {ic:'dish',img:'dish_b',n:'Bertazzoni DW6083PRT',art:'DW6083PRT',color:'За фасадом кухни',p:148800},
+  {ic:'warm',img:'warm_b',n:'Bertazzoni WD60N',art:'WD60N',color:'Чёрный (Nero)',p:95500}
 ];
+var FR={
+  b:{ic:'fridge',img:'fridge_b',n:'Bertazzoni REF704BBNPTC',art:'REF704BBNPTC',color:'За фасадом кухни',p:331400},
+  l:{ic:'fridge',img:'fridge_l',n:'Liebherr IXRF 5125-22 001',art:'IXRF 5125-22 001',color:'Встраиваемый Side-by-Side',p:354000}
+};
+var LAU={g:158980,s:774000,m:443000};
+var fc='b';
 
-var LAUNDRY_G=[
-  {ic:'wash',img:'wash_g',cat:'Стиральная машина',n:'Graude WA 100.3',              art:'WA 100.3',          mf:'Graude · отдельностоящая',     color:'', spec:'10 кг, 1400 об/мин, 16 программ, тепловой насос, A класс.',rrc:69990,laundry:true},
-  {ic:'dry', img:'dry_g', cat:'Сушильная машина', n:'Graude TA 100.3',              art:'TA 100.3',          mf:'Graude · отдельностоящая',     color:'', spec:'Тепловой насос, 9 кг, 16 программ, BauknEco+, A+++ класс.',rrc:88990,laundry:true}
-];
-var LAUNDRY_S=[
-  {ic:'wash',img:'wash_s',cat:'Стиральная машина',n:'Schulthess Gold 540 (ADA1.102)',art:'ADA1.102BE1H3J3KY',mf:'Schulthess · Gold Collection',  color:'', spec:'10 кг, 1600 об/мин, SoftDrum, i-DOS авто-дозирование, тепловой насос.',rrc:461990,laundry:true},
-  {ic:'dry', img:'dry_s', cat:'Сушильная машина', n:'Schulthess Classic (MDA1.100)', art:'MDA1.100FH3KY',   mf:'Schulthess · Classic Series',   color:'', spec:'Тепловой насос A+++, 9 кг, SensorControl, CondensoControl.',           rrc:478990,laundry:true}
-];
+function fmt(n){return n.toLocaleString('ru-RU')+' ₽';}
+function kTotal(){return KB.reduce(function(s,i){return s+i.p;},0)+FR[fc].p;}
 
-function avBadge(){return '<span class="avail av-in">В наличии</span>';}
-function media(p){
-  if(p.img&&IMG[p.img])return '<div class="imgbox"><img src="'+IMG[p.img]+'" alt="'+p.n+'" loading="lazy" onerror="this.closest(\'.imgbox\').style.display=\'none\'"></div>';
-  return '<div class="imgtile">'+IC[p.ic]+'<span>'+p.cat+'</span></div>';
+function renderKitchen(cid){
+  var el=document.getElementById(cid);if(!el)return;
+  var items=KB.concat([FR[fc]]);
+  el.innerHTML=items.map(function(it){
+    var isL=(it.ic==='fridge'&&fc==='l');
+    return '<div class="item'+(isL?' highlight-liebherr':'')+'">'+
+      '<img class="item-img" src="'+IMG[it.img]+'" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'" alt="">'+
+      '<div class="item-fallback">'+IC[it.ic]+'</div>'+
+      '<div>'+
+        '<div class="item-name">'+it.n+'</div>'+
+        '<div class="item-art">'+it.art+'</div>'+
+        (it.color?'<div class="item-color">'+it.color+'</div>':'')+
+        (isL?'<div style="font-size:11px;color:var(--green);margin-top:2px">Альтернатива · Liebherr</div>':'')+
+      '</div>'+
+      '<div class="item-price"><div class="p-only">'+fmt(it.p)+'</div></div>'+
+    '</div>';
+  }).join('');
 }
-function rub(n){return n.toLocaleString('ru-RU')+'\u202F₽';}
-function renderGrid(id,data){
-  var h='';
-  data.forEach(function(p){
-    h+='<div class="pc'+(p.laundry?' laundry':'')+'">'+avBadge()+media(p)+
-      '<div class="cat">'+p.cat+'</div><h3>'+p.n+'</h3>'+
-      '<div class="art">'+p.art+'</div><div class="mf">'+p.mf+'</div>'+
-      '<div class="spec">'+p.spec+(p.color?'<br><span class="colorchip">'+p.color+'</span>':'')+'</div>'+
-      '<div class="price"><span class="plbl">РРЦ</span><span class="pamt">'+rub(p.rrc)+'</span></div>'+
-      '</div>';
+
+function renderTotal(bid,lk){
+  var el=document.getElementById(bid);if(!el)return;
+  var kt=kTotal();var lt=LAU[lk];var tot=kt+lt;
+  var fl=fc==='l'?'Liebherr IXRF 5125':'Bertazzoni REF704';
+  var ll={g:'Graude (прачечная)',s:'Schulthess (прачечная)',m:'Miele (прачечная)'}[lk];
+  el.innerHTML=
+    '<div class="t-row"><span>Кухня Bertazzoni (7 поз.) + '+fl+'</span><span class="val">'+fmt(kt)+'</span></div>'+
+    '<div class="t-row"><span>'+ll+'</span><span class="val">'+fmt(lt)+'</span></div>'+
+    '<div class="t-row big"><span>Итого</span><span class="val">'+fmt(tot)+'</span></div>';
+}
+
+function updateCompare(){
+  var kt=kTotal();
+  var fl=fc==='l'?'Liebherr IXRF 5125':'Bertazzoni REF704';
+  var khtml=fmt(kt)+'<br><span style="font-size:11px;color:var(--muted)">хол.: '+fl+'</span>';
+  ['g','m','s'].forEach(function(k){
+    var ke=document.getElementById('cmp-k-'+k);if(ke)ke.innerHTML=khtml;
+    var te=document.getElementById('cmp-t-'+k);if(te)te.textContent=fmt(kt+LAU[k]);
   });
-  document.getElementById(id).innerHTML=h;
 }
 
-renderGrid('g1k',KITCHEN);
-renderGrid('g1l',LAUNDRY_G);
-renderGrid('g2k',KITCHEN);
-renderGrid('g2l',LAUNDRY_S);
-
-function showTab(id,btn){
-  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
-  document.querySelectorAll('.tabs-nav button').forEach(function(b){b.classList.remove('active')});
-  document.getElementById(id).classList.add('active');
-  if(btn)btn.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+function updateFridgeTag(){
+  var el=document.getElementById('fridge-tag');
+  el.textContent=fc==='l'?'Liebherr · 354 000 ₽':'Bertazzoni · 331 400 ₽';
 }
+
+function renderAll(){
+  renderKitchen('kitchen-g');
+  renderKitchen('kitchen-s');
+  renderKitchen('kitchen-m');
+  renderTotal('total-g','g');
+  renderTotal('total-s','s');
+  renderTotal('total-m','m');
+  updateCompare();
+  updateFridgeTag();
+}
+
+function setFridge(t){
+  fc=t;
+  document.getElementById('fb-b').classList.toggle('active',t==='b');
+  document.getElementById('fb-l').classList.toggle('active',t==='l');
+  renderAll();
+}
+
+function showTab(t){
+  ['g','s','m','cmp'].forEach(function(x){
+    var btn=document.getElementById('tab-'+x);
+    var pnl=document.getElementById('panel-'+x);
+    if(btn)btn.classList.toggle('active',x===t);
+    if(pnl){pnl.style.display=(x===t)?'block':'none';pnl.classList.toggle('active',x===t);}
+  });
+}
+
+renderAll();
 </script>
 </body>
 </html>
