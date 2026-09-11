@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ИИ & Технологии — Выпуск №2 — 5–11 сентября 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#12132A;--card:#1C1D3A;--card2:#22244A;--border:#2E3060;
+  --accent:#6B6EF9;--accent2:#9B9EFF;--text:#E8EAF6;--muted:#8890B8;
+  --green:#4CAF82;--red:#EF5350;--yellow:#FFB74D;--white:#fff;
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;font-size:15px;line-height:1.6;}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 40px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-20%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(107,110,249,0.12) 0%,transparent 70%);pointer-events:none;}
+.issue-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.issue-tag::before{content:'';display:block;width:32px;height:2px;background:var(--accent);}
+.cover-title{font-size:clamp(42px,7vw,72px);font-weight:800;line-height:1.1;margin-bottom:20px;}
+.cover-title span{color:var(--accent);}
+.cover-period{font-size:16px;color:var(--muted);margin-bottom:32px;}
+.cover-desc{font-size:14px;color:var(--muted);max-width:540px;line-height:1.8;margin-bottom:40px;border-left:2px solid var(--accent);padding-left:16px;}
+.cover-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:600px;}
+.cstat{border-top:1px solid var(--border);padding-top:16px;}
+.cstat-num{font-size:28px;font-weight:800;color:var(--accent);}
+.cstat-label{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;}
+.cover-author{position:absolute;bottom:40px;right:40px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+
+/* NAV */
+.toc{padding:40px;border-bottom:1px solid var(--border);max-width:900px;margin:0 auto;}
+.toc-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.toc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.toc-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:13px;text-decoration:none;color:var(--text);transition:all .2s;}
+.toc-item:hover{border-color:var(--accent);background:rgba(107,110,249,0.06);}
+.toc-num{font-size:10px;color:var(--muted);min-width:20px;}
+
+/* SECTIONS */
+.section{padding:60px 40px;border-bottom:1px solid var(--border);max-width:900px;margin:0 auto;}
+.section-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.section-tag::after{content:'';flex:1;height:1px;background:var(--border);}
+.section-h{font-size:clamp(24px,4vw,36px);font-weight:700;margin-bottom:20px;line-height:1.2;}
+.section-intro{font-size:15px;color:var(--muted);max-width:680px;margin-bottom:32px;line-height:1.8;}
+
+/* EXECUTIVE SUMMARY */
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+.summary-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;font-size:13px;line-height:1.6;}
+.summary-card h4{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;}
+.kpi-num{font-size:28px;font-weight:800;line-height:1;}
+.kpi-label{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.4;}
+.kpi.red .kpi-num{color:var(--red);}
+.kpi.green .kpi-num{color:var(--green);}
+.kpi.yellow .kpi-num{color:var(--yellow);}
+.kpi.blue .kpi-num{color:var(--accent2);}
+
+.insight{background:rgba(107,110,249,0.08);border:1px solid rgba(107,110,249,0.3);border-radius:10px;padding:18px 22px;font-size:14px;line-height:1.7;}
+.insight strong{color:var(--accent2);}
+
+/* AGENT CHART SECTION */
+.chart-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:28px;}
+.chart-img{width:100%;display:block;max-height:420px;object-fit:contain;background:#000;}
+.chart-caption{padding:14px 18px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);}
+
+.agent-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.astat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.astat-brand{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px;}
+.astat-row{display:flex;justify-content:space-between;align-items:center;margin:3px 0;}
+.astat-label{font-size:12px;color:var(--muted);}
+.astat-val{font-size:13px;font-weight:600;}
+.astat-val.green{color:var(--green);}
+.astat-val.yellow{color:var(--yellow);}
+
+.timeline-item{display:flex;gap:16px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.timeline-item:last-child{border-bottom:none;}
+.timeline-date{min-width:90px;font-size:12px;color:var(--muted);padding-top:2px;}
+.timeline-content{font-size:13px;line-height:1.6;}
+.timeline-content strong{color:var(--text);}
+
+/* NEWS */
+.news-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px;}
+.news-num{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:6px;margin-bottom:10px;}
+.news-h{font-size:16px;font-weight:600;margin-bottom:8px;}
+.news-body{font-size:13px;color:var(--muted);line-height:1.7;}
+.news-body strong{color:var(--text);}
+.news-source{font-size:11px;color:rgba(107,110,249,0.7);margin-top:10px;}
+.news-tag{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted);padding:2px 8px;border-radius:10px;margin-left:8px;}
+
+/* RUSSIA */
+.ru-block{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px;}
+.ru-block h3{font-size:16px;font-weight:600;margin-bottom:10px;}
+.ru-block p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:8px;}
+.ru-block p strong{color:var(--text);}
+.ru-block .tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;margin-bottom:12px;}
+.tag-blue{background:rgba(107,110,249,0.15);color:var(--accent2);}
+.tag-green{background:rgba(76,175,130,0.15);color:var(--green);}
+.tag-yellow{background:rgba(255,183,77,0.15);color:var(--yellow);}
+
+/* BUSINESS */
+.biz-item{display:flex;gap:18px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.biz-item:last-child{border-bottom:none;}
+.biz-num{width:36px;height:36px;border-radius:8px;background:rgba(107,110,249,0.15);color:var(--accent2);font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.biz-content h4{font-size:15px;font-weight:600;margin-bottom:6px;}
+.biz-content p{font-size:13px;color:var(--muted);line-height:1.6;}
+.biz-content p strong{color:var(--text);}
+
+/* TOOLS */
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px;}
+.tool-badge{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:600;padding:2px 10px;border-radius:10px;margin-bottom:12px;}
+.tool-badge.blue{background:rgba(107,110,249,0.15);color:var(--accent2);}
+.tool-badge.green{background:rgba(76,175,130,0.15);color:var(--green);}
+.tool-badge.yellow{background:rgba(255,183,77,0.15);color:var(--yellow);}
+.tool-card h3{font-size:16px;font-weight:600;margin-bottom:8px;}
+.tool-card p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:6px;}
+.tool-card p strong{color:var(--text);}
+
+.model-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:20px;}
+.model-table th{background:rgba(107,110,249,0.1);color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:10px 14px;text-align:left;}
+.model-table td{padding:11px 14px;border-bottom:1px solid var(--border);}
+.model-table tr:last-child td{border-bottom:none;}
+.model-table tr:hover td{background:rgba(107,110,249,0.04);}
+
+/* ACTIONS */
+.actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.action-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.action-card h4{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.action-card h4 .num{width:24px;height:24px;border-radius:6px;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.action-card p{font-size:13px;color:var(--muted);line-height:1.6;}
+.action-card .when{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:12px;}
+
+/* SOURCES */
+.source-item{padding:12px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted);display:flex;gap:12px;align-items:flex-start;}
+.source-item:last-child{border-bottom:none;}
+.source-icon{color:var(--accent);font-size:14px;margin-top:1px;flex-shrink:0;}
+
+/* FOOTER */
+.footer-section{padding:40px;border-top:2px solid var(--border);text-align:center;}
+.footer-logo{font-size:24px;font-weight:800;margin-bottom:8px;}
+.footer-logo span{color:var(--accent);}
+.footer-text{font-size:13px;color:var(--muted);}
+.next-issue{display:inline-flex;align-items:center;gap:8px;background:rgba(107,110,249,0.1);border:1px solid rgba(107,110,249,0.3);border-radius:10px;padding:12px 20px;margin-top:20px;font-size:13px;}
+.next-issue strong{color:var(--accent2);}
+
+@media(max-width:680px){
+  .cover{padding:40px 20px;}.section{padding:40px 20px;}
+  .summary-grid,.kpi-grid,.agent-stats{grid-template-columns:1fr 1fr;}
+  .actions-grid{grid-template-columns:1fr;}
+  .cover-stats{grid-template-columns:1fr 1fr;}
+  .cover-author{position:static;margin-top:30px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ОБЛОЖКА -->
+<div class="cover">
+  <div class="issue-tag">Еженедельный дайджест · Выпуск №2</div>
+  <div class="cover-title">ИИ <span>&</span><br>Технологии</div>
+  <div class="cover-period">5 — 11 сентября 2026</div>
+  <div class="cover-desc">
+    Агенты обогнали людей. ИИ захватывает ритейл России.
+    Anthropic и Google ответили OpenAI. Ключевые события за неделю,
+    факты по первоисточникам, российский контекст, выводы для бизнеса.
+  </div>
+  <div class="cover-stats">
+    <div class="cstat"><div class="cstat-num">×14</div><div class="cstat-label">рост агентских токенов за 6 месяцев</div></div>
+    <div class="cstat"><div class="cstat-num">7</div><div class="cstat-label">разделов дайджеста</div></div>
+    <div class="cstat"><div class="cstat-num">9</div><div class="cstat-label">проверенных источников</div></div>
+    <div class="cstat"><div class="cstat-num">8</div><div class="cstat-label">главных событий</div></div>
+  </div>
+  <div class="cover-author">Подготовлено А. Ботьевым с помощью ИИ · Открытые источники</div>
+</div>
+
+<!-- СОДЕРЖАНИЕ -->
+<div class="toc">
+  <div class="toc-title">Содержание</div>
+  <div class="toc-list">
+    <a href="#summary" class="toc-item"><span class="toc-num">00</span> Executive Summary</a>
+    <a href="#agents" class="toc-item"><span class="toc-num">01</span> Главное событие: Эра агентов</a>
+    <a href="#news" class="toc-item"><span class="toc-num">02</span> Новости недели</a>
+    <a href="#russia" class="toc-item"><span class="toc-num">03</span> Российский рынок</a>
+    <a href="#biz" class="toc-item"><span class="toc-num">04</span> Влияние на бизнес</a>
+    <a href="#tools" class="toc-item"><span class="toc-num">05</span> Инструменты недели</a>
+    <a href="#actions" class="toc-item"><span class="toc-num">06</span> Действия</a>
+  </div>
+</div>
+
+<!-- 00: EXECUTIVE SUMMARY -->
+<div class="section" id="summary">
+  <div class="section-tag">00 · Executive Summary</div>
+  <div class="section-h">Главное за неделю — одна страница</div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <h4>Мировое</h4>
+      Anthropic выпустила <strong>Claude Fable 5.1 и Mythos 5.1</strong>. Google — <strong>Gemini 3.8 Flash + Cyber-версия</strong>. 3 сентября — одновременный сбой ChatGPT, Claude и Gemini. Агентный ИИ займёт 40% корпоративных приложений к концу года.
+    </div>
+    <div class="summary-card">
+      <h4>Россия</h4>
+      ИИ занял <strong>26%</strong> цифровых экосистем ритейла за I полугодие. <strong>30%</strong> поиска Яндекса — нейровыдача. Сбер захватил 57% рекламы в AI-ответах. SEO в старом понимании устаревает.
+    </div>
+    <div class="summary-card">
+      <h4>Данные</h4>
+      Данные OpenRouter подтверждают перелом: с <strong>6 февраля 2026</strong> агентские токены превысили человеческие. К августу агенты потребляют <strong>в 5 раз больше</strong> токенов. Эра «людей, использующих ИИ» сменяется эрой «агентов, действующих автономно».
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi blue"><div class="kpi-num">×14</div><div class="kpi-label">рост агентских токенов с февраля по август 2026</div></div>
+    <div class="kpi green"><div class="kpi-num">40%</div><div class="kpi-label">корпоративных приложений с AI-агентами к концу 2026</div></div>
+    <div class="kpi yellow"><div class="kpi-num">26%</div><div class="kpi-label">ИИ в цифровых экосистемах российского ритейла</div></div>
+    <div class="kpi red"><div class="kpi-num">57%</div><div class="kpi-label">рекламы в нейровыдаче Яндекса занял Сбер GigaChat</div></div>
+  </div>
+
+  <div class="insight">
+    <strong>Главный вывод недели:</strong> ИИ-агенты стали доминирующими потребителями AI-инфраструктуры — не люди. Anthropic и Google ответили GPT-6 Astra новыми флагманами: рынок вошёл в режим ежемесячных релизов. Россия: ИИ проникает в ритейл снизу вверх — через рекомендации, поиск и клиентский сервис. У компаний, которые ждут — кончается время.
+  </div>
+</div>
+
+<!-- 01: ГЛАВНОЕ СОБЫТИЕ — АГЕНТЫ -->
+<div class="section" id="agents">
+  <div class="section-tag">01 · Главное событие недели</div>
+  <div class="section-h">Агенты обогнали людей. Навсегда.</div>
+  <div class="section-intro">
+    Данные OpenRouter за период октябрь 2025 — август 2026 фиксируют исторический перелом в использовании AI-инфраструктуры. График меняет понимание того, кто является главным «пользователем» ИИ.
+  </div>
+
+  <div class="chart-wrap">
+    <img class="chart-img" src="https://i.ibb.co/0pK9gP4/openrouter-agents-chart.png" onerror="this.style.display='none';this.nextSibling.style.display='block'" alt="OpenRouter token usage chart">
+    <div style="display:none;padding:60px;text-align:center;font-size:48px;color:var(--muted);">📊</div>
+    <div class="chart-caption">Источник: OpenRouter.ai/rankings · 7-дневное среднее потребление токенов по типу (Agentic / Human / Mixed) · октябрь 2025 — август 2026</div>
+  </div>
+
+  <div class="agent-stats">
+    <div class="astat">
+      <div class="astat-brand">Агентские токены</div>
+      <div class="astat-row"><span class="astat-label">6 февраля 2026</span><span class="astat-val">0.51T</span></div>
+      <div class="astat-row"><span class="astat-label">10 августа 2026</span><span class="astat-val green">7.3T</span></div>
+      <div class="astat-row"><span class="astat-label">Рост</span><span class="astat-val green">×14</span></div>
+    </div>
+    <div class="astat">
+      <div class="astat-brand">Человеческие токены</div>
+      <div class="astat-row"><span class="astat-label">6 февраля 2026</span><span class="astat-val">0.5T</span></div>
+      <div class="astat-row"><span class="astat-label">10 августа 2026</span><span class="astat-val yellow">1.4T</span></div>
+      <div class="astat-row"><span class="astat-label">Рост</span><span class="astat-val yellow">×2.8</span></div>
+    </div>
+    <div class="astat">
+      <div class="astat-brand">Разрыв (авг. 2026)</div>
+      <div class="astat-row"><span class="astat-label">Агентские</span><span class="astat-val green">7.3T</span></div>
+      <div class="astat-row"><span class="astat-label">Человеческие</span><span class="astat-val">1.4T</span></div>
+      <div class="astat-row"><span class="astat-label">Соотношение</span><span class="astat-val green">5× больше</span></div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:24px;">
+    <div class="timeline-item">
+      <div class="timeline-date">Окт–Янв 2025/26</div>
+      <div class="timeline-content"><strong>Паритет.</strong> Агентские и человеческие токены растут параллельно, агентские чуть ниже. Агентный ИИ — эксперимент у первых последователей.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">6 февр. 2026</div>
+      <div class="timeline-content"><strong>Точка пересечения.</strong> Агентские токены впервые превысили человеческие. Совпадает с массовым выходом Computer Use-инструментов в production у ранних корпоративных клиентов.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Март–Май 2026</div>
+      <div class="timeline-content"><strong>Экспоненциальный рост.</strong> Агентские токены уходят в отрыв. Несколько крупных spike (пики) — выпуски новых агентских платформ и корпоративные развёртывания.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">10 авг. 2026</div>
+      <div class="timeline-content"><strong>7.3 триллиона токенов в день (7-day avg).</strong> Агенты потребляют в 5 раз больше токенов чем люди. Это не тренд — это новая норма.</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <strong>Что это означает для бизнеса:</strong> AI-инфраструктура теперь работает преимущественно для машин, не для людей. Затраты на AI будут расти не потому что пользователей больше, а потому что агенты работают 24/7 без пауз. Компания, запустившая 10 агентов — потребляет столько же токенов, сколько 50 активных пользователей. Экономика ИИ меняется: платишь не за лицензию, а за <strong>результат</strong>.
+  </div>
+</div>
+
+<!-- 02: НОВОСТИ НЕДЕЛИ -->
+<div class="section" id="news">
+  <div class="section-tag">02 · Новости недели</div>
+  <div class="section-h">5 событий, которые нельзя пропустить</div>
+
+  <div class="news-item">
+    <div class="news-num">01</div>
+    <div class="news-h">Anthropic выпустила Claude Fable 5.1 и Mythos 5.1<span class="news-tag">Мировое</span></div>
+    <div class="news-body">
+      Anthropic открыла сентябрь двойным релизом. <strong>Claude Fable 5.1</strong> — мощная модель с расширенными агентными возможностями, доступна в Claude Pro ($20/мес). <strong>Claude Mythos 5.1</strong> — топовая версия с ограниченным доступом для корпоративных клиентов. По данным Arena Leaderboard, Anthropic занимает лидирующие позиции рейтинга после летнего доминирования. Параллельно компания разрабатывает собственные inference-чипы для снижения зависимости от Nvidia.
+    </div>
+    <div class="news-source">llm-stats.com · Substack AI Central · 01.09.2026</div>
+  </div>
+
+  <div class="news-item">
+    <div class="news-num">02</div>
+    <div class="news-h">Google: Gemini 3.8 Flash + Gemini Cyber<span class="news-tag">Мировое</span></div>
+    <div class="news-body">
+      Google выпустила <strong>Gemini 3.8 Flash</strong> (2 сентября) — быстрая и недорогая модель для высоконагруженных агентных задач. Одновременно — специализированная <strong>Gemini 3.8 Flash Cyber</strong> для кибербезопасности, доступная доверенным партнёрам через программу Fairwind. Также анонсирована <strong>WeatherNext 3</strong> — система прогнозирования погоды на базе ИИ. Google выстраивает экосистему специализированных моделей вместо одного флагмана.
+    </div>
+    <div class="news-source">AI Weekly · simplifyaitools.com · 02.09.2026</div>
+  </div>
+
+  <div class="news-item">
+    <div class="news-num">03</div>
+    <div class="news-h">Одновременный сбой ChatGPT, Claude и Gemini<span class="news-tag">Риск</span></div>
+    <div class="news-body">
+      3 сентября в ~10:58 UTC все три крупнейших AI-платформы одновременно сообщили о перебоях. OpenAI устранила сбой за ~24 минуты. <strong>Ключевой вопрос:</strong> если три независимых платформы падают одновременно — причина не в них, а в общей инфраструктуре (CDN, DNS, облачный провайдер). Инцидент обнажил системный риск: бизнес, полностью завязанный на один AI-стек, получает единую точку отказа.
+    </div>
+    <div class="news-source">CryptoBriefing.com · 03.09.2026</div>
+  </div>
+
+  <div class="news-item">
+    <div class="news-num">04</div>
+    <div class="news-h">40% корпоративных приложений с AI-агентами к концу 2026<span class="news-tag">Бизнес</span></div>
+    <div class="news-body">
+      По прогнозу аналитиков, к концу 2026 года <strong>40% корпоративных приложений</strong> будут включать специализированных ИИ-агентов — против менее 5% в 2025 году. Основной тренд: компании переходят от экспериментов с агентами к промышленному развёртыванию с чёткими ограничениями и человеческим контролем. Proofpoint представила SOC Analyst Agent для кибербезопасности, CrowdStrike — программу защиты «агентного предприятия».
+    </div>
+    <div class="news-source">AI Agent Store · aiagentsdirectory.com · 06.09.2026</div>
+  </div>
+
+  <div class="news-item">
+    <div class="news-num">05</div>
+    <div class="news-h">Сэм Альтман подтвердил: AGI до конца 2026 года<span class="news-tag">Прогноз</span></div>
+    <div class="news-body">
+      Внутренняя оценка готовности OpenAI к AGI — <strong>80%</strong>. Альтман повторил прогноз публично. Независимые аналитики оценивают скромнее, однако именно такие заявления двигают рынок: инвестиции в AI-стартапы в сентябре 2026 бьют исторический рекорд. <strong>Практичный взгляд:</strong> не важно, будет AGI в 2026 или 2027 — важно что темп улучшений моделей сокращает преимущество тех, кто ждёт.
+    </div>
+    <div class="news-source">aimarketcap.ru · 03.09.2026</div>
+  </div>
+</div>
+
+<!-- 03: РОССИЯ -->
+<div class="section" id="russia">
+  <div class="section-tag">03 · Российский рынок</div>
+  <div class="section-h">ИИ в ритейле и поиске: данные за полугодие</div>
+
+  <div class="ru-block">
+    <div class="tag tag-green">Ритейл</div>
+    <h3>ИИ занял 26% цифровых экосистем российского ритейла</h3>
+    <p>По итогам I полугодия 2026 года доля ИИ-инструментов в цифровых экосистемах ритейлеров достигла <strong>26%</strong> — рост второй год подряд. Основные драйверы: дефицит линейного персонала (конкуренция с доставкой и логистикой) и зрелость цифрового учёта у крупных сетей.</p>
+    <p>По прогнозу, к концу 2026 года около <strong>20% ритейлеров</strong> будут использовать генеративный ИИ в работе с клиентами, снижая отток на <strong>10–15%</strong>. Первыми внедряют персонализированные рекомендации, AI-чаты поддержки и автоматическую ценовую оптимизацию.</p>
+    <div class="news-source">CNews · novostiitkanala.ru · 11.09.2026</div>
+  </div>
+
+  <div class="ru-block">
+    <div class="tag tag-blue">Поиск</div>
+    <h3>Яндекс: 30% поиска — нейровыдача. Сбер взял 57% рекламы в ней</h3>
+    <p>Доля нейровыдачи Яндекса достигла <strong>30% от общего поиска</strong> по итогам Q2 2026. В рекламных блоках внутри AI-ответов расклад: <strong>Сбер (GigaChat) — 57% показов</strong>, Яндекс — 27%, Т-Банк — 9%.</p>
+    <p>Сбер резко нарастил рекламу GigaChat на федеральном ТВ (рост ~в 4 раза г/г) и анонсировал «<strong>Бизнес-помощника</strong>» — ИИ-банкинг для корпоративных клиентов в мобильном СберБизнес осенью 2026. Развернулась битва за «трафик нейровыдачи» — новый тип поискового трафика, где SEO в старом понимании не работает.</p>
+    <div class="news-source">AXIOMA AI · www1.ru · 01.09.2026</div>
+  </div>
+
+  <div class="ru-block">
+    <div class="tag tag-yellow">Регуляторика</div>
+    <h3>Закон №243-ФЗ — первые 10 дней</h3>
+    <p>Закон об ИИ вступил в силу 1 сентября. Первые 10 дней — период регистрации Больших Фундаментальных Моделей (БФМ). Рынок наблюдает за прецедентами: ни одного публичного штрафа или предупреждения ещё не выпущено, регулятор формирует практику. <strong>Главный срок:</strong> 1 марта 2027 — реестр суверенных моделей, ограничения на ChatGPT и Claude для регулируемых секторов.</p>
+    <div class="news-source">Meduza · TASS · lidings.com</div>
+  </div>
+</div>
+
+<!-- 04: БИЗНЕС -->
+<div class="section" id="biz">
+  <div class="section-tag">04 · Влияние на бизнес</div>
+  <div class="section-h">Как новинки недели меняют бизнес-реальность</div>
+
+  <div class="biz-item">
+    <div class="biz-num">1</div>
+    <div class="biz-content">
+      <h4>Основной «пользователь» ИИ — больше не человек</h4>
+      <p>График OpenRouter фиксирует: агенты потребляют токены в 5 раз активнее людей. <strong>Практический вывод:</strong> ROI от ИИ нужно считать не на одного пользователя, а на один агентный процесс. 10 агентов, работающих 24/7, дают результат 50+ сотрудников на рутинных операциях.</p>
+    </div>
+  </div>
+  <div class="biz-item">
+    <div class="biz-num">2</div>
+    <div class="biz-content">
+      <h4>Новое SEO — оптимизация под нейровыдачу</h4>
+      <p>Если 30% поиска Яндекса — нейровыдача, то компании, не присутствующие в AI-ответах, теряют треть трафика прямо сейчас. <strong>Сбер уже конкурирует за эту выдачу рублём.</strong> Малому бизнесу нужна стратегия «агент-оптимизации» — отличная от классического SEO.</p>
+    </div>
+  </div>
+  <div class="biz-item">
+    <div class="biz-num">3</div>
+    <div class="biz-content">
+      <h4>Диверсификация AI-провайдеров — теперь обязательна</h4>
+      <p>Одновременный сбой трёх платформ 3 сентября показал: концентрация на одном провайдере — системный риск. <strong>Рекомендация:</strong> архитектура AI-систем должна поддерживать смену модели без переработки всего стека. Это касается и выбора между GPT, Claude и отечественными решениями.</p>
+    </div>
+  </div>
+  <div class="biz-item">
+    <div class="biz-num">4</div>
+    <div class="biz-content">
+      <h4>Ритейл: ИИ-рекомендации снижают отток на 10–15%</h4>
+      <p>Данные за I полугодие 2026: ритейлеры, внедрившие ИИ-персонализацию, фиксируют снижение оттока клиентов. <strong>Порог входа упал:</strong> SaaS-решения для малых сетей доступны от 30 000 ₽/мес. Компании, которые не запустили пилот в 2026, окажутся позади к 2027.</p>
+    </div>
+  </div>
+  <div class="biz-item">
+    <div class="biz-num">5</div>
+    <div class="biz-content">
+      <h4>До реестра 2027 — 6 месяцев</h4>
+      <p>С 1 марта 2027 регулируемые секторы (банки, госсектор, ритейл) обязаны перейти на суверенные модели или получить исключение. Процесс согласования с регулятором занимает 3–6 месяцев. <strong>Время начинать — сейчас.</strong></p>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top:24px;">
+    <strong>Главный вывод раздела:</strong> Неделя 5–11 сентября — неделя инфраструктурных сигналов. Агенты доминируют в токенах, поиск меняется на нейровыдачу, ритейл пробует ИИ снизу вверх. Три разных рынка — один вектор.
+  </div>
+</div>
+
+<!-- 05: ИНСТРУМЕНТЫ -->
+<div class="section" id="tools">
+  <div class="section-tag">05 · Инструменты недели</div>
+  <div class="section-h">Что применить в работе прямо сейчас</div>
+
+  <div class="tool-card">
+    <div class="tool-badge blue">Агентная автоматизация</div>
+    <h3>Claude Fable 5.1 — агентные задачи в Claude Pro</h3>
+    <p>Доступно в Claude Pro ($20/мес). <strong>Fable 5.1 оптимизирован именно для агентных сессий</strong> — многошаговые задачи, Computer Use, работа с документами часами без потери контекста.</p>
+    <p><strong>Начало:</strong> claude.ai → Projects → создать проект под конкретный процесс → поручить агенту повторяющуюся задачу. Рекомендуется начинать с задач без доступа к критичным данным.</p>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-badge green">Быстрые задачи · Недорого</div>
+    <h3>Gemini 3.8 Flash — скорость и цена</h3>
+    <p>Новая Flash-модель от Google — оптимальный выбор для <strong>высоконагруженных агентных задач</strong>, где скорость важнее глубины: классификация, краткие ответы, обработка потоков данных. Стоимость значительно ниже флагманских моделей.</p>
+    <p><strong>Правило выбора:</strong> Gemini Flash — для объёмных рутинных задач. Claude/GPT-6 Astra — для сложных аналитических и многошаговых.</p>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-badge yellow">Правило · Фреймворк</div>
+    <h3>Правило агентизации «3 раза в день»</h3>
+    <p>Простой критерий из практики: <strong>если действие повторяется более 3 раз в день — его выполняет агент</strong>. Примеры: заполнение CRM, проверка входящих заявок, формирование отчётов, публикация контента по расписанию.</p>
+    <p><strong>Стоимость ошибки:</strong> неправильный выбор модели = переплата в 10–50 раз. Fable/Astra для рутины — прямые потери бюджета. 80% задач закрывает Flash/Haiku.</p>
+  </div>
+
+  <table class="model-table">
+    <thead><tr><th>Задача</th><th>Модель</th><th>Стоимость / 1M</th></tr></thead>
+    <tbody>
+      <tr><td>Тексты, письма, классификация</td><td>GPT-4o mini / Claude Haiku</td><td>от $0,15</td></tr>
+      <tr><td>Анализ, код, сложные документы</td><td>GPT-4o / Claude Sonnet</td><td>$5–15</td></tr>
+      <tr><td>Computer Use, многочасовые сессии</td><td>GPT-6 Astra / Claude Fable</td><td>$50</td></tr>
+      <tr><td>Высоконагруженные агентные потоки</td><td>Gemini 3.8 Flash</td><td>$0,075–0,30</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 06: ДЕЙСТВИЯ -->
+<div class="section" id="actions">
+  <div class="section-tag">06 · Действия</div>
+  <div class="section-h">Конкретные шаги — по приоритету</div>
+
+  <div class="actions-grid">
+    <div class="action-card">
+      <div class="when">На этой неделе</div>
+      <h4><div class="num">1</div>Проверьте свою выдачу в Яндексе</h4>
+      <p>Введите 3–5 ключевых запросов вашей компании. Есть нейровыдача? Вы в ней? Если нет — это потенциальная потеря трафика уже сейчас.</p>
+    </div>
+    <div class="action-card">
+      <div class="when">На этой неделе</div>
+      <h4><div class="num">2</div>Запустите агента на одной рутине</h4>
+      <p>Выберите задачу, которая повторяется ежедневно (отчёт, сводка, пересылка данных). Поручите агенту. Замерьте время. Данные убедят лучше любых презентаций.</p>
+    </div>
+    <div class="action-card">
+      <div class="when">На этой неделе</div>
+      <h4><div class="num">3</div>Диверсифицируйте AI-провайдеров</h4>
+      <p>Сбой 3 сентября — сигнал. Убедитесь, что ваши процессы не привязаны к одному провайдеру жёстко. Минимум — два альтернативных варианта на случай недоступности.</p>
+    </div>
+    <div class="action-card">
+      <div class="when">На квартал</div>
+      <h4><div class="num">4</div>Подготовьтесь к реестру 2027</h4>
+      <p>Регулируемые секторы: до 1 марта 2027 нужно либо перейти на суверенные модели, либо получить исключение. Процесс согласования — 3–6 месяцев. Начинать надо сейчас.</p>
+    </div>
+    <div class="action-card">
+      <div class="when">На квартал</div>
+      <h4><div class="num">5</div>Ритейл: запустите пилот рекомендаций</h4>
+      <p>Если у вас более 500 SKU и повторные клиенты — ИИ-рекомендации снижают отток на 10–15%. SaaS-решения доступны от 30 000 ₽/мес. ROI окупается за 2–3 месяца.</p>
+    </div>
+    <div class="action-card">
+      <div class="when">На квартал</div>
+      <h4><div class="num">6</div>Нарисуйте карту «кнопочных» ролей</h4>
+      <p>Какие сотрудники выполняют повторяющиеся действия в ПО? Это карта потенциальной агентизации. Начните с одного пилота — полностью автоматизируйте, замерьте, масштабируйте.</p>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top:28px;">
+    <strong>Итог выпуска №2:</strong> Агенты стали доминирующими потребителями AI. Россия входит в нейровыдачу как новый рекламный рынок. Anthropic и Google ответили OpenAI — гонка флагманов вошла в режим «новая модель каждый месяц». У компаний, ждущих «пока устаканится» — кончается буфер времени.
+  </div>
+</div>
+
+<!-- ИСТОЧНИКИ -->
+<div class="section">
+  <div class="section-tag">07 · Источники и ссылки</div>
+  <div class="section-h">Проверенные первоисточники</div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Все данные проверены по первоисточникам. Выпуск №2 · 5–11 сентября 2026.</p>
+
+  <div class="source-item"><span class="source-icon">→</span><span>openrouter.ai/rankings — данные по токенам Agentic/Human/Mixed (7-day avg), август 2026</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>llm-stats.com / Substack AI Central — релизы Claude Fable 5.1, Mythos 5.1 от Anthropic</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>aiweekly.co / simplifyaitools.com — Gemini 3.8 Flash, WeatherNext 3 от Google</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>cryptobriefing.com — одновременный сбой OpenAI / Anthropic / Google, 03.09.2026</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>aiagentsdirectory.com / aiagentstore.ai — прогноз 40% корпоративных приложений с агентами</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>cnews.ru / novostiitkanala.ru — ИИ в российском ритейле, 26% цифровых экосистем, I пол. 2026</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>axioma-ai.ru / www1.ru — Яндекс нейропоиск 30%, Сбер GigaChat 57% рекламы в AI-выдаче</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>meduza.io / tass.com / lidings.com — Закон об ИИ №243-ФЗ, первые 10 дней</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>aimarketcap.ru — Сэм Альтман об AGI до конца 2026, прогноз 80%</span></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-section">
+  <div class="footer-logo">ИИ <span>&</span> Технологии</div>
+  <div class="footer-text">
+    Еженедельный дайджест · Выпуск №2 · 5–11 сентября 2026<br>
+    Подготовлено А. Ботьевым с помощью искусственного интеллекта на основе открытых источников.<br>
+    Все права на цитируемые данные принадлежат соответствующим изданиям.
+  </div>
+  <div class="next-issue">📅 Следующий выпуск — <strong>19 сентября 2026</strong> · Тема: ИИ в строительстве и девелопменте России</div>
+</div>
+
+</body>
+</html>
