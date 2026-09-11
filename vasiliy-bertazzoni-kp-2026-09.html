@@ -3,84 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>КП для Василия — Bertazzoni Kitchen | HomeProject</title>
+<title>КП для Василия — расчёт | HomeProject</title>
 <style>
 :root{
   --bg:#0B0C10;--card:#13151C;--card2:#1A1D26;--border:#2A2E3D;
-  --accent:#E2B96A;--accent2:#C9A35C;--text:#E8EAF0;--muted:#7A8099;
-  --nero:#1C1C1C;--green:#4CAF82;--red:#E05050;
+  --accent:#E2B96A;--text:#E8EAF0;--muted:#7A8099;--nero:#1C1C1C;--green:#4CAF82;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',-apple-system,sans-serif;min-height:100vh;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',-apple-system,sans-serif;min-height:100vh;padding-bottom:90px;}
 
-.header{padding:32px 20px 20px;text-align:center;border-bottom:1px solid var(--border);}
+.header{padding:32px 20px 18px;text-align:center;border-bottom:1px solid var(--border);}
 .header-logo{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
-.header-title{font-size:clamp(20px,4vw,28px);font-weight:700;color:var(--text);margin-bottom:8px;}
+.header-title{font-size:clamp(20px,4vw,28px);font-weight:700;margin-bottom:8px;}
 .header-sub{font-size:14px;color:var(--muted);}
-.badge{display:inline-flex;align-items:center;gap:6px;background:#1A1A1A;border:1px solid #333;color:#B0B0B0;font-size:12px;padding:4px 12px;border-radius:20px;margin-top:12px;}
+.badge{display:inline-flex;gap:6px;background:#1A1A1A;border:1px solid #333;color:#B0B0B0;font-size:12px;padding:4px 12px;border-radius:20px;margin-top:12px;}
 
-.fridge-toggle-wrap{padding:18px 20px 4px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border);margin-bottom:0;}
-.fridge-toggle-label{font-size:12px;color:var(--muted);}
-.fridge-toggle{display:flex;gap:3px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:3px;}
-.fridge-btn{padding:7px 14px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:500;background:transparent;color:var(--muted);transition:all .2s;}
-.fridge-btn.active{background:var(--accent);color:#000;}
-.fridge-price-tag{font-size:12px;color:var(--accent);font-weight:600;padding:4px 8px;background:rgba(226,185,106,0.1);border-radius:6px;}
+.main{padding:20px;max-width:820px;margin:0 auto;}
 
-.tabs{display:flex;gap:3px;padding:20px 20px 0;overflow-x:auto;max-width:900px;margin:0 auto;}
-.tab-btn{padding:9px 18px;border-radius:8px 8px 0 0;border:1px solid var(--border);border-bottom:none;cursor:pointer;font-size:12px;font-weight:500;background:var(--card);color:var(--muted);white-space:nowrap;transition:all .2s;}
-.tab-btn.active{background:var(--card2);color:var(--text);border-color:var(--accent);}
+.howto{background:rgba(226,185,106,0.06);border:1px solid rgba(226,185,106,0.25);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text);line-height:1.6;margin-bottom:18px;}
+.howto b{color:var(--accent);}
 
-.main{padding:0 20px 40px;max-width:900px;margin:0 auto;}
-.panel{display:none;background:var(--card2);border:1px solid var(--border);border-radius:0 8px 8px 8px;padding:20px;}
-.panel.active{display:block;}
+.globaldisc{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:22px;}
+.globaldisc label{font-size:13px;color:var(--muted);}
+.globaldisc input{width:70px;padding:7px 10px;background:var(--card2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:14px;text-align:center;}
+.globaldisc button{padding:8px 16px;background:var(--accent);color:#000;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;}
+.globaldisc button:hover{opacity:.9;}
 
-.section-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.section-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:26px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .stag{background:var(--accent);color:#000;font-size:10px;padding:2px 8px;border-radius:10px;letter-spacing:0;text-transform:none;font-weight:600;}
-.stag-green{background:rgba(76,175,130,0.15);color:var(--green);font-size:10px;padding:2px 8px;border-radius:10px;letter-spacing:0;text-transform:none;font-weight:600;border:1px solid rgba(76,175,130,0.3);}
 
-.items{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
-.item{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;}
-.item.highlight-liebherr{border-color:rgba(76,175,130,0.4);background:rgba(76,175,130,0.04);}
-.item-img{width:56px;height:56px;border-radius:6px;object-fit:cover;background:var(--nero);flex-shrink:0;}
-.item-fallback{width:56px;height:56px;border-radius:6px;background:var(--nero);display:none;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.item-name{font-size:13px;font-weight:500;line-height:1.4;}
-.item-art{font-size:11px;color:var(--muted);margin-top:2px;font-family:monospace;}
-.item-color{font-size:11px;color:var(--accent);margin-top:3px;}
-.item-price{text-align:right;flex-shrink:0;}
-.p-rrc{font-size:11px;color:var(--muted);text-decoration:line-through;}
-.p-client{font-size:14px;font-weight:600;color:var(--text);}
-.p-only{font-size:14px;font-weight:600;color:var(--text);}
-.disc{display:inline-block;background:rgba(76,175,130,0.12);color:var(--green);font-size:10px;font-weight:600;padding:1px 7px;border-radius:8px;margin-top:3px;}
-.av-in{font-size:10px;color:var(--green);margin-top:3px;}
-.av-order{font-size:10px;color:#E0A040;margin-top:3px;}
+.toggle{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:3px;margin-bottom:14px;flex-wrap:wrap;}
+.toggle button{flex:1;min-width:110px;padding:9px 12px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:500;background:transparent;color:var(--muted);transition:all .2s;}
+.toggle button.active{background:var(--accent);color:#000;}
 
-.total-box{background:var(--card);border:1px solid var(--accent);border-radius:10px;padding:16px 20px;margin-top:4px;}
-.t-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px;color:var(--muted);}
-.t-row .val{color:var(--text);}
-.t-row.big{font-size:18px;font-weight:700;color:var(--text);border-top:1px solid var(--border);padding-top:12px;margin-top:8px;}
-.t-row.big .val{color:var(--accent);}
+.calc-item{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px;}
+.calc-item.hl{border-color:rgba(76,175,130,0.4);background:rgba(76,175,130,0.04);}
+.ci-img{width:52px;height:52px;border-radius:6px;object-fit:cover;background:var(--nero);}
+.ci-fb{width:52px;height:52px;border-radius:6px;background:var(--nero);display:none;align-items:center;justify-content:center;font-size:20px;}
+.ci-body{display:flex;flex-direction:column;gap:8px;}
+.ci-name{font-size:13px;font-weight:500;line-height:1.35;}
+.ci-art{font-size:11px;color:var(--muted);font-family:monospace;margin-top:1px;}
+.ci-color{font-size:11px;color:var(--accent);margin-top:2px;}
+.ci-priceline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-top:6px;border-top:1px solid var(--border);}
+.ci-rrc{font-size:12px;color:var(--muted);}
+.ci-rrc b{color:var(--text);font-size:13px;}
+.ci-discwrap{display:flex;align-items:center;gap:4px;margin-left:auto;}
+.ci-discwrap span{font-size:11px;color:var(--muted);}
+.disc-input{width:56px;padding:6px 8px;background:var(--card2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;text-align:center;}
+.disc-input:focus{outline:none;border-color:var(--accent);}
+.ci-final{font-size:15px;font-weight:700;color:var(--accent);min-width:100px;text-align:right;}
 
-.designnote{background:rgba(255,255,255,0.03);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6;}
-.liebherr-note{background:rgba(76,175,130,0.05);border:1px solid rgba(76,175,130,0.2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.5;}
+.finalbox{background:var(--card);border:2px solid var(--accent);border-radius:14px;padding:20px;margin-top:30px;}
+.finalbox h3{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.fb-row{display:flex;justify-content:space-between;padding:7px 0;font-size:14px;color:var(--muted);}
+.fb-row .v{color:var(--text);font-weight:500;}
+.fb-row.disc .v{color:var(--green);}
+.fb-row.total{font-size:22px;font-weight:800;color:var(--text);border-top:1px solid var(--border);padding-top:14px;margin-top:8px;}
+.fb-row.total .v{color:var(--accent);}
+.fb-note{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5;}
 
-.cmp-table{width:100%;border-collapse:collapse;font-size:12px;}
-.cmp-table th{background:var(--card);color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;}
-.cmp-table td{padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
-.cmp-table tr:last-child td{border-bottom:none;}
-.cmp-brand{font-weight:600;font-size:13px;}
-.cmp-price{font-weight:700;color:var(--accent);font-size:14px;}
-.cmp-rrc{color:var(--muted);text-decoration:line-through;font-size:11px;}
-.cmp-note{color:var(--muted);font-size:11px;margin-top:3px;}
-.cmp-table tr.hl{background:rgba(226,185,106,0.04);}
+.sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(11,12,16,0.96);backdrop-filter:blur(8px);border-top:1px solid var(--accent);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;z-index:50;}
+.sticky-label{font-size:12px;color:var(--muted);}
+.sticky-val{font-size:20px;font-weight:800;color:var(--accent);}
 
-.footer{text-align:center;color:var(--muted);font-size:11px;padding:24px;border-top:1px solid var(--border);}
+.footer{text-align:center;color:var(--muted);font-size:11px;padding:24px;}
 @media(max-width:480px){
-  .item{grid-template-columns:44px 1fr auto;}
-  .item-img,.item-fallback{width:44px;height:44px;}
-  .tabs{padding:14px 12px 0;}
-  .main{padding:0 12px 30px;}
-  .fridge-toggle-wrap{gap:6px;}
-  .fridge-btn{padding:6px 10px;font-size:11px;}
+  .calc-item{grid-template-columns:44px 1fr;}
+  .ci-img,.ci-fb{width:44px;height:44px;}
+  .ci-final{min-width:auto;}
+  .main{padding:14px;}
 }
 </style>
 </head>
@@ -93,144 +84,57 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',-apple-system
   <div class="badge">⬛ Единый чёрный дизайн Nero</div>
 </div>
 
-<div class="fridge-toggle-wrap">
-  <span class="fridge-toggle-label">Холодильник:</span>
-  <div class="fridge-toggle">
-    <button class="fridge-btn active" id="fb-b" onclick="setFridge('b')">Bertazzoni REF704</button>
-    <button class="fridge-btn" id="fb-l" onclick="setFridge('l')">Liebherr IXRF 5125</button>
-  </div>
-  <span class="fridge-price-tag" id="fridge-tag"></span>
-</div>
-
-<div class="tabs">
-  <button class="tab-btn active" id="tab-g" onclick="showTab('g')">🏠 Комфорт — Graude</button>
-  <button class="tab-btn" id="tab-s" onclick="showTab('s')">✨ Флагман — Schulthess</button>
-  <button class="tab-btn" id="tab-m" onclick="showTab('m')">🔵 Miele</button>
-  <button class="tab-btn" id="tab-cmp" onclick="showTab('cmp')">📊 Сравнение</button>
-</div>
-
 <div class="main">
 
-<!-- GRAUDE -->
-<div class="panel active" id="panel-g">
-  <div class="designnote">⬛ Все видимые элементы кухни — <strong>Nero (чёрный)</strong>. Встраиваемые приборы (посудомойка, холодильник) скрыты за фасадом кухни.</div>
+  <div class="howto">
+    📋 <b>Как посчитать.</b> Напротив каждой позиции указана рекомендованная розничная цена (РРЦ). Впишите размер скидки в поле «%», и цена по позиции пересчитается автоматически. Итог всего заказа — внизу страницы и в строке снизу экрана. Хотите одну скидку на весь заказ — впишите её в поле ниже и нажмите «Применить ко всем».
+  </div>
+
+  <div class="globaldisc">
+    <label>Скидка на все позиции:</label>
+    <input type="number" id="global-disc" min="0" max="90" value="0">
+    <span style="color:var(--muted);font-size:14px;">%</span>
+    <button onclick="applyAll()">Применить ко всем</button>
+  </div>
+
+  <!-- КУХНЯ -->
   <div class="section-title">Кухня Bertazzoni <span class="stag">Nero</span></div>
-  <div class="items" id="kitchen-g"></div>
-  <div class="section-title">Прачечная <span class="stag">Graude</span></div>
-  <div class="items">
-    <div class="item">
-      <img class="item-img" src="https://technika-vkusa.ru/upload/iblock/b28/isq3pvwh5ei5dtixrib9c1ct12onf537.png" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt=""><div class="item-fallback">🫧</div>
-      <div><div class="item-name">Graude WA 100.3</div><div class="item-art">WA 100.3</div></div>
-      <div class="item-price"><div class="p-only">69 990 ₽</div><div class="av-in">● В наличии</div></div>
-    </div>
-    <div class="item">
-      <img class="item-img" src="https://technika-vkusa.ru/upload/iblock/ebf/m8eimfoc6rsfr4osfhkfpc64x0n2uqer.png" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt=""><div class="item-fallback">💨</div>
-      <div><div class="item-name">Graude TA 100.3</div><div class="item-art">TA 100.3</div></div>
-      <div class="item-price"><div class="p-only">88 990 ₽</div><div class="av-in">● В наличии</div></div>
-    </div>
+  <div id="kitchen"></div>
+
+  <!-- ХОЛОДИЛЬНИК -->
+  <div class="section-title">Холодильник <span class="stag">выбор</span></div>
+  <div class="toggle">
+    <button class="active" id="fb-b" onclick="setFridge('b')">Bertazzoni REF704</button>
+    <button id="fb-l" onclick="setFridge('l')">Liebherr IXRF 5125</button>
   </div>
-  <div class="total-box" id="total-g"></div>
+  <div id="fridge"></div>
+
+  <!-- ПРАЧЕЧНАЯ -->
+  <div class="section-title">Прачечная <span class="stag">выбор</span></div>
+  <div class="toggle">
+    <button class="active" id="lb-g" onclick="setLaundry('g')">🏠 Graude</button>
+    <button id="lb-m" onclick="setLaundry('m')">🔵 Miele</button>
+    <button id="lb-s" onclick="setLaundry('s')">✨ Schulthess</button>
+  </div>
+  <div id="laundry"></div>
+
+  <!-- ИТОГ -->
+  <div class="finalbox">
+    <h3>Итог по заказу</h3>
+    <div class="fb-row"><span>Сумма по РРЦ</span><span class="v" id="sum-rrc">—</span></div>
+    <div class="fb-row disc"><span>Ваша скидка</span><span class="v" id="sum-disc">—</span></div>
+    <div class="fb-row total"><span>Итого к оплате</span><span class="v" id="sum-total">—</span></div>
+    <div class="fb-note">Итог включает: кухня Bertazzoni (7 позиций) + выбранный холодильник + выбранная прачечная. Все видимые в расчёте позиции — «В наличии». Предложение действительно 30 дней.</div>
+  </div>
+
 </div>
 
-<!-- SCHULTHESS -->
-<div class="panel" id="panel-s">
-  <div class="designnote">⬛ Все видимые элементы кухни — <strong>Nero (чёрный)</strong>. Встраиваемые приборы скрыты за фасадом кухни.</div>
-  <div class="section-title">Кухня Bertazzoni <span class="stag">Nero</span></div>
-  <div class="items" id="kitchen-s"></div>
-  <div class="section-title">Прачечная <span class="stag">Schulthess</span> <span class="stag-green">−18% для вас</span></div>
-  <div class="items">
-    <div class="item">
-      <img class="item-img" src="https://static.insales-cdn.com/images/products/1/2577/3031001617/large_ADA1.102BE1H3J3K_2.png" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt=""><div class="item-fallback">🫧</div>
-      <div>
-        <div class="item-name">Schulthess Spirit TopLine ADA1.102BE1H3J3KY</div>
-        <div class="item-art">ADA1.102BE1H3J3KY</div>
-        <div class="item-color">Стиральная машина 10 кг · Heat Pump</div>
-      </div>
-      <div class="item-price"><div class="p-rrc">461 990 ₽</div><div class="p-client">380 000 ₽</div><div class="disc">−18%</div><div class="av-in">● В наличии</div></div>
-    </div>
-    <div class="item">
-      <img class="item-img" src="https://static.insales-cdn.com/images/products/1/5457/3031004497/large_MDA1.100FH3K_2.png" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt=""><div class="item-fallback">💨</div>
-      <div>
-        <div class="item-name">Schulthess Spirit TopLine MDA1.100FH3KY</div>
-        <div class="item-art">MDA1.100FH3KY</div>
-        <div class="item-color">Сушильная машина · Heat Pump</div>
-      </div>
-      <div class="item-price"><div class="p-rrc">478 990 ₽</div><div class="p-client">394 000 ₽</div><div class="disc">−18%</div><div class="av-in">● В наличии</div></div>
-    </div>
-  </div>
-  <div class="total-box" id="total-s"></div>
+<div class="sticky">
+  <span class="sticky-label">Итого к оплате:</span>
+  <span class="sticky-val" id="sticky-total">—</span>
 </div>
 
-<!-- MIELE -->
-<div class="panel" id="panel-m">
-  <div class="designnote">⬛ Все видимые элементы кухни — <strong>Nero (чёрный)</strong>. Встраиваемые приборы скрыты за фасадом кухни.</div>
-  <div class="section-title">Кухня Bertazzoni <span class="stag">Nero</span></div>
-  <div class="items" id="kitchen-m"></div>
-  <div class="section-title">Прачечная <span class="stag">Miele W1 + T1</span></div>
-  <div class="items">
-    <div class="item">
-      <div class="item-fallback" style="display:flex">🫧</div>
-      <div>
-        <div class="item-name">Miele WEG 895 WCS Chrome Edition</div>
-        <div class="item-art">WEG 895 WCS RU</div>
-        <div class="item-color">Стиральная машина 9 кг · W1</div>
-      </div>
-      <div class="item-price"><div class="p-rrc">253 500 ₽</div><div class="p-client">215 000 ₽</div><div class="disc">−15%</div><div class="av-in">● В наличии</div></div>
-    </div>
-    <div class="item">
-      <div class="item-fallback" style="display:flex">🔩</div>
-      <div>
-        <div class="item-name">Miele WTV 501 — стойка-подставка</div>
-        <div class="item-art">WTV 501</div>
-        <div class="item-color">Для установки сушилки над стиральной</div>
-      </div>
-      <div class="item-price"><div class="p-rrc">12 000 ₽</div><div class="p-client">9 000 ₽</div><div class="disc">−25%</div><div class="av-in">● В наличии</div></div>
-    </div>
-    <div class="item">
-      <div class="item-fallback" style="display:flex">💨</div>
-      <div>
-        <div class="item-name">Miele TEH 795 WP</div>
-        <div class="item-art">TEH 795 WP</div>
-        <div class="item-color">Сушильная машина · Heat Pump T1</div>
-      </div>
-      <div class="item-price"><div class="p-rrc">247 000 ₽</div><div class="p-client">219 000 ₽</div><div class="disc">−11%</div><div class="av-in">● В наличии</div></div>
-    </div>
-  </div>
-  <div class="total-box" id="total-m"></div>
-</div>
-
-<!-- СРАВНЕНИЕ -->
-<div class="panel" id="panel-cmp">
-  <div class="section-title">Все варианты</div>
-  <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Итоги пересчитываются автоматически при переключении холодильника (Bertazzoni / Liebherr) вверху страницы.</p>
-  <table class="cmp-table">
-    <thead><tr><th>Вариант</th><th>Кухня</th><th>Прачечная</th><th>Итого</th></tr></thead>
-    <tbody>
-      <tr><td><div class="cmp-brand">🏠 Комфорт</div><div class="cmp-note">Graude</div></td>
-          <td id="cmp-k-g"></td>
-          <td><div style="font-weight:600">158 980 ₽</div><div class="cmp-note">WA 100.3 + TA 100.3 · В наличии</div></td>
-          <td><div class="cmp-price" id="cmp-t-g"></div></td></tr>
-      <tr class="hl"><td><div class="cmp-brand">🔵 Miele</div><div class="cmp-note">W1 + T1</div></td>
-          <td id="cmp-k-m"></td>
-          <td><div class="cmp-rrc">512 500 ₽</div><div style="font-weight:600">443 000 ₽</div><div class="cmp-note">WEG 895 + WTV 501 + TEH 795 · В наличии</div></td>
-          <td><div class="cmp-price" id="cmp-t-m"></div></td></tr>
-      <tr><td><div class="cmp-brand">✨ Флагман</div><div class="cmp-note">Schulthess −18%</div></td>
-          <td id="cmp-k-s"></td>
-          <td><div class="cmp-rrc">940 980 ₽</div><div style="font-weight:600">774 000 ₽</div><div class="disc">−18%</div><div class="cmp-note">ADA1.102 + MDA1.100 · В наличии</div></td>
-          <td><div class="cmp-price" id="cmp-t-s"></div></td></tr>
-    </tbody>
-  </table>
-  <div style="margin-top:20px;padding:14px 16px;background:var(--card);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.6;">
-    <strong style="color:var(--text)">О варианте с Liebherr IXRF 5125-22 001</strong><br>
-    Встраиваемый Side-by-Side, нержавеющая сталь. Аналог по классу Bertazzoni French Door.
-    Разница в стоимости: <strong style="color:var(--accent)">+22 600 ₽</strong> к итогу.
-    При проектировании потребуется согласовать размеры ниши.
-  </div>
-</div>
-
-</div><!-- /main -->
-
-<div class="footer">HomeProject · homeproject.online · +7 (495) 000-00-00 · Предложение действительно 30 дней</div>
+<div class="footer">HomeProject · homeproject.online · Предложение действительно 30 дней</div>
 
 <script>
 var IMG={
@@ -242,101 +146,112 @@ var IMG={
   dish_b:'https://bertazzoni-store.ru/upload/iblock/3d3/pf6biczt4xijnrkdgzwud4ea7va91mxj.webp',
   fridge_b:'https://bertazzoni-store.ru/upload/iblock/bf0/lm8eq5f2t5ut22mnrfdjkvjppvly987d.webp',
   fridge_l:'https://holod.ru/pics/clean/medium/47/1126547_3.jpg',
-  warm_b:'https://bertazzoni-store.ru/upload/iblock/7b1/wpoj42oxv2s5u1edq4001faqr3y0gcr7.webp'
+  warm_b:'https://bertazzoni-store.ru/upload/iblock/7b1/wpoj42oxv2s5u1edq4001faqr3y0gcr7.webp',
+  wash_g:'https://technika-vkusa.ru/upload/iblock/b28/isq3pvwh5ei5dtixrib9c1ct12onf537.png',
+  dry_g:'https://technika-vkusa.ru/upload/iblock/ebf/m8eimfoc6rsfr4osfhkfpc64x0n2uqer.png',
+  wash_s:'https://static.insales-cdn.com/images/products/1/2577/3031001617/large_ADA1.102BE1H3J3K_2.png',
+  dry_s:'https://static.insales-cdn.com/images/products/1/5457/3031004497/large_MDA1.100FH3K_2.png'
 };
-var IC={cook:'🍳',hood:'💨',oven:'⬛',mw:'📡',coffee:'☕',dish:'🍽️',fridge:'🧊',warm:'🌡️'};
-var KB=[
-  {ic:'cook',img:'cook_b',n:'Bertazzoni P604IM2B2NE-20',art:'P604IM2B2NE-20',color:'Чёрное стекло (Nero)',p:154900},
-  {ic:'hood',img:'falmec',n:'Falmec Gruppo Incasso Plus 50 IX',art:'GRUPPO INCASSO PLUS 50 IX',color:'Встроенная вытяжка',p:81900},
-  {ic:'oven',img:'oven_b',n:'Bertazzoni F6011PROVTN',art:'F6011PROVTN',color:'Чёрный (Nero)',p:305900},
-  {ic:'mw',img:'mw_b',n:'Bertazzoni F457PROMWTN',art:'F457PROMWTN',color:'Чёрный (Nero)',p:173400},
-  {ic:'coffee',img:'coffee_b',n:'Bertazzoni M45CAFX',art:'M45CAFX',color:'Чёрная панель',p:316100},
-  {ic:'dish',img:'dish_b',n:'Bertazzoni DW6083PRT',art:'DW6083PRT',color:'За фасадом кухни',p:148800},
-  {ic:'warm',img:'warm_b',n:'Bertazzoni WD60N',art:'WD60N',color:'Чёрный (Nero)',p:95500}
+var IC={cook:'🍳',hood:'💨',oven:'⬛',mw:'📡',coffee:'☕',dish:'🍽️',fridge:'🧊',warm:'🌡️',wash:'🫧',dry:'💨',mount:'🔩'};
+
+var KITCHEN=[
+  {ic:'cook',img:'cook_b',n:'Bertazzoni P604IM2B2NE-20',art:'P604IM2B2NE-20',color:'Чёрное стекло (Nero)',rrc:154900},
+  {ic:'hood',img:'falmec',n:'Falmec Gruppo Incasso Plus 50 IX',art:'GRUPPO INCASSO PLUS 50 IX',color:'Встроенная вытяжка',rrc:81900},
+  {ic:'oven',img:'oven_b',n:'Bertazzoni F6011PROVTN',art:'F6011PROVTN',color:'Чёрный (Nero)',rrc:325000},
+  {ic:'mw',img:'mw_b',n:'Bertazzoni F457PROMWTN',art:'F457PROMWTN',color:'Чёрный (Nero)',rrc:173400},
+  {ic:'coffee',img:'coffee_b',n:'Bertazzoni M45CAFX',art:'M45CAFX',color:'Чёрная панель',rrc:316100},
+  {ic:'dish',img:'dish_b',n:'Bertazzoni DW6083PRT',art:'DW6083PRT',color:'За фасадом кухни',rrc:148800},
+  {ic:'warm',img:'warm_b',n:'Bertazzoni WD60N',art:'WD60N',color:'Чёрный (Nero)',rrc:95500}
 ];
-var FR={
-  b:{ic:'fridge',img:'fridge_b',n:'Bertazzoni REF704BBNPTC',art:'REF704BBNPTC',color:'За фасадом кухни',p:331400},
-  l:{ic:'fridge',img:'fridge_l',n:'Liebherr IXRF 5125-22 001',art:'IXRF 5125-22 001',color:'Встраиваемый Side-by-Side',p:354000}
+var FRIDGE={
+  b:[{ic:'fridge',img:'fridge_b',n:'Bertazzoni REF704BBNPTC',art:'REF704BBNPTC',color:'За фасадом кухни',rrc:350000}],
+  l:[{ic:'fridge',img:'fridge_l',n:'Liebherr IXRF 5125-22 001',art:'IXRF 5125-22 001',color:'Встраиваемый Side-by-Side, нерж. сталь',rrc:354000,hl:true}]
 };
-var LAU={g:158980,s:774000,m:443000};
-var fc='b';
+var LAUNDRY={
+  g:[
+    {ic:'wash',img:'wash_g',n:'Graude WA 100.3',art:'WA 100.3',color:'Стиральная машина',rrc:69990},
+    {ic:'dry',img:'dry_g',n:'Graude TA 100.3',art:'TA 100.3',color:'Сушильная машина',rrc:88990}
+  ],
+  m:[
+    {ic:'wash',n:'Miele WEG 895 WCS Chrome Edition',art:'WEG 895 WCS RU',color:'Стиральная машина 9 кг · W1',rrc:253500},
+    {ic:'mount',n:'Miele WTV 501 — стойка-подставка',art:'WTV 501',color:'Для установки в колонну',rrc:12000},
+    {ic:'dry',n:'Miele TEH 795 WP',art:'TEH 795 WP',color:'Сушильная машина · T1 Heat Pump',rrc:247000}
+  ],
+  s:[
+    {ic:'wash',img:'wash_s',n:'Schulthess Spirit TopLine ADA1.102BE1H3J3KY',art:'ADA1.102BE1H3J3KY',color:'Стиральная машина 10 кг',rrc:461990},
+    {ic:'dry',img:'dry_s',n:'Schulthess Spirit TopLine MDA1.100FH3KY',art:'MDA1.100FH3KY',color:'Сушильная машина · Heat Pump',rrc:478990}
+  ]
+};
+
+var fc='b', lc='g';
 
 function fmt(n){return n.toLocaleString('ru-RU')+' ₽';}
-function kTotal(){return KB.reduce(function(s,i){return s+i.p;},0)+FR[fc].p;}
 
-function renderKitchen(cid){
-  var el=document.getElementById(cid);if(!el)return;
-  var items=KB.concat([FR[fc]]);
-  el.innerHTML=items.map(function(it){
-    var isL=(it.ic==='fridge'&&fc==='l');
-    return '<div class="item'+(isL?' highlight-liebherr':'')+'">'+
-      '<img class="item-img" src="'+IMG[it.img]+'" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'" alt="">'+
-      '<div class="item-fallback">'+IC[it.ic]+'</div>'+
+function itemHTML(it){
+  var imgPart = it.img
+    ? '<img class="ci-img" src="'+IMG[it.img]+'" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'" alt=""><div class="ci-fb">'+IC[it.ic]+'</div>'
+    : '<div class="ci-fb" style="display:flex">'+IC[it.ic]+'</div>';
+  return '<div class="calc-item'+(it.hl?' hl':'')+'" data-rrc="'+it.rrc+'">'+
+    imgPart+
+    '<div class="ci-body">'+
       '<div>'+
-        '<div class="item-name">'+it.n+'</div>'+
-        '<div class="item-art">'+it.art+'</div>'+
-        (it.color?'<div class="item-color">'+it.color+'</div>':'')+
-        (isL?'<div style="font-size:11px;color:var(--green);margin-top:2px">Альтернатива · Liebherr</div>':'')+
+        '<div class="ci-name">'+it.n+'</div>'+
+        '<div class="ci-art">'+it.art+'</div>'+
+        (it.color?'<div class="ci-color">'+it.color+'</div>':'')+
       '</div>'+
-      '<div class="item-price"><div class="p-only">'+fmt(it.p)+'</div></div>'+
-    '</div>';
-  }).join('');
+      '<div class="ci-priceline">'+
+        '<span class="ci-rrc">РРЦ: <b>'+fmt(it.rrc)+'</b></span>'+
+        '<span class="ci-discwrap"><span>скидка</span><input type="number" class="disc-input" min="0" max="90" value="0" oninput="recalc()"><span>%</span></span>'+
+        '<span class="ci-final">'+fmt(it.rrc)+'</span>'+
+      '</div>'+
+    '</div>'+
+  '</div>';
 }
 
-function renderTotal(bid,lk){
-  var el=document.getElementById(bid);if(!el)return;
-  var kt=kTotal();var lt=LAU[lk];var tot=kt+lt;
-  var fl=fc==='l'?'Liebherr IXRF 5125':'Bertazzoni REF704';
-  var ll={g:'Graude (прачечная)',s:'Schulthess (прачечная)',m:'Miele (прачечная)'}[lk];
-  el.innerHTML=
-    '<div class="t-row"><span>Кухня Bertazzoni (7 поз.) + '+fl+'</span><span class="val">'+fmt(kt)+'</span></div>'+
-    '<div class="t-row"><span>'+ll+'</span><span class="val">'+fmt(lt)+'</span></div>'+
-    '<div class="t-row big"><span>Итого</span><span class="val">'+fmt(tot)+'</span></div>';
-}
-
-function updateCompare(){
-  var kt=kTotal();
-  var fl=fc==='l'?'Liebherr IXRF 5125':'Bertazzoni REF704';
-  var khtml=fmt(kt)+'<br><span style="font-size:11px;color:var(--muted)">хол.: '+fl+'</span>';
-  ['g','m','s'].forEach(function(k){
-    var ke=document.getElementById('cmp-k-'+k);if(ke)ke.innerHTML=khtml;
-    var te=document.getElementById('cmp-t-'+k);if(te)te.textContent=fmt(kt+LAU[k]);
-  });
-}
-
-function updateFridgeTag(){
-  var el=document.getElementById('fridge-tag');
-  el.textContent=fc==='l'?'Liebherr · 354 000 ₽':'Bertazzoni · 331 400 ₽';
-}
-
-function renderAll(){
-  renderKitchen('kitchen-g');
-  renderKitchen('kitchen-s');
-  renderKitchen('kitchen-m');
-  renderTotal('total-g','g');
-  renderTotal('total-s','s');
-  renderTotal('total-m','m');
-  updateCompare();
-  updateFridgeTag();
-}
+function renderKitchen(){document.getElementById('kitchen').innerHTML=KITCHEN.map(itemHTML).join('');}
+function renderFridge(){document.getElementById('fridge').innerHTML=FRIDGE[fc].map(itemHTML).join('');}
+function renderLaundry(){document.getElementById('laundry').innerHTML=LAUNDRY[lc].map(itemHTML).join('');}
 
 function setFridge(t){
   fc=t;
   document.getElementById('fb-b').classList.toggle('active',t==='b');
   document.getElementById('fb-l').classList.toggle('active',t==='l');
-  renderAll();
+  renderFridge();recalc();
+}
+function setLaundry(t){
+  lc=t;
+  ['g','m','s'].forEach(function(x){document.getElementById('lb-'+x).classList.toggle('active',x===t);});
+  renderLaundry();recalc();
 }
 
-function showTab(t){
-  ['g','s','m','cmp'].forEach(function(x){
-    var btn=document.getElementById('tab-'+x);
-    var pnl=document.getElementById('panel-'+x);
-    if(btn)btn.classList.toggle('active',x===t);
-    if(pnl){pnl.style.display=(x===t)?'block':'none';pnl.classList.toggle('active',x===t);}
+function recalc(){
+  var items=document.querySelectorAll('.calc-item');
+  var rrcSum=0, finalSum=0;
+  items.forEach(function(it){
+    var rrc=+it.dataset.rrc;
+    var inp=it.querySelector('.disc-input');
+    var d=parseFloat(inp.value)||0;
+    if(d<0)d=0; if(d>90)d=90;
+    var fin=Math.round(rrc*(1-d/100));
+    it.querySelector('.ci-final').textContent=fmt(fin);
+    rrcSum+=rrc; finalSum+=fin;
   });
+  var discAmt=rrcSum-finalSum;
+  var discPct=rrcSum>0?Math.round(discAmt/rrcSum*1000)/10:0;
+  document.getElementById('sum-rrc').textContent=fmt(rrcSum);
+  document.getElementById('sum-disc').textContent='−'+fmt(discAmt)+(discAmt>0?' ('+discPct+'%)':'');
+  document.getElementById('sum-total').textContent=fmt(finalSum);
+  document.getElementById('sticky-total').textContent=fmt(finalSum);
 }
 
-renderAll();
+function applyAll(){
+  var v=parseFloat(document.getElementById('global-disc').value)||0;
+  if(v<0)v=0; if(v>90)v=90;
+  document.querySelectorAll('.disc-input').forEach(function(inp){inp.value=v;});
+  recalc();
+}
+
+renderKitchen();renderFridge();renderLaundry();recalc();
 </script>
 </body>
 </html>
