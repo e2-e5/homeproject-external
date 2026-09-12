@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Персданные и ИИ: как отдать данные модели, не раскрыв их</title>
+<style>
+:root{
+  --bg:#0C0E1A;--card:#151829;--card2:#1D2138;--border:#2A2F4A;
+  --accent:#6B8CFF;--accent2:#8B6BFF;--text:#EAECF5;--muted:#8A90AD;
+  --green:#4CCB8B;--amber:#E6B860;--red:#F0616D;--tok:#E6B860;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',-apple-system,sans-serif;line-height:1.6;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px 60px;}
+
+.hero{text-align:center;padding:50px 20px 34px;border-bottom:1px solid var(--border);
+  background:radial-gradient(ellipse at top,rgba(107,140,255,.10),transparent 60%);}
+.hero .kick{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.hero h1{font-size:clamp(24px,4.5vw,38px);font-weight:800;line-height:1.25;margin-bottom:14px;}
+.hero p{color:var(--muted);max-width:640px;margin:0 auto;font-size:15px;}
+
+h2{font-size:22px;margin:44px 0 6px;font-weight:800;}
+h2 .n{color:var(--accent);font-weight:800;margin-right:10px;}
+.lead{color:var(--muted);margin-bottom:20px;font-size:15px;}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0;}
+@media(max-width:720px){.split{grid-template-columns:1fr;}}
+.box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;}
+.box.ok{border-color:rgba(76,203,139,.4);}
+.box.no{border-color:rgba(240,97,109,.35);}
+.box h3{font-size:16px;margin-bottom:6px;}
+.box .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:10px;}
+.tag-ok{background:rgba(76,203,139,.15);color:var(--green);}
+.tag-no{background:rgba(240,97,109,.15);color:var(--red);}
+.box ul{padding-left:18px;color:var(--muted);font-size:13.5px;}
+.box li{margin-bottom:5px;}
+
+.pipe{display:flex;align-items:stretch;gap:0;margin:26px 0 10px;flex-wrap:wrap;}
+.step{flex:1;min-width:150px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 14px;position:relative;text-align:center;}
+.step .ico{font-size:26px;margin-bottom:8px;}
+.step .st{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:1px;}
+.step .tt{font-size:13.5px;font-weight:700;margin:4px 0;}
+.step .dd{font-size:12px;color:var(--muted);}
+.arrow{align-self:center;color:var(--accent);font-size:22px;padding:0 4px;}
+@media(max-width:720px){.arrow{transform:rotate(90deg);width:100%;text-align:center;padding:6px 0;}}
+
+.demo{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:22px;margin:22px 0;}
+.demo h3{font-size:16px;margin-bottom:4px;}
+.demo .hint{color:var(--muted);font-size:13px;margin-bottom:14px;}
+textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);
+  font-family:'Consolas',monospace;font-size:13px;padding:12px;resize:vertical;line-height:1.6;}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;}
+button{background:var(--accent);color:#0C0E1A;border:none;border-radius:9px;padding:10px 18px;font-weight:700;
+  font-size:13px;cursor:pointer;transition:.15s;}
+button:hover{filter:brightness(1.1);}
+button.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent);}
+.stage{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:12px;
+  font-family:'Consolas',monospace;font-size:13px;white-space:pre-wrap;word-break:break-word;min-height:44px;}
+.stage .lbl{font-family:'Segoe UI',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px;}
+.tok{background:rgba(230,184,96,.18);color:var(--tok);border:1px solid rgba(230,184,96,.4);border-radius:5px;padding:1px 5px;font-weight:700;}
+.pii{background:rgba(240,97,109,.16);color:#ff8b93;border-radius:5px;padding:1px 5px;}
+.vault{margin-top:12px;}
+.vault table{width:100%;border-collapse:collapse;font-size:12.5px;font-family:'Consolas',monospace;}
+.vault th{text-align:left;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:6px 8px;border-bottom:1px solid var(--border);}
+.vault td{padding:6px 8px;border-bottom:1px solid var(--border);}
+.vault tr:last-child td{border-bottom:none;}
+.lock{font-size:11px;color:var(--muted);margin-top:8px;}
+
+table.cmp{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:8px;}
+table.cmp th{background:var(--card);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;padding:11px 12px;border-bottom:1px solid var(--border);}
+table.cmp td{padding:12px;border-bottom:1px solid var(--border);vertical-align:top;}
+table.cmp tr:last-child td{border-bottom:none;}
+.pill{font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap;}
+.p-now{background:rgba(76,203,139,.15);color:var(--green);}
+.p-soon{background:rgba(230,184,96,.15);color:var(--amber);}
+.p-rd{background:rgba(240,97,109,.15);color:var(--red);}
+
+.callout{background:linear-gradient(135deg,rgba(107,140,255,.12),rgba(139,107,255,.10));
+  border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:18px 22px;margin:24px 0;font-size:14.5px;}
+.callout strong{color:var(--accent);}
+.foot{color:var(--muted);font-size:12px;text-align:center;margin-top:44px;padding-top:20px;border-top:1px solid var(--border);}
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:16px 0;}
+ol.steps li{position:relative;padding:10px 0 10px 44px;border-bottom:1px solid var(--border);font-size:14px;}
+ol.steps li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:9px;width:28px;height:28px;
+  background:var(--accent);color:#0C0E1A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;}
+ol.steps li:last-child{border-bottom:none;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="kick">Home Project · разбор технологии</div>
+  <h1>Как отдать персданные в ИИ,<br>не раскрыв их</h1>
+  <p>Три способа скрыть ПДн от модели — и один способ, который на самом деле работает сегодня. С живой демонстрацией: нажмите кнопки ниже и посмотрите алгоритм в действии.</p>
+</div>
+
+<div class="wrap">
+
+  <h2><span class="n">01</span>Развилка, с которой всё начинается</h2>
+  <p class="lead">«Зашифровать → отдать ИИ → получить результат → восстановить» можно понимать двумя совершенно разными способами. От того, какой вы имеете в виду, зависит, реально это сегодня или нет.</p>
+
+  <div class="split">
+    <div class="box ok">
+      <span class="tag tag-ok">✅ Работает сегодня</span>
+      <h3>Смысл А. Скрыть ПДн, но дать ИИ работать с текстом</h3>
+      <p style="color:var(--muted);font-size:13.5px;margin-bottom:8px;">Мы заменяем имена, телефоны, e-mail на «заглушки», а ИИ работает с обезличенным текстом. Он видит структуру, но не видит, кто это конкретно.</p>
+      <ul>
+        <li>Псевдонимизация / токенизация</li>
+        <li>Format-Preserving Encryption (FF1/FF3)</li>
+        <li>Маскирование через распознавание сущностей (NER)</li>
+      </ul>
+    </div>
+    <div class="box no">
+      <span class="tag tag-no">⚠️ Пока непрактично для LLM</span>
+      <h3>Смысл Б. ИИ считает прямо над шифром, не расшифровывая</h3>
+      <p style="color:var(--muted);font-size:13.5px;margin-bottom:8px;">Данные остаются зашифрованными на всём пути, модель вычисляет прямо над «кашей» из ciphertext. Математически возможно, но для больших языковых моделей замедление в тысячи–миллионы раз.</p>
+      <ul>
+        <li>Полностью гомоморфное шифрование (FHE)</li>
+        <li>Защищённые многосторонние вычисления (SMPC)</li>
+        <li>Доверенные анклавы (TEE / Confidential Computing) — компромисс, работает</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Главный вывод сразу:</strong> для практической задачи «отправить клиентскую базу в ИИ и получить, скажем, персональные письма» правильный ответ — <strong>псевдонимизация с обратимой таблицей соответствия</strong> (Смысл А). ИИ никогда не видит настоящие данные, а подстановку обратно делаем мы у себя. Именно этот алгоритм показан в демо ниже.
+  </div>
+
+  <h2><span class="n">02</span>Алгоритм в 5 шагов</h2>
+  <p class="lead">Классический pipeline «pseudonymize → LLM → re-identify». Ключевая деталь — таблица соответствия («хранилище», vault) никогда не покидает ваш периметр.</p>
+
+  <div class="pipe">
+    <div class="step"><div class="ico">🗂️</div><div class="st">ШАГ 1</div><div class="tt">Найти ПДн</div><div class="dd">NER + регулярки: имена, телефоны, e-mail, адреса</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="ico">🔀</div><div class="st">ШАГ 2</div><div class="tt">Заменить на токены</div><div class="dd">ФИО_1, [EMAIL_2]… + запись в vault</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="ico">🤖</div><div class="st">ШАГ 3</div><div class="tt">Отдать ИИ</div><div class="dd">модель видит только обезличенный текст</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="ico">📄</div><div class="st">ШАГ 4</div><div class="tt">Ответ с токенами</div><div class="dd">ИИ возвращает результат с теми же заглушками</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="ico">🔓</div><div class="st">ШАГ 5</div><div class="tt">Восстановить</div><div class="dd">подставляем реальные ПДн обратно по vault</div></div>
+  </div>
+
+  <h2><span class="n">03</span>Демонстрация: алгоритм в действии</h2>
+  <p class="lead">Реальный сценарий Home Project: у нас список клиентов, мы хотим, чтобы ИИ написал каждому персональное приглашение — но не показываем ему настоящие имена и контакты. Нажимайте кнопки по порядку.</p>
+
+  <div class="demo">
+    <h3>Исходные данные (с ПДн)</h3>
+    <div class="hint">Красным подсвечены персональные данные, которые нельзя отдавать наружу.</div>
+    <textarea id="raw" rows="5">Клиент: Елена Пушкарева, телефон +7 916 245-38-11, почта mos@homeart.pro.
+Клиент: Александр Караваев, телефон +7 903 118-77-02, почта m.center.ekb@gmail.com.
+Задача для ИИ: написать каждому короткое приглашение на показ кухни Bertazzoni.</textarea>
+
+    <div class="btnrow">
+      <button onclick="doEncrypt()">🔒 Шаг 1–2: обезличить</button>
+      <button class="ghost" onclick="doAI()">🤖 Шаг 3–4: отдать ИИ</button>
+      <button class="ghost" onclick="doDecrypt()">🔓 Шаг 5: восстановить</button>
+      <button class="ghost" onclick="reset()">↺ Сброс</button>
+    </div>
+
+    <div class="stage" id="s-enc"><span class="lbl">Что уходит в ИИ (обезличено)</span><span style="color:var(--muted)">— нажмите «обезличить»</span></div>
+
+    <div class="vault" id="vaultbox" style="display:none">
+      <div class="stage" style="padding:0;border:none;background:transparent;"><span class="lbl">🔐 Таблица соответствия (vault) — остаётся у нас, зашифрована, ИИ её не видит</span></div>
+      <table><thead><tr><th>Токен</th><th>Реальное значение (ПДн)</th></tr></thead><tbody id="vault"></tbody></table>
+      <div class="lock">🔒 Vault шифруется на нашем ключе (AES-256-GCM). Без него токены — бессмысленный набор символов.</div>
+    </div>
+
+    <div class="stage" id="s-ai"><span class="lbl">Ответ ИИ (всё ещё с токенами)</span><span style="color:var(--muted)">— сначала «отдать ИИ»</span></div>
+    <div class="stage" id="s-dec"><span class="lbl">Итог после восстановления (готово к отправке клиентам)</span><span style="color:var(--muted)">— в конце «восстановить»</span></div>
+  </div>
+
+  <h2><span class="n">04</span>Какие алгоритмы существуют</h2>
+  <table class="cmp">
+    <thead><tr><th>Подход</th><th>Что делает</th><th>Обратимо?</th><th>Готовность</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Токенизация</strong><br><span style="color:var(--muted);font-size:12px">случайный токен + vault</span></td>
+        <td>ПДн → случайная заглушка, соответствие хранится в защищённой таблице.</td>
+        <td>Да (по vault)</td>
+        <td><span class="pill p-now">Работает</span></td>
+      </tr>
+      <tr>
+        <td><strong>Format-Preserving Encryption</strong><br><span style="color:var(--muted);font-size:12px">FF1 / FF3-1, NIST SP 800-38G</span></td>
+        <td>Шифрует, сохраняя формат: телефон остаётся телефоном, а не «кашей». Удобно для структурированных полей.</td>
+        <td>Да (по ключу)</td>
+        <td><span class="pill p-now">Работает</span></td>
+      </tr>
+      <tr>
+        <td><strong>NER-маскирование</strong><br><span style="color:var(--muted);font-size:12px">Presidio, Google DLP, AWS Comprehend</span></td>
+        <td>Автопоиск ПДн в свободном тексте нейросетью + подстановка/де-подстановка. Готовые библиотеки.</td>
+        <td>Да (anonymize/deanonymize)</td>
+        <td><span class="pill p-now">Работает</span></td>
+      </tr>
+      <tr>
+        <td><strong>Детерминир. хеш</strong><br><span style="color:var(--muted);font-size:12px">HMAC-SHA256 + соль</span></td>
+        <td>Одинаковое значение → одинаковый токен (для группировки), но восстановить нельзя без отдельной таблицы.</td>
+        <td>Нет (односторонний)</td>
+        <td><span class="pill p-now">Работает</span></td>
+      </tr>
+      <tr>
+        <td><strong>Доверенный анклав (TEE)</strong><br><span style="color:var(--muted);font-size:12px">Intel SGX, AMD SEV, NVIDIA H100 CC</span></td>
+        <td>ПДн расшифровываются только внутри аппаратно-защищённой зоны; облако/оператор не видит открытый текст.</td>
+        <td>—</td>
+        <td><span class="pill p-now">Работает для LLM</span></td>
+      </tr>
+      <tr>
+        <td><strong>Гомоморфное шифрование</strong><br><span style="color:var(--muted);font-size:12px">CKKS/BFV/TFHE — SEAL, OpenFHE, Zama</span></td>
+        <td>ИИ вычисляет прямо над ciphertext, не расшифровывая. Мечта приватности.</td>
+        <td>Да</td>
+        <td><span class="pill p-rd">Не для LLM пока</span></td>
+      </tr>
+      <tr>
+        <td><strong>Многосторонние вычисления</strong><br><span style="color:var(--muted);font-size:12px">SMPC / secret sharing</span></td>
+        <td>Данные дробятся на доли между несколькими сторонами, никто не видит целого.</td>
+        <td>Да</td>
+        <td><span class="pill p-soon">Узкие задачи</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2><span class="n">05</span>Правовая рамка (РФ, 152-ФЗ)</h2>
+  <ol class="steps">
+    <li><strong>Псевдонимизация с обратимой таблицей</strong> — данные всё ещё считаются персональными (просто защищёнными). Vault с ключом нужно оберегать так же строго, как саму базу.</li>
+    <li><strong>Необратимое обезличивание</strong> (нельзя восстановить в принципе) — выводит данные из-под режима ПДн. Но тогда и результат к клиенту «обратно» не подставить — подходит для аналитики, не для персональных писем.</li>
+    <li><strong>Трансграничная передача</strong>: если ИИ-сервис за рубежом, обезличивание до отправки резко снижает риски и часто снимает требование согласия на трансграничную передачу именно ПДн.</li>
+    <li><strong>Практика Home Project</strong>: для писем клиентам — токенизация + локальный vault (Смысл А). Ничего персонального наружу не уходит, подстановку делаем на своей стороне.</li>
+  </ol>
+
+  <div class="callout">
+    <strong>Рекомендация для нас:</strong> внедрять связку <strong>NER-маскирование (Presidio) + токенизация с зашифрованным vault</strong>. Это бесплатно, работает сегодня, покрывает 95% задач («напиши каждому», «просуммируй обращения», «классифицируй заявки»). Гомоморфное шифрование и анклавы держим в уме на будущее — когда объёмы и требования вырастут.
+  </div>
+
+  <div class="foot">Home Project · подготовлено с помощью ИИ · разбор технологии приватной обработки персданных · сентябрь 2026</div>
+</div>
+
+<script>
+var PII=[
+  {tok:'[ФИО_1]', re:/Елена Пушкарева/g, val:'Елена Пушкарева'},
+  {tok:'[ТЕЛ_1]', re:/\+7 916 245-38-11/g, val:'+7 916 245-38-11'},
+  {tok:'[EMAIL_1]', re:/mos@homeart\.pro/g, val:'mos@homeart.pro'},
+  {tok:'[ФИО_2]', re:/Александр Караваев/g, val:'Александр Караваев'},
+  {tok:'[ТЕЛ_2]', re:/\+7 903 118-77-02/g, val:'+7 903 118-77-02'},
+  {tok:'[EMAIL_2]', re:/m\.center\.ekb@gmail\.com/g, val:'m.center.ekb@gmail.com'}
+];
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function tokWrap(s){var o=esc(s);PII.forEach(function(p){o=o.split(esc(p.tok)).join('<span class="tok">'+esc(p.tok)+'</span>');});return o;}
+
+var encrypted='';
+function doEncrypt(){
+  var raw=document.getElementById('raw').value, enc=raw;
+  PII.forEach(function(p){enc=enc.replace(p.re,p.tok);});
+  encrypted=enc;
+  document.getElementById('s-enc').innerHTML='<span class="lbl">Что уходит в ИИ (обезличено)</span>'+tokWrap(enc);
+  var vb=document.getElementById('vault');vb.innerHTML='';
+  PII.forEach(function(p){vb.innerHTML+='<tr><td><span class="tok">'+esc(p.tok)+'</span></td><td class="pii">'+esc(p.val)+'</td></tr>';});
+  document.getElementById('vaultbox').style.display='block';
+}
+var aiOut='';
+function doAI(){
+  if(!encrypted){doEncrypt();}
+  aiOut='Готовые письма от ИИ (он видел только токены):\n\n'+
+    '\u2192 Здравствуйте, [ФИО_1]! Приглашаем Вас на закрытый показ кухни Bertazzoni. Детали пришлём на [EMAIL_1] или наберём по [ТЕЛ_1].\n\n'+
+    '\u2192 Здравствуйте, [ФИО_2]! Рады пригласить Вас на показ кухни Bertazzoni. Подтверждение — на [EMAIL_2], либо звонок по [ТЕЛ_2].';
+  document.getElementById('s-ai').innerHTML='<span class="lbl">Ответ ИИ (всё ещё с токенами)</span>'+tokWrap(aiOut);
+}
+function doDecrypt(){
+  if(!aiOut){doAI();}
+  var dec=aiOut;
+  PII.forEach(function(p){dec=dec.split(p.tok).join(p.val);});
+  var o=esc(dec);
+  PII.forEach(function(p){o=o.split(esc(p.val)).join('<span class="pii">'+esc(p.val)+'</span>');});
+  document.getElementById('s-dec').innerHTML='<span class="lbl">Итог после восстановления (готово к отправке клиентам)</span>'+o;
+}
+function reset(){
+  encrypted='';aiOut='';
+  document.getElementById('s-enc').innerHTML='<span class="lbl">Что уходит в ИИ (обезличено)</span><span style="color:var(--muted)">— нажмите «обезличить»</span>';
+  document.getElementById('s-ai').innerHTML='<span class="lbl">Ответ ИИ (всё ещё с токенами)</span><span style="color:var(--muted)">— сначала «отдать ИИ»</span>';
+  document.getElementById('s-dec').innerHTML='<span class="lbl">Итог после восстановления (готово к отправке клиентам)</span><span style="color:var(--muted)">— в конце «восстановить»</span>';
+  document.getElementById('vaultbox').style.display='none';
+}
+</script>
+</body>
+</html>
