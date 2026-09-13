@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КП — Graude Premium · Василий | HomeProject</title>
+<style>
+:root{--bg:#0B0C10;--card:#13151C;--card2:#1A1D26;--border:#2A2E3D;--accent:#E2B96A;--text:#E8EAF0;--muted:#7A8099;--green:#4CAF82;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',-apple-system,sans-serif;min-height:100vh;}
+.header{padding:30px 20px 18px;text-align:center;border-bottom:1px solid var(--border);}
+.logo{font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
+.logo-h{color:var(--text);font-weight:700;}.logo-p{color:var(--accent);}
+.header-title{font-size:clamp(20px,4vw,27px);font-weight:700;margin-bottom:6px;}
+.header-sub{font-size:13px;color:var(--muted);}
+.kp-meta{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+.kp-badge{background:#1A1A2A;border:1px solid var(--border);color:#8890B0;font-size:11px;padding:3px 12px;border-radius:20px;}
+.tabs{display:flex;gap:3px;padding:20px 20px 0;overflow-x:auto;max-width:1020px;margin:0 auto;}
+.tab-btn{padding:10px 20px;border-radius:8px 8px 0 0;border:1px solid var(--border);border-bottom:none;cursor:pointer;font-size:12px;font-weight:500;background:var(--card);color:var(--muted);white-space:nowrap;transition:all .2s;}
+.tab-btn.active{background:var(--card2);color:var(--text);border-color:var(--accent);}
+.main{padding:0 20px 40px;max-width:1020px;margin:0 auto;}
+.panel{display:none;background:var(--card2);border:1px solid var(--border);border-radius:0 10px 10px 10px;padding:22px;}
+.panel.active{display:block;}
+.sec-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:4px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.stag{font-size:10px;padding:2px 9px;border-radius:10px;letter-spacing:0;text-transform:none;font-weight:600;}
+.stag-gold{background:var(--accent);color:#000;}
+.stag-dark{background:rgba(30,30,45,1);border:1px solid #445;color:#AAB;}
+.note-box{background:rgba(226,185,106,0.05);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:12px 16px;font-size:12px;color:var(--muted);margin-bottom:18px;line-height:1.75;}
+.cl{list-style:none;padding:0;margin-top:6px;}
+.cl li{padding:2px 0;display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--muted);}
+.ok{color:#4CAF82;flex-shrink:0;}.warn{color:var(--accent);flex-shrink:0;}.info{color:#6080C0;flex-shrink:0;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:14px;margin-bottom:22px;}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;}
+.tile-img-wrap{width:100%;height:175px;background:#F4F5F7;display:flex;align-items:center;justify-content:center;}
+.tile-img{max-width:100%;max-height:100%;object-fit:contain;padding:12px;}
+.tile-fb{width:100%;height:175px;background:#1A1D26;display:flex;align-items:center;justify-content:center;font-size:50px;}
+.tile-body{padding:14px;display:flex;flex-direction:column;flex:1;}
+.tile-cat{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.tile-name{font-size:13px;font-weight:600;line-height:1.35;}
+.tile-art{font-size:11px;color:var(--accent);font-family:monospace;margin-top:4px;}
+.tile-desc{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5;}
+.ctag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:7px;margin-top:7px;font-weight:600;}
+.ct-s{background:rgba(25,25,38,1);border:1px solid #445;color:#BBC;}
+.ct-m{background:rgba(60,60,68,0.4);border:1px solid #778;color:#BCC;}
+.tile-spacer{flex:1;min-height:8px;}
+.tile-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:10px;}
+.tile-price{font-size:20px;font-weight:700;color:var(--text);margin-top:2px;}
+.total-box{background:var(--card);border:1px solid var(--accent);border-radius:12px;padding:18px 22px;}
+.t-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:13px;color:var(--muted);}
+.t-row .val{color:var(--text);}
+.t-row.sub{padding-left:14px;font-size:12px;}
+.t-row.sep{border-top:1px solid var(--border);padding-top:10px;margin-top:6px;}
+.t-row.grp{color:var(--text);font-weight:600;padding-top:14px;}
+.t-row.big{font-size:21px;font-weight:700;color:var(--text);border-top:2px solid var(--accent);padding-top:14px;margin-top:10px;}
+.t-row.big .val{color:var(--accent);}
+.info-box{background:rgba(255,255,255,0.025);border:1px solid var(--border);border-radius:8px;padding:13px 16px;font-size:12px;color:var(--muted);line-height:1.7;margin-top:14px;}
+.info-box strong{color:var(--accent);}
+.footer{text-align:center;color:var(--muted);font-size:11px;padding:22px;border-top:1px solid var(--border);margin-top:10px;}
+@media(max-width:520px){.grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;}.tile-img-wrap,.tile-fb{height:140px;}.main{padding:0 12px 30px;}.tabs{padding:14px 12px 0;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo"><span class="logo-h">HOME</span><span class="logo-p">project</span></div>
+  <div class="header-title">Коммерческое предложение — Graude Premium</div>
+  <div class="header-sub">Подготовлено для Василия · Полный комплект: кухня + прачечная</div>
+  <div class="kp-meta">
+    <span class="kp-badge">КП-GRAUDE-V1</span>
+    <span class="kp-badge">13.09.2026</span>
+    <span class="kp-badge">Цены РРЦ</span>
+    <span class="kp-badge">10 позиций · 701 900 ₽</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="setTab('kitchen',this)">🍳 Кухня (7)</button>
+  <button class="tab-btn" onclick="setTab('laundry',this)">🫧 Прачечная (3)</button>
+  <button class="tab-btn" onclick="setTab('total',this)">📋 Итого</button>
+</div>
+
+<div class="main">
+
+<!-- КУХНЯ -->
+<div class="panel active" id="panel-kitchen">
+  <div class="sec-title">
+    Кухня · Graude Premium
+    <span class="stag stag-gold">7 позиций</span>
+    <span class="stag stag-dark">S-группа · чёрный · единый дисплей</span>
+  </div>
+
+  <div class="note-box">
+    <strong style="color:var(--accent);">Проверка по запросу Василия — цвет и дисплеи</strong>
+    <ul class="cl">
+      <li><span class="ok">✓</span><span>Все приборы кухни — S-группа (чёрный корпус): KV 45.0 <b>S</b>, MWG 45.0 <b>S</b>, WS 14.0 <b>S</b>, DHF 60.0 <b>S</b>, VG 45.2 <b>S</b>, IK 60.0 A<b>S</b></span></li>
+      <li><span class="ok">✓</span><span>Единый дисплей Easy Control во всех S-моделях — без цветных экранов, всё в одном стиле</span></li>
+      <li><span class="ok">✓</span><span>Холодильник IKG 200.3 — интегрируемый, цвет задаётся фасадом мебели</span></li>
+      <li><span class="warn">⚠</span><span>MWG 45.0 <b>SE</b> — цветной TFT-дисплей, визуально отличается. Рекомендуем MWG 45.0 <b>S</b> для консистентности серии</span></li>
+    </ul>
+  </div>
+
+  <div class="grid">
+    <div class="tile">
+      <div class="tile-img-wrap"><img class="tile-img" src="https://new.homeproject.online/static/1789304738210-MWG45.0SE.png" alt="MWG 45.0 S"></div>
+      <div class="tile-body">
+        <div class="tile-cat">Духовой шкаф + СВЧ</div>
+        <div class="tile-name">Graude Premium MWG 45.0 S</div>
+        <div class="tile-art">MWG 45.0 S</div>
+        <div class="tile-desc">45 см · СВЧ + гриль + конвекция</div>
+        <span class="ctag ct-s">⬛ Чёрный · S</span>
+        <div class="tile-spacer"></div>
+        <div class="tile-lbl">РРЦ</div>
+        <div class="tile-price">82 490 ₽</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-img-wrap"><img class="tile-img" src="https://new.homeproject.online/static/1789304739950-WS14.0W.png" alt="WS 14.0 S"></div>
+      <div class="tile-body">
+        <div class="tile-cat">Подогреватель (низкий)</div>
+        <div class="tile-name">Graude Comfort WS 14.0 S</div>
+        <div class="tile-art">WS 14.0 S</div>
+        <div class="tile-desc">14 см высота · встраиваемый</div>
+        <span class="ctag ct-s">⬛ Чёрный · S</span>
+        <div class="tile-spacer"></div>
+        <div class="tile-lbl">РРЦ</div>
+        <div class="tile-price">41 990 ₽</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-img-wrap"><img class="tile-img" src="https://new.homeproject.online/static/1789304745369-KV45.0SE.png" alt="KV 45.0 S"></div>
+      <div class="tile-body">
+        <div class="tile-cat">Встраиваемая кофемашина</div>
+        <div class="tile-name">Graude Premium KV 45.0 S</div>
+        <div class="tile-art">KV 45.0 S</div>
+        <div class="tile-desc">45 см · автоматическая</div>
+        <span class="ctag ct-s">⬛ Чёрный · S</span>
+        <div class="tile-spacer"></div>
+        <div class="tile-lbl">РРЦ</div>
+        <div class="tile-price">178 990 ₽</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-img-wrap"><img class="tile-img" src="https://new.homeproject.online/static/1789304747645-IK60.0AC.png" alt="IK 60.0 AS"></div>
+      <div class="tile-body">
+        <div class="tile-cat">Варочная панель</div>
+        <div class="tile-name">Graude Premium IK 60.0 AS</div>
+        <div class="tile-art">IK 60.0 AS</div>
+        <div class="tile-desc">60 см · индукция · сенсор</div>
+        <span class="ctag ct-s">⬛ Чёрный · S</span>
+        <div class="tile-spacer"></div>
+        <div class="tile-lbl">РРЦ</div>
+        <div class="tile-price">30 990 ₽</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-img-wrap"><img class="tile-img" src="https://new.homeproject.online/static/1789304749622-DHF60.0S.png" alt="DHF 60.0 S"></div>
+      <div class="tile-body">
+        <div class="tile-cat">Вытяжка встроенная 60 см</div>
+        <div class="tile-name">Graude Comfort DHF 60.0 S</div>
+        <div class="tile-art">DHF 60.0 S</div>
+        <div class="tile-desc">60 см · выдвижной экран</div>
+        <span class="ctag ct-s">⬛ Чёрный · S</span>
+        <div class="tile-spacer"></div>
+        <div class="tile-lbl">РРЦ</div>
+        <div class="tile-price">12 490 ₽</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-img-wrap"><img class="tile-img" src="https://new.homeproject.online/static/1789304751825-VG45.2S.png" alt="VG 45.2 S"></div>
+      <div class="tile-body">
+        <div class="tile-cat">Посудомоечная 45 см</div>
+        <div class="tile-name">Graude Comfort VG 45.2 S</div>
+        <div class="tile-art">VG 45.2 S</div>
+        <div class="tile-desc">45 см · 10 компл. · A+++ · 44 дБ</div>
+        <span class="ctag ct-s">⬛ Чёрный · S</span>
+        <div class="tile-spacer"></div>
+        <div class="tile-lbl">РРЦ</div>
+        <div class="tile-price">74 990 ₽</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-img-wrap"><img class="tile-img" src="https://new.homeproject.online/static/1789304753866-IKG200.3.png" alt="IKG 200.3"></div>
+      <div class="tile-body">
+        <div class="tile-cat">Холодильник</div>
+        <div class="tile-name">Graude Comfort IKG 200.3</div>
+        <div class="tile-art">IKG 200.3</div>
+        <div class="tile-desc">Интегрируемый · под фасад мебели</div>
+        <span class="ctag ct-s" style="background:rgba(20,40,30,1);border-color:#466;color:#8BC;">🪟 Интегрируемый</span>
+        <div class="tile-spacer"></div>
+        <div class="tile-lbl">РРЦ</div>
+        <div class="tile-price">110 990 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="total-box">
+    <div class="t-row sub"><span>Духовой шкаф + СВЧ · MWG 45.0 S</span><span class="val">82 490 ₽</span></div>
+    <div class="t-row sub"><span>Подогреватель · WS 14.0 S</span><span class="val">41 990 ₽</span></div>
+    <div class="t-row sub"><span>Кофемашина · KV 45.0 S</span><span class="val">178 990 ₽</span></div>
+    <div class="t-row sub"><span>Варочная · IK 60.0 AS</span><span class="val">30 990 ₽</span></div>
+    <div class="t-row sub"><span>Вытяжка 60 см · DHF 60.0 S</span><span class="val">12 490 ₽</span></div>
+    <div class="t-row sub"><span>Посудомоечная 45 · VG 45.2 S</span><span class="val">74 990 ₽</span></div>
+    <div class="t-row sub"><span>Холодильник · IKG 200.3</span><span class="val">110 990 ₽</span></div>
+    <div class="t-row big"><span>Кухня итого</span><span class="val">532 930 ₽</span></div>
+  </div>
+</div>
+
+<!-- ПРАЧЕЧНАЯ -->
+<div class="panel" id="panel-laundry">
+  <div class="sec-title">
+    Прачечная · Graude Premium
+    <span class="stag stag-gold">3 позиции</span>
+    <span class="stag stag-dark">Металлик · Premium</span>
+  </div>
+
+  <div class="note-box">
+    <ul class="cl">
+      <li><span class="ok">✓</span><span>WA 100.3 + TA 100.3 — одна серия PREMIUM, цвет металлик, совместимы для колонны</span></li>
+      <li><span class="ok">✓</span><span>Монтажный комплект 100231 — официальный аксессуар Graude: выдвижная полка между машинами</span></li>
+      <li><span class="info">ℹ</span><span>Прачечная — металлик, кухня — S (чёрный): две разные зоны, каждая консистентна внутри</span></li>
+    </ul>
+  </div>
+
+  <div class="grid">
+    <div class="tile">
+      <div class="tile-img-wrap"><img class="tile-img" src="https://new.homeproject.online/static/1789304756144-WA100.3.png" alt="WA 100.3"></div>
+      <div class="tile-body">
+        <div class="tile-cat">Стиральная машина</div>
+        <div class="tile-name">Graude Premium WA 100.3</div>
+        <div class="tile-art">WA 100.3</div>
+        <div class="tile-desc">10 кг · 1400 об/мин · A+++</div>
+        <span class="ctag ct-m">▫ Металлик · Premium</span>
+        <div class="tile-spacer"></div>
+        <div class="tile-lbl">РРЦ</div>
+        <div class="tile-price">69 990 ₽</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-img-wrap"><img class="tile-img" src="https://new.homeproject.online/static/1789304758165-TA100.3.png" alt="TA 100.3"></div>
+      <div class="tile-body">
+        <div class="tile-cat">Сушильная машина</div>
+        <div class="tile-name">Graude Premium TA 100.3</div>
+        <div class="tile-art">TA 100.3</div>
+        <div class="tile-desc">10 кг · тепловой насос · A+++</div>
+        <span class="ctag ct-m">▫ Металлик · Premium</span>
+        <div class="tile-spacer"></div>
+        <div class="tile-lbl">РРЦ</div>
+        <div class="tile-price">88 990 ₽</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-fb">🗄</div>
+      <div class="tile-body">
+        <div class="tile-cat">Аксессуар · полка</div>
+        <div class="tile-name">Монтажный комплект с выдвижной полкой</div>
+        <div class="tile-art">Арт. 100231</div>
+        <div class="tile-desc">Официальный аксессуар Graude между стиральной и сушильной</div>
+        <span class="ctag ct-m">▫ Металлик</span>
+        <div class="tile-spacer"></div>
+        <div class="tile-lbl">РРЦ</div>
+        <div class="tile-price">9 990 ₽</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="total-box">
+    <div class="t-row sub"><span>Стиральная машина · WA 100.3</span><span class="val">69 990 ₽</span></div>
+    <div class="t-row sub"><span>Сушильная машина · TA 100.3</span><span class="val">88 990 ₽</span></div>
+    <div class="t-row sub"><span>Монтажный комплект с полкой · 100231</span><span class="val">9 990 ₽</span></div>
+    <div class="t-row big"><span>Прачечная итого</span><span class="val">168 970 ₽</span></div>
+  </div>
+</div>
+
+<!-- ИТОГО -->
+<div class="panel" id="panel-total">
+  <div class="sec-title">Сводное предложение · Graude Premium</div>
+
+  <div class="total-box">
+    <div class="t-row grp"><span>🍳 Кухня — 7 позиций (S-группа, чёрный)</span></div>
+    <div class="t-row sub"><span>Духовой шкаф + СВЧ · MWG 45.0 S</span><span class="val">82 490 ₽</span></div>
+    <div class="t-row sub"><span>Подогреватель (низкий) · WS 14.0 S</span><span class="val">41 990 ₽</span></div>
+    <div class="t-row sub"><span>Кофемашина · KV 45.0 S</span><span class="val">178 990 ₽</span></div>
+    <div class="t-row sub"><span>Варочная индукция · IK 60.0 AS</span><span class="val">30 990 ₽</span></div>
+    <div class="t-row sub"><span>Вытяжка 60 см · DHF 60.0 S</span><span class="val">12 490 ₽</span></div>
+    <div class="t-row sub"><span>Посудомоечная 45 см · VG 45.2 S</span><span class="val">74 990 ₽</span></div>
+    <div class="t-row sub"><span>Холодильник (интегр.) · IKG 200.3</span><span class="val">110 990 ₽</span></div>
+    <div class="t-row sep"><span>Кухня итого</span><span class="val" style="color:var(--text)">532 930 ₽</span></div>
+
+    <div class="t-row grp" style="margin-top:10px;"><span>🫧 Прачечная — 3 позиции (металлик)</span></div>
+    <div class="t-row sub"><span>Стиральная · WA 100.3</span><span class="val">69 990 ₽</span></div>
+    <div class="t-row sub"><span>Сушильная · TA 100.3</span><span class="val">88 990 ₽</span></div>
+    <div class="t-row sub"><span>Монтажный комплект с полкой · 100231</span><span class="val">9 990 ₽</span></div>
+    <div class="t-row sep"><span>Прачечная итого</span><span class="val" style="color:var(--text)">168 970 ₽</span></div>
+
+    <div class="t-row big"><span>ИТОГО РРЦ</span><span class="val">701 900 ₽</span></div>
+  </div>
+
+  <div class="info-box">
+    <strong>По вытяжке</strong> — DHF 60.0 S встроенная с выдвижным экраном, чёрная, в стиле S-группы. Если нужна бо́льшая мощность — можем рассмотреть встроенную модель другого бренда (BORA, Faber). Уточните — подберём альтернативу.
+  </div>
+  <div class="info-box" style="margin-top:10px;">
+    <strong>MWG 45.0 S vs MWG 45.0 SE</strong> — <strong>S (82 490 ₽)</strong>: чёрный, Easy Control, рекомендуем для S-группы. <strong>SE (96 990 ₽)</strong>: Special Edition, цветной TFT-дисплей — визуально выбивается из серии. Выбор за Вами.
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <span class="logo-h">HOME</span><span class="logo-p">project</span> · homeproject.online · КП действительно 30 дней · Цены РРЦ · 13.09.2026
+</div>
+
+<script>
+function setTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
