@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GRAUDE Premium — КП Василий</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:100vh}
+.kp-header{background:linear-gradient(135deg,#12141C,#1A1D28);border-bottom:2px solid #C9A84C44;padding:26px 32px 20px}
+.kp-hi{max-width:980px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px}
+.logo{font-size:22px;font-weight:700;letter-spacing:3px;color:#fff}.logo em{font-weight:300;font-style:normal;color:#C9A84C}
+.tagline{font-size:10px;color:#555;letter-spacing:1.5px;text-transform:uppercase;margin-top:3px}
+.ci{text-align:right}.ci .cn{font-size:16px;font-weight:600;color:#fff}.ci .cd{font-size:12px;color:#555;margin-top:2px}
+.sub{max-width:980px;margin:14px auto 0;padding:0 32px;font-size:13px;color:#666;line-height:1.6}.sub strong{color:#C9A84C}
+.tabs{max-width:980px;margin:22px auto 0;padding:0 32px;border-bottom:1px solid #1E2030}
+.tab{background:none;border:none;border-bottom:2px solid transparent;padding:10px 20px;font-size:14px;font-weight:500;color:#666;cursor:pointer;margin-bottom:-1px;transition:.15s}
+.tab:hover{color:#ccc}.tab.on{color:#C9A84C;border-bottom-color:#C9A84C}
+.tbadge{background:#C9A84C1A;color:#C9A84C;font-size:11px;padding:1px 6px;border-radius:9px;margin-left:4px}
+.pane{display:none;max-width:980px;margin:0 auto;padding:26px 32px 56px}.pane.on{display:block}
+.item-card{background:#141620;border:1px solid #21243A;border-radius:10px;margin-bottom:24px;overflow:hidden}
+.card-head{background:#1B1E2E;border-bottom:1px solid #21243A;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.head-l{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.model{font-size:15px;font-weight:700;color:#C9A84C}.iname{font-size:13px;color:#888}
+.b-site{background:#173017;color:#5db85d;border:1px solid #2a5a2a;font-size:10px;padding:2px 8px;border-radius:7px}
+.b-order{background:#2A1E0A;color:#C9A84C;border:1px solid #4a3010;font-size:10px;padding:2px 8px;border-radius:7px}
+.iprice{font-size:18px;font-weight:700;color:#fff;white-space:nowrap}
+.card-media{display:flex;border-bottom:1px solid #1E2030}
+.col-title{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;color:#C9A84C;font-weight:600;margin-bottom:0;padding:12px 16px 8px}
+.photos-col{flex:0 0 52%;border-right:1px solid #1E2030;display:flex;flex-direction:column}
+.photo-main{position:relative;background:#ffffff;display:flex;align-items:center;justify-content:center;padding:20px 24px;min-height:200px;cursor:zoom-in;flex:1}
+.photo-main img{max-width:100%;max-height:260px;object-fit:contain;display:block}
+.photo-main:hover .zoom-hint,.photo-thumb:hover .zoom-hint{opacity:1}
+.zoom-hint{position:absolute;top:8px;right:8px;background:#0008;color:#fff;font-size:13px;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;opacity:0;transition:.15s;pointer-events:none}
+.photo-thumb{position:relative;border-top:1px solid #1E2030;background:#1a1d28;display:flex;align-items:center;padding:8px 16px;gap:10px;cursor:zoom-in}
+.photo-thumb img{width:52px;height:52px;object-fit:contain;background:#fff;border-radius:3px;border:1px solid #2a2d3a;flex-shrink:0}
+.thumb-lbl{font-size:11px;color:#888;flex:1}
+.no-photo{background:#0f1118;display:flex;align-items:center;justify-content:center;color:#333;font-size:12px;min-height:160px;padding:20px;text-align:center}
+.scheme-col{flex:1;display:flex;flex-direction:column}
+.scheme-wrap{position:relative;background:#fff;display:flex;align-items:center;justify-content:center;padding:16px;flex:1;cursor:zoom-in;min-height:160px}
+.scheme-wrap img{max-width:100%;max-height:300px;object-fit:contain;display:block}
+.dims-badge{font-size:12px;color:#C9A84C;font-weight:600;text-align:center;padding:10px 14px;background:#0f1118;border-top:1px solid #1E2030}
+.scheme-none{flex:1;background:#0f1118;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;gap:12px}
+.dims-large{font-size:18px;font-weight:700;color:#C9A84C;text-align:center}.dims-unit{font-size:13px;font-weight:400;color:#888}
+.freestanding-note{font-size:11px;color:#555;text-align:center;line-height:1.5}
+.card-specs{padding:12px 20px;display:flex;align-items:center;flex-wrap:wrap;gap:8px;background:#111420}
+.feats{list-style:none;display:flex;flex-wrap:wrap;gap:0;flex:1}
+.feats li{font-size:12px;color:#bbb;padding:0 10px 0 0;line-height:1.7}
+.feats li::after{content:" ·";color:#C9A84C44;margin-left:6px}
+.feats li:last-child::after{content:""}
+.dims-pill{font-size:11px;color:#888;background:#1a1d28;border:1px solid #252836;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.card-body-acc{display:flex;align-items:center;gap:16px;padding:18px 20px;background:#111420}
+.acc-icon{font-size:36px;flex-shrink:0}
+.acc-info .acc-title{font-size:13px;font-weight:600;color:#C9A84C;margin-bottom:6px}
+.compat-section{margin-bottom:32px}
+.compat-section h3{font-size:12px;font-weight:600;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #1E2030}
+.cm-table{width:100%;border-collapse:collapse;font-size:13px}
+.cm-table th{background:#1B1E2E;color:#666;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:9px 12px;text-align:left;border-bottom:1px solid #21243A}
+.cm-table td{padding:10px 12px;border-bottom:1px solid #181A28;vertical-align:middle}
+.cm-table tr:hover td{background:#171926}
+.cm-model{color:#C9A84C;font-weight:600;white-space:nowrap}
+.cm-zone{color:#aaa;font-size:12px}.cm-niche{color:#888;font-size:12px}
+.cm-dims{color:#666;font-size:11px;white-space:nowrap}
+.cm-color{font-size:12px}.cm-ok{color:#5db85d;font-weight:700;text-align:center;font-size:16px}
+.color-block{display:flex;flex-direction:column;gap:8px}
+.color-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:6px;background:#141620;border:1px solid #21243A}
+.color-swatch{width:28px;height:28px;border-radius:4px;flex-shrink:0}
+.color-models{font-size:13px;color:#C9A84C;font-weight:600}
+.color-desc{font-size:12px;color:#888;margin-top:2px}
+.color-tag{margin-left:auto;font-size:10px;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.tag-yes{background:#173017;color:#5db85d;border:1px solid #2a5a2a}
+.diagram-wrap{background:#141620;border:1px solid #21243A;border-radius:8px;padding:16px;margin-bottom:10px}
+.diagram-note{font-size:11px;color:#444;text-align:center}
+.ttable{width:100%;border-collapse:collapse}
+.ttable th{background:#1B1E2E;color:#666;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:9px 14px;text-align:left;border-bottom:1px solid #21243A}
+.ttable td{padding:11px 14px;border-bottom:1px solid #181A28;font-size:14px}
+.ttable tr:hover td{background:#171926}
+.ttable .gh td{background:#12141C;color:#C9A84C;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:7px 14px}
+.ttable .sub td{background:#1B1E2E;font-weight:600;color:#C9A84C}
+.ttable .grand td{background:#1E2240;font-size:18px;font-weight:700;color:#fff;border-top:2px solid #C9A84C55;padding:15px 14px}
+.n{color:#555;width:28px}.pc{text-align:right;font-weight:600;white-space:nowrap}
+.tnote{font-size:12px;color:#555;margin-top:14px;line-height:1.9}.tnote strong{color:#C9A84C}
+.footer{max-width:980px;margin:0 auto;padding:20px 32px 40px;border-top:1px solid #1E2030;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.fnote{font-size:11px;color:#444;line-height:1.7}.fcta{font-size:13px;color:#aaa;text-align:right;line-height:1.7}.fcta strong{color:#C9A84C}
+.lb{display:none;position:fixed;inset:0;background:#000000DD;z-index:9000;align-items:center;justify-content:center;cursor:zoom-out}
+.lb.open{display:flex}.lb img{max-width:94vw;max-height:92vh;object-fit:contain;border-radius:4px}
+.lbx{position:absolute;top:12px;right:16px;background:none;border:none;color:#fff;font-size:30px;cursor:pointer;line-height:1}
+@media(max-width:680px){
+  .card-media{flex-direction:column}
+  .photos-col{border-right:none;border-bottom:1px solid #1E2030;flex:none}
+  .tabs,.pane{padding-left:12px;padding-right:12px}
+  .kp-header{padding:18px 14px}.ci{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="lb" id="lb" onclick="closeLB()">
+  <button class="lbx" onclick="closeLB()">×</button>
+  <img id="lb-img" src="" alt="">
+</div>
+<div class="kp-header">
+  <div class="kp-hi">
+    <div><div class="logo">HOME<em>project</em></div><div class="tagline">Премиальная бытовая техника</div></div>
+    <div class="ci"><div class="cn">КП — Василий</div><div class="cd">GRAUDE PREMIUM · 13 сентября 2026</div></div>
+  </div>
+</div>
+<div class="sub">Подбор <strong>GRAUDE</strong> для кухни и прачечной · Группа <strong>S (чёрное стекло)</strong> · Фото + схема встраивания + матрица совместимости</div>
+<div class="tabs">
+  <button class="tab on" onclick="T('k',this)">🍳 Кухня <span class="tbadge">7</span></button>
+  <button class="tab" onclick="T('l',this)">🫧 Прачечная <span class="tbadge">3</span></button>
+  <button class="tab" onclick="T('c',this)">⚙️ Совместимость</button>
+  <button class="tab" onclick="T('t',this)">📋 Итого</button>
+</div>
+
+<!-- КУХНЯ -->
+<div class="pane on" id="pane-k">
+
+  <!-- MWG 45.0 S -->
+  <div class="item-card">
+    <div class="card-head"><div class="head-l"><span class="model">MWG 45.0 S</span><span class="iname">Компактная печь СВЧ + гриль</span><span class="b-order">Под заказ</span></div><div class="iprice">82&nbsp;490 ₽</div></div>
+    <div class="card-media">
+      <div class="photos-col">
+        <div class="col-title">📷 Визуал прибора</div>
+        <div class="photo-main" onclick="lb('https://new.homeproject.online/static/1789305427727-MWG45.0SE_photo.png')"><img src="https://new.homeproject.online/static/1789305427727-MWG45.0SE_photo.png" alt="MWG 45.0 S"><span class="zoom-hint">🔍</span></div>
+        <div class="photo-thumb" onclick="lb('https://new.homeproject.online/static/1789304738210-MWG45.0SE.png')"><img src="https://new.homeproject.online/static/1789304738210-MWG45.0SE.png" alt="каталог"><span class="thumb-lbl">Каталог →</span><span class="zoom-hint">🔍</span></div>
+      </div>
+      <div class="scheme-col">
+        <div class="col-title">📐 Схема встраивания</div>
+        <div class="scheme-wrap" onclick="lb('https://new.homeproject.online/static/1789305428063-MWG45.0SE_scheme.png')"><img src="https://new.homeproject.online/static/1789305428063-MWG45.0SE_scheme.png" alt="Схема MWG"><span class="zoom-hint">🔍</span></div>
+        <div class="dims-badge">594 × 455 × 486 мм</div>
+      </div>
+    </div>
+    <div class="card-specs"><ul class="feats"><li>8 режимов нагрева + гриль</li><li>СВЧ 900 Вт</li><li>Easy Control + LCD</li><li>Камера нержавеющая сталь</li></ul><div class="dims-pill">⬜ 594 × 455 × 486 мм</div></div>
+  </div>
+
+  <!-- WS 14.0 S -->
+  <div class="item-card">
+    <div class="card-head"><div class="head-l"><span class="model">WS 14.0 S</span><span class="iname">Подогреватель посуды</span><span class="b-site">На сайте</span></div><div class="iprice">41&nbsp;990 ₽</div></div>
+    <div class="card-media">
+      <div class="photos-col">
+        <div class="col-title">📷 Визуал прибора</div>
+        <div class="photo-main" onclick="lb('https://new.homeproject.online/static/1789305432084-WS14.0W_photo.png')"><img src="https://new.homeproject.online/static/1789305432084-WS14.0W_photo.png" alt="WS 14.0 S"><span class="zoom-hint">🔍</span></div>
+        <div class="photo-thumb" onclick="lb('https://new.homeproject.online/static/1789304739950-WS14.0W.png')"><img src="https://new.homeproject.online/static/1789304739950-WS14.0W.png" alt="каталог"><span class="thumb-lbl">Каталог →</span><span class="zoom-hint">🔍</span></div>
+      </div>
+      <div class="scheme-col">
+        <div class="col-title">📐 Схема встраивания</div>
+        <div class="scheme-wrap" onclick="lb('https://new.homeproject.online/static/1789305432551-WS14.0W_scheme.png')"><img src="https://new.homeproject.online/static/1789305432551-WS14.0W_scheme.png" alt="Схема WS"><span class="zoom-hint">🔍</span></div>
+        <div class="dims-badge">594 × 141 × 548 мм</div>
+      </div>
+    </div>
+    <div class="card-specs"><ul class="feats"><li>Температура 30–80°C</li><li>Нагрузка до 20 кг</li><li>Противоскользящий коврик</li><li>Неоновый индикатор</li></ul><div class="dims-pill">⬜ 594 × 141 × 548 мм</div></div>
+  </div>
+
+  <!-- KV 45.0 S -->
+  <div class="item-card">
+    <div class="card-head"><div class="head-l"><span class="model">KV 45.0 S</span><span class="iname">Встраиваемая кофемашина</span><span class="b-order">Под заказ</span></div><div class="iprice">178&nbsp;990 ₽</div></div>
+    <div class="card-media">
+      <div class="photos-col">
+        <div class="col-title">📷 Визуал прибора</div>
+        <div class="photo-main" onclick="lb('https://new.homeproject.online/static/1789305425083-KV45.0SE_photo.png')"><img src="https://new.homeproject.online/static/1789305425083-KV45.0SE_photo.png" alt="KV 45.0 S"><span class="zoom-hint">🔍</span></div>
+        <div class="photo-thumb" onclick="lb('https://new.homeproject.online/static/1789304745369-KV45.0SE.png')"><img src="https://new.homeproject.online/static/1789304745369-KV45.0SE.png" alt="каталог"><span class="thumb-lbl">Каталог →</span><span class="zoom-hint">🔍</span></div>
+      </div>
+      <div class="scheme-col">
+        <div class="col-title">📐 Схема встраивания</div>
+        <div class="scheme-wrap" onclick="lb('https://new.homeproject.online/static/1789305425512-KV45.0SE_scheme.png')"><img src="https://new.homeproject.online/static/1789305425512-KV45.0SE_scheme.png" alt="Схема KV"><span class="zoom-hint">🔍</span></div>
+        <div class="dims-badge">594 × 455 × 486 мм</div>
+      </div>
+    </div>
+    <div class="card-specs"><ul class="feats"><li>Давление 20 бар</li><li>Зёрна + молотый кофе</li><li>Easy Control + LCD</li><li>5 ступеней помола</li></ul><div class="dims-pill">⬜ 594 × 455 × 486 мм</div></div>
+  </div>
+
+  <!-- IK 60.0 AS -->
+  <div class="item-card">
+    <div class="card-head"><div class="head-l"><span class="model">IK 60.0 AS</span><span class="iname">Индукционная варочная панель</span><span class="b-site">На сайте</span></div><div class="iprice">30&nbsp;990 ₽</div></div>
+    <div class="card-media">
+      <div class="photos-col">
+        <div class="col-title">📷 Визуал прибора</div>
+        <div class="photo-main" onclick="lb('https://new.homeproject.online/static/1789305422001-IK60.0AC_photo.png')"><img src="https://new.homeproject.online/static/1789305422001-IK60.0AC_photo.png" alt="IK 60.0 AS"><span class="zoom-hint">🔍</span></div>
+        <div class="photo-thumb" onclick="lb('https://new.homeproject.online/static/1789304747645-IK60.0AC.png')"><img src="https://new.homeproject.online/static/1789304747645-IK60.0AC.png" alt="каталог"><span class="thumb-lbl">Каталог →</span><span class="zoom-hint">🔍</span></div>
+      </div>
+      <div class="scheme-col">
+        <div class="col-title">📐 Схема встраивания</div>
+        <div class="scheme-wrap" onclick="lb('https://new.homeproject.online/static/1789305422356-IK60.0AC_scheme.png')"><img src="https://new.homeproject.online/static/1789305422356-IK60.0AC_scheme.png" alt="Схема IK"><span class="zoom-hint">🔍</span></div>
+        <div class="dims-badge">590 × 56 × 520 мм</div>
+      </div>
+    </div>
+    <div class="card-specs"><ul class="feats"><li>4 индукционные зоны</li><li>Booster, 9 ступеней</li><li>Сенсор-слайдер</li><li>Без рамки</li></ul><div class="dims-pill">⬜ 590 × 56 × 520 мм</div></div>
+  </div>
+
+  <!-- DHF 60.0 S -->
+  <div class="item-card">
+    <div class="card-head"><div class="head-l"><span class="model">DHF 60.0 S</span><span class="iname">Вытяжка с выдвижным экраном</span><span class="b-site">На сайте</span></div><div class="iprice">12&nbsp;490 ₽</div></div>
+    <div class="card-media">
+      <div class="photos-col">
+        <div class="col-title">📷 Визуал прибора</div>
+        <div class="photo-main" onclick="lb('https://new.homeproject.online/static/1789305421420-DHF60.0S_photo.png')"><img src="https://new.homeproject.online/static/1789305421420-DHF60.0S_photo.png" alt="DHF 60.0 S"><span class="zoom-hint">🔍</span></div>
+        <div class="photo-thumb" onclick="lb('https://new.homeproject.online/static/1789304749622-DHF60.0S.png')"><img src="https://new.homeproject.online/static/1789304749622-DHF60.0S.png" alt="каталог"><span class="thumb-lbl">Каталог →</span><span class="zoom-hint">🔍</span></div>
+      </div>
+      <div class="scheme-col">
+        <div class="col-title">📐 Схема встраивания</div>
+        <div class="scheme-wrap" onclick="lb('https://new.homeproject.online/static/1789305421510-DHF60.0S_scheme.png')"><img src="https://new.homeproject.online/static/1789305421510-DHF60.0S_scheme.png" alt="Схема DHF"><span class="zoom-hint">🔍</span></div>
+        <div class="dims-badge">600 × 176 × 280 мм</div>
+      </div>
+    </div>
+    <div class="card-specs"><ul class="feats"><li>550 м³/ч, 64 дБ</li><li>Profi Fan</li><li>2×3-слойный алюм. фильтр</li><li>Classic Control</li></ul><div class="dims-pill">⬜ 600 × 176 × 280 мм</div></div>
+  </div>
+
+  <!-- VG 45.2 S -->
+  <div class="item-card">
+    <div class="card-head"><div class="head-l"><span class="model">VG 45.2 S</span><span class="iname">Посудомоечная машина 45 см</span><span class="b-site">На сайте</span></div><div class="iprice">74&nbsp;990 ₽</div></div>
+    <div class="card-media">
+      <div class="photos-col">
+        <div class="col-title">📷 Визуал прибора</div>
+        <div class="photo-main" onclick="lb('https://new.homeproject.online/static/1789305429240-VG45.2S_photo.png')"><img src="https://new.homeproject.online/static/1789305429240-VG45.2S_photo.png" alt="VG 45.2 S"><span class="zoom-hint">🔍</span></div>
+        <div class="photo-thumb" onclick="lb('https://new.homeproject.online/static/1789304751825-VG45.2S.png')"><img src="https://new.homeproject.online/static/1789304751825-VG45.2S.png" alt="каталог"><span class="thumb-lbl">Каталог →</span><span class="zoom-hint">🔍</span></div>
+      </div>
+      <div class="scheme-col">
+        <div class="col-title">📐 Схема встраивания</div>
+        <div class="scheme-wrap" onclick="lb('https://new.homeproject.online/static/1789305431077-VG45.2S_scheme.png')"><img src="https://new.homeproject.online/static/1789305431077-VG45.2S_scheme.png" alt="Схема VG"><span class="zoom-hint">🔍</span></div>
+        <div class="dims-badge">448 × 818 × 596 мм</div>
+      </div>
+    </div>
+    <div class="card-specs"><ul class="feats"><li>10 комплектов</li><li>Easy Control, класс A</li><li>Bright Ray подсветка</li><li>Eco/Glass/Aqua+</li></ul><div class="dims-pill">⬜ 448 × 818 × 596 мм</div></div>
+  </div>
+
+  <!-- IKG 200.3 -->
+  <div class="item-card">
+    <div class="card-head"><div class="head-l"><span class="model">IKG 200.3</span><span class="iname">Интегрируемый холодильник</span><span class="b-site">На сайте</span></div><div class="iprice">110&nbsp;990 ₽</div></div>
+    <div class="card-media">
+      <div class="photos-col">
+        <div class="col-title">📷 Визуал прибора</div>
+        <div class="photo-main" onclick="lb('https://new.homeproject.online/static/1789305424163-IKG200.3_photo.png')"><img src="https://new.homeproject.online/static/1789305424163-IKG200.3_photo.png" alt="IKG 200.3"><span class="zoom-hint">🔍</span></div>
+        <div class="photo-thumb" onclick="lb('https://new.homeproject.online/static/1789304753866-IKG200.3.png')"><img src="https://new.homeproject.online/static/1789304753866-IKG200.3.png" alt="каталог"><span class="thumb-lbl">Каталог →</span><span class="zoom-hint">🔍</span></div>
+      </div>
+      <div class="scheme-col">
+        <div class="col-title">📐 Схема встраивания</div>
+        <div class="scheme-wrap" onclick="lb('https://new.homeproject.online/static/1789305424556-IKG200.3_scheme.png')"><img src="https://new.homeproject.online/static/1789305424556-IKG200.3_scheme.png" alt="Схема IKG"><span class="zoom-hint">🔍</span></div>
+        <div class="dims-badge">595 × 1772 × 548 мм</div>
+      </div>
+    </div>
+    <div class="card-specs"><ul class="feats"><li>No-Frost</li><li>87 Вт</li><li>Объём 223 л</li><li>Под мебельный фасад</li></ul><div class="dims-pill">⬜ 595 × 1772 × 548 мм</div></div>
+  </div>
+</div>
+
+<!-- ПРАЧЕЧНАЯ -->
+<div class="pane" id="pane-l">
+
+  <!-- WA 100.3 -->
+  <div class="item-card">
+    <div class="card-head"><div class="head-l"><span class="model">WA 100.3</span><span class="iname">Стиральная машина</span><span class="b-site">На сайте</span></div><div class="iprice">69&nbsp;990 ₽</div></div>
+    <div class="card-media">
+      <div class="photos-col">
+        <div class="col-title">📷 Визуал прибора</div>
+        <div class="photo-main" onclick="lb('https://new.homeproject.online/static/1789305431648-WA100.3_photo.png')"><img src="https://new.homeproject.online/static/1789305431648-WA100.3_photo.png" alt="WA 100.3"><span class="zoom-hint">🔍</span></div>
+        <div class="photo-thumb" onclick="lb('https://new.homeproject.online/static/1789304756144-WA100.3.png')"><img src="https://new.homeproject.online/static/1789304756144-WA100.3.png" alt="каталог"><span class="thumb-lbl">Каталог →</span><span class="zoom-hint">🔍</span></div>
+      </div>
+      <div class="scheme-col scheme-none">
+        <div class="col-title">📐 Габаритные размеры</div>
+        <div class="dims-large">598 × 877 × 660<span class="dims-unit"> мм</span></div>
+        <div class="freestanding-note">Отдельностоящая — схема встраивания не требуется</div>
+      </div>
+    </div>
+    <div class="card-specs"><ul class="feats"><li>10 кг</li><li>Класс A, 50 дБ</li><li>Max 75°C</li><li>Цвет металлик</li></ul><div class="dims-pill">⬜ 598 × 877 × 660 мм</div></div>
+  </div>
+
+  <!-- TA 100.3 -->
+  <div class="item-card">
+    <div class="card-head"><div class="head-l"><span class="model">TA 100.3</span><span class="iname">Сушильная машина</span><span class="b-site">На сайте</span></div><div class="iprice">88&nbsp;990 ₽</div></div>
+    <div class="card-media">
+      <div class="photos-col">
+        <div class="col-title">📷 Визуал прибора</div>
+        <div class="photo-main" onclick="lb('https://new.homeproject.online/static/1789305428858-TA100.3_photo.png')"><img src="https://new.homeproject.online/static/1789305428858-TA100.3_photo.png" alt="TA 100.3"><span class="zoom-hint">🔍</span></div>
+        <div class="photo-thumb" onclick="lb('https://new.homeproject.online/static/1789304758165-TA100.3.png')"><img src="https://new.homeproject.online/static/1789304758165-TA100.3.png" alt="каталог"><span class="thumb-lbl">Каталог →</span><span class="zoom-hint">🔍</span></div>
+      </div>
+      <div class="scheme-col scheme-none">
+        <div class="col-title">📐 Габаритные размеры</div>
+        <div class="dims-large">598 × 877 × 660<span class="dims-unit"> мм</span></div>
+        <div class="freestanding-note">Отдельностоящая — для стекирования исп. арт. 100231</div>
+      </div>
+    </div>
+    <div class="card-specs"><ul class="feats"><li>10 кг</li><li>Тепловой насос A+++</li><li>Конденсационная</li><li>Цвет металлик</li></ul><div class="dims-pill">⬜ 598 × 877 × 660 мм</div></div>
+  </div>
+
+  <!-- Арт. 100231 -->
+  <div class="item-card">
+    <div class="card-head"><div class="head-l"><span class="model">Арт. 100231</span><span class="iname">Полка-монтажный комплект (TA на WA)</span><span class="b-order">Под заказ</span></div><div class="iprice">9&nbsp;990 ₽</div></div>
+    <div class="card-body-acc">
+      <div class="acc-icon">📦</div>
+      <div class="acc-info">
+        <div class="acc-title">Монтажный комплект для стекирования</div>
+        <ul class="feats"><li>TA 100.3 устанавливается на WA 100.3</li><li>Оригинальный аксессуар Graude</li><li>Экономия площади прачечной</li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- СОВМЕСТИМОСТЬ -->
+<div class="pane" id="pane-c">
+  <div class="compat-section">
+    <h3>Схема расположения на кухне</h3>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 860 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:860px;margin:0 auto;display:block">
+        <rect width="860" height="480" fill="#0B0D12"/>
+        <rect x="10" y="10" width="840" height="450" fill="#1A1D28" stroke="#2A2D42" stroke-width="1" rx="4"/>
+        <text x="95" y="30" font-family="Inter,sans-serif" font-size="11" fill="#555" font-weight="600" text-transform="uppercase" text-anchor="middle">Колонна</text>
+        <text x="410" y="30" font-family="Inter,sans-serif" font-size="11" fill="#555" font-weight="600" text-anchor="middle">Рабочая зона</text>
+        <text x="730" y="30" font-family="Inter,sans-serif" font-size="11" fill="#555" font-weight="600" text-anchor="middle">Высокий шкаф</text>
+        <!-- KV -->
+        <rect x="20" y="42" width="160" height="100" fill="#0D1020" stroke="#C9A84C" stroke-width="1.5" rx="3"/>
+        <text x="100" y="72" font-family="Inter,sans-serif" font-size="10" fill="#C9A84C" font-weight="600" text-anchor="middle">KV 45.0 S</text>
+        <text x="100" y="86" font-family="Inter,sans-serif" font-size="9" fill="#888" text-anchor="middle">Кофемашина</text>
+        <text x="100" y="100" font-family="Inter,sans-serif" font-size="8" fill="#666" text-anchor="middle">594×455×486 мм</text>
+        <text x="100" y="134" font-family="Inter,sans-serif" font-size="8" fill="#666" text-anchor="middle">ниша 60×45 см</text>
+        <!-- MWG -->
+        <rect x="20" y="148" width="160" height="100" fill="#0D1020" stroke="#C9A84C" stroke-width="1.5" rx="3"/>
+        <text x="100" y="178" font-family="Inter,sans-serif" font-size="10" fill="#C9A84C" font-weight="600" text-anchor="middle">MWG 45.0 S</text>
+        <text x="100" y="192" font-family="Inter,sans-serif" font-size="9" fill="#888" text-anchor="middle">СВЧ + гриль</text>
+        <text x="100" y="206" font-family="Inter,sans-serif" font-size="8" fill="#666" text-anchor="middle">594×455×486 мм</text>
+        <text x="100" y="238" font-family="Inter,sans-serif" font-size="8" fill="#666" text-anchor="middle">ниша 60×45 см</text>
+        <!-- WS -->
+        <rect x="20" y="254" width="160" height="48" fill="#0D1020" stroke="#C9A84C" stroke-width="1.5" rx="3"/>
+        <text x="100" y="272" font-family="Inter,sans-serif" font-size="10" fill="#C9A84C" font-weight="600" text-anchor="middle">WS 14.0 S</text>
+        <text x="100" y="286" font-family="Inter,sans-serif" font-size="8" fill="#888" text-anchor="middle">Подогреватель · ниша 60×14 см</text>
+        <!-- Storage left -->
+        <rect x="20" y="308" width="160" height="90" fill="#111420" stroke="#252836" stroke-width="1" rx="3"/>
+        <text x="100" y="358" font-family="Inter,sans-serif" font-size="8" fill="#333" text-anchor="middle">шкаф хранения</text>
+        <rect x="20" y="400" width="160" height="22" fill="#131620"/>
+        <!-- DHF hood -->
+        <rect x="200" y="42" width="420" height="60" fill="#0D1020" stroke="#C9A84C" stroke-width="1.5" rx="3"/>
+        <text x="410" y="66" font-family="Inter,sans-serif" font-size="10" fill="#C9A84C" font-weight="600" text-anchor="middle">DHF 60.0 S — Вытяжка</text>
+        <text x="410" y="82" font-family="Inter,sans-serif" font-size="8" fill="#888" text-anchor="middle">600×176 мм · 550 м³/ч · чёрное стекло S</text>
+        <!-- Open space -->
+        <rect x="200" y="108" width="420" height="100" fill="#0f1118" stroke="#1a1d2a" stroke-width="1" rx="2"/>
+        <text x="410" y="165" font-family="Inter,sans-serif" font-size="9" fill="#222" text-anchor="middle">рабочая зона / фартук</text>
+        <!-- Counter -->
+        <rect x="200" y="208" width="420" height="16" fill="#252A3A" stroke="#3A3F55" stroke-width="1"/>
+        <!-- IK in counter -->
+        <rect x="230" y="200" width="200" height="24" fill="#0D1020" stroke="#C9A84C" stroke-width="1.5" rx="2"/>
+        <text x="330" y="215" font-family="Inter,sans-serif" font-size="9" fill="#C9A84C" font-weight="600" text-anchor="middle">IK 60.0 AS · Индукция · 590×520 мм</text>
+        <!-- VG dishwasher -->
+        <rect x="200" y="225" width="200" height="175" fill="#0D1020" stroke="#C9A84C" stroke-width="1.5" rx="3"/>
+        <text x="300" y="295" font-family="Inter,sans-serif" font-size="10" fill="#C9A84C" font-weight="600" text-anchor="middle">VG 45.2 S</text>
+        <text x="300" y="311" font-family="Inter,sans-serif" font-size="9" fill="#888" text-anchor="middle">Посудомоечная 45 см</text>
+        <text x="300" y="327" font-family="Inter,sans-serif" font-size="8" fill="#666" text-anchor="middle">ниша 448×818 мм</text>
+        <!-- other lower cabinets -->
+        <rect x="410" y="225" width="210" height="175" fill="#111420" stroke="#252836" stroke-width="1" rx="3"/>
+        <text x="515" y="318" font-family="Inter,sans-serif" font-size="8" fill="#333" text-anchor="middle">нижние шкафы</text>
+        <rect x="200" y="400" width="420" height="22" fill="#131620"/>
+        <!-- IKG right column -->
+        <rect x="642" y="42" width="198" height="380" fill="#0D1020" stroke="#C9A84C" stroke-width="1.5" rx="3"/>
+        <text x="741" y="100" font-family="Inter,sans-serif" font-size="10" fill="#C9A84C" font-weight="600" text-anchor="middle">IKG 200.3</text>
+        <text x="741" y="116" font-family="Inter,sans-serif" font-size="9" fill="#888" text-anchor="middle">Холодильник</text>
+        <text x="741" y="132" font-family="Inter,sans-serif" font-size="9" fill="#888" text-anchor="middle">интегрируемый</text>
+        <text x="741" y="158" font-family="Inter,sans-serif" font-size="8" fill="#666" text-anchor="middle">595×1772 мм</text>
+        <text x="741" y="172" font-family="Inter,sans-serif" font-size="8" fill="#666" text-anchor="middle">под мебельный фасад</text>
+        <rect x="642" y="400" width="198" height="22" fill="#131620"/>
+        <!-- Legend -->
+        <rect x="20" y="428" width="820" height="42" fill="#0D0F18"/>
+        <rect x="30" y="436" width="12" height="12" fill="#0D1020" stroke="#C9A84C" stroke-width="1.5" rx="2"/>
+        <text x="48" y="447" font-family="Inter,sans-serif" font-size="8" fill="#C9A84C">Группа S / AS — чёрное стекло</text>
+        <rect x="200" y="436" width="12" height="12" fill="#111420" stroke="#252836" stroke-width="1" rx="2"/>
+        <text x="218" y="447" font-family="Inter,sans-serif" font-size="8" fill="#555">Мебельный шкаф</text>
+        <rect x="370" y="436" width="12" height="12" fill="#252A3A" stroke="#3A3F55" stroke-width="1" rx="2"/>
+        <text x="388" y="447" font-family="Inter,sans-serif" font-size="8" fill="#888">Столешница</text>
+        <text x="30" y="464" font-family="Inter,sans-serif" font-size="8" fill="#333">* Схема условная. Расположение определяется проектом кухни. Все приборы — GRAUDE PREMIUM/COMFORT.</text>
+      </svg>
+    </div>
+    <div class="diagram-note">Нажмите на фото или схему встраивания в картах выше для увеличения</div>
+  </div>
+
+  <div class="compat-section">
+    <h3>Матрица совместимости — монтаж и размеры ниш</h3>
+    <table class="cm-table">
+      <tr><th>Модель</th><th>Тип прибора</th><th>Зона монтажа</th><th>Ш × В ниши</th><th>Габариты мм</th><th>Цвет / группа</th><th style="text-align:center">✓</th></tr>
+      <tr><td class="cm-model">KV 45.0 S</td><td>Кофемашина</td><td class="cm-zone">Встроенная колонна</td><td class="cm-niche">60 × 45 см</td><td class="cm-dims">594×455×486</td><td class="cm-color">S ⬛</td><td class="cm-ok">✓</td></tr>
+      <tr><td class="cm-model">MWG 45.0 S</td><td>СВЧ + гриль</td><td class="cm-zone">Встроенная колонна</td><td class="cm-niche">60 × 45 см</td><td class="cm-dims">594×455×486</td><td class="cm-color">S ⬛</td><td class="cm-ok">✓</td></tr>
+      <tr><td class="cm-model">WS 14.0 S</td><td>Подогреватель</td><td class="cm-zone">Встроенная колонна</td><td class="cm-niche">60 × 14 см</td><td class="cm-dims">594×141×548</td><td class="cm-color">S ⬛</td><td class="cm-ok">✓</td></tr>
+      <tr><td class="cm-model">IK 60.0 AS</td><td>Варочная панель</td><td class="cm-zone">Столешница (врезная)</td><td class="cm-niche">59 × 5.6 см</td><td class="cm-dims">590×56×520</td><td class="cm-color">AS ⬛</td><td class="cm-ok">✓</td></tr>
+      <tr><td class="cm-model">DHF 60.0 S</td><td>Вытяжка</td><td class="cm-zone">Верхний шкаф</td><td class="cm-niche">60 × 18 см</td><td class="cm-dims">600×176×280</td><td class="cm-color">S ⬛</td><td class="cm-ok">✓</td></tr>
+      <tr><td class="cm-model">VG 45.2 S</td><td>Посудомоечная 45</td><td class="cm-zone">Нижний шкаф</td><td class="cm-niche">45 × 82 см</td><td class="cm-dims">448×818×596</td><td class="cm-color">S ⬛</td><td class="cm-ok">✓</td></tr>
+      <tr><td class="cm-model">IKG 200.3</td><td>Холодильник</td><td class="cm-zone">Высокий шкаф</td><td class="cm-niche">60 × 178 см</td><td class="cm-dims">595×1772×548</td><td class="cm-color">Под фасад</td><td class="cm-ok">✓</td></tr>
+      <tr><td class="cm-model">WA 100.3</td><td>Стиральная</td><td class="cm-zone">Прачечная (отд.)</td><td class="cm-niche">—</td><td class="cm-dims">598×877×660</td><td class="cm-color">Металлик</td><td class="cm-ok">✓</td></tr>
+      <tr><td class="cm-model">TA 100.3</td><td>Сушильная</td><td class="cm-zone">Прачечная (отд.)</td><td class="cm-niche">—</td><td class="cm-dims">598×877×660</td><td class="cm-color">Металлик</td><td class="cm-ok">✓</td></tr>
+      <tr><td class="cm-model">Арт.100231</td><td>Полка стекирования</td><td class="cm-zone">Прачечная</td><td class="cm-niche">—</td><td class="cm-dims">—</td><td class="cm-color">—</td><td class="cm-ok">✓</td></tr>
+    </table>
+  </div>
+
+  <div class="compat-section">
+    <h3>Цветовая совместимость</h3>
+    <div class="color-block">
+      <div class="color-row">
+        <div class="color-swatch" style="background:#111;border:1px solid #333;border-radius:4px"></div>
+        <div><div class="color-models">KV · MWG · WS · DHF · VG</div><div class="color-desc">Группа S — чёрное закалённое стекло, одна линейка Easy Control</div></div>
+        <span class="color-tag tag-yes">✓ Полная совместимость</span>
+      </div>
+      <div class="color-row">
+        <div class="color-swatch" style="background:#111;border:1px solid #222;border-radius:4px"></div>
+        <div><div class="color-models">IK 60.0 AS</div><div class="color-desc">Группа AS — чёрное стекло без рамки. Визуально идентично S на кухне</div></div>
+        <span class="color-tag tag-yes">✓ Совместимо визуально</span>
+      </div>
+      <div class="color-row">
+        <div class="color-swatch" style="background:#f5f0e8;border:1px solid #ddd;border-radius:4px"></div>
+        <div><div class="color-models">IKG 200.3</div><div class="color-desc">Интегрируемый — закрывается мебельным фасадом. Цвет техники не виден</div></div>
+        <span class="color-tag tag-yes">✓ Под любой гарнитур</span>
+      </div>
+      <div class="color-row">
+        <div class="color-swatch" style="background:#666;border:1px solid #888;border-radius:4px"></div>
+        <div><div class="color-models">WA 100.3 · TA 100.3</div><div class="color-desc">Прачечная: металлик Premium. Отдельная зона, цвет пары согласован</div></div>
+        <span class="color-tag tag-yes">✓ Единая пара</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="compat-section">
+    <h3>Итог проверки</h3>
+    <div class="color-row" style="background:#101A10;border-color:#1E3A1E">
+      <div style="font-size:24px">✅</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:#5db85d">Все 10 позиций совместимы</div>
+        <div style="font-size:12px;color:#7ab;margin-top:4px">Единая группа S/AS · 8 из 10 на сайте · MWG 45.0 S и KV 45.0 S под заказ у поставщика</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ИТОГО -->
+<div class="pane" id="pane-t">
+  <table class="ttable">
+    <tr><th class="n">#</th><th>Модель</th><th>Наименование</th><th style="text-align:right">Цена</th></tr>
+    <tr class="gh"><td colspan="4">🍳 Кухня</td></tr>
+    <tr><td class="n">1</td><td><b>MWG 45.0 S</b></td><td>Компактная печь СВЧ + гриль</td><td class="pc">82&nbsp;490 ₽</td></tr>
+    <tr><td class="n">2</td><td><b>WS 14.0 S</b></td><td>Подогреватель посуды</td><td class="pc">41&nbsp;990 ₽</td></tr>
+    <tr><td class="n">3</td><td><b>KV 45.0 S</b></td><td>Встраиваемая кофемашина</td><td class="pc">178&nbsp;990 ₽</td></tr>
+    <tr><td class="n">4</td><td><b>IK 60.0 AS</b></td><td>Индукционная варочная панель</td><td class="pc">30&nbsp;990 ₽</td></tr>
+    <tr><td class="n">5</td><td><b>DHF 60.0 S</b></td><td>Вытяжка с выдвижным экраном</td><td class="pc">12&nbsp;490 ₽</td></tr>
+    <tr><td class="n">6</td><td><b>VG 45.2 S</b></td><td>Посудомоечная машина 45 см</td><td class="pc">74&nbsp;990 ₽</td></tr>
+    <tr><td class="n">7</td><td><b>IKG 200.3</b></td><td>Интегрируемый холодильник</td><td class="pc">110&nbsp;990 ₽</td></tr>
+    <tr class="sub"><td></td><td colspan="2"><b>Итого кухня</b></td><td class="pc">532&nbsp;930 ₽</td></tr>
+    <tr class="gh"><td colspan="4">🫧 Прачечная</td></tr>
+    <tr><td class="n">1</td><td><b>WA 100.3</b></td><td>Стиральная машина</td><td class="pc">69&nbsp;990 ₽</td></tr>
+    <tr><td class="n">2</td><td><b>TA 100.3</b></td><td>Сушильная машина</td><td class="pc">88&nbsp;990 ₽</td></tr>
+    <tr><td class="n">3</td><td><b>Арт. 100231</b></td><td>Полка-монтажный комплект</td><td class="pc">9&nbsp;990 ₽</td></tr>
+    <tr class="sub"><td></td><td colspan="2"><b>Итого прачечная</b></td><td class="pc">168&nbsp;970 ₽</td></tr>
+    <tr class="grand"><td></td><td colspan="2">ИТОГО</td><td class="pc">701&nbsp;900 ₽</td></tr>
+  </table>
+  <div class="tnote">
+    <strong>На сайте homeproject.online:</strong> 8 из 10 позиций опубликованы по указанным ценам.<br>
+    <strong>Под заказ:</strong> MWG 45.0 S, KV 45.0 S и арт. 100231 — доступны у поставщика Graude, срок уточняется.<br>
+    <strong>AI-консультант Home Project</strong> работает 24/7 — в выходные и праздники.
+  </div>
+</div>
+
+<div class="footer">
+  <div class="fnote">Фото и схемы встраивания — каталог Graude 2025.<br>Нажмите на фото или схему → откроется в полном размере.</div>
+  <div class="fcta"><strong>Home Project</strong> · AI-консультант 24/7<br>homeproject.online</div>
+</div>
+
+<script>
+function T(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pane-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+function lb(src){document.getElementById('lb-img').src=src;document.getElementById('lb').classList.add('open')}
+function closeLB(){document.getElementById('lb').classList.remove('open');document.getElementById('lb-img').src=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
+</script>
+</body>
+</html>
