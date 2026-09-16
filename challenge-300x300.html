@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1080px;
+    height: 1080px;
+    background: #0a0a0a;
+    font-family: 'Arial Black', 'Impact', sans-serif;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .wrap {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .circle-bg {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.07;
+  }
+  .c1 { width: 900px; height: 900px; border: 80px solid #fff; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .c2 { width: 600px; height: 600px; border: 3px solid #fff; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+  .divider {
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent);
+    left: 50%;
+  }
+
+  .panel-left {
+    position: absolute;
+    left: 0; top: 0;
+    width: 540px; height: 1080px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+  }
+
+  .tag-left {
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 24px;
+    font-family: Arial, sans-serif;
+  }
+
+  .big-num {
+    font-size: 200px;
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+    letter-spacing: -10px;
+  }
+
+  .cross {
+    font-size: 60px;
+    color: rgba(255,255,255,0.3);
+    margin: 8px 0;
+  }
+
+  .second-num {
+    font-size: 160px;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, #e8d5b0, #c9a96e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -8px;
+  }
+
+  .label-left {
+    margin-top: 28px;
+    text-align: center;
+    color: rgba(255,255,255,0.55);
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  .label-left strong {
+    display: block;
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 6px;
+    letter-spacing: 0;
+  }
+
+  .panel-right {
+    position: absolute;
+    right: 0; top: 0;
+    width: 540px; height: 1080px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    background: linear-gradient(160deg, rgba(200,165,100,0.06) 0%, transparent 60%);
+  }
+
+  .tag-right {
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(200,165,100,0.6);
+    margin-bottom: 24px;
+    font-family: Arial, sans-serif;
+  }
+
+  .biz-num {
+    font-size: 200px;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, #e8d5b0, #a87c3a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -10px;
+  }
+
+  .biz-cross { color: rgba(200,165,100,0.35); font-size: 60px; margin: 8px 0; }
+
+  .idea-block {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .idea-num {
+    font-size: 88px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -4px;
+  }
+
+  .idea-label {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(200,165,100,0.7);
+    margin-top: 4px;
+  }
+
+  .label-right {
+    margin-top: 28px;
+    text-align: center;
+    color: rgba(255,255,255,0.55);
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  .label-right strong {
+    display: block;
+    color: #e8d5b0;
+    font-size: 22px;
+    margin-bottom: 6px;
+    letter-spacing: 0;
+  }
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(to right, #1a1a1a 0%, #c9a96e 50%, #1a1a1a 100%);
+  }
+
+  .hashtag {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 3px;
+    white-space: nowrap;
+  }
+
+  .top-title {
+    position: absolute;
+    top: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.18);
+    white-space: nowrap;
+  }
+
+  .icon { font-size: 36px; margin-bottom: 12px; display: block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="circle-bg c1"></div>
+  <div class="circle-bg c2"></div>
+  <div class="divider"></div>
+
+  <span class="top-title">CHALLENGE · 2026</span>
+
+  <!-- Левая: тело -->
+  <div class="panel-left">
+    <div class="tag-left">Личный вызов</div>
+    <span class="icon">💪</span>
+    <div class="big-num">300</div>
+    <div class="cross">×</div>
+    <div class="second-num">300</div>
+    <div class="label-left">
+      <strong>Отжиманий</strong>
+      каждый день<br>300 дней подряд
+    </div>
+  </div>
+
+  <!-- Правая: бизнес -->
+  <div class="panel-right">
+    <div class="tag-right">Бизнес-вызов</div>
+    <span class="icon">💡</span>
+    <div class="biz-num">300</div>
+    <div class="biz-cross">×</div>
+    <div class="idea-block">
+      <div class="idea-num">1</div>
+      <div class="idea-label">идея в день</div>
+    </div>
+    <div class="label-right">
+      <strong>Для клиента</strong>
+      каждый день<br>300 дней подряд
+    </div>
+  </div>
+
+  <div class="hashtag">#300x300 &nbsp;·&nbsp; #BusinessChallenge &nbsp;·&nbsp; #HomeProject</div>
+  <div class="bottom-bar"></div>
+</div>
+</body>
+</html>
