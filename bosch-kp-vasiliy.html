@@ -40,16 +40,17 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
 .panel+.panel{border-left:1px solid #1E2030}
 .panel-head{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;color:#C9A84C;font-weight:600;padding:12px 16px 10px;background:#12141C;border-bottom:1px solid #1E2030;display:flex;align-items:center;gap:7px}
 .panel-head .pm{color:#fff}
+.img-box{position:relative;background:#fff;display:flex;align-items:center;justify-content:center;padding:22px 22px 14px;flex:1;cursor:zoom-in;min-height:230px}
+.img-box img{max-width:100%;max-height:280px;object-fit:contain;display:block}
+.img-box:hover .zoom-hint{opacity:1}
+.zoom-hint{position:absolute;top:8px;right:8px;background:#0007;color:#fff;font-size:13px;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;opacity:0;transition:.15s;pointer-events:none}
+.caption{font-size:12px;color:#c9b98a;text-align:center;padding:10px 14px 13px;background:#0f1118;border-top:1px solid #1E2030;line-height:1.5}
+.caption b{color:#C9A84C;font-weight:600}
 .spec-wrap{flex:1;background:#0f1118;padding:16px 18px;display:flex;align-items:center}
 .spec-list{list-style:none;font-size:13px;color:#bbb;line-height:2.05;width:100%}
 .spec-list li{padding-left:16px;position:relative}
 .spec-list li::before{content:"·";position:absolute;left:2px;color:#C9A84C;font-weight:700}
 .spec-list b{color:#e0cd94;font-weight:600}
-.dims-box{flex:1;background:#0f1118;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 22px;gap:12px;min-height:190px}
-.dims-large{font-size:22px;font-weight:700;color:#C9A84C;text-align:center;letter-spacing:.5px}
-.dims-unit{display:block;font-size:12px;font-weight:400;color:#888;margin-top:6px;letter-spacing:1px}
-.dims-note{font-size:11px;color:#666;text-align:center;line-height:1.6;max-width:230px}
-.dims-note b{color:#999}
 .card-specs{padding:14px 20px;display:flex;align-items:center;flex-wrap:wrap;gap:10px;background:#111420}
 .feats{list-style:none;display:flex;flex-wrap:wrap;flex:1}
 .feats li{font-size:12px;color:#bbb;padding:0 10px 0 0;position:relative;line-height:1.7}
@@ -58,10 +59,6 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
 .dims-pill{font-size:11px;color:#999;background:#1a1d28;border:1px solid #252836;padding:3px 11px;border-radius:12px;white-space:nowrap}
 .card-note{padding:10px 20px;background:#14110A;border-top:1px solid #21243A;font-size:12px;color:#c9bfa6;line-height:1.6}
 .card-note b{color:#C9A84C}
-.card-body-acc{display:flex;align-items:center;gap:16px;padding:20px;background:#111420}
-.acc-icon{font-size:38px;flex-shrink:0}
-.acc-info .acc-title{font-size:14px;font-weight:600;color:#C9A84C;margin-bottom:6px}
-.acc-info .acc-desc{font-size:13px;color:#999;line-height:1.7}
 .compat-section{margin-bottom:32px}
 .compat-section h3{font-size:13px;font-weight:600;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #1E2030}
 .cm-table{width:100%;border-collapse:collapse;font-size:13px}
@@ -93,15 +90,23 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
 .tnote strong{color:#C9A84C}
 .footer{max-width:980px;margin:0 auto;padding:20px 32px 40px;border-top:1px solid #1E2030;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
 .fnote{font-size:11px;color:#444;line-height:1.7}.fcta{font-size:13px;color:#aaa;text-align:right;line-height:1.7}.fcta strong{color:#C9A84C}
+.lb{display:none;position:fixed;inset:0;background:#000000E0;z-index:9000;align-items:center;justify-content:center;cursor:zoom-out}
+.lb.open{display:flex}.lb img{max-width:94vw;max-height:92vh;object-fit:contain;border-radius:4px;background:#fff}
+.lbx{position:absolute;top:12px;right:16px;background:none;border:none;color:#fff;font-size:30px;cursor:pointer;line-height:1}
 @media(max-width:680px){
   .panels{flex-direction:column}
   .panel+.panel{border-left:none;border-top:1px solid #1E2030}
   .tabs,.pane,.oq{padding-left:12px;padding-right:12px}
   .kp-header{padding:18px 14px}.ci{text-align:left}
+  .img-box img{max-height:240px}
 }
 </style>
 </head>
 <body>
+<div class="lb" id="lb" onclick="closeLB()">
+  <button class="lbx" onclick="closeLB()">×</button>
+  <img id="lb-img" src="" alt="">
+</div>
 
 <div class="kp-header">
   <div class="kp-hi">
@@ -112,7 +117,7 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
 <div class="sub">
   Комплект встраиваемой и отдельностоящей техники <strong>Bosch</strong> для кухни и прачечной — линейка Serie 8 / чёрное стекло, единый премиальный стиль.<br>
   В комплект также входят: встраиваемый холодильник <strong>Liebherr</strong> (NoFrost) и встраиваемая вытяжка <strong>Falmec</strong> (нержавеющая сталь).<br>
-  Для каждого прибора — <strong>ключевые характеристики</strong> и <strong>габариты встраивания</strong>. Все позиции проверены по актуальному наличию поставщика.
+  Для каждого прибора — <strong>фото</strong>, <strong>ключевые характеристики</strong> и <strong>габариты</strong>. Нажмите на изображение — откроется в полном размере.
 </div>
 
 <div class="oq">
@@ -132,174 +137,181 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
   <button class="tab" onclick="T('t',this)">Итого</button>
 </div>
 
+<!-- КУХНЯ -->
 <div class="pane on" id="pane-k">
 
+  <!-- Духовой шкаф -->
   <div class="item-card">
     <div class="card-head">
       <div class="head-l"><span class="model">HBG7221B1</span><span class="iname">Духовой шкаф 60 см</span><span class="brand-tag">BOSCH · Serie 8</span><span class="b-site">В наличии</span></div>
-      <div class="iprice">99 000 ₽</div>
+      <div class="iprice">89 900 ₽</div>
     </div>
     <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">HBG7221B1</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534461198-hbg.png')"><img src="https://new.homeproject.online/static/1789534461198-hbg.png" alt="Bosch HBG7221B1"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>HBG7221B1</b> · духовой шкаф 60 см · Carbon Black (чёрное стекло)</div>
+      </div>
       <div class="panel">
         <div class="panel-head">⚙️ Характеристики — <span class="pm">HBG7221B1</span></div>
         <div class="spec-wrap"><ul class="spec-list">
           <li>Полезный объём <b>71 л</b></li>
-          <li><b>Пиролитическая очистка</b> — выжигание загрязнений</li>
+          <li><b>Пиролитическая очистка</b> — духовка очищает себя сама</li>
+          <li><b>4D HotAir</b> — равномерная выпечка на любом уровне</li>
           <li>11 режимов нагрева, 30–300&nbsp;°C</li>
-          <li>Сенсорный TFT-дисплей</li>
-          <li>Дверца с тройным остеклением</li>
+          <li>Сенсорный TFT-дисплей · дверца с тройным остеклением</li>
           <li>Класс энергоэффективности <b>A</b></li>
+          <li>Габариты (В×Ш×Г): <b>595 × 594 × 548 мм</b> · ниша 60 см</li>
         </ul></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">📐 Габариты — <span class="pm">HBG7221B1</span></div>
-        <div class="dims-box">
-          <div class="dims-large">595 × 594 × 548<span class="dims-unit">В × Ш × Г, мм</span></div>
-          <div class="dims-note">Встраиваемый · ниша <b>60 см</b> · Carbon Black (чёрное стекло)</div>
-        </div>
       </div>
     </div>
     <div class="card-specs">
       <ul class="feats"><li>Serie 8</li><li>71 л</li><li>Пиролиз</li><li>4D HotAir</li></ul>
-      <div class="dims-pill">⬛ Чёрное стекло</div>
+      <div class="dims-pill">⬛ 595 × 594 × 548 мм</div>
     </div>
-    <div class="card-note"><b>4D HotAir</b> — равномерная конвекция на любом уровне, можно печь на нескольких противнях одновременно. <b>Пиролиз</b> — духовка очищает себя сама.</div>
+    <div class="card-note"><b>4D HotAir</b> позволяет печь на нескольких противнях одновременно без смешивания запахов. <b>Пиролиз</b> — очистка выжиганием, остаётся только зола.</div>
   </div>
 
+  <!-- Варочная панель -->
   <div class="item-card">
     <div class="card-head">
-      <div class="head-l"><span class="model">PVS611BB6E</span><span class="iname">Индукционная варочная панель 60 см</span><span class="brand-tag">BOSCH · Serie 4</span><span class="b-site">В наличии</span></div>
-      <div class="iprice">70 600 ₽</div>
+      <div class="head-l"><span class="model">PVS611BB6E</span><span class="iname">Индукционнаяварочная панель 60 см</span><span class="brand-tag">BOSCH · Serie 4</span><span class="b-site">В наличии</span></div>
+      <div class="iprice">65 000 ₽</div>
     </div>
     <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">PVS611BB6E</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534461550-pvs.png')"><img src="https://new.homeproject.online/static/1789534461550-pvs.png" alt="Bosch PVS611BB6E"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>PVS611BB6E</b> · индукционная панель · чёрное стекло, без рамки</div>
+      </div>
       <div class="panel">
         <div class="panel-head">⚙️ Характеристики — <span class="pm">PVS611BB6E</span></div>
         <div class="spec-wrap"><ul class="spec-list">
           <li>4 индукционные зоны, 2 объединяемые (<b>CombiZone</b>)</li>
           <li>17 ступеней мощности</li>
-          <li><b>PowerBoost</b> — усиление мощности зоны</li>
+          <li><b>PowerBoost</b> — усиление мощности для быстрого закипания</li>
           <li>Сенсорное управление TouchSelect</li>
-          <li>Индикатор остаточного тепла</li>
-          <li>Блокировка от детей, распознавание посуды</li>
+          <li>Индикатор остаточного тепла · распознавание посуды</li>
+          <li>Блокировка от детей</li>
+          <li>Габариты (В×Ш×Г): <b>51 × 592 × 522 мм</b> · ниша 560 × 490 мм</li>
         </ul></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">📐 Габариты — <span class="pm">PVS611BB6E</span></div>
-        <div class="dims-box">
-          <div class="dims-large">51 × 592 × 522<span class="dims-unit">В × Ш × Г, мм</span></div>
-          <div class="dims-note">Врезная в столешницу · ниша <b>560 × 490 мм</b> · чёрное стекло</div>
-        </div>
       </div>
     </div>
     <div class="card-specs">
       <ul class="feats"><li>Serie 4</li><li>Индукция</li><li>CombiZone</li><li>PowerBoost</li></ul>
-      <div class="dims-pill">⬛ Чёрное стекло</div>
+      <div class="dims-pill">⬛ 51 × 592 × 522 мм</div>
     </div>
-    <div class="card-note"><b>CombiZone</b> — две зоны объединяются под крупную или нестандартную посуду. <b>PowerBoost</b> — быстрое закипание воды.</div>
+    <div class="card-note"><b>CombiZone</b> — две зоны объединяются под крупную или нестандартную посуду (утятница, гриль).</div>
   </div>
 
+  <!-- СВЧ -->
   <div class="item-card">
     <div class="card-head">
       <div class="head-l"><span class="model">BFL7221B1</span><span class="iname">Встраиваемая микроволновая печь</span><span class="brand-tag">BOSCH · Serie 8</span><span class="b-site">В наличии</span></div>
-      <div class="iprice">89 900 ₽</div>
+      <div class="iprice">82 500 ₽</div>
     </div>
     <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">BFL7221B1</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534461694-bfl.png')"><img src="https://new.homeproject.online/static/1789534461694-bfl.png" alt="Bosch BFL7221B1"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>BFL7221B1</b> · встраиваемая СВЧ · Carbon Black · Digital Ring</div>
+      </div>
       <div class="panel">
         <div class="panel-head">⚙️ Характеристики — <span class="pm">BFL7221B1</span></div>
         <div class="spec-wrap"><ul class="spec-list">
           <li>Объём камеры <b>21 л</b></li>
           <li>Мощность СВЧ до <b>900 Вт</b>, 5 уровней</li>
-          <li><b>Инверторная</b> подача микроволн</li>
+          <li><b>Инверторная</b> подача микроволн — равномерный разогрев</li>
           <li>7 автопрограмм, включая разморозку</li>
           <li>Управление Digital Ring + сенсор</li>
           <li>Камера из нержавеющей стали, LED-подсветка</li>
+          <li>Ниша высотой <b>38 см</b> · габариты ~382 × 594 × 320 мм*</li>
         </ul></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">📐 Габариты — <span class="pm">BFL7221B1</span></div>
-        <div class="dims-box">
-          <div class="dims-large">382 × 594 × 320<span class="dims-unit">В × Ш × Г, мм*</span></div>
-          <div class="dims-note">Встраиваемая · ниша высотой <b>38 см</b> · Carbon Black<br><b>* габариты уточняются по даташиту</b></div>
-        </div>
       </div>
     </div>
     <div class="card-specs">
       <ul class="feats"><li>Serie 8</li><li>21 л</li><li>Инвертор</li><li>Digital Ring</li></ul>
-      <div class="dims-pill">⬛ Чёрное стекло</div>
+      <div class="dims-pill">⬛ ниша 38 см · ~382 × 594 × 320 мм*</div>
     </div>
-    <div class="card-note"><b>Инверторная технология</b> — плавное поддержание мощности, равномерный разогрев без пересушивания краёв.</div>
+    <div class="card-note"><b>Инверторная технология</b> — плавное поддержание мощности, равномерный разогрев без пересушивания краёв. <b>* точные габариты — по официальному даташиту под проект.</b></div>
   </div>
 
+  <!-- Кофемашина -->
   <div class="item-card">
     <div class="card-head">
       <div class="head-l"><span class="model">CTL7181B0</span><span class="iname">Встраиваемая кофемашина</span><span class="brand-tag">BOSCH · Serie 8</span><span class="b-site">В наличии</span></div>
-      <div class="iprice">246 000 ₽</div>
+      <div class="iprice">229 000 ₽</div>
     </div>
     <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">CTL7181B0</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534462367-ctl.png')"><img src="https://new.homeproject.online/static/1789534462367-ctl.png" alt="Bosch CTL7181B0"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>CTL7181B0</b> · встраиваемая кофемашина · чёрное стекло · TFT-экран</div>
+      </div>
       <div class="panel">
         <div class="panel-head">⚙️ Характеристики — <span class="pm">CTL7181B0</span></div>
         <div class="spec-wrap"><ul class="spec-list">
           <li><b>Съёмный бак 2,4 л</b> — без подключения к водопроводу</li>
           <li>Помпа <b>19 бар</b></li>
-          <li>Зерновой и молотый кофе</li>
+          <li>Зерновой и молотый кофе · регулировка помола</li>
           <li><b>OneTouch DoubleCup</b> — две чашки одним касанием</li>
-          <li>Сенсорный TFT-экран</li>
-          <li>Home Connect · автопрограммы очистки и декальцинации</li>
+          <li>Сенсорный TFT-экран · Home Connect</li>
+          <li>Автопрограммы очистки и декальцинации</li>
+          <li>Ниша высотой <b>45 см</b> · габариты ~455 × 594 × 360 мм*</li>
         </ul></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">📐 Габариты — <span class="pm">CTL7181B0</span></div>
-        <div class="dims-box">
-          <div class="dims-large">455 × 594 × 360<span class="dims-unit">В × Ш × Г, мм*</span></div>
-          <div class="dims-note">Встраиваемая · ниша высотой <b>45 см</b> · чёрное стекло<br><b>* габариты уточняются по даташиту</b></div>
-        </div>
       </div>
     </div>
     <div class="card-specs">
       <ul class="feats"><li>Serie 8</li><li>Автономный бак 2,4 л</li><li>19 бар</li><li>Home Connect</li></ul>
-      <div class="dims-pill">⬛ Чёрное стекло</div>
+      <div class="dims-pill">⬛ ниша 45 см · ~455 × 594 × 360 мм*</div>
     </div>
-    <div class="card-note"><b>Автономный бак</b> — устанавливается без подведения воды. <b>OneTouch DoubleCup</b> — две порции, в т.ч. молочные напитки, одним нажатием.</div>
+    <div class="card-note"><b>Автономный бак</b> — устанавливается без подведения воды, свобода размещения в колонне. <b>OneTouch DoubleCup</b> — две порции, в т.ч. молочные напитки, одним нажатием. <b>* габариты — по даташиту.</b></div>
   </div>
 
+  <!-- Посудомоечная -->
   <div class="item-card">
     <div class="card-head">
       <div class="head-l"><span class="model">SPV4HMX10E</span><span class="iname">Посудомоечная машина 45 см</span><span class="brand-tag">BOSCH · Serie 4</span><span class="b-site">В наличии</span></div>
-      <div class="iprice">50 400 ₽</div>
+      <div class="iprice">47 880 ₽</div>
     </div>
     <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">SPV4HMX10E</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534462974-spv.png')"><img src="https://new.homeproject.online/static/1789534462974-spv.png" alt="Bosch SPV4HMX10E"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>SPV4HMX10E</b> · полновстраиваемая ПММ 45 см · под мебельный фасад</div>
+      </div>
       <div class="panel">
         <div class="panel-head">⚙️ Характеристики — <span class="pm">SPV4HMX10E</span></div>
         <div class="spec-wrap"><ul class="spec-list">
           <li>Вместимость <b>10 комплектов</b></li>
-          <li>Инверторный мотор <b>EcoSilence Drive</b></li>
-          <li>Третий уровень загрузки <b>VarioDrawer</b></li>
+          <li>Инверторный мотор <b>EcoSilence Drive</b> — тихий и надёжный</li>
+          <li>Третий уровень загрузки <b>VarioDrawer</b> для приборов</li>
           <li>6 программ, включая автоматическую</li>
           <li>Уровень шума 44–46 дБ</li>
-          <li>Полновстраиваемая, под мебельный фасад</li>
+          <li>Полновстраиваемая (узкая, 45 см), под фасад</li>
+          <li>Габариты (В×Ш×Г): <b>815 × 448 × 550 мм</b> · ниша Ш 450 мм</li>
         </ul></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">📐 Габариты — <span class="pm">SPV4HMX10E</span></div>
-        <div class="dims-box">
-          <div class="dims-large">815 × 448 × 550<span class="dims-unit">В × Ш × Г, мм</span></div>
-          <div class="dims-note">Полновстраиваемая (узкая, 45 см) · ниша <b>Ш 450 мм</b></div>
-        </div>
       </div>
     </div>
     <div class="card-specs">
       <ul class="feats"><li>Serie 4</li><li>45 см</li><li>10 комплектов</li><li>VarioDrawer</li></ul>
-      <div class="dims-pill">Скрыта за фасадом</div>
+      <div class="dims-pill">815 × 448 × 550 мм</div>
     </div>
     <div class="card-note"><b>VarioDrawer</b> — третий выдвижной уровень для столовых приборов, освобождает корзины под посуду.</div>
   </div>
 
+  <!-- Холодильник Liebherr -->
   <div class="item-card">
     <div class="card-head">
       <div class="head-l"><span class="model">ICNe 5103</span><span class="iname">Встраиваемый холодильник-морозильник</span><span class="brand-tag">LIEBHERR · Pure</span><span class="b-transit">поставка конец сентября</span></div>
-      <div class="iprice">143 000 ₽</div>
+      <div class="iprice">129 900 ₽</div>
     </div>
     <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">ICNe 5103</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534463059-icne.png')"><img src="https://new.homeproject.online/static/1789534463059-icne.png" alt="Liebherr ICNe 5103"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>ICNe 5103</b> · встраиваемый холодильник · NoFrost · под мебельный фасад</div>
+      </div>
       <div class="panel">
         <div class="panel-head">⚙️ Характеристики — <span class="pm">ICNe 5103</span></div>
         <div class="spec-wrap"><ul class="spec-list">
@@ -309,29 +321,29 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
           <li>Нижнее расположение морозильной камеры</li>
           <li>Сенсорное управление, индикация температуры</li>
           <li>Скрытая встройка под мебельный фасад</li>
+          <li>Габариты (В×Ш×Г): <b>1770 × 559 × 546 мм</b> · ниша 178 см</li>
         </ul></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">📐 Габариты — <span class="pm">ICNe 5103</span></div>
-        <div class="dims-box">
-          <div class="dims-large">1770 × 559 × 546<span class="dims-unit">В × Ш × Г, мм</span></div>
-          <div class="dims-note">Встраиваемый · ниша высотой <b>178 см</b> · под фасад</div>
-        </div>
       </div>
     </div>
     <div class="card-specs">
       <ul class="feats"><li>Liebherr Pure</li><li>~273 л</li><li>NoFrost</li><li>EasyFresh</li></ul>
-      <div class="dims-pill">Под мебельный фасад</div>
+      <div class="dims-pill">1770 × 559 × 546 мм</div>
     </div>
-    <div class="card-note"><b>NoFrost</b> — циркуляция холодного воздуха, никогда не нужно размораживать. <b>EasyFresh</b> — оптимальная влажность для более долгого хранения свежих продуктов. <b>Поставка — конец сентября 2026.</b></div>
+    <div class="card-note"><b>NoFrost</b> — циркуляция холодного воздуха, размораживать не нужно. <b>EasyFresh</b> — оптимальная влажность для более долгого хранения свежих продуктов. <b>Поставка — конец сентября 2026.</b></div>
   </div>
 
+  <!-- Вытяжка Falmec -->
   <div class="item-card">
     <div class="card-head">
       <div class="head-l"><span class="model">Gruppo Incasso Plus 50</span><span class="iname">Встраиваемая вытяжка (в шкаф)</span><span class="brand-tag">FALMEC · IX</span><span class="b-site">В наличии</span></div>
-      <div class="iprice">81 900 ₽</div>
+      <div class="iprice">69 900 ₽</div>
     </div>
     <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">Plus 50 IX</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534466745-falmec.png')"><img src="https://new.homeproject.online/static/1789534466745-falmec.png" alt="Falmec Gruppo Incasso Plus 50"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>Gruppo Incasso Plus 50 IX</b> · встраиваемая рабочая группа · нержавеющая сталь</div>
+      </div>
       <div class="panel">
         <div class="panel-head">⚙️ Характеристики — <span class="pm">Plus 50 IX</span></div>
         <div class="spec-wrap"><ul class="spec-list">
@@ -341,64 +353,65 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
           <li>Воздуховод Ø150 мм · совместима с внешним мотором</li>
           <li>LED-подсветка · электронное управление · таймер</li>
           <li>Класс энергопотребления B</li>
+          <li>Габариты (Ш×В×Г): <b>500 × 337 × 294 мм</b> · встройка в шкаф 60 см</li>
         </ul></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">📐 Габариты — <span class="pm">Plus 50 IX</span></div>
-        <div class="dims-box">
-          <div class="dims-large">500 × 337 × 294<span class="dims-unit">Ш × В × Г, мм</span></div>
-          <div class="dims-note">Встройка в верхний шкаф · нержавеющая сталь AISI 304</div>
-        </div>
       </div>
     </div>
     <div class="card-specs">
       <ul class="feats"><li>Falmec Design</li><li>до 1280 м³/ч</li><li>Периметральное всасывание</li></ul>
-      <div class="dims-pill">◻ Нержавеющая сталь</div>
+      <div class="dims-pill">◻ 500 × 337 × 294 мм</div>
     </div>
     <div class="card-note"><b>Периметральное всасывание</b> — забор воздуха по контуру панели, эффективнее удаляет пар и запахи. Совместима с внешним мотором — тише в помещении.</div>
   </div>
 
+  <!-- Подогреватель посуды -->
   <div class="item-card">
     <div class="card-head">
       <div class="head-l"><span class="model">BIC510NB0</span><span class="iname">Подогреватель посуды (тёплый ящик)</span><span class="brand-tag">BOSCH · Serie 6</span><span class="b-site">В наличии</span></div>
-      <div class="iprice">65 900 ₽</div>
+      <div class="iprice">60 450 ₽</div>
     </div>
     <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">BIC510NB0</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534467144-bic.png')"><img src="https://new.homeproject.online/static/1789534467144-bic.png" alt="Bosch BIC510NB0"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>BIC510NB0</b> · подогреватель посуды · чёрное стекло · Push-Pull</div>
+      </div>
       <div class="panel">
         <div class="panel-head">⚙️ Характеристики — <span class="pm">BIC510NB0</span></div>
         <div class="spec-wrap"><ul class="spec-list">
           <li>Полезный объём <b>23 л</b> — до 12 тарелок / 64 чашек</li>
           <li>Диапазон температур 40–80&nbsp;°C</li>
-          <li>4 функции: подогрев посуды, разморозка, расстойка теста</li>
+          <li>4 функции: подогрев посуды, чашек, разморозка, расстойка теста</li>
           <li>Открывание <b>Push-Pull</b> — фасад без ручки</li>
           <li>Нагрузка до 15 кг · противоскользящий коврик</li>
+          <li>Габариты (В×Ш×Г): <b>140 × 594 × 540 мм</b> · ниша 14 см</li>
         </ul></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">📐 Габариты — <span class="pm">BIC510NB0</span></div>
-        <div class="dims-box">
-          <div class="dims-large">140 × 594 × 540<span class="dims-unit">В × Ш × Г, мм</span></div>
-          <div class="dims-note">Встраиваемый · ниша высотой <b>14 см</b> · чёрное стекло</div>
-        </div>
       </div>
     </div>
     <div class="card-specs">
       <ul class="feats"><li>Serie 6</li><li>23 л</li><li>Push-Pull</li><li>4 функции</li></ul>
-      <div class="dims-pill">⬛ Чёрное стекло</div>
+      <div class="dims-pill">⬛ 140 × 594 × 540 мм</div>
     </div>
-    <div class="card-note"><b>Push-Pull</b> — фасад без ручки, открывается лёгким нажатием. Подходит под колонну с духовкой и СВЧ в единой линейке.</div>
+    <div class="card-note"><b>Push-Pull</b> — фасад без ручки, открывается лёгким нажатием. Идеально под колонну с духовкой и СВЧ в единой линейке.</div>
   </div>
 
 </div>
 
+<!-- ПРАЧЕЧНАЯ -->
 <div class="pane" id="pane-l">
 
+  <!-- Стиральная -->
   <div class="item-card">
     <div class="card-head">
       <div class="head-l"><span class="model">WGB24410ME</span><span class="iname">Стиральная машина отдельностоящая</span><span class="brand-tag">BOSCH · Serie 8</span><span class="b-site">В наличии</span></div>
-      <div class="iprice">129 800 ₽</div>
+      <div class="iprice">119 900 ₽</div>
     </div>
     <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">WGB24410ME</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534467289-wgb.png')"><img src="https://new.homeproject.online/static/1789534467289-wgb.png" alt="Bosch WGB24410ME"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>WGB24410ME</b> · стиральная машина Serie 8 · белый корпус</div>
+      </div>
       <div class="panel">
         <div class="panel-head">⚙️ Характеристики — <span class="pm">WGB24410ME</span></div>
         <div class="spec-wrap"><ul class="spec-list">
@@ -408,43 +421,55 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
           <li><b>Home Connect</b> — управление со смартфона</li>
           <li>SpeedPerfect · функция дозагрузки Reload</li>
           <li>Барабан VarioDrum — бережная стирка</li>
+          <li>Габариты (В×Ш×Г): <b>845 × 598 × 590 мм</b></li>
         </ul></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">📐 Габариты — <span class="pm">WGB24410ME</span></div>
-        <div class="dims-box">
-          <div class="dims-large">845 × 598 × 590<span class="dims-unit">В × Ш × Г, мм</span></div>
-          <div class="dims-note">Отдельностоящая · фронтальная загрузка · белый корпус</div>
-        </div>
       </div>
     </div>
     <div class="card-specs">
       <ul class="feats"><li>Serie 8</li><li>9 кг</li><li>1400 об/мин</li><li>Home Connect</li></ul>
-      <div class="dims-pill">◻ Белый / чёрный люк</div>
+      <div class="dims-pill">◻ 845 × 598 × 590 мм</div>
     </div>
-    <div class="card-note"><b>EcoSilence Drive</b> — бесщёточный инверторный мотор: тихая работа и повышенный ресурс. Пара со стиральной машиной устанавливается в колонну (см. монтажную планку).</div>
+    <div class="card-note"><b>EcoSilence Drive</b> — бесщёточный инверторный мотор: тихая работа и повышенный ресурс. Устанавливается в колонну с сушильной машиной через планку WTZ27510.</div>
   </div>
 
+  <!-- Планка -->
   <div class="item-card">
     <div class="card-head">
       <div class="head-l"><span class="model">WTZ27510</span><span class="iname">Монтажная планка для колонны</span><span class="brand-tag">BOSCH · Аксессуар</span><span class="b-site">В наличии</span></div>
-      <div class="iprice">8 000 ₽</div>
+      <div class="iprice">7 000 ₽</div>
     </div>
-    <div class="card-body-acc">
-      <div class="acc-icon">🔗</div>
-      <div class="acc-info">
-        <div class="acc-title">Соединительный элемент — установка сушилки на стиральную машину</div>
-        <div class="acc-desc">Позволяет собрать пару WGB24410ME + WQB245B0ME в колонну и сэкономить место. Для полноразмерных машин глубиной более 55 см. Исполнение без выдвижной полки.</div>
+    <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">WTZ27510</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534468168-wtz.png')"><img src="https://new.homeproject.online/static/1789534468168-wtz.png" alt="Bosch WTZ27510"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>WTZ27510</b> · соединительный элемент для установки в колонну</div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">⚙️ Характеристики — <span class="pm">WTZ27510</span></div>
+        <div class="spec-wrap"><ul class="spec-list">
+          <li>Крепление сушильной машины поверх стиральной (колонна)</li>
+          <li>Экономия места в прачечной</li>
+          <li>Для полноразмерных машин глубиной более 55 см</li>
+          <li>Совместим с парой WGB24410ME + WQB245B0ME</li>
+          <li>Исполнение без выдвижной полки</li>
+        </ul></div>
       </div>
     </div>
+    <div class="card-note">Обязательный аксессуар для сборки стиральной и сушильной машины в вертикальную колонну.</div>
   </div>
 
+  <!-- Сушильная -->
   <div class="item-card">
     <div class="card-head">
       <div class="head-l"><span class="model">WQB245B0ME</span><span class="iname">Сушильная машина с тепловым насосом</span><span class="brand-tag">BOSCH · Serie 8</span><span class="b-site">В наличии</span></div>
-      <div class="iprice">116 000 ₽</div>
+      <div class="iprice">106 000 ₽</div>
     </div>
     <div class="panels">
+      <div class="panel">
+        <div class="panel-head">📷 Внешний вид — <span class="pm">WQB245B0ME</span></div>
+        <div class="img-box" onclick="lb('https://new.homeproject.online/static/1789534468088-wqb.png')"><img src="https://new.homeproject.online/static/1789534468088-wqb.png" alt="Bosch WQB245B0ME"><span class="zoom-hint">🔍</span></div>
+        <div class="caption"><b>WQB245B0ME</b> · сушильная машина Serie 8 · тепловой насос · белый корпус</div>
+      </div>
       <div class="panel">
         <div class="panel-head">⚙️ Характеристики — <span class="pm">WQB245B0ME</span></div>
         <div class="spec-wrap"><ul class="spec-list">
@@ -453,26 +478,21 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
           <li>14 программ сушки</li>
           <li><b>AutoClean</b> — самоочистка конденсатора</li>
           <li><b>Iron Assist</b> — пар против складок</li>
-          <li>Home Connect · возможность отвода конденсата в канализацию</li>
+          <li>Home Connect · возможен отвод конденсата в канализацию</li>
+          <li>Габариты (В×Ш×Г): <b>842 × 598 × 613 мм</b></li>
         </ul></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">📐 Габариты — <span class="pm">WQB245B0ME</span></div>
-        <div class="dims-box">
-          <div class="dims-large">842 × 598 × 613<span class="dims-unit">В × Ш × Г, мм</span></div>
-          <div class="dims-note">Отдельностоящая · конденсационная с тепловым насосом · белый корпус</div>
-        </div>
       </div>
     </div>
     <div class="card-specs">
       <ul class="feats"><li>Serie 8</li><li>9 кг</li><li>Тепловой насос</li><li>Home Connect</li></ul>
-      <div class="dims-pill">◻ Белый корпус</div>
+      <div class="dims-pill">◻ 842 × 598 × 613 мм</div>
     </div>
     <div class="card-note"><b>Тепловой насос</b> — сушка при низкой температуре: минимум энергии и защита тканей. <b>Iron Assist</b> снижает необходимость глажки.</div>
   </div>
 
 </div>
 
+<!-- СОВМЕСТИМОСТЬ -->
 <div class="pane" id="pane-c">
 
   <div class="compat-section">
@@ -536,25 +556,26 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
   </div>
 </div>
 
+<!-- ИТОГО -->
 <div class="pane" id="pane-t">
   <table class="ttable">
     <tr><th class="n">#</th><th>Модель</th><th>Наименование</th><th style="text-align:right">Цена</th></tr>
     <tr class="gh"><td colspan="4">Кухня</td></tr>
-    <tr><td class="n">1</td><td><b>HBG7221B1</b></td><td>Духовой шкаф 60 см · Bosch Serie 8</td><td class="pc">99 000 ₽</td></tr>
-    <tr><td class="n">2</td><td><b>PVS611BB6E</b></td><td>Индукционная варочная панель 60 см · Bosch Serie 4</td><td class="pc">70 600 ₽</td></tr>
-    <tr><td class="n">3</td><td><b>BFL7221B1</b></td><td>Встраиваемая микроволновая печь · Bosch Serie 8</td><td class="pc">89 900 ₽</td></tr>
-    <tr><td class="n">4</td><td><b>CTL7181B0</b></td><td>Встраиваемая кофемашина · Bosch Serie 8</td><td class="pc">246 000 ₽</td></tr>
-    <tr><td class="n">5</td><td><b>SPV4HMX10E</b></td><td>Посудомоечная машина 45 см · Bosch Serie 4</td><td class="pc">50 400 ₽</td></tr>
-    <tr><td class="n">6</td><td><b>ICNe 5103</b> <span class="tflag fl-transit">конец сентября</span></td><td>Встраиваемый холодильник-морозильник · Liebherr</td><td class="pc">143 000 ₽</td></tr>
-    <tr><td class="n">7</td><td><b>Plus 50 IX</b></td><td>Встраиваемая вытяжка · Falmec</td><td class="pc">81 900 ₽</td></tr>
-    <tr><td class="n">8</td><td><b>BIC510NB0</b></td><td>Подогреватель посуды · Bosch Serie 6</td><td class="pc">65 900 ₽</td></tr>
-    <tr class="sub-r"><td></td><td colspan="2"><b>Итого кухня</b></td><td class="pc">846 700 ₽</td></tr>
+    <tr><td class="n">1</td><td><b>HBG7221B1</b></td><td>Духовой шкаф 60 см · Bosch Serie 8</td><td class="pc">89 900 ₽</td></tr>
+    <tr><td class="n">2</td><td><b>PVS611BB6E</b></td><td>Индукционная варочная панель 60 см · Bosch Serie 4</td><td class="pc">65 000 ₽</td></tr>
+    <tr><td class="n">3</td><td><b>BFL7221B1</b></td><td>Встраиваемая микроволновая печь · Bosch Serie 8</td><td class="pc">82 500 ₽</td></tr>
+    <tr><td class="n">4</td><td><b>CTL7181B0</b></td><td>Встраиваемая кофемашина · Bosch Serie 8</td><td class="pc">229 000 ₽</td></tr>
+    <tr><td class="n">5</td><td><b>SPV4HMX10E</b></td><td>Посудомоечная машина 45 см · Bosch Serie 4</td><td class="pc">47 880 ₽</td></tr>
+    <tr><td class="n">6</td><td><b>ICNe 5103</b> <span class="tflag fl-transit">конец сентября</span></td><td>Встраиваемый холодильник-морозильник · Liebherr</td><td class="pc">129 900 ₽</td></tr>
+    <tr><td class="n">7</td><td><b>Plus 50 IX</b></td><td>Встраиваемая вытяжка · Falmec</td><td class="pc">69 900 ₽</td></tr>
+    <tr><td class="n">8</td><td><b>BIC510NB0</b></td><td>Подогреватель посуды · Bosch Serie 6</td><td class="pc">60 450 ₽</td></tr>
+    <tr class="sub-r"><td></td><td colspan="2"><b>Итого кухня</b></td><td class="pc">774 530 ₽</td></tr>
     <tr class="gh"><td colspan="4">Прачечная</td></tr>
-    <tr><td class="n">1</td><td><b>WGB24410ME</b></td><td>Стиральная машина · Bosch Serie 8</td><td class="pc">129 800 ₽</td></tr>
-    <tr><td class="n">2</td><td><b>WTZ27510</b></td><td>Монтажная планка для колонны · Bosch</td><td class="pc">8 000 ₽</td></tr>
-    <tr><td class="n">3</td><td><b>WQB245B0ME</b></td><td>Сушильная машина с тепловым насосом · Bosch Serie 8</td><td class="pc">116 000 ₽</td></tr>
-    <tr class="sub-r"><td></td><td colspan="2"><b>Итого прачечная</b></td><td class="pc">253 800 ₽</td></tr>
-    <tr class="grand"><td></td><td colspan="2">ИТОГО по спецификации</td><td class="pc">1 100 500 ₽</td></tr>
+    <tr><td class="n">1</td><td><b>WGB24410ME</b></td><td>Стиральная машина · Bosch Serie 8</td><td class="pc">119 900 ₽</td></tr>
+    <tr><td class="n">2</td><td><b>WTZ27510</b></td><td>Монтажная планка для колонны · Bosch</td><td class="pc">7 000 ₽</td></tr>
+    <tr><td class="n">3</td><td><b>WQB245B0ME</b></td><td>Сушильная машина с тепловым насосом · Bosch Serie 8</td><td class="pc">106 000 ₽</td></tr>
+    <tr class="sub-r"><td></td><td colspan="2"><b>Итого прачечная</b></td><td class="pc">232 900 ₽</td></tr>
+    <tr class="grand"><td></td><td colspan="2">ИТОГО по спецификации</td><td class="pc">1 007 430 ₽</td></tr>
   </table>
 
   <div class="tnote">
@@ -566,7 +587,7 @@ body{font-family:'Inter',sans-serif;background:#0B0D12;color:#E0E0E0;min-height:
 </div>
 
 <div class="footer">
-  <div class="fnote">Характеристики приведены по официальным данным производителей Bosch / Liebherr / Falmec.<br>Спецификация № GM-116-26-4 от 15.09.2026.</div>
+  <div class="fnote">Фото и характеристики — из официальных источников Bosch / Liebherr / Falmec.<br>Спецификация № GM-116-26-4 от 15.09.2026. Нажмите на изображение — откроется в полном размере.</div>
   <div class="fcta"><strong>Home Project</strong> · AI-консультант 24/7<br>homeproject.online</div>
 </div>
 
@@ -578,6 +599,9 @@ function T(id,btn){
   btn.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
 }
+function lb(src){document.getElementById('lb-img').src=src;document.getElementById('lb').classList.add('open')}
+function closeLB(){document.getElementById('lb').classList.remove('open');document.getElementById('lb-img').src=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
 </script>
 </body>
 </html>
