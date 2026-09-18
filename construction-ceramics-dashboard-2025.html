@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мировой рынок строительства & керамогранита | Аналитика 2024–2025</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0f1117;--card:#181c27;--card2:#1e2333;--border:#2a3050;--gold:#c9a96e;--blue:#4f8ef7;--green:#34d399;--red:#f87171;--purple:#a78bfa;--orange:#fb923c;--cyan:#22d3ee;--text:#e8eaf0;--muted:#8899b8;--accent:#2563eb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+.page{max-width:1200px;margin:0 auto;padding:20px 16px 40px}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#0a0e1a,#131828,#0d1420);border:1px solid var(--border);border-radius:16px;padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(79,142,247,.15),transparent 70%);pointer-events:none}
+.header::after{content:'';position:absolute;bottom:-40px;left:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(201,169,110,.1),transparent 70%);pointer-events:none}
+.hbadge{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
+.htitle{font-size:26px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:8px}
+.htitle span{background:linear-gradient(90deg,var(--gold),#e8c97a,var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hsub{font-size:13.5px;color:var(--muted);max-width:600px;line-height:1.6}
+.hdate{position:absolute;top:24px;right:28px;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0}
+.kpi-val{font-size:22px;font-weight:900;margin-bottom:3px}
+.kpi-label{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.kpi-sub{font-size:10px;margin-top:4px;font-weight:600;display:inline-block;padding:2px 7px;border-radius:20px}
+.kpi.blue::before{background:var(--blue)}.kpi.blue .kpi-val{color:var(--blue)}
+.kpi.gold::before{background:var(--gold)}.kpi.gold .kpi-val{color:var(--gold)}
+.kpi.green::before{background:var(--green)}.kpi.green .kpi-val{color:var(--green)}
+.kpi.red::before{background:var(--red)}.kpi.red .kpi-val{color:var(--red)}
+.kpi.purple::before{background:var(--purple)}.kpi.purple .kpi-val{color:var(--purple)}
+.up{color:var(--green);background:rgba(52,211,153,.1)}.dn{color:var(--red);background:rgba(248,113,113,.1)}
+
+/* GRID LAYOUTS */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.grid12{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;margin-bottom:16px}
+.grid21{display:grid;grid-template-columns:1fr 1.35fr;gap:16px;margin-bottom:16px}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;height:100%}
+.card-title{font-size:13px;font-weight:800;color:#fff;margin-bottom:4px;letter-spacing:.3px;text-transform:uppercase}
+.card-sub{font-size:11.5px;color:var(--muted);margin-bottom:16px}
+.chart-wrap{position:relative;width:100%;min-height:220px}
+.chart-wrap canvas{max-width:100%}
+
+/* TABLE */
+.rank-table{width:100%;border-collapse:collapse}
+.rank-table tr{border-bottom:1px solid rgba(42,48,80,.5)}
+.rank-table tr:last-child{border-bottom:none}
+.rank-table td{padding:8px 4px;vertical-align:middle}
+.rank-num{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.r1{background:var(--gold);color:#0a0a0a}.r2{background:#aaa;color:#0a0a0a}.r3{background:#cd7f32;color:#fff}
+.rn{background:rgba(255,255,255,.08);color:var(--muted)}
+.bar-mini{height:6px;border-radius:3px;background:rgba(255,255,255,.06);overflow:hidden;margin-top:3px}
+.bar-mini-fill{height:100%;border-radius:3px}
+.flag{font-size:16px;margin-right:6px}
+.ctry{font-size:13px;font-weight:700;color:var(--text)}
+.val-bold{font-size:13.5px;font-weight:800;text-align:right}
+.val-muted{font-size:11px;color:var(--muted);text-align:right}
+
+/* SEGMENT BLOCKS */
+.seg-row{display:flex;gap:6px;margin-bottom:8px;align-items:center}
+.seg-label{width:90px;font-size:11.5px;color:var(--muted);flex-shrink:0}
+.seg-bar-wrap{flex:1;height:20px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;display:flex}
+.seg-bar-fill{height:100%;display:flex;align-items:center;justify-content:flex-end;padding-right:5px;font-size:10px;font-weight:800;white-space:nowrap}
+.seg-val{width:42px;text-align:right;font-size:11.5px;font-weight:700;flex-shrink:0}
+
+/* PRICE TABLE */
+.price-row{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid rgba(42,48,80,.4)}
+.price-row:last-child{border-bottom:none}
+.price-flag{font-size:18px;width:28px;flex-shrink:0}
+.price-ctry{flex:1;font-size:13px;font-weight:700}
+.price-seg{font-size:10px;color:var(--muted);margin-top:1px}
+.price-range{font-size:13px;font-weight:800;text-align:right;white-space:nowrap}
+.price-dots{display:flex;gap:3px;margin-top:3px;justify-content:flex-end}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.1)}
+.dot.on{background:var(--gold)}
+
+/* FLOW */
+.flow-item{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid rgba(42,48,80,.4);gap:10px}
+.flow-item:last-child{border-bottom:none}
+.flow-from{font-size:12px;font-weight:700;width:80px;flex-shrink:0}
+.flow-arrow{color:var(--blue);font-size:14px;flex-shrink:0}
+.flow-to{font-size:12px;color:var(--muted);flex:1}
+.flow-vol{font-size:12px;font-weight:800;text-align:right;white-space:nowrap}
+.flow-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
+
+/* SECTION TITLE */
+.sec-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(201,169,110,.2);display:flex;align-items:center;gap:8px}
+.sec-title::before{content:'';display:block;width:3px;height:14px;background:var(--gold);border-radius:2px}
+
+/* INSIGHT BOX */
+.insight{background:linear-gradient(135deg,rgba(79,142,247,.08),rgba(167,139,250,.06));border:1px solid rgba(79,142,247,.2);border-radius:10px;padding:12px 16px;margin-top:10px;font-size:12px;color:rgba(232,234,240,.85);line-height:1.7}
+.insight strong{color:var(--blue)}
+
+/* FOOTER */
+.footer{text-align:center;margin-top:28px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
+
+@media(max-width:768px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .grid2,.grid3,.grid12,.grid21{grid-template-columns:1fr}
+  .htitle{font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="hdate">Аналитика · Сентябрь 2025</div>
+  <div class="hbadge">🏗 Global Market Intelligence</div>
+  <div class="htitle">Строительство & <span>Керамогранит</span><br>Мировой рынок 2024–2025</div>
+  <div class="hsub">Производство, потребление, экспорт/импорт керамической плитки и порцелановогранита. Сопоставление с объёмами и классами строительства по ключевым рынкам мира.</div>
+</div>
+
+<!-- KPI -->
+<div class="kpi-grid">
+  <div class="kpi blue">
+    <div class="kpi-val">$15.8T</div>
+    <div class="kpi-label">Стр-во мировое</div>
+    <div class="kpi-sub up">↑ +4.3% CAGR</div>
+  </div>
+  <div class="kpi gold">
+    <div class="kpi-val">14 950</div>
+    <div class="kpi-label">Произв-во плитки, млн м²</div>
+    <div class="kpi-sub dn">↓ −6.2% г/г</div>
+  </div>
+  <div class="kpi green">
+    <div class="kpi-val">14 552</div>
+    <div class="kpi-label">Потребление, млн м²</div>
+    <div class="kpi-sub dn">↓ −6.8% г/г</div>
+  </div>
+  <div class="kpi purple">
+    <div class="kpi-val">2 674</div>
+    <div class="kpi-label">Мировой экспорт, млн м²</div>
+    <div class="kpi-sub dn">↓ −2.5% г/г</div>
+  </div>
+  <div class="kpi red">
+    <div class="kpi-val">+27%</div>
+    <div class="kpi-label">Рост Вьетнам</div>
+    <div class="kpi-sub up">↑ лидер роста</div>
+  </div>
+</div>
+
+<!-- ROW 1: Производство + Строительство -->
+<div class="grid12">
+  <!-- Производство плитки -->
+  <div class="card">
+    <div class="sec-title">🏭 Производство керамогранита / плитки по странам</div>
+    <div class="card-sub">Млн м² · 2024 г. Глобальный объём: 14 950 млн м²</div>
+    <div class="chart-wrap" style="min-height:320px">
+      <canvas id="prodChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Строительство -->
+  <div class="card">
+    <div class="sec-title">🏗 Объём строительного рынка</div>
+    <div class="card-sub">Млрд USD · Топ-12 стран · 2024 г.</div>
+    <div class="chart-wrap" style="min-height:320px">
+      <canvas id="constChart"></canvas>
+    </div>
+    <div class="insight">
+      <strong>Asia-Pacific</strong> — крупнейший регион: 72.8% мирового производства плитки и ~55% мирового объёма строительства. <strong>Китай</strong> удвоил присутствие: #1 производитель плитки + #1 строительный рынок.
+    </div>
+  </div>
+</div>
+
+<!-- ROW 2: Экспорт / Импорт -->
+<div class="grid2">
+  <!-- Экспорт/Внутреннее потребление -->
+  <div class="card">
+    <div class="sec-title">📤 Производители: экспорт vs внутренний рынок</div>
+    <div class="card-sub">% от объёма производства · 2024 г.</div>
+    <div class="chart-wrap" style="min-height:260px">
+      <canvas id="expChart"></canvas>
+    </div>
+    <div class="insight">
+      <strong>Испания</strong> экспортирует 74% производства — максимум среди крупных игроков. <strong>Италия</strong> — 52%, фокус на премиум. <strong>Китай</strong> и <strong>Индия</strong> — преимущественно внутренний рынок (&lt;20% экспорта).
+    </div>
+  </div>
+
+  <!-- Импортёры -->
+  <div class="card">
+    <div class="sec-title">📥 Импортозависимость ключевых рынков</div>
+    <div class="card-sub">Доля импорта в общем потреблении</div>
+    <div style="margin-top:4px">
+      <div class="seg-row">
+        <div class="seg-label">🇫🇷 Франция</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:90%;background:linear-gradient(90deg,#f87171,#fb923c)">90%</div></div>
+        <div class="seg-val" style="color:#f87171">90%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">🇬🇧 Великобр.</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:85%;background:linear-gradient(90deg,#f87171,#fb923c)">85%</div></div>
+        <div class="seg-val" style="color:#f87171">85%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">🇩🇪 Германия</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:80%;background:linear-gradient(90deg,#fb923c,#fbbf24)">80%</div></div>
+        <div class="seg-val" style="color:#fb923c">80%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">🇺🇸 США</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:71.5%;background:linear-gradient(90deg,#fb923c,#fbbf24)">71.5%</div></div>
+        <div class="seg-val" style="color:#fb923c">72%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">🇦🇺 Австралия</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:65%;background:linear-gradient(90deg,#fbbf24,#a3e635)">65%</div></div>
+        <div class="seg-val" style="color:#fbbf24">65%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">🇸🇦 Саудовск.</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:60%;background:linear-gradient(90deg,#fbbf24,#a3e635)">60%</div></div>
+        <div class="seg-val" style="color:#fbbf24">60%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">🇦🇪 ОАЭ</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:55%;background:#a3e635">55%</div></div>
+        <div class="seg-val" style="color:#a3e635">55%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">🇷🇺 Россия</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:25%;background:linear-gradient(90deg,#34d399,#22d3ee)">25%</div></div>
+        <div class="seg-val" style="color:#34d399">25%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">🇨🇳 Китай</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:3%;background:#34d399">&lt;3%</div></div>
+        <div class="seg-val" style="color:#34d399">3%</div>
+      </div>
+    </div>
+    <div class="insight">
+      Западная Европа — <strong>наиболее импортозависимый регион</strong>. Франция: 200+ млн м² импорта в год — крупнейший импортёр по объёму. США: $2.42 млрд импорта (71.5% потребления).
+    </div>
+  </div>
+</div>
+
+<!-- ROW 3: Потоки + Классы жилья -->
+<div class="grid21">
+  <!-- Классы жилья -->
+  <div class="card">
+    <div class="sec-title">🏙 Классы жилья по рынкам</div>
+    <div class="card-sub">% от объёма нового строительства / продаж · 2024 г.</div>
+
+    <div style="margin-bottom:18px">
+      <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:8px">🇺🇸 США — многоквартирное строительство</div>
+      <div class="seg-row">
+        <div class="seg-label">Люкс (A)</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:41.3%;background:linear-gradient(90deg,var(--gold),#e8c97a)">41.3%</div></div>
+        <div class="seg-val" style="color:var(--gold)">41%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Стандарт (B)</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:56.8%;background:linear-gradient(90deg,var(--blue),#60a5fa)">56.8%</div></div>
+        <div class="seg-val" style="color:var(--blue)">57%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Доступное</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:14%;background:var(--green)">14%</div></div>
+        <div class="seg-val" style="color:var(--green)">14%</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:18px">
+      <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:8px">🇮🇳 Индия — новые запуски проектов</div>
+      <div class="seg-row">
+        <div class="seg-label">Люкс</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:20%;background:linear-gradient(90deg,var(--gold),#e8c97a)">20%</div></div>
+        <div class="seg-val" style="color:var(--gold)">20%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Премиум/Ср.</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:63%;background:linear-gradient(90deg,var(--blue),#60a5fa)">63%</div></div>
+        <div class="seg-val" style="color:var(--blue)">63%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Доступное</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:17%;background:var(--green)">17%</div></div>
+        <div class="seg-val" style="color:var(--green)">17%</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:18px">
+      <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:8px">🇦🇪 ОАЭ / Ближний Восток</div>
+      <div class="seg-row">
+        <div class="seg-label">Люкс/Ultra</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:35%;background:linear-gradient(90deg,var(--gold),#e8c97a)">35%</div></div>
+        <div class="seg-val" style="color:var(--gold)">35%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Премиум</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:45%;background:linear-gradient(90deg,var(--blue),#60a5fa)">45%</div></div>
+        <div class="seg-val" style="color:var(--blue)">45%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Стандарт</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:20%;background:var(--green)">20%</div></div>
+        <div class="seg-val" style="color:var(--green)">20%</div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:8px">🇷🇺 Россия — новостройки МСК/СПБ</div>
+      <div class="seg-row">
+        <div class="seg-label">Бизнес+</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:28%;background:linear-gradient(90deg,var(--gold),#e8c97a)">28%</div></div>
+        <div class="seg-val" style="color:var(--gold)">28%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Комфорт</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:45%;background:linear-gradient(90deg,var(--blue),#60a5fa)">45%</div></div>
+        <div class="seg-val" style="color:var(--blue)">45%</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Эконом</div>
+        <div class="seg-bar-wrap"><div class="seg-bar-fill" style="width:27%;background:#64748b">27%</div></div>
+        <div class="seg-val" style="color:#94a3b8">27%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Потоки экспорта -->
+  <div class="card">
+    <div class="sec-title">🌐 Ключевые торговые потоки</div>
+    <div class="card-sub">Экспорт плитки — кто кому поставляет · 2024</div>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Топ поставщики → США ($2.42 млрд)</div>
+      <div class="flow-item">
+        <div class="flow-from">🇮🇹 Италия</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-to">США · 33 млн м²</div>
+        <div class="flow-vol" style="color:var(--gold)">$707 млн</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-from">🇪🇸 Испания</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-to">США · ~60 млн м²</div>
+        <div class="flow-vol" style="color:var(--blue)">$600 млн</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-from">🇲🇽 Мексика</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-to">США · ~20 млн м²</div>
+        <div class="flow-vol" style="color:var(--green)">$271 млн</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-from">🇨🇳 Китай</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-to">США · снижается</div>
+        <div class="flow-vol" style="color:var(--red)">↓ тренд</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Китай — крупнейший экспортёр</div>
+      <div class="flow-item">
+        <div class="flow-from">🇨🇳 Китай</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-to">Азия (ASEAN, Мьянма, Иран)</div>
+        <div class="flow-vol" style="color:var(--red)">~250 млн м²</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-from">🇨🇳 Китай</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-to">Африка (Нигерия, Кения)</div>
+        <div class="flow-vol" style="color:var(--orange)">~150 млн м²</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-from">🇨🇳 Китай</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-to">Бл. Восток, Латам</div>
+        <div class="flow-vol" style="color:var(--purple)">~100 млн м²</div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Испания / Италия → Европа</div>
+      <div class="flow-item">
+        <div class="flow-from">🇪🇸 Испания</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-to">Германия, Франция, UK</div>
+        <div class="flow-vol" style="color:var(--blue)">~150 млн м²</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-from">🇮🇹 Италия</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-to">Премиум: вся Европа + США</div>
+        <div class="flow-vol" style="color:var(--gold)">~191 млн м²</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-from">🇻🇳 Вьетнам</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-to">США, ASEAN, Австралия</div>
+        <div class="flow-vol" style="color:var(--green)">~300 млн м² ↑</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 4: Цены + Доля рынка -->
+<div class="grid2">
+  <!-- Ценовые сегменты -->
+  <div class="card">
+    <div class="sec-title">💰 Ценовые сегменты по стране происхождения</div>
+    <div class="card-sub">Средняя экспортная цена, €/м² · 2024 г.</div>
+    <div class="chart-wrap" style="min-height:260px">
+      <canvas id="priceChart"></canvas>
+    </div>
+    <div style="margin-top:12px">
+      <div class="price-row">
+        <div class="price-flag">🇮🇹</div>
+        <div><div class="price-ctry">Италия</div><div class="price-seg">ЛЮКС / ПРЕМИУМ · Дизайн, LargeFormat</div></div>
+        <div><div class="price-range" style="color:var(--gold)">€18–35/м²</div><div class="price-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div></div>
+      </div>
+      <div class="price-row">
+        <div class="price-flag">🇪🇸</div>
+        <div><div class="price-ctry">Испания</div><div class="price-seg">СРЕДНИЙ+ · Технический, объём</div></div>
+        <div><div class="price-range" style="color:var(--blue)">€11–14/м²</div><div class="price-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
+      </div>
+      <div class="price-row">
+        <div class="price-flag">🇹🇷</div>
+        <div><div class="price-ctry">Турция</div><div class="price-seg">СРЕДНИЙ · Бл. Восток, ЕС</div></div>
+        <div><div class="price-range" style="color:var(--cyan)">€9–15/м²</div><div class="price-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></div>
+      </div>
+      <div class="price-row">
+        <div class="price-flag">🇮🇳</div>
+        <div><div class="price-ctry">Индия</div><div class="price-seg">СРЕДНИЙ · Растущее качество</div></div>
+        <div><div class="price-range" style="color:var(--green)">€7–13/м²</div><div class="price-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></div>
+      </div>
+      <div class="price-row">
+        <div class="price-flag">🇻🇳</div>
+        <div><div class="price-ctry">Вьетнам</div><div class="price-seg">ЭКОНОМ/СРЕДНИЙ · Экспансия</div></div>
+        <div><div class="price-range" style="color:var(--purple)">€6–12/м²</div><div class="price-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+      </div>
+      <div class="price-row">
+        <div class="price-flag">🇨🇳</div>
+        <div><div class="price-ctry">Китай</div><div class="price-seg">ЭКОНОМ · Объём, массовый</div></div>
+        <div><div class="price-range" style="color:#94a3b8">€5–11/м²</div><div class="price-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Доли рынка -->
+  <div class="card">
+    <div class="sec-title">📊 Доли мирового производства</div>
+    <div class="card-sub">% от 14 950 млн м² · 2024 г.</div>
+    <div class="chart-wrap" style="min-height:260px">
+      <canvas id="shareChart"></canvas>
+    </div>
+    <div class="insight">
+      <strong>Топ-4 экспортёра</strong> (Китай, Индия, Испания, Италия) дают <strong>65.3%</strong> глобального экспорта. <strong>ЕС</strong> экспортирует 73% своего производства — наибольший % среди регионов. <strong>Африка</strong> зафиксировала первое снижение за 10+ лет (−3.5%).
+    </div>
+  </div>
+</div>
+
+<!-- ROW 5: Потребление vs Строительство -->
+<div class="card" style="margin-bottom:16px">
+  <div class="sec-title">📐 Потребление плитки: связь с объёмами строительства</div>
+  <div class="card-sub">Производство vs потребление по ключевым странам · Млн м² · 2024 г. Разрыв = экспорт (>0) или импорт (&lt;0)</div>
+  <div class="chart-wrap" style="min-height:280px">
+    <canvas id="balanceChart"></canvas>
+  </div>
+  <div class="insight" style="margin-top:12px">
+    <strong>Профицит производства (экспортёры):</strong> Китай (+1400 млн м²), Испания (+316 млн м²), Италия (+270 млн м²), Вьетнам (+280 млн м²), Индия (+300 млн м²). &nbsp;|&nbsp; <strong>Дефицит (импортёры):</strong> США (−104 млн м²), Германия (−100 млн м²), Франция (−180 млн м²), Саудовская Аравия (−80 млн м²), ОАЭ (−70 млн м²).
+  </div>
+</div>
+
+<!-- ВЫВОДЫ -->
+<div class="card">
+  <div class="sec-title">🎯 Ключевые выводы для рынка (Bauservice / керамогранит)</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:4px">
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div style="font-size:16px;margin-bottom:6px">🎯</div>
+      <div style="font-size:12px;font-weight:800;color:var(--gold);margin-bottom:6px">Лучшие рынки сбыта</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7">
+        <strong style="color:var(--text)">США, Германия, Франция</strong> — наиболее импортозависимые рынки (71–90% импорта). Высокая платёжеспособность + устойчивый спрос на premium-сегмент.
+      </div>
+    </div>
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div style="font-size:16px;margin-bottom:6px">🏆</div>
+      <div style="font-size:12px;font-weight:800;color:var(--blue);margin-bottom:6px">Premium позиционирование</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7">
+        Итальянский и испанский керамогранит — <strong style="color:var(--text)">в 3–6 раз дороже</strong> китайского. США импортируют итальянскую плитку на $707 млн при объёме 33 млн м² = €21/м² средняя цена.
+      </div>
+    </div>
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div style="font-size:16px;margin-bottom:6px">🚀</div>
+      <div style="font-size:12px;font-weight:800;color:var(--green);margin-bottom:6px">Растущие рынки</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7">
+        <strong style="color:var(--text)">ОАЭ, Саудовская Аравия</strong> — активная застройка, высокий % premium жилья (35%+), дефицит собственного производства → высокий импорт. <strong style="color:var(--text)">Индия</strong> — быстрый рост premium сегмента с 17% до 20%+ за 2 года.
+      </div>
+    </div>
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div style="font-size:16px;margin-bottom:6px">📉</div>
+      <div style="font-size:12px;font-weight:800;color:var(--red);margin-bottom:6px">Риски рынка</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7">
+        Глобальное производство плитки упало на <strong style="color:var(--red)">−6.2%</strong> — 3-й год снижения. Китай: переизбыток мощностей (48% утилизация). Вьетнам агрессивно занимает долю Китая по экспорту.
+      </div>
+    </div>
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div style="font-size:16px;margin-bottom:6px">🏠</div>
+      <div style="font-size:12px;font-weight:800;color:var(--purple);margin-bottom:6px">Классы жилья → плитка</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7">
+        <strong style="color:var(--text)">Luxury/Premium жильё</strong> (США 41%, ОАЭ 35%, Индия 20%) — прямой драйвер спроса на premium-плитку €15–35/м². Рост люксового стр-ва = рост import premium.
+      </div>
+    </div>
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div style="font-size:16px;margin-bottom:6px">🌍</div>
+      <div style="font-size:12px;font-weight:800;color:var(--cyan);margin-bottom:6px">Стр-во → спрос на плитку</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7">
+        Мировой строительный рынок растёт <strong style="color:var(--text)">+4.3% CAGR</strong> → $20.4 трлн к 2029 г. Индия: наибыстрейший рост. MENA: $500+ млрд инфраструктуры. Это поддержит спрос на плитку при стабилизации производства.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Источники: Ceramic World Web · TECNAEXPO · Statista · ResearchAndMarkets · AECOM Global Outlook · IndexBox · Harvard JCHS · 2024–2025<br>Подготовлено: Home Project AI · Сентябрь 2025</div>
+
+</div>
+
+<script>
+const C={
+  blue:'#4f8ef7',gold:'#c9a96e',green:'#34d399',red:'#f87171',purple:'#a78bfa',
+  orange:'#fb923c',cyan:'#22d3ee',muted:'#8899b8',
+  grid:'rgba(42,48,80,0.4)',text:'#e8eaf0'
+};
+const baseOpts={
+  responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{labels:{color:C.text,font:{size:11},boxWidth:12,padding:8}},tooltip:{backgroundColor:'#1e2333',titleColor:C.text,bodyColor:C.muted,borderColor:'#2a3050',borderWidth:1}},
+  scales:{x:{ticks:{color:C.muted,font:{size:11}},grid:{color:C.grid}},y:{ticks:{color:C.muted,font:{size:11}},grid:{color:C.grid}}}
+};
+
+// 1. ПРОИЗВОДСТВО
+new Chart(document.getElementById('prodChart'),{
+  type:'bar',
+  data:{
+    labels:['🇨🇳 Китай','🇮🇳 Индия','🇧🇷 Бразилия','🇻🇳 Вьетнам','🇮🇷 Иран','🇪🇸 Испания','🇮🇩 Индонезия','🇮🇹 Италия','🇹🇷 Турция','🇵🇱 Польша','🇷🇺 Россия','🇲🇽 Мексика'],
+    datasets:[{
+      label:'Производство, млн м²',
+      data:[5900,2400,862,504,450,416,407,370,350,250,250,200],
+      backgroundColor:['#ef4444','#f97316','#22c55e','#06b6d4','#6366f1','#f59e0b','#ec4899','#c9a96e','#84cc16','#3b82f6','#64748b','#a78bfa'],
+      borderRadius:4,borderWidth:0
+    }]
+  },
+  options:{...baseOpts,indexAxis:'y',plugins:{...baseOpts.plugins,legend:{display:false}},scales:{x:{...baseOpts.scales.x,ticks:{color:C.muted,font:{size:10}}},y:{...baseOpts.scales.y,ticks:{color:C.text,font:{size:11,weight:'bold'}},grid:{color:C.grid}}}}
+});
+
+// 2. СТРОИТЕЛЬСТВО
+new Chart(document.getElementById('constChart'),{
+  type:'bar',
+  data:{
+    labels:['🇨🇳 Китай','🇺🇸 США','🇯🇵 Япония','🇨🇦 Канада','🇲🇽 Мексика','🇩🇪 Германия','🇬🇧 Великобр.','🇮🇳 Индия','🇦🇺 Австралия','🇫🇷 Франция','🇮🇹 Италия','🇰🇷 Ю. Корея'],
+    datasets:[{
+      label:'Объём, млрд USD',
+      data:[1201,856,192,112,84.6,62.8,39.7,39,35,28.7,22.9,17],
+      backgroundColor:'rgba(79,142,247,0.7)',borderColor:C.blue,borderWidth:1,borderRadius:4
+    }]
+  },
+  options:{...baseOpts,indexAxis:'y',plugins:{...baseOpts.plugins,legend:{display:false}},scales:{x:{...baseOpts.scales.x,ticks:{color:C.muted,font:{size:10}}},y:{...baseOpts.scales.y,ticks:{color:C.text,font:{size:11,weight:'bold'}},grid:{color:C.grid}}}}
+});
+
+// 3. ЭКСПОРТ vs ВНУТРЕННИЙ
+new Chart(document.getElementById('expChart'),{
+  type:'bar',
+  data:{
+    labels:['🇪🇸 Испания','🇻🇳 Вьетнам','🇮🇹 Италия','🇧🇷 Бразилия','🇮🇳 Индия','🇹🇷 Турция','🇵🇱 Польша','🇨🇳 Китай'],
+    datasets:[
+      {label:'Внутренний рынок %',data:[26,40,48,71,81.5,68,65,89.8],backgroundColor:'rgba(79,142,247,0.7)',borderRadius:4,borderWidth:0},
+      {label:'Экспорт %',data:[74,60,52,29,18.5,32,35,10.2],backgroundColor:'rgba(201,169,110,0.8)',borderRadius:4,borderWidth:0}
+    ]
+  },
+  options:{...baseOpts,indexAxis:'y',scales:{x:{...baseOpts.scales.x,stacked:true,max:100,ticks:{callback:v=>v+'%',color:C.muted,font:{size:10}},grid:{color:C.grid}},y:{...baseOpts.scales.y,stacked:true,ticks:{color:C.text,font:{size:11,weight:'bold'}},grid:{color:C.grid}}}}
+});
+
+// 4. ЦЕНЫ
+new Chart(document.getElementById('priceChart'),{
+  type:'bar',
+  data:{
+    labels:['🇮🇹 Италия','🇪🇸 Испания','🇹🇷 Турция','🇧🇷 Бразилия','🇮🇳 Индия','🇻🇳 Вьетнам','🇵🇱 Польша','🇨🇳 Китай'],
+    datasets:[
+      {label:'Мин. цена €/м²',data:[18,11,9,8,7,6,7,5],backgroundColor:'rgba(79,142,247,0.5)',borderRadius:4,borderWidth:0},
+      {label:'Макс. цена €/м²',data:[35,14,15,15,13,12,14,11],backgroundColor:'rgba(201,169,110,0.8)',borderRadius:4,borderWidth:0}
+    ]
+  },
+  options:{...baseOpts,plugins:{...baseOpts.plugins},scales:{x:{...baseOpts.scales.x,ticks:{color:C.text,font:{size:11}}},y:{...baseOpts.scales.y,title:{display:true,text:'€/м²',color:C.muted},ticks:{color:C.muted,font:{size:11},callback:v=>'€'+v}}}}
+});
+
+// 5. ДОЛИ
+new Chart(document.getElementById('shareChart'),{
+  type:'doughnut',
+  data:{
+    labels:['🇨🇳 Китай 39.5%','🇮🇳 Индия 16.0%','🇧🇷 Бразилия 5.8%','🇻🇳 Вьетнам 3.4%','🇪🇸 Испания 2.8%','🇮🇩 Индонезия 2.7%','🇮🇷 Иран 3.0%','🇮🇹 Италия 2.5%','🇹🇷 Турция 2.3%','Остальные 21.9%'],
+    datasets:[{
+      data:[39.5,16,5.8,3.4,2.8,2.7,3.0,2.5,2.3,21.9],
+      backgroundColor:['#ef4444','#f97316','#22c55e','#06b6d4','#f59e0b','#ec4899','#6366f1','#c9a96e','#84cc16','#64748b'],
+      borderColor:'#181c27',borderWidth:2
+    }]
+  },
+  options:{...baseOpts,cutout:'62%',plugins:{legend:{position:'right',labels:{color:C.text,font:{size:10},boxWidth:10,padding:6}},tooltip:baseOpts.plugins.tooltip}}
+});
+
+// 6. БАЛАНС
+new Chart(document.getElementById('balanceChart'),{
+  type:'bar',
+  data:{
+    labels:['🇨🇳 Китай','🇮🇳 Индия','🇪🇸 Испания','🇻🇳 Вьетнам','🇮🇹 Италия','🇧🇷 Бразилия','🇺🇸 США','🇩🇪 Германия','🇫🇷 Франция','🇸🇦 Саудовск.','🇦🇪 ОАЭ','🇷🇺 Россия'],
+    datasets:[
+      {label:'Производство, млн м²',data:[5900,2400,416,504,370,862,75,50,20,50,30,250],backgroundColor:'rgba(79,142,247,0.7)',borderRadius:4,borderWidth:0},
+      {label:'Потребление, млн м²',data:[4500,2100,100,220,100,700,251,150,200,130,100,180],backgroundColor:'rgba(201,169,110,0.8)',borderRadius:4,borderWidth:0}
+    ]
+  },
+  options:{...baseOpts,plugins:{...baseOpts.plugins},scales:{x:{...baseOpts.scales.x,ticks:{color:C.text,font:{size:11}}},y:{...baseOpts.scales.y,ticks:{color:C.muted,font:{size:11}},title:{display:true,text:'млн м²',color:C.muted}}}}
+});
+</script>
+</body>
+</html>
