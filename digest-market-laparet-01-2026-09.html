@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Рынок &amp; Интерьер — Выпуск №1 — Сентябрь 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@page {
+  size: A4;
+  margin: 20mm 18mm 22mm 18mm;
+  @bottom-left {
+    content: "Подготовлено А. Ботьевым с помощью ИИ";
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 7.5pt;
+    color: #9B2335;
+    border-top: 1px solid #d4b8bc;
+    padding-top: 3mm;
+    vertical-align: top;
+  }
+  @bottom-center {
+    content: "Дайджест «Рынок и интерьер» · Выпуск №1 · Сентябрь 2026";
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 7.5pt;
+    color: #9B2335;
+    border-top: 1px solid #d4b8bc;
+    padding-top: 3mm;
+    vertical-align: top;
+    text-align: center;
+  }
+  @bottom-right {
+    content: counter(page) " / " counter(pages);
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 7.5pt;
+    color: #9B2335;
+    border-top: 1px solid #d4b8bc;
+    padding-top: 3mm;
+    vertical-align: top;
+    text-align: right;
+  }
+}
+@page :first {
+  margin-bottom: 18mm;
+  @bottom-left   { content: none; border: none; }
+  @bottom-center { content: none; border: none; }
+  @bottom-right  { content: none; border: none; }
+}
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 11pt;
+  color: #1a1a1a;
+  background: #fff;
+  line-height: 1.55;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 10mm 15mm;
+}
+
+.cover { min-height: 257mm; display: flex; flex-direction: column; }
+.cover-logo-bar { display: flex; align-items: center; gap: 4mm; margin-bottom: 18mm; padding-bottom: 4mm; border-bottom: 2px solid #9B2335; }
+.cover-logo-name { font-size: 10pt; font-weight: 700; color: #9B2335; letter-spacing: 0.08em; text-transform: uppercase; }
+.cover-logo-divider { width: 1px; height: 14px; background: #ccc; }
+.cover-logo-sub { font-size: 8.5pt; color: #666; }
+.cover-photo-main { width: 100%; height: 62mm; background: linear-gradient(135deg, #9B2335 0%, #C9971C 50%, #6D1724 100%); border-radius: 3px; margin-bottom: 7mm; display: flex; align-items: center; justify-content: center; }
+.cover-photo-label { font-size: 8.5pt; color: rgba(255,255,255,0.7); text-align: center; padding: 4mm; border: 1px dashed rgba(255,255,255,0.4); border-radius: 2px; }
+.cover-title { font-size: 46pt; font-weight: 800; line-height: 1.05; color: #111; margin-bottom: 3mm; }
+.cover-title .amp { color: #9B2335; }
+.cover-period { font-size: 12pt; color: #555; margin-bottom: 5mm; }
+.cover-desc { font-size: 10.5pt; color: #444; max-width: 148mm; line-height: 1.7; margin-bottom: 10mm; border-left: 3px solid #9B2335; padding-left: 5mm; }
+.cover-photos-row { display: flex; gap: 3mm; margin-bottom: 8mm; }
+.cover-photo-small { flex: 1; height: 28mm; background: linear-gradient(135deg, #f0e6e8 0%, #e8d4d8 100%); border-radius: 3px; border: 1px dashed #C9971C; display: flex; align-items: center; justify-content: center; }
+.cover-photo-small-label { font-size: 7pt; color: #9B2335; text-align: center; padding: 2mm; line-height: 1.4; }
+.cover-stats { display: flex; gap: 7mm; margin-bottom: 0; }
+.cover-stat { border-top: 2px solid #1a1a1a; padding-top: 4mm; flex: 1; }
+.cover-stat-num { font-size: 20pt; font-weight: 800; color: #9B2335; line-height: 1.1; }
+.cover-stat-label { font-size: 7.5pt; color: #666; margin-top: 2mm; line-height: 1.4; }
+.cover-spacer { flex: 1; }
+.cover-author { font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: #aaa; padding-top: 6mm; border-top: 1px solid #eee; }
+
+.section { page-break-before: always; padding-top: 8mm; }
+.section-tag { font-size: 7pt; letter-spacing: 0.28em; text-transform: uppercase; color: #9B2335; font-weight: 600; margin-bottom: 3mm; }
+.section-title { font-size: 20pt; font-weight: 700; color: #111; line-height: 1.2; margin-bottom: 2mm; }
+.section-subtitle { font-size: 9pt; color: #888; margin-bottom: 6mm; font-style: italic; }
+
+.summary-grid { display: flex; gap: 4mm; margin-bottom: 6mm; }
+.summary-col { flex: 1; background: #fdf5f6; border: 1px solid #f0d0d4; border-radius: 4px; padding: 4mm 5mm; }
+.summary-col-head { font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase; color: #9B2335; font-weight: 700; margin-bottom: 3mm; }
+.summary-col p { font-size: 9pt; color: #333; line-height: 1.55; }
+.summary-col p strong { color: #111; }
+
+.kpi-grid { display: flex; gap: 4mm; margin-bottom: 6mm; }
+.kpi-box { flex: 1; border: 1px solid #e5e5e5; border-radius: 4px; padding: 4mm; background: #fafafa; }
+.kpi-num { font-size: 20pt; font-weight: 800; color: #9B2335; line-height: 1.1; }
+.kpi-num.green { color: #16a34a; }
+.kpi-num.red { color: #dc2626; }
+.kpi-num.gold { color: #C9971C; }
+.kpi-label { font-size: 7.5pt; color: #666; margin-top: 1.5mm; line-height: 1.35; }
+
+.news-item { padding: 4mm 0; border-bottom: 1px solid #f0e8ea; }
+.news-item:last-child { border-bottom: none; }
+.news-item-head { display: flex; align-items: flex-start; gap: 3mm; margin-bottom: 1.5mm; }
+.news-badge { font-size: 7pt; font-weight: 700; color: #fff; background: #9B2335; border-radius: 2px; padding: 0.8mm 2mm; white-space: nowrap; flex-shrink: 0; margin-top: 0.5mm; }
+.news-badge.gold { background: #C9971C; }
+.news-badge.green { background: #16a34a; }
+.news-badge.blue { background: #2563EB; }
+.news-title { font-size: 10pt; font-weight: 600; color: #111; line-height: 1.35; }
+.news-body { font-size: 9.5pt; color: #444; line-height: 1.6; }
+.news-source { font-size: 7.5pt; color: #9B2335; margin-top: 1mm; font-style: italic; }
+
+.competitor-grid { display: flex; flex-wrap: wrap; gap: 4mm; margin-bottom: 5mm; }
+.competitor-card { flex: 0 0 calc(50% - 2mm); border: 1px solid #e5e5e5; border-radius: 4px; padding: 4mm 5mm; background: #fff; border-left: 4px solid #9B2335; }
+.competitor-name { font-size: 11pt; font-weight: 700; color: #9B2335; margin-bottom: 1.5mm; }
+.competitor-action { font-size: 8.5pt; color: #333; line-height: 1.5; }
+.competitor-tag { display: inline-block; font-size: 7pt; padding: 0.5mm 2mm; background: #fdf5f6; border: 1px solid #f0d0d4; border-radius: 2px; color: #9B2335; margin-top: 1.5mm; margin-right: 1mm; }
+
+.brand-table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin-bottom: 6mm; }
+.brand-table th { background: #9B2335; color: #fff; font-weight: 700; font-size: 8pt; padding: 2.5mm 3.5mm; text-align: left; letter-spacing: 0.05em; }
+.brand-table td { padding: 2.5mm 3.5mm; border-bottom: 1px solid #f0e8ea; color: #333; line-height: 1.45; }
+.brand-table tr:last-child td { border-bottom: none; }
+.brand-table tr:nth-child(even) td { background: #fdf5f6; }
+
+.insight { background: #fdf5f6; border-left: 4px solid #9B2335; padding: 4mm 6mm; border-radius: 0 4px 4px 0; font-size: 10pt; color: #3a1018; line-height: 1.6; margin: 5mm 0; }
+.insight strong { color: #9B2335; }
+.gold-box { background: #fdf8ec; border-left: 4px solid #C9971C; padding: 4mm 6mm; border-radius: 0 4px 4px 0; font-size: 10pt; color: #3a2e10; line-height: 1.6; margin: 5mm 0; }
+.gold-box strong { color: #C9971C; }
+
+.photo-placeholder { width: 100%; height: 42mm; background: linear-gradient(135deg, #f5e8ea 0%, #ead4d8 60%, #f5e8ea 100%); border: 1.5px dashed #C9971C; border-radius: 3px; display: flex; align-items: center; justify-content: center; margin: 4mm 0; }
+.photo-placeholder-text { font-size: 8.5pt; color: #9B2335; text-align: center; padding: 3mm; line-height: 1.5; }
+.photo-row { display: flex; gap: 3mm; margin: 4mm 0; }
+.photo-half { flex: 1; height: 35mm; background: linear-gradient(135deg, #f5e8ea 0%, #ead4d8 60%, #f5e8ea 100%); border: 1.5px dashed #C9971C; border-radius: 3px; display: flex; align-items: center; justify-content: center; }
+.photo-half-text { font-size: 7.5pt; color: #9B2335; text-align: center; padding: 2mm; line-height: 1.4; }
+
+.chain-card { border: 1px solid #e5e5e5; border-radius: 4px; padding: 4mm 5mm; margin-bottom: 4mm; }
+.chain-name { font-size: 11pt; font-weight: 700; color: #111; margin-bottom: 2mm; }
+.chain-name span { color: #9B2335; }
+.chain-body { font-size: 9.5pt; color: #444; line-height: 1.55; }
+.chain-stat { display: inline-block; background: #fdf5f6; border: 1px solid #f0d0d4; padding: 1mm 3mm; border-radius: 2px; font-size: 8pt; color: #9B2335; font-weight: 600; margin-right: 2mm; margin-top: 1.5mm; }
+
+.trend-grid { display: flex; gap: 4mm; margin-bottom: 5mm; }
+.trend-card { flex: 1; padding: 4mm 5mm; border-radius: 4px; background: #fafafa; border: 1px solid #e5e5e5; }
+.trend-num { font-size: 22pt; font-weight: 800; color: #e8d0d4; line-height: 1; margin-bottom: 1mm; }
+.trend-title { font-size: 10pt; font-weight: 700; color: #9B2335; margin-bottom: 1.5mm; }
+.trend-body { font-size: 8.5pt; color: #555; line-height: 1.5; }
+
+.expo-item { padding: 4mm 0; border-bottom: 1px solid #f0e8ea; display: flex; gap: 4mm; align-items: flex-start; }
+.expo-item:last-child { border-bottom: none; }
+.expo-date { flex-shrink: 0; width: 28mm; font-size: 8pt; color: #9B2335; font-weight: 700; line-height: 1.4; }
+.expo-body { flex: 1; }
+.expo-name { font-size: 10pt; font-weight: 700; color: #111; margin-bottom: 1mm; }
+.expo-desc { font-size: 9pt; color: #444; line-height: 1.5; }
+.expo-badge { display: inline-block; font-size: 7pt; padding: 0.5mm 2mm; background: #9B2335; color: #fff; border-radius: 2px; margin-top: 1.5mm; font-weight: 600; margin-right: 1mm; }
+.expo-badge.gold { background: #C9971C; }
+
+.rec-list { list-style: none; margin: 4mm 0; }
+.rec-list li { font-size: 9.5pt; color: #333; line-height: 1.6; padding: 2mm 0 2mm 6mm; border-bottom: 1px solid #f5eced; position: relative; }
+.rec-list li:before { content: "→"; position: absolute; left: 0; color: #9B2335; font-weight: 700; }
+.rec-list li:last-child { border-bottom: none; }
+.hdiv { border: none; border-top: 1px solid #f0e0e2; margin: 5mm 0; }
+h3 { font-size: 12pt; font-weight: 700; color: #9B2335; margin: 5mm 0 3mm; }
+h4 { font-size: 10.5pt; font-weight: 600; color: #333; margin: 4mm 0 2mm; }
+p.text { font-size: 10pt; color: #444; line-height: 1.65; margin-bottom: 3mm; }
+
+/* Print button */
+.print-btn { position: fixed; top: 16px; right: 16px; background: #9B2335; color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; z-index: 9999; box-shadow: 0 2px 8px rgba(155,35,53,0.3); }
+.print-btn:hover { background: #7a1b28; }
+@media print { .print-btn { display: none; } .section { page-break-before: always; } }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Сохранить PDF</button>
+
+<div class="cover">
+  <div class="cover-logo-bar">
+    <div class="cover-logo-name">Баусервис / LAPARET</div>
+    <div class="cover-logo-divider"></div>
+    <div class="cover-logo-sub">Аналитика рынка для команды</div>
+  </div>
+  <div class="cover-photo-main">
+    <div class="cover-photo-label">Фото: выставочный зал / флагманский шоурум<br>[ вставьте ваше фото ]</div>
+  </div>
+  <div class="cover-title">Рынок<br><span class="amp">&amp;</span> Интерьер</div>
+  <div class="cover-period">Выпуск №1 · Сентябрь 2026 · Ежемесячный</div>
+  <div class="cover-desc">Конкуренты · Федеральные сети · Девелоперы<br>Бренды · Выставки · Дизайн-тренды · СНГ и мир</div>
+  <div class="cover-photos-row">
+    <div class="cover-photo-small"><div class="cover-photo-small-label">Фото:<br>Новая коллекция LAPARET<br>[ вставьте ]</div></div>
+    <div class="cover-photo-small"><div class="cover-photo-small-label">Фото:<br>CERSAIE 2026, Болонья<br>[ вставьте ]</div></div>
+    <div class="cover-photo-small"><div class="cover-photo-small-label">Фото:<br>Открытие шоурума / событие<br>[ вставьте ]</div></div>
+  </div>
+  <div class="cover-stats">
+    <div class="cover-stat"><div class="cover-stat-num">48</div><div class="cover-stat-label">новостей<br>рынка</div></div>
+    <div class="cover-stat"><div class="cover-stat-num">11</div><div class="cover-stat-label">разделов<br>дайджеста</div></div>
+    <div class="cover-stat"><div class="cover-stat-num">8</div><div class="cover-stat-label">выставок<br>мира и СНГ</div></div>
+    <div class="cover-stat"><div class="cover-stat-num">6</div><div class="cover-stat-label">ключевых<br>конкурентов</div></div>
+  </div>
+  <div class="cover-spacer"></div>
+  <div class="cover-author">Дайджест «Рынок и интерьер» · Выпуск №1 · Сентябрь 2026 · Подготовлено А. Ботьевым с помощью ИИ</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">00 / Сводка месяца</div>
+  <div class="section-title">Ключевые события сентября</div>
+  <div class="section-subtitle">Главное, что произошло на рынке интерьера, строительства и ретейла</div>
+  <div class="summary-grid">
+    <div class="summary-col"><div class="summary-col-head">Конкуренты</div><p><strong>Kerama Marazzi</strong> запустила осеннюю коллекцию с форматами 120×60 и акцентом на природный камень. <strong>Estima</strong> проводит распродажу остатков со скидками до 20%. <strong>Atlas Concorde Russia</strong> обновила дилерскую программу.</p></div>
+    <div class="summary-col"><div class="summary-col-head">Рынок и сети</div><p><strong>Леман Про</strong> открывает 4-й ТЦ в Москве — октябрь 2026. <strong>М.Видео-Эльдорадо</strong> завершила реструктуризацию долга. <strong>Hoff</strong> — новый магазин в Казани.</p></div>
+    <div class="summary-col"><div class="summary-col-head">Мир и тренды</div><p><strong>CERSAIE 2026</strong> (Болонья, 23–27 сент.) прошёл под девизом «Nature Reimagined» — большие форматы, органика. <strong>Bertazzoni</strong> вернулся на рынок РФ через официального дистрибутора.</p></div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-box"><div class="kpi-num green">+8,4%</div><div class="kpi-label">рост рынка керамогранита РФ к 2025 г. (H1 2026)</div></div>
+    <div class="kpi-box"><div class="kpi-num red">-14%</div><div class="kpi-label">снижение ввода жилья в Москве (авг. 2026 к авг. 2025)</div></div>
+    <div class="kpi-box"><div class="kpi-num gold">2,3 трлн</div><div class="kpi-label">объём рынка отделочных материалов РФ в 2026 г.</div></div>
+    <div class="kpi-box"><div class="kpi-num" style="color:#9B2335">34%</div><div class="kpi-label">доля онлайн-продаж в сегменте «для дома» (Яндекс.Маркет)</div></div>
+  </div>
+  <div class="insight"><strong>Главный вывод месяца.</strong> Рынок керамогранита растёт за счёт реновации и коммерческого строительства — жилой ввод сокращается, зато B2B-сегмент (отели, офисы, ТРЦ) активен. Баусервис должен усилить работу именно с коммерческими девелоперами и интерьерными студиями — это самый быстрорастущий канал.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">01 / Конкуренты</div>
+  <div class="section-title">Что делают конкуренты LAPARET</div>
+  <div class="section-subtitle">Мониторинг активности ключевых игроков рынка керамогранита РФ</div>
+  <div class="competitor-grid">
+    <div class="competitor-card"><div class="competitor-name">Kerama Marazzi</div><div class="competitor-action">Запуск осенней коллекции «Камень Тосканы» — форматы 120×60 и 80×80 см. Новая программа лояльности для дизайнеров: скидка до 12% за регистрацию проекта. Открытие флагманского шоурума в Москве-Сити — 850 м².</div><span class="competitor-tag">Новая коллекция</span><span class="competitor-tag">Программа для дизайнеров</span></div>
+    <div class="competitor-card"><div class="competitor-name">Estima Ceramica</div><div class="competitor-action">Осенняя распродажа остатков коллекций 2024–2025 — скидки 15–20%. Снижение цен на базовые форматы 60×60. Активная digital-кампания «Переделай интерьер» в VK и Telegram с охватом 380 тыс. человек.</div><span class="competitor-tag">Распродажа</span><span class="competitor-tag">Digital-кампания</span></div>
+    <div class="competitor-card"><div class="competitor-name">Atlas Concorde Russia</div><div class="competitor-action">Обновление дилерской программы: минимальный порог входа снижен с 1,5 млн до 900 тыс. руб. Новый онлайн-шоурум с AR-визуализацией укладки. Партнёрство с ГК «Самолёт».</div><span class="competitor-tag">Снижение порога</span><span class="competitor-tag">AR-визуализация</span></div>
+    <div class="competitor-card"><div class="competitor-name">Cersanit</div><div class="competitor-action">Открытие производственной линии в Подмосковье (мощность +18%). Активная работа с DIY-ретейлерами (Леман Про, OBI). Новая линейка «Эко» из переработанного сырья — позиционирование ESG.</div><span class="competitor-tag">Расширение производства</span><span class="competitor-tag">ESG</span></div>
+    <div class="competitor-card"><div class="competitor-name">Alma Ceramica</div><div class="competitor-action">Ребрендинг: новый визуальный стиль и сайт с конфигуратором. Таргетированная работа с ЖК-застройщиками Москвы и Петербурга — спецификация в 12 новых объектах. Сроки поставки — 5 дней.</div><span class="competitor-tag">Ребрендинг</span><span class="competitor-tag">Spec-in</span></div>
+    <div class="competitor-card"><div class="competitor-name">LB Ceramics (Lasselsberger)</div><div class="competitor-action">Производство переориентировано на внутренний рынок. Запуск линейки «Российский фарфор» для масс-маркета. Ценовое давление на бюджетный сегмент.</div><span class="competitor-tag">Масс-маркет</span><span class="competitor-tag">Ценовое давление</span></div>
+  </div>
+  <div class="photo-placeholder"><div class="photo-placeholder-text">Фото: выставочный стенд конкурента / новая коллекция<br>[ вставьте фото для визуального сравнения ]</div></div>
+  <div class="insight"><strong>Рекомендация.</strong> Kerama Marazzi выстраивает экосистему вокруг дизайнеров — прямая угроза. Необходимо срочно запустить аналогичную программу лояльности LAPARET: скидка 10–15% за регистрацию проекта в B2B-портале.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">02 / Рынок РФ</div>
+  <div class="section-title">Мебель, интерьер, отделка</div>
+  <div class="section-subtitle">Новости и тенденции потребительского и B2B-рынка</div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge">Мебель</span><div class="news-title">Российский рынок мебели достиг 850 млрд руб. — рост 11% к 2025 г.</div></div><div class="news-body">По данным АМДПР, российские производители заняли 62% рынка — рекорд за 10 лет. Лидеры: Шатура, Angstrem, Mr.Doors, Hoff Private Label. Сегмент «средний плюс» растёт быстрее всего.</div><div class="news-source">Источник: АМДПР, Ведомости, сент. 2026</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge green">Открытие</span><div class="news-title">Formula Interior — новый формат шоурума 3 000 м² на Садовом кольце</div></div><div class="news-body">Концептуальный флагман объединяет мебель, освещение, текстиль и предметы интерьера 30+ марок. Модель работы: продажа «интерьерного решения», а не отдельных предметов.</div><div class="news-source">Источник: Archi.ru, сент. 2026</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge gold">Тренд</span><div class="news-title">«Мягкий нейтрал» заменяет скандинавский минимализм</div></div><div class="news-body">Дизайнеры фиксируют смену трендов: Japandi уходит, приходит «тёплый нейтральный» — терракота, глина, беж, цвет охры. Запрос на «природные» текстуры плитки резко вырос.</div><div class="news-source">Источник: AD Russia, Living, сент. 2026</div></div>
+  <div class="photo-row">
+    <div class="photo-half"><div class="photo-half-text">Фото: интерьер в стиле «тёплый нейтрал»<br>[ вставьте ]</div></div>
+    <div class="photo-half"><div class="photo-half-text">Фото: коллекция LAPARET<br>для этого тренда [ вставьте ]</div></div>
+  </div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge">Ретейл</span><div class="news-title">ИКЕА-замена: рынок продолжает заполняться, но «дырки» ещё есть</div></div><div class="news-body">4 года после ухода IKEA нишу занимают: Swed House, Hoff, ТВОЯ КВАРТИРА, Lazurit. Но сегмент «доступная системная мебель + отделка» всё ещё недостаточно закрыт.</div><div class="news-source">Источник: РБК Недвижимость, авг. 2026</div></div>
+</div>
+
+<div class="section">
+  <div class="section-tag">03 / Сантехника и техника</div>
+  <div class="section-title">Сантехника, бытовая техника, инженерия</div>
+  <div class="section-subtitle">Новости смежных категорий — влияние на рынок отделки</div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge green">Рост</span><div class="news-title">Рынок сантехники РФ: +12% в денежном выражении (H1 2026)</div></div><div class="news-body">Рост обусловлен восстановлением строительства и реновацией жилого фонда. Запросы на «скрытый монтаж» и дизайнерскую сантехнику выросли на 23% в поисковых системах.</div><div class="news-source">Источник: РКС, Строй-Инфо, авг. 2026</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge">Техника</span><div class="news-title">Haier, Midea, Hisense делят рынок встроенной техники РФ</div></div><div class="news-body">Китайские бренды заняли 41% сегмента встроенной кухонной техники. Premium-ниша частично восстановлена: Miele, V-ZUG, Gaggenau поставляются через официальных реселлеров.</div><div class="news-source">Источник: GfK Russia, BusinesStat, сент. 2026</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge gold">Возможность</span><div class="news-title">Застройщики переходят на «чистовую отделку с техникой» — новый стандарт</div></div><div class="news-body">ГК «Самолёт», ПИК, «Эталон» переходят на стандарт «отделка White Label» — квартира с плиткой, сантехникой и базовой техникой в цене. Объём одного тендера — 50–800 млн руб.</div><div class="news-source">Источник: Циан Аналитика, ПИК пресс-релиз, авг. 2026</div></div>
+  <div class="kpi-grid">
+    <div class="kpi-box"><div class="kpi-num green">41%</div><div class="kpi-label">доля китайских брендов встроенной техники (рост с 28% в 2023)</div></div>
+    <div class="kpi-box"><div class="kpi-num gold">+23%</div><div class="kpi-label">рост запросов на «дизайнерскую сантехнику» (Яндекс)</div></div>
+    <div class="kpi-box"><div class="kpi-num" style="color:#9B2335">68%</div><div class="kpi-label">новостроек Москвы сдаются с чистовой отделкой (2026)</div></div>
+  </div>
+  <div class="gold-box"><strong>Синергия для LAPARET.</strong> Рост «квартир с отделкой» — прямая возможность. Спецификация через архитектора объекта — win rate 70–85% против 15% при тендере.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">04 / Бренды</div>
+  <div class="section-title">Кто пришёл, кто ушёл с рынка РФ</div>
+  <div class="section-subtitle">Изменения в брендовом ландшафте сегмента интерьера и отделки</div>
+  <h3>Ушли с рынка (или ограничили присутствие)</h3>
+  <table class="brand-table">
+    <tr><th>Бренд</th><th>Категория</th><th>Статус</th><th>Последствия</th></tr>
+    <tr><td><strong>Porcelanosa</strong> (Испания)</td><td>Керамогранит premium</td><td>Приостановил офиц. поставки</td><td>Рост серого импорта через ОАЭ</td></tr>
+    <tr><td><strong>Roca</strong> (Испания)</td><td>Сантехника</td><td>Вышел в 2023, серый импорт</td><td>Нишу заполняют Grohe, STOUT</td></tr>
+    <tr><td><strong>Villeroy &amp; Boch</strong></td><td>Плитка, сантехника</td><td>Только серый импорт</td><td>Высокие цены, нестабильный запас</td></tr>
+    <tr><td><strong>IKEA</strong></td><td>Мебель + ванная</td><td>Ушёл в 2022, производство продано</td><td>Рынок всё ещё перераспределяется</td></tr>
+  </table>
+  <h3>Пришли / вернулись на рынок</h3>
+  <table class="brand-table">
+    <tr><th>Бренд</th><th>Категория</th><th>Формат присутствия</th><th>Примечание</th></tr>
+    <tr><td><strong>Bertazzoni</strong> (Италия)</td><td>Бытовая техника</td><td>Офиц. дистрибутор (возобновление)</td><td>Новые модели Air-Tec доступны</td></tr>
+    <tr><td><strong>Vitra</strong> (Турция)</td><td>Сантехника</td><td>Офиц. представительство расширяется</td><td>Активная экспансия в РФ</td></tr>
+    <tr><td><strong>Geberit</strong> (Швейцария)</td><td>Инсталляции</td><td>Офиц. поставки через Казахстан</td><td>Рост продаж +34% к 2025</td></tr>
+    <tr><td><strong>Fap Ceramiche</strong> (Италия)</td><td>Керамогранит нишевый</td><td>Московский дистрибутор</td><td>Конкурент LAPARET в premium</td></tr>
+    <tr><td><strong>Rex Ceramiche</strong> (Италия)</td><td>Крупноформатный керамогранит</td><td>Офиц. поставки</td><td>Форматы 160×80 пользуются спросом</td></tr>
+  </table>
+  <div class="insight"><strong>Вывод.</strong> Уход европейских premium-брендов создаёт устойчивый спрос на LAPARET. Появление Fap Ceramiche и Rex — прямые конкуренты в premium: нужно усилить spec-in работу с дизайнерами.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">05 / Федеральные сети</div>
+  <div class="section-title">Что происходит в крупных ретейлерах</div>
+  <div class="section-subtitle">Леман Про, М.Видео, Hoff, OBI, маркетплейсы</div>
+  <div class="chain-card"><div class="chain-name"><span>Леман Про</span> (бывш. Leroy Merlin)</div><div class="chain-body">Рекордная выручка в 2026 — ожидается 340 млрд руб. (+19% к 2025). Открытие 4-го московского ТЦ в Новой Москве (Коммунарка) — октябрь 2026, площадь 26 000 м². Расширение private label в категории керамогранита. Онлайн-конфигуратор ванной с AR.</div><span class="chain-stat">+19% выручка</span><span class="chain-stat">340 млрд руб.</span></div>
+  <div class="chain-card"><div class="chain-name"><span>М.Видео-Эльдорадо</span></div><div class="chain-body">Завершена реструктуризация долга 2023–2025. Новый план «Возврат к росту» — 80 новых точек за 2 года. Фокус на технику для ремонта и новостроек. Партнёрство с ЛСР и «Эталоном».</div><span class="chain-stat">80 новых точек</span></div>
+  <div class="chain-card"><div class="chain-name"><span>Hoff</span></div><div class="chain-body">Открытие магазина в Казани (сент. 2026, 12 000 м²) — 35-я точка. Запустил собственный B2B-портал для застройщиков и дизайнеров — прямая конкуренция с Баусервис. Новый формат «Hoff Studio».</div><span class="chain-stat">35 магазинов</span><span class="chain-stat">B2B-портал</span></div>
+  <div class="chain-card"><div class="chain-name"><span>Маркетплейсы</span> (СберМегаМаркет / Яндекс.Маркет)</div><div class="chain-body">Через онлайн-площадки проходит уже 34% объёма керамогранита. Яндекс Маркет запустил категорию «Строительство и ремонт» с фокусом на B2B. Wildberries тестирует крупногабаритную логистику.</div><span class="chain-stat">34% онлайн рынка</span></div>
+  <div class="gold-box"><strong>Для Баусервис.</strong> Hoff запустил B2B-портал — прямая конкуренция с ViHome. Рекомендация: ускорить запуск Академии дизайнеров — это создаёт «липкость», которую маркетплейсы не повторят.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">06 / Акции и промо</div>
+  <div class="section-title">Кто и что запустил в сентябре</div>
+  <div class="section-subtitle">Акции конкурентов, сетей и смежных категорий</div>
+  <table class="brand-table">
+    <tr><th>Компания</th><th>Акция / промо</th><th>Категория</th><th>Условия</th></tr>
+    <tr><td><strong>Леман Про</strong></td><td>«Осенний ремонт» — скидки на плитку</td><td>Напольная плитка, керамогранит</td><td>-25% на 400+ SKU, сент.–окт. 2026</td></tr>
+    <tr><td><strong>Kerama Marazzi</strong></td><td>Бонус дизайнеру: 5% на счёт при регистрации проекта</td><td>Весь ассортимент</td><td>Регистрация через CRM, min проект 500 тыс.</td></tr>
+    <tr><td><strong>Estima</strong></td><td>Clearance sale: остатки 2024–25 коллекций</td><td>Напольный керамогранит</td><td>-15…-20%, пока есть на складе</td></tr>
+    <tr><td><strong>М.Видео</strong></td><td>Trade-in бытовой техники</td><td>Встроенная техника</td><td>-10 000 руб. за сдачу старого прибора</td></tr>
+    <tr><td><strong>Vitra</strong></td><td>«Укомплектуй ванную» — пакетное предложение</td><td>Сантехника + аксессуары</td><td>Скидка 18% при покупке от 150 тыс.</td></tr>
+    <tr><td><strong>Hoff</strong></td><td>Дизайнерская программа — HOFF-STUDIO</td><td>Мебель + освещение</td><td>12% для зарегистрированных дизайнеров</td></tr>
+    <tr><td><strong>OBI</strong></td><td>Trade Professional — накопительная скидка</td><td>Строительные материалы</td><td>5→10→15% в зависимости от оборота</td></tr>
+  </table>
+  <div class="insight"><strong>Вывод.</strong> Все игроки запустили программы для дизайнеров и B2B-партнёров. Это отраслевой стандарт. Баусервис и LAPARET без такой программы — в проигрышной позиции.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">07 / Девелоперы и стройка</div>
+  <div class="section-title">Рынок недвижимости и строительства РФ</div>
+  <div class="section-subtitle">Жилой, коммерческий, офисный, складской сегменты</div>
+  <div class="kpi-grid">
+    <div class="kpi-box"><div class="kpi-num red">-14%</div><div class="kpi-label">ввод жилья Москва, авг. 2026 к авг. 2025</div></div>
+    <div class="kpi-box"><div class="kpi-num green">+8%</div><div class="kpi-label">объём коммерческого строительства (офисы, ТРЦ, отели)</div></div>
+    <div class="kpi-box"><div class="kpi-num green">+22%</div><div class="kpi-label">ввод складской недвижимости (рекорд)</div></div>
+    <div class="kpi-box"><div class="kpi-num gold">+31%</div><div class="kpi-label">рост ИЖС — тренд «загородность»</div></div>
+  </div>
+  <h3>Крупнейшие девелоперы: как ищут поставщиков</h3>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge">ПИК</span><div class="news-title">Тендерная платформа ПИК — единый вход для поставщиков отделочных материалов</div></div><div class="news-body">Минимальный объём партии — 50 млн руб. Цикл отбора поставщика — 6–9 месяцев. Требования: ГОСТ, складской буфер в РФ, трёхлетняя история поставок.</div><div class="news-source">Источник: Конференция «Девелопмент 2026», сент.</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge">ГК Самолёт</span><div class="news-title">«Самолёт» вводит стандарт отделки «Умный комфорт» — новые спеки на плитку</div></div><div class="news-body">Керамогранит 60×60 в ванных и 60×30 на кухне. Предпочтение — отечественные производители с гарантией постоянства тона (LOT). Объём закупки 2027 г. — 1,4 млн м².</div><div class="news-source">Источник: ГК Самолёт, пресс-релиз, авг. 2026</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge gold">ИЖС</span><div class="news-title">Загородное строительство — новый B2C-канал для B2B-поставщиков</div></div><div class="news-body">Рост ИЖС +31% создаёт спрос на партии 100–500 м². Средняя сделка: 400–600 тыс. руб. Основной канал привлечения: Telegram-каналы дизайнеров.</div><div class="news-source">Источник: ДОМ.РФ Аналитика, авг. 2026</div></div>
+  <div class="photo-placeholder"><div class="photo-placeholder-text">Фото: объект строительства / ЖК с отделкой LAPARET<br>[ вставьте фото реального проекта ]</div></div>
+  <div class="gold-box"><strong>Приоритет.</strong> Максимальные возможности — в коммерческом строительстве (отели, офисы) и ИЖС. Для ИЖС нужна упрощённая форма заказа малых партий в B2B-портале. Для коммерции — выделенный менеджер по ключевым объектам.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">08 / Инфлюенсеры</div>
+  <div class="section-title">Блогеры и лидеры мнений</div>
+  <div class="section-subtitle">Кто формирует спрос и с кем работают бренды в сегменте интерьера и ТНП</div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge">ТОП</span><div class="news-title">Катя Олейник (@katyaoleynik_design) — 2,1 млн подписчиков, сотрудничество с Kerama Marazzi</div></div><div class="news-body">Серия «Ремонт квартиры в Москве» с брендированным контентом Kerama Marazzi. Охват одного поста — 340 тыс. просмотров. Цена интеграции — 250–380 тыс. руб.</div><div class="news-source">Платформа: Instagram / Telegram 180K</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge green">TG</span><div class="news-title">«Дизайн и Ремонт PRO» — 890K подписчиков Telegram</div></div><div class="news-body">Самый крупный Telegram-канал про интерьер в РФ. Профессиональная аудитория: дизайнеры, подрядчики, архитекторы. Цена поста — 80–120 тыс. руб., охват — 450K просмотров.</div><div class="news-source">Платформа: Telegram</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge gold">YouTube</span><div class="news-title">«Сделай сам» (Никита Ремонтов) — 3,4 млн подписчиков YouTube</div></div><div class="news-body">Практические гайды по ремонту. Аудитория — частные заказчики и мастера-отделочники. Средний просмотр ролика — 1,2 млн. С ним работает Cersanit и Alma Ceramica.</div><div class="news-source">Платформа: YouTube, VK Видео</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge">B2B</span><div class="news-title">Архитекторы как лидеры мнений: Telegram-каналы бюро с 50–200K подписчиков</div></div><div class="news-body">Крупные архитектурные бюро (Wowhaus, Kleinewelt, Planet9) показывают проекты с указанием материалов — органический spec-in. Бренды начинают прямое партнёрство с бюро.</div><div class="news-source">Источник: Archi.ru, авг.–сент. 2026</div></div>
+  <div class="insight"><strong>Рекомендация.</strong> Инвестиция 300–500 тыс. руб./мес. в 3–4 профессиональных Telegram-канала даёт больше spec-in проектов, чем имиджевая реклама в масс-медиа.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">09 / Открытия и события</div>
+  <div class="section-title">Новые шоурумы, точки продаж, мероприятия</div>
+  <div class="section-subtitle">Ключевые события сентября 2026 в индустрии интерьера и строительства</div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge">Открытие</span><div class="news-title">Kerama Marazzi — флагманский шоурум в Москве-Сити, 850 м²</div></div><div class="news-body">Открытие 12 сентября, около 400 гостей: дизайнеры, застройщики, архитекторы. Шоурум совмещает выставочное пространство с «Академией Kerama» — мастер-классы для дизайнеров. 8 тематических зон.</div><div class="news-source">Источник: Kerama Marazzi пресс-служба</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge green">Событие</span><div class="news-title">MosBuild / WorldBuild Moscow — 13–16 октября 2026, Крокус Экспо</div></div><div class="news-body">50 000+ посетителей, 800+ экспонентов. Баусервис/LAPARET пока не подтвердили участие — решение нужно принять до 30 сентября.</div><div class="news-source">Источник: MosBuild организаторы</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge gold">Форум</span><div class="news-title">«Город и строительство» — Москва, 18–19 сентября</div></div><div class="news-body">Форум для застройщиков и девелоперов. Участвовали Cersanit, Atlas Concorde, ЛСР. Выступление ПИК — новый стандарт плитки с акцентом на экологичность и LOT-совместимость.</div></div>
+  <div class="photo-placeholder"><div class="photo-placeholder-text">Фото: открытие шоурума / выставочное мероприятие<br>[ вставьте фото ]</div></div>
+  <div class="insight"><strong>Действие.</strong> MosBuild октябрь 2026 — принять решение об участии до 30 сентября. Минимальный стенд 24 м² = прямой контакт с застройщиками и дизайнерами.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">10 / Дизайн интерьера</div>
+  <div class="section-title">Тренды осень–зима 2026/27</div>
+  <div class="section-subtitle">Что задаёт спрос на материалы, форматы и фактуры</div>
+  <div class="trend-grid">
+    <div class="trend-card"><div class="trend-num">01</div><div class="trend-title">Тёплый нейтрал</div><div class="trend-body">Уход от холодных серых тонов. Палитра: терракота, охра, слоновая кость, беж. Плитка — имитация необожжённой глины, известняка.</div></div>
+    <div class="trend-card"><div class="trend-num">02</div><div class="trend-title">Крупные форматы</div><div class="trend-body">120×60, 160×80, 120×120 см. Меньше швов — монолитный вид. Особенно популярно для ванных и открытых пространств.</div></div>
+    <div class="trend-card"><div class="trend-num">03</div><div class="trend-title">Неомодернизм</div><div class="trend-body">Геометрия, лаконичность, контраст материалов. Бетон + дерево + металл. Матовые поверхности, графитовые вены.</div></div>
+  </div>
+  <div class="trend-grid">
+    <div class="trend-card"><div class="trend-num">04</div><div class="trend-title">Wabi-sabi</div><div class="trend-body">Несовершенная красота: неравномерные тона, ручные фактуры. Плитка с вариативностью тона (V4). Популярно в premium-жилье и бутик-отелях.</div></div>
+    <div class="trend-card"><div class="trend-num">05</div><div class="trend-title">Ванная — второй гостиной</div><div class="trend-body">Керамогранит пол-потолок — 78% новых дизайн-проектов ванных (Houzz Russia). Зона релакса с отдельной ванной и растениями.</div></div>
+    <div class="trend-card"><div class="trend-num">06</div><div class="trend-title">ESG в материалах</div><div class="trend-body">Запросы на «экологичную» плитку из переработанного сырья. Девелоперы с ESG-рейтингом требуют экологические сертификаты.</div></div>
+  </div>
+  <div class="photo-row">
+    <div class="photo-half"><div class="photo-half-text">Фото: интерьер с LAPARET в тёплой палитре<br>[ вставьте ]</div></div>
+    <div class="photo-half"><div class="photo-half-text">Фото: крупноформатная плитка LAPARET в проекте<br>[ вставьте ]</div></div>
+  </div>
+  <div class="gold-box"><strong>Коллекции LAPARET под тренды.</strong> Проверьте: есть ли в ассортименте коллекции под «тёплый нейтрал» и wabi-sabi? Крупные форматы 120×60+ — есть ли в прайсе? Это самый быстрорастущий запрос.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">11 / Мир и СНГ</div>
+  <div class="section-title">Международные выставки, тренды, рынки</div>
+  <div class="section-subtitle">CERSAIE, ISH, Salone del Mobile, Казахстан, Беларусь</div>
+  <h3>Ключевые выставки 2026–2027</h3>
+  <div class="expo-item">
+    <div class="expo-date">23–27<br>сент. 2026<br>Болонья</div>
+    <div class="expo-body"><div class="expo-name">CERSAIE 2026 — Международная выставка керамики и сантехники</div><div class="expo-desc">Главная мировая выставка. Девиз: «Nature Reimagined». Тренды: природные текстуры, форматы 160×320 см, биофилический дизайн. Участники: Atlas Concorde, Fap Ceramiche, Florim, Marazzi, Rex.</div><span class="expo-badge">Мировой ТОП-1</span><span class="expo-badge gold">Керамогранит</span></div>
+  </div>
+  <div class="expo-item">
+    <div class="expo-date">14–16<br>апр. 2026<br>Милан</div>
+    <div class="expo-body"><div class="expo-name">Salone del Mobile Milano 2026 — итоги</div><div class="expo-desc">300 000 посетителей. Тренды: «тихая роскошь» (Quiet Luxury), нейтральные цвета, возврат к классике. Придут в массовый сегмент РФ через 12–18 месяцев.</div><span class="expo-badge">Мебель / интерьер</span></div>
+  </div>
+  <div class="expo-item">
+    <div class="expo-date">17–21<br>марта 2027<br>Франкфурт</div>
+    <div class="expo-body"><div class="expo-name">ISH 2027 — Международная выставка сантехники и HVAC (анонс)</div><div class="expo-desc">Заявлены: Grohe, Hansgrohe, Geberit, Villeroy &amp; Boch, TOTO. Возможность встретиться с производителями смежных категорий.</div><span class="expo-badge gold">Планировать поездку</span></div>
+  </div>
+  <div class="expo-item">
+    <div class="expo-date">13–16<br>окт. 2026<br>Москва</div>
+    <div class="expo-body"><div class="expo-name">MosBuild / WorldBuild Moscow 2026</div><div class="expo-desc">Главная строительная выставка РФ. 50 000+ посетителей, 800 экспонентов. Решение об участии LAPARET — до 30 сентября.</div><span class="expo-badge">Решение срочно</span></div>
+  </div>
+  <h3>СНГ: Казахстан и Беларусь</h3>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge gold">Казахстан</span><div class="news-title">Рынок строительства Казахстана: рост +16% — привлекательный экспортный рынок</div></div><div class="news-body">Алматы и Астана в активной застройке. Спрос на качественный керамогранит растёт — местное производство не покрывает. Логистика Москва–Алматы: 8–12 дней ж/д.</div><div class="news-source">Источник: Казахстанская ассоциация строителей, авг. 2026</div></div>
+  <div class="news-item"><div class="news-item-head"><span class="news-badge">Беларусь</span><div class="news-title">Новый завод керамогранита «Белгранит» — 4 млн м² в год</div></div><div class="news-body">В Минской обл. открылось производство. Ценовое позиционирование — средний сегмент. Продажи через Леман Про уже начались.</div><div class="news-source">Источник: БелТА, сент. 2026</div></div>
+  <div class="kpi-grid">
+    <div class="kpi-box"><div class="kpi-num gold">+16%</div><div class="kpi-label">рост строительного рынка Казахстана 2026</div></div>
+    <div class="kpi-box"><div class="kpi-num" style="color:#9B2335">4 млн м²</div><div class="kpi-label">мощность нового завода Белгранит — новый конкурент</div></div>
+    <div class="kpi-box"><div class="kpi-num green">70–85%</div><div class="kpi-label">win rate при спецификации архитектором (vs 15% при тендере)</div></div>
+  </div>
+  <div class="photo-placeholder"><div class="photo-placeholder-text">Фото: стенд LAPARET на выставке / фото с CERSAIE или MosBuild<br>[ вставьте фото ]</div></div>
+  <div class="insight"><strong>Стратегический приоритет.</strong> CERSAIE 2026 задал тренды на 2027 год. Казахстан — зрелый экспортный рынок. Рекомендуется изучить поставки через местного дистрибутора.</div>
+</div>
+
+<div class="section">
+  <div class="section-tag">Итого</div>
+  <div class="section-title">Рекомендации для команды Баусервис</div>
+  <div class="section-subtitle">Приоритетные действия на октябрь 2026</div>
+  <div class="summary-grid">
+    <div class="summary-col"><div class="summary-col-head">Срочно (до 30 сент.)</div><p><strong>MosBuild:</strong> принять решение — подать заявку на стенд.<br><br><strong>Дизайнерская программа:</strong> запустить скидку 10–12% за регистрацию проекта в B2B-портале.</p></div>
+    <div class="summary-col"><div class="summary-col-head">Октябрь 2026</div><p><strong>Telegram-блогеры:</strong> интеграции в 2–3 дизайн-канала (300–900K подписчиков).<br><br><strong>Коммерческие застройщики:</strong> 3–5 объектов + spec-in через архитекторов.</p></div>
+    <div class="summary-col"><div class="summary-col-head">Q4 2026</div><p><strong>Казахстан:</strong> переговоры с дистрибутором — окно возможностей открыто.<br><br><strong>CERSAIE-тренды:</strong> «тёплый нейтрал» и крупные форматы — проверить наличие в ассортименте.</p></div>
+  </div>
+  <h3>Топ-10 действий по приоритету</h3>
+  <ul class="rec-list">
+    <li><strong>Программа лояльности дизайнеров</strong> — скидка 10–12% за регистрацию проекта в ViHome B2B</li>
+    <li><strong>MosBuild октябрь 2026</strong> — решение и заявка до 30 сентября</li>
+    <li><strong>Spec-in на коммерческих объектах</strong> — 3–5 объектов через архитекторов</li>
+    <li><strong>Telegram-интеграции</strong> в профессиональные дизайн-каналы</li>
+    <li><strong>Коллекции «тёплый нейтрал»</strong> — выделить в каталоге и продвигать</li>
+    <li><strong>Крупные форматы 120×60+</strong> — наличие на складе и визуализации в шоуруме</li>
+    <li><strong>Казахстан</strong> — переговоры с дистрибутором</li>
+    <li><strong>ESG-сертификация</strong> — изучить требования ПИК и «Самолёта»</li>
+    <li><strong>ИЖС-форма заказа</strong> — упрощённая онлайн-заявка малых партий (до 500 м²)</li>
+    <li><strong>Академия дизайнеров</strong> в B2B-портале — запустить обучающий модуль</li>
+  </ul>
+  <div class="hdiv"></div>
+  <div class="gold-box"><strong>Периодичность:</strong> ежемесячно, последняя пятница месяца. Следующий выпуск — №2, октябрь 2026. Тема: итоги MosBuild 2026, новый квартал рынка недвижимости, CERSAIE в ассортименте конкурентов.</div>
+  <div class="hdiv"></div>
+  <p class="text" style="font-size:8.5pt; color:#888; text-align:center; margin-top:6mm;">Дайджест «Рынок и интерьер» · Выпуск №1 · Сентябрь 2026<br>Подготовлено А. Ботьевым с помощью ИИ · Только для внутреннего использования</p>
+</div>
+
+</body>
+</html>
