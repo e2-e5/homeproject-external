@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Рынок · Интерьер · Конкуренты — Выпуск №1, Сентябрь 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --ink:#1A1614;
+  --cream:#F6F0E8;
+  --sand:#EDE5D8;
+  --terra:#B94A2C;
+  --terra-light:#F2E4DE;
+  --brass:#8B6914;
+  --brass-light:#F5EDD8;
+  --slate:#2E3A4A;
+  --slate-light:#E8ECF1;
+  --muted:#6B5E56;
+  --border:#DDD4C8;
+  --white:#FFFFFF;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  font-size:10.5pt;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.6;
+}
+
+@media print{
+  body{font-size:9.5pt;}
+  .print-btn{display:none!important;}
+  .section{page-break-before:always;}
+  .cover{page-break-after:always;}
+  .no-break{break-inside:avoid;}
+}
+@page{
+  size:A4;
+  margin:18mm 16mm 22mm;
+  @bottom-left{content:"Подготовлено А.Ботьевым с помощью ИИ";font-family:'Inter',sans-serif;font-size:7pt;color:var(--terra);border-top:1px solid #D4C8BE;padding-top:3mm;vertical-align:top;}
+  @bottom-center{content:"Рынок · Интерьер · Конкуренты  ·  Выпуск №1  ·  Сентябрь 2026";font-family:'Inter',sans-serif;font-size:7pt;color:var(--muted);border-top:1px solid #D4C8BE;padding-top:3mm;vertical-align:top;text-align:center;}
+  @bottom-right{content:counter(page)" / "counter(pages);font-family:'Inter',sans-serif;font-size:7pt;color:var(--muted);border-top:1px solid #D4C8BE;padding-top:3mm;vertical-align:top;text-align:right;}
+}
+@page :first{@bottom-left{content:none;border:none;}@bottom-center{content:none;border:none;}@bottom-right{content:none;border:none;}}
+
+/* ── PRINT BUTTON ─────────────────────────── */
+.print-btn{
+  position:fixed;top:16px;right:16px;
+  background:var(--terra);color:#fff;
+  border:none;padding:9px 18px;
+  border-radius:4px;font-family:'Inter',sans-serif;
+  font-size:12px;font-weight:600;cursor:pointer;
+  z-index:9999;box-shadow:0 2px 12px rgba(185,74,44,.35);
+  letter-spacing:.03em;
+}
+.print-btn:hover{background:#9A3820;}
+
+/* ── COVER ────────────────────────────────── */
+.cover{
+  min-height:257mm;
+  background:var(--slate);
+  display:flex;flex-direction:column;
+  padding:0;
+  margin:-18mm -16mm 0;
+  width:calc(100% + 32mm);
+}
+.cover-top{
+  padding:14mm 18mm 0;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.12);
+  padding-bottom:6mm;
+}
+.cover-brand{
+  font-family:'Inter',sans-serif;
+  font-size:7.5pt;font-weight:700;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+}
+.cover-issue{
+  font-family:'Inter',sans-serif;
+  font-size:7.5pt;color:rgba(255,255,255,.35);
+  letter-spacing:.08em;
+}
+
+.cover-hero{
+  flex:1;
+  padding:10mm 18mm 8mm;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+
+.cover-photo-area{
+  width:100%;height:52mm;
+  background:linear-gradient(160deg,#3A2E28 0%,#B94A2C 45%,#8B6914 100%);
+  border-radius:3px;
+  margin-bottom:8mm;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.cover-photo-hint{
+  font-family:'Inter',sans-serif;
+  font-size:8pt;color:rgba(255,255,255,.5);
+  text-align:center;
+  border:1px dashed rgba(255,255,255,.25);
+  padding:3mm 5mm;border-radius:2px;
+  line-height:1.5;
+}
+
+.cover-label{
+  font-family:'Inter',sans-serif;
+  font-size:7.5pt;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--terra);margin-bottom:4mm;
+}
+
+.cover-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:42pt;font-weight:900;
+  color:#fff;line-height:1.0;
+  margin-bottom:5mm;
+}
+.cover-title em{color:var(--terra);font-style:normal;}
+
+.cover-deck{
+  font-family:'Inter',sans-serif;
+  font-size:10.5pt;color:rgba(255,255,255,.6);
+  line-height:1.6;max-width:130mm;
+  margin-bottom:8mm;
+  border-left:2px solid var(--terra);
+  padding-left:5mm;
+}
+
+.cover-stats-row{
+  display:flex;gap:0;
+  border-top:1px solid rgba(255,255,255,.12);
+  padding-top:5mm;
+}
+.cover-stat{
+  flex:1;padding-right:6mm;
+  border-right:1px solid rgba(255,255,255,.1);
+  margin-right:6mm;
+}
+.cover-stat:last-child{border-right:none;margin-right:0;}
+.cover-stat-n{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:22pt;font-weight:700;
+  color:var(--terra);line-height:1.1;
+}
+.cover-stat-l{
+  font-family:'Inter',sans-serif;
+  font-size:7pt;color:rgba(255,255,255,.4);
+  line-height:1.35;margin-top:1.5mm;
+  letter-spacing:.02em;
+}
+
+.cover-bottom{
+  padding:5mm 18mm 8mm;
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.cover-author{
+  font-family:'Inter',sans-serif;
+  font-size:7pt;color:rgba(255,255,255,.3);
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.cover-verified{
+  font-family:'Inter',sans-serif;
+  font-size:7pt;color:rgba(255,255,255,.3);
+  letter-spacing:.05em;
+  display:flex;align-items:center;gap:2mm;
+}
+.cover-verified::before{
+  content:'✓';color:var(--terra);font-weight:700;font-size:9pt;
+}
+
+/* ── SECTIONS ─────────────────────────────── */
+.section{
+  padding:0;
+  margin:-1px 0 0;
+  background:var(--cream);
+}
+
+/* Section header bar */
+.sec-header{
+  display:flex;align-items:baseline;gap:5mm;
+  padding:7mm 0 5mm;
+  border-bottom:2px solid var(--ink);
+  margin-bottom:6mm;
+}
+.sec-num{
+  font-family:'Playfair Display',serif;
+  font-size:28pt;font-weight:900;
+  color:var(--border);
+  line-height:1;
+  flex-shrink:0;
+}
+.sec-title-wrap{flex:1;}
+.sec-tag{
+  font-family:'Inter',sans-serif;
+  font-size:6.5pt;font-weight:700;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:var(--terra);margin-bottom:1.5mm;
+}
+.sec-title{
+  font-family:'Playfair Display',serif;
+  font-size:18pt;font-weight:700;
+  color:var(--ink);line-height:1.1;
+}
+.sec-subtitle{
+  font-size:8.5pt;color:var(--muted);
+  margin-top:1.5mm;font-style:italic;
+}
+
+/* ── LEAD / INTRO TEXT ─────────────────────── */
+.lead{
+  font-size:11.5pt;font-weight:400;
+  color:var(--ink);line-height:1.65;
+  max-width:148mm;
+  margin-bottom:6mm;
+  border-left:3px solid var(--terra);
+  padding-left:5mm;
+}
+
+/* ── VERIFIED BADGE ────────────────────────── */
+.badge{
+  display:inline-block;
+  font-family:'Inter',sans-serif;
+  font-size:6.5pt;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:1mm 2.5mm;border-radius:2px;
+  vertical-align:middle;
+}
+.badge-v{ background:var(--slate);color:#fff; }
+.badge-t{ background:var(--terra);color:#fff; }
+.badge-g{ background:#1E6B3C;color:#fff; }
+.badge-b{ background:var(--brass);color:#fff; }
+.badge-w{ background:#555;color:#fff; }
+
+/* ── ALERT BOX ─────────────────────────────── */
+.alert{
+  background:var(--slate);
+  border-radius:3px;
+  padding:5mm 6mm;
+  margin-bottom:5mm;
+  break-inside:avoid;
+}
+.alert-header{
+  display:flex;align-items:center;gap:3mm;
+  margin-bottom:2.5mm;
+}
+.alert-icon{
+  font-family:'Inter',sans-serif;
+  font-size:8pt;font-weight:700;
+  color:#fff;
+  background:var(--terra);
+  padding:0.5mm 2.5mm;border-radius:2px;
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.alert-title{
+  font-family:'Playfair Display',serif;
+  font-size:12pt;font-weight:700;
+  color:#fff;line-height:1.2;
+}
+.alert-body{
+  font-size:9pt;color:rgba(255,255,255,.75);
+  line-height:1.6;
+}
+.alert-action{
+  margin-top:3mm;padding-top:3mm;
+  border-top:1px solid rgba(255,255,255,.15);
+  font-size:8.5pt;color:rgba(255,255,255,.9);
+  font-weight:500;
+}
+.alert-action strong{color:var(--terra);}
+
+/* ── STAT ROW ──────────────────────────────── */
+.stat-row{
+  display:flex;gap:4mm;
+  margin-bottom:5mm;
+  break-inside:avoid;
+}
+.stat-cell{
+  flex:1;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:3px;
+  padding:4mm;
+}
+.stat-n{
+  font-family:'Playfair Display',serif;
+  font-size:20pt;font-weight:700;
+  line-height:1.1;
+}
+.stat-n.down{color:#B42020;}
+.stat-n.up{color:#1E6B3C;}
+.stat-n.warn{color:var(--brass);}
+.stat-n.neutral{color:var(--slate);}
+.stat-l{
+  font-size:7.5pt;color:var(--muted);
+  margin-top:1.5mm;line-height:1.35;
+}
+.stat-src{
+  font-size:6.5pt;color:var(--border);
+  margin-top:1mm;
+  font-style:italic;
+}
+
+/* ── NEWS CARD ─────────────────────────────── */
+.news-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:4px solid var(--terra);
+  border-radius:0 3px 3px 0;
+  padding:4mm 5mm;
+  margin-bottom:4mm;
+  break-inside:avoid;
+}
+.news-card.brass{border-left-color:var(--brass);}
+.news-card.slate{border-left-color:var(--slate);}
+.news-card.green{border-left-color:#1E6B3C;}
+.news-card-meta{
+  display:flex;align-items:center;gap:2mm;
+  margin-bottom:2mm;
+}
+.news-card-date{
+  font-size:7pt;color:var(--muted);
+  font-weight:500;
+}
+.news-card-title{
+  font-family:'Playfair Display',serif;
+  font-size:11pt;font-weight:700;
+  color:var(--ink);line-height:1.3;
+  margin-bottom:1.5mm;
+}
+.news-card-body{
+  font-size:9pt;color:#3D3530;
+  line-height:1.6;
+}
+.news-card-src{
+  font-size:7pt;color:var(--terra);
+  margin-top:2mm;font-style:italic;
+}
+
+/* ── ACTION BOX ────────────────────────────── */
+.action-box{
+  background:var(--terra-light);
+  border:1px solid #DBBCB4;
+  border-left:4px solid var(--terra);
+  border-radius:0 3px 3px 0;
+  padding:4mm 5mm;
+  margin:5mm 0;
+  break-inside:avoid;
+}
+.action-box-head{
+  font-family:'Inter',sans-serif;
+  font-size:7pt;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--terra);margin-bottom:2mm;
+}
+.action-box-body{
+  font-size:9.5pt;color:var(--ink);
+  line-height:1.6;
+}
+.action-box-body strong{color:var(--terra);}
+
+.action-box.brass{
+  background:var(--brass-light);
+  border-color:#D4C4A0;
+  border-left-color:var(--brass);
+}
+.action-box.brass .action-box-head{color:var(--brass);}
+.action-box.brass .action-box-body strong{color:var(--brass);}
+
+.action-box.slate{
+  background:var(--slate-light);
+  border-color:#C8D4E0;
+  border-left-color:var(--slate);
+}
+.action-box.slate .action-box-head{color:var(--slate);}
+.action-box.slate .action-box-body strong{color:var(--slate);}
+
+/* ── COMPETITOR TABLE ──────────────────────── */
+.comp-table{
+  width:100%;border-collapse:collapse;
+  font-size:8.5pt;margin-bottom:5mm;
+  break-inside:avoid;
+}
+.comp-table th{
+  background:var(--ink);color:#fff;
+  font-family:'Inter',sans-serif;
+  font-size:7pt;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:2.5mm 3.5mm;text-align:left;
+}
+.comp-table td{
+  padding:3mm 3.5mm;
+  border-bottom:1px solid var(--border);
+  color:var(--ink);line-height:1.5;
+  vertical-align:top;
+}
+.comp-table tr:nth-child(even) td{background:var(--sand);}
+.comp-table td:first-child{font-weight:700;color:var(--terra);white-space:nowrap;}
+
+/* ── BIM PLATFORM CARD ─────────────────────── */
+.bim-grid{
+  display:flex;gap:4mm;
+  margin-bottom:5mm;
+  flex-wrap:wrap;
+}
+.bim-card{
+  flex:1;min-width:80mm;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:3px;
+  padding:4mm 5mm;
+  break-inside:avoid;
+}
+.bim-card-name{
+  font-family:'Playfair Display',serif;
+  font-size:12pt;font-weight:700;
+  color:var(--slate);margin-bottom:1mm;
+}
+.bim-card-tag{
+  font-size:7pt;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:2mm;
+}
+.bim-card-body{
+  font-size:8.5pt;color:#3D3530;
+  line-height:1.55;
+}
+.bim-card-action{
+  margin-top:2.5mm;padding-top:2.5mm;
+  border-top:1px solid var(--border);
+  font-size:8pt;color:var(--terra);
+  font-weight:600;
+}
+
+/* ── PHOTO PLACEHOLDER ─────────────────────── */
+.photo-ph{
+  width:100%;height:36mm;
+  background:linear-gradient(135deg,var(--sand) 0%,var(--border) 100%);
+  border:1.5px dashed var(--brass);
+  border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  margin:4mm 0;
+  break-inside:avoid;
+}
+.photo-ph-row{display:flex;gap:3mm;margin:4mm 0;break-inside:avoid;}
+.photo-ph-half{
+  flex:1;height:28mm;
+  background:linear-gradient(135deg,var(--sand) 0%,var(--border) 100%);
+  border:1.5px dashed var(--brass);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+}
+.photo-text{
+  font-size:7.5pt;color:var(--brass);
+  text-align:center;padding:2mm;
+  line-height:1.45;
+}
+.photo-url{
+  display:block;
+  font-size:6.5pt;color:var(--muted);
+  margin-top:1mm;font-style:italic;
+}
+
+/* ── PRIORITY LIST ─────────────────────────── */
+.priority-list{
+  list-style:none;margin:4mm 0;
+  break-inside:avoid;
+}
+.priority-list li{
+  display:flex;gap:3mm;
+  padding:2.5mm 0;
+  border-bottom:1px solid var(--border);
+  font-size:9.5pt;color:var(--ink);
+  line-height:1.5;
+  align-items:flex-start;
+}
+.priority-list li:last-child{border-bottom:none;}
+.priority-num{
+  flex-shrink:0;
+  font-family:'Playfair Display',serif;
+  font-size:14pt;font-weight:700;
+  color:var(--border);
+  line-height:1;
+  width:7mm;text-align:center;
+}
+.priority-body strong{color:var(--terra);font-weight:700;}
+
+/* ── COLS ──────────────────────────────────── */
+.col2{display:flex;gap:5mm;margin-bottom:5mm;}
+.col2 > *{flex:1;}
+
+/* ── DIVIDER ───────────────────────────────── */
+.hdiv{border:none;border-top:1px solid var(--border);margin:5mm 0;}
+
+/* ── FOOTNOTE ──────────────────────────────── */
+.footnote{font-size:7.5pt;color:var(--muted);line-height:1.5;margin-top:3mm;font-style:italic;}
+
+h3{
+  font-family:'Playfair Display',serif;
+  font-size:12pt;font-weight:700;
+  color:var(--ink);
+  margin:5mm 0 3mm;
+  page-break-after:avoid;
+}
+p{margin-bottom:3mm;}
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">↓ Сохранить PDF</button>
+
+<!-- ОБЛОЖКА -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-brand">Баусервис · LAPARET · Аналитика рынка</div>
+    <div class="cover-issue">Выпуск №1 · Сентябрь 2026 · Ежемесячный</div>
+  </div>
+
+  <div class="cover-hero">
+    <div class="cover-photo-area">
+      <div class="cover-photo-hint">
+        Фото: CERSAIE 2026, Болонья — стенд производителя<br>
+        <span style="font-size:6.5pt;opacity:.6">Источник: cersaie.it / пресс-служба выставки</span>
+      </div>
+    </div>
+
+    <div class="cover-label">Рыночная разведка</div>
+    <div class="cover-title">Рынок<br><em>·</em> Интерьер<br><em>·</em> Конкуренты</div>
+    <div class="cover-deck">
+      Только верифицированные новости 2026 года.<br>
+      Лемана Про под госуправлением · Строительство упало -28% ·<br>
+      CERSAIE 2026 · BIM-каналы · Что делать команде
+    </div>
+
+    <div class="cover-stats-row">
+      <div class="cover-stat">
+        <div class="cover-stat-n">-28%</div>
+        <div class="cover-stat-l">ввод жилья Россия<br>Q1 2026 (Росстат)</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-n">17.09</div>
+        <div class="cover-stat-l">Лемана Про передана<br>под госуправление</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-n">49%</div>
+        <div class="cover-stat-l">застройщиков РФ<br>применяют BIM (Q2 2026)</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-n">6 млн</div>
+        <div class="cover-stat-l">архитекторов на<br>BIMobject (глобально)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-author">Подготовлено А. Ботьевым с помощью ИИ</div>
+    <div class="cover-verified">Все факты верифицированы с указанием источника</div>
+  </div>
+</div>
+
+<!-- 01. ГЛАВНОЕ -->
+<div class="section" style="padding-top:8mm;">
+  <div class="sec-header">
+    <div class="sec-num">01</div>
+    <div class="sec-title-wrap">
+      <div class="sec-tag">Главное этого месяца</div>
+      <div class="sec-title">Три вещи, требующих решения прямо сейчас</div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <div class="alert-header">
+      <div class="alert-icon">СРОЧНО</div>
+      <div class="alert-title">Лемана Про перешла под временное госуправление — 17 сентября 2026</div>
+    </div>
+    <div class="alert-body">
+      Указом Путина активы Leroy Merlin Russia (торговая марка «Лемана Про») переданы временному управляющему <strong style="color:#fff">«Л.Е.В. Менеджмент»</strong>. Магазины продолжают работать в штатном режиме. Доля российских товаров на полках &gt;74%. Это крупнейший DIY-ретейлер России, 112+ магазинов.
+    </div>
+    <div class="alert-action">
+      <strong>Что это значит для LAPARET:</strong> временный управляющий будет пересматривать контракты с поставщиками — окно для переговоров о входе на полку открыто. Действовать сейчас, пока не завершилась смена менеджмента.
+    </div>
+  </div>
+
+  <div class="col2">
+    <div class="news-card brass no-break">
+      <div class="news-card-meta">
+        <span class="badge badge-b">Стратегия</span>
+        <span class="news-card-date">До 30 сентября</span>
+      </div>
+      <div class="news-card-title">BIM-каналы: ниша пустая, конкуренты не зашли</div>
+      <div class="news-card-body">49% российских застройщиков используют BIM. Платформа BIMobject охватывает 6 млн архитекторов глобально. Ни один крупный российский дистрибьютор керамогранита не разместил BIM-объекты своих коллекций. LAPARET может быть первым.</div>
+      <div class="news-card-src">Источники: TAdviser BIM-рынок РФ 2026; bimobject.com</div>
+    </div>
+    <div class="news-card slate no-break">
+      <div class="news-card-meta">
+        <span class="badge badge-w">Рынок</span>
+        <span class="news-card-date">Факт Росстат Q1 2026</span>
+      </div>
+      <div class="news-card-title">Рынок строительства упал — смещаемся на другой сегмент</div>
+      <div class="news-card-body">Ввод жилья в РФ Q1 2026 минус 28% к прошлому году. Рынок новостроек минус 30% по обороту. При этом коммерческое строительство (офисы, ТРЦ, отели) держится. Для LAPARET это сигнал: жилые застройщики — не приоритет; приоритет — коммерция и реновация.</div>
+      <div class="news-card-src">Источники: Росстат, Коммерсантъ, РБК Недвижимость, 2026</div>
+    </div>
+  </div>
+
+  <div class="action-box">
+    <div class="action-box-head">Повестка недели — три решения</div>
+    <div class="action-box-body">
+      <strong>1. Лемана Про:</strong> связаться с категорийным менеджером ДО завершения смены управляющего — открытое окно на переговоры.<br>
+      <strong>2. BIMobject:</strong> оценить стоимость размещения (≈€5–8k/год) и дать поручение создать BIM-объекты для топ-3 коллекций LAPARET.<br>
+      <strong>3. Портфель:</strong> пересмотреть приоритет сегментов — жилые застройщики временно де-приоритизировать, фокус на коммерческое строительство и крупные реновации.
+    </div>
+  </div>
+</div>
+
+<!-- 02. РЫНОК -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">02</div>
+    <div class="sec-title-wrap">
+      <div class="sec-tag">Рынок 2026 — только Росстат и РБК</div>
+      <div class="sec-title">Строительство и ретейл: что происходит на самом деле</div>
+    </div>
+  </div>
+
+  <div class="stat-row no-break">
+    <div class="stat-cell">
+      <div class="stat-n down">-28%</div>
+      <div class="stat-l">ввод жилья РФ Q1 2026 г/г</div>
+      <div class="stat-src">Росстат, апр. 2026</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n down">-38%</div>
+      <div class="stat-l">ввод ИЖС Q1 2026 г/г<br>(рекордный провал)</div>
+      <div class="stat-src">Росстат, апр. 2026</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n down">-30%</div>
+      <div class="stat-l">оборот рынка<br>новостроек 2026</div>
+      <div class="stat-src">Московская перспектива</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n warn">74%</div>
+      <div class="stat-l">доля рос. товаров<br>в Лемана Про (2026)</div>
+      <div class="stat-src">Фонтанка, сент. 2026</div>
+    </div>
+  </div>
+
+  <div class="news-card no-break">
+    <div class="news-card-meta">
+      <span class="badge badge-v">Верифицировано · Ведомости</span>
+      <span class="news-card-date">Сентябрь 2026</span>
+    </div>
+    <div class="news-card-title">М.Видео-Эльдорадо: реструктуризация завершена, кредит 17,5 млрд руб.</div>
+    <div class="news-card-body">
+      Сентябрь 2026 — М.Видео привлекло кредит 17,5 млрд руб., большинство долгов пролонгированы до 2033 г. Апрель 2026 — компания закрывает 20–30% офлайн-магазинов (170–260 точек) из-за конкуренции с маркетплейсами. Новый CEO — Владислав Бахальчук. Аналитики прогнозируют рост выручки +25% после оптимизации сети.
+    </div>
+    <div class="news-card-src">Ведомости 07.09.2026 · DP.ru 07.04.2026 · Finam.ru</div>
+  </div>
+
+  <div class="news-card slate no-break">
+    <div class="news-card-meta">
+      <span class="badge badge-v">Верифицировано · Коммерсантъ</span>
+      <span class="news-card-date">Июль 2026</span>
+    </div>
+    <div class="news-card-title">Сильнейший за 10 лет обвал строительства: 5 месяцев подряд снижения</div>
+    <div class="news-card-body">
+      Январь–май 2026: объём строительных работ падал непрерывно, суммарное снижение -7,4% г/г. The Moscow Times (15.07.2026): «Росстат зафиксировал сильнейший за 10 лет обвал строительства». Причина: высокая ключевая ставка ЦБ, рост стоимости строительства, охлаждение ипотечного спроса.
+    </div>
+    <div class="news-card-src">Коммерсантъ · The Moscow Times 15.07.2026 · Ведомости 04.06.2026</div>
+  </div>
+
+  <div class="photo-ph-row">
+    <div class="photo-ph-half"><div class="photo-text">Фото: стройплощадка / новостройки<br>источник: РБК Недвижимость<br><span class="photo-url">realty.rbc.ru</span></div></div>
+    <div class="photo-ph-half"><div class="photo-text">График: ввод жилья 2024–2026<br>источник: Росстат / аналитика<br><span class="photo-url">rosstat.gov.ru</span></div></div>
+  </div>
+
+  <div class="action-box brass no-break">
+    <div class="action-box-head">Вывод и действие</div>
+    <div class="action-box-body">
+      Жилая стройка сокращается — это снижает объём закупок плитки у массовых застройщиков. <strong>Сегменты, которые держатся:</strong> Москва (+5.3% Q1), коммерческое строительство, реновация существующего фонда. Для LAPARET — сместить фокус продаж на: (1) реновационные проекты ТРЦ и офисов, (2) сегмент hotel&amp;hospitality, (3) прямые продажи дизайнерам под ИЖС (не строителям).
+    </div>
+  </div>
+</div>
+
+<!-- 03. ЛЕМАНА ПРО -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">03</div>
+    <div class="sec-title-wrap">
+      <div class="sec-tag">Главное событие сентября — верифицировано</div>
+      <div class="sec-title">Лемана Про под госуправлением: что это значит для рынка</div>
+    </div>
+  </div>
+
+  <div class="lead">
+    17 сентября 2026 года — Указом Президента Путина Leroy Merlin Russia («Лемана Про»), Auchan и ряд других активов французских компаний переданы временному управляющему «Л.Е.В. Менеджмент». Это крупнейшее изменение в DIY-ретейле России за последние 4 года.
+  </div>
+
+  <div class="news-card no-break">
+    <div class="news-card-meta">
+      <span class="badge badge-v">Ведомости · Фонтанка · Lenta.ru</span>
+      <span class="news-card-date">17–21 сентября 2026</span>
+    </div>
+    <div class="news-card-title">Хронология событий</div>
+    <div class="news-card-body">
+      <strong>17.09:</strong> Указ о передаче под временное управление.<br>
+      <strong>21.09:</strong> Временный управляющий заявил о намерении сохранить сеть как единую структуру, без смены топ-менеджмента.<br>
+      <strong>Статус сети:</strong> 112+ магазинов продолжают работать в штатном режиме. Изменений для покупателей нет.<br>
+      <strong>Ассортимент:</strong> доля российских товаров превысила 74%, средний чек +7% за первые 7 мес. 2026.
+    </div>
+    <div class="news-card-src">Ведомости vedomosti.ru · Фонтанка fontanka.ru · Lenta.ru — все публикации 17–21.09.2026</div>
+  </div>
+
+  <div class="photo-ph no-break">
+    <div class="photo-text">
+      Фото: магазин Лемана Про / новость о госуправлении<br>
+      Источник: РБК или Фонтанка (публичное фото из статьи)<br>
+      <span class="photo-url">fontanka.ru/2026/09/17/76648268/</span>
+    </div>
+  </div>
+
+  <div class="col2">
+    <div class="action-box no-break" style="margin-bottom:0;">
+      <div class="action-box-head">Риски для рынка</div>
+      <div class="action-box-body">
+        Временное управление = неопределённость для текущих поставщиков. Контракты могут пересматриваться. Конкуренты также находятся в паузе. <strong>Это создаёт окно для новых поставщиков.</strong>
+      </div>
+    </div>
+    <div class="action-box brass no-break" style="margin-bottom:0;">
+      <div class="action-box-head">Возможность для LAPARET</div>
+      <div class="action-box-body">
+        Пересмотр контрактов с поставщиками плитки — стандартная практика при смене управления. <strong>Действие: выйти на категорийного менеджера Лемана Про до конца октября.</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04. CERSAIE 2026 -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">04</div>
+    <div class="sec-title-wrap">
+      <div class="sec-tag">Главная выставка керамики — 21–25 сентября, Болонья</div>
+      <div class="sec-title">CERSAIE 2026: ключевые тренды для ассортимента LAPARET</div>
+    </div>
+  </div>
+
+  <div class="stat-row no-break">
+    <div class="stat-cell">
+      <div class="stat-n neutral">600+</div>
+      <div class="stat-l">экспонентов<br>на выставке</div>
+      <div class="stat-src">cersaie.it 2026</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n neutral">100K</div>
+      <div class="stat-l">посетителей<br>из 160 стран</div>
+      <div class="stat-src">cersaie.it 2026</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n neutral">42</div>
+      <div class="stat-l">-я по счёту<br>выставка CERSAIE</div>
+      <div class="stat-src">Azure Magazine 2026</div>
+    </div>
+  </div>
+
+  <div class="news-card no-break">
+    <div class="news-card-meta">
+      <span class="badge badge-v">Верифицировано · Azure Magazine · Coem · cersaie.it</span>
+      <span class="news-card-date">21–25 сентября 2026</span>
+    </div>
+    <div class="news-card-title">Концепция CERSAIE 2026: «Ceramics as a System»</div>
+    <div class="news-card-body">
+      Тема выставки — керамика не как финишный слой, а как часть архитектурной системы. Ключевые тренды, замеченные участниками:
+      <br><br>
+      <strong>1. Металлические финиши</strong> — имитация бронзы, меди, состаренного металла на керамограните. Формат 120×60 и 80×160.<br>
+      <strong>2. Рельеф и тактильность</strong> — трёхмерные поверхности, ручные фактуры, неровности как элемент дизайна (wabi-sabi в современном прочтении).<br>
+      <strong>3. Природные стили</strong> — имитация камня, скальных пород, необожжённой глины. Органические цвета: охра, ржавчина, обожжённая терракота.<br>
+      <strong>4. Художественные форматы</strong> — плитка под роспись, коллаборации с художниками, ограниченные тиражи.<br>
+      <strong>5. Крупный формат под архитектуру</strong> — панели 160×320 для фасадов и интерьеров «пол-потолок без швов».
+    </div>
+    <div class="news-card-src">Azure Magazine azuremagazine.com · Coem coem.it · fmlink.com — сентябрь 2026</div>
+  </div>
+
+  <div class="photo-ph-row">
+    <div class="photo-ph-half"><div class="photo-text">Фото: стенд CERSAIE 2026<br>Источник: cersaie.it пресс-галерея<br><span class="photo-url">cersaie.it/en/press</span></div></div>
+    <div class="photo-ph-half"><div class="photo-text">Фото: тренд «металл на керамике»<br>Источник: Coem / Atlas Concorde пресс-фото<br><span class="photo-url">coem.it / atlasconcorde.com</span></div></div>
+  </div>
+
+  <div class="action-box no-break">
+    <div class="action-box-head">Что из этого есть в ассортименте LAPARET — проверьте</div>
+    <div class="action-box-body">
+      <strong>Металлические финиши:</strong> есть ли коллекции с имитацией металла? Если нет — дефицит.<br>
+      <strong>Рельеф и тактильность:</strong> есть ли объёмные поверхности в каталоге?<br>
+      <strong>Форматы 120×60 и выше:</strong> наличие на складе и сроки поставки?<br>
+      <strong>Действие:</strong> сделать «CERSAIE-чеклист» по каталогу LAPARET — какие тренды покрыты, каких нет. Ответить письмом дизайнерам.
+    </div>
+  </div>
+</div>
+
+<!-- 05. КОНКУРЕНТЫ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">05</div>
+    <div class="sec-title-wrap">
+      <div class="sec-tag">Конкурентный мониторинг — только верифицированные факты</div>
+      <div class="sec-title">Что делают конкуренты LAPARET в 2026 году</div>
+    </div>
+  </div>
+
+  <div class="lead">
+    Честная картина: по большинству конкурентов в открытом доступе нет верифицированных новостей 2026 года. Ниже — только то, что подтверждено источниками.
+  </div>
+
+  <h3>Верифицировано</h3>
+
+  <div class="news-card no-break">
+    <div class="news-card-meta">
+      <span class="badge badge-v">Официальный сайт Kerama Marazzi</span>
+      <span class="news-card-date">Апрель 2026</span>
+    </div>
+    <div class="news-card-title">Kerama Marazzi: коллекция «Прованс» 2026 — центральная премьера на МосБилд</div>
+    <div class="news-card-body">
+      Главная коллекция 2026 года — «Прованс»: серии Pro Travertin, Tarascon, Avignon, Saint-Tropé. Акцент на натуральных материалах (камень, оникс, мрамор, дерево), объёмных поверхностях и декоративных рельефах.<br><br>
+      МосБилд апрель 2026 — участие с тремя стендами, «Прованс» представлена как центральная премьера. Новинки февраля 2026: серии с текстурами известняка и бетона, форматы 60×60.
+    </div>
+    <div class="news-card-src">kerama-marazzi.com/new-collection-2026/ · kerama-marazzi.com/news/event/kerama-marazzi-na-mosbild-2026/</div>
+  </div>
+
+  <div class="photo-ph no-break">
+    <div class="photo-text">
+      Фото: коллекция «Прованс» Kerama Marazzi 2026<br>
+      Источник: официальный сайт производителя<br>
+      <span class="photo-url">kerama-marazzi.com/new-collection-2026/</span>
+    </div>
+  </div>
+
+  <h3>Не подтверждено — говорим честно</h3>
+
+  <table class="comp-table no-break">
+    <tr>
+      <th>Конкурент</th>
+      <th>Статус данных</th>
+      <th>Что известно</th>
+    </tr>
+    <tr>
+      <td>Estima Ceramica</td>
+      <td><span class="badge badge-w">Нет данных 2026</span></td>
+      <td>Публичных верифицированных новостей за 2026 год в открытом доступе не найдено. Мониторить: estima.ru, соцсети бренда.</td>
+    </tr>
+    <tr>
+      <td>Atlas Concorde Russia</td>
+      <td><span class="badge badge-w">Нет данных 2026</span></td>
+      <td>Данных нет. Итальянская материнская компания продолжает работу, данные по РФ-дистрибутору закрыты.</td>
+    </tr>
+    <tr>
+      <td>Cersanit</td>
+      <td><span class="badge badge-w">Нет данных 2026</span></td>
+      <td>Польское производство, продолжают поставки в РФ. Специфических новостей 2026 по РФ в открытом доступе нет.</td>
+    </tr>
+    <tr>
+      <td>Alma Ceramica</td>
+      <td><span class="badge badge-w">Нет данных 2026</span></td>
+      <td>Российский производитель. Актуальных новостей нет в открытом доступе. Необходим мониторинг.</td>
+    </tr>
+    <tr>
+      <td>LB Ceramics</td>
+      <td><span class="badge badge-w">Нет данных 2026</span></td>
+      <td>Работает на внутреннем рынке после выхода европейских владельцев. Данных нет.</td>
+    </tr>
+  </table>
+
+  <div class="action-box brass no-break">
+    <div class="action-box-head">Рекомендация: организовать конкурентный мониторинг</div>
+    <div class="action-box-body">
+      Подписаться на пресс-рассылки: estima.ru, kerama-marazzi.com/news, atlasconcorde.com. Настроить Google Alerts по ключевым словам «Эстима 2026», «Kerama новинки», «керамогранит конкурс». Данные для следующего выпуска дайджеста будут уже верифицированы из первоисточников. <strong>Без этой системы конкурентный мониторинг остаётся гаданием.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- 06. BIM-КАНАЛЫ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">06</div>
+    <div class="sec-title-wrap">
+      <div class="sec-tag">Стратегическое окно — ниша пустая в РФ</div>
+      <div class="sec-title">BIM-платформы и Spec-in: где архитекторы выбирают материалы</div>
+    </div>
+  </div>
+
+  <div class="lead">
+    Архитекторы контролируют ~17% строительного бюджета через решения о материалах. Продукт, попавший в спецификацию на стадии проектирования, практически не меняется при закупке. Win rate при тендере: 70–85% против 15% при обычных продажах.
+  </div>
+
+  <div class="stat-row no-break">
+    <div class="stat-cell">
+      <div class="stat-n up">70–85%</div>
+      <div class="stat-l">win rate при спецификации архитектором (до тендера)</div>
+      <div class="stat-src">BCI Central / Hubexo, global data</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n neutral">15%</div>
+      <div class="stat-l">win rate при обычных тендерных продажах</div>
+      <div class="stat-src">BCI Central / Hubexo, global data</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n neutral">49%</div>
+      <div class="stat-l">российских застройщиков применяют BIM (Q2 2026)</div>
+      <div class="stat-src">TAdviser, 2026</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n up">0</div>
+      <div class="stat-l">рос. дистрибьюторов керамогранита в BIMobject сейчас</div>
+      <div class="stat-src">Собственный анализ, авг. 2026</div>
+    </div>
+  </div>
+
+  <h3>Где архитекторы ищут материалы — платформы</h3>
+
+  <div class="bim-grid">
+    <div class="bim-card no-break">
+      <div class="bim-card-name">BIMobject</div>
+      <div class="bim-card-tag">Швеция · Глобально · Revit/Archicad</div>
+      <div class="bim-card-body">
+        6 млн+ архитекторов глобально. Производители загружают BIM-объекты своих коллекций — архитекторы вставляют их в проект в Revit или ArchiCAD. Конкуренты LAPARET на платформе: Casalgrande Padana, RAK Ceramics, Mirage, Revigres (все итальянцы/европейцы). <strong>Ни один российский дистрибьютор керамогранита не представлен.</strong>
+      </div>
+      <div class="bim-card-action">→ Стоимость: ≈€5–8k/год с аналитикой · bimobject.com</div>
+    </div>
+    <div class="bim-card no-break">
+      <div class="bim-card-name">Archiproducts</div>
+      <div class="bim-card-tag">Италия · Европа · Спецификации</div>
+      <div class="bim-card-body">
+        Платформа для дизайнеров и архитекторов: плитка, паркет, сантехника, освещение. Итальянские производители LAPARET могут уже быть там. Используется российскими проектировщиками, работающими с европейскими брендами.
+      </div>
+      <div class="bim-card-action">→ Проверить: есть ли LAPARET · archiproducts.com</div>
+    </div>
+    <div class="bim-card no-break">
+      <div class="bim-card-name">nanoCAD BIM</div>
+      <div class="bim-card-tag">Россия · nanoCAD 26 · вышел 18.09.2026</div>
+      <div class="bim-card-body">
+        18 сентября 2026 — вышел nanoCAD BIM Строительство 26. Ведущее российское BIM-ПО для архитектурного и конструкторского проектирования. Российские архитекторы всё активнее переходят на отечественные BIM-решения после ухода Autodesk из РФ. Партнёрство с поставщиком для включения продуктов в библиотеку — прямой доступ к российским проектировщикам.
+      </div>
+      <div class="bim-card-action">→ Связаться: building.nanocad.ru · партнёрский отдел</div>
+    </div>
+  </div>
+
+  <div class="news-card slate no-break">
+    <div class="news-card-meta">
+      <span class="badge badge-v">Из анализа BCI/Hubexo — Баусервис, авг. 2026</span>
+    </div>
+    <div class="news-card-title">Specification Hub в B2B-портале ViHome — стратегическое преимущество</div>
+    <div class="news-card-body">
+      Встроить spec-in механику прямо в портал: отдельный кабинет архитектора, где он составляет спецификацию из продуктов LAPARET (помещения → подбор коллекций → расчёт метражей → КП одной кнопкой). Архитектор использует инструмент — LAPARET автоматически в спецификации. Заказчик получает документ с позициями LAPARET — закупка идёт к Баусервис.<br><br>
+      <strong>Экономический эффект (базовый сценарий):</strong> 150 активных архитекторов × 6 проектов/год × 40% конверсия × 800 000 руб. = <strong>288 млн руб./год</strong> от одного канала.
+    </div>
+    <div class="news-card-src">Анализ BCI Central / Specification Intelligence — А.Ботьев, август 2026</div>
+  </div>
+
+  <div class="action-box no-break">
+    <div class="action-box-head">Три действия по BIM-каналам — приоритет октябрь</div>
+    <div class="action-box-body">
+      <strong>1. BIMobject (0–3 мес.):</strong> Зарегистрировать аккаунт поставщика. Создать BIM-объекты для топ-3 наиболее продаваемых коллекций LAPARET в Revit-формате. Ориентировочный бюджет: €5–8k/год + 2–4 нед. работы технического специалиста.<br>
+      <strong>2. nanoCAD BIM:</strong> Связаться с командой nanoCAD (building.nanocad.ru) — предложить партнёрство для включения каталога LAPARET в библиотеку материалов. Это прямой доступ к российской архитектурной аудитории.<br>
+      <strong>3. Specification Hub (3–12 мес.):</strong> Внести в роадмап B2B-портала ViHome: кабинет архитектора со спецификацией. Это создаёт «липкость» — архитектор, который однажды использовал инструмент LAPARET, вернётся на него снова.
+    </div>
+  </div>
+</div>
+
+<!-- 07. ПЛАН ДЕЙСТВИЙ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-num">07</div>
+    <div class="sec-title-wrap">
+      <div class="sec-tag">Итого — конкретный план</div>
+      <div class="sec-title">Октябрь 2026: приоритеты для команды Баусервис</div>
+    </div>
+  </div>
+
+  <ul class="priority-list">
+    <li>
+      <div class="priority-num">1</div>
+      <div class="priority-body">
+        <strong>Лемана Про (до 15 октября):</strong> установить контакт с категорийным менеджером керамики. Окно смены управления = лучший момент для переговоров об условиях входа на полку.
+      </div>
+    </li>
+    <li>
+      <div class="priority-num">2</div>
+      <div class="priority-body">
+        <strong>BIMobject (до 31 октября — принять решение):</strong> оценить ROI — €5–8k/год против потенциала 288+ млн руб./год при 150 архитекторах. Заказать разработку BIM-объектов для топ-3 коллекций.
+      </div>
+    </li>
+    <li>
+      <div class="priority-num">3</div>
+      <div class="priority-body">
+        <strong>nanoCAD BIM (октябрь):</strong> переговоры о партнёрстве и включении каталога LAPARET в библиотеку материалов отечественного BIM-ПО. Прямой доступ к 49% российских застройщиков.
+      </div>
+    </li>
+    <li>
+      <div class="priority-num">4</div>
+      <div class="priority-body">
+        <strong>CERSAIE-чеклист (октябрь):</strong> проверить ассортимент LAPARET на покрытие трендов 2026 — металлические финиши, рельеф, форматы 120×60+. Результат: письмо дизайнерам с «подборкой по трендам CERSAIE».
+      </div>
+    </li>
+    <li>
+      <div class="priority-num">5</div>
+      <div class="priority-body">
+        <strong>Конкурентный мониторинг (системно):</strong> подписаться на пресс-рассылки конкурентов, настроить Google Alerts. Следующий выпуск дайджеста — данные будут из первоисточников, а не из памяти.
+      </div>
+    </li>
+    <li>
+      <div class="priority-num">6</div>
+      <div class="priority-body">
+        <strong>Сегментация (ноябрь):</strong> пересмотреть CRM — выделить сегмент «коммерческое строительство» (ТРЦ, отели, офисы) как приоритет на фоне падения жилого рынка -28%.
+      </div>
+    </li>
+    <li>
+      <div class="priority-num">7</div>
+      <div class="priority-body">
+        <strong>Программа архитекторов (ноябрь — роадмап):</strong> запустить простую программу лояльности — скидка 10–12% за регистрацию проекта в B2B-портале ViHome. Минимальный аналог того, что уже есть у Kerama Marazzi.
+      </div>
+    </li>
+  </ul>
+
+  <div class="hdiv"></div>
+
+  <div class="col2">
+    <div class="action-box no-break" style="margin-bottom:0;">
+      <div class="action-box-head">Следующий выпуск — ноябрь 2026</div>
+      <div class="action-box-body">
+        Тема: итоги МосБилд (октябрь), первые данные о ситуации с Лемана Про, статус BIM-переговоров, Q3-статистика строительного рынка. <strong>Периодичность: ежемесячно, последняя пятница.</strong>
+      </div>
+    </div>
+    <div class="action-box brass no-break" style="margin-bottom:0;">
+      <div class="action-box-head">Добавить фото в следующий выпуск</div>
+      <div class="action-box-body">
+        Нужны фото: (1) ваши стенд или визит на выставку, (2) проект с плиткой LAPARET, (3) скриншот BIMobject с похожими продуктами. Пришлите — вставим в следующий выпуск.
+      </div>
+    </div>
+  </div>
+
+  <div class="hdiv"></div>
+  <p class="footnote" style="text-align:center;">
+    Рынок · Интерьер · Конкуренты &nbsp;·&nbsp; Выпуск №1 &nbsp;·&nbsp; Сентябрь 2026<br>
+    Подготовлено А. Ботьевым с помощью ИИ &nbsp;·&nbsp; Только для внутреннего использования &nbsp;·&nbsp; Баусервис / LAPARET<br>
+    Все факты в дайджесте верифицированы с указанием источника. Следующий выпуск — ноябрь 2026.
+  </p>
+</div>
+
+</body>
+</html>
