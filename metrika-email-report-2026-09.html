@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email-рассылки HOMEPROJECT — Август–Сентябрь 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #181A20; color: #E8EAF0; font-family: 'Inter', -apple-system, sans-serif; font-size: 14px; line-height: 1.5; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 20px; }
+  h1 { font-size: 22px; font-weight: 700; color: #FFFFFF; margin-bottom: 4px; }
+  .subtitle { color: #8B8FA8; font-size: 13px; margin-bottom: 32px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #C8CADC; margin: 32px 0 14px; border-left: 3px solid #5B6AD0; padding-left: 10px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; }
+  .kpi-card { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; padding: 16px; }
+  .kpi-label { font-size: 11px; color: #8B8FA8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .kpi-aug { font-size: 20px; font-weight: 700; color: #A0A8C8; }
+  .kpi-sep { font-size: 20px; font-weight: 700; color: #7C8FFF; }
+  .kpi-delta { font-size: 11px; margin-top: 4px; }
+  .delta-up { color: #4ADE80; } .delta-down { color: #F87171; } .delta-warn { color: #FBBF24; }
+  .period-labels { display: flex; gap: 16px; margin-bottom: 20px; align-items: center; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .badge-aug { background: rgba(160,168,200,0.15); color: #A0A8C8; }
+  .badge-sep { background: rgba(124,143,255,0.15); color: #7C8FFF; }
+  .compare-table { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+  .compare-table table { width: 100%; border-collapse: collapse; }
+  .compare-table th { background: #13151B; color: #8B8FA8; font-size: 11px; font-weight: 600; text-transform: uppercase; padding: 10px 14px; text-align: left; letter-spacing: 0.4px; }
+  .compare-table td { padding: 9px 14px; border-top: 1px solid #2A2D38; vertical-align: middle; }
+  .compare-table tr:hover td { background: rgba(91,106,208,0.05); }
+  .compare-table tfoot td { background: #13151B; border-top: 2px solid #3A3D48; font-size: 13px; }
+  .campaign-name { font-weight: 500; color: #E8EAF0; }
+  .source-tag { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+  .src-coldy { background: rgba(251,191,36,0.15); color: #FBBF24; }
+  .src-unisender { background: rgba(124,143,255,0.15); color: #7C8FFF; }
+  .src-email { background: rgba(74,222,128,0.15); color: #4ADE80; }
+  .src-classic { background: rgba(251,146,60,0.15); color: #FB923C; }
+  .good { color: #4ADE80; } .warn { color: #FBBF24; } .bad { color: #F87171; }
+  .tag-best { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; background: rgba(74,222,128,0.2); color: #4ADE80; margin-left: 5px; }
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .chart-card { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; padding: 20px; }
+  .chart-title { font-size: 13px; font-weight: 600; color: #C8CADC; margin-bottom: 14px; }
+  .pages-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .page-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #2A2D38; }
+  .page-row:last-child { border-bottom: none; }
+  .page-url { font-size: 12px; color: #A0A8C8; max-width: 60%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .page-stats { display: flex; gap: 10px; font-size: 12px; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; }
+  .insights { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .insight { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; padding: 16px; }
+  .insight-icon { font-size: 20px; margin-bottom: 8px; }
+  .insight-title { font-size: 13px; font-weight: 600; color: #E8EAF0; margin-bottom: 6px; }
+  .insight-text { font-size: 12px; color: #8B8FA8; line-height: 1.6; }
+  .insight.green { border-left: 3px solid #4ADE80; }
+  .insight.red { border-left: 3px solid #F87171; }
+  .insight.yellow { border-left: 3px solid #FBBF24; }
+  .insight.blue { border-left: 3px solid #60A5FA; }
+  .period-block { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; overflow: hidden; }
+  .period-head { background: #13151B; padding: 10px 14px; font-size: 12px; font-weight: 600; color: #8B8FA8; display: flex; justify-content: space-between; }
+  .totals-row { background: #13151B; padding: 8px 14px; font-size: 11px; color: #8B8FA8; border-top: 1px solid #2A2D38; }
+  footer { margin-top: 40px; text-align: center; font-size: 11px; color: #4A4D5C; padding-bottom: 32px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:24px;">
+  <div>
+    <h1>📧 Email-рассылки HOMEPROJECT</h1>
+    <div class="subtitle">Август–Сентябрь 2026 · Яндекс.Метрика · Счётчик 110362997 · Обновлено 26.09.2026</div>
+  </div>
+  <div class="period-labels">
+    <span class="badge badge-aug">◼ Август</span>
+    <span class="badge badge-sep">◼ Сентябрь</span>
+  </div>
+</div>
+
+<!-- KPI CARDS -->
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Визиты с email</div>
+    <div class="kpi-aug">53</div>
+    <div class="kpi-sep">125</div>
+    <div class="kpi-delta delta-up">▲ +136% в сентябре</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Уникальные польз.</div>
+    <div class="kpi-aug">47</div>
+    <div class="kpi-sep">122</div>
+    <div class="kpi-delta delta-up">▲ +160%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Отказы</div>
+    <div class="kpi-aug" style="color:#4ADE80">58.5%</div>
+    <div class="kpi-sep" style="color:#F87171">85.6%</div>
+    <div class="kpi-delta delta-down">▼ качество упало</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Глубина (стр.)</div>
+    <div class="kpi-aug" style="color:#4ADE80">1.60</div>
+    <div class="kpi-sep" style="color:#F87171">1.14</div>
+    <div class="kpi-delta delta-down">▼ −29%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Ср. время на сайте</div>
+    <div class="kpi-aug" style="color:#4ADE80">63 с</div>
+    <div class="kpi-sep" style="color:#F87171">4.7 с</div>
+    <div class="kpi-delta delta-down">▼ −93% ⚠️</div>
+  </div>
+</div>
+
+<div style="background:#2A1F0D; border:1px solid #5C3D0A; border-radius:10px; padding:14px 18px; margin-bottom:28px; font-size:13px; color:#FCD34D;">
+  ⚠️ <strong>Конверсий в KP Lead — 0</strong> за оба месяца. Форма заявки (kp-request.html) получила 53 визита в сентябре, но ни одного заполнения. Это главный приоритет на октябрь.
+</div>
+
+<!-- AUGUST CAMPAIGNS -->
+<div class="section-title">Рассылки — Август (53 визита)</div>
+<div class="compare-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Кампания</th>
+        <th>Источник</th>
+        <th>Визиты</th>
+        <th>Отказы</th>
+        <th>Глубина</th>
+        <th>Время</th>
+        <th>Оценка</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="campaign-name">re-engage-aug26</span><span class="tag-best">лучший</span></td>
+        <td><span class="source-tag src-coldy">Coldy</span></td>
+        <td><strong>24</strong></td>
+        <td class="good">33%</td>
+        <td class="good">1.4</td>
+        <td class="good">67 с</td>
+        <td>🟢 Вовлечение</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">partner-platform-aug26</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>7</td>
+        <td class="warn">71%</td>
+        <td>1.0</td>
+        <td>4.9 с</td>
+        <td>🟡 Слабый</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">phase2-aug26</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>6</td>
+        <td class="warn">83%</td>
+        <td>1.0</td>
+        <td>2.5 с</td>
+        <td>🔴 Отказ</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">sensing-aug26</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>5</td>
+        <td class="bad">100%</td>
+        <td>1.0</td>
+        <td>0 с</td>
+        <td>🔴 100% отказ</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">designers-bt-aug28</span></td>
+        <td><span class="source-tag src-email">Email</span></td>
+        <td>2</td>
+        <td class="bad">100%</td>
+        <td>1.0</td>
+        <td>0 с</td>
+        <td>🔴 100% отказ</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">test_aug26</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>2</td>
+        <td class="bad">100%</td>
+        <td>1.0</td>
+        <td>0 с</td>
+        <td>🔴 Тест</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">sensing_aug26_b1</span> ⭐</td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>1</td>
+        <td class="good">0%</td>
+        <td class="good">20.0</td>
+        <td class="good">1401 с</td>
+        <td>🟢 1 чел., просмотрел всё</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">b2b-platform-sep01</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>1</td>
+        <td class="good">0%</td>
+        <td class="good">3.0</td>
+        <td class="good">85 с</td>
+        <td>🟢 1 чел., вовлечён</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">welcome-kitchen-studio</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>1</td>
+        <td class="good">0%</td>
+        <td class="good">3.0</td>
+        <td class="good">209 с</td>
+        <td>🟢 1 чел., вовлечён</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2"><strong>АВГУСТ ИТОГО</strong></td>
+        <td><strong>53</strong></td>
+        <td class="warn"><strong>58.5%</strong></td>
+        <td><strong>1.60</strong></td>
+        <td><strong>63 с</strong></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<!-- SEPTEMBER CAMPAIGNS -->
+<div class="section-title">Рассылки — Сентябрь (125 визитов)</div>
+<div class="compare-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Кампания</th>
+        <th>Источник</th>
+        <th>Визиты</th>
+        <th>Отказы</th>
+        <th>Глубина</th>
+        <th>Время</th>
+        <th>Оценка</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="campaign-name">warm-gaggenau-miele-sep18</span><span class="tag-best">лучший сен.</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td><strong>9</strong></td>
+        <td class="warn">78%</td>
+        <td class="good">2.0</td>
+        <td>3 с</td>
+        <td>🟡 Лучший в сен.</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">test_aug26</span> (хвост авг.)</td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>8</td>
+        <td class="warn">62.5%</td>
+        <td class="warn">1.25</td>
+        <td>0.9 с</td>
+        <td>🟡 Приемлемый</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">re-engage-aug26</span> (хвост авг.)</td>
+        <td><span class="source-tag src-coldy">Coldy</span></td>
+        <td>8</td>
+        <td class="warn">75%</td>
+        <td>1.0</td>
+        <td>3.75 с</td>
+        <td>🟡 Слабее, чем в авг.</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">warm-bertazzoni-sep17</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>20</td>
+        <td class="bad">95%</td>
+        <td>1.1</td>
+        <td>14.5 с</td>
+        <td>🔴 Высокий отказ</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">warm-bora-vzug-sep21</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>20</td>
+        <td class="bad">100%</td>
+        <td>1.0</td>
+        <td>0 с</td>
+        <td>🔴 100% отказ</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">bertazzoni-official-sep26</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>10</td>
+        <td class="bad">80%</td>
+        <td>1.1</td>
+        <td>3.5 с</td>
+        <td>🔴 Высокий отказ</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">warm-snaidero-sep22</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>8</td>
+        <td class="bad">100%</td>
+        <td>1.0</td>
+        <td>0 с</td>
+        <td>🔴 100% отказ</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">warm-bt-sep15</span></td>
+        <td><span class="source-tag src-email">Email</span></td>
+        <td>6</td>
+        <td class="bad">83%</td>
+        <td>1.17</td>
+        <td>1.2 с</td>
+        <td>🔴 Отказ</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">bertazzoni-airtec-sep24</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>6</td>
+        <td class="bad">100%</td>
+        <td>1.0</td>
+        <td>0 с</td>
+        <td>🔴 100% отказ</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">cold-santech-sep21</span></td>
+        <td><span class="source-tag src-unisender">UniSender</span></td>
+        <td>6</td>
+        <td class="bad">83%</td>
+        <td>1.0</td>
+        <td>2.7 с</td>
+        <td>🔴 Холодный, слабый</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">schulthess-2026-09</span></td>
+        <td><span class="source-tag src-classic">UniSender Classic</span></td>
+        <td>4</td>
+        <td class="warn">75%</td>
+        <td>1.0</td>
+        <td>4 с</td>
+        <td>🟡 Слабый</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">snaidero_tech_aug31</span> (хвост)</td>
+        <td><span class="source-tag src-email">Email</span></td>
+        <td>2</td>
+        <td class="good">0%</td>
+        <td class="warn">1.5</td>
+        <td class="good">30 с</td>
+        <td>🟢 Вовлечён (2 чел.)</td>
+      </tr>
+      <tr>
+        <td><span class="campaign-name">warm-platform-sep15/18/21</span></td>
+        <td><span class="source-tag src-email">Email</span></td>
+        <td>12</td>
+        <td class="bad">92%</td>
+        <td>1.0</td>
+        <td>0.3 с</td>
+        <td>🔴 100% отказ</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2"><strong>СЕНТЯБРЬ ИТОГО</strong></td>
+        <td><strong>125</strong></td>
+        <td class="bad"><strong>85.6%</strong></td>
+        <td><strong>1.14</strong></td>
+        <td><strong>4.7 с</strong></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<!-- CHARTS -->
+<div class="chart-row">
+  <div class="chart-card">
+    <div class="chart-title">Визиты по кампаниям (Август vs Сентябрь)</div>
+    <canvas id="campaignChart" height="200"></canvas>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Отказы по кампаниям (%)</div>
+    <canvas id="bounceChart" height="200"></canvas>
+  </div>
+</div>
+
+<!-- КУДА ПЕРЕХОДЯТ -->
+<div class="section-title">Куда переходят из писем — топ страниц</div>
+<div class="pages-grid">
+  <div class="period-block">
+    <div class="period-head"><span>📅 Сентябрь — топ страниц</span><span style="color:#7C8FFF">125 визитов</span></div>
+    <div style="padding: 0 14px;">
+      <div class="page-row">
+        <div class="page-url" title="kp-request.html (GitHub Pages)">📋 kp-request.html (форма КП)</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(248,113,113,0.15);color:#F87171">53 визита</span><span class="bad">89% отказ</span></div>
+      </div>
+      <div class="page-row">
+        <div class="page-url" title="/ru/store?category=brand-bertazzoni">🛍️ Каталог Bertazzoni</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(124,143,255,0.15);color:#7C8FFF">27</span><span class="bad">93% отказ</span></div>
+      </div>
+      <div class="page-row">
+        <div class="page-url" title="homeproject.online/ru">🏠 Главная страница</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(74,222,128,0.15);color:#4ADE80">12</span><span class="good">50% отказ ✓</span></div>
+      </div>
+      <div class="page-row">
+        <div class="page-url" title="hp-transformation-v2.html">📄 Лендинг (GitHub)</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(124,143,255,0.15);color:#7C8FFF">10</span><span class="bad">100% отказ</span></div>
+      </div>
+      <div class="page-row">
+        <div class="page-url" title="/ru/store?q=bora">🔍 Поиск: BORA</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(124,143,255,0.15);color:#7C8FFF">6</span><span class="bad">100% отказ</span></div>
+      </div>
+      <div class="page-row">
+        <div class="page-url" title="/ru/store?category=brand-miele">🏷️ Каталог Miele</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(74,222,128,0.15);color:#4ADE80">3</span><span class="good">33% отказ ✓</span></div>
+      </div>
+      <div class="page-row">
+        <div class="page-url" title="/ru/categories/духовой-шкаф">♨️ Духовые шкафы</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(124,143,255,0.15);color:#7C8FFF">4</span><span class="bad">100% отказ</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="period-block">
+    <div class="period-head"><span>📅 Август — топ страниц</span><span style="color:#A0A8C8">53 визита</span></div>
+    <div style="padding: 0 14px;">
+      <div class="page-row">
+        <div class="page-url" title="homeproject.online/ru">🏠 Главная страница</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(74,222,128,0.15);color:#4ADE80">46 визита</span><span class="warn">59% отказ</span></div>
+      </div>
+      <div class="page-row">
+        <div class="page-url" title="/ru/store">📦 Весь каталог</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(74,222,128,0.15);color:#4ADE80">2</span><span class="good">0% отказ ✓</span></div>
+      </div>
+      <div class="page-row">
+        <div class="page-url" title="/ru/architects#contact">👷 Страница архитекторов</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(124,143,255,0.15);color:#7C8FFF">1</span><span class="bad">100% отказ</span></div>
+      </div>
+      <div class="page-row">
+        <div class="page-url" title="kp-request.html">📋 kp-request.html</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(124,143,255,0.15);color:#7C8FFF">1</span><span class="bad">100% отказ</span></div>
+      </div>
+      <div class="page-row">
+        <div class="page-url" title="new.homeproject.online — Küppersbusch">🔑 Küppersbusch (тест)</div>
+        <div class="page-stats"><span class="pill" style="background:rgba(74,222,128,0.15);color:#4ADE80">1</span><span class="good">0% · 20 стр. · 23 мин!</span></div>
+      </div>
+    </div>
+    <div class="totals-row">💡 В августе 87% email-трафика шло на главную. В сентябре — рассеяние по брендовым страницам и форме КП.</div>
+  </div>
+</div>
+
+<!-- UTM CONTENT -->
+<div class="section-title">Какие ссылки внутри писем кликают (UTM Content)</div>
+<div class="compare-table" style="max-width:750px;">
+  <table>
+    <thead>
+      <tr>
+        <th>Кампания</th>
+        <th>UTM Content (тип ссылки)</th>
+        <th>Визиты</th>
+        <th>Отказы</th>
+        <th>Время</th>
+        <th>Вывод</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-size:11px;color:#8B8FA8">re-engage-aug26</td>
+        <td><code style="font-size:11px;color:#4ADE80">followup-link</code> <span class="tag-best">лучший</span></td>
+        <td>4</td>
+        <td class="warn">50%</td>
+        <td class="good">7.5 с</td>
+        <td style="font-size:11px">Текстовая ссылка работает</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:#8B8FA8">re-engage-aug26</td>
+        <td><code style="font-size:11px;color:#F87171">kp-button</code></td>
+        <td>4</td>
+        <td class="bad">100%</td>
+        <td>0 с</td>
+        <td style="font-size:11px">Кнопка «КП» не работает</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:#8B8FA8">test_aug26</td>
+        <td><code style="font-size:11px;color:#4ADE80">v6_svc_kp</code> <span class="tag-best">лучший</span></td>
+        <td>3</td>
+        <td class="good">0%</td>
+        <td class="good">2.3 с</td>
+        <td style="font-size:11px">Ссылка на сервисы — вовлекает</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:#8B8FA8">test_aug26</td>
+        <td><code style="font-size:11px;color:#F87171">v6_cta_preso / v6_hero_preso</code></td>
+        <td>5</td>
+        <td class="bad">100%</td>
+        <td>0 с</td>
+        <td style="font-size:11px">Презентация = мгновенный уход</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:#8B8FA8">warm-bertazzoni-sep17</td>
+        <td><code style="font-size:11px;color:#4ADE80">master-black</code> ⭐</td>
+        <td>2</td>
+        <td class="warn">50%</td>
+        <td class="good">145 с</td>
+        <td style="font-size:11px">Конкретный продукт — интерес!</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:#8B8FA8">snaidero_tech_aug31</td>
+        <td><code style="font-size:11px;color:#4ADE80">early-cta</code></td>
+        <td>2</td>
+        <td class="good">0%</td>
+        <td class="good">30 с</td>
+        <td style="font-size:11px">Ранний призыв в тексте — ОК</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:#8B8FA8">warm-bora-vzug-sep21</td>
+        <td><code style="font-size:11px;color:#F87171">bora-btn / bora-xpure-kp / vzug-vac-kp</code></td>
+        <td>3+3+3</td>
+        <td class="bad">100%</td>
+        <td>0 с</td>
+        <td style="font-size:11px">КП-кнопки = мгновенный уход</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SOURCE CHARTS -->
+<div class="chart-row">
+  <div class="chart-card">
+    <div class="chart-title">Источники трафика — Сентябрь 2026 (326 визитов)</div>
+    <canvas id="trafficDonut" height="180"></canvas>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Объём vs Качество: Email август → сентябрь</div>
+    <canvas id="qualityChart" height="180"></canvas>
+  </div>
+</div>
+
+<!-- INSIGHTS -->
+<div class="section-title">Выводы</div>
+<div class="insights">
+  <div class="insight red">
+    <div class="insight-icon">🚨</div>
+    <div class="insight-title">Ноль конверсий за 2 месяца</div>
+    <div class="insight-text">Ни одна email-кампания не привела к заполнению формы КП. Форма kp-request.html получила 53 визита в сентябре — 89% отказ, 0 заявок. Либо форма неудобна, либо трафик нецелевой.</div>
+  </div>
+  <div class="insight red">
+    <div class="insight-icon">📉</div>
+    <div class="insight-title">Рост объёма убил качество</div>
+    <div class="insight-text">Сентябрь: ×2.4 по визитам (125 vs 53), но среднее время — 4.7 с vs 63 с в августе. Большинство сентябрьских кампаний показывают 95–100% отказов. Количество ≠ эффективность.</div>
+  </div>
+  <div class="insight green">
+    <div class="insight-icon">🏆</div>
+    <div class="insight-title">Лидер: re-engage-aug26 (Coldy)</div>
+    <div class="insight-text">Единственная кампания с реальным вовлечением: 33% отказов, 67 сек на сайте, 1.4 стр. Источник — Coldy (личный тон, текстовый формат). Это формат для масштабирования.</div>
+  </div>
+  <div class="insight yellow">
+    <div class="insight-icon">🎯</div>
+    <div class="insight-title">Лучший сентябрь: Gaggenau + Miele</div>
+    <div class="insight-text">warm-gaggenau-miele-sep18 — единственная сентябрьская кампания с глубиной 2.0 страницы. Тёплая аудитория + связка премиальных брендов = рабочая формула. Нужен повтор с лендингом.</div>
+  </div>
+  <div class="insight yellow">
+    <div class="insight-icon">🔗</div>
+    <div class="insight-title">Кнопка «КП» хуже текстовой ссылки</div>
+    <div class="insight-text">followup-link → 50% отказов. kp-button → 100%. v6_svc_kp (ссылка на сервисы) → 0% отказов. Вывод: кнопки с «Хочу КП» не работают — нужен переход к контенту, а не к форме.</div>
+  </div>
+  <div class="insight blue">
+    <div class="insight-icon">🏠</div>
+    <div class="insight-title">Главная страница — лучший лендинг</div>
+    <div class="insight-text">В августе 87% email-трафика шло на homeproject.online/ru — bounce 59%. В сентябре трафик рассеяли по брендам и форме — качество упало. Возврат на главную + прогрев = рабочая тактика.</div>
+  </div>
+  <div class="insight blue">
+    <div class="insight-icon">🛒</div>
+    <div class="insight-title">Скрытый интерес: Miele и Küppersbusch</div>
+    <div class="insight-text">Miele: 3 визита, 33% отказ — лучший brand-показатель. Küppersbusch (тест): 1 человек провёл 23 минуты, 20 страниц. Сигнал — эти бренды вызывают реальный интерес у аудитории.</div>
+  </div>
+  <div class="insight red">
+    <div class="insight-icon">⚡</div>
+    <div class="insight-title">Warm на бренд-страницы каталога — не работает</div>
+    <div class="insight-text">warm-bora-vzug, warm-snaidero, bertazzoni-airtec, warm-platform — все 100% отказов. Прямая ссылка на каталог без ценностного предложения = тупик. Нужен промежуточный лендинг.</div>
+  </div>
+</div>
+
+<!-- ПРИОРИТЕТЫ -->
+<div class="section-title">Приоритеты на октябрь</div>
+<div class="compare-table">
+  <table>
+    <thead>
+      <tr><th>#</th><th>Действие</th><th>Обоснование</th><th>Приоритет</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Переработать форму kp-request.html — упростить, добавить примеры и логотипы брендов</td>
+        <td>53 визита, 0 конверсий — форма не конвертирует</td>
+        <td><span style="color:#F87171;font-weight:700">КРИТИЧНО</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Масштабировать формат Coldy: личный текст, ссылка на контент (не форму)</td>
+        <td>Единственный формат с нормальным вовлечением (33% отказ, 67 с)</td>
+        <td><span style="color:#FBBF24;font-weight:700">ВЫСОКИЙ</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Повторить warm-Gaggenau+Miele с промежуточным лендингом вместо каталога</td>
+        <td>Лучшая глубина сентября (2.0 стр.), готовая аудитория</td>
+        <td><span style="color:#FBBF24;font-weight:700">ВЫСОКИЙ</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Убрать кнопки «Получить КП» из тела письма → заменить на текстовые ссылки к контенту</td>
+        <td>kp-button: 100% отказ vs followup-link: 50% отказ</td>
+        <td><span style="color:#60A5FA;font-weight:700">СРЕДНИЙ</span></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Унифицировать UTM: единый utm_source для всех кампаний UniSender</td>
+        <td>Сейчас 4 разных источника (unisender / email / unisender-classic / coldy) — данные разрозненные</td>
+        <td><span style="color:#60A5FA;font-weight:700">СРЕДНИЙ</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  HOMEPROJECT · Email Analytics · Август–Сентябрь 2026 · Яндекс.Метрика 110362997 · Подготовил CEO-агент 26.09.2026
+</footer>
+
+</div>
+
+<script>
+const ctx1 = document.getElementById('campaignChart').getContext('2d');
+new Chart(ctx1, {
+  type: 'bar',
+  data: {
+    labels: ['re-engage','partner-plat.','phase2','sensing','warm-bert.','warm-bora-vzug','w-gaggenau','bert-off.','test_aug','warm-snaid.'],
+    datasets: [
+      { label: 'Август', data: [24,7,6,5,0,0,0,0,2,0], backgroundColor: 'rgba(160,168,200,0.7)', borderRadius: 3 },
+      { label: 'Сентябрь', data: [8,0,0,0,20,20,9,10,8,8], backgroundColor: 'rgba(124,143,255,0.7)', borderRadius: 3 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: '#C8CADC', font: { size: 11 } } } },
+    scales: {
+      x: { ticks: { color: '#8B8FA8', font: { size: 9 }, maxRotation: 35 }, grid: { color: '#2A2D38' } },
+      y: { ticks: { color: '#8B8FA8' }, grid: { color: '#2A2D38' } }
+    }
+  }
+});
+
+const ctx2 = document.getElementById('bounceChart').getContext('2d');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['re-engage (авг)','partner-plat.','phase2','sensing','warm-bert.','warm-bora-vzug','w-gaggenau','test_aug','warm-snaid.','re-engage (сен)'],
+    datasets: [
+      { label: 'Отказы Август (%)', data: [33,71,83,100,null,null,null,100,null,null], backgroundColor: 'rgba(160,168,200,0.6)', borderRadius: 3 },
+      { label: 'Отказы Сентябрь (%)', data: [null,null,null,null,95,100,78,62.5,100,75], backgroundColor: 'rgba(248,113,113,0.6)', borderRadius: 3 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: '#C8CADC', font: { size: 11 } } } },
+    scales: {
+      x: { ticks: { color: '#8B8FA8', font: { size: 9 }, maxRotation: 35 }, grid: { color: '#2A2D38' } },
+      y: { min: 0, max: 100, ticks: { color: '#8B8FA8', callback: function(v) { return v + '%'; } }, grid: { color: '#2A2D38' } }
+    }
+  }
+});
+
+const ctx3 = document.getElementById('trafficDonut').getContext('2d');
+new Chart(ctx3, {
+  type: 'doughnut',
+  data: {
+    labels: ['Email (рассылки) 155','Прямые 121','Внутренние 22','Поиск 18','Ссылки 5','Соцсети 2'],
+    datasets: [{ data: [155,121,22,18,5,2], backgroundColor: ['#7C8FFF','#4ADE80','#FBBF24','#60A5FA','#F87171','#E879F9'], borderWidth: 0, hoverOffset: 6 }]
+  },
+  options: {
+    responsive: true, cutout: '60%',
+    plugins: { legend: { position: 'right', labels: { color: '#C8CADC', font: { size: 11 }, padding: 8, boxWidth: 12 } } }
+  }
+});
+
+const ctx4 = document.getElementById('qualityChart').getContext('2d');
+new Chart(ctx4, {
+  type: 'bar',
+  data: {
+    labels: ['Август', 'Сентябрь'],
+    datasets: [
+      { label: 'Визиты', data: [53, 125], backgroundColor: ['rgba(160,168,200,0.7)','rgba(124,143,255,0.7)'], borderRadius: 5, yAxisID: 'y' },
+      { label: 'Время на сайте (сек)', data: [63, 4.7], backgroundColor: ['rgba(74,222,128,0.6)','rgba(248,113,113,0.6)'], borderRadius: 5, yAxisID: 'y2' }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: '#C8CADC', font: { size: 11 } } } },
+    scales: {
+      x: { ticks: { color: '#C8CADC', font: { size: 12 } }, grid: { color: '#2A2D38' } },
+      y: { position: 'left', ticks: { color: '#A0A8C8' }, grid: { color: '#2A2D38' }, title: { display: true, text: 'Визиты', color: '#8B8FA8', font: { size: 10 } } },
+      y2: { position: 'right', ticks: { color: '#4ADE80' }, grid: { drawOnChartArea: false }, title: { display: true, text: 'Время (сек)', color: '#4ADE80', font: { size: 10 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>
