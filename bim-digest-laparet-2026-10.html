@@ -14,7 +14,18 @@
   --green:#1A6334; --red:#9B2335;
 }
 body{font-family:'Manrope',sans-serif;font-size:10.5pt;color:var(--ink);background:var(--cream);line-height:1.6;}
-@media print{ body{font-size:9.5pt;} .print-btn{display:none!important;} .section{page-break-before:always;} .cover{page-break-after:always;} .no-break{break-inside:avoid;} }
+@media screen{
+  body{padding:24px 40px;max-width:860px;margin:0 auto;}
+  .cover{margin:-24px -40px 0;width:calc(100% + 80px);}
+  .section{padding-left:2mm;padding-right:2mm;}
+}
+@media print{
+  body{font-size:9.5pt;padding:0;max-width:none;margin:0;}
+  .print-btn{display:none!important;}
+  .section{page-break-before:always;}
+  .cover{page-break-after:always;margin:-17mm -15mm 0!important;width:calc(100% + 30mm)!important;}
+  .no-break{break-inside:avoid;}
+}
 @page{
   size:A4; margin:17mm 15mm 20mm;
   @bottom-left{content:"Подготовлено А.Ботьевым с помощью ИИ";font-family:'Manrope',sans-serif;font-size:7pt;color:var(--terra);border-top:1px solid #D4C8BE;padding-top:2.5mm;vertical-align:top;}
@@ -27,7 +38,7 @@ body{font-family:'Manrope',sans-serif;font-size:10.5pt;color:var(--ink);backgrou
 .print-btn:hover{background:#8f6450;}
 
 /* COVER */
-.cover{min-height:263mm;background:var(--g);display:flex;flex-direction:column;margin:-17mm -15mm 0;width:calc(100% + 30mm);}
+.cover{min-height:260mm;background:var(--g);display:flex;flex-direction:column;}
 .cover-top{padding:14mm 18mm 6mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.12);}
 .cover-brand{font-family:'Manrope';font-size:7.5pt;font-weight:800;letter-spacing:.5em;text-transform:uppercase;color:var(--beige);}
 .cover-issue{font-family:'Manrope';font-size:7.5pt;color:rgba(255,255,255,.35);letter-spacing:.08em;}
@@ -56,7 +67,6 @@ body{font-family:'Manrope',sans-serif;font-size:10.5pt;color:var(--ink);backgrou
 h3{font-family:'Cormorant Garamond',serif;font-size:14pt;font-weight:700;color:var(--g);margin:6mm 0 3mm;page-break-after:avoid;}
 p{margin-bottom:3mm;}
 strong{color:var(--terra);font-weight:700;}
-.mut{color:var(--muted);}
 
 /* cards */
 .grid2{display:flex;gap:5mm;margin:5mm 0;}
@@ -87,7 +97,7 @@ td.name{font-weight:700;color:var(--terra);white-space:nowrap;}
 .tag{display:inline-block;border-radius:12px;padding:1px 8px;font-size:6.8pt;font-weight:700;white-space:nowrap;}
 .tag.g{background:#d4edda;color:#1a6334;} .tag.y{background:#fff3cd;color:#856404;} .tag.r{background:#f8d7da;color:#842029;} .tag.b{background:#cfe2ff;color:#084298;}
 
-/* action / verdict */
+/* boxes */
 .box{background:var(--sand);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 6px 6px 0;padding:4mm 5mm;margin:5mm 0;break-inside:avoid;}
 .box.terra{border-left-color:var(--terra);}
 .box-head{font-family:'Manrope';font-size:7pt;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:2mm;}
@@ -113,7 +123,6 @@ td.name{font-weight:700;color:var(--terra);white-space:nowrap;}
 <body>
 <button class="print-btn" onclick="window.print()">↓ Сохранить PDF</button>
 
-<!-- COVER -->
 <div class="cover">
   <div class="cover-top">
     <div class="cover-brand">Баусервис · LAPARET · B2B</div>
@@ -138,234 +147,143 @@ td.name{font-weight:700;color:var(--terra);white-space:nowrap;}
   </div>
 </div>
 
-<!-- 01 -->
 <div class="section" style="padding-top:6mm;">
   <div class="sec-header"><div class="sec-num">01</div><div><div class="sec-tag">Что это и зачем</div><div class="sec-title">Что такое BIM-канал и почему он меняет продажи</div></div></div>
-  <div class="lead">
-    BIM-канал — это цифровая библиотека, куда производитель/дистрибьютор выкладывает «BIM-объекты» своих товаров (готовые элементы для программ проектирования Revit, Renga, nanoCAD). Архитектор бесплатно скачивает объект и вставляет плитку LAPARET прямо в модель здания. Продукт, попавший в проект на стадии проектирования, <strong>почти не меняется при закупке</strong> — это и есть механика «spec-in».
-  </div>
-
-  <h3>Почему это работает — два способа продавать</h3>
+  <div class="lead">BIM-канал — это цифровая библиотека, куда производитель/дистрибьютор выкладывает «BIM-объекты» своих товаров (готовые элементы для программ проектирования Revit, Renga, nanoCAD). Архитектор бесплатно скачивает объект и вставляет плитку LAPARET прямо в модель здания. Продукт, попавший в проект на стадии проектирования, <strong>почти не меняется при закупке</strong> — это и есть механика «spec-in».</div>
+  <h3>Два способа продавать</h3>
   <div class="grid2">
-    <div class="card">
-      <h4>Обычные продажи (сегодня)</h4>
-      <ul>
-        <li>Узнаём о проекте на стадии тендера</li>
-        <li>Конкурируем с 5–15 аналогами по цене</li>
-        <li>Win rate: <strong>15–25%</strong></li>
-        <li>Маржа давится ценовой войной</li>
-      </ul>
-    </div>
-    <div class="card gold">
-      <h4>Spec-in через BIM-канал</h4>
-      <ul>
-        <li>Архитектор вставляет LAPARET в проект сам</li>
-        <li>Продукт зафиксирован в спецификации до тендера</li>
-        <li>Win rate: <strong>70–85%</strong></li>
-        <li>Заменить продукт сложно — маржа сохранена</li>
-      </ul>
-    </div>
+    <div class="card"><h4>Обычные продажи (сегодня)</h4><ul><li>Узнаём о проекте на стадии тендера</li><li>Конкурируем с 5–15 аналогами по цене</li><li>Win rate: <strong>15–25%</strong></li><li>Маржа давится ценовой войной</li></ul></div>
+    <div class="card gold"><h4>Spec-in через BIM-канал</h4><ul><li>Архитектор вставляет LAPARET в проект сам</li><li>Продукт зафиксирован в спецификации до тендера</li><li>Win rate: <strong>70–85%</strong></li><li>Заменить продукт сложно — маржа сохранена</li></ul></div>
   </div>
-  <p class="src">Источник данных по win rate: BCI Central / Hubexo, глобальные отраслевые данные (внутренний анализ Баусервис, авг. 2026).</p>
-
-  <div class="box terra">
-    <div class="box-head">Ключевой факт рынка</div>
-    <div class="box-body">Архитекторы и проектировщики контролируют <strong>~17% строительного бюджета</strong> через выбор материалов. С 2022 г. BIM/ТИМ обязателен для госзаказа, с 01.07.2024 — для долевого жилья (214-ФЗ). Проектировщик всё чаще работает в BIM — и берёт материалы из BIM-библиотек. Кто там есть — тот в проекте. <strong>Ни один российский дистрибьютор керамогранита пока не представлен на BIM-площадках. Ниша пустая.</strong></div>
-  </div>
-  <p class="src">Источники: приказ Минстроя №331/пр; НИИСФ (переход на ТИМ 01.07.2024); АСРО РОАП СОЮЗ — 30% застройщиков применяют ТИМ (Q4 2024), в Москве ~90%.</p>
+  <p class="src">Источник win rate: BCI Central / Hubexo, глобальные данные (анализ Баусервис, авг. 2026).</p>
+  <div class="box terra"><div class="box-head">Ключевой факт рынка</div><div class="box-body">Архитекторы контролируют <strong>~17% строительного бюджета</strong> через выбор материалов. С 2022 BIM/ТИМ обязателен для госзаказа, с 01.07.2024 — для долевого жилья. <strong>Ни один российский дистрибьютор керамогранита не представлен на BIM-площадках. Ниша пустая.</strong></div></div>
+  <p class="src">Источники: приказ Минстроя №331/пр; НИИСФ (01.07.2024); АСРО — 30% застройщиков применяют ТИМ, Москва ~90% (Q4 2024).</p>
 </div>
 
-<!-- 02 -->
 <div class="section">
   <div class="sec-header"><div class="sec-num">02</div><div><div class="sec-tag">Реестр площадок · адреса · доступность для РФ</div><div class="sec-title">Какие BIM-каналы существуют</div></div></div>
-  <p>Площадки делятся на две группы: <strong>российские</strong> (оплата в рублях, санкционных рисков нет) и <strong>глобальные</strong> (крупнее, но оплата в EUR/USD — в 2026 г. трансграничный платёж из РФ затруднён банковскими ограничениями).</p>
-
+  <p>Площадки делятся на две группы: <strong>российские</strong> (рубли, без санкционных рисков) и <strong>глобальные</strong> (крупнее, но оплата EUR/USD из РФ затруднена в 2026 г.).</p>
   <h3>Российские площадки — приоритет</h3>
   <table class="no-break">
-    <tr><th>Площадка</th><th>Адрес</th><th>Что это / аудитория</th><th>Для плитки</th><th>Доступ РФ</th></tr>
-    <tr><td class="name">BIMLIB</td><td>bimlib.ru<br>bimlib.store</td><td>Крупнейшая рос. BIM-библиотека. 32 000 моделей, 80 000+ проектировщиков. Форматы: Revit, Renga, nanoCAD, Model Studio CS, IFC. В реестре рос. ПО.</td><td><span class="tag g">✓ да</span></td><td><span class="tag g">рубли</span></td></tr>
-    <tr><td class="name">Renga BIM-каталоги</td><td>bimcatalogs.<br>rengabim.com</td><td>Официальные каталоги производителей для рос. BIM-системы Renga. Уже входят КНАУФ, ПЕНОПЛЭКС, ТЕХНОНИКОЛЬ.</td><td><span class="tag y">через объект/материал</span></td><td><span class="tag g">рубли</span></td></tr>
-    <tr><td class="name">nanoCAD BIM 26</td><td>nanocad.ru<br>building.nanocad.ru</td><td>Ведущее рос. BIM-ПО, версия 26 вышла сент. 2026. Есть поиск по интернет-библиотеке, включая базы производителей.</td><td><span class="tag y">частично</span></td><td><span class="tag g">рубли</span></td></tr>
-    <tr><td class="name">ГИСП</td><td>gisp.gov.ru</td><td>Госинформсистема промышленности — сервис «цифровой паспорт продукции». Госканал, стоит проверить.</td><td><span class="tag b">косвенно</span></td><td><span class="tag g">рубли</span></td></tr>
+    <tr><th>Площадка</th><th>Адрес</th><th>Что это / аудитория</th><th>Плитка</th><th>РФ</th></tr>
+    <tr><td class="name">BIMLIB</td><td>bimlib.ru / bimlib.store</td><td>Крупнейшая рос. BIM-библиотека. 32 000 моделей, 80 000+ проектировщиков. Revit, Renga, nanoCAD, IFC. В реестре рос. ПО.</td><td><span class="tag g">✓</span></td><td><span class="tag g">₽</span></td></tr>
+    <tr><td class="name">Renga BIM-каталоги</td><td>bimcatalogs.rengabim.com</td><td>Официальные каталоги для рос. BIM-системы Renga. Уже входят КНАУФ, ПЕНОПЛЭКС, ТЕХНОНИКОЛЬ.</td><td><span class="tag y">частично</span></td><td><span class="tag g">₽</span></td></tr>
+    <tr><td class="name">nanoCAD BIM 26</td><td>nanocad.ru</td><td>Ведущее рос. BIM-ПО, v26 вышла сент. 2026. Поиск по интернет-библиотеке производителей.</td><td><span class="tag y">частично</span></td><td><span class="tag g">₽</span></td></tr>
+    <tr><td class="name">ГИСП</td><td>gisp.gov.ru</td><td>Госинформсистема промышленности — «цифровой паспорт продукции».</td><td><span class="tag b">косв.</span></td><td><span class="tag g">₽</span></td></tr>
   </table>
-
   <h3>Глобальные площадки — отложить (платёжный риск)</h3>
   <table class="no-break">
-    <tr><th>Площадка</th><th>Адрес</th><th>Что это / аудитория</th><th>Для плитки</th><th>Доступ РФ</th></tr>
-    <tr><td class="name">BIMobject</td><td>bimobject.com</td><td>Крупнейшая мировая BIM-библиотека. Свыше 4 млн пользователей (отчёт 2023), 2000+ производителей.</td><td><span class="tag g">✓ да</span></td><td><span class="tag r">EUR/USD ⚠</span></td></tr>
-    <tr><td class="name">Archiproducts</td><td>archiproducts.com</td><td>Итал. платформа: 305 000 продуктов, 3 500 брендов, 3,7 млн пользователей. Хостит BIM/3D + плагин Revit.</td><td><span class="tag g">✓ да</span></td><td><span class="tag r">EUR/USD ⚠</span></td></tr>
+    <tr><th>Площадка</th><th>Адрес</th><th>Аудитория</th><th>Плитка</th><th>РФ</th></tr>
+    <tr><td class="name">BIMobject</td><td>bimobject.com</td><td>4+ млн пользователей (отчёт 2023), 2000+ производителей</td><td><span class="tag g">✓</span></td><td><span class="tag r">EUR ⚠</span></td></tr>
+    <tr><td class="name">Archiproducts</td><td>archiproducts.com</td><td>305 000 продуктов, 3 500 брендов, 3,7 млн пользователей</td><td><span class="tag g">✓</span></td><td><span class="tag r">EUR ⚠</span></td></tr>
   </table>
-  <p class="src">Источники: bimlib.store/plans; bimcatalogs.rengabim.com; nanocad.ru (премьера v26, сент. 2026); business.bimobject.com; business.archiproducts.com; отчёт BIMobject 2023. Прямого запрета работы с РФ у глобальных площадок не подтверждено — проблема в банковских платежах (21-й пакет санкций ЕС, июль 2026).</p>
+  <p class="src">Источники: bimlib.store/plans; nanocad.ru (v26, сент. 2026); отчёт BIMobject 2023; санкции ЕС 21-й пакет, июль 2026.</p>
 </div>
 
-<!-- 03 -->
 <div class="section">
-  <div class="sec-header"><div class="sec-num">03</div><div><div class="sec-tag">Ценность канала</div><div class="sec-title">Что даёт канал, что публикуют, кто использует</div></div></div>
+  <div class="sec-header"><div class="sec-num">03</div><div><div class="sec-tag">Ценность канала</div><div class="sec-title">Что даёт, что публикуют, кто использует</div></div></div>
   <div class="grid2">
-    <div class="card g">
-      <h4>Что публикуем</h4>
-      <ul>
-        <li>BIM-объекты коллекций LAPARET (Revit / Renga / IFC)</li>
-        <li>Теххарактеристики: размеры, формат, износостойкость, R-коэффициент</li>
-        <li>Фото, текстуры для рендера, сертификаты</li>
-        <li>«Цифровой паспорт» — связка с каталогом на сайте</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h4>Что получаем</h4>
-      <ul>
-        <li>LAPARET виден проектировщику при подборе плитки в BIM</li>
-        <li>Каждое скачивание = потенциальная спецификация в проект</li>
-        <li><strong>Контакты проектировщиков</strong>, скачавших модель</li>
-        <li>Статистика: в каких проектах и регионах используется</li>
-        <li>Рассылка и look-alike-реклама по аудитории площадки</li>
-      </ul>
-    </div>
+    <div class="card g"><h4>Что публикуем</h4><ul><li>BIM-объекты коллекций LAPARET (Revit / Renga / IFC)</li><li>Теххарактеристики, износостойкость, сертификаты</li><li>Фото, текстуры для рендера</li><li>«Цифровой паспорт» — связка с каталогом на сайте</li></ul></div>
+    <div class="card"><h4>Что получаем</h4><ul><li>LAPARET виден при подборе плитки в BIM</li><li>Каждое скачивание = потенциальная спецификация</li><li><strong>Контакты проектировщиков</strong>, скачавших модель</li><li>Статистика по проектам и регионам</li><li>Рассылка по аудитории площадки</li></ul></div>
   </div>
   <div class="grid2">
-    <div class="card beige">
-      <h4>Кто использует ресурс</h4>
-      <ul>
-        <li>Архитекторы и проектировщики (Revit, Renga, nanoCAD)</li>
-        <li>Дизайнеры интерьеров, ГИПы</li>
-        <li>Проектные институты и бюро под госзаказ и долевое жильё (где BIM обязателен)</li>
-        <li>Генподрядчики на стадии рабочей документации</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h4>Почему именно сейчас</h4>
-      <p>BIM/ТИМ стал обязательным для госзаказа и долевого жилья — проектировщики массово перешли в BIM. Спрос на BIM-объекты материалов растёт, а плиточников в библиотеках нет. Окно первопроходца открыто, но ненадолго.</p>
-    </div>
+    <div class="card beige"><h4>Кто использует ресурс</h4><ul><li>Архитекторы и проектировщики (Revit, Renga, nanoCAD)</li><li>Дизайнеры интерьеров, ГИПы</li><li>Проектные институты под госзаказ и долевое жильё</li><li>Генподрядчики на стадии рабочей документации</li></ul></div>
+    <div class="card"><h4>Почему именно сейчас</h4><p>BIM/ТИМ обязателен — проектировщики массово перешли на цифру. Спрос на BIM-объекты материалов растёт, а плиточников в библиотеках нет. Окно первопроходца открыто, но ненадолго.</p></div>
   </div>
 </div>
 
-<!-- 04 -->
 <div class="section">
   <div class="sec-header"><div class="sec-num">04</div><div><div class="sec-tag">Конкурентная картина — верифицировано</div><div class="sec-title">Кто уже в этих каналах</div></div></div>
-  <div class="lead">Главный вывод: на <strong>российских</strong> BIM-площадках нет ни одного дистрибьютора керамогранита. Есть производители сухих смесей, утеплителей, кровли — но не плитки. На <strong>глобальных</strong> площадках плитка представлена широко, но только иностранными брендами.</div>
-
+  <div class="lead">На <strong>российских</strong> BIM-площадках нет ни одного дистрибьютора керамогранита — ниша полностью свободна. На <strong>глобальных</strong> плитка представлена широко, но только иностранными брендами.</div>
   <h3>Российские площадки — плиточников нет</h3>
   <table class="no-break">
     <tr><th>Кто уже там</th><th>Категория</th><th>Площадка</th></tr>
-    <tr><td class="name">КНАУФ</td><td>Сухие смеси, ГКЛ-системы</td><td>Renga, BIMLIB</td></tr>
+    <tr><td class="name">КНАУФ</td><td>Сухие смеси, ГКЛ</td><td>Renga, BIMLIB</td></tr>
     <tr><td class="name">ПЕНОПЛЭКС</td><td>Теплоизоляция</td><td>Renga (спец. библиотека)</td></tr>
-    <tr><td class="name">ТЕХНОНИКОЛЬ</td><td>Кровля, гидроизоляция</td><td>Renga, свой портал nav.tn.ru</td></tr>
-    <tr><td class="name" style="color:var(--green)">Керамогранит / плитка</td><td colspan="2"><strong style="color:var(--green)">СВОБОДНО — ни один дистрибьютор не занял нишу.</strong> LAPARET может стать первым.</td></tr>
+    <tr><td class="name">ТЕХНОНИКОЛЬ</td><td>Кровля, гидроизоляция</td><td>Renga, nav.tn.ru</td></tr>
+    <tr><td class="name" style="color:var(--green)">Керамогранит / плитка</td><td colspan="2"><strong style="color:var(--green)">СВОБОДНО — ни один дистрибьютор не занял нишу.</strong></td></tr>
   </table>
-
-  <h3>Глобальные площадки — только иностранцы</h3>
+  <h3>Глобальные — только иностранцы</h3>
   <table class="no-break">
-    <tr><th>Бренд плитки</th><th>Страна</th><th>Площадка</th></tr>
+    <tr><th>Бренд</th><th>Страна</th><th>Площадка</th></tr>
     <tr><td class="name">RAK Ceramics</td><td>ОАЭ</td><td>BIMobject</td></tr>
-    <tr><td class="name">Grespania</td><td>Испания (первый исп. плиточник на BIMobject)</td><td>BIMobject</td></tr>
-    <tr><td class="name">Marazzi</td><td>Италия (каталог 3500+)</td><td>Archiproducts</td></tr>
+    <tr><td class="name">Grespania</td><td>Испания</td><td>BIMobject</td></tr>
+    <tr><td class="name">Marazzi</td><td>Италия</td><td>Archiproducts</td></tr>
     <tr><td class="name">Atlas Concorde</td><td>Италия</td><td>Archiproducts</td></tr>
-    <tr><td class="name">Tejas Borja · Revigres · COTTO</td><td>Испания / Португалия</td><td>BIMobject</td></tr>
+    <tr><td class="name">Tejas Borja · Revigres</td><td>Испания / Португалия</td><td>BIMobject</td></tr>
   </table>
-  <p class="src">Источники: bimcatalogs.rengabim.com; TAdviser (ПЕНОПЛЭКС+Renga); bimobject.com/categories/building-materials/tiles; archiproducts.com. Российских дистрибьюторов керамогранита на площадках не найдено (проверка сент. 2026).</p>
+  <p class="src">Источники: bimcatalogs.rengabim.com; TAdviser; bimobject.com/categories/building-materials/tiles; archiproducts.com. Проверка сент. 2026.</p>
 </div>
 
-<!-- 05 -->
 <div class="section">
-  <div class="sec-header"><div class="sec-num">05</div><div><div class="sec-tag">Условия и стоимость входа</div><div class="sec-title">Сколько стоит и что нужно, чтобы зайти</div></div></div>
-  <p>Рекомендуемая точка входа — <strong>BIMLIB</strong>: единственная площадка с публичным рублёвым прайсом, российский вендор, нужные форматы, аудитория 80 000+ проектировщиков.</p>
-
-  <h3>Тарифы BIMLIB (годовая подписка, вкл. НДС)</h3>
+  <div class="sec-header"><div class="sec-num">05</div><div><div class="sec-tag">Условия и стоимость входа</div><div class="sec-title">Сколько стоит и что нужно</div></div></div>
+  <p>Рекомендуемая точка входа — <strong>BIMLIB</strong>: публичный рублёвый прайс, российский вендор, 80 000+ проектировщиков.</p>
+  <h3>Тарифы BIMLIB (год, вкл. НДС)</h3>
   <table class="no-break">
     <tr><th>Тариф</th><th>Цена/год</th><th>Что входит</th></tr>
-    <tr><td class="name">БЕТА</td><td>145 000 ₽</td><td>Публикация моделей, безлимитные скачивания, <strong>контакты проектировщиков</strong>, общая рассылка. Достаточно для старта.</td></tr>
-    <tr><td class="name">ДЕЛЬТА</td><td>270 000 ₽</td><td>×3 в поиске, лого в карусели брендов, статьи, интеграции amoCRM/Bitrix24, 30 дней на главной.</td></tr>
-    <tr><td class="name">ОМЕГА</td><td>570 000 ₽</td><td>×5 в поиске, до 4 интеграций, баннер, ревью 10–15 моделей, правка до 3 моделей.</td></tr>
+    <tr><td class="name">БЕТА</td><td>145 000 ₽</td><td>Публикация, безлимит скачиваний, <strong>контакты проектировщиков</strong>, рассылка. Достаточно для старта.</td></tr>
+    <tr><td class="name">ДЕЛЬТА</td><td>270 000 ₽</td><td>×3 в поиске, лого в карусели, статьи, интеграции CRM, 30 дней на главной.</td></tr>
+    <tr><td class="name">ОМЕГА</td><td>570 000 ₽</td><td>×5 в поиске, баннер, ревью 10–15 моделей, до 4 интеграций.</td></tr>
   </table>
-  <p class="src">Источник: bimlib.store/plans, сентябрь 2026. Доп. пакет продвижения «Стандарт» — 55 000 ₽/мес.</p>
-
-  <h3>Что нужно подготовить для захода</h3>
+  <p class="src">Источник: bimlib.store/plans, сент. 2026.</p>
+  <h3>Смета старта</h3>
   <table class="no-break">
-    <tr><th>Позиция</th><th>Разово / период</th><th>Ориентир</th></tr>
+    <tr><th>Позиция</th><th>Период</th><th>Ориентир</th></tr>
     <tr><td>Подписка BIMLIB БЕТА</td><td>год</td><td>145 000 ₽</td></tr>
-    <tr><td>BIM-объекты топ-10 коллекций LAPARET (Revit/Renga/IFC)</td><td>разово, 2–4 нед.</td><td>~200 000 ₽</td></tr>
-    <tr><td>Контент: описания, теххарактеристики, сертификаты, текстуры/фото</td><td>разово</td><td>~80 000 ₽</td></tr>
-    <tr><td class="name" style="color:var(--g)">Итого старт (год 1)</td><td>—</td><td class="name" style="color:var(--g)">≈ 425 000 ₽</td></tr>
-    <tr><td>Со 2-го года — только подписка + обновление моделей</td><td>год</td><td>≈ 145 000–200 000 ₽</td></tr>
+    <tr><td>BIM-объекты топ-10 коллекций (Revit/Renga/IFC)</td><td>разово, 2–4 нед.</td><td>~200 000 ₽</td></tr>
+    <tr><td>Контент: описания, сертификаты, текстуры</td><td>разово</td><td>~80 000 ₽</td></tr>
+    <tr><td class="name" style="color:var(--g)">Итого год 1</td><td>—</td><td class="name" style="color:var(--g)">≈ 425 000 ₽</td></tr>
+    <tr><td>Со 2-го года (только подписка)</td><td>год</td><td>≈ 145 000–200 000 ₽</td></tr>
   </table>
-  <p class="footnote">BIM-объекты можно сделать силами подрядчика-BIM-моделлера или частично своими силами. Оценка 200 000 ₽ — рыночная за 10 коллекций «под ключ» с валидацией форматов.</p>
 </div>
 
-<!-- 06 -->
 <div class="section">
-  <div class="sec-header"><div class="sec-num">06</div><div><div class="sec-tag">План захода · старт 01 октября 2026</div><div class="sec-title">Дорожная карта — короткие реалистичные сроки</div></div></div>
+  <div class="sec-header"><div class="sec-num">06</div><div><div class="sec-tag">Дорожная карта · старт 01.10.2026</div><div class="sec-title">Короткие реалистичные сроки</div></div></div>
   <div class="tl">
-    <div class="tl-item"><div class="tl-wk">Неделя 1 · 1–7 октября</div><div class="tl-title">Решение и договор с BIMLIB</div><div class="tl-body">Заключить договор на тариф БЕТА (145 000 ₽). Параллельно отправить запрос условий в Renga BIM-каталоги. Назначить ответственного за проект внутри Баусервис.</div></div>
-    <div class="tl-item"><div class="tl-wk">Недели 2–4 · 8–31 октября</div><div class="tl-title">Производство BIM-объектов топ-10 коллекций</div><div class="tl-body">Отобрать 10 самых ходовых коллекций LAPARET. Подрядчик-моделлер делает объекты в Revit + Renga + IFC. Параллельно готовим контент: описания, характеристики, сертификаты, текстуры.</div></div>
-    <div class="tl-item"><div class="tl-wk">Неделя 5 · 1–7 ноября</div><div class="tl-title">Публикация и запуск</div><div class="tl-body">Загрузка объектов на BIMLIB, оформление карточек бренда, настройка «цифрового паспорта» со ссылкой на каталог homeproject/сайт LAPARET. Проверка отображения в поиске.</div></div>
-    <div class="tl-item"><div class="tl-wk">Недели 6–8 · ноябрь</div><div class="tl-title">Первые скачивания и работа с контактами</div><div class="tl-body">Пошли первые скачивания. Начинаем обрабатывать контакты проектировщиков из статистики BIMLIB — прямой аутрич менеджера. Первые спецификации в проектах.</div></div>
-    <div class="tl-item"><div class="tl-wk">Месяцы 3–6 · декабрь–март</div><div class="tl-title">Масштабирование ассортимента</div><div class="tl-body">Довести число коллекций до 25–30. По статистике оценить, что скачивают, — расширять популярное. Решить по тарифу ДЕЛЬТА (продвижение в поиске) и по входу в Renga-каталоги.</div></div>
+    <div class="tl-item"><div class="tl-wk">Неделя 1 · 1–7 октября</div><div class="tl-title">Решение и договор с BIMLIB</div><div class="tl-body">Тариф БЕТА (145 000 ₽). Параллельно — запрос условий в Renga BIM-каталоги. Назначить ответственного.</div></div>
+    <div class="tl-item"><div class="tl-wk">Недели 2–4 · 8–31 октября</div><div class="tl-title">Производство BIM-объектов топ-10 коллекций</div><div class="tl-body">Подрядчик-моделлер: Revit + Renga + IFC. Параллельно — контент: описания, характеристики, сертификаты, текстуры.</div></div>
+    <div class="tl-item"><div class="tl-wk">Неделя 5 · 1–7 ноября</div><div class="tl-title">Публикация и запуск</div><div class="tl-body">Загрузка на BIMLIB, карточка бренда, «цифровой паспорт» со ссылкой на каталог LAPARET. Проверка поиска.</div></div>
+    <div class="tl-item"><div class="tl-wk">Недели 6–8 · ноябрь</div><div class="tl-title">Первые скачивания → аутрич проектировщикам</div><div class="tl-body">Контакты скачавших → прямой звонок/письмо менеджера. Первые спецификации в проектах.</div></div>
+    <div class="tl-item"><div class="tl-wk">Месяцы 3–6 · декабрь–март</div><div class="tl-title">Масштабирование до 25–30 коллекций</div><div class="tl-body">По статистике расширять популярное. Решение о тарифе ДЕЛЬТА и входе в Renga-каталоги.</div></div>
   </div>
-  <div class="box">
-    <div class="box-head">Реалистичный горизонт</div>
-    <div class="box-body">Полный запуск — <strong>~5 недель</strong> (публикация к началу ноября). Первые спецификации — <strong>ноябрь–декабрь</strong>. Первые реальные заказы через спецификацию — <strong>Q1 2027</strong> (цикл проектирование → закупка занимает 2–4 мес.).</div>
-  </div>
+  <div class="box"><div class="box-head">Реалистичный горизонт</div><div class="box-body">Публикация — <strong>начало ноября</strong>. Первые спецификации — <strong>ноябрь–декабрь</strong>. Первые реальные заказы — <strong>Q1 2027</strong> (цикл проектирование → закупка: 2–4 мес.).</div></div>
 </div>
 
-<!-- 07 -->
 <div class="section">
   <div class="sec-header"><div class="sec-num">07</div><div><div class="sec-tag">Экономика · срок окупаемости</div><div class="sec-title">Что это даёт Баусервис в деньгах</div></div></div>
-  <p>Модель построена честно: канал пассивно-активный. Проектировщики скачивают модели → часть попадает в спецификацию → часть спецификаций конвертируется в заказ. Ниже три сценария.</p>
-
+  <p>Модель честная: скачивания → часть в спецификацию → часть в заказ.</p>
   <table class="no-break">
     <tr><th>Параметр</th><th>Консервативно</th><th>Базово</th><th>Оптимистично</th></tr>
-    <tr><td>Скачиваний моделей / год</td><td>~150</td><td>~400</td><td>~800</td></tr>
-    <tr><td>Доля, попавшая в спецификацию</td><td>8%</td><td>10%</td><td>12%</td></tr>
-    <tr><td>Спецификаций / год</td><td>12</td><td>40</td><td>96</td></tr>
-    <tr><td>Конверсия спецификации в заказ</td><td>40%</td><td>40%</td><td>45%</td></tr>
-    <tr><td>Заказов / год</td><td>~5</td><td>~16</td><td>~43</td></tr>
-    <tr><td>Средний чек заказа</td><td>400 000 ₽</td><td>500 000 ₽</td><td>650 000 ₽</td></tr>
-    <tr><td class="name" style="color:var(--g)">Выручка / год от канала</td><td class="name" style="color:var(--g)">≈ 2,0 млн ₽</td><td class="name" style="color:var(--g)">≈ 8,0 млн ₽</td><td class="name" style="color:var(--g)">≈ 28 млн ₽</td></tr>
+    <tr><td>Скачиваний / год</td><td>~150</td><td>~400</td><td>~800</td></tr>
+    <tr><td>→ в спецификацию</td><td>8% = 12</td><td>10% = 40</td><td>12% = 96</td></tr>
+    <tr><td>→ конверсия в заказ</td><td>40% = ~5</td><td>40% = ~16</td><td>45% = ~43</td></tr>
+    <tr><td>Средний чек</td><td>400 000 ₽</td><td>500 000 ₽</td><td>650 000 ₽</td></tr>
+    <tr><td class="name" style="color:var(--g)">Выручка / год</td><td class="name" style="color:var(--g)">≈ 2,0 млн ₽</td><td class="name" style="color:var(--g)">≈ 8,0 млн ₽</td><td class="name" style="color:var(--g)">≈ 28 млн ₽</td></tr>
   </table>
-
   <div class="metrics">
-    <div class="metric"><div class="num red">≈ 425K ₽</div><div class="lbl">вложения год 1</div></div>
-    <div class="metric"><div class="num green">2–28 млн ₽</div><div class="lbl">выручка год 1 (диапазон)</div></div>
-    <div class="metric"><div class="num">4–5</div><div class="lbl">заказов окупают старт (консерв.)</div></div>
+    <div class="metric"><div class="num red">425K ₽</div><div class="lbl">вложения год 1</div></div>
+    <div class="metric"><div class="num green">2–28 млн</div><div class="lbl">выручка год 1</div></div>
+    <div class="metric"><div class="num">4–5</div><div class="lbl">заказов окупают старт</div></div>
     <div class="metric"><div class="num green">3–12 мес.</div><div class="lbl">срок окупаемости</div></div>
   </div>
-
-  <div class="box terra">
-    <div class="box-head">Срок окупаемости — как считали</div>
-    <div class="box-body">
-      Старт ≈ 425 000 ₽. Валовая прибыль с одного спец-заказа при среднем чеке 400–500 тыс ₽ — ориентировочно <strong>80–100 тыс ₽</strong>. Значит вложения отбиваются <strong>4–5 заказами</strong>.<br>
-      • <strong>Консервативный</strong> сценарий (5 заказов/год): окупаемость <strong>~10–12 мес.</strong><br>
-      • <strong>Базовый</strong> (16 заказов/год): окупаемость <strong>~3–4 мес.</strong> после начала потока заказов.<br>
-      Со 2-го года расходы падают до ~145–200 тыс ₽ (только подписка) — рентабельность канала резко растёт.
-    </div>
-  </div>
-  <p class="footnote">Модель консервативнее прежней оценки (август 2026). Цифры — плановые ориентиры, не гарантия. Гросс-маржа задана обобщённо для расчёта окупаемости и не подлежит раскрытию во внешних материалах.</p>
+  <div class="box terra"><div class="box-head">Как считали окупаемость</div><div class="box-body">Старт 425K ₽ ÷ валовая прибыль ~80–100K ₽ с заказа = <strong>4–5 заказов</strong> покрывают вложения.<br>• Консерватив (5 заказов/год): окупаемость <strong>~10–12 мес.</strong><br>• База (16 заказов/год): окупаемость <strong>~3–4 мес.</strong> после начала потока.<br>Со 2-го года расходы ≈145–200K ₽/год — рентабельность резко растёт.</div></div>
+  <p class="footnote">Цифры — плановые ориентиры. Гросс-маржа задана обобщённо — не подлежит раскрытию во внешних материалах.</p>
 </div>
 
-<!-- 08 -->
 <div class="section">
-  <div class="sec-header"><div class="sec-num">08</div><div><div class="sec-tag">Решение</div><div class="sec-title">Рекомендация: что делаем со стартом 01.10.2026</div></div></div>
+  <div class="sec-header"><div class="sec-num">08</div><div><div class="sec-tag">Итоговая рекомендация</div><div class="sec-title">Что делаем со стартом 01.10.2026</div></div></div>
   <div class="verdict">
-    <h3>Предложение</h3>
+    <h3>Предложение — 4 шага</h3>
     <ul>
-      <li><strong>Шаг 1 (октябрь):</strong> зайти на BIMLIB, тариф БЕТА — 145 000 ₽/год. Минимальный риск, рублёвая оплата, готовая аудитория 80 000+ проектировщиков.</li>
-      <li><strong>Шаг 2 (октябрь):</strong> заказать BIM-объекты топ-10 коллекций LAPARET (~200 тыс ₽) + контент (~80 тыс ₽). Публикация — начало ноября.</li>
-      <li><strong>Шаг 3 (параллельно):</strong> запросить условия входа в Renga BIM-каталоги — там уже КНАУФ, ПЕНОПЛЭКС, ТЕХНОНИКОЛЬ, прямой канал к рос. проектировщикам.</li>
-      <li><strong>Шаг 4 (Q1 2027):</strong> по статистике скачиваний решить о тарифе ДЕЛЬТА (продвижение) и расширении до 25–30 коллекций.</li>
-      <li><strong>Отложить:</strong> BIMobject / Archiproducts — вернуться при выходе на экспорт; сейчас трансграничная оплата из РФ проблематична.</li>
+      <li><strong>Шаг 1 (октябрь):</strong> BIMLIB тариф БЕТА — 145 000 ₽/год. Минимальный риск, рубли, 80 000+ проектировщиков.</li>
+      <li><strong>Шаг 2 (октябрь):</strong> BIM-объекты топ-10 коллекций (~200K ₽) + контент (~80K ₽). Публикация — начало ноября.</li>
+      <li><strong>Шаг 3 (параллельно):</strong> запрос в Renga BIM-каталоги — там уже КНАУФ, ПЕНОПЛЭКС, ТЕХНОНИКОЛЬ.</li>
+      <li><strong>Шаг 4 (Q1 2027):</strong> по статистике → тариф ДЕЛЬТА и расширение до 25–30 коллекций.</li>
+      <li><strong>Отложить:</strong> BIMobject / Archiproducts — вернуться при выходе на экспорт.</li>
     </ul>
   </div>
-  <div class="box">
-    <div class="box-head">Почему это выгодно</div>
-    <div class="box-body">
-      Ниша керамогранита в рос. BIM-библиотеках <strong>пустая</strong> — окно первопроходца. Вход дешёвый (≈425 тыс ₽), окупаемость 3–12 мес., win rate по специфицированным продуктам 70–85% против 15–25% в тендере. Регуляторика (обязательный ТИМ) сама гонит проектировщиков в BIM-библиотеки — спрос растёт без наших усилий. <strong>Рекомендация: стартовать с 1 октября 2026, приоритет высокий.</strong>
-    </div>
-  </div>
-  <p class="footnote" style="text-align:center;margin-top:8mm;">
-    BIM-каналы · Баусервис / LAPARET · Стратегический дайджест · Октябрь 2026<br>
-    Подготовлено А. Ботьевым с помощью ИИ · Только для внутреннего использования<br>
-    Все данные верифицированы с указанием источника. Непроверенные пункты (точные цены BIMobject/Archiproducts, условия Renga) требуют прямых запросов.
-  </p>
+  <div class="box"><div class="box-head">Почему выгодно</div><div class="box-body">Ниша пустая. Вход дешёвый. Win rate 70–85%. Регуляторика гонит проектировщиков в BIM-библиотеки. <strong>Стартовать с 1 октября 2026.</strong></div></div>
+  <p class="footnote" style="text-align:center;margin-top:8mm;">BIM-каналы · Баусервис / LAPARET · Стратегический дайджест · Октябрь 2026<br>Подготовлено А. Ботьевым с помощью ИИ · Только для внутреннего использования</p>
 </div>
 
 </body>
