@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email-кампании октябрь 2026 — HOMEPROJECT</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #181A20; color: #E8EAF0; font-family: 'Inter', -apple-system, sans-serif; font-size: 14px; line-height: 1.6; }
+.container { max-width: 1000px; margin: 0 auto; padding: 32px 20px; }
+h1 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.subtitle { color: #8B8FA8; font-size: 13px; margin-bottom: 36px; }
+.section-title { font-size: 15px; font-weight: 600; color: #C8CADC; margin: 36px 0 14px; border-left: 3px solid #5B6AD0; padding-left: 10px; }
+.verdict { border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; }
+.verdict.yellow { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.25); }
+.verdict-title { font-size: 15px; font-weight: 700; margin-bottom: 10px; color: #FBBF24; }
+.verdict p { font-size: 13px; color: #C8CADC; line-height: 1.7; margin-bottom: 8px; }
+.verdict p:last-child { margin-bottom: 0; }
+.principles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+.principle { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; padding: 16px; }
+.principle-num { font-size: 22px; font-weight: 800; color: #5B6AD0; margin-bottom: 6px; }
+.principle-title { font-size: 13px; font-weight: 600; color: #E8EAF0; margin-bottom: 5px; }
+.principle-text { font-size: 12px; color: #8B8FA8; line-height: 1.6; }
+.do { color: #4ADE80; font-weight: 600; }
+.dont { color: #F87171; font-weight: 600; }
+.msg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+.msg-card { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; padding: 16px; }
+.msg-card.allowed { border-left: 3px solid #4ADE80; }
+.msg-card.forbidden { border-left: 3px solid #F87171; }
+.msg-card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+.msg-card.allowed .msg-card-title { color: #4ADE80; }
+.msg-card.forbidden .msg-card-title { color: #F87171; }
+.msg-item { font-size: 12px; color: #C8CADC; margin-bottom: 7px; padding-left: 16px; position: relative; line-height: 1.5; }
+.msg-card.allowed .msg-item::before { content: '✓'; position: absolute; left: 0; color: #4ADE80; font-weight: 700; }
+.msg-card.forbidden .msg-item::before { content: '✗'; position: absolute; left: 0; color: #F87171; font-weight: 700; }
+.email-card { background: #1F2129; border: 1px solid #2A2D38; border-radius: 12px; margin-bottom: 24px; overflow: hidden; }
+.email-header { background: #13151B; padding: 16px 20px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+.email-brand { font-size: 13px; font-weight: 700; }
+.email-type-tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.tag-warm { background: rgba(251,191,36,0.15); color: #FBBF24; }
+.tag-reeng { background: rgba(124,143,255,0.15); color: #7C8FFF; }
+.email-meta { padding: 16px 20px; border-bottom: 1px solid #2A2D38; }
+.meta-row { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; font-size: 12px; }
+.meta-row:last-child { margin-bottom: 0; }
+.meta-label { color: #8B8FA8; min-width: 130px; flex-shrink: 0; }
+.meta-val { color: #E8EAF0; }
+.subj-ab { display: flex; gap: 8px; flex-wrap: wrap; }
+.subj-pill { background: #2A2D38; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 500; }
+.subj-pill.a { border-left: 3px solid #7C8FFF; }
+.subj-pill.b { border-left: 3px solid #FBBF24; }
+.email-body { padding: 20px; }
+.body-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: #5B6AD0; letter-spacing: 0.5px; margin-bottom: 10px; }
+.email-text { background: #13151B; border-radius: 8px; padding: 18px 20px; font-size: 13px; line-height: 1.85; color: #D0D3E0; white-space: pre-wrap; border: 1px solid #2A2D38; }
+.email-text .highlight { color: #7C8FFF; font-weight: 600; }
+.email-text .link-text { color: #60A5FA; text-decoration: underline; }
+.email-text .cta-inline { color: #4ADE80; font-weight: 600; }
+.email-notes { padding: 14px 20px; background: rgba(91,106,208,0.05); border-top: 1px solid #2A2D38; }
+.notes-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #5B6AD0; letter-spacing: 0.5px; margin-bottom: 8px; }
+.note-item { font-size: 12px; color: #8B8FA8; margin-bottom: 5px; padding-left: 14px; position: relative; }
+.note-item::before { content: '→'; position: absolute; left: 0; color: #5B6AD0; }
+.utm-block { padding: 14px 20px; border-top: 1px solid #2A2D38; }
+.utm-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8B8FA8; letter-spacing: 0.5px; margin-bottom: 8px; }
+.utm-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.utm-tag { background: #2A2D38; border-radius: 4px; padding: 3px 8px; font-size: 11px; font-family: 'Courier New', monospace; color: #A0A8C8; }
+.comp-table { background: #1F2129; border: 1px solid #2A2D38; border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+.comp-table table { width: 100%; border-collapse: collapse; }
+.comp-table th { background: #13151B; color: #8B8FA8; font-size: 11px; text-transform: uppercase; padding: 10px 14px; text-align: left; letter-spacing: 0.4px; }
+.comp-table td { padding: 9px 14px; border-top: 1px solid #2A2D38; font-size: 13px; }
+.good { color: #4ADE80; } .warn { color: #FBBF24; } .bad { color: #F87171; }
+footer { margin-top: 48px; text-align: center; font-size: 11px; color: #4A4D5C; padding-bottom: 32px; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>✉️ Email-кампании — Октябрь 2026</h1>
+<div class="subtitle">Доработка по итогам анализа августа–сентября · Miele · Gaggenau · Snaidero · Re-engage · HOMEPROJECT</div>
+
+<div class="section-title">Оценка: говорить ли про «лучшие условия»?</div>
+<div class="verdict yellow">
+  <div class="verdict-title">⚖️ Вердикт: ДА, но формат важнее слов</div>
+  <p>Высокий сезон (октябрь–декабрь) — реальный аргумент для срочности. Архитекторы и студии сдают объекты до Нового года, у них горят проекты. Это момент, когда «работаем быстро» ценнее, чем «у нас дёшево».</p>
+  <p>Проблема с «лучшими условиями»: звучит как скидочный оффер без доказательств. В premium-сегменте это скорее отталкивает. <strong>Заменяем на язык скорости, экспертизы и сервиса — он работает сильнее.</strong></p>
+</div>
+
+<div class="msg-grid">
+  <div class="msg-card allowed">
+    <div class="msg-card-title">✓ Можно говорить</div>
+    <div class="msg-item">«Авторизованный импортер — прямые поставки, не перекупщик»</div>
+    <div class="msg-item">«Подберём комплект под проект за 24 часа»</div>
+    <div class="msg-item">«Октябрь — последний шанс закрыть поставки до конца года»</div>
+    <div class="msg-item">«Полное сопровождение: спецификация → логистика → монтаж»</div>
+    <div class="msg-item">«Наличие на складе / сроки под ваш проект»</div>
+    <div class="msg-item">«Работаем с дизайнерами и студиями напрямую»</div>
+  </div>
+  <div class="msg-card forbidden">
+    <div class="msg-card-title">✗ Нельзя говорить</div>
+    <div class="msg-item">«Лучшие цены на рынке» (нечем доказать)</div>
+    <div class="msg-item">«Скидка N%» / «−X% от РРЦ»</div>
+    <div class="msg-item">«Дилерская цена» / «оптовая цена»</div>
+    <div class="msg-item">«Дешевле чем у конкурентов»</div>
+    <div class="msg-item">«Специальные условия для дизайнеров» (без раскрытия)</div>
+  </div>
+</div>
+
+<div class="section-title">Что изменить в механике (по данным анализа)</div>
+<div class="principles">
+  <div class="principle">
+    <div class="principle-num">01</div>
+    <div class="principle-title">Личный отправитель, не бренд</div>
+    <div class="principle-text"><span class="do">✓ alexey@homeproject.online</span><br><span class="dont">✗ info@homeproject.online</span><br><br>Coldy re-engage дал 33% отказов именно потому что выглядел личным. Люди отвечают людям.</div>
+  </div>
+  <div class="principle">
+    <div class="principle-num">02</div>
+    <div class="principle-title">Текстовая ссылка вместо кнопки</div>
+    <div class="principle-text"><span class="do">✓ Текстовая ссылка в теле письма</span><br><span class="dont">✗ [ПОЛУЧИТЬ КП] — кнопка</span><br><br>followup-link: 50% отказов. kp-button: 100%. Данные однозначны.</div>
+  </div>
+  <div class="principle">
+    <div class="principle-num">03</div>
+    <div class="principle-title">Конкретный продукт = интерес</div>
+    <div class="principle-text"><span class="do">✓ Конкретная модель с названием</span><br><span class="dont">✗ «Смотрите весь каталог бренда»</span><br><br>Ссылка master-black (Bertazzoni) дала 145 секунд на сайте. Каталог целиком — 0 секунд.</div>
+  </div>
+  <div class="principle">
+    <div class="principle-num">04</div>
+    <div class="principle-title">Ссылка на контент, не на форму КП</div>
+    <div class="principle-text"><span class="do">✓ Контент → прогрев → потом КП</span><br><span class="dont">✗ Сразу → kp-request.html</span><br><br>53 клика на форму КП, 0 заполнений. Холодный трафик не конвертирует напрямую.</div>
+  </div>
+  <div class="principle">
+    <div class="principle-num">05</div>
+    <div class="principle-title">Короткое письмо, один вопрос</div>
+    <div class="principle-text"><span class="do">✓ 3–5 строк + 1 ссылка + 1 вопрос</span><br><span class="dont">✗ HTML-шаблон с блоками и кнопками</span><br><br>Лучшие результаты — простые текстовые письма. Меньше дизайна = больше доверия.</div>
+  </div>
+  <div class="principle">
+    <div class="principle-num">06</div>
+    <div class="principle-title">Сезонный крючок</div>
+    <div class="principle-text"><span class="do">✓ «Октябрь — последний шанс до НГ»</span><br><span class="dont">✗ «Приглашаем к сотрудничеству»</span><br><br>Высокий сезон — реальная срочность для дизайнеров. Это триггер действия.</div>
+  </div>
+</div>
+
+<div class="section-title">Письмо 1 — Miele (тёплая база, осенний сезон)</div>
+<div class="email-card">
+  <div class="email-header">
+    <div><div class="email-brand">🇩🇪 Miele — тёплое письмо для дизайнеров и студий</div><div style="margin-top:5px;font-size:12px;color:#8B8FA8">Аудитория: архитекторы, интерьерные студии, кухонные салоны</div></div>
+    <span class="email-type-tag tag-warm">Тёплая база</span>
+  </div>
+  <div class="email-meta">
+    <div class="meta-row"><span class="meta-label">Тема A:</span><div class="subj-ab"><span class="subj-pill a">Miele под проект — подберём за 24 часа, пока сезон</span></div></div>
+    <div class="meta-row"><span class="meta-label">Тема B:</span><div class="subj-ab"><span class="subj-pill b">У вас сейчас есть проект с Miele?</span></div></div>
+    <div class="meta-row"><span class="meta-label">Preview-текст:</span><span class="meta-val">Октябрь — горячий месяц. Готовы помочь закрыть спецификацию быстро.</span></div>
+    <div class="meta-row"><span class="meta-label">Отправитель:</span><span class="meta-val">Алексей Б. &lt;alexey@homeproject.online&gt;</span></div>
+  </div>
+  <div class="email-body">
+    <div class="body-label">Текст письма</div>
+    <div class="email-text">Добрый день!
+
+Меня зовут Алексей, я представляю HOMEPROJECT — авторизованного дистрибутора Miele в России.
+
+Знаю, что октябрь у студий и архитекторов — горячий месяц: объекты надо сдать до конца года, а поставки техники часто стоят последними в списке.
+
+Мы специально для этого периода держим наличие по ключевым позициям Miele Generation 7000: духовые шкафы, индукционные панели, посудомоечные машины. Сроки и наличие — уточняю в течение часа.
+
+Если у вас сейчас есть проект, где нужна техника Miele — напишите в ответ или посмотрите, что мы подготовили: <span class="link-text">homeproject.online/ru/store?category=brand-miele</span>
+
+Готов под ваш объект сформировать спецификацию с ценами.
+
+С уважением,
+Алексей
+HOMEPROJECT — премиальная бытовая техника
++7 (XXX) XXX-XX-XX</div>
+  </div>
+  <div class="email-notes">
+    <div class="notes-title">Комментарии</div>
+    <div class="note-item">Тема B с вопросом даёт открываемость выше на 15–25% в B2B — человек открывает чтобы ответить «да/нет»</div>
+    <div class="note-item">Ключевой крючок — «октябрь, сдача объектов». Реальная боль студий в этот период</div>
+    <div class="note-item">Ссылка текстовая, на каталог Miele (показал 33% отказов — лучший brand-показатель сентября)</div>
+    <div class="note-item">CTA: ответить на письмо или перейти по ссылке. Не форма КП напрямую</div>
+  </div>
+  <div class="utm-block">
+    <div class="utm-title">UTM</div>
+    <div class="utm-tags">
+      <span class="utm-tag">utm_source=unisender-classic</span>
+      <span class="utm-tag">utm_medium=email</span>
+      <span class="utm-tag">utm_campaign=warm-miele-oct26</span>
+      <span class="utm-tag">utm_content=catalog-link</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">Письмо 2 — Gaggenau (экспертный формат)</div>
+<div class="email-card">
+  <div class="email-header">
+    <div><div class="email-brand">🇩🇪 Gaggenau — экспертное письмо</div><div style="margin-top:5px;font-size:12px;color:#8B8FA8">Аудитория: архитекторы, luxury-сегмент, кухонные студии класса люкс</div></div>
+    <span class="email-type-tag tag-warm">Тёплая база</span>
+  </div>
+  <div class="email-meta">
+    <div class="meta-row"><span class="meta-label">Тема A:</span><div class="subj-ab"><span class="subj-pill a">Gaggenau 400 или 200 — как выбрать под проект (без воды)</span></div></div>
+    <div class="meta-row"><span class="meta-label">Тема B:</span><div class="subj-ab"><span class="subj-pill b">Один вопрос про Gaggenau в вашем следующем проекте</span></div></div>
+    <div class="meta-row"><span class="meta-label">Preview-текст:</span><span class="meta-val">Серия 400 vs 200 — разбираем честно. Плюс наличие и сроки прямо сейчас.</span></div>
+    <div class="meta-row"><span class="meta-label">Отправитель:</span><span class="meta-val">Алексей Б. &lt;alexey@homeproject.online&gt;</span></div>
+  </div>
+  <div class="email-body">
+    <div class="body-label">Текст письма</div>
+    <div class="email-text">Добрый день!
+
+Алексей, HOMEPROJECT — авторизованный дистрибутор Gaggenau.
+
+Часто слышу от архитекторов один вопрос: «Серия 400 или 200 — что ставить в проект?». Отвечу коротко:
+
+<span class="highlight">Серия 400</span> — когда кухня сама является высказыванием. Vario-системы, встройка без видимых стыков, максимум интеграции. Клиент должен это чувствовать.
+
+<span class="highlight">Серия 200</span> — когда нужна функциональность Gaggenau без акцента на кастомизацию. Лучшая техника в своём классе, понятный выбор.
+
+Если хотите — пришлю сравнение по конкретным моделям под ваш объект. Или посмотрите что есть в наличии: <span class="link-text">homeproject.online/ru/store?q=gaggenau</span>
+
+Октябрь — хороший момент зафиксировать наличие до конца года. Уточню сроки по любой позиции за час.
+
+Алексей
+HOMEPROJECT
++7 (XXX) XXX-XX-XX</div>
+  </div>
+  <div class="email-notes">
+    <div class="notes-title">Комментарии</div>
+    <div class="note-item">Тема «400 или 200» — человек открывает чтобы получить ответ на реальный вопрос, который уже возникал</div>
+    <div class="note-item">Экспертный формат (объясняем, а не продаём) — Gaggenau-аудитория чувствует «впаривание» моментально</div>
+    <div class="note-item">«Пришлю сравнение» — мягкий призыв ответить. Ответ на письмо = тёплый лид без форм</div>
+    <div class="note-item">Gaggenau+Miele sep18 показал 2.0 стр. глубины — лучший показатель сентября. Этот формат близок к нему</div>
+  </div>
+  <div class="utm-block">
+    <div class="utm-title">UTM</div>
+    <div class="utm-tags">
+      <span class="utm-tag">utm_source=unisender-classic</span>
+      <span class="utm-tag">utm_medium=email</span>
+      <span class="utm-tag">utm_campaign=warm-gaggenau-oct26</span>
+      <span class="utm-tag">utm_content=catalog-link</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">Письмо 3 — Snaidero + техника (системный оффер)</div>
+<div class="email-card">
+  <div class="email-header">
+    <div><div class="email-brand">🇮🇹 Snaidero + встроенная техника — система «под ключ»</div><div style="margin-top:5px;font-size:12px;color:#8B8FA8">Аудитория: кухонные студии, дизайнеры интерьера, дилеры кухонь</div></div>
+    <span class="email-type-tag tag-warm">Тёплая база</span>
+  </div>
+  <div class="email-meta">
+    <div class="meta-row"><span class="meta-label">Тема A:</span><div class="subj-ab"><span class="subj-pill a">Snaidero + техника: что ставим в кухни и почему</span></div></div>
+    <div class="meta-row"><span class="meta-label">Тема B:</span><div class="subj-ab"><span class="subj-pill b">Кухня Snaidero — техника уже подобрана, проверьте</span></div></div>
+    <div class="meta-row"><span class="meta-label">Preview-текст:</span><span class="meta-val">Opera + Bertazzoni или V-ZUG — объясняем логику подбора.</span></div>
+    <div class="meta-row"><span class="meta-label">Отправитель:</span><span class="meta-val">Алексей Б. &lt;alexey@homeproject.online&gt;</span></div>
+  </div>
+  <div class="email-body">
+    <div class="body-label">Текст письма</div>
+    <div class="email-text">Добрый день!
+
+Алексей, HOMEPROJECT. Мы дистрибутор встроенной техники — Bertazzoni, V-ZUG, Gaggenau, Miele, BORA.
+
+Знаю, что студии Snaidero часто сталкиваются с вопросом: какую технику ставить, чтобы кухня выглядела и работала как единое целое?
+
+Мы сделали подборку под три популярных коллекции:
+
+<span class="highlight">Opera</span> → Bertazzoni Master Series (итальянский дизайн в одном стиле) или V-ZUG (швейцарский минимализм)
+<span class="highlight">Ola</span> → BORA Professional (варочная без вытяжки — идеально под открытую планировку)
+<span class="highlight">Kali</span> → Gaggenau Serie 200 (встройка без лишних деталей, фокус на функции)
+
+Полную подборку с артикулами и наличием пришлю отдельно — просто ответьте на это письмо с названием вашей коллекции.
+
+Или посмотрите всю технику здесь: <span class="link-text">homeproject.online/ru/store</span>
+
+Алексей
+HOMEPROJECT
++7 (XXX) XXX-XX-XX</div>
+  </div>
+  <div class="email-notes">
+    <div class="notes-title">Комментарии</div>
+    <div class="note-item">«Мы уже подобрали за вас» — снимает барьер выбора. Дизайнер получает готовую связку, не каталог</div>
+    <div class="note-item">Три коллекции + три бренда — экспертность без перегруза. Узнает свою коллекцию = читает дальше</div>
+    <div class="note-item">BORA (без вытяжки) — реальное УТП для открытых планировок, это знают и ценят дизайнеры</div>
+    <div class="note-item">CTA: ответить с названием коллекции = квалификация лида без форм. Очень низкий порог</div>
+  </div>
+  <div class="utm-block">
+    <div class="utm-title">UTM</div>
+    <div class="utm-tags">
+      <span class="utm-tag">utm_source=unisender-classic</span>
+      <span class="utm-tag">utm_medium=email</span>
+      <span class="utm-tag">utm_campaign=warm-snaidero-tech-oct26</span>
+      <span class="utm-tag">utm_content=catalog-link</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">Письмо 4 — Re-engagement (масштабирование лучшего формата)</div>
+<div class="email-card">
+  <div class="email-header">
+    <div><div class="email-brand">🔄 Re-engagement — сезонный реактив холодной базы</div><div style="margin-top:5px;font-size:12px;color:#8B8FA8">Аудитория: контакты, которые не открывали письма 60+ дней</div></div>
+    <span class="email-type-tag tag-reeng">Re-engage</span>
+  </div>
+  <div class="email-meta">
+    <div class="meta-row"><span class="meta-label">Тема A:</span><div class="subj-ab"><span class="subj-pill a">Давно не писал — и вот почему решил сейчас</span></div></div>
+    <div class="meta-row"><span class="meta-label">Тема B:</span><div class="subj-ab"><span class="subj-pill b">Есть проект до конца года?</span></div></div>
+    <div class="meta-row"><span class="meta-label">Preview-текст:</span><span class="meta-val">Октябрь — самый горячий месяц. Хочу предложить конкретную помощь.</span></div>
+    <div class="meta-row"><span class="meta-label">Отправитель:</span><span class="meta-val">Алексей Б. &lt;alexey@homeproject.online&gt;</span></div>
+  </div>
+  <div class="email-body">
+    <div class="body-label">Текст письма</div>
+    <div class="email-text">Добрый день!
+
+Мы уже писали вам несколько месяцев назад о премиальной технике — Miele, Gaggenau, V-ZUG, Bertazzoni. Не хочу засыпать письмами без смысла, поэтому пишу только сейчас.
+
+Наступает высокий сезон. Если у вас есть объект, который нужно закрыть до декабря — это хороший момент зафиксировать позиции.
+
+Я не предлагаю просмотреть каталог. Лучше так: <span class="cta-inline">напишите в ответ, что сейчас в работе</span> — и я за час пришлю конкретную подборку с наличием и сроками. Никаких лишних шагов.
+
+Если не актуально — просто проигнорируйте, всё понимаю.
+
+Алексей
+HOMEPROJECT — Miele, Gaggenau, V-ZUG, Bertazzoni, BORA
++7 (XXX) XXX-XX-XX
+
+P.S. Посмотреть всю технику: <span class="link-text">homeproject.online/ru/store</span></div>
+  </div>
+  <div class="email-notes">
+    <div class="notes-title">Комментарии</div>
+    <div class="note-item">Масштабирование формата Coldy re-engage-aug26 — он дал 33% отказов. Личный тон + признание что давно не писал = доверие</div>
+    <div class="note-item">«Если не актуально — просто проигнорируйте» — антидавление. Снижает тревогу, парадоксально увеличивает ответы</div>
+    <div class="note-item">CTA: ответить на письмо. Ссылка на каталог — только P.S., не основной призыв</div>
+    <div class="note-item">Тема B «Есть проект до конца года?» — прямой вопрос. Кто открывает — уже квалифицирован</div>
+  </div>
+  <div class="utm-block">
+    <div class="utm-title">UTM</div>
+    <div class="utm-tags">
+      <span class="utm-tag">utm_source=coldy</span>
+      <span class="utm-tag">utm_medium=email</span>
+      <span class="utm-tag">utm_campaign=re-engage-oct26</span>
+      <span class="utm-tag">utm_content=reply-cta</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">Сравнение: было vs стало</div>
+<div class="comp-table">
+  <table>
+    <thead><tr><th>Параметр</th><th>Сентябрь (было)</th><th>Октябрь (будет)</th><th>Ожидаемый эффект</th></tr></thead>
+    <tbody>
+      <tr><td>Отправитель</td><td class="bad">info@homeproject.online</td><td class="good">alexey@homeproject.online</td><td>+10–20% к открываемости</td></tr>
+      <tr><td>CTA</td><td class="bad">Кнопка [КП] → форма</td><td class="good">Текстовая ссылка → каталог</td><td>Отказы −30–40%</td></tr>
+      <tr><td>Куда ведём</td><td class="bad">kp-request.html (0 конверсий)</td><td class="good">Каталог бренда / ответ на письмо</td><td>Глубина ×1.5–2</td></tr>
+      <tr><td>Позиционирование</td><td class="warn">«Смотрите каталог бренда»</td><td class="good">Экспертный совет + модели</td><td>Время на сайте ×3–5</td></tr>
+      <tr><td>Сезонность</td><td class="bad">Не использовалась</td><td class="good">«Октябрь — последний шанс»</td><td>Срочность → ответ быстрее</td></tr>
+      <tr><td>Цель конверсии</td><td class="bad">Форма КП (0 за 2 мес.)</td><td class="good">Ответ на письмо → квалификация</td><td>Ниже порог, больше лидов</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  HOMEPROJECT · Email-стратегия · Октябрь 2026 · Подготовил CEO-агент 26.09.2026<br>
+  ⚠️ Документ требует согласования перед отправкой
+</footer>
+</div>
+</body>
+</html>
