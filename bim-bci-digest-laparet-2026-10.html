@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BIM-каналы & BCI Central — дайджест для бизнеса. Баусервис / LAPARET 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --dark:#181614;--dark2:#1F1D1A;--dark3:#2A2622;
+  --cream:#F2EDE6;--sand:#E8E1D7;--white:#FDFBF8;
+  --terra:#B5704A;--terra2:#C98A6A;--terra3:#E8C4A8;
+  --gold:#C49A3C;--gold2:#E2B84E;
+  --ink:#2A2420;--muted:#7A6E68;--border:#D8CFC4;
+  --green:#2A6B3C;--red:#8B2635;--blue:#2C4A7A;
+}
+body{font-family:'Inter',sans-serif;font-size:10pt;color:var(--ink);background:var(--cream);line-height:1.65;}
+
+@media print{
+  body{font-size:9pt;}
+  .no-print{display:none!important;}
+  .pb{page-break-before:always;}
+  .cover{page-break-after:always;}
+  .nb{break-inside:avoid;}
+}
+@page{
+  size:A4;margin:15mm 13mm 20mm;
+  @bottom-left{content:"Подготовил А.Ботьев";font-family:'Inter',sans-serif;font-size:6.5pt;color:var(--terra);border-top:0.5pt solid #C8BFB4;padding-top:2mm;vertical-align:top;}
+  @bottom-center{content:"BIM-каналы & BCI Central · Баусервис / LAPARET · 2026";font-family:'Inter',sans-serif;font-size:6.5pt;color:var(--muted);border-top:0.5pt solid #C8BFB4;padding-top:2mm;vertical-align:top;text-align:center;}
+  @bottom-right{content:counter(page)" / "counter(pages);font-family:'Inter',sans-serif;font-size:6.5pt;color:var(--muted);border-top:0.5pt solid #C8BFB4;padding-top:2mm;vertical-align:top;text-align:right;}
+}
+@page :first{@bottom-left{content:none;border:none;}@bottom-center{content:none;border:none;}@bottom-right{content:none;border:none;}}
+
+.print-btn{position:fixed;top:14px;right:14px;background:var(--terra);color:#fff;border:none;padding:9px 18px;border-radius:3px;font:600 11px 'Inter',sans-serif;cursor:pointer;z-index:9999;letter-spacing:.04em;}
+.print-btn:hover{background:var(--terra2);}
+
+.cover{background:var(--dark);min-height:272mm;display:flex;flex-direction:column;margin:-15mm -13mm 0;width:calc(100% + 26mm);}
+.cov-header{border-bottom:1px solid rgba(255,255,255,.08);padding:11mm 16mm 7mm;display:flex;align-items:center;justify-content:space-between;}
+.cov-logo{font:700 7pt 'Inter',sans-serif;letter-spacing:.4em;text-transform:uppercase;color:rgba(242,237,230,.4);}
+.cov-tag{font:500 7pt 'Inter',sans-serif;color:rgba(196,154,60,.7);letter-spacing:.12em;text-transform:uppercase;}
+.cov-body{flex:1;padding:11mm 16mm 8mm;display:flex;flex-direction:column;justify-content:center;}
+.cov-eye{font:600 8pt 'Inter',sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--gold2);margin-bottom:5mm;}
+.cov-title{font-family:'Playfair Display',serif;font-size:44pt;font-weight:900;line-height:1.0;color:var(--cream);margin-bottom:7mm;}
+.cov-title em{color:var(--gold2);font-style:normal;}
+.cov-deck{font:300 11pt 'Inter',sans-serif;color:rgba(242,237,230,.58);line-height:1.7;max-width:135mm;border-left:2px solid var(--terra);padding-left:5.5mm;margin-bottom:10mm;}
+.cov-kpi{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.08);padding-top:8mm;}
+.ck{flex:1;padding-right:7mm;border-right:1px solid rgba(255,255,255,.07);margin-right:7mm;}
+.ck:last-child{border:none;margin:0;}
+.ck-n{font-family:'Playfair Display',serif;font-size:26pt;font-weight:700;color:var(--gold2);line-height:1;}
+.ck-l{font:400 7pt 'Inter',sans-serif;color:rgba(242,237,230,.35);line-height:1.4;margin-top:2.5mm;}
+.cov-foot{border-top:1px solid rgba(255,255,255,.06);padding:4mm 16mm 8mm;display:flex;justify-content:space-between;align-items:center;}
+.cov-auth{font:400 7pt 'Inter',sans-serif;color:rgba(242,237,230,.22);letter-spacing:.08em;text-transform:uppercase;}
+.cov-date{font:400 7pt 'Inter',sans-serif;color:rgba(242,237,230,.22);}
+
+.chap{background:var(--dark3);margin:0 -13mm;width:calc(100% + 26mm);padding:8mm 16mm;break-inside:avoid;}
+.chap.c2{background:#1A2235;}
+.chap.c3{background:#1D1614;}
+.chap-num{font:700 6.5pt 'Inter',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:3mm;}
+.chap-title{font-family:'Playfair Display',serif;font-size:24pt;font-weight:700;color:var(--cream);line-height:1.05;}
+.chap-sub{font:300 9.5pt 'Inter',sans-serif;color:rgba(242,237,230,.5);margin-top:2.5mm;max-width:130mm;line-height:1.6;}
+
+.sh{display:flex;align-items:baseline;gap:4.5mm;padding-bottom:3.5mm;border-bottom:1.5pt solid var(--dark);margin-bottom:5mm;margin-top:6mm;}
+.sn{font-family:'Playfair Display',serif;font-size:22pt;font-weight:700;color:var(--terra3);line-height:1;flex-shrink:0;}
+.stag{font:700 6pt 'Inter',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin-bottom:1mm;}
+.stitle{font-family:'Playfair Display',serif;font-size:15pt;font-weight:700;color:var(--dark);line-height:1.1;}
+
+.lead{font:300 11pt 'Inter',sans-serif;color:var(--ink);line-height:1.7;max-width:148mm;margin-bottom:6mm;border-left:3px solid var(--gold);padding-left:5mm;}
+h3{font-family:'Playfair Display',serif;font-size:12pt;font-weight:700;color:var(--dark);margin:5mm 0 2.5mm;page-break-after:avoid;}
+h4{font:700 9pt 'Inter',sans-serif;color:var(--dark);margin:4mm 0 1.5mm;letter-spacing:.02em;}
+p{margin-bottom:3mm;font-size:9.5pt;line-height:1.6;}
+strong{color:var(--terra);font-weight:600;}
+ul,ol{padding-left:4.5mm;margin:2mm 0 3.5mm;}
+li{margin:1.5mm 0;line-height:1.5;font-size:9pt;}
+.src{font:italic 6.5pt 'Inter',sans-serif;color:var(--terra2);margin-top:1.5mm;margin-bottom:3mm;}
+
+.pq{border-left:3px solid var(--terra);padding:3mm 5mm;margin:5mm 0;background:var(--sand);border-radius:0 4px 4px 0;break-inside:avoid;}
+.pq p{font-family:'Playfair Display',serif;font-size:13pt;font-weight:400;line-height:1.45;color:var(--dark);margin:0;font-style:italic;}
+.pq cite{font:500 7pt 'Inter',sans-serif;color:var(--terra);display:block;margin-top:2mm;letter-spacing:.06em;text-transform:uppercase;font-style:normal;}
+
+.g2{display:flex;gap:5mm;margin:4mm 0;}
+.g2>*{flex:1;}
+.g3{display:flex;gap:4mm;margin:4mm 0;}
+.g3>*{flex:1;}
+
+.stats{display:flex;gap:4mm;margin:4mm 0;break-inside:avoid;}
+.stat{flex:1;background:var(--white);border:1px solid var(--border);border-radius:4px;padding:4mm 4.5mm;border-top:3px solid var(--terra);}
+.stat.g{border-top-color:var(--green);}
+.stat.b{border-top-color:var(--blue);}
+.stat.k{border-top-color:var(--gold);}
+.stat-n{font-family:'Playfair Display',serif;font-size:20pt;font-weight:700;color:var(--terra);line-height:1.0;}
+.stat.g .stat-n{color:var(--green);}
+.stat.b .stat-n{color:var(--blue);}
+.stat.k .stat-n{color:var(--gold);}
+.stat-l{font:500 7pt 'Inter',sans-serif;color:var(--muted);line-height:1.35;margin-top:2mm;text-transform:uppercase;letter-spacing:.03em;}
+
+.card{background:var(--white);border:1px solid var(--border);border-radius:5px;padding:4.5mm 5mm;border-top:3px solid var(--terra);break-inside:avoid;}
+.card.g{border-top-color:var(--green);}
+.card.b{border-top-color:var(--blue);}
+.card.k{border-top-color:var(--gold);}
+.card h4{margin-top:0;}
+.card p{font-size:8.5pt;color:#4A4040;margin-bottom:0;}
+.card ul li{font-size:8.5pt;}
+
+.box{background:var(--sand);border:1px solid var(--border);border-left:3.5px solid var(--terra);border-radius:0 4px 4px 0;padding:4mm 5mm;margin:4mm 0;break-inside:avoid;}
+.box.g{border-left-color:var(--green);}
+.box.b{border-left-color:var(--blue);}
+.box.k{border-left-color:var(--gold);}
+.box.r{border-left-color:var(--red);}
+.box-h{font:700 6.5pt 'Inter',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:2mm;}
+.box.g .box-h{color:var(--green);}
+.box.b .box-h{color:var(--blue);}
+.box.k .box-h{color:var(--gold);}
+.box.r .box-h{color:var(--red);}
+.box-b{font-size:9.5pt;line-height:1.6;}
+
+table{width:100%;border-collapse:collapse;font-size:8pt;margin:3mm 0;}
+th{background:var(--dark);color:var(--cream);text-align:left;padding:2.5mm 3mm;font:600 7pt 'Inter',sans-serif;letter-spacing:.04em;text-transform:uppercase;}
+td{padding:2.5mm 3mm;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.45;}
+tr:nth-child(even) td{background:#F5F0E8;}
+td.nm{font-weight:600;color:var(--terra);}
+.tag{display:inline-block;border-radius:10px;padding:1px 7px;font:600 6.5pt 'Inter',sans-serif;white-space:nowrap;}
+.tg{background:#d1ead9;color:#1a5c2e;}
+.ty{background:#faefd0;color:#7a5c10;}
+.tr{background:#f5d5d9;color:#7a1c26;}
+.tb{background:#d0dff5;color:#1a3068;}
+.tn{background:#e2e0dc;color:#3a3630;}
+
+.verdict{background:var(--dark);border-radius:8px;padding:6mm 7mm;margin:5mm 0;break-inside:avoid;}
+.verdict h3{color:var(--cream);font-family:'Playfair Display',serif;font-size:14pt;margin-top:0;margin-bottom:3mm;}
+.verdict strong{color:var(--gold2);}
+.verdict li{color:rgba(242,237,230,.8);font-size:9pt;margin:2mm 0;}
+.verdict p{color:rgba(242,237,230,.65);font-size:9pt;margin-bottom:2mm;}
+
+.tl{border-left:1.5px solid var(--terra3);padding-left:5.5mm;margin:4mm 0;}
+.ti{position:relative;margin-bottom:4.5mm;break-inside:avoid;}
+.ti::before{content:'';position:absolute;left:-7mm;top:2mm;width:2.5mm;height:2.5mm;border-radius:50%;background:var(--terra);border:2px solid var(--cream);}
+.tw{font:700 6.5pt 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--terra);}
+.tt{font-family:'Playfair Display',serif;font-size:11pt;font-weight:700;color:var(--dark);margin:.5mm 0 1mm;}
+.tb2{font-size:8.5pt;color:#4A4040;line-height:1.5;}
+
+.fn{font:italic 7pt 'Inter',sans-serif;color:var(--muted);line-height:1.5;margin-top:3mm;}
+.mt{margin-top:5mm;}
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">&#8595; Сохранить PDF</button>
+
+<div class="cover">
+  <div class="cov-header">
+    <div class="cov-logo">Баусервис · LAPARET</div>
+    <div class="cov-tag">Бизнес-дайджест · Октябрь 2026</div>
+  </div>
+  <div class="cov-body">
+    <div class="cov-eye">Стратегический канал продаж</div>
+    <div class="cov-title">BIM-каналы<br>&amp; <em>BCI Central</em>:<br>продажи до<br>тендера</div>
+    <div class="cov-deck">Как производитель плитки и напольных покрытий попадает в проект на стадии проектирования — когда выбор уже сделан, а тендер ещё не объявлён. Что это даёт бизнесу, сколько стоит и на каком результате можно рассчитывать.</div>
+    <div class="cov-kpi">
+      <div class="ck"><div class="ck-n">70–85%</div><div class="ck-l">выигрыш в тендере, если ваш продукт уже в спецификации</div></div>
+      <div class="ck"><div class="ck-n">15–25%</div><div class="ck-l">обычный win rate без предварительной спецификации</div></div>
+      <div class="ck"><div class="ck-n">0</div><div class="ck-l">российских дистрибьюторов плитки на BIM-площадках сегодня</div></div>
+      <div class="ck"><div class="ck-n">160K &#8381;</div><div class="ck-l">вход в российский BIM-канал — стартовый тариф BIMLIB</div></div>
+    </div>
+  </div>
+  <div class="cov-foot">
+    <div class="cov-auth">Подготовил А. Ботьев · Только для внутреннего использования</div>
+    <div class="cov-date">Октябрь 2026 · Конфиденциально</div>
+  </div>
+</div>
+
+<div class="chap">
+  <div class="chap-num">Часть I</div>
+  <div class="chap-title">Суть и главные выкладки</div>
+  <div class="chap-sub">Что это такое, зачем нам это нужно и что бизнес получит в деньгах</div>
+</div>
+
+<div style="padding-top:2mm;">
+  <div class="sh"><div class="sn">01</div><div><div class="stag">Концепция</div><div class="stitle">Что такое BIM-канал и в чём его суть для бизнеса</div></div></div>
+  <div class="lead">BIM — цифровой макет здания, в который архитектор «вставляет» плитку ещё до тендера. Если ваша коллекция в этом макете — вы уже выбраны. Тендер превращается в формальность.</div>
+  <div class="pq">
+    <p>Традиционные продажи — это борьба за место в уже готовом тендере с пятью конкурентами. BIM-канал — это присутствие в проекте раньше, чем тендер появился вообще.</p>
+    <cite>Механика spec-in · BCI Central / Hubexo, win rate data</cite>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <h4>Сейчас — как мы продаём</h4>
+      <ul>
+        <li>Узнаём о проекте когда уже идёт тендер</li>
+        <li>Конкурируем с 5–15 аналогами по цене</li>
+        <li>Маржа давится ценовой войной</li>
+        <li>Win rate: <strong>15–25%</strong></li>
+      </ul>
+    </div>
+    <div class="card k">
+      <h4>BIM-канал — как это меняет картину</h4>
+      <ul>
+        <li>Архитектор сам находит LAPARET в BIM-библиотеке</li>
+        <li>Вставляет коллекцию в модель здания — ещё на эскизе</li>
+        <li>Продукт в спецификации до тендера — заменить трудно</li>
+        <li>Win rate: <strong>70–85%</strong></li>
+      </ul>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">49%</div><div class="stat-l">застройщиков РФ работают в BIM (Q2 2026)</div></div>
+    <div class="stat g"><div class="stat-n">90%</div><div class="stat-l">Москва — BIM-проникновение у застройщиков</div></div>
+    <div class="stat b"><div class="stat-n">17%</div><div class="stat-l">строительного бюджета под контролем архитектора</div></div>
+    <div class="stat k"><div class="stat-n">0</div><div class="stat-l">рос. дистрибьюторов плитки на BIM-площадках сегодня</div></div>
+  </div>
+  <p class="src">TAdviser 2026; АСРО РОАП СОЮЗ Q4 2024; BCI Central win rate data; bimlib.ru</p>
+  <div class="box k">
+    <div class="box-h">Почему сейчас — регуляторный попутный ветер</div>
+    <div class="box-b">С 2022 BIM обязателен для госзаказа. С 01.07.2024 — для долевого жилья (214-ФЗ). Проектировщики массово работают в BIM и берут материалы из BIM-библиотек. <strong>Спрос на BIM-объекты растёт без наших усилий — нужно просто появиться в библиотеке.</strong></div>
+  </div>
+</div>
+
+<div style="padding-top:2mm;">
+  <div class="sh"><div class="sn">02</div><div><div class="stag">Территория охвата</div><div class="stitle">Где работает этот канал — Россия и мир</div></div></div>
+  <div class="g2">
+    <div class="card">
+      <h4>Россия — Фаза 1</h4>
+      <p style="margin-bottom:2.5mm;font-size:8.5pt;"><strong>BIMLIB</strong> (bimlib.ru) — главная российская BIM-библиотека. Аудитория: 166 000 пользователей, 6,8 млн скачиваний, 50 000 моделей. Архитекторы, проектировщики, BIM-координаторы.</p>
+      <p style="font-size:8.5pt;color:#4A4040;">+ Renga BIM-каталоги (КНАУФ, ПЕНОПЛЭКС уже там). + Интеграция с ГИСП (госзаказ 44-ФЗ).</p>
+    </div>
+    <div class="card b">
+      <h4>Глобально — Фаза 2+</h4>
+      <p style="margin-bottom:2.5mm;font-size:8.5pt;"><strong>Hubexo / NBS Source</strong> (ex. BCI Central) — UK, США, Канада, Австралия. 1 200+ производителей. Архитекторы задают спецификацию через NBS Chorus.</p>
+      <p style="font-size:8.5pt;color:#4A4040;"><strong>BIMobject</strong> — 4 млн+ пользователей глобально, 2 000+ брендов. Единственная платформа с публичным REST API — возможна автоматизация загрузки через AI-агентов.</p>
+    </div>
+  </div>
+  <table class="nb">
+    <tr><th>Площадка</th><th>Регион</th><th>Аудитория</th><th>Доступ из РФ</th></tr>
+    <tr><td class="nm">BIMLIB</td><td>Россия, СНГ</td><td>166 000 польз., рублёвая оплата</td><td><span class="tg tag">Без ограничений</span></td></tr>
+    <tr><td class="nm">Renga BIM-каталоги</td><td>Россия</td><td>Пользователи нац. BIM-системы Renga</td><td><span class="tg tag">Без ограничений</span></td></tr>
+    <tr><td class="nm">BIMobject</td><td>Глобально (200+ стран)</td><td>4 млн+ польз., REST API</td><td><span class="ty tag">Через юрлицо ОАЭ/Армения</span></td></tr>
+    <tr><td class="nm">NBS Source / Hubexo</td><td>UK, US, CA, AU</td><td>1 200+ произв., премиальный рынок</td><td><span class="ty tag">Через юрлицо ОАЭ/Армения</span></td></tr>
+  </table>
+  <p class="src">bimlib.pro/for-manufacturers; bimobject.com/about; thenbs.com/manufacturers; сент. 2026</p>
+</div>
+
+<div class="pb">
+  <div class="sh"><div class="sn">03</div><div><div class="stag">Экономический эффект</div><div class="stitle">На что реально рассчитывать — цифры и сроки</div></div></div>
+  <div class="lead">Главный вопрос бизнеса: сколько стоит и когда вернётся. Российский рынок окупается за 3–12 месяцев, глобальный требует 12–24 месяца инвестиции.</div>
+  <h3>Фаза 1 — Россия (BIMLIB). Старт 01.10.2026</h3>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">~420K &#8381;</div><div class="stat-l">инвестиции в год 1 (тариф + BIM-объекты + контент)</div></div>
+    <div class="stat g"><div class="stat-n">2–8M &#8381;</div><div class="stat-l">выручка от канала в год 1 (консерв. / базовый сценарий)</div></div>
+    <div class="stat k"><div class="stat-n">4–5</div><div class="stat-l">заказов с чеком 400–500K &#8381; = полная окупаемость</div></div>
+    <div class="stat b"><div class="stat-n">3–12 мес.</div><div class="stat-l">срок окупаемости — в зависимости от скорости продаж</div></div>
+  </div>
+  <div class="g2">
+    <div>
+      <h4>Сценарий консервативный</h4>
+      <table>
+        <tr><th>Показатель</th><th>Год 1</th></tr>
+        <tr><td>Скачиваний BIM-объектов</td><td>200–600/мес.</td></tr>
+        <tr><td>Проектировщиков, вышедших на контакт</td><td>30–50</td></tr>
+        <tr><td>Сделок через канал</td><td>4–8</td></tr>
+        <tr><td>Средний чек заказа</td><td>400–600K &#8381;</td></tr>
+        <tr><td><strong>Выручка от канала</strong></td><td><strong>2–4 млн &#8381;</strong></td></tr>
+      </table>
+    </div>
+    <div>
+      <h4>Сценарий базовый</h4>
+      <table>
+        <tr><th>Показатель</th><th>Год 1</th></tr>
+        <tr><td>Скачиваний BIM-объектов</td><td>1 000–3 000/мес.</td></tr>
+        <tr><td>Проектировщиков, вышедших на контакт</td><td>80–150</td></tr>
+        <tr><td>Сделок через канал</td><td>12–25</td></tr>
+        <tr><td>Средний чек заказа</td><td>400–600K &#8381;</td></tr>
+        <tr><td><strong>Выручка от канала</strong></td><td><strong>5–12 млн &#8381;</strong></td></tr>
+      </table>
+    </div>
+  </div>
+  <h3>Фаза 2 — Глобальный выход (BIMobject + Hubexo). Горизонт 2027</h3>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">$30–50K</div><div class="stat-l">инвестиции запуска: регистрация ОАЭ + контент + платформа</div></div>
+    <div class="stat g"><div class="stat-n">$300K–1,5M</div><div class="stat-l">потенциальная агентская выручка/год (комиссия с поставок)</div></div>
+    <div class="stat k"><div class="stat-n">12–24 мес.</div><div class="stat-l">срок окупаемости (цикл проектирование→закупка в UK/AU = 6–18 мес.)</div></div>
+  </div>
+  <div class="box g">
+    <div class="box-h">Почему эффект нарастающий, а не разовый</div>
+    <div class="box-b">BIM-объект, загруженный однажды, работает годами. Архитекторы возвращаются к тем же семействам в каждом новом проекте. <strong>Каждая загруженная коллекция — это перманентное присутствие в потоке проектов.</strong> Инвестиция разовая, доход — многолетний.</div>
+  </div>
+  <div class="box r">
+    <div class="box-h">Нулевой конкурент — сейчас. Через год — уже нет</div>
+    <div class="box-b">На BIMLIB сегодня нет ни одного дистрибьютора плитки. На BIMobject — ни одного российского или индийского бренда. <strong>Преимущество первопроходца сохраняется 6–12 месяцев</strong>, пока рынок не заметит нишу. КНАУФ, ПЕНОПЛЭКС, ТЕХНОНИКОЛЬ уже там — плиточники придут следом.</div>
+  </div>
+</div>
+
+<div class="chap pb">
+  <div class="chap-num">Часть II</div>
+  <div class="chap-title">BIM-каналы: Россия</div>
+  <div class="chap-sub">BIMLIB, Renga и российские площадки — детали, тарифы, план входа</div>
+</div>
+
+<div style="padding-top:2mm;">
+  <div class="sh"><div class="sn">04</div><div><div class="stag">BIMLIB — основная площадка</div><div class="stitle">Флагман российского BIM-рынка — детали</div></div></div>
+  <div class="lead">BIMLIB (bimlib.ru / bimlib.store) — крупнейшая российская BIM-библиотека. Производитель публикует BIM-объекты своих коллекций; архитектор скачивает и вставляет в модель. Модели видны в поиске Revit, Renga, nanoCAD.</div>
+  <div class="g3">
+    <div class="card">
+      <h4>Что мы получаем</h4>
+      <ul>
+        <li>Профиль бренда в каталоге BIMLIB</li>
+        <li>BIM-объекты наших коллекций (.rfa, .gsm, IFC)</li>
+        <li>Статистика: кто, когда, из какого бюро скачивал</li>
+        <li>Интеграция с ГИСП (госзаказ 44-ФЗ)</li>
+        <li>CRM-лиды с контактами проектировщиков</li>
+      </ul>
+    </div>
+    <div class="card k">
+      <h4>Кто уже там — из строительных</h4>
+      <ul>
+        <li><strong>КНАУФ</strong> — сухие смеси, ГКЛ</li>
+        <li><strong>ПЕНОПЛЭКС</strong> — теплоизоляция</li>
+        <li><strong>ТЕХНОНИКОЛЬ</strong> — кровля</li>
+        <li style="color:var(--green);font-weight:600;">Плитка / керамогранит — пусто. Первый выиграет нишу.</li>
+      </ul>
+    </div>
+    <div class="card g">
+      <h4>Аудитория BIMLIB</h4>
+      <ul>
+        <li>166 000 пользователей</li>
+        <li>50 000 BIM-моделей в базе</li>
+        <li>6,8 млн скачиваний суммарно</li>
+        <li>Москва и регионы РФ, СНГ</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Тарифы BIMLIB для производителей</h3>
+  <table class="nb">
+    <tr><th>Тариф</th><th>Цена / год (с НДС)</th><th>Что входит</th><th>Рекомендация</th></tr>
+    <tr><td class="nm">БЕТА</td><td><strong>160 000 &#8381;</strong></td><td>Профиль бренда, публикация объектов, базовая статистика</td><td><span class="tg tag">Стартовый — топ-20 коллекций</span></td></tr>
+    <tr><td class="nm">ДЕЛЬТА</td><td><strong>285 000 &#8381;</strong></td><td>+ приоритет в поиске ×3, расширенная аналитика лидов</td><td><span class="ty tag">После первых результатов</span></td></tr>
+    <tr><td class="nm">ОМЕГА</td><td><strong>585 000 &#8381;</strong></td><td>+ специалисты BIMLIB создают .rfa-файлы за вас, полный каталог</td><td><span class="tb tag">Если нет своего BIM-ресурса</span></td></tr>
+  </table>
+  <p class="src">bimlib.pro/for-manufacturers/plans — верифицировано</p>
+  <div class="box">
+    <div class="box-h">Узкое место: BIM-объект (.rfa файл)</div>
+    <div class="box-b">Для публикации на BIMLIB нужен .rfa-файл — параметрическое семейство Revit. Для плоской плитки простое семейство = 3–6 часов BIM-моделлера. <strong>Решение 1: BIMLIB Омега</strong> — команда BIMLIB делает .rfa сама (входит в тариф). <strong>Решение 2:</strong> Dynamo batch-скрипт — один раз написанный, генерирует 200 файлов из Excel за 1 сессию. <strong>Стартуем с топ-20 коллекций</strong> — не с 200 сразу.</div>
+  </div>
+</div>
+
+<div style="padding-top:2mm;">
+  <div class="sh"><div class="sn">05</div><div><div class="stag">Дорожная карта · Фаза 1</div><div class="stitle">План на октябрь–март: что делаем шаг за шагом</div></div></div>
+  <div class="tl">
+    <div class="ti">
+      <div class="tw">Нед. 1–2 · 1–14 октября 2026</div>
+      <div class="tt">Договор и отбор топ-20 коллекций</div>
+      <div class="tb2">Заключить договор BIMLIB БЕТА (160K &#8381;). Выбрать 20 самых продаваемых коллекций LAPARET. Назначить ответственного менеджера. Параллельно — запрос условий в Renga BIM-каталоги (bimcatalogs.rengabim.com).</div>
+    </div>
+    <div class="ti">
+      <div class="tw">Нед. 3–6 · 15 октября — 14 ноября</div>
+      <div class="tt">Создание BIM-объектов и контента</div>
+      <div class="tb2">BIM-моделлер (или BIMLIB Омега): 20 параметрических .rfa-файлов. Параллельно: описания коллекций (LLM ускоряет), техпаспорта от поставщика, текстуры для 3D-рендера.</div>
+    </div>
+    <div class="ti">
+      <div class="tw">Нед. 7 · ноябрь 2026</div>
+      <div class="tt">Публикация на BIMLIB + ГИСП</div>
+      <div class="tb2">Загрузка карточек, настройка профиля с ссылкой на каталог LAPARET. Регистрация в ГИСП (включена в тариф). Проверка видимости в поиске Revit и Renga.</div>
+    </div>
+    <div class="ti">
+      <div class="tw">Нед. 8–12 · ноябрь–декабрь</div>
+      <div class="tt">Первые скачивания → аутрич</div>
+      <div class="tb2">Получаем контакты из BIMLIB-статистики: какое бюро, какой проектировщик. Прямой звонок менеджера: образцы, техконсультация. Первые спецификации в проектах.</div>
+    </div>
+    <div class="ti">
+      <div class="tw">Дек. 2026 — март 2027</div>
+      <div class="tt">Масштабирование до 200 коллекций</div>
+      <div class="tb2">Dynamo batch-скрипт: генерация .rfa для оставшихся 180 серий. Рассмотреть переход на ДЕЛЬТА (приоритет в поиске ×3). Первые spec-in заказы — цикл проектирование→закупка 2–4 месяца.</div>
+    </div>
+  </div>
+  <p class="fn">* Если BIMLIB Омега — .rfa для топ-20 коллекций делает BIMLIB без нашего BIM-ресурса. Срок аналогичный.</p>
+</div>
+
+<div class="chap pb c2">
+  <div class="chap-num">Часть III</div>
+  <div class="chap-title">BCI Central / Hubexo: глобальный канал</div>
+  <div class="chap-sub">Как устроен крупнейший мировой spec-in инструмент и какую стратегию выбрать для выхода из России</div>
+</div>
+
+<div style="padding-top:2mm;">
+  <div class="sh"><div class="sn">06</div><div><div class="stag">Механика Hubexo — как это работает</div><div class="stitle">BCI Central изнутри: от поиска до лида</div></div></div>
+  <div class="lead">BCI Central основана в Австралии в 1998 г. В 2021 г. куплена шведской Byggfakta Group. С октября 2024 г. весь холдинг = <strong>Hubexo</strong>. Ключевой продукт для производителей: NBS Source (UK/US/CA/AU) + Archify (APAC).</div>
+  <h3>Главное отличие от BIMLIB — это не библиотека, это воронка продаж</h3>
+  <div class="g2">
+    <div class="card">
+      <h4>BIMLIB (Россия)</h4>
+      <ul>
+        <li>Пассивная библиотека — скачали, но кто — статистика агрегатом</li>
+        <li>Лиды без детальной идентификации проекта</li>
+        <li>Хорошо для охвата</li>
+        <li>Рублёвый тариф, без санкций</li>
+      </ul>
+    </div>
+    <div class="card b">
+      <h4>Hubexo / NBS Source (глобал)</h4>
+      <ul>
+        <li>Вы видите: <strong>конкретное бюро, конкретный проект, имя архитектора</strong></li>
+        <li>Архитектор нажал «Specify» — продукт вошёл в NBS Chorus-проект</li>
+        <li>Вы звоните до тендера — Win rate 70–85%</li>
+        <li>Полноценная CRM по проектам в режиме реального времени</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Как устроен путь архитектора на NBS Source</h3>
+  <table class="nb">
+    <tr><th>Шаг</th><th>Что происходит</th><th>Что видит производитель</th></tr>
+    <tr><td class="nm">1. Поиск</td><td>Архитектор ищет в NBS Source по категории, стандарту, отделке</td><td>—</td></tr>
+    <tr><td class="nm">2. Просмотр</td><td>Открывает карточку, смотрит фото, скачивает BIM-объект</td><td>Статистика просмотров бренда</td></tr>
+    <tr><td class="nm">3. Specify</td><td>Нажимает «Specify» — продукт входит в проектную спецификацию NBS Chorus</td><td>Уведомление: бюро + тип проекта</td></tr>
+    <tr><td class="nm">4. Лид (Pro/Premium)</td><td>Проект привязан к конкретному заказчику/адресу</td><td>Название бюро, контакт, тип объекта</td></tr>
+    <tr><td class="nm">5. Аутрич</td><td>Менеджер звонит до тендера — конверсия 70–85% против обычных 15–25%</td><td>Win rate × 4 vs тендер</td></tr>
+  </table>
+  <p class="src">thenbs.com/manufacturers/products/nbs-source; BCI Central win rate benchmark</p>
+  <h3>Тарифные уровни NBS Source (цены непубличны — только по запросу)</h3>
+  <table class="nb">
+    <tr><th>Уровень</th><th>Что вы получаете</th></tr>
+    <tr><td class="nm">Lite</td><td>Базовая статистика: кто просматривал, скачивал контент; вовлечённость бренда</td></tr>
+    <tr><td class="nm">Core</td><td>+ Какие бюро специфицировали продукт, в каких типах проектов, динамика</td></tr>
+    <tr><td class="nm">Pro</td><td>+ Расширенные спецификационные insights; отслеживание загрузок BIM-объектов</td></tr>
+    <tr><td class="nm">Premium</td><td>+ Полная аналитика каждой спецификации; NBS создаёт BIM-объекты за вас</td></tr>
+  </table>
+  <p class="src">Контакт: salessupport@theNBS.com · +44 (0)345 200 1056</p>
+</div>
+
+<div style="padding-top:2mm;">
+  <div class="sh"><div class="sn">07</div><div><div class="stag">Вход из России — стратегия</div><div class="stitle">Как попасть на Hubexo и BIMobject из РФ</div></div></div>
+  <div class="box r">
+    <div class="box-h">Проблема — прямая оплата невозможна</div>
+    <div class="box-b">Оплатить NBS Source или BIMobject из России напрямую нельзя — санкционные ограничения на переводы в GBP/USD. <strong>Решение стандартное:</strong> зарегистрировать юрлицо в ОАЭ (Ajman Free Zone, DMCC) или Армении, заключить договор через него и платить в USD/GBP без санкционных рисков.</div>
+  </div>
+  <div class="g2">
+    <div class="card g">
+      <h4>ОАЭ — Ajman Free Zone (рекомендуется)</h4>
+      <ul>
+        <li>Стоимость регистрации: ~$2 000–4 000</li>
+        <li>Срок: 2–4 недели</li>
+        <li>Банковский счёт: ещё 2–4 недели</li>
+        <li>Налог 0% на международные операции</li>
+        <li>Агенты: Virtuzone, Raqam, Business Setup Worldwide</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Армения — альтернатива</h4>
+      <ul>
+        <li>Дешевле: ~$500–1 500 регистрация</li>
+        <li>Некоторые банки имеют ограничения на USD-переводы в UK</li>
+        <li>Подходит для BIMobject (USD)</li>
+        <li>ОАЭ предпочтительнее для NBS (GBP)</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Стратегия «Баусервис International» — вход на глобальный рынок через Индию</h3>
+  <p>Кластер Морби (Гуджарат) = 800+ заводов, 70% индийского производства, $2,2B экспорта. Ни один индийский бренд не представлен на Hubexo или BIMobject. <strong>Пустая глобальная ниша.</strong></p>
+  <div class="box b">
+    <div class="box-h">Позиция: Баусервис как spec-in агент для индийских заводов</div>
+    <div class="box-b">Заводы Морби (Nitco, Simpolo, Somany) умеют производить — они не умеют работать с архитекторами через spec-in. Баусервис знает, как устроен B2B-канал через BIM. <strong>Схема:</strong> Завод Морби → white-label коллекция → Баусервис Int'l (ОАЭ) публикует на Hubexo → архитектор UK/AU специфицирует → поставка FOB Мундра → агентская комиссия Баусервис. Asset-light, без собственных складов.</div>
+  </div>
+  <table class="nb">
+    <tr><th>Потенциальный партнёр</th><th>Производство</th><th>Экспорт</th><th>Первый контакт</th></tr>
+    <tr><td class="nm">Nitco Tiles</td><td>Морби, крупный</td><td>55+ стран</td><td>nitco.in/export</td></tr>
+    <tr><td class="nm">Simpolo Ceramics</td><td>8+ линий, 49 лет</td><td>Международная дистрибуция</td><td>simpolo.com/contact</td></tr>
+    <tr><td class="nm">Somany Ceramics</td><td>75 млн кв.м/год</td><td>82 страны</td><td>somanyceramics.com</td></tr>
+  </table>
+</div>
+
+<div class="chap pb c3">
+  <div class="chap-num">Часть IV</div>
+  <div class="chap-title">Решение и следующие шаги</div>
+  <div class="chap-sub">Что делаем в октябре, что исследуем параллельно, на что готовимся</div>
+</div>
+
+<div style="padding-top:2mm;">
+  <div class="sh"><div class="sn">08</div><div><div class="stag">Матрица рисков</div><div class="stitle">Главные риски по каждой фазе</div></div></div>
+  <h3>Фаза 1 — BIMLIB, Россия</h3>
+  <table class="nb">
+    <tr><th>Риск</th><th>Уровень</th><th>Митигация</th></tr>
+    <tr><td class="nm">Мало скачиваний в старте</td><td><span class="ty tag">Средний</span></td><td>Рассылка по базе проектировщиков, анонс в профессиональных сообществах</td></tr>
+    <tr><td class="nm">Нет BIM-ресурса для .rfa</td><td><span class="ty tag">Средний</span></td><td>BIMLIB Омега — команда BIMLIB делает .rfa (входит в тариф 585K &#8381;)</td></tr>
+    <tr><td class="nm">Конкуренты зайдут следом</td><td><span class="tg tag">Низкий</span></td><td>Скорость: преимущество первопроходца 6–12 мес. Быть первым сейчас</td></tr>
+  </table>
+  <h3>Фаза 2 — Hubexo / BCI Central, глобал</h3>
+  <table class="nb">
+    <tr><th>Риск</th><th>Уровень</th><th>Митигация</th></tr>
+    <tr><td class="nm">Санкционные платежи</td><td><span class="tr tag">Высокий</span></td><td>Юрлицо ОАЭ или Армения — стандартное рабочее решение (~$2–4K)</td></tr>
+    <tr><td class="nm">Нет CE-сертификатов для UK</td><td><span class="ty tag">Средний</span></td><td>Индийские фабрики Морби часто имеют CE (экспортная продукция) — уточнить у партнёра</td></tr>
+    <tr><td class="nm">Цена NBS Source оказалась высокой</td><td><span class="ty tag">Средний</span></td><td>Сначала зондирование (письмо), переговоры; альтернатива — BIMobject с публичным API</td></tr>
+    <tr><td class="nm">Длинный цикл сделки UK/AU</td><td><span class="ty tag">Средний</span></td><td>Глобал = долгосрочная инвестиция 2027+. Не быстрая выручка</td></tr>
+    <tr><td class="nm">Логистика Морби → EU</td><td><span class="tr tag">Высокий</span></td><td>Стартовать с ОАЭ / Австралия (короче плечо); EU — второй этап</td></tr>
+  </table>
+</div>
+
+<div style="padding-top:2mm;">
+  <div class="sh"><div class="sn">09</div><div><div class="stag">Итог и действия</div><div class="stitle">Что запускаем в октябре — приоритизированный список</div></div></div>
+  <div class="verdict">
+    <h3>Действуем сейчас — октябрь 2026</h3>
+    <ul>
+      <li><strong>1. BIMLIB БЕТА — заключить договор</strong> (160 000 &#8381;). Срок: неделя 1–7 октября. Ответственный: коммерческий директор.</li>
+      <li><strong>2. Топ-20 коллекций — отобрать и подготовить контент</strong> (описания, техпаспорта, фото от поставщика). Без .rfa пока не стартуем на платформе.</li>
+      <li><strong>3. BIM-объекты (.rfa):</strong> либо Омега (BIMLIB делает сам), либо BIM-моделлер на аутсорс. Решение — в неделю 1.</li>
+      <li><strong>4. Запрос в Renga BIM-каталоги</strong> (bimcatalogs.rengabim.com) — условия входа, КНАУФ там уже есть.</li>
+    </ul>
+    <h3 style="margin-top:4mm;">Исследуем параллельно — октябрь–ноябрь</h3>
+    <ul>
+      <li><strong>5. NBS Source / Hubexo:</strong> письмо на salessupport@theNBS.com — цены и требования для иностранного производителя через ОАЭ.</li>
+      <li><strong>6. Юрлицо ОАЭ:</strong> запросить у Ajman Free Zone / Virtuzone — стоимость и срок (~2–4 нед., $2–4K).</li>
+      <li><strong>7. Первый контакт с Nitco / Simpolo</strong> (Морби): письмо об интересе к spec-in агентству для UK/AU.</li>
+    </ul>
+  </div>
+  <div class="g3 mt">
+    <div class="stat"><div class="stat-n">160K &#8381;</div><div class="stat-l">вход сегодня — BIMLIB БЕТА, Фаза 1</div></div>
+    <div class="stat g"><div class="stat-n">3–12 мес.</div><div class="stat-l">окупаемость Фазы 1 при 4–5 заказах</div></div>
+    <div class="stat b"><div class="stat-n">2027+</div><div class="stat-l">глобальный выход Hubexo + Морби</div></div>
+  </div>
+  <p class="fn" style="text-align:center;margin-top:7mm;">
+    BIM-каналы &amp; BCI Central · Дайджест для Баусервис / LAPARET · Октябрь 2026<br>
+    Подготовил А. Ботьев · Только для внутреннего использования<br>
+    Все экономические показатели — ориентировочные плановые оценки, не гарантия. Цены NBS Source — непубличны, требуют прямого запроса.
+  </p>
+</div>
+
+</body>
+</html>
