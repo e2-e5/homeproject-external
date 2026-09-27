@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Баусервис · BIM-стратегия · Октябрь 2026</title>
+<style>
+  :root{
+    --ink:#16202e; --ink2:#3a475a; --mut:#7a8798; --line:#e3e7ee;
+    --gold:#b0895a; --goldd:#8f6d43; --navy:#132133; --navy2:#1d3049;
+    --green:#1f8a4c; --greenbg:#eaf6ef; --red:#c0392b; --redbg:#fbecea;
+    --bluebg:#eef2fb; --blue:#2c4a86; --amber:#b8860b; --amberbg:#fcf5e6;
+    --card:#f7f9fc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:#54607a;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .page{width:210mm;min-height:296mm;background:#fff;margin:14px auto;padding:24mm 20mm;
+    position:relative;box-shadow:0 6px 30px rgba(0,0,0,.28)}
+  @media print{body{background:#fff}.page{margin:0;box-shadow:none;page-break-after:always}}
+  @media (max-width:820px){.page{width:100%;padding:22px 16px;margin:8px auto}h1{font-size:34px}h2{font-size:24px}.stats,.stats.c3{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}.flow .s{min-width:90px}}
+  .kicker{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--mut);font-weight:700;margin-bottom:6px}
+  .kicker .g{color:var(--gold)}
+  h1{font-size:52px;line-height:1.05;font-weight:800;letter-spacing:-1px;margin:14px 0}
+  h1 .g{color:var(--gold)}
+  h2{font-size:30px;font-weight:800;letter-spacing:-.5px;margin:2px 0 14px}
+  h3{font-size:18px;font-weight:700;margin:0 0 8px}
+  .lead{font-size:16px;color:var(--ink2);border-left:4px solid var(--gold);padding-left:16px;margin:14px 0 26px;max-width:640px}
+  .sectno{display:inline-block;background:var(--navy);color:#fff;font-weight:800;font-size:13px;
+    padding:5px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:10px}
+  .foot{position:absolute;bottom:12mm;left:20mm;right:20mm;display:flex;justify-content:space-between;
+    font-size:10px;color:#aab3c0;border-top:1px solid var(--line);padding-top:8px}
+  @media (max-width:820px){.foot{position:static;margin-top:20px;left:0;right:0}}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}
+  .stats.c3{grid-template-columns:repeat(3,1fr)}
+  .stats.c2{grid-template-columns:repeat(2,1fr)}
+  .stat{border-top:3px solid var(--gold);padding-top:12px}
+  .stat .n{font-size:34px;font-weight:800;letter-spacing:-1px;line-height:1}
+  .stat .n.red{color:var(--red)} .stat .n.grn{color:var(--green)} .stat .n.gld{color:var(--goldd)}
+  .stat .l{font-size:12px;color:var(--mut);margin-top:8px;line-height:1.35}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:10px 12px;font-size:11px;
+    letter-spacing:.5px;text-transform:uppercase;font-weight:700}
+  tbody td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:nth-child(even){background:var(--card)}
+  td .b{font-weight:700;color:var(--ink)}
+  .tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.3px}
+  .tag.g{background:var(--greenbg);color:var(--green)} .tag.r{background:var(--redbg);color:var(--red)}
+  .tag.a{background:var(--amberbg);color:var(--amber)} .tag.b{background:var(--bluebg);color:var(--blue)}
+  .box{border-radius:10px;padding:16px 18px;margin:16px 0}
+  .box.g{background:var(--greenbg);border-left:4px solid var(--green)}
+  .box.r{background:var(--redbg);border-left:4px solid var(--red)}
+  .box.b{background:var(--bluebg);border-left:4px solid var(--blue)}
+  .box.a{background:var(--amberbg);border-left:4px solid var(--amber)}
+  .box .h{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+  .box.g .h{color:var(--green)} .box.r .h{color:var(--red)} .box.b .h{color:var(--blue)} .box.a .h{color:var(--amber)}
+  .box p{font-size:14px;color:var(--ink2)}
+  .flow{display:flex;align-items:stretch;gap:0;margin:20px 0;flex-wrap:wrap}
+  .flow .s{flex:1;min-width:110px;text-align:center;position:relative;padding:0 6px}
+  .flow .s .c{width:40px;height:40px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:16px}
+  .flow .s .t{font-weight:700;font-size:12px} .flow .s .d{font-size:11px;color:var(--mut);margin-top:3px}
+  .flow .s:not(:last-child):after{content:"›";position:absolute;right:-6px;top:8px;color:var(--gold);font-size:22px;font-weight:700}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px}
+  .panel.dark{background:var(--navy);color:#fff;border:none}
+  .panel.dark h3{color:#fff} .panel.dark .li{color:#cdd6e4}
+  .li{font-size:13px;color:var(--ink2);margin:7px 0;padding-left:16px;position:relative}
+  .li:before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+  .heroblock{background:var(--navy);color:#fff;border-radius:12px;padding:22px 24px;margin:18px 0}
+  .heroblock .k{font-size:11px;letter-spacing:2px;color:var(--gold);font-weight:700;text-transform:uppercase}
+  .heroblock h3{font-size:22px;margin-top:6px}
+  .step{display:flex;gap:14px;margin:14px 0;align-items:flex-start}
+  .step .num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;
+    font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .step .body{flex:1}
+  .step .body .t{font-weight:700;font-size:14px}
+  .step .body .d{font-size:12.5px;color:var(--ink2);margin:3px 0}
+  .step .body .m{font-size:12px}
+  .m .bad{color:var(--red);font-weight:700} .m .good{color:var(--green);font-weight:700}
+  .big{font-size:44px;font-weight:800;letter-spacing:-1px}
+  .note{font-size:11px;color:var(--mut);margin-top:10px;font-style:italic}
+  ul.clean{list-style:none} ul.clean li{font-size:14px;color:var(--ink2);margin:10px 0;padding-left:22px;position:relative}
+  ul.clean li:before{content:"→";position:absolute;left:0;color:var(--gold);font-weight:700}
+  ul.clean li .b{color:var(--ink);font-weight:700}
+</style>
+</head>
+<body>
+
+<section class="page">
+  <div class="kicker">Стратегический документ · конфиденциально · октябрь 2026</div>
+  <div class="kicker"><span class="g">Баусервис · BIM-канал продаж</span></div>
+  <h1>BIM-канал:<br>где мы теряем<br>и как <span class="g">забрать</span></h1>
+  <p class="lead">Почему решение о выборе плитки принимается за 3–6 месяцев до тендера — в Revit, а не на закупке. Что Баусервис теряет, оставаясь вне этого решения. И как войти туда первым, автоматизировав канал через AI.</p>
+  <div class="stats">
+    <div class="stat"><div class="n red">15–25%</div><div class="l">Win rate в открытом тендере — там, где мы играем сегодня</div></div>
+    <div class="stat"><div class="n grn">70–85%</div><div class="l">Win rate при spec-in — когда мы уже в спецификации</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Дистрибьюторов плитки на BIM-площадках — ни в РФ, ни в мире. Ниша пуста</div></div>
+    <div class="stat"><div class="n gld">5–15М</div><div class="l">руб/год — оценка выручки, что структурно уходит конкурентам уже сейчас</div></div>
+  </div>
+  <div class="foot"><span>Подготовил А.Ботьев · Октябрь 2026</span><span>Конфиденциально</span></div>
+</section>
+
+<section class="page">
+  <div class="sectno">РАЗДЕЛ 1 · СИТУАЦИЯ</div>
+  <h2>Что происходит на рынке и почему это важно</h2>
+  <p class="lead">Решение о том, чья плитка ляжет в проект, принимает архитектор в BIM-модели — задолго до того, как проект дойдёт до тендера и закупки.</p>
+  <h3>Как рождается спрос на плитку сегодня</h3>
+  <div class="flow">
+    <div class="s"><div class="c">1</div><div class="t">Архитектор</div><div class="d">проектирует объект в Revit</div></div>
+    <div class="s"><div class="c">2</div><div class="t">BIM-каталог</div><div class="d">берёт объект плитки из библиотеки</div></div>
+    <div class="s"><div class="c">3</div><div class="t">Спецификация</div><div class="d">бренд зашит в проектную документацию</div></div>
+    <div class="s"><div class="c">4</div><div class="t">Тендер</div><div class="d">условия уже написаны под этот бренд</div></div>
+    <div class="s"><div class="c">5</div><div class="t">Закупка</div><div class="d">win rate 70–85%, маржа сохранена</div></div>
+  </div>
+  <div class="box a">
+    <div class="h">Регуляторный драйвер — спрос растёт сам</div>
+    <p>BIM/ТИМ обязателен: с 2022 — для госзаказа, с 01.07.2024 — для долевого жилья (214-ФЗ). <b>49% застройщиков РФ</b> уже применяют BIM (TAdviser, 2026), в <b>Москве — 90%+</b>. Каждый новый жилой проект в столице проектируется в BIM. Спрос на BIM-объекты плитки растёт автоматически — а предложения от дистрибьюторов плитки нет.</p>
+  </div>
+  <h3 style="margin-top:22px">Возможные преимущества системы для бизнеса</h3>
+  <ul class="clean">
+    <li><span class="b">Из участника тендера — в автора спецификации.</span> Когда бренд зашит в проект, конкуренты играют против готовых условий. Win rate меняется с 15–25% на 70–85%.</li>
+    <li><span class="b">Защита маржи.</span> Spec-in исключает ценовую войну: побеждают не самой низкой ценой, а тем, что стоят в документации. Замена продукта требует перепроектирования узлов — архитектору проще оставить как есть.</li>
+    <li><span class="b">Преимущество первопроходца.</span> Архитектор привыкает к бренду, который первым появился в его инструменте. Ниша плитки на BIM-площадках пуста — первый вход даёт 12–18 месяцев без конкурентов.</li>
+    <li><span class="b">Контроль над 17% бюджета стройки.</span> Отделочные материалы, которые «ведёт» архитектор через спецификацию.</li>
+  </ul>
+  <div class="foot"><span>Подготовил А.Ботьев</span><span>2</span></div>
+</section>
+
+<section class="page">
+  <div class="sectno">РАЗДЕЛ 2 · ПОТЕРИ</div>
+  <h2>Где Баусервис проигрывает уже сейчас</h2>
+  <p class="lead">Проблема не в том, что мы плохо продаём. Проблема в том, что мы приходим на этап, где решение уже принято против нас.</p>
+  <div class="cols">
+    <div class="panel">
+      <h3>Как мы работаем сегодня</h3>
+      <div class="li">Узнаём о проекте <b>на тендере</b> — когда спецификация уже написана</div>
+      <div class="li">Конкурируем <b>ценой</b> против бренда, зашитого в проект</div>
+      <div class="li">Win rate <b>15–25%</b> — и то с давлением на маржу</div>
+      <div class="li">Spec-in проекты <b>вообще не видим</b> — они решаются без нас</div>
+    </div>
+    <div class="panel dark">
+      <h3>Что при этом происходит</h3>
+      <div class="li">Архитектор в Revit берёт объект <b>конкурента</b> из BIMLIB</div>
+      <div class="li">Узлы спроектированы под чужую плитку</div>
+      <div class="li">К моменту тендера заменить продукт <b>почти невозможно</b></div>
+      <div class="li">Баусервис исключён из сделки <b>ещё до её появления</b></div>
+    </div>
+  </div>
+  <div class="box r">
+    <div class="h">Структурное исключение</div>
+    <p>Это не проигранные переговоры — это сделки, которых мы никогда не видим. Каждый проект, где архитектор выбрал плитку конкурента в BIM, для нас закрыт на этапе, до которого мы даже не доходим. Чем выше проникновение BIM (а оно растёт по закону), тем больше объёма уходит этим каналом мимо нас.</p>
+  </div>
+  <h3 style="margin-top:20px">Кто уже в BIM — и кого нет</h3>
+  <table>
+    <thead><tr><th>Сегмент</th><th>Присутствие в BIM</th><th>Что это значит для нас</th></tr></thead>
+    <tbody>
+      <tr><td class="b">Стройматериалы (КНАУФ, ПЕНОПЛЭКС, ТЕХНОНИКОЛЬ)</td><td><span class="tag g">Есть на BIMLIB / Renga</span></td><td>Смежные категории уже осознали канал и зашли</td></tr>
+      <tr><td class="b">Плитка / керамогранит в РФ</td><td><span class="tag r">Никого</span></td><td>Ниша свободна — окно для первого игрока</td></tr>
+      <tr><td class="b">Индийские бренды в мире (Морби)</td><td><span class="tag r">Никого</span></td><td>800+ заводов, $2,2B экспорта — 0 на BIM-площадках</td></tr>
+    </tbody>
+  </table>
+  <h3 style="margin-top:18px">Оценка потерь <span style="font-size:12px;color:var(--mut);font-weight:400">(ориентировочно, консервативно)</span></h3>
+  <table>
+    <thead><tr><th>Параметр</th><th>Значение</th><th>Комментарий</th></tr></thead>
+    <tbody>
+      <tr><td>Средний spec-in проект, Москва</td><td class="b">200–500 м²</td><td>Жилой сегмент</td></tr>
+      <tr><td>Выручка с одного проекта</td><td class="b">1,5–3 млн руб</td><td>200–500 м² × 1 500–3 000 руб/м²</td></tr>
+      <tr><td>Spec-in проектов мимо нас в год</td><td class="b">3–5</td><td>Консервативно, при текущем нулевом присутствии в BIM</td></tr>
+      <tr><td style="background:var(--redbg)"><b>Упущенная выручка в год</b></td><td style="background:var(--redbg)"><b style="color:var(--red);font-size:16px">5–15 млн руб</b></td><td style="background:var(--redbg)">И сумма растёт вместе с проникновением BIM</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Оценка построена на верифицированных диапазонах: win rate spec-in 70–85% (BCI/Hubexo), средний объём проекта Москва 200–500 м², стоимость плитки 1 500–3 000 руб/м². Цифры ориентировочные, не оферта.</p>
+  <div class="foot"><span>Подготовил А.Ботьев</span><span>3</span></div>
+</section>
+
+<section class="page">
+  <div class="sectno">РАЗДЕЛ 3 · ЭКОНОМИКА</div>
+  <h2>Что даст канал: расчёт 2026–2028</h2>
+  <p class="lead">Из «оценки потерь» — в «дополнительную выручку». Ниже — понятный погодовой расчёт: вход, разгон и масштаб.</p>
+  <table>
+    <thead><tr><th>Год</th><th>Что происходит</th><th>Вложения / расходы</th><th>Spec-in сделки</th><th>Выручка канала</th><th>Итог года</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="b">2026<br><span style="font-size:11px;color:var(--mut)">Q4 — старт</span></td>
+        <td>Договор BIMLIB, топ-20 коллекций (.rfa), регистрация BIMobject, старт AI-агента. 20 коллекций на площадке к концу года.</td>
+        <td class="b" style="color:var(--red)">−0,7…1,2 млн</td>
+        <td>0<br><span style="font-size:11px;color:var(--mut)">цикл 2–4 мес</span></td>
+        <td>~0</td>
+        <td class="b" style="color:var(--red)">−0,9 млн</td>
+      </tr>
+      <tr>
+        <td class="b">2027<br><span style="font-size:11px;color:var(--mut)">первый полный год</span></td>
+        <td>200 коллекций залиты (AI + Dynamo). Воронка «скачивание → лид → аутрич» работает. Первые spec-in сделки закрываются.</td>
+        <td class="b">−0,3 млн<br><span style="font-size:11px;color:var(--mut)">ongoing</span></td>
+        <td class="b">3–4</td>
+        <td class="b" style="color:var(--green)">6–9 млн</td>
+        <td class="b" style="color:var(--green)">+5…8 млн</td>
+      </tr>
+      <tr>
+        <td class="b">2028<br><span style="font-size:11px;color:var(--mut)">масштаб</span></td>
+        <td>Полный каталог живёт, AI-мониторинг реального времени. Плюс международный пилот — Морби через юрлицо ОАЭ на Hubexo/BIMobject.</td>
+        <td class="b">−0,4 млн</td>
+        <td class="b">8–10<br><span style="font-size:11px;color:var(--mut)">+ межд.</span></td>
+        <td class="b" style="color:var(--green)">18–25 млн<br><span style="font-size:11px;color:var(--mut)">+ £15–60K межд.</span></td>
+        <td class="b" style="color:var(--green)">+20…30 млн</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="stats">
+    <div class="stat"><div class="n gld">~1 млн</div><div class="l">руб — совокупные вложения за вход (2026)</div></div>
+    <div class="stat"><div class="n grn">3–5</div><div class="l">сделок окупают весь первый год работы канала</div></div>
+    <div class="stat"><div class="n grn">5–10×</div><div class="l">ROI России при 3–5 сделках, окупаемость 3–9 мес</div></div>
+    <div class="stat"><div class="n">≈25–35М</div><div class="l">руб накопленной выручки канала к концу 2028 (базовый сценарий)</div></div>
+  </div>
+  <div class="cols">
+    <div class="panel">
+      <h3>Дополнительный эффект для Баусервиса</h3>
+      <div class="li"><b>Возврат утекающего объёма:</b> те самые 5–15 млн руб/год потерь превращаются в выручку канала</div>
+      <div class="li"><b>Защищённая маржа:</b> spec-in вместо ценовой войны в тендере</div>
+      <div class="li"><b>Актив первопроходца:</b> позиция в BIM, которую конкуренты не отберут 12–18 мес</div>
+    </div>
+    <div class="panel">
+      <h3>Международный upside (Фаза 2–3)</h3>
+      <div class="li"><b>Морби, Индия:</b> 800+ заводов, $2,2B экспорта, 0 на BIM-площадках</div>
+      <div class="li"><b>Баусервис как spec-in агент</b> для Морби на Hubexo — позиция, которой нет ни у кого</div>
+      <div class="li"><b>Комиссия агента 5–8%</b> от объёма поставки; цель 2028 — £15–60K</div>
+    </div>
+  </div>
+  <p class="note">Все цифры ориентировочные, консервативный сценарий. Основа: win rate BCI/Hubexo 70–85%, конверсия лида 25–35%, средний объём проекта 200–500 м². Не является офертой. Точные условия NBS Source, FOB Морби, CE-статус — требуют подтверждения (см. раздел «Источники»).</p>
+  <div class="foot"><span>Подготовил А.Ботьев</span><span>4</span></div>
+</section>
+
+<section class="page">
+  <div class="sectno">РАЗДЕЛ 4 · AI + MCP</div>
+  <h2>Как усилим канал через AI-ассистентов и MCP</h2>
+  <p class="lead">BIM-канал без автоматизации — это пассивная библиотека: залили и ждём. С AI-агентом — активная воронка реального времени.</p>
+  <div class="box b">
+    <div class="h">Что такое MCP-протокол</div>
+    <p>MCP (Model Context Protocol) — открытый стандарт Anthropic (2024). AI-ассистент подключается к внешним системам — BIMobject API, CRM, email-рассылки, аналитика скачиваний — как к инструментам, и выполняет цепочку сам: читает файл → вызывает API → получает результат → сообщает итог. <b>Человек ставит цель, агент исполняет.</b></p>
+  </div>
+  <h3 style="margin-top:18px">Что делает AI-агент — ключевые функции</h3>
+  <div class="step"><div class="num">1</div><div class="body"><div class="t">Разбор прайса и генерация контента</div><div class="d">Парсит Excel: 200 коллекций, тысячи параметров. Генерирует описания RU/EN.</div><div class="m">Вручную: <span class="bad">2–3 часа</span> · AI: <span class="good">~8 минут</span></div></div></div>
+  <div class="step"><div class="num">2</div><div class="body"><div class="t">Заливка каталога в BIMobject через API</div><div class="d">Создаёт карточки, прикрепляет .rfa, загружает фото и параметры. При смене прайса — обновляет только изменившееся.</div><div class="m">Вручную: <span class="bad">100–150 часов</span> · AI: <span class="good">~30 минут</span></div></div></div>
+  <div class="step"><div class="num">3</div><div class="body"><div class="t">Мониторинг скачиваний — поллинг каждые 4 часа</div><div class="d">Analytics API отдаёт: страна, компания, дата, коллекция.</div><div class="m">Без AI: <span class="bad">3–7 дней задержки</span> · AI: <span class="good">менее 4 часов</span></div></div></div>
+  <div class="step"><div class="num">4</div><div class="body"><div class="t">Детекция лида → CRM + уведомление менеджера</div><div class="d">«Бюро Citymaker (Москва) скачало 7 коллекций Terra. Контакт: arch@citymaker.ru».</div><div class="m">Без AI: <span class="bad">никогда / случайно</span> · AI: <span class="good">автоматически &lt;1 мин</span></div></div></div>
+  <div class="step"><div class="num">5</div><div class="body"><div class="t">Автоматический аутрич по событию</div><div class="d">Рассылка по сегменту архитекторов с акцентом на популярные этой неделей коллекции.</div><div class="m">Вручную: <span class="bad">1–2 недели</span> · AI: <span class="good">2–4 часа</span></div></div></div>
+  <div class="step"><div class="num">6</div><div class="body"><div class="t">Синхронизация цен — сайт и BIMobject разом</div><div class="d">Один Excel → AI обновляет и интернет-магазин, и BIM-карточки.</div><div class="m">Вручную: <span class="bad">3–5 дней</span> · AI: <span class="good">~0 задержки</span></div></div></div>
+  <div class="stats c3">
+    <div class="stat"><div class="n gld">~1 млн</div><div class="l">руб/год экономия трудозатрат (заливка + мониторинг)</div></div>
+    <div class="stat"><div class="n grn">21×</div><div class="l">выше конверсия лида при контакте в течение 5 часов (HubSpot)</div></div>
+    <div class="stat"><div class="n">0,5 FTE</div><div class="l">высвобождается для работы с клиентами, а не с формами</div></div>
+  </div>
+  <div class="box g"><div class="h">Ключевой инсайт</div><p>Каждое скачивание = детектированный лид за 4 часа → аутрич за 2 часа после. Это принципиально меняет конверсию канала — и это то, чего конкуренты, зашедшие в BIM вручную, не смогут повторить без такой же автоматизации.</p></div>
+  <div class="foot"><span>Подготовил А.Ботьев</span><span>5</span></div>
+</section>
+
+<section class="page">
+  <div class="sectno">РАЗДЕЛ 5 · РЕШЕНИЕ</div>
+  <h2>Что ещё важно бизнесу</h2>
+  <p class="lead">План входа, бюджет, роли, риски и первые шаги — чтобы решение можно было принять сразу.</p>
+  <div class="cols">
+    <div class="panel">
+      <h3>Дорожная карта</h3>
+      <div class="li"><b>Нед. 1–2 (окт):</b> договор BIMLIB БЕТА (160K), топ-20 коллекций, BIM-менеджер</div>
+      <div class="li"><b>Нед. 3–6:</b> 20 .rfa-семейств + регистрация BIMobject API</div>
+      <div class="li"><b>Нед. 5–6:</b> публикация на BIMLIB, старт AI-агента (MCP-коннектор)</div>
+      <div class="li"><b>Нед. 7–10:</b> AI-агент — тест и первый цикл мониторинга</div>
+      <div class="li"><b>Дек–март 2027:</b> масштаб на 200 коллекций, первые spec-in переговоры</div>
+      <div class="li"><b>Q1 2027:</b> первые сделки, замер ROI, решение по Фазе 2</div>
+    </div>
+    <div class="panel">
+      <h3>Бюджет входа (год 1)</h3>
+      <table style="margin:0;font-size:12px">
+        <tbody>
+          <tr><td>BIMLIB БЕТА</td><td class="b">160K руб</td></tr>
+          <tr><td>.rfa топ-20 (Omega)</td><td class="b">в тарифе</td></tr>
+          <tr><td>.rfa остальные 180</td><td class="b">180–500K</td></tr>
+          <tr><td>AI-агент (разработка)</td><td class="b">200–400K</td></tr>
+          <tr><td>Юрлицо ОАЭ (для межд.)</td><td class="b">~300K</td></tr>
+          <tr style="background:var(--amberbg)"><td><b>Итого год 1</b></td><td class="b">~0,74–1,2 млн</td></tr>
+          <tr><td>Ongoing с года 2</td><td class="b">~260K/год</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3 style="margin-top:6px">Риски и как их снимаем</h3>
+  <table>
+    <thead><tr><th>Риск</th><th>Снятие</th></tr></thead>
+    <tbody>
+      <tr><td class="b">.rfa-моделирование — узкое место, нужен BIM-специалист</td><td>BIMLIB Omega делает .rfa в рамках тарифа; либо Dynamo batch / аутсорс $50/семейство</td></tr>
+      <tr><td class="b">У российских площадок нет публичного API</td><td>Заливка на BIMLIB — через кабинет; автоматизация начинается на BIMobject (единственный с REST API)</td></tr>
+      <tr><td class="b">Санкционный вопрос для мировых площадок</td><td>Юрлицо ОАЭ (Ajman/DMCC, ~$3–5K, 2–4 нед.) — стандартное решение, не барьер</td></tr>
+      <tr><td class="b">Конкурент зайдёт первым</td><td>Именно поэтому окно 12–18 мес — аргумент действовать сейчас, а не ждать</td></tr>
+    </tbody>
+  </table>
+  <div class="heroblock">
+    <div class="k">Пять причин действовать сейчас</div>
+    <div style="margin-top:10px;font-size:13.5px;line-height:1.7">
+      <b style="color:var(--gold)">1. Ниша свободна — ненадолго.</b> Первый игрок получает 12–18 мес без конкуренции.<br>
+      <b style="color:var(--gold)">2. Spec-in = другая экономика.</b> 70–85% win rate против 15–25%. 3–5 сделок окупают год.<br>
+      <b style="color:var(--gold)">3. AI + MCP — не опция, а преимущество.</b> 200 коллекций: 150 часов вручную → 30 минут.<br>
+      <b style="color:var(--gold)">4. Международный рынок — стратегический актив.</b> Баусервис как spec-in агент Морби на Hubexo.<br>
+      <b style="color:var(--gold)">5. Экономика сходится.</b> Вход ~1 млн, окупаемость 3–9 мес, +25–35 млн выручки к 2028.
+    </div>
+  </div>
+  <div class="foot"><span>Подготовил А.Ботьев · Октябрь 2026</span><span>6</span></div>
+</section>
+
+<section class="page">
+  <div class="sectno">ПРИЛОЖЕНИЕ · ИСТОЧНИКИ</div>
+  <h2>Источники и верификация</h2>
+  <p class="lead">Все ключевые утверждения основаны на верифицированных источниках. Финансовые оценки — ориентировочные, отмечены отдельно.</p>
+  <table>
+    <thead><tr><th>Источник</th><th>Что подтверждено</th><th>Статус</th></tr></thead>
+    <tbody>
+      <tr><td>github.com/bimobject/api-documentation</td><td>REST API BIMobject: эндпоинты, OAuth2, загрузка .rfa, аналитика</td><td><span class="tag g">Верифиц.</span></td></tr>
+      <tr><td>bimlib.pro/for-manufacturers/plans</td><td>Тарифы BIMLIB: БЕТА 160K / ДЕЛЬТА 285K / ОМЕГА 585K руб/год</td><td><span class="tag g">Верифиц.</span></td></tr>
+      <tr><td>thenbs.com/manufacturers</td><td>Отсутствие публичного API NBS Source / Hubexo</td><td><span class="tag g">Верифиц.</span></td></tr>
+      <tr><td>TAdviser, Q2 2026</td><td>49% застройщиков РФ применяют BIM/ТИМ</td><td><span class="tag g">Верифиц.</span></td></tr>
+      <tr><td>АСРО / РОАП СОЮЗ, Q4 2024</td><td>BIM-проникновение в Москве: 90%+</td><td><span class="tag g">Верифиц.</span></td></tr>
+      <tr><td>BCI Central / Hubexo</td><td>Win rate при spec-in 70–85%; 1200+ производителей NBS Source</td><td><span class="tag g">Верифиц.</span></td></tr>
+      <tr><td>HubSpot Sales Research</td><td>Конверсия лида в 21× выше при контакте в течение 5 часов</td><td><span class="tag g">Верифиц.</span></td></tr>
+      <tr><td>Mordor Intelligence, 2026</td><td>Экспорт индийской керамики $2,2B (2025); Морби — 70% производства</td><td><span class="tag g">Верифиц.</span></td></tr>
+      <tr><td>214-ФЗ (ред. 2024)</td><td>BIM/ТИМ обязателен для долевого жилья с 01.07.2024</td><td><span class="tag g">Верифиц.</span></td></tr>
+    </tbody>
+  </table>
+  <h3 style="margin-top:16px">Требует прямого подтверждения</h3>
+  <table>
+    <thead><tr><th>Данные</th><th>Где получить</th><th>Срок</th></tr></thead>
+    <tbody>
+      <tr><td>Точная стоимость NBS Source для иностр. поставщика</td><td>salessupport@theNBS.com</td><td>Ноя 2026</td></tr>
+      <tr><td>CE-сертификаты коллекций</td><td>Запрос фабрике (Морби, Nitco / Simpolo)</td><td>Ноя 2026</td></tr>
+      <tr><td>Стоимость ООО в ОАЭ (Ajman Free Zone)</td><td>Virtuzone, Business Setup Worldwide</td><td>Окт 2026</td></tr>
+      <tr><td>FOB-цены Морби, условия эксклюзивного агентства</td><td>Nitco International, Simpolo export</td><td>Ноя–дек 2026</td></tr>
+    </tbody>
+  </table>
+  <div class="box b"><div class="h">Методология</div><p>Данные по платформам проверены прямым обращением к публичным страницам и документации (сентябрь 2026). Финансовые оценки рассчитаны на основе открытых данных о win rate BIM-каналов и средних объёмах проектов в жилом строительстве Москвы. Цифры ориентировочные и не являются офертой.</p></div>
+  <div class="foot"><span>Подготовил А.Ботьев · Октябрь 2026 · Конфиденциально</span><span>7</span></div>
+</section>
+
+</body>
+</html>
