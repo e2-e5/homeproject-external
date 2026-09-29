@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Превью письма — Home Project · Schulthess Коллекция Золото</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; }
+body { margin:0; padding:0; background:#1e1e1e; font-family:'Inter',sans-serif; }
+.page-wrap { max-width:700px; margin:0 auto; padding:24px 14px 48px; }
+.page-top { text-align:center; color:#666; font-size:11px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
+.hint { text-align:center; margin-bottom:20px; }
+.hint span { display:inline-block; background:#2e2e2e; color:#C4A882; font-size:11px; padding:6px 16px; border-radius:20px; }
+
+/* EMAIL */
+.email { background:#fff; box-shadow:0 12px 60px rgba(0,0,0,.7); }
+.pre { background:#f8f6f3; padding:8px 28px; font-size:11px; color:#999; border-bottom:1px solid #eee; }
+
+/* HEADER */
+.hdr { background:#1C1A18; padding:16px 28px; display:flex; align-items:center; justify-content:space-between; }
+.hdr-logo { font-family:'Cormorant Garamond',serif; font-size:20px; letter-spacing:.12em; color:#fff; text-decoration:none; }
+.hdr-logo span { color:#C4A882; }
+.hdr-links { display:flex; gap:0; }
+.hdr-links a { font-size:11px; color:rgba(255,255,255,.4); text-decoration:none; letter-spacing:.08em; padding:0 12px; border-right:1px solid rgba(255,255,255,.1); }
+.hdr-links a:last-child { border:none; color:#C4A882; }
+
+/* HERO — цветовой (без lifestyle-фото), текст + продукт-фото */
+.hero { background:linear-gradient(120deg,#1C1A18 0%,#2b241d 55%,#3a2f1f 100%); padding:34px 28px; position:relative; overflow:hidden; }
+.hero-tag { font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#C4A882; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.hero-tag::before { content:''; width:20px; height:1px; background:#C4A882; display:block; }
+.h-title { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:300; color:#fff; line-height:1.08; margin:0 0 10px; }
+.h-title em { font-style:italic; color:#E7D4A8; }
+.h-sub { font-size:13px; font-weight:300; color:rgba(255,255,255,.72); margin:0 0 18px; max-width:340px; line-height:1.6; }
+.h-btn { display:inline-flex; align-items:center; gap:7px; background:#C4A882; color:#1C1A18; text-decoration:none; font-size:10px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; padding:11px 22px; }
+.h-btn::after { content:'→'; }
+.hero-photo { margin-top:22px; background:#fff; border-radius:2px; padding:14px; display:flex; align-items:center; justify-content:center; }
+.hero-photo img { max-width:100%; max-height:230px; object-fit:contain; display:block; }
+
+/* BODY */
+.body { padding:30px 28px; }
+.sec-tag { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#8B6F4E; margin-bottom:6px; }
+.sec-h { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:300; color:#1C1A18; margin:0 0 14px; }
+.sec-h em { font-style:italic; }
+.body-txt { font-size:14px; font-weight:300; color:#555; line-height:1.8; margin:0 0 20px; }
+
+/* SWATCH GRID — цветовые плитки, ядро письма */
+.swgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:6px; }
+.sw { display:block; text-decoration:none; border:1px solid #EDE9E3; }
+.sw-chip { height:64px; display:block; }
+.sw-name { font-size:10px; color:#1C1A18; text-align:center; padding:6px 4px 8px; line-height:1.3; }
+.sw-note { font-size:10px; color:#bbb; text-align:center; display:block; }
+.sw-caption { font-size:11px; color:#999; margin:2px 0 18px; line-height:1.6; }
+
+/* Wide clickable product card */
+.wc { display:flex; text-decoration:none; background:#F7F5F2; border:1px solid #EDE9E3; overflow:hidden; margin-bottom:10px; }
+.wc-img { background:#fff; width:180px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:14px; border-right:1px solid #f0ede8; }
+.wc-img img { max-width:100%; max-height:150px; object-fit:contain; }
+.wc-info { padding:16px 18px; display:flex; flex-direction:column; justify-content:center; }
+.wc-badge { display:inline-block; background:#8B6F4E; color:#fff; font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:3px 10px; margin-bottom:8px; width:fit-content; }
+.wc-name { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; color:#1C1A18; margin:0 0 4px; }
+.wc-price { font-size:15px; font-weight:600; color:#1C1A18; margin:0 0 6px; }
+.wc-desc { font-size:11.5px; color:#888; max-width:280px; line-height:1.5; margin:0 0 8px; }
+.wc-cta { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8B6F4E; display:flex; align-items:center; gap:5px; }
+.wc-cta::after { content:'→'; }
+
+/* 3-col модельные карточки */
+.tg3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:10px; }
+.bc { display:block; text-decoration:none; background:#fff; border:1px solid #EDE9E3; overflow:hidden; }
+.bc-img { background:#fff; display:flex; align-items:center; justify-content:center; height:150px; overflow:hidden; padding:14px; border-bottom:1px solid #f0ede8; }
+.bc-img img { max-width:100%; max-height:120px; object-fit:contain; display:block; }
+.bc-info { padding:12px 14px 14px; }
+.bc-brand { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#8B6F4E; margin-bottom:5px; }
+.bc-name { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:300; color:#1C1A18; margin:0 0 4px; line-height:1.25; }
+.bc-price { font-size:12.5px; font-weight:600; color:#1C1A18; margin:0 0 8px; }
+.bc-cta { font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#8B6F4E; display:flex; align-items:center; gap:5px; }
+.bc-cta::after { content:'→'; }
+
+/* All-button */
+.all-btn { display:block; text-align:center; background:#1C1A18; color:#fff; text-decoration:none; font-size:11px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; padding:14px; }
+
+/* Separator */
+.sep { display:flex; align-items:center; gap:14px; padding:26px 28px; }
+.sep-line { flex:1; height:1px; background:#EDE9E3; }
+.sep-txt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#C0BAB4; white-space:nowrap; }
+
+/* TECH / ACCESSORIES SECTION */
+.tech { background:#F7F5F2; padding:28px; }
+.tech-intro { font-size:14px; font-weight:300; color:#555; line-height:1.8; margin:0 0 18px; }
+
+/* READY-TO-SELL TRUST BANNER */
+.trust { background:#1C1A18; padding:26px 28px; text-align:center; }
+.trust-badge { display:inline-block; background:#C4A882; color:#1C1A18; font-size:10px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; padding:5px 14px; margin-bottom:12px; }
+.trust-h { font-family:'Cormorant Garamond',serif; font-size:23px; font-weight:300; color:#fff; margin:0 0 10px; }
+.trust-txt { font-size:13px; color:rgba(255,255,255,.7); line-height:1.7; max-width:460px; margin:0 auto 18px; }
+.trust-btn { display:inline-flex; align-items:center; gap:7px; background:#C4A882; color:#1C1A18; text-decoration:none; font-size:10px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; padding:12px 26px; }
+.trust-btn::after { content:'→'; }
+.trust-fine { font-size:10.5px; color:rgba(255,255,255,.35); margin-top:14px; }
+
+/* Catalog CTA */
+.cat-btn { display:block; text-align:center; background:#8B6F4E; color:#fff; text-decoration:none; font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; padding:14px; margin-top:6px; }
+
+/* Telegram block */
+.tg-block { display:flex; align-items:center; justify-content:space-between; gap:14px; background:#fff; border:1px solid #EDE9E3; padding:16px 20px; margin-top:10px; }
+.tg-txt { font-size:12.5px; color:#555; line-height:1.5; }
+.tg-txt b { color:#1C1A18; }
+.tg-btn { flex-shrink:0; display:inline-block; background:#1C1A18; color:#fff; text-decoration:none; font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:10px 16px; }
+
+/* FOOTER */
+.footer { padding:20px 28px; border-top:1px solid #EDE9E3; }
+.foot-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px; }
+.foot-links { display:flex; gap:16px; }
+.foot-links a { font-size:11px; color:#8B6F4E; text-decoration:none; }
+.foot-copy { font-size:11px; color:#ccc; }
+.foot-txt { font-size:11px; color:#bbb; line-height:1.6; }
+.foot-txt a { color:#8B6F4E; text-decoration:none; }
+
+/* PAGE NOTE (снять перед отправкой) */
+.pnote { margin-top:20px; background:#2a2a2a; border-radius:6px; padding:18px 20px; }
+.pnote h3 { color:#C4A882; font-size:13px; margin:0 0 10px; }
+.pnote ul { margin:0; padding:0 0 0 16px; color:#999; font-size:12px; line-height:2; }
+.pnote li strong { color:#ddd; }
+.pnote li em { color:#f87; font-style:normal; }
+
+@media(max-width:540px){
+  .swgrid { grid-template-columns:repeat(3,1fr); }
+  .tg3 { grid-template-columns:1fr; }
+  .wc { flex-direction:column; }
+  .wc-img { width:100%; height:150px; border-right:none; border-bottom:1px solid #f0ede8; }
+  .body, .tech { padding:20px 16px; }
+  .hdr { padding:14px 16px; }
+  .h-title { font-size:26px; }
+  .tg-block { flex-direction:column; align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="page-top">📧 Превью письма · Home Project · Schulthess «Коллекция Золото» (обновлено 29.09.2026)</div>
+  <div class="hint"><span>👆 Все цветовые плитки и карточки моделей — кликабельны, ведут в каталог Schulthess</span></div>
+
+  <div class="email">
+
+    <!-- Preheader -->
+    <div class="pre">Собрала для вас швейцарскую пару Schulthess в 7 цветах — стирка и сушка, которые не хочется прятать в нишу. В наличии в Москве.</div>
+
+    <!-- Header -->
+    <div class="hdr">
+      <a class="hdr-logo" href="https://new.homeproject.online/?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=hdr">HOME <span>PROJECT</span></a>
+      <div class="hdr-links">
+        <a href="https://new.homeproject.online/?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=hdr">Сайт</a>
+        <a href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=hdr-catalog">Каталог Schulthess</a>
+      </div>
+    </div>
+
+    <!-- HERO — цветовая история, без lifestyle-фото -->
+    <div class="hero">
+      <div class="hero-tag">Официальный партнёр Schulthess в России</div>
+      <h1 class="h-title">Коллекция <em>Золото</em><br>Schulthess</h1>
+      <p class="h-sub">Швейцарская стирально-сушильная пара в семи эксклюзивных цветах. Готовы к продаже — товар в наличии на складе в Москве.</p>
+      <a class="h-btn" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=hero">Смотреть коллекцию</a>
+      <a href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=hero-photo" style="display:block;">
+        <div class="hero-photo">
+          <img src="https://static.insales-cdn.com/images/products/1/2577/3031001617/large_ADA1.102BE1H3J3K_2.png" alt="Schulthess ADA1.102 Кремовое золото">
+        </div>
+      </a>
+    </div>
+
+    <!-- ЦВЕТА — ядро письма -->
+    <div class="body">
+      <div class="sec-tag">Коллекция Золото · 7 цветов</div>
+      <div class="sec-h">Стирка становится <em>частью интерьера</em></div>
+      <p class="body-txt">Швейцарская точность Schulthess — теперь и в цвете. Стиральная машина ADA1.10x доступна в 6 оттенках коллекции Золото, сушильная MDA1.10x — в тех же 6 оттенках и классическом белом. Нажмите на цвет — откроется каталог с наличием и ценой.</p>
+
+      <div class="swgrid">
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=swatch-cremovoe-zoloto">
+          <span class="sw-chip" style="background:#D9C8A0;"></span>
+          <span class="sw-name">Кремовое<br>золото</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=swatch-zolotisty-kashtan">
+          <span class="sw-chip" style="background:#8B6244;"></span>
+          <span class="sw-name">Золотистый<br>каштан</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=swatch-titan">
+          <span class="sw-chip" style="background:#6E6D6C;"></span>
+          <span class="sw-name">Титан</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=swatch-mokko-serebro">
+          <span class="sw-chip" style="background:#7A6A5A;"></span>
+          <span class="sw-name">Мокко<br>с серебром</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=swatch-pepel-rozy">
+          <span class="sw-chip" style="background:#D9B7AF;"></span>
+          <span class="sw-name">Пепел<br>розы</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=swatch-bezhevy-grafit">
+          <span class="sw-chip" style="background:#8D8478;"></span>
+          <span class="sw-name">Бежевый<br>графит</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=swatch-klassik-bely">
+          <span class="sw-chip" style="background:#F5F2EC;border-bottom:1px solid #eee;"></span>
+          <span class="sw-name">Классик<br>белый</span>
+        </a>
+      </div>
+      <p class="sw-caption">Оттенки на экране приблизительны, финальный цвет уточняйте по образцу в каталоге. Классик белый — только для сушильной машины MDA1.10x.</p>
+
+      <!-- Wide card — стиральная машина -->
+      <a class="wc" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=wide-ada">
+        <div class="wc-img">
+          <img src="https://static.insales-cdn.com/images/products/1/3889/3031002929/large_ADA1.104BE1H3J3K_2.png" alt="Schulthess ADA1.104 Титан">
+        </div>
+        <div class="wc-info">
+          <div class="wc-badge">Стиральная машина</div>
+          <div class="wc-name">ADA1.10x «Коллекция Золото»</div>
+          <div class="wc-price">461 990 ₽</div>
+          <div class="wc-desc">8 кг загрузки, отжим до 1600 об/мин, перенавешиваемая дверь, люк слева или справа. 6 цветов на выбор.</div>
+          <div class="wc-cta">Смотреть в каталоге</div>
+        </div>
+      </a>
+
+      <!-- Wide card — сушильная машина -->
+      <a class="wc" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=wide-mda">
+        <div class="wc-img">
+          <img src="https://static.insales-cdn.com/images/products/1/5457/3031004497/large_MDA1.100FH3K_2.png" alt="Schulthess MDA1.100 Классик белый">
+        </div>
+        <div class="wc-info">
+          <div class="wc-badge">Встраиваемая сушильная машина</div>
+          <div class="wc-name">MDA1.10x «Коллекция Золото» + классик белый</div>
+          <div class="wc-price">478 990 ₽</div>
+          <div class="wc-desc">Тепловой насос, класс A+++, светодиодная подсветка барабана, люк слева или справа. 6 цветов Золото + классик белый.</div>
+          <div class="wc-cta">Смотреть в каталоге</div>
+        </div>
+      </a>
+
+      <!-- 3 модели в цвете -->
+      <div class="tg3">
+        <a class="bc" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=model-ada-titan">
+          <div class="bc-img"><img src="https://static.insales-cdn.com/images/products/1/3889/3031002929/large_ADA1.104BE1H3J3K_2.png" alt="Schulthess ADA1.104 Титан"></div>
+          <div class="bc-info">
+            <div class="bc-brand">Schulthess · Титан</div>
+            <div class="bc-name">ADA1.104</div>
+            <div class="bc-price">461 990 ₽</div>
+            <div class="bc-cta">В каталог</div>
+          </div>
+        </a>
+        <a class="bc" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=model-ada-mokko">
+          <div class="bc-img"><img src="https://static.insales-cdn.com/images/products/1/3665/3031002705/large_ADA1.107BE1H3J3K_2.png" alt="Schulthess ADA1.107 Мокко с серебром"></div>
+          <div class="bc-info">
+            <div class="bc-brand">Schulthess · Мокко с серебром</div>
+            <div class="bc-name">ADA1.107</div>
+            <div class="bc-price">461 990 ₽</div>
+            <div class="bc-cta">В каталог</div>
+          </div>
+        </a>
+        <a class="bc" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=model-mda-white">
+          <div class="bc-img"><img src="https://static.insales-cdn.com/images/products/1/5457/3031004497/large_MDA1.100FH3K_2.png" alt="Schulthess MDA1.100 Классик белый"></div>
+          <div class="bc-info">
+            <div class="bc-brand">Schulthess · Классик белый</div>
+            <div class="bc-name">MDA1.100</div>
+            <div class="bc-price">478 990 ₽</div>
+            <div class="bc-cta">В каталог</div>
+          </div>
+        </a>
+      </div>
+
+      <a class="all-btn" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=all-btn-gold">
+        Все 7 цветов коллекции Золото →
+      </a>
+    </div>
+
+    <!-- READY TO SELL -->
+    <div class="trust">
+      <div class="trust-badge">Готовы к продаже</div>
+      <div class="trust-h">Товар в наличии на складе в Москве</div>
+      <p class="trust-txt">Home Project — официальный партнёр Schulthess в России. Отгружаем со склада в Москве, организуем доставку и монтаж. Подберём цвет и модель под ваш проект — пришлите запрос, ответим с ценой и сроком.</p>
+      <a class="trust-btn" href="https://t.me/homeproject_ai_bot?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=trust-cta-kp">Получить КП</a>
+      <div class="trust-fine">Актуальность наличия по конкретному цвету и модели уточняем на этапе КП.</div>
+    </div>
+
+    <!-- РАЗДЕЛИТЕЛЬ -->
+    <div class="sep">
+      <div class="sep-line"></div>
+      <div class="sep-txt">Аксессуары и монтаж — тоже в цвете</div>
+      <div class="sep-line"></div>
+    </div>
+
+    <!-- АКСЕССУАРЫ -->
+    <div class="tech">
+      <div class="sec-tag">Монтажные комплекты и цоколи</div>
+      <div class="sec-h">Единый <em>цветовой образ</em> — от машины до цоколя</div>
+      <p class="tech-intro">Монтажные комплекты для установки в колонну и цоколи Schulthess выпускаются в семи дизайнерских оттенках — можно собрать законченный цветовой ансамбль на кухне или в постирочной.</p>
+
+      <div class="swgrid">
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=accessory-swatch-snow">
+          <span class="sw-chip" style="background:#FDFDFB;border-bottom:1px solid #eee;"></span>
+          <span class="sw-name">Snow</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=accessory-swatch-titan-rock">
+          <span class="sw-chip" style="background:#6E6D6C;"></span>
+          <span class="sw-name">Titan Rock</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=accessory-swatch-iconic-gold">
+          <span class="sw-chip" style="background:#C9A227;"></span>
+          <span class="sw-name">Iconic Gold</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=accessory-swatch-flaw-less">
+          <span class="sw-chip" style="background:#E4CBB9;"></span>
+          <span class="sw-name">Flaw Less</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=accessory-swatch-ever-rose">
+          <span class="sw-chip" style="background:#D8A9A0;"></span>
+          <span class="sw-name">Ever Rose</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=accessory-swatch-solid-gold">
+          <span class="sw-chip" style="background:#B8860B;"></span>
+          <span class="sw-name">Solid Gold</span>
+        </a>
+        <a class="sw" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=accessory-swatch-vanity-fair">
+          <span class="sw-chip" style="background:#DBC9A5;"></span>
+          <span class="sw-name">Vanity Fair</span>
+        </a>
+      </div>
+      <p class="sw-caption">Оттенки приблизительны. Монтажные комплекты — с выдвижной полкой и без, для установки в колонну и отдельно стоящей установки.</p>
+
+      <div class="tg3">
+        <a class="bc" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=accessory-model-kit-titan-rock">
+          <div class="bc-img"><img src="https://static.insales-cdn.com/images/products/1/3201/2675362945/large_dwv7lszzrybxed0dr5x80f1zsad4t4lx.png" alt="Монтажный комплект Schulthess Titan Rock"></div>
+          <div class="bc-info">
+            <div class="bc-brand">Монтажный комплект</div>
+            <div class="bc-name">Titan Rock</div>
+            <div class="bc-price">от 21 990 ₽</div>
+            <div class="bc-cta">В каталог</div>
+          </div>
+        </a>
+        <a class="bc" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=accessory-model-kit-iconic-gold">
+          <div class="bc-img"><img src="https://static.insales-cdn.com/images/products/1/2857/2675362601/large_tl8r5ab8ha88vs5yao62hpzc8f6ez327.png" alt="Монтажный комплект Schulthess Iconic Gold"></div>
+          <div class="bc-info">
+            <div class="bc-brand">Монтажный комплект</div>
+            <div class="bc-name">Iconic Gold</div>
+            <div class="bc-price">от 29 990 ₽</div>
+            <div class="bc-cta">В каталог</div>
+          </div>
+        </a>
+        <a class="bc" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=accessory-model-plinth-snow">
+          <div class="bc-img"><img src="https://static.insales-cdn.com/images/products/1/6049/2675365793/large_glf3bsgojatly6rhx1o802mvl2e3k70d.png" alt="Цоколь Schulthess Snow"></div>
+          <div class="bc-info">
+            <div class="bc-brand">Цоколь</div>
+            <div class="bc-name">Snow</div>
+            <div class="bc-price">56 990 ₽</div>
+            <div class="bc-cta">В каталог</div>
+          </div>
+        </a>
+      </div>
+
+      <a class="cat-btn" href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=catalog-cta-accessories">
+        Открыть полный каталог Schulthess на homeproject.online →
+      </a>
+
+      <div class="tg-block">
+        <div class="tg-txt"><b>Больше цветовых решений и новинок</b><br>в нашем Telegram-канале — следите за поставками.</div>
+        <a class="tg-btn" href="https://t.me/HomeProjectMsk?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=telegram">Telegram →</a>
+      </div>
+    </div>
+
+    <!-- ARIA OUTRO -->
+    <div style="background:#F7F5F2;padding:26px 28px;border-top:1px solid #EDE9E3;">
+      <div style="font-size:14px;font-weight:300;color:#555;line-height:1.8;margin:0 0 16px;">Планируете постирочную или ванную под проект? Пришлите планировку — подберу цвет пары под интерьер, проверю размеры под нишу и колонну и пришлю КП с ценой и сроком поставки. Я на связи в любое время, даже поздним вечером.</div>
+      <a href="https://t.me/homeproject_ai_bot?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=aria-outro" style="display:inline-flex;align-items:center;gap:7px;background:#1C1A18;color:#fff;text-decoration:none;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:12px 24px;">Написать Арии в Telegram →</a>
+      <div style="font-size:12.5px;color:#8B6F4E;margin-top:16px;line-height:1.6;">С заботой о вашем проекте,<br><b style="color:#1C1A18;">Ария</b> — ваш специалист по подбору техники Home Project</div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="foot-row">
+        <div class="foot-links">
+          <a href="https://new.homeproject.online/ru/categories/schulthess?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=footer">Каталог Schulthess</a>
+          <a href="https://new.homeproject.online/?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=footer">Сайт</a>
+          <a href="https://t.me/HomeProjectMsk?utm_source=unisender&amp;utm_medium=email&amp;utm_campaign=schulthess_gold_oct26&amp;utm_content=footer-telegram">Telegram</a>
+        </div>
+        <div class="foot-copy">© 2026 Home Project</div>
+      </div>
+      <div class="foot-txt">
+        Вы получили это письмо, потому что подписались на рассылку Home Project.<br>
+        <a href="{{UNSUBSCRIBE}}">Отписаться от рассылки</a>
+      </div>
+    </div>
+
+  </div><!-- /email -->
+
+</div>
+</body>
+</html>
