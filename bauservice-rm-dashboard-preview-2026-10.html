@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAPARET · Дашборд регионального менеджера · ПРЕВЬЮ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#211E1E; --graphite:#2E2A29; --cream:#EEE8E0; --sand:#F6EFE6;
+    --gold:#D9A441; --gold-lt:#EBBC5A; --terra:#C0563F; --green:#5B8C5A;
+    --brown:#AA7B62; --muted:#6B615C; --line:#E0D7CB; --card:#FFFFFF;
+    --platina:#6B615C; --zoloto:#D9A441; --serebro:#A9A9A9; --bronza:#AA7B62;
+    --diler:#5B8C5A; --klient:#C6B8B7;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Manrope',sans-serif;background:var(--cream);color:var(--ink);font-size:14px;line-height:1.45;}
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.3px;line-height:1.1;margin:0 0 .3em;}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 20px 60px;}
+  header{background:var(--ink);color:var(--cream);padding:22px 0 18px;}
+  .hd{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;}
+  .brandmark{font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.5em;font-size:24px;color:var(--cream);}
+  .hd .sub{font-size:12.5px;color:#B8ADA2;letter-spacing:.05em;margin-top:2px;}
+  .badge-demo{background:var(--terra);color:#fff;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;letter-spacing:.08em;}
+  .filters{background:var(--sand);border-bottom:1px solid var(--line);padding:14px 0;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(33,30,30,.04);}
+  .fl{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end;}
+  .fgrp{display:flex;flex-direction:column;gap:4px;}
+  .fgrp label{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;}
+  select{font-family:inherit;font-size:13.5px;padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);min-width:150px;cursor:pointer;}
+  .period-tabs{display:flex;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  .period-tabs button{font-family:inherit;font-size:12.5px;font-weight:500;padding:7px 13px;border:none;background:transparent;color:var(--muted);cursor:pointer;border-right:1px solid var(--line);}
+  .period-tabs button:last-child{border-right:none;}
+  .period-tabs button.active{background:var(--gold);color:#fff;font-weight:600;}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:22px 0;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px;position:relative;overflow:hidden;}
+  .kpi::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:var(--gold);}
+  .kpi .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600;}
+  .kpi .v{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--graphite);line-height:1;margin:8px 0 4px;}
+  .kpi .d{font-size:12px;font-weight:600;}
+  .up{color:var(--green);} .down{color:var(--terra);}
+  .grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:18px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:18px;}
+  .grid2b{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;}
+  .card h3{font-size:19px;color:var(--ink);display:flex;justify-content:space-between;align-items:baseline;}
+  .card .cap{font-size:11px;color:var(--muted);font-weight:500;font-family:'Manrope';letter-spacing:0;}
+  .chartbox{position:relative;height:230px;margin-top:8px;}
+  .chartbox.sm{height:190px;}
+  .sec-t{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700;margin:30px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--gold);}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;padding:9px 10px;border-bottom:2px solid var(--line);white-space:nowrap;}
+  td{padding:9px 10px;border-bottom:1px solid var(--line);}
+  tr.prow{cursor:pointer;transition:background .15s;}
+  tr.prow:hover{background:var(--sand);}
+  tr.prow.sel{background:#FBEBC8;}
+  .num{text-align:right;font-variant-numeric:tabular-nums;}
+  .chip{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:12px;color:#fff;letter-spacing:.02em;}
+  .pct-bar{display:inline-block;width:52px;height:7px;border-radius:4px;background:var(--line);position:relative;vertical-align:middle;margin-right:7px;overflow:hidden;}
+  .pct-bar i{position:absolute;left:0;top:0;height:100%;background:var(--gold);}
+  .drill{background:linear-gradient(135deg,#fff 0%,var(--sand) 100%);border:1px solid var(--gold);border-radius:14px;padding:20px;margin-bottom:18px;}
+  .drill-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;}
+  .drill-head h2{font-size:26px;margin:0;}
+  .drill-head .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
+  .minikpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+  .minikpi>div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;}
+  .minikpi .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;}
+  .minikpi .n{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--graphite);margin-top:4px;}
+  .stack{display:flex;height:20px;border-radius:5px;overflow:hidden;font-size:0;}
+  .stack span{display:block;height:100%;}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:6px;}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px;}
+  .note{background:#FBEBC8;border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 14px;font-size:12.5px;color:#6a5219;margin:4px 0 0;}
+  .tag-data{font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:2px 7px;border-radius:5px;vertical-align:middle;margin-left:7px;}
+  .tag-real{background:#E3F0E2;color:#3c6b3b;}
+  .tag-need{background:#F6E0DC;color:#9c3a28;}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 0 0;margin-top:30px;border-top:1px solid var(--line);}
+  @media(max-width:960px){.kpis{grid-template-columns:repeat(2,1fr);}.grid2,.grid3,.grid2b,.minikpi{grid-template-columns:1fr;}.minikpi{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hd">
+    <div>
+      <div class="brandmark">LAPARET</div>
+      <div class="sub">БАУСЕРВИС · Дашборд регионального менеджера</div>
+    </div>
+    <div style="text-align:right;">
+      <span class="badge-demo">ПРЕВЬЮ · демо-данные</span>
+      <div class="sub" style="margin-top:6px;">Иван Петров · ЦФО · обновлено 01.10.2026</div>
+    </div>
+  </div>
+</header>
+
+<div class="filters">
+  <div class="fl">
+    <div class="fgrp">
+      <label>Региональный менеджер</label>
+      <select><option>Иван Петров (ЦФО)</option><option>Все менеджеры</option><option>А. Сидорова (ПФО)</option></select>
+    </div>
+    <div class="fgrp">
+      <label>Федеральный округ</label>
+      <select><option>ЦФО</option><option>Все</option><option>ПФО</option><option>ЮФО</option><option>УФО</option></select>
+    </div>
+    <div class="fgrp">
+      <label>Статус партнёра</label>
+      <select><option>Все статусы</option><option>Платина</option><option>Золото</option><option>Серебро</option><option>Бронза</option><option>Дилер</option><option>Клиент</option></select>
+    </div>
+    <div class="fgrp">
+      <label>Контрагент (drill-down)</label>
+      <select id="selPartner" onchange="selectPartner(this.value)"></select>
+    </div>
+    <div class="fgrp">
+      <label>Период / сравнение</label>
+      <div class="period-tabs" id="periodTabs">
+        <button data-p="month">Месяц</button>
+        <button data-p="quarter">Квартал</button>
+        <button data-p="ytd" class="active">YTD накопит.</button>
+        <button data-p="yoy">К пр. периоду</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">ТО за период</div><div class="v" id="kTO">312 млн ₽</div><div class="d up" id="kTOd">▲ +8,4% к пр. году</div></div>
+    <div class="kpi"><div class="lbl">Партнёров в базе</div><div class="v">148</div><div class="d"><span class="up">94 активных</span> · 54 спящих</div></div>
+    <div class="kpi"><div class="lbl">Торговых точек</div><div class="v">213</div><div class="d">из них 118 с выставкой</div></div>
+    <div class="kpi"><div class="lbl">Освоение потенциала</div><div class="v">41%</div><div class="d down">▲ резерв 59% полки</div></div>
+    <div class="kpi"><div class="lbl">Upside базы</div><div class="v">+186 млн</div><div class="d">при росте доли полки</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Динамика товарооборота <span class="cap" id="dynCap">YTD накопительно · 2026 vs 2025</span></h3>
+      <div class="chartbox"><canvas id="chDyn"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Структура базы по статусам</h3>
+      <div class="chartbox"><canvas id="chStatus"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card">
+      <h3>ТО по статусам партнёров <span class="cap">млн ₽ · период</span></h3>
+      <div class="chartbox sm"><canvas id="chByStatus"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Освоение потенциала <span class="cap">% полки LAPARET</span></h3>
+      <div class="chartbox sm"><canvas id="chPotential"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Воронка активности <span class="cap">партнёров</span></h3>
+      <div class="chartbox sm"><canvas id="chFunnel"></canvas></div>
+    </div>
+  </div>
+
+  <div class="sec-t">Партнёры менеджера — кликните строку для детализации</div>
+  <div class="card" style="padding:6px 8px;">
+    <table>
+      <thead><tr>
+        <th>Контрагент</th><th>Статус</th><th>ABC</th><th class="num">ТТ</th>
+        <th class="num">ТО период</th><th class="num">Δ YoY</th><th>Освоение</th>
+        <th class="num">Потенциал</th><th>Выставка</th><th>Посл. визит</th>
+      </tr></thead>
+      <tbody id="ptbody"></tbody>
+    </table>
+  </div>
+
+  <div class="sec-t">Детализация по контрагенту</div>
+  <div class="drill" id="drill"></div>
+
+  <div class="sec-t">Аналитика по выбранному контрагенту</div>
+  <div class="grid2b">
+    <div class="card">
+      <h3>Динамика товарооборота <span class="cap">помесячно, млн ₽</span></h3>
+      <div class="chartbox"><canvas id="chCtTO"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Продажи по товарным группам <span class="tag-data tag-real">есть в 1С</span></h3>
+      <div class="chartbox"><canvas id="chGroups"></canvas></div>
+    </div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <h3>Обучение персонала ТТ <span class="tag-data tag-need">нужен сбор</span></h3>
+      <div class="chartbox sm"><canvas id="chTrain"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Динамика выкладки / образцов <span class="tag-data tag-need">нужен сбор</span></h3>
+      <div class="chartbox sm"><canvas id="chExpo"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Визиты РМ на точки <span class="tag-data tag-need">нужен сбор</span></h3>
+      <div class="chartbox sm"><canvas id="chVisits"></canvas></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Пометки источников данных.</b> <span class="tag-data tag-real">есть в 1С/АКБ</span> — товарооборот, статусы, ABC, ТТ, выставка (614 точек) уже в выгрузке.
+    <span class="tag-data tag-need">нужен сбор</span> — потенциал точки (продажи всех брендов), площадь и состав конкурентов, обучение персонала, визиты РМ — этих полей нет в текущих данных, их нужно начать фиксировать (CRM-визиты / анкета ТТ / план-факт полки). Ниже — уточняющие вопросы по каждому.
+  </div>
+
+  <footer>
+    Подготовил А.Ботьев · Превью дашборда РМ · 01.10.2026 · демо-данные для согласования структуры
+  </footer>
+</div>
+
+<script>
+const C={ink:'#211E1E',gold:'#D9A441',goldLt:'#EBBC5A',terra:'#C0563F',green:'#5B8C5A',brown:'#AA7B62',muted:'#6B615C',line:'#E0D7CB',
+  platina:'#6B615C',zoloto:'#D9A441',serebro:'#A9A9A9',bronza:'#AA7B62',diler:'#5B8C5A',klient:'#C6B8B7'};
+Chart.defaults.font.family='Manrope';Chart.defaults.font.size=11;Chart.defaults.color=C.muted;
+
+const PARTNERS=[
+  {id:0,name:'Отделкино ООО',status:'Платина',sc:C.platina,abc:'A',tt:12,to:86,yoy:-21,pot:210,expo:'10 из 12',visit:'12.09.2026',
+    points:[
+      {addr:'ТЦ Гранд, Москва',area:900,lap:520,sale:42,fact:18,comp:[['Kerama Marazzi',240],['Estima',140]]},
+      {addr:'Строй-Сити, Химки',area:600,lap:300,sale:28,fact:11,comp:[['Италон',180],['Grasaro',120]]},
+      {addr:'ТК Мебель, Балашиха',area:450,lap:180,sale:16,fact:5,comp:[['Kerama Marazzi',170],['прочие',100]]},
+    ]},
+  {id:1,name:'Катамадзе Р.И. ИП',status:'Платина',sc:C.platina,abc:'A',tt:10,to:98,yoy:-36,pot:240,expo:'8 из 10',visit:'28.08.2026',
+    points:[
+      {addr:'Рынок Садовод, Москва',area:800,lap:600,sale:48,fact:26,comp:[['Estima',120],['прочие',80]]},
+      {addr:'ТЦ Каширский, Москва',area:500,lap:220,sale:22,fact:8,comp:[['Kerama Marazzi',180],['Italon',100]]},
+    ]},
+  {id:2,name:'ФОРВАРД ООО',status:'Платина',sc:C.platina,abc:'A',tt:4,to:97,yoy:-44,pot:180,expo:'4 из 4',visit:'19.09.2026',
+    points:[
+      {addr:'Оптбаза №1, Москва',area:1200,lap:700,sale:60,fact:34,comp:[['Estima',300],['Grasaro',200]]},
+      {addr:'Оптбаза №2, Подольск',area:700,lap:260,sale:30,fact:12,comp:[['Kerama Marazzi',280],['прочие',160]]},
+    ]},
+  {id:3,name:'НОТ ООО',status:'Золото',sc:C.zoloto,abc:'A',tt:3,to:49,yoy:-42,pot:120,expo:'3 из 3',visit:'05.07.2026',
+    points:[
+      {addr:'ТЦ Экспострой, Москва',area:550,lap:280,sale:26,fact:14,comp:[['Italon',150],['прочие',120]]},
+      {addr:'Салон плитки, Мытищи',area:300,lap:90,sale:12,fact:4,comp:[['Kerama Marazzi',150],['Estima',60]]},
+    ]},
+  {id:4,name:'СтройДвор ООО',status:'Серебро',sc:C.serebro,abc:'B',tt:5,to:28,yoy:+12,pot:95,expo:'2 из 5',visit:'22.09.2026',
+    points:[
+      {addr:'База СтройДвор, Тверь',area:650,lap:180,sale:18,fact:7,comp:[['Grasaro',240],['прочие',230]]},
+      {addr:'Магазин Уют, Тверь',area:250,lap:60,sale:9,fact:3,comp:[['Kerama Marazzi',120],['прочие',70]]},
+    ]},
+  {id:5,name:'КерамаПлюс ИП',status:'Бронза',sc:C.bronza,abc:'C',tt:2,to:9,yoy:-5,pot:40,expo:'1 из 2',visit:'нет данных',
+    points:[
+      {addr:'Рынок Левша, Калуга',area:300,lap:70,sale:11,fact:3,comp:[['прочие',230]]},
+    ]},
+];
+
+const sel=document.getElementById('selPartner');
+PARTNERS.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.name+' · '+p.status;sel.appendChild(o);});
+
+const tb=document.getElementById('ptbody');
+PARTNERS.forEach(p=>{
+  const pc=Math.round(p.to/p.pot*100);
+  const tr=document.createElement('tr');tr.className='prow';tr.dataset.id=p.id;
+  tr.innerHTML=`<td><b>${p.name}</b></td>
+    <td><span class="chip" style="background:${p.sc}">${p.status}</span></td>
+    <td>${p.abc}</td><td class="num">${p.tt}</td>
+    <td class="num">${p.to} млн</td>
+    <td class="num ${p.yoy>=0?'up':'down'}">${p.yoy>=0?'+':''}${p.yoy}%</td>
+    <td><span class="pct-bar"><i style="width:${pc}%"></i></span>${pc}%</td>
+    <td class="num">${p.pot} млн</td>
+    <td>${p.expo}</td>
+    <td>${p.visit}</td>`;
+  tr.onclick=()=>selectPartner(p.id);
+  tb.appendChild(tr);
+});
+
+let chDyn;
+const dynData={
+  month:{cap:'Сентябрь 2026 vs сентябрь 2025',labels:['нед 1','нед 2','нед 3','нед 4'],cur:[9,11,10,12],prev:[8,9,10,10]},
+  quarter:{cap:'Q3 2026 vs Q3 2025',labels:['Июль','Август','Сентябрь'],cur:[34,38,42],prev:[31,33,36]},
+  ytd:{cap:'YTD накопительно · 2026 vs 2025',labels:['Q1','Q2','Q3','Q4*'],cur:[88,196,312,null],prev:[92,190,288,360]},
+  yoy:{cap:'Прирост к прошлому периоду, %',labels:['Q1','Q2','Q3'],cur:[-4.7,11.2,8.4],prev:[0,0,0]},
+};
+function drawDyn(mode){
+  const d=dynData[mode];document.getElementById('dynCap').textContent=d.cap;
+  if(chDyn)chDyn.destroy();
+  const isPct=mode==='yoy';
+  chDyn=new Chart(document.getElementById('chDyn'),{
+    type:isPct?'bar':'line',
+    data:{labels:d.labels,datasets:isPct?[
+      {label:'YoY %',data:d.cur,backgroundColor:d.cur.map(v=>v>=0?C.green:C.terra),borderRadius:6}
+    ]:[
+      {label:'2026',data:d.cur,borderColor:C.gold,backgroundColor:'rgba(217,164,65,.12)',fill:true,tension:.35,borderWidth:3,pointRadius:4,pointBackgroundColor:C.gold},
+      {label:'2025',data:d.prev,borderColor:C.muted,borderDash:[5,4],fill:false,tension:.35,borderWidth:2,pointRadius:3}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:!isPct,position:'bottom'}},
+      scales:{y:{ticks:{callback:v=>isPct?v+'%':v+' млн'},grid:{color:'#F0EAE1'}},x:{grid:{display:false}}}}
+  });
+}
+drawDyn('ytd');
+document.querySelectorAll('#periodTabs button').forEach(b=>{
+  b.onclick=()=>{document.querySelectorAll('#periodTabs button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');drawDyn(b.dataset.p);};
+});
+
+new Chart(document.getElementById('chStatus'),{type:'doughnut',
+  data:{labels:['Платина','Золото','Серебро','Бронза','Дилер','Клиент'],
+    datasets:[{data:[8,5,11,14,30,80],backgroundColor:[C.platina,C.zoloto,C.serebro,C.bronza,C.diler,C.klient],borderWidth:2,borderColor:'#fff'}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'right',labels:{boxWidth:12,padding:8}}}}});
+
+new Chart(document.getElementById('chByStatus'),{type:'bar',
+  data:{labels:['Платина','Золото','Серебро','Бронза','Дилер','Клиент'],
+    datasets:[{data:[164,52,38,18,28,12],backgroundColor:C.gold,borderRadius:5}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{y:{grid:{color:'#F0EAE1'},ticks:{callback:v=>v+' млн'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('chPotential'),{type:'doughnut',
+  data:{labels:['Освоено LAPARET','Резерв (конкуренты)'],datasets:[{data:[41,59],backgroundColor:[C.gold,C.line],borderWidth:0}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'70%',plugins:{legend:{position:'bottom'}}}});
+
+new Chart(document.getElementById('chFunnel'),{type:'bar',indexAxis:'y',
+  data:{labels:['В базе','Активные','С выставкой','Растущие YoY+'],
+    datasets:[{data:[148,94,118,37],backgroundColor:[C.muted,C.diler,C.gold,C.green],borderRadius:5}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{grid:{color:'#F0EAE1'}},y:{grid:{display:false}}}}});
+
+let chCtTO,chGroups,chTrain,chExpo,chVisits;
+function drawContractorCharts(p){
+  [chCtTO,chGroups,chTrain,chExpo,chVisits].forEach(c=>c&&c.destroy());
+  const mo=['Апр','Май','Июн','Июл','Авг','Сен'];
+  const base=p.to/6;
+  chCtTO=new Chart(document.getElementById('chCtTO'),{type:'bar',
+    data:{labels:mo,datasets:[
+      {label:'2026',data:mo.map((_,i)=>+(base*(.8+i*.08)).toFixed(1)),backgroundColor:C.gold,borderRadius:5},
+      {label:'2025',type:'line',data:mo.map((_,i)=>+(base*(.9+i*.05)).toFixed(1)),borderColor:C.muted,borderDash:[5,4],tension:.3,pointRadius:3}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{grid:{color:'#F0EAE1'}},x:{grid:{display:false}}}}});
+
+  chGroups=new Chart(document.getElementById('chGroups'),{type:'bar',
+    data:{labels:mo,datasets:[
+      {label:'Керамогранит 60×60',data:mo.map(()=>+(base*.4).toFixed(1)),backgroundColor:C.gold,stack:'s'},
+      {label:'Крупноформат 120×60',data:mo.map(()=>+(base*.3).toFixed(1)),backgroundColor:C.brown,stack:'s'},
+      {label:'Настенная плитка',data:mo.map(()=>+(base*.2).toFixed(1)),backgroundColor:C.terra,stack:'s'},
+      {label:'Мозаика/декор',data:mo.map(()=>+(base*.1).toFixed(1)),backgroundColor:C.serebro,stack:'s'},
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:11,padding:6}}},scales:{y:{stacked:true,grid:{color:'#F0EAE1'}},x:{stacked:true,grid:{display:false}}}}});
+
+  chTrain=new Chart(document.getElementById('chTrain'),{type:'bar',
+    data:{labels:mo,datasets:[{label:'Обучено продавцов',data:[2,0,3,1,4,2],backgroundColor:C.green,borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#F0EAE1'}},x:{grid:{display:false}}}}});
+
+  chExpo=new Chart(document.getElementById('chExpo'),{type:'line',
+    data:{labels:mo,datasets:[{label:'Образцов на полке',data:[40,44,44,52,58,61],borderColor:C.gold,backgroundColor:'rgba(217,164,65,.15)',fill:true,tension:.3,pointRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#F0EAE1'}},x:{grid:{display:false}}}}});
+
+  chVisits=new Chart(document.getElementById('chVisits'),{type:'bar',
+    data:{labels:mo,datasets:[{label:'Визиты РМ',data:[1,1,0,2,1,1],backgroundColor:C.terra,borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#F0EAE1'},ticks:{stepSize:1}},x:{grid:{display:false}}}}});
+}
+
+function selectPartner(id){
+  id=+id;sel.value=id;
+  const p=PARTNERS[id];
+  document.querySelectorAll('tr.prow').forEach(r=>r.classList.toggle('sel',+r.dataset.id===id));
+  const totSale=p.points.reduce((s,x)=>s+x.sale,0);
+  const totFact=p.points.reduce((s,x)=>s+x.fact,0);
+  const totArea=p.points.reduce((s,x)=>s+x.area,0);
+  const totLap=p.points.reduce((s,x)=>s+x.lap,0);
+  const osv=Math.round(totFact/totSale*100);
+  const shelf=Math.round(totLap/totArea*100);
+  const comp={};p.points.forEach(x=>x.comp.forEach(([n,a])=>comp[n]=(comp[n]||0)+a));
+  const compList=Object.entries(comp).sort((a,b)=>b[1]-a[1]);
+
+  let rowsHtml=p.points.map(x=>{
+    const o=Math.round(x.fact/x.sale*100);
+    const compArea=x.area-x.lap;
+    const lapPc=Math.round(x.lap/x.area*100);
+    const compStr=x.comp.map(c=>`${c[0]} (${c[1]} м²)`).join(', ');
+    return `<tr>
+      <td><b>${x.addr}</b></td>
+      <td class="num">${x.area} м²</td>
+      <td><div class="stack"><span style="width:${lapPc}%;background:${C.gold}"></span><span style="width:${100-lapPc}%;background:${C.line}"></span></div>
+          <span style="font-size:11px;color:${C.muted}">LAPARET ${x.lap} м² · конкуренты ${compArea} м²</span></td>
+      <td class="num">${x.sale} млн</td>
+      <td class="num"><b>${x.fact} млн</b></td>
+      <td><span class="pct-bar"><i style="width:${o}%"></i></span>${o}%</td>
+      <td style="font-size:11.5px;color:${C.muted}">${compStr}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('drill').innerHTML=`
+    <div class="drill-head">
+      <div><h2>${p.name}</h2>
+        <div class="meta"><span class="chip" style="background:${p.sc}">${p.status}</span> · ABC ${p.abc} · ${p.tt} торговых точек · выставка: ${p.expo} · последний визит РМ: ${p.visit}</div>
+      </div>
+    </div>
+    <div class="minikpi">
+      <div><div class="l">Потенциал точек</div><div class="n">${totSale} млн</div></div>
+      <div><div class="l">Факт LAPARET</div><div class="n">${totFact} млн</div></div>
+      <div><div class="l">Освоение потенциала</div><div class="n">${osv}%</div></div>
+      <div><div class="l">Доля полки LAPARET</div><div class="n">${shelf}%</div></div>
+    </div>
+    <h3 style="font-size:18px;margin:4px 0 8px;">Торговые точки · потенциал и доля полки</h3>
+    <div style="overflow-x:auto;"><table>
+      <thead><tr><th>Торговая точка</th><th class="num">Площадь</th><th>Доля полки</th>
+        <th class="num">Потенциал*</th><th class="num">Факт LAPARET</th><th>Освоение</th><th>Конкуренты на точке</th></tr></thead>
+      <tbody>${rowsHtml}</tbody>
+    </table></div>
+    <div class="note" style="margin-top:12px;">* <b>Потенциал</b> = продажи точки по всем брендам керамогранита (вся категория). <b>Факт</b> = продажи LAPARET.
+      <b>Резерв</b> = Потенциал − Факт = ${totSale-totFact} млн ₽ (доля конкурентов).
+      Крупнейшие конкуренты у этого партнёра: ${compList.slice(0,3).map(c=>c[0]+' ('+c[1]+' м²)').join(', ')}.</div>
+    <div class="legend"><span><i style="background:${C.gold}"></i>Полка LAPARET</span><span><i style="background:${C.line}"></i>Полка конкурентов</span></div>
+  `;
+  drawContractorCharts(p);
+}
+selectPartner(0);
+</script>
+</body>
+</html>
