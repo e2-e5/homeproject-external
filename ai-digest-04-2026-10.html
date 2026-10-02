@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ИИ &amp; Бизнес — Выпуск №4 — 26 сентября – 2 октября 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#12132A;--card:#1C1D3A;--card2:#22244A;--border:#2E3060;
+  --accent:#6B6EF9;--accent2:#9B9EFF;--text:#E8EAF6;--muted:#8890B8;
+  --green:#4CAF82;--red:#EF5350;--yellow:#FFB74D;--white:#fff;
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;font-size:15px;line-height:1.6;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 40px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-20%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(107,110,249,0.12) 0%,transparent 70%);pointer-events:none;}
+.issue-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.issue-tag::before{content:'';display:block;width:32px;height:2px;background:var(--accent);}
+.cover-title{font-size:clamp(42px,7vw,72px);font-weight:800;line-height:1.1;margin-bottom:20px;}
+.cover-title span{color:var(--accent);}
+.cover-period{font-size:16px;color:var(--muted);margin-bottom:32px;}
+.cover-desc{font-size:14px;color:var(--muted);max-width:560px;line-height:1.8;margin-bottom:40px;border-left:2px solid var(--accent);padding-left:16px;}
+.cover-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:640px;}
+.cstat{border-top:1px solid var(--border);padding-top:16px;}
+.cstat-num{font-size:26px;font-weight:800;color:var(--accent);}
+.cstat-label{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;}
+.cover-author{position:absolute;bottom:40px;right:40px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+
+/* PDF DOWNLOAD BUTTON */
+.pdf-download-btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;text-decoration:none;border:none;cursor:pointer;padding:11px 22px;border-radius:8px;font-size:13px;font-weight:600;margin-top:28px;font-family:'Inter',sans-serif;transition:opacity .2s;}
+.pdf-download-btn:hover{opacity:.85;}
+
+/* NAV */
+.toc{padding:40px;border-bottom:1px solid var(--border);max-width:900px;margin:0 auto;}
+.toc-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.toc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.toc-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:13px;text-decoration:none;color:var(--text);transition:all .2s;}
+.toc-item:hover{border-color:var(--accent);background:rgba(107,110,249,0.06);}
+.toc-num{font-size:10px;color:var(--muted);min-width:20px;}
+
+/* SECTIONS */
+.section{padding:60px 40px;border-bottom:1px solid var(--border);max-width:900px;margin:0 auto;}
+.section-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.section-tag::after{content:'';flex:1;height:1px;background:var(--border);}
+.section-h{font-size:clamp(24px,4vw,36px);font-weight:700;margin-bottom:20px;line-height:1.2;}
+.section-intro{font-size:15px;color:var(--muted);max-width:680px;margin-bottom:32px;line-height:1.8;}
+
+/* EXECUTIVE SUMMARY */
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+.summary-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;font-size:13px;line-height:1.6;}
+.summary-card h4{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;}
+.kpi-num{font-size:26px;font-weight:800;line-height:1;}
+.kpi-label{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.4;}
+.kpi.red .kpi-num{color:var(--red);}
+.kpi.green .kpi-num{color:var(--green);}
+.kpi.yellow .kpi-num{color:var(--yellow);}
+.kpi.blue .kpi-num{color:var(--accent2);}
+
+.insight{background:rgba(107,110,249,0.08);border:1px solid rgba(107,110,249,0.3);border-radius:10px;padding:18px 22px;font-size:14px;line-height:1.7;}
+.insight strong{color:var(--accent2);}
+
+/* MAIN EVENT */
+.main-event{background:var(--card);border:1px solid rgba(107,110,249,0.4);border-radius:12px;padding:28px 26px;margin-bottom:20px;}
+.main-event-label{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;margin-bottom:12px;}
+.main-event-title{font-size:20px;font-weight:700;margin-bottom:16px;line-height:1.3;}
+.main-event-source{font-size:12px;color:var(--muted);margin-bottom:20px;}
+.main-event-section-title{font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin:18px 0 10px;}
+.main-event p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:10px;}
+
+/* FACTCHECK */
+.factcheck{background:rgba(28,29,58,0.6);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin:14px 0;}
+.factcheck-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.factcheck ul{list-style:none;padding:0;}
+.factcheck li{font-size:13px;color:var(--muted);padding:4px 0;line-height:1.5;}
+
+/* NEWS */
+.news-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px;}
+.news-num{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:6px;margin-bottom:10px;}
+.news-h{font-size:16px;font-weight:600;margin-bottom:8px;}
+.news-body{font-size:13px;color:var(--muted);line-height:1.7;}
+.news-body strong{color:var(--text);}
+.news-source{font-size:11px;color:rgba(107,110,249,0.7);margin-top:10px;}
+.news-tag{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted);padding:2px 8px;border-radius:10px;margin-left:8px;}
+
+/* RUSSIA */
+.ru-block{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px;}
+.ru-block h3{font-size:16px;font-weight:600;margin-bottom:10px;}
+.ru-block p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:8px;}
+.ru-block p strong{color:var(--text);}
+.ru-block .tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;margin-bottom:12px;}
+.tag-blue{background:rgba(107,110,249,0.15);color:var(--accent2);}
+.tag-green{background:rgba(76,175,130,0.15);color:var(--green);}
+.tag-yellow{background:rgba(255,183,77,0.15);color:var(--yellow);}
+
+/* BUSINESS */
+.biz-item{display:flex;gap:18px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.biz-item:last-child{border-bottom:none;}
+.biz-num{width:36px;height:36px;border-radius:8px;background:rgba(107,110,249,0.15);color:var(--accent2);font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.biz-content h4{font-size:15px;font-weight:600;margin-bottom:6px;}
+.biz-content p{font-size:13px;color:var(--muted);line-height:1.6;}
+.biz-content p strong{color:var(--text);}
+
+/* TOOLS */
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px;}
+.tool-badge{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:600;padding:2px 10px;border-radius:10px;margin-bottom:12px;}
+.tool-badge.blue{background:rgba(107,110,249,0.15);color:var(--accent2);}
+.tool-badge.green{background:rgba(76,175,130,0.15);color:var(--green);}
+.tool-badge.yellow{background:rgba(255,183,77,0.15);color:var(--yellow);}
+.tool-card h3{font-size:16px;font-weight:600;margin-bottom:8px;}
+.tool-card p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:6px;}
+.tool-card p strong{color:var(--text);}
+.tool-when{font-size:12.5px;color:var(--accent);font-weight:600;margin-top:8px;}
+.tool-when span{color:var(--muted);font-weight:400;}
+
+.model-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:20px;}
+.model-table th{background:rgba(107,110,249,0.1);color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:10px 14px;text-align:left;}
+.model-table td{padding:11px 14px;border-bottom:1px solid var(--border);}
+.model-table tr:last-child td{border-bottom:none;}
+.model-table tr:hover td{background:rgba(107,110,249,0.04);}
+
+/* ACTIONS */
+.actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.action-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.action-card h4{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.action-card h4 .num{width:24px;height:24px;border-radius:6px;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.action-card p{font-size:13px;color:var(--muted);line-height:1.6;}
+.action-card .when{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:12px;}
+
+/* SOURCES */
+.source-item{padding:12px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted);display:flex;gap:12px;align-items:flex-start;}
+.source-item:last-child{border-bottom:none;}
+.source-icon{color:var(--accent);font-size:14px;margin-top:1px;flex-shrink:0;}
+
+/* FOOTER */
+.footer-section{padding:40px;border-top:2px solid var(--border);text-align:center;}
+.footer-logo{font-size:24px;font-weight:800;margin-bottom:8px;}
+.footer-logo span{color:var(--accent);}
+.footer-text{font-size:13px;color:var(--muted);}
+.conclusion-box{background:linear-gradient(135deg,rgba(107,110,249,0.1) 0%,rgba(28,29,58,0.8) 100%);border:1px solid rgba(107,110,249,0.35);border-radius:12px;padding:24px;margin-bottom:24px;}
+.conclusion-box p{font-size:14.5px;color:var(--text);line-height:1.7;}
+
+@media print{
+  .pdf-download-btn{display:none!important;}
+  .cover{min-height:auto;padding:48px 40px 60px;page-break-after:always;}
+  .section{page-break-inside:avoid;}
+  .cover-author{position:static;margin-top:28px;}
+}
+@page{size:A4;margin:12mm;}
+
+@media(max-width:680px){
+  .cover{padding:40px 20px;}.section{padding:40px 20px;}
+  .summary-grid,.kpi-grid{grid-template-columns:1fr 1fr;}
+  .actions-grid{grid-template-columns:1fr;}
+  .cover-stats{grid-template-columns:1fr 1fr;}
+  .cover-author{position:static;margin-top:30px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="issue-tag">Еженедельный дайджест · Выпуск №4</div>
+  <div class="cover-title">ИИ <span>&amp;</span><br>Бизнес</div>
+  <div class="cover-period">26 сентября — 2 октября 2026</div>
+  <div class="cover-desc">
+    Anthropic впервые обогнала OpenAI по выручке ($11,6 млрд за квартал). Google выпустил флагман Gemini 4 Argon. OpenAI на DevDay запустил автономных агентов Dots и Private Intelligence. В России 39% компаний уже используют AI-агентов. Неделя, когда ИИ стал вопросом корпоративной экономики, а не эксперимента.
+  </div>
+  <div class="cover-stats">
+    <div class="cstat"><div class="cstat-num">$11,6 млрд</div><div class="cstat-label">выручка Anthropic за Q2 2026 — впервые больше OpenAI</div></div>
+    <div class="cstat"><div class="cstat-num">+18%</div><div class="cstat-label">рост выручки OpenAI за квартал ($6,7 млрд)</div></div>
+    <div class="cstat"><div class="cstat-num">39%</div><div class="cstat-label">росс. организаций используют AI-агентов</div></div>
+    <div class="cstat"><div class="cstat-num">4%</div><div class="cstat-label">компаний РФ полностью внедрили ИИ</div></div>
+  </div>
+  <a href="https://new.homeproject.online/static/1790957453949-ai-digest-04-2026-10.pdf" download class="pdf-download-btn">⬇ Скачать PDF</a>
+  <div class="cover-author">Подготовлено А. Ботьевым с помощью ИИ · Открытые источники</div>
+</div>
+
+<div class="toc">
+  <div class="toc-title">Содержание</div>
+  <div class="toc-list">
+    <a href="#summary" class="toc-item"><span class="toc-num">00</span> Executive Summary</a>
+    <a href="#main" class="toc-item"><span class="toc-num">01</span> Главное: Anthropic обогнала OpenAI</a>
+    <a href="#news" class="toc-item"><span class="toc-num">02</span> Новости недели</a>
+    <a href="#russia" class="toc-item"><span class="toc-num">03</span> Российский рынок</a>
+    <a href="#biz" class="toc-item"><span class="toc-num">04</span> Влияние на бизнес</a>
+    <a href="#tools" class="toc-item"><span class="toc-num">05</span> Инструменты недели</a>
+    <a href="#actions" class="toc-item"><span class="toc-num">06</span> Действия</a>
+    <a href="#sources" class="toc-item"><span class="toc-num">07</span> Источники</a>
+  </div>
+</div>
+
+<div class="section" id="summary">
+  <div class="section-tag">00 · Executive Summary</div>
+  <div class="section-h">Обзор недели — одна страница</div>
+  <div class="summary-grid">
+    <div class="summary-card"><h4>Деньги</h4>Anthropic впервые обогнала OpenAI по квартальной выручке: <strong>$11,6 млрд за Q2 2026</strong> против $6,7 млрд у OpenAI. Рост Anthropic — почти <strong>14× год к году</strong>, драйвер — корпоративное внедрение Claude Code. Первый квартал с положительной операционной прибылью.</div>
+    <div class="summary-card"><h4>Продукты</h4>Google выпустил <strong>Gemini 4 Argon</strong> — флагман для разработки, юр./фин. задач и кибербезопасности (вывод до 1M токенов). OpenAI на DevDay запустил автономных агентов <strong>Dots</strong> и режим приватности <strong>Private Intelligence</strong>.</div>
+    <div class="summary-card"><h4>Россия</h4><strong>39%</strong> организаций используют AI-агентов (документооборот, финмониторинг, закупки). Но «полностью внедрили» ИИ лишь <strong>4%</strong>, при том что <strong>98%</strong> считают его приоритетом. Расходы рынка — <strong>&gt;90 млрд ₽/год</strong>.</div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi green"><div class="kpi-num">$11,6 млрд</div><div class="kpi-label">выручка Anthropic Q2 2026 — №1 впервые</div></div>
+    <div class="kpi blue"><div class="kpi-num">$115 млрд+</div><div class="kpi-label">совокупный ARR Anthropic + OpenAI</div></div>
+    <div class="kpi yellow"><div class="kpi-num">39%</div><div class="kpi-label">росс. организаций с AI-агентами</div></div>
+    <div class="kpi red"><div class="kpi-num">26%</div><div class="kpi-label">компаний РФ успешно внедрили ИИ</div></div>
+  </div>
+  <div class="insight"><strong>Главный вывод недели:</strong> ИИ окончательно стал вопросом корпоративной экономики. Лидерство на рынке определяет уже не бенчмарк, а выручка от бизнес-клиентов — и здесь вперёд вырвалась компания, сделавшая ставку на рабочие инструменты (Claude Code), а не на потребительский хайп. Для бизнеса это сигнал: выбирать ИИ-поставщика по зрелости корпоративных функций, а не по громкости анонсов.</div>
+</div>
+
+<div class="section" id="main">
+  <div class="section-tag">01 · Главное событие недели</div>
+  <div class="section-h">Anthropic впервые обогнала OpenAI по выручке</div>
+  <div class="main-event">
+    <div class="main-event-label">● Переломный момент рынка</div>
+    <div class="main-event-title">$11,6 млрд за квартал: рост почти в 14 раз год к году на корпоративном спросе</div>
+    <div class="main-event-source">Источники: Forkast, Qz, KuCoin, SSBCrack · ~29–30 сентября 2026</div>
+    <div class="main-event-section-title">Что произошло</div>
+    <p>Anthropic отчиталась о предварительной выручке за второй квартал 2026 года в <strong>$11,6 млрд</strong> — против $787 млн годом ранее (рост ~14×). Это впервые больше, чем у OpenAI, которая показала <strong>$6,7 млрд</strong> (+18% к первому кварталу). Годовой темп Anthropic — около $46 млрд выручки.</p>
+    <p>Главный драйвер — стремительное корпоративное внедрение <strong>Claude Code</strong> для реальной разработки. При этом Anthropic показала первый квартал с положительной скорректированной операционной прибылью, тогда как операционный убыток OpenAI расширился до $12,3 млрд.</p>
+    <div class="main-event-section-title">Почему это важно</div>
+    <p>Лидерство в ИИ впервые определила не технология, а экономика обслуживания бизнес-клиентов. Компания, строившая продукт вокруг рабочих задач (код, автоматизация), обошла лидера потребительского рынка.</p>
+    <div class="factcheck">
+      <div class="factcheck-title">Факт-чек</div>
+      <ul>
+        <li>✅ $11,6 млрд — предварительная выручка Anthropic Q2 2026 (несколько независимых источников)</li>
+        <li>✅ $6,7 млрд у OpenAI, +18% к Q1 ($5,7 млрд)</li>
+        <li>✅ Совокупный ARR двух компаний превысил $115 млрд</li>
+        <li>⚠️ Цифры предварительные (preliminary), финальная отчётность может уточниться</li>
+      </ul>
+    </div>
+    <div class="main-event-section-title">Вывод</div>
+    <p>Рынок ИИ входит в фазу, где побеждает не демонстрация, а внедрение. Для заказчика это значит: смотреть на то, сколько реальной работы инструмент делает в день, а не на рейтинги.</p>
+  </div>
+  <div class="insight"><strong>Бизнес-вывод:</strong> При выборе ИИ-платформы оценивайте зрелость именно корпоративных функций — управление доступом, приватность данных, инструменты для рабочих процессов. Рынок проголосовал деньгами за практическую пользу.</div>
+</div>
+
+<div class="section" id="news">
+  <div class="section-tag">02 · Новости недели</div>
+  <div class="section-h">5 событий, которые нельзя пропустить</div>
+  <div class="news-item"><div class="news-num">01</div><div class="news-h">Google выпустил Gemini 4 Argon — флагман для бизнеса и кибербезопасности<span class="news-tag">Новая модель</span></div><div class="news-body">30 сентября Google представил <strong>Gemini 4 Argon</strong> — свой самый мощный фронтир-модель для разработки ПО, юридических и финансовых задач и киберзащиты. <strong>Лимит вывода — 1M токенов.</strong> Старт — через программу Fairwind для киберзащитников по цене $2 за млн входных токенов, затем — для API-клиентов и подписчиков Google AI Ultra. Google заявляет результаты выше, чем у GPT-6 Astra и моделей Anthropic.</div><div class="news-source">TechCrunch · Unite.ai · DataCamp · 30 сент. 2026</div></div>
+  <div class="news-item"><div class="news-num">02</div><div class="news-h">OpenAI DevDay: автономные агенты Dots на собственных облачных компьютерах<span class="news-tag">Агенты</span></div><div class="news-body">29 сентября на DevDay OpenAI запустил <strong>Dots</strong> — агентов, которые работают круглосуточно на своих облачных машинах (на базе GPT-6 Astra) и подключаются к <strong>4000+ приложений</strong>. Для компаний — «специализированные Dots» с собственной идентичностью, учётными данными и доступом к корпоративным системам под конкретные роли.</div><div class="news-source">CNBC · The Next Web · Vellum · 29 сент. 2026</div></div>
+  <div class="news-item"><div class="news-num">03</div><div class="news-h">OpenAI Private Intelligence: ИИ без хранения данных на серверах<span class="news-tag">Приватность</span></div><div class="news-body">OpenAI показала превью <strong>Private Intelligence</strong> — режим с «нулевым хранением данных» (Zero Data Retention) и приватным инференсом: доступ к фронтир-моделям без сохранения контента на серверах OpenAI. Прямой ответ на главный корпоративный барьер — «кто видит наши данные».</div><div class="news-source">CNBC · The Next Web · 29 сент. 2026</div></div>
+  <div class="news-item"><div class="news-num">04</div><div class="news-h">Добровольный отраслевой пакт по безопасности ИИ<span class="news-tag">Регулирование</span></div><div class="news-body">Лидеры OpenAI, Anthropic, Nvidia, Google, Meta, Microsoft, AMD, SpaceX и Palo Alto Networks подписали <strong>добровольное соглашение по безопасности ИИ</strong>: внутренние оценки, внешние аудиты, обзоры советов директоров и регулярные встречи по стандартам. Отрасль формирует саморегулирование до жёстких законов.</div><div class="news-source">VentureBeat · TechCrunch · сент. 2026</div></div>
+  <div class="news-item"><div class="news-num">05</div><div class="news-h">Ценовая война моделей: новый «пол» $0,10 за млн токенов<span class="news-tag">Экономика</span></div><div class="news-body">За две недели сентября вышло <strong>20+ обновлений моделей</strong>; разброс цен достиг 119× между премиальными и бюджетными. Новый ценовой «пол» — <strong>$0,10 за млн токенов</strong>. Для бизнеса это значит: стоимость ИИ-инференса падает, и правильный подбор модели под задачу экономит в разы.</div><div class="news-source">local-ai-zone · This Week in NLP · сент. 2026</div></div>
+</div>
+
+<div class="section" id="russia">
+  <div class="section-tag">03 · Российский рынок</div>
+  <div class="section-h">4 ключевых тренда</div>
+  <div class="ru-block"><div class="tag tag-green">Внедрение</div><h3>39% организаций используют AI-агентов — но «полностью внедрили» лишь 4%</h3><p><strong>39%</strong> российских организаций уже применяют AI-агентов и ассистентов — чаще всего в процессах с предсказуемой цепочкой действий: документооборот, финансовый мониторинг, закупки. При этом полностью внедрили ИИ только <strong>4%</strong>, успешно — <strong>26%</strong>, хотя приоритетом его называют <strong>98%</strong> компаний. Разрыв «интерес vs результат» — главная проблема рынка.</p><div class="news-source">TAdviser · CNews Forum Кейсы 2026</div></div>
+  <div class="ru-block"><div class="tag tag-blue">Деньги</div><h3>Российские компании тратят на ИИ более 90 млрд ₽ в год</h3><p>Расходы на внедрение ИИ в РФ превысили <strong>90 млрд ₽/год</strong>. При этом <strong>66%</strong> знакомых с нейросетями сотрудников используют их в работе, но лишь <strong>17%</strong> имеют доступ к корпоративным ИИ-сервисам от работодателя — остальные пользуются личными инструментами (теневой ИИ — риск утечек).</p><div class="news-source">TAdviser · опросы рынка 2026</div></div>
+  <div class="ru-block"><div class="tag tag-blue">Тренды</div><h3>От точечной автоматизации — к перепроектированию процессов</h3><p>«Ведомости» (2 октября) выделяют ключевые тренды: <strong>агентный и многоагентный ИИ</strong> (специализированные модули вместо одного «универсального»), системное перепроектирование процессов в закупках, логистике и комплаенсе, рост значимости <strong>качества данных</strong> над их объёмом.</p><div class="news-source">Ведомости · 02.10.2026</div></div>
+  <div class="ru-block"><div class="tag tag-yellow">Стратегия</div><h3>Суверенный ИИ и безопасность — растущий спрос</h3><p>Усиливается спрос на <strong>локальные (суверенные) ИИ-решения</strong> с контролем над инфраструктурой и данными, а также на системы разграничения прав доступа и мониторинга. Для бизнеса на госзаказе это становится требованием, а не опцией.</p><div class="news-source">Ведомости · TAdviser · 2026</div></div>
+</div>
+
+<div class="section" id="biz">
+  <div class="section-tag">04 · Влияние на бизнес</div>
+  <div class="section-h">5 практических изменений</div>
+  <div class="biz-item"><div class="biz-num">1</div><div class="biz-content"><h4>Рынок проголосовал за «рабочий» ИИ → выбирайте по пользе, а не по хайпу</h4><p><strong>Вывод:</strong> выручка Anthropic обогнала OpenAI на корпоративных инструментах. При выборе платформы оценивайте, сколько реальной работы инструмент выполняет в день (код, аналитика, документы), а не рейтинги бенчмарков.</p></div></div>
+  <div class="biz-item"><div class="biz-num">2</div><div class="biz-content"><h4>Private Intelligence / Zero Data Retention → барьер приватности снимается</h4><p>Главная причина, по которой компании не внедряли ИИ — «кто видит наши данные». Появились режимы без хранения данных на серверах вендора. <strong>Действие:</strong> пересмотрите отложенные ИИ-проекты с чувствительными данными.</p></div></div>
+  <div class="biz-item"><div class="biz-num">3</div><div class="biz-content"><h4>Автономные агенты (Dots, специалисты с ролями) → автоматизируются целые функции</h4><p>Агенты работают круглосуточно и подключаются к тысячам приложений. <strong>Для бизнеса:</strong> начните с 1–2 предсказуемых процессов (обработка заявок, подготовка КП, мониторинг) — именно там РФ-компании уже получают результат.</p></div></div>
+  <div class="biz-item"><div class="biz-num">4</div><div class="biz-content"><h4>Разрыв 98% «приоритет» vs 4% «внедрили» → побеждает исполнение, а не намерение</h4><p>Интерес к ИИ максимальный, но доводят до результата единицы. <strong>Конкурентное преимущество</strong> сейчас даёт не сам факт «у нас есть ИИ», а доведение пилота до рабочего процесса с измеримым эффектом.</p></div></div>
+  <div class="biz-item"><div class="biz-num">5</div><div class="biz-content"><h4>Цены на инференс падают (пол $0,10/млн) → экономия на правильном подборе модели</h4><p>Разброс цен между моделями — до 119×. <strong>Действие:</strong> не используйте одну дорогую модель на всё — дешёвые модели закрывают рутину, дорогие берегите для сложных задач. Экономия — в разы.</p></div></div>
+  <div class="insight" style="margin-top:24px;"><strong>Главный вывод раздела:</strong> Неделя сместила фокус с «какая модель умнее» на «какая приносит деньги и снимает корпоративные барьеры». Приватность, агенты и экономика инференса — три рычага, которые делают ИИ применимым в реальном бизнесе уже сейчас.</div>
+</div>
+
+<div class="section" id="tools">
+  <div class="section-tag">05 · Инструменты недели</div>
+  <div class="section-h">Что попробовать прямо сейчас</div>
+  <div class="tool-card"><div class="tool-badge blue">Новая модель</div><h3>Google Gemini 4 Argon</h3><p>Фронтир-модель для разработки, юр./фин. знаниевой работы и киберзащиты. Вывод до 1M токенов. Старт через программу Fairwind, $2/млн входных токенов.</p><p class="tool-when">Когда использовать: <span>сложные инженерные и аналитические задачи, большие кодовые базы, юридические/финансовые документы.</span></p></div>
+  <div class="tool-card"><div class="tool-badge green">Агенты</div><h3>OpenAI Dots</h3><p>Автономные агенты на собственных облачных машинах (GPT-6 Astra), подключение к 4000+ приложений. Для бизнеса — специализированные Dots с ролями, доступом и учётными данными.</p><p class="tool-when">Когда использовать: <span>фоновые задачи 24/7 — мониторинг, обработка заявок, подготовка материалов, интеграции.</span></p></div>
+  <div class="tool-card"><div class="tool-badge yellow">Приватность</div><h3>OpenAI Private Intelligence</h3><p>Режим Zero Data Retention и приватный инференс: фронтир-модели без хранения контента на серверах вендора.</p><p class="tool-when">Когда использовать: <span>работа с персональными данными, коммерческой тайной, финансовой и медицинской информацией.</span></p></div>
+  <table class="model-table">
+    <thead><tr><th>Задача</th><th>Лучший выбор</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td>Автономная разработка ПО</td><td>Claude Code / Gemini 4 Argon</td><td>Проверено корпоративным спросом, фронтир по коду</td></tr>
+      <tr><td>Фоновая автоматизация 24/7</td><td>OpenAI Dots</td><td>Работают сами, 4000+ интеграций</td></tr>
+      <tr><td>Чувствительные данные</td><td>Private Intelligence / локальные модели</td><td>Без хранения данных у вендора</td></tr>
+      <tr><td>Рутина с большим объёмом</td><td>Бюджетные модели (пол $0,10/млн)</td><td>В разы дешевле, качества достаточно</td></tr>
+      <tr><td>Большой документ / 1M токенов</td><td>Gemini 4 Argon</td><td>Лимит вывода 1M токенов</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section" id="actions">
+  <div class="section-tag">06 · Действия</div>
+  <div class="section-h">Что делать после прочтения</div>
+  <div class="actions-grid">
+    <div class="action-card"><div class="when">На этой неделе</div><h4><div class="num">1</div>Выберите 1 процесс для агента</h4><p>Начните с предсказуемого процесса (обработка заявок, подготовка КП, мониторинг цен конкурентов) — там, где РФ-компании уже получают результат.</p></div>
+    <div class="action-card"><div class="when">На этой неделе</div><h4><div class="num">2</div>Проверьте «теневой ИИ» в команде</h4><p>66% сотрудников пользуются нейросетями, но лишь 17% — корпоративными. Узнайте, через что ваша команда уже гоняет рабочие данные — это риск утечки.</p></div>
+    <div class="action-card"><div class="when">На этой неделе</div><h4><div class="num">3</div>Пересмотрите отложенные ИИ-проекты</h4><p>Если проект стоял из-за приватности данных — режимы Zero Data Retention снимают барьер. Вернитесь к списку «нельзя из-за данных».</p></div>
+    <div class="action-card"><div class="when">На квартал</div><h4><div class="num">4</div>Оптимизируйте расходы на модели</h4><p>Разброс цен — до 119×. Распределите задачи: рутина → дешёвые модели, сложное → фронтир. Это снижает счёт в разы.</p></div>
+    <div class="action-card"><div class="when">На квартал</div><h4><div class="num">5</div>Доведите один пилот до результата</h4><p>Разрыв «98% приоритет / 4% внедрили» = ваше преимущество. Выберите один пилот и доведите до рабочего процесса с измеримым эффектом.</p></div>
+    <div class="action-card"><div class="when">На квартал</div><h4><div class="num">6</div>Оцените суверенные / локальные решения</h4><p>Для работы с госзаказом и чувствительными данными спрос на локальный ИИ растёт. Заложите вариант on-premise в стратегию.</p></div>
+  </div>
+  <div class="conclusion-box" style="margin-top:28px;"><p><strong>Итог выпуска №4:</strong> Неделя 26 сентября – 2 октября 2026 закрепила переход ИИ из категории «технологического чуда» в категорию «корпоративной экономики». Anthropic обогнала OpenAI на рабочих инструментах, Google и OpenAI сделали ставку на бизнес (агенты, приватность, фронтир для кода и финансов), а российский рынок показал зрелую, но болезненную картину: интерес максимальный, результат — у единиц. Выигрывает не тот, кто первым сказал «у нас есть ИИ», а тот, кто первым довёл его до денег.</p></div>
+</div>
+
+<div class="section" id="sources">
+  <div class="section-tag">07 · Источники и ссылки</div>
+  <div class="section-h">Проверенные первоисточники</div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Все данные проверены по первоисточникам. Выпуск №4 · 26 сентября – 2 октября 2026.</p>
+  <div class="source-item"><span class="source-icon">→</span><span>Forkast / Qz / KuCoin / SSBCrack: «Anthropic Q2 2026 revenue $11.6B, overtakes OpenAI» — ~29–30 сент. 2026</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>RuntimeWire / AlphaMatch: «OpenAI grew 18% in Q2; operating loss $12.3B» — сент. 2026</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>CryptoBriefing: «Anthropic + OpenAI combined ARR tops $115B» — 2026</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>TechCrunch / Unite.ai / DataCamp: «Google releases Gemini 4 Argon» — 30 сент. 2026</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>CNBC / The Next Web / Vellum: «OpenAI DevDay — Dots & Private Intelligence» — 29 сент. 2026</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>VentureBeat / TechCrunch: «Voluntary AI safety accord» — сент. 2026</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>local-ai-zone / This Week in NLP: «September 2026 AI Model Updates, $0.10/M floor»</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>TAdviser / CNews Forum Кейсы 2026: «39% организаций с AI-агентами, 4% полностью внедрили, &gt;90 млрд ₽/год»</span></div>
+  <div class="source-item"><span class="source-icon">→</span><span>Ведомости: «Бизнес-тренды рынка ИИ в 2026 году» — 02.10.2026</span></div>
+</div>
+
+<div class="footer-section">
+  <div class="footer-logo">ИИ <span>&amp;</span> Бизнес</div>
+  <div class="footer-text">Подготовлено А. Ботьевым с помощью искусственного интеллекта на основе открытых источников.<br>Выпуск №4 · 26 сентября — 2 октября 2026</div>
+  <div class="footer-text" style="margin-top:12px"><a href="https://new.homeproject.online/static/1790957453949-ai-digest-04-2026-10.pdf" download class="pdf-download-btn" style="margin-top:4px">⬇ Скачать в PDF</a></div>
+</div>
+
+</body>
+</html>
