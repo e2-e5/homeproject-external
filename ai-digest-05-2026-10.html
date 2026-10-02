@@ -136,6 +136,36 @@ html,body{background:var(--bg);color:var(--body);font-family:'Inter',-apple-syst
 .next-box{border:1.5px dashed var(--accent);border-radius:11px;padding:18px 22px;margin-top:26px;font-size:14px;color:var(--accent-dark);line-height:1.6;text-align:center;break-inside:avoid;}
 .next-box strong{font-weight:700;}
 
+/* ========== PRACTICUM ========== */
+.flow{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr;align-items:center;margin:8px 0 22px;break-inside:avoid;}
+.flow-box{background:var(--accent-tint);border-radius:10px;padding:16px 14px;text-align:center;}
+.flow-box h5{font-size:14px;color:var(--accent-dark);font-weight:800;margin-bottom:6px;}
+.flow-box p{font-size:11.5px;color:var(--body);line-height:1.45;}
+.flow-arrow{text-align:center;color:var(--accent);font-size:22px;font-weight:800;}
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:12px;}
+.cap{background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:16px;break-inside:avoid;}
+.cap h5{font-size:13.5px;color:var(--ink);font-weight:700;margin-bottom:7px;line-height:1.3;}
+.cap p{font-size:12px;color:var(--body);line-height:1.5;}
+.chart{margin:6px 0 8px;}
+.bar-row{margin-bottom:15px;break-inside:avoid;}
+.bar-label{font-size:13px;color:var(--ink);font-weight:600;margin-bottom:7px;}
+.bar-track{display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+.bar{height:20px;border-radius:5px;flex-shrink:0;min-width:5px;}
+.bar.manual{background:#C2C6D2;}
+.bar.agent{background:var(--accent);}
+.bar-cap{font-size:11.5px;color:var(--muted);white-space:nowrap;}
+.bar-cap strong{color:var(--accent-dark);font-weight:700;}
+.bar-legend{display:flex;gap:22px;margin:4px 0 14px;font-size:11.5px;color:var(--muted);}
+.bar-legend span{display:inline-flex;align-items:center;gap:7px;}
+.bar-legend i{width:14px;height:14px;border-radius:4px;display:inline-block;}
+.chart-note{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:24px;font-style:italic;}
+.step{display:grid;grid-template-columns:40px 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--line);break-inside:avoid;}
+.step:first-of-type{border-top:none;}
+.step-n{width:40px;height:40px;border-radius:9px;background:var(--accent);color:#fff;font-size:17px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.step-h{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.3;}
+.step-b{font-size:13px;color:var(--body);line-height:1.6;}
+.step-b strong{color:var(--ink);font-weight:700;}
+
 .src{display:grid;grid-template-columns:20px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--body);break-inside:avoid;}
 .src-a{color:var(--accent);font-weight:700;}
 .disclaimer{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.65;border-top:1px solid var(--line);padding-top:20px;}
@@ -150,6 +180,10 @@ html,body{background:var(--bg);color:var(--body);font-family:'Inter',-apple-syst
   .cover-stats,.sum-grid,.kpi-grid,.chips,.act-cols{grid-template-columns:1fr 1fr;}
   .sec-h{font-size:27px;}
   .tl-row,.biz{grid-template-columns:1fr;gap:6px;}
+  .flow{grid-template-columns:1fr;}
+  .flow-arrow{transform:rotate(90deg);padding:3px 0;}
+  .cap-grid{grid-template-columns:1fr 1fr;}
+  .step{grid-template-columns:1fr;gap:6px;}
 }
 </style>
 </head>
@@ -289,7 +323,65 @@ html,body{background:var(--bg);color:var(--body);font-family:'Inter',-apple-syst
 
 <div class="section">
 <div class="page">
-  <div class="sec-label">06 · Действия</div>
+  <div class="sec-label">06 · Практикум</div>
+  <div class="sec-h">Как собрать команду ИИ-агентов — и зачем</div>
+  <div class="intro">Агент — это не чат. Вы ставите цель, а он сам планирует шаги, пользуется инструментами (поиск, файлы, почта, каталог, API) и проверяет свой результат. Несколько агентов с разными ролями = команда, которая закрывает рабочий процесс целиком. Ниже — как такая команда устроена, что умеет и как собрать свою за 5 шагов.</div>
+
+  <div class="pick-h">Схема команды: планировщик → исполнитель → контролёр</div>
+  <div class="flow">
+    <div class="flow-box"><h5>1. Планировщик</h5><p>Разбивает цель на подзадачи и задаёт критерий «готово»</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><h5>2. Исполнитель</h5><p>Делает работу: ищет, считает, пишет, вызывает инструменты</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><h5>3. Контролёр</h5><p>Проверяет результат по критериям и возвращает на доработку</p></div>
+  </div>
+  <div class="callout" style="margin-bottom:26px;"><strong>Почему именно команда, а не один агент:</strong> разделение ролей даёт качество. Планировщик не отвлекается на детали, исполнитель — на стратегию, а независимый контролёр ловит ошибки до того, как их увидит клиент. Это та же логика, что в живом отделе: постановщик задачи, исполнитель и приёмка.</div>
+
+  <div class="pick-h">Что умеет команда агентов в бизнесе</div>
+  <div class="cap-grid">
+    <div class="cap"><h5>Мониторинг рынка 24/7</h5><p>Отслеживает цены и ассортимент конкурентов, присылает уведомления об изменениях.</p></div>
+    <div class="cap"><h5>Подготовка КП и документов</h5><p>Собирает предложение по каталогу и прайсу в фирменном стиле — за минуты вместо часов.</p></div>
+    <div class="cap"><h5>Работа с входящими</h5><p>Разбирает почту и заявки, готовит черновики ответов, заносит контакты в CRM.</p></div>
+    <div class="cap"><h5>Контент и рассылки</h5><p>Пишет посты и письма, сегментирует базу, готовит кампании под аудиторию.</p></div>
+    <div class="cap"><h5>Аналитика и отчёты</h5><p>Считает продажи, остатки и динамику, строит графики и выводы.</p></div>
+    <div class="cap"><h5>Исследования и дайджесты</h5><p>Собирает новости и тренды из источников, проверяет факты (как этот выпуск).</p></div>
+  </div>
+
+  <div class="pick-h">Польза в цифрах: время на задачу</div>
+  <div class="chart">
+    <div class="bar-row"><div class="bar-label">Подготовка КП по каталогу</div>
+      <div class="bar-track"><div class="bar manual" style="width:25%"></div><span class="bar-cap">вручную — 2 ч</span></div>
+      <div class="bar-track"><div class="bar agent" style="width:2.5%"></div><span class="bar-cap"><strong>с агентом — 12 мин</strong></span></div></div>
+    <div class="bar-row"><div class="bar-label">Обзор рынка конкурентов</div>
+      <div class="bar-track"><div class="bar manual" style="width:100%"></div><span class="bar-cap">вручную — 8 ч</span></div>
+      <div class="bar-track"><div class="bar agent" style="width:12.5%"></div><span class="bar-cap"><strong>с агентом — 1 ч</strong></span></div></div>
+    <div class="bar-row"><div class="bar-label">Сегментация базы под рассылку</div>
+      <div class="bar-track"><div class="bar manual" style="width:50%"></div><span class="bar-cap">вручную — 4 ч</span></div>
+      <div class="bar-track"><div class="bar agent" style="width:4%"></div><span class="bar-cap"><strong>с агентом — 20 мин</strong></span></div></div>
+    <div class="bar-row"><div class="bar-label">Еженедельный дайджест новостей</div>
+      <div class="bar-track"><div class="bar manual" style="width:62.5%"></div><span class="bar-cap">вручную — 5 ч</span></div>
+      <div class="bar-track"><div class="bar agent" style="width:8%"></div><span class="bar-cap"><strong>с агентом — 40 мин</strong></span></div></div>
+    <div class="bar-row"><div class="bar-label">Отчёт по продажам</div>
+      <div class="bar-track"><div class="bar manual" style="width:37.5%"></div><span class="bar-cap">вручную — 3 ч</span></div>
+      <div class="bar-track"><div class="bar agent" style="width:5%"></div><span class="bar-cap"><strong>с агентом — 25 мин</strong></span></div></div>
+  </div>
+  <div class="bar-legend"><span><i style="background:#C2C6D2;"></i> Вручную</span><span><i style="background:var(--accent);"></i> С агентом</span></div>
+  <div class="chart-note">Оценка на типовых процессах Home Project. Фактическая экономия зависит от сложности задачи и качества данных, к которым подключён агент. Цель графика — показать порядок эффекта, а не точную гарантию.</div>
+
+  <div class="pick-h">Как собрать агента за 5 шагов</div>
+  <div class="step"><div class="step-n">1</div><div><div class="step-h">Сформулируйте цель и «готово»</div><div class="step-b">Одно предложение: что должно получиться на выходе и как понять, что сделано правильно. Размытая цель → размытый результат.</div></div></div>
+  <div class="step"><div class="step-n">2</div><div><div class="step-h">Дайте инструменты и данные</div><div class="step-b">Доступ к каталогу, CRM, почте, поиску. <strong>Агент силён ровно настолько, насколько дотягивается до ваших данных</strong> — это главный множитель пользы.</div></div></div>
+  <div class="step"><div class="step-n">3</div><div><div class="step-h">Разделите роли</div><div class="step-b">Для сложных задач — планировщик, исполнитель, контролёр. Для простых достаточно одного агента. Не усложняйте там, где хватает одного.</div></div></div>
+  <div class="step"><div class="step-n">4</div><div><div class="step-h">Задайте правила и стоп-краны</div><div class="step-b">Чётко: что агент делает сам, а что — только с вашим подтверждением. Отправка писем, изменение цен, траты — всегда через согласование человека.</div></div></div>
+  <div class="step"><div class="step-n">5</div><div><div class="step-h">Запустите пилот и измерьте</div><div class="step-b">Один процесс, 1–2 недели. Сравните время и качество «до/после». Сработало — масштабируйте на соседние задачи.</div></div></div>
+
+  <div class="next-box" style="margin-top:24px;"><strong>Три рекомендации:</strong> начинайте с процесса, который повторяется и предсказуем · не автоматизируйте хаос — сначала опишите процесс на бумаге · оставляйте человека на «последней миле» там, где решение касается денег и клиентов.</div>
+</div>
+</div>
+
+<div class="section">
+<div class="page">
+  <div class="sec-label">07 · Действия</div>
   <div class="sec-h">Что сделать по итогам недели</div>
   <div class="act-cols">
     <div>
@@ -312,7 +404,7 @@ html,body{background:var(--bg);color:var(--body);font-family:'Inter',-apple-syst
 
 <div class="section">
 <div class="page">
-  <div class="sec-label">07 · Источники</div>
+  <div class="sec-label">08 · Источники</div>
   <div class="sec-h">Проверенные источники выпуска</div>
   <div class="src"><span class="src-a">→</span><span>Forkast / Qz / KuCoin / SSBCrack — «Anthropic Q2 2026 revenue $11.6B, overtakes OpenAI» (~29–30.09.2026)</span></div>
   <div class="src"><span class="src-a">→</span><span>RuntimeWire / AlphaMatch — «OpenAI grew 18% in Q2; operating loss $12.3B» (сентябрь 2026)</span></div>
@@ -328,7 +420,7 @@ html,body{background:var(--bg);color:var(--body);font-family:'Inter',-apple-syst
   <div class="src"><span class="src-a">→</span><span>TAdviser / CNews Forum Кейсы 2026 — «39% организаций с AI-агентами, 4% полностью внедрили, &gt;90 млрд ₽/год»</span></div>
   <div class="src"><span class="src-a">→</span><span>Ведомости — «Бизнес-тренды рынка ИИ в 2026 году» (02.10.2026)</span></div>
   <div class="disclaimer">Подготовлено А. Ботьевым с помощью искусственного интеллекта на основе открытых источников. Факты сверены по первоисточникам на дату выпуска; часть оценок носит аналитический характер. Дайджест не является инвестиционной или юридической консультацией.</div>
-  <div class="dl-wrap"><a href="https://new.homeproject.online/static/1790967417201-ai-digest-05-2026-10.pdf" download class="dl-btn">Скачать выпуск в PDF</a></div>
+  <div class="dl-wrap"><a href="https://new.homeproject.online/static/1790975174754-ai-digest-05-2026-10.pdf" download class="dl-btn">Скачать выпуск в PDF</a></div>
 </div>
 </div>
 
