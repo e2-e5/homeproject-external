@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Home Project — отчёт по email-кампаниям (июль–октябрь 2026)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0d0f14;color:#e8eaf0;line-height:1.5;padding:0 0 60px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{background:linear-gradient(120deg,#12141c,#1d1526 60%,#2a1016);padding:38px 20px 30px;border-bottom:1px solid #2a2d38;margin-bottom:28px}
+header .wrap{padding:0 20px}
+.brand{font-size:12px;letter-spacing:3px;color:#b99a5b;text-transform:uppercase;font-weight:700}
+h1{font-size:27px;margin:8px 0 6px;font-weight:800}
+.sub{color:#9aa0ac;font-size:14px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:26px 0}
+.kpi{background:#1a1d26;border:1px solid #2a2d38;border-radius:12px;padding:16px}
+.kpi .v{font-size:26px;font-weight:800}
+.kpi .l{font-size:11px;color:#9aa0ac;text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+.kpi .s{font-size:11px;color:#6f7686;margin-top:4px}
+.gold{color:#d8b872} .red{color:#e24a63} .grn{color:#4ccb7e}
+section{margin:34px 0}
+h2{font-size:17px;margin-bottom:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+h2 .d{width:7px;height:18px;background:#b99a5b;border-radius:3px;display:inline-block}
+.card{background:#1a1d26;border:1px solid #2a2d38;border-radius:14px;padding:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+canvas{max-height:300px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #23262f}
+th{color:#9aa0ac;font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+td.b{font-weight:800;color:#fff} td.hi{color:#d8b872;font-weight:700}
+td.muted{color:#6f7686;text-align:center} td.nm{font-weight:600;color:#cfd3dd}
+.chip{background:#262a36;border:1px solid #333848;border-radius:20px;padding:2px 9px;font-size:11px;color:#c7cbd6;white-space:nowrap}
+.scroll{overflow-x:auto}
+.note{font-size:12px;color:#6f7686;margin-top:10px}
+footer{text-align:center;color:#6f7686;font-size:12px;margin-top:40px;padding-top:20px;border-top:1px solid #23262f}
+@media(max-width:800px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style></head><body>
+<header><div class="wrap">
+<div class="brand">Home Project · Premium Built-in Appliances</div>
+<h1>Отчёт по email-маркетингу</h1>
+<div class="sub">Период: июль – октябрь 2026 · 57 кампаний · сформировано 09.10.2026</div>
+</div></header>
+<div class="wrap">
+
+<div class="kpis">
+  <div class="kpi"><div class="v">57</div><div class="l">кампаний</div><div class="s">с 11 июля</div></div>
+  <div class="kpi"><div class="v">14,276</div><div class="l">писем отправлено</div><div class="s">суммарно по базе</div></div>
+  <div class="kpi"><div class="v gold">9,294</div><div class="l">доставлено</div><div class="s">65% от отправленных</div></div>
+  <div class="kpi"><div class="v grn">17.3%</div><div class="l">open rate</div><div class="s">1,606 открытий</div></div>
+  <div class="kpi"><div class="v red">58</div><div class="l">кликов по ссылкам</div><div class="s">CTR 0.62% · CTOR 3.6%</div></div>
+</div>
+<div class="note">Клики — переходы по UTM-размеченным ссылкам внутри писем (ok_link_visited, UniSender). Каждая кампания = одна UTM-метка (utm_campaign).</div>
+
+<section>
+<h2><span class="d"></span>Динамика по месяцам</h2>
+<div class="card"><canvas id="cMonth"></canvas></div>
+</section>
+
+<section>
+<h2><span class="d"></span>Клики по темам и по сегментам аудитории</h2>
+<div class="grid2">
+  <div class="card"><canvas id="cTheme"></canvas></div>
+  <div class="card"><canvas id="cAud"></canvas></div>
+</div>
+</section>
+
+<section>
+<h2><span class="d"></span>Сегменты аудитории — сводка</h2>
+<div class="card scroll"><table>
+<tr><th>Сегмент</th><th>Кампаний</th><th>Отпр.</th><th>Доставл.</th><th>Open</th><th>Клики</th><th>CTR</th></tr>
+<tr><td>Кухонные студии / салоны</td><td class='num'>9</td><td class='num'>3496</td><td class='num'>2405</td><td class='num'>18.4%</td><td class='num b'>23</td><td class='num hi'>0.96%</td></tr>
+<tr><td>Дизайнеры премиум</td><td class='num'>18</td><td class='num'>3808</td><td class='num'>2379</td><td class='num'>11.7%</td><td class='num b'>12</td><td class='num hi'>0.50%</td></tr>
+<tr><td>Дизайнеры (бытовая техника)</td><td class='num'>11</td><td class='num'>2538</td><td class='num'>1763</td><td class='num'>22.1%</td><td class='num b'>12</td><td class='num hi'>0.68%</td></tr>
+<tr><td>Агенты</td><td class='num'>4</td><td class='num'>1303</td><td class='num'>883</td><td class='num'>24.7%</td><td class='num b'>5</td><td class='num hi'>0.57%</td></tr>
+<tr><td>B2B / дилеры / опт</td><td class='num'>9</td><td class='num'>1669</td><td class='num'>693</td><td class='num'>24.8%</td><td class='num b'>4</td><td class='num hi'>0.58%</td></tr>
+<tr><td>Сантехника</td><td class='num'>4</td><td class='num'>1362</td><td class='num'>1083</td><td class='num'>9.3%</td><td class='num b'>2</td><td class='num hi'>0.18%</td></tr>
+<tr><td>Дизайнеры</td><td class='num'>2</td><td class='num'>100</td><td class='num'>88</td><td class='num'>6.8%</td><td class='num b'>0</td><td class='num hi'>0.00%</td></tr>
+</table><div class="note">Аудитория определена по основному сегменту кампании (кампании часто комбинируют несколько сегментов).</div></div>
+</section>
+
+<section>
+<h2><span class="d"></span>Темы рассылок — сводка</h2>
+<div class="card scroll"><table>
+<tr><th>Тема</th><th>Кампаний</th><th>Отпр.</th><th>Доставл.</th><th>Open</th><th>Клики</th><th>CTR</th></tr>
+<tr><td>Autumn curated</td><td class='num'>3</td><td class='num'>2060</td><td class='num'>1352</td><td class='num'>27.1%</td><td class='num b'>13</td><td class='num hi'>0.96%</td></tr>
+<tr><td>AI-платформа / сервисы</td><td class='num'>13</td><td class='num'>2647</td><td class='num'>1858</td><td class='num'>17.6%</td><td class='num b'>9</td><td class='num hi'>0.48%</td></tr>
+<tr><td>Bertazzoni</td><td class='num'>4</td><td class='num'>1748</td><td class='num'>1023</td><td class='num'>27.8%</td><td class='num b'>8</td><td class='num hi'>0.78%</td></tr>
+<tr><td>Snaidero (кухни + техника)</td><td class='num'>12</td><td class='num'>1534</td><td class='num'>944</td><td class='num'>18.5%</td><td class='num b'>7</td><td class='num hi'>0.74%</td></tr>
+<tr><td>Schulthess</td><td class='num'>2</td><td class='num'>800</td><td class='num'>541</td><td class='num'>15.2%</td><td class='num b'>7</td><td class='num hi'>1.29%</td></tr>
+<tr><td>Первый контакт (cold)</td><td class='num'>9</td><td class='num'>1588</td><td class='num'>1206</td><td class='num'>14.6%</td><td class='num b'>4</td><td class='num hi'>0.33%</td></tr>
+<tr><td>Gaggenau + Miele</td><td class='num'>2</td><td class='num'>934</td><td class='num'>416</td><td class='num'>3.4%</td><td class='num b'>3</td><td class='num hi'>0.72%</td></tr>
+<tr><td>Graude</td><td class='num'>1</td><td class='num'>802</td><td class='num'>609</td><td class='num'>10.3%</td><td class='num b'>3</td><td class='num hi'>0.49%</td></tr>
+<tr><td>Кухонные студии</td><td class='num'>1</td><td class='num'>300</td><td class='num'>227</td><td class='num'>11.5%</td><td class='num b'>2</td><td class='num hi'>0.88%</td></tr>
+<tr><td>Прочее</td><td class='num'>3</td><td class='num'>700</td><td class='num'>564</td><td class='num'>9.2%</td><td class='num b'>1</td><td class='num hi'>0.18%</td></tr>
+<tr><td>Küppersbusch</td><td class='num'>1</td><td class='num'>512</td><td class='num'>406</td><td class='num'>5.9%</td><td class='num b'>1</td><td class='num hi'>0.25%</td></tr>
+<tr><td>Welcome / знакомство</td><td class='num'>5</td><td class='num'>470</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num b'>0</td><td class='num hi'>0.00%</td></tr>
+<tr><td>BORA + V-ZUG</td><td class='num'>1</td><td class='num'>181</td><td class='num'>148</td><td class='num'>11.5%</td><td class='num b'>0</td><td class='num hi'>0.00%</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2><span class="d"></span>Тип касания</h2>
+<div class="card scroll"><table>
+<tr><th>Тип</th><th>Кампаний</th><th>Отпр.</th><th>Доставл.</th><th>Open</th><th>Клики</th><th>CTR</th></tr>
+<tr><td>Тёплые</td><td class='num'>38</td><td class='num'>11832</td><td class='num'>7911</td><td class='num'>17.9%</td><td class='num b'>54</td><td class='num hi'>0.68%</td></tr>
+<tr><td>Холодные (1-й контакт)</td><td class='num'>14</td><td class='num'>1974</td><td class='num'>1383</td><td class='num'>13.6%</td><td class='num b'>4</td><td class='num hi'>0.29%</td></tr>
+<tr><td>Welcome</td><td class='num'>5</td><td class='num'>470</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num b'>0</td><td class='num hi'>0.00%</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2><span class="d"></span>ТОП-10 кампаний по кликам</h2>
+<div class="card scroll"><table>
+<tr><th>Кампания</th><th>Тема</th><th>Доставл.</th><th>Open%</th><th>Клики</th><th>CTR</th></tr>
+<tr><td class='nm'>warm_schulthess_gold_sep29</td><td><span class='chip'>Schulthess</span></td><td class='num'>317</td><td class='num'>18.0%</td><td class='num b'>6</td><td class='num hi'>1.89%</td></tr><tr><td class='nm'>warm_autumn_curated_d3_oct02</td><td><span class='chip'>Autumn curated</span></td><td class='num'>457</td><td class='num'>31.1%</td><td class='num b'>5</td><td class='num hi'>1.09%</td></tr><tr><td class='nm'>warm_bertazzoni_sep17</td><td><span class='chip'>Bertazzoni</span></td><td class='num'>186</td><td class='num'>24.2%</td><td class='num b'>4</td><td class='num hi'>2.15%</td></tr><tr><td class='nm'>warm_bertazzoni_official_sep25</td><td><span class='chip'>Bertazzoni</span></td><td class='num'>424</td><td class='num'>41.0%</td><td class='num b'>4</td><td class='num hi'>0.94%</td></tr><tr><td class='nm'>warm_autumn_curated_d1_sep28</td><td><span class='chip'>Autumn curated</span></td><td class='num'>427</td><td class='num'>25.1%</td><td class='num b'>4</td><td class='num hi'>0.94%</td></tr><tr><td class='nm'>warm_autumn_curated_d2_sep30</td><td><span class='chip'>Autumn curated</span></td><td class='num'>468</td><td class='num'>25.0%</td><td class='num b'>4</td><td class='num hi'>0.85%</td></tr><tr><td class='nm'>warm_agent_premium_sep18</td><td><span class='chip'>AI-платформа / сервисы</span></td><td class='num'>217</td><td class='num'>25.3%</td><td class='num b'>3</td><td class='num hi'>1.38%</td></tr><tr><td class='nm'>warm-graude-oct07</td><td><span class='chip'>Graude</span></td><td class='num'>609</td><td class='num'>10.3%</td><td class='num b'>3</td><td class='num hi'>0.49%</td></tr><tr><td class='nm'>warm-miele-gaggenau-oct09</td><td><span class='chip'>Gaggenau + Miele</span></td><td class='num'>416</td><td class='num'>3.4%</td><td class='num b'>3</td><td class='num hi'>0.72%</td></tr><tr><td class='nm'>b2b_platform_sep01</td><td><span class='chip'>AI-платформа / сервисы</span></td><td class='num'>79</td><td class='num'>10.1%</td><td class='num b'>2</td><td class='num hi'>2.53%</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2><span class="d"></span>Все кампании (новые сверху)</h2>
+<div class="card scroll"><table>
+<tr><th>Дата</th><th>Кампания (UTM)</th><th>Тема</th><th>Аудитория</th><th>Отпр.</th><th>Доставл.</th><th>Открытий</th><th>Клики</th><th>Open%</th><th>CTR</th></tr>
+<tr><td>2026-10-09</td><td class='nm'>warm-miele-gaggenau-oct09</td><td><span class='chip'>Gaggenau + Miele</span></td><td>Дизайнеры премиум</td><td class='num'>500</td><td class='num'>416</td><td class='num'>14</td><td class='num b'>3</td><td class='num'>3.4%</td><td class='num hi'>0.72%</td></tr>
+<tr><td>2026-10-06</td><td class='nm'>warm-graude-oct07</td><td><span class='chip'>Graude</span></td><td>Кухонные студии / салоны</td><td class='num'>802</td><td class='num'>609</td><td class='num'>63</td><td class='num b'>3</td><td class='num'>10.3%</td><td class='num hi'>0.49%</td></tr>
+<tr><td>2026-10-06</td><td class='nm'>warm-kuppersbusch-oct05</td><td><span class='chip'>Küppersbusch</span></td><td>Сантехника</td><td class='num'>512</td><td class='num'>406</td><td class='num'>24</td><td class='num b'>1</td><td class='num'>5.9%</td><td class='num hi'>0.25%</td></tr>
+<tr><td>2026-10-02</td><td class='nm'>warm_autumn_curated_d3_oct02</td><td><span class='chip'>Autumn curated</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>700</td><td class='num'>457</td><td class='num'>142</td><td class='num b'>5</td><td class='num'>31.1%</td><td class='num hi'>1.09%</td></tr>
+<tr><td>2026-09-30</td><td class='nm'>warm_autumn_curated_d2_sep30</td><td><span class='chip'>Autumn curated</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>700</td><td class='num'>468</td><td class='num'>117</td><td class='num b'>4</td><td class='num'>25.0%</td><td class='num hi'>0.85%</td></tr>
+<tr><td>2026-09-29</td><td class='nm'>warm_schulthess_gold_sep29</td><td><span class='chip'>Schulthess</span></td><td>Кухонные студии / салоны</td><td class='num'>500</td><td class='num'>317</td><td class='num'>57</td><td class='num b'>6</td><td class='num'>18.0%</td><td class='num hi'>1.89%</td></tr>
+<tr><td>2026-09-27</td><td class='nm'>warm_autumn_curated_d1_sep28</td><td><span class='chip'>Autumn curated</span></td><td>Кухонные студии / салоны</td><td class='num'>660</td><td class='num'>427</td><td class='num'>107</td><td class='num b'>4</td><td class='num'>25.1%</td><td class='num hi'>0.94%</td></tr>
+<tr><td>2026-09-25</td><td class='nm'>warm_bertazzoni_official_sep25</td><td><span class='chip'>Bertazzoni</span></td><td>Агенты</td><td class='num'>703</td><td class='num'>424</td><td class='num'>174</td><td class='num b'>4</td><td class='num'>41.0%</td><td class='num hi'>0.94%</td></tr>
+<tr><td>2026-09-24</td><td class='nm'>warm_bertazzoni_airtec_sep24</td><td><span class='chip'>Bertazzoni</span></td><td>Дизайнеры премиум</td><td class='num'>560</td><td class='num'>413</td><td class='num'>65</td><td class='num b'>0</td><td class='num'>15.7%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-23</td><td class='nm'>cold_bertazzoni_sep23</td><td><span class='chip'>Bertazzoni</span></td><td>B2B / дилеры / опт</td><td class='num'>186</td><td class='num'>0</td><td class='num'>0</td><td class='num b'>0</td><td class='num'>0.0%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-23</td><td class='nm'>warm_gaggenau_miele_sep23</td><td><span class='chip'>Gaggenau + Miele</span></td><td>B2B / дилеры / опт</td><td class='num'>434</td><td class='num muted' colspan='5'>webhook-трекинг (нет агрегата)</td></tr>
+<tr><td>2026-09-22</td><td class='nm'>cold_kp_sep22</td><td><span class='chip'>Первый контакт (cold)</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>186</td><td class='num'>105</td><td class='num'>46</td><td class='num b'>2</td><td class='num'>43.8%</td><td class='num hi'>1.90%</td></tr>
+<tr><td>2026-09-22</td><td class='nm'>warm_snaidero_sep22</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Кухонные студии / салоны</td><td class='num'>434</td><td class='num'>259</td><td class='num'>110</td><td class='num b'>2</td><td class='num'>42.5%</td><td class='num hi'>0.77%</td></tr>
+<tr><td>2026-09-21</td><td class='nm'>cold_santech_sep21</td><td><span class='chip'>Первый контакт (cold)</span></td><td>Сантехника</td><td class='num'>500</td><td class='num'>411</td><td class='num'>38</td><td class='num b'>1</td><td class='num'>9.2%</td><td class='num hi'>0.24%</td></tr>
+<tr><td>2026-09-21</td><td class='nm'>warm_platform_kitchen_sep21</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>Кухонные студии / салоны</td><td class='num'>400</td><td class='num'>293</td><td class='num'>34</td><td class='num b'>1</td><td class='num'>11.6%</td><td class='num hi'>0.34%</td></tr>
+<tr><td>2026-09-21</td><td class='nm'>warm_bora_vzug_sep21</td><td><span class='chip'>BORA + V-ZUG</span></td><td>Дизайнеры премиум</td><td class='num'>181</td><td class='num'>148</td><td class='num'>17</td><td class='num b'>0</td><td class='num'>11.5%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-18</td><td class='nm'>cold_designer_bt_sep18</td><td><span class='chip'>Первый контакт (cold)</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>152</td><td class='num'>101</td><td class='num'>27</td><td class='num b'>0</td><td class='num'>26.7%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-18</td><td class='nm'>warm_dealer_platform_sep18</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>B2B / дилеры / опт</td><td class='num'>200</td><td class='num'>128</td><td class='num'>28</td><td class='num b'>0</td><td class='num'>21.9%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-18</td><td class='nm'>warm_agent_premium_sep18</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>Дизайнеры премиум</td><td class='num'>348</td><td class='num'>217</td><td class='num'>55</td><td class='num b'>3</td><td class='num'>25.3%</td><td class='num hi'>1.38%</td></tr>
+<tr><td>2026-09-17</td><td class='nm'>cold_first_contact_sep17</td><td><span class='chip'>Первый контакт (cold)</span></td><td>Сантехника</td><td class='num'>150</td><td class='num'>108</td><td class='num'>18</td><td class='num b'>0</td><td class='num'>16.7%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-17</td><td class='nm'>warm_platform_sep17</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>B2B / дилеры / опт</td><td class='num'>299</td><td class='num'>222</td><td class='num'>40</td><td class='num b'>0</td><td class='num'>18.0%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-17</td><td class='nm'>warm_bertazzoni_sep17</td><td><span class='chip'>Bertazzoni</span></td><td>Дизайнеры премиум</td><td class='num'>299</td><td class='num'>186</td><td class='num'>45</td><td class='num b'>4</td><td class='num'>24.2%</td><td class='num hi'>2.15%</td></tr>
+<tr><td>2026-09-16</td><td class='nm'>cold_soft_santech_sep16</td><td><span class='chip'>Первый контакт (cold)</span></td><td>Сантехника</td><td class='num'>200</td><td class='num'>158</td><td class='num'>21</td><td class='num b'>0</td><td class='num'>13.3%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-16</td><td class='nm'>warm_agent_bt_sep16</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>Агенты</td><td class='num'>300</td><td class='num'>222</td><td class='num'>24</td><td class='num b'>1</td><td class='num'>10.8%</td><td class='num hi'>0.45%</td></tr>
+<tr><td>2026-09-16</td><td class='nm'>warm_kitchen_dealer_sep16</td><td><span class='chip'>Кухонные студии</span></td><td>Кухонные студии / салоны</td><td class='num'>300</td><td class='num'>227</td><td class='num'>26</td><td class='num b'>2</td><td class='num'>11.5%</td><td class='num hi'>0.88%</td></tr>
+<tr><td>2026-09-16</td><td class='nm'>warm_designers_premium_sep16</td><td><span class='chip'>Прочее</span></td><td>Дизайнеры премиум</td><td class='num'>300</td><td class='num'>247</td><td class='num'>17</td><td class='num b'>1</td><td class='num'>6.9%</td><td class='num hi'>0.40%</td></tr>
+<tr><td>2026-09-15</td><td class='nm'>cold_kitchen_studio_sep15</td><td><span class='chip'>Первый контакт (cold)</span></td><td>Кухонные студии / салоны</td><td class='num'>100</td><td class='num'>72</td><td class='num'>13</td><td class='num b'>1</td><td class='num'>18.1%</td><td class='num hi'>1.39%</td></tr>
+<tr><td>2026-09-15</td><td class='nm'>cold_designer_premium_sep15</td><td><span class='chip'>Первый контакт (cold)</span></td><td>Дизайнеры премиум</td><td class='num'>100</td><td class='num'>90</td><td class='num'>4</td><td class='num b'>0</td><td class='num'>4.4%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-15</td><td class='nm'>warm_platform_sep15</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>Дизайнеры премиум</td><td class='num'>250</td><td class='num'>196</td><td class='num'>22</td><td class='num b'>0</td><td class='num'>11.2%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-15</td><td class='nm'>schulthess_gold_warm_bt_sep15</td><td><span class='chip'>Schulthess</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>300</td><td class='num'>224</td><td class='num'>25</td><td class='num b'>1</td><td class='num'>11.2%</td><td class='num hi'>0.45%</td></tr>
+<tr><td>2026-09-03</td><td class='nm'>cold_bt_moscow_sep03</td><td><span class='chip'>Первый контакт (cold)</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>100</td><td class='num'>83</td><td class='num'>2</td><td class='num b'>0</td><td class='num'>2.4%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-03</td><td class='nm'>platform_agent_sep03</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>Агенты</td><td class='num'>150</td><td class='num'>117</td><td class='num'>14</td><td class='num b'>0</td><td class='num'>12.0%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-03</td><td class='nm'>snaidero_kitchen_sep03</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Кухонные студии / салоны</td><td class='num'>150</td><td class='num'>106</td><td class='num'>12</td><td class='num b'>2</td><td class='num'>11.3%</td><td class='num hi'>1.89%</td></tr>
+<tr><td>2026-09-02</td><td class='nm'>cold_bt_moscow_sep02</td><td><span class='chip'>Первый контакт (cold)</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>100</td><td class='num'>78</td><td class='num'>7</td><td class='num b'>0</td><td class='num'>9.0%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-02</td><td class='nm'>platform_agent_sep02</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>Агенты</td><td class='num'>150</td><td class='num'>120</td><td class='num'>6</td><td class='num b'>0</td><td class='num'>5.0%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-02</td><td class='nm'>snaidero_kitchen_sep02</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Кухонные студии / салоны</td><td class='num'>150</td><td class='num'>95</td><td class='num'>20</td><td class='num b'>2</td><td class='num'>21.1%</td><td class='num hi'>2.11%</td></tr>
+<tr><td>2026-09-01</td><td class='nm'>b2b_platform_sep01</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>B2B / дилеры / опт</td><td class='num'>100</td><td class='num'>79</td><td class='num'>8</td><td class='num b'>2</td><td class='num'>10.1%</td><td class='num hi'>2.53%</td></tr>
+<tr><td>2026-09-01</td><td class='nm'>designers_bt_sep01</td><td><span class='chip'>Прочее</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>150</td><td class='num'>114</td><td class='num'>14</td><td class='num b'>0</td><td class='num'>12.3%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-09-01</td><td class='nm'>snaidero_tech_sep01</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Дизайнеры премиум</td><td class='num'>150</td><td class='num'>132</td><td class='num'>8</td><td class='num b'>1</td><td class='num'>6.1%</td><td class='num hi'>0.76%</td></tr>
+<tr><td>2026-08-28</td><td class='nm'>warm_designers_bt_aug28</td><td><span class='chip'>Прочее</span></td><td>Дизайнеры премиум</td><td class='num'>250</td><td class='num'>203</td><td class='num'>21</td><td class='num b'>0</td><td class='num'>10.3%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-08-27</td><td class='nm'>d1_platform_bt_wave_phase5</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>B2B / дилеры / опт</td><td class='num'>100</td><td class='num'>54</td><td class='num'>14</td><td class='num b'>0</td><td class='num'>25.9%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-08-27</td><td class='nm'>cold_designers_snaidero_phase5</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>50</td><td class='num'>46</td><td class='num'>1</td><td class='num b'>0</td><td class='num'>2.2%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-08-27</td><td class='nm'>d1_platform_main_phase5</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>B2B / дилеры / опт</td><td class='num'>100</td><td class='num'>61</td><td class='num'>20</td><td class='num b'>1</td><td class='num'>32.8%</td><td class='num hi'>1.64%</td></tr>
+<tr><td>2026-08-27</td><td class='nm'>warm_designers_snaidero_phase5</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Дизайнеры премиум</td><td class='num'>150</td><td class='num'>44</td><td class='num'>3</td><td class='num b'>0</td><td class='num'>6.8%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-08-26</td><td class='nm'>cold_designers_snaidero_phase4</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>50</td><td class='num'>43</td><td class='num'>4</td><td class='num b'>0</td><td class='num'>9.3%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-08-26</td><td class='nm'>d1_platform_v6_phase4</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>B2B / дилеры / опт</td><td class='num'>100</td><td class='num'>55</td><td class='num'>28</td><td class='num b'>1</td><td class='num'>50.9%</td><td class='num hi'>1.82%</td></tr>
+<tr><td>2026-08-26</td><td class='nm'>warm_designers_snaidero_phase4</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Дизайнеры премиум</td><td class='num'>150</td><td class='num'>44</td><td class='num'>3</td><td class='num b'>0</td><td class='num'>6.8%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-08-25</td><td class='nm'>cold_designers_snaidero_phase3</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Дизайнеры (бытовая техника)</td><td class='num'>50</td><td class='num'>44</td><td class='num'>4</td><td class='num b'>0</td><td class='num'>9.1%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-08-25</td><td class='nm'>warm_designers_snaidero_phase3</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Дизайнеры премиум</td><td class='num'>100</td><td class='num'>43</td><td class='num'>4</td><td class='num b'>0</td><td class='num'>9.3%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-08-25</td><td class='nm'>d1_platform_v6_phase3</td><td><span class='chip'>AI-платформа / сервисы</span></td><td>B2B / дилеры / опт</td><td class='num'>150</td><td class='num'>94</td><td class='num'>34</td><td class='num b'>0</td><td class='num'>36.2%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-08-22</td><td class='nm'>snaidero_test_cold_aug26</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Дизайнеры</td><td class='num'>50</td><td class='num'>44</td><td class='num'>3</td><td class='num b'>0</td><td class='num'>6.8%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-08-22</td><td class='nm'>snaidero_test_warm_aug26</td><td><span class='chip'>Snaidero (кухни + техника)</span></td><td>Дизайнеры</td><td class='num'>50</td><td class='num'>44</td><td class='num'>3</td><td class='num b'>0</td><td class='num'>6.8%</td><td class='num hi'>0.00%</td></tr>
+<tr><td>2026-07-11</td><td class='nm'>welcome-designer-ab-c</td><td><span class='chip'>Welcome / знакомство</span></td><td>Дизайнеры премиум</td><td class='num'>150</td><td class='num muted' colspan='5'>webhook-трекинг (нет агрегата)</td></tr>
+<tr><td>2026-07-11</td><td class='nm'>welcome-designer-ab-b</td><td><span class='chip'>Welcome / знакомство</span></td><td>Дизайнеры премиум</td><td class='num'>150</td><td class='num muted' colspan='5'>webhook-трекинг (нет агрегата)</td></tr>
+<tr><td>2026-07-11</td><td class='nm'>welcome-designer-ab-a</td><td><span class='chip'>Welcome / знакомство</span></td><td>Дизайнеры премиум</td><td class='num'>150</td><td class='num muted' colspan='5'>webhook-трекинг (нет агрегата)</td></tr>
+<tr><td>2026-07-11</td><td class='nm'>welcome-designer-ab-e</td><td><span class='chip'>Welcome / знакомство</span></td><td>Дизайнеры премиум</td><td class='num'>10</td><td class='num muted' colspan='5'>webhook-трекинг (нет агрегата)</td></tr>
+<tr><td>2026-07-11</td><td class='nm'>welcome-designer-ab-d</td><td><span class='chip'>Welcome / знакомство</span></td><td>Дизайнеры премиум</td><td class='num'>10</td><td class='num muted' colspan='5'>webhook-трекинг (нет агрегата)</td></tr>
+</table></div>
+</section>
+
+<footer>Home Project · homeproject.online · Telegram @HomeProjectMsk<br>Данные: UniSender Classic (агрегированная статистика кампаний). Отчёт конфиденциален.</footer>
+</div>
+
+<script>
+const gridC='#23262f', tick='#9aa0ac';
+const baseOpts=(stacked=false)=>({responsive:true,plugins:{legend:{labels:{color:'#e8eaf0'}}},scales:{x:{ticks:{color:tick},grid:{color:gridC},stacked},y:{ticks:{color:tick},grid:{color:gridC},stacked,beginAtZero:true}}});
+new Chart(document.getElementById('cMonth'),{type:'bar',data:{labels:["Июль", "Август", "Сентябрь", "Октябрь"],datasets:[
+ {label:'Доставлено',data:[0, 819, 6587, 1888],backgroundColor:'#3a3f4d'},
+ {label:'Открытий',data:[0, 142, 1221, 243],backgroundColor:'#4ccb7e'},
+ {label:'Кликов',data:[0, 2, 44, 12],backgroundColor:'#e24a63'}
+]},options:baseOpts()});
+new Chart(document.getElementById('cTheme'),{type:'bar',data:{labels:["Welcome / знакомство", "Snaidero (кухни + техника)", "AI-платформа / сервисы", "Прочее", "Первый контакт (cold)", "Schulthess", "Кухонные студии", "Bertazzoni", "BORA + V-ZUG", "Gaggenau + Miele", "Autumn curated", "Küppersbusch", "Graude"],datasets:[{label:'Клики по темам',data:[0, 7, 9, 1, 4, 7, 2, 8, 0, 3, 13, 1, 3],backgroundColor:'#d8b872'}]},options:{indexAxis:'y',...baseOpts()}});
+new Chart(document.getElementById('cAud'),{type:'bar',data:{labels:["Дизайнеры премиум", "Дизайнеры", "B2B / дилеры / опт", "Дизайнеры (бытовая техника)", "Кухонные студии / салоны", "Агенты", "Сантехника"],datasets:[{label:'Клики по сегментам',data:[12, 0, 4, 12, 23, 5, 2],backgroundColor:'#7aa2ff'}]},options:{indexAxis:'y',...baseOpts()}});
+</script>
+</body></html>
