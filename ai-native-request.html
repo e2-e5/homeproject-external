@@ -68,6 +68,19 @@ a{color:var(--ai);text-decoration:none}a:hover{text-decoration:underline}
 .msg.err a{color:#9A3412;font-weight:700}
 .trust{text-align:center;margin-top:26px;color:var(--muted);font-size:11px;line-height:2}
 .trust b{color:var(--text-2);font-weight:600}
+.hint{font-size:12.5px;color:var(--text-2);margin-bottom:14px;line-height:1.5}
+.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.chk-grid{grid-template-columns:1fr}}
+.chk{display:flex;gap:9px;align-items:flex-start;border:1.5px solid var(--border);border-radius:9px;padding:11px 12px;cursor:pointer;background:var(--surface);transition:all 0.15s}
+.chk:hover{border-color:var(--accent)}
+.chk.on{border-color:var(--ai);background:var(--ai-light)}
+.chk input{width:16px;height:16px;margin-top:2px;flex-shrink:0;accent-color:var(--ai);cursor:pointer}
+.chk .cl{font-size:13px;color:var(--text);line-height:1.35}
+.chk .cl b{display:block;font-weight:700;margin-bottom:2px}
+.chk .cl em{font-style:normal;font-size:11.5px;color:var(--text-2)}
+.f select{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:10px 12px;font-size:14px;color:var(--text);font-family:'Mulish',sans-serif;outline:none;cursor:pointer}
+.f select:focus{border-color:var(--accent);background:var(--bg)}
+.partner-only{display:none}
 footer{background:var(--surface);border-top:1px solid var(--border);padding:20px;text-align:center;color:var(--muted);font-size:12px}
 footer a{color:var(--text-2)}
 #successScreen{display:none}#successScreen.show{display:block}
@@ -116,6 +129,40 @@ footer a{color:var(--text-2)}
           <div class="t-h">Сотрудничество</div>
           <div class="t-d">Обсудим партнёрство, доступ к кабинету и особые условия</div>
         </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec">Что интересует в первую очередь</div>
+      <div class="hint">Отметьте направления — на их основе подготовим конкретное предложение уже к первому контакту.</div>
+      <div class="chk-grid" id="interests">
+        <label class="chk"><input type="checkbox" value="Сайт и каталог на AI-агентах"><span class="cl"><b>🌐 Сайт на AI-агентах</b><em>Витрина и карточки ведутся автоматически</em></span></label>
+        <label class="chk"><input type="checkbox" value="AI-рассылки и персональные письма"><span class="cl"><b>✉️ AI-рассылки</b><em>Персональное письмо под каждого клиента</em></span></label>
+        <label class="chk"><input type="checkbox" value="Личный кабинет с AI-ассистентом"><span class="cl"><b>👤 Кабинет с AI</b><em>Подбор техники и КП за минуты</em></span></label>
+        <label class="chk"><input type="checkbox" value="AI-ассистент для клиентов"><span class="cl"><b>🤖 AI-ассистент</b><em>Мгновенные ответы в Telegram и на сайте</em></span></label>
+        <label class="chk"><input type="checkbox" value="AI-аналитика и CRM"><span class="cl"><b>📊 AI-аналитика</b><em>Сегментация базы и воронка сделок</em></span></label>
+        <label class="chk"><input type="checkbox" value="Перевод бизнеса в AI-формат под ключ"><span class="cl"><b>🏗️ AI-формат под ключ</b><em>Полный перевод бизнеса на агентов</em></span></label>
+      </div>
+    </div>
+
+    <div class="card partner-only" id="partnerCard">
+      <div class="sec">О вашем бизнесе</div>
+      <div class="hint">Поможет нам понять стартовую точку и сразу предложить то, что подходит именно вам.</div>
+      <div class="f">
+        <label>Ваш профиль</label>
+        <select id="profile">
+          <option value="">— выберите —</option>
+          <option>Студия дизайна интерьера</option>
+          <option>Архитектурное бюро</option>
+          <option>Салон / магазин техники</option>
+          <option>Дилер / дистрибьютор</option>
+          <option>Застройщик / девелопер</option>
+          <option>Другое</option>
+        </select>
+      </div>
+      <div class="f" style="margin-bottom:0">
+        <label>Главная задача на старте <span class="opt">(необяз.)</span></label>
+        <input type="text" id="goal" placeholder="Что хотите решить в первую очередь">
       </div>
     </div>
 
@@ -192,7 +239,9 @@ var utm={source:qp('utm_source'),medium:qp('utm_medium'),campaign:qp('utm_campai
 var typeGrid=document.getElementById('typeGrid');
 function setType(v){
   typeGrid.querySelectorAll('.type-opt').forEach(function(o){o.classList.toggle('on',o.dataset.v===v)});
-  if(v==='partner'){
+  var partner=v==='partner';
+  document.querySelectorAll('.partner-only').forEach(function(el){el.style.display=partner?'block':'none'});
+  if(partner){
     document.getElementById('heroTitle').textContent='Заявка на сотрудничество';
     document.getElementById('heroSub').textContent='Обсудим партнёрство, доступ к личному кабинету с AI-инструментами и особые условия.';
     document.getElementById('btnLabel').textContent='Отправить заявку на сотрудничество';
@@ -204,6 +253,11 @@ function setType(v){
 }
 typeGrid.addEventListener('click',function(e){var o=e.target.closest('.type-opt');if(o)setType(o.dataset.v)});
 setType(qp('type')==='partner'?'partner':'consult');
+
+// Подсветка выбранных направлений
+document.getElementById('interests').addEventListener('change',function(e){
+  var l=e.target.closest('.chk');if(l)l.classList.toggle('on',e.target.checked);
+});
 
 async function submitReq(payload){
   var opts={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)};
@@ -233,6 +287,14 @@ document.getElementById('reqForm').addEventListener('submit',async function(e){
   var tag=type==='partner'?'[AI_NATIVE_PARTNER]':'[AI_NATIVE_CONSULT]';
   var parts=[tag,'Тип: '+(type==='partner'?'Сотрудничество':'Консультация')];
   if(company)parts.push('Компания: '+company);
+  var interests=[].slice.call(document.querySelectorAll('#interests input:checked')).map(function(i){return i.value});
+  if(interests.length)parts.push('Интересует в первую очередь: '+interests.join('; '));
+  if(type==='partner'){
+    var profile=document.getElementById('profile').value;
+    var goal=document.getElementById('goal').value.trim();
+    if(profile)parts.push('Профиль: '+profile);
+    if(goal)parts.push('Задача на старте: '+goal);
+  }
   if(comment)parts.push('Сообщение: '+comment);
   var utmLine=[utm.source,utm.medium,utm.campaign,utm.content].filter(Boolean).join(' / ');
   if(utmLine)parts.push('UTM: '+utmLine);
