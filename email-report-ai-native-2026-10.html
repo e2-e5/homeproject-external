@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Отчёт по рассылкам — Home Project, октябрь 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root{--bg:#F6F8F7;--card:#FFFFFF;--ink:#1A2420;--muted:#5E6B64;--accent:#1C6E54;--line:#E3EAE6;--warn:#B4791E;--bad:#B23B3B}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:28px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  h1{font-size:26px;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 24px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px;margin:0 0 18px}
+  h2{font-size:19px;margin:0 0 14px}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .kpi .n{font-size:26px;font-weight:700;color:var(--accent)}
+  .kpi .l{font-size:13px;color:var(--muted);margin-top:2px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600}
+  td.n,th.n{text-align:right}
+  .tag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600}
+  .ok{background:#E6F3EC;color:var(--accent)}
+  .wait{background:#FBF2DF;color:var(--warn)}
+  .muted{color:var(--muted)}
+  .note{font-size:14px;color:var(--muted);margin-top:10px}
+  code{background:#EEF3F0;padding:1px 6px;border-radius:5px;font-size:13px}
+  @media(max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Отчёт по рассылкам Home Project</h1>
+  <p class="sub">Кампания AI-native (волна A) · данные на 15 октября 2026</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">1 348</div><div class="l">адресов в кампании</div></div>
+    <div class="kpi"><div class="n">1 122</div><div class="l">реально отправлено</div></div>
+    <div class="kpi"><div class="n">895</div><div class="l">доставлено (80%)</div></div>
+    <div class="kpi"><div class="n">151</div><div class="l">открыли письмо (17%)</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Какие письма отправлены</h2>
+    <table>
+      <tr><th>Партия</th><th>Кому</th><th class="n">Ушло</th><th class="n">Доставлено</th><th class="n">Открыли</th><th class="n">Клики</th><th class="n">Отписки</th><th class="n">Спам</th></tr>
+      <tr><td>1 · 13.10</td><td>Активные агенты</td><td class="n">389</td><td class="n">306</td><td class="n">67</td><td class="n">1</td><td class="n">1</td><td class="n">1</td></tr>
+      <tr><td>2 · 14.10</td><td>Агенты + кухонные студии</td><td class="n">414</td><td class="n">305</td><td class="n">57</td><td class="n">2</td><td class="n">3</td><td class="n">0</td></tr>
+      <tr><td>3 · 15.10</td><td>Студии + фабрики + застройщики + сети</td><td class="n">319</td><td class="n">284</td><td class="n">27</td><td class="n">1</td><td class="n">2</td><td class="n">2</td></tr>
+      <tr><td><b>Итого</b></td><td class="muted">вся волна A</td><td class="n"><b>1 122</b></td><td class="n"><b>895</b></td><td class="n"><b>151</b></td><td class="n"><b>4</b></td><td class="n"><b>6</b></td><td class="n"><b>3</b></td></tr>
+    </table>
+    <p class="note">Тема письма: «Переведём ваш бизнес в AI-формат — Home Project». Отправитель: Ария · info@homeproject.online.
+    Разница между «в кампании» (1 348) и «реально отправлено» (1 122) — адреса, которые система отсеяла на входе (ранее отписавшиеся, несуществующие, невалидные). Это штатная чистка, бережёт репутацию домена.</p>
+  </div>
+
+  <div class="card">
+    <h2>Вовлечённость по партиям</h2>
+    <canvas id="chart" height="150"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>Какие метки работают</h2>
+    <table>
+      <tr><th>Метка / трекинг</th><th>Назначение</th><th>Статус</th></tr>
+      <tr><td><code>utm_campaign=ai-native-2026-10</code></td><td>Отличать переходы именно этой кампании в аналитике сайта</td><td><span class="tag ok">работает</span></td></tr>
+      <tr><td><code>utm_source=unisender-classic</code></td><td>Источник — рассылка (а не соцсети/поиск)</td><td><span class="tag ok">работает</span></td></tr>
+      <tr><td><code>utm_medium=email</code></td><td>Канал — email</td><td><span class="tag ok">работает</span></td></tr>
+      <tr><td><code>utm_content=consult / partner</code></td><td>Какая из двух кнопок нажата (консультация vs сотрудничество)</td><td><span class="tag ok">работает</span></td></tr>
+      <tr><td>Трекинг открытий</td><td>Кто открыл письмо</td><td><span class="tag ok">работает · 151</span></td></tr>
+      <tr><td>Трекинг кликов</td><td>Кто нажал кнопку / ссылку</td><td><span class="tag ok">работает · 4</span></td></tr>
+      <tr><td>Цель «consult_request» (Метрика)</td><td>Фиксирует отправку формы консультации</td><td><span class="tag wait">настроена · не срабатывала</span></td></tr>
+      <tr><td>Цель «partner_request» (Метрика)</td><td>Фиксирует отправку формы сотрудничества</td><td><span class="tag wait">настроена · не срабатывала</span></td></tr>
+    </table>
+    <p class="note">UTM-метки и трекинг открытий/кликов работают — мы видим, кто читает и кто переходит. Цели в Метрике «consult_request» и «partner_request» настроены и ждут первой заполненной формы: пока заявок через форму не поступало, поэтому они ещё ни разу не сработали — это ожидаемо, не ошибка.</p>
+  </div>
+
+  <div class="card">
+    <h2>Входящая почта (info@homeproject.online)</h2>
+    <p>Проверено вручную. <b>Ответов и заявок по рассылке пока нет.</b> За 14–15 октября во входящих только рабочая рутина:</p>
+    <table>
+      <tr><th>От кого</th><th>Тема</th></tr>
+      <tr><td>Homeier (1С)</td><td>Остатки 14 и 15 октября</td></tr>
+      <tr><td>Graude</td><td>Остатки 14 и 15 октября</td></tr>
+      <tr><td>Диорит · Тонкой А.В.</td><td>Прайс+остатки Хайберг/Норд 14.10</td></tr>
+      <tr><td>Koros Kitchen · Бархударян Л.</td><td>FW: FHER4077MTAX3 понижение цены</td></tr>
+      <tr><td class="muted">Pinterest</td><td class="muted">промо-рассылки (спам)</td></tr>
+    </table>
+    <p class="note">Отдельно отмечу письмо от Koros Kitchen про понижение цены на позицию FHER4077MTAX3 (Fhiaba) — это рабочий вопрос по прайсу, разберу отдельно. К AI-рассылке отношения не имеет.</p>
+  </div>
+
+  <div class="card">
+    <h2>Выводы</h2>
+    <ul>
+      <li><b>Доставляемость 80%, открываемость 17%</b> — здоровые показатели, репутация домена в норме (спам 0,27%, отписки 0,67%).</li>
+      <li><b>Читают активно, но до кнопки доходят единицы</b> (4 клика на 151 открытие). Это главная точка роста.</li>
+      <li><b>Заявок через форму пока нет</b> — метки в Метрике ждут первого заполнения. В первые 1–3 дня это нормально.</li>
+      <li><b>Рекомендация:</b> если за 2–3 дня заявок не появится — усилить призыв в письме: поднять кнопки выше по тексту и добавить конкретику «что вы получите за 15 минут».</li>
+    </ul>
+  </div>
+
+  <p class="sub" style="margin-top:8px">Подготовил А.Ботьев · Home Project</p>
+</div>
+<script>
+new Chart(document.getElementById('chart'),{
+  type:'bar',
+  data:{labels:['Партия 1','Партия 2','Партия 3'],
+    datasets:[
+      {label:'Доставлено',data:[306,305,284],backgroundColor:'#9FC7B5'},
+      {label:'Открыли',data:[67,57,27],backgroundColor:'#1C6E54'},
+      {label:'Клики',data:[1,2,1],backgroundColor:'#B4791E'}
+    ]},
+  options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true}}}
+});
+</script>
+</body>
+</html>
